@@ -1,0 +1,491 @@
+{
+  "name": "35-Hierarchy",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "35 - Hierarchy & Parenting",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Parent links entities; the resolver writes a WorldTransform combining parent position, rotation and scale.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "The orange satellites are children of the spinner, so they inherit its rotation without any script.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Grandchildren compose two levels of transform. Scripts read the result with get_world_position().",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Space re-parents the loose box between the spinner and the world (set_parent), showing a live rebind.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Spinner",
+      "components": {
+        "transform": {
+          "position": [
+            -220.0,
+            20.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.35,
+            0.6,
+            0.95,
+            1.0
+          ],
+          "z_order": 2,
+          "size": [
+            70.0,
+            70.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "angular_velocity": {
+          "omega": 0.9
+        }
+      }
+    },
+    {
+      "name": "SatelliteA",
+      "parent": "Spinner",
+      "components": {
+        "transform": {
+          "position": [
+            130.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.65,
+            0.25,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            34.0,
+            34.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "SatelliteB",
+      "parent": "Spinner",
+      "components": {
+        "transform": {
+          "position": [
+            -130.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.65,
+            0.25,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            34.0,
+            34.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Moon",
+      "parent": "SatelliteA",
+      "components": {
+        "transform": {
+          "position": [
+            48.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.8,
+            0.95,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            16.0,
+            16.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "angular_velocity": {
+          "omega": -2.4
+        }
+      }
+    },
+    {
+      "name": "ScaledParent",
+      "components": {
+        "transform": {
+          "position": [
+            180.0,
+            90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.6,
+            1.6
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.5,
+            0.4,
+            0.7,
+            1.0
+          ],
+          "z_order": 2,
+          "size": [
+            60.0,
+            60.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "ScaledChild",
+      "parent": "ScaledParent",
+      "components": {
+        "transform": {
+          "position": [
+            50.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            0.5,
+            0.5
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.95,
+            0.85,
+            0.4,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            60.0,
+            60.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Floater",
+      "components": {
+        "transform": {
+          "position": [
+            240.0,
+            -140.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.4,
+            0.9,
+            0.6,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            44.0,
+            44.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "world position: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_35_hierarchy.lua"
+        }
+      }
+    }
+  ]
+}

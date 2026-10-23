@@ -1,0 +1,496 @@
+{
+  "name": "Scene",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280.0,
+          "viewport_height": 720.0
+        }
+      }
+    },
+    {
+      "name": "Header",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "09 - Tilemaps",
+          "font_id": "",
+          "font_scale": 3.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -240.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "WASD = move cursor    1/2/3/4 = brush (grass/water/sand/stone)",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.85,
+            0.85,
+            0.9,
+            1.0
+          ],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "SPACE = paint    X = clear    R = reset    V = toggle decoration",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.85,
+            0.85,
+            0.9,
+            1.0
+          ],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -300.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "12 x 8 grid, two layers - script uses set_tile / get_tile / tile_to_world",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.6,
+            0.65,
+            0.75,
+            1.0
+          ],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "BrushLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -490.0,
+            -200.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "brush: grass",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.9,
+            0.9,
+            0.95,
+            1.0
+          ],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "Tilemap",
+      "components": {
+        "transform": {
+          "position": [
+            -288.0,
+            192.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "tilemap": {
+          "tile_size": [
+            48.0,
+            48.0
+          ],
+          "layers": [
+            {
+              "name": "ground",
+              "tiles": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3,
+                2,
+                2,
+                2,
+                3,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3,
+                2,
+                2,
+                2,
+                3,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                3,
+                3,
+                3,
+                3,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              "width": 12,
+              "height": 8,
+              "visible": true,
+              "collision": false
+            },
+            {
+              "name": "decoration",
+              "tiles": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                4,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                4,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                4,
+                null,
+                4,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                4,
+                null,
+                null,
+                null,
+                null,
+                4,
+                null,
+                null,
+                null,
+                4,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+              ],
+              "width": 12,
+              "height": 8,
+              "visible": true,
+              "collision": false
+            }
+          ],
+          "tilesets": [
+            {
+              "texture_id": "sprites/tiles4.png",
+              "tile_width": 16,
+              "tile_height": 16,
+              "columns": 4,
+              "tile_count": 4,
+              "first_gid": 1,
+              "image_width": 64,
+              "image_height": 16
+            }
+          ],
+          "source": "tilemaps/09-pond.tilemap"
+        }
+      }
+    },
+    {
+      "name": "Cursor",
+      "components": {
+        "transform": {
+          "position": [
+            -264.0,
+            168.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.5,
+            1.5
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            1.0,
+            0.95,
+            0.2,
+            0.45
+          ],
+          "z_order": 20,
+          "size": [64.0, 64.0],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "BrushIndicator",
+      "components": {
+        "transform": {
+          "position": [
+            -540.0,
+            -200.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.3,
+            0.61,
+            0.28,
+            1.0
+          ],
+          "z_order": 10,
+          "size": [64.0, 64.0],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "TilemapController",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_09_tilemap.lua"
+        }
+      }
+    }
+  ]
+}

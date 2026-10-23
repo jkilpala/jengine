@@ -1,0 +1,1184 @@
+{
+ "name": "215 - Spectrum and synth",
+ "audio_refs": [
+  "sounds/lab208_loop.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "215 - Spectrum and synth",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   A S D F G H J K play notes   1-5 sine / square / saw / triangle / noise   M music on / off",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4,
+      0.45,
+      0.55,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      900.0,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar0",
+   "components": {
+    "transform": {
+     "position": [
+      -431.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.3,
+      0.9,
+      1.0,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar1",
+   "components": {
+    "transform": {
+     "position": [
+      -393.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.33043478260869563,
+      0.8826086956521739,
+      0.9739130434782609,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar2",
+   "components": {
+    "transform": {
+     "position": [
+      -356.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.3608695652173913,
+      0.8652173913043478,
+      0.9478260869565217,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar3",
+   "components": {
+    "transform": {
+     "position": [
+      -318.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.3913043478260869,
+      0.8478260869565217,
+      0.9217391304347826,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar4",
+   "components": {
+    "transform": {
+     "position": [
+      -281.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4217391304347826,
+      0.8304347826086956,
+      0.8956521739130435,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar5",
+   "components": {
+    "transform": {
+     "position": [
+      -243.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4521739130434782,
+      0.8130434782608695,
+      0.8695652173913043,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar6",
+   "components": {
+    "transform": {
+     "position": [
+      -206.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4826086956521739,
+      0.7956521739130435,
+      0.8434782608695652,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar7",
+   "components": {
+    "transform": {
+     "position": [
+      -168.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5130434782608695,
+      0.7782608695652173,
+      0.817391304347826,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar8",
+   "components": {
+    "transform": {
+     "position": [
+      -131.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5434782608695652,
+      0.7608695652173914,
+      0.7913043478260869,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar9",
+   "components": {
+    "transform": {
+     "position": [
+      -93.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5739130434782609,
+      0.7434782608695653,
+      0.7652173913043478,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar10",
+   "components": {
+    "transform": {
+     "position": [
+      -56.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.6043478260869565,
+      0.7260869565217392,
+      0.7391304347826086,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar11",
+   "components": {
+    "transform": {
+     "position": [
+      -18.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.6347826086956522,
+      0.7086956521739131,
+      0.7130434782608696,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar12",
+   "components": {
+    "transform": {
+     "position": [
+      18.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.6652173913043478,
+      0.691304347826087,
+      0.6869565217391305,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar13",
+   "components": {
+    "transform": {
+     "position": [
+      56.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.6956521739130435,
+      0.6739130434782609,
+      0.6608695652173913,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar14",
+   "components": {
+    "transform": {
+     "position": [
+      93.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.7260869565217392,
+      0.6565217391304348,
+      0.6347826086956522,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar15",
+   "components": {
+    "transform": {
+     "position": [
+      131.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.7565217391304347,
+      0.6391304347826088,
+      0.6086956521739131,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar16",
+   "components": {
+    "transform": {
+     "position": [
+      168.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.7869565217391303,
+      0.6217391304347826,
+      0.5826086956521739,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar17",
+   "components": {
+    "transform": {
+     "position": [
+      206.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.817391304347826,
+      0.6043478260869566,
+      0.5565217391304349,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar18",
+   "components": {
+    "transform": {
+     "position": [
+      243.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.8478260869565217,
+      0.5869565217391304,
+      0.5304347826086957,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar19",
+   "components": {
+    "transform": {
+     "position": [
+      281.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.8782608695652174,
+      0.5695652173913044,
+      0.5043478260869565,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar20",
+   "components": {
+    "transform": {
+     "position": [
+      318.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.9086956521739129,
+      0.5521739130434783,
+      0.4782608695652174,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar21",
+   "components": {
+    "transform": {
+     "position": [
+      356.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.9391304347826086,
+      0.5347826086956522,
+      0.4521739130434783,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar22",
+   "components": {
+    "transform": {
+     "position": [
+      393.75,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.9695652173913043,
+      0.5173913043478261,
+      0.4260869565217391,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar23",
+   "components": {
+    "transform": {
+     "position": [
+      431.25,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.5,
+      0.4,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      31.5,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Level",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "size": [
+      30.0,
+      2.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LevelLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      520.0,
+      -200.0
+     ],
+     "size": [
+      120.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "level",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Low",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -420.0,
+      -200.0
+     ],
+     "size": [
+      120.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "40 Hz",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "High",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      420.0,
+      -200.0
+     ],
+     "size": [
+      120.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "16 kHz",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.78,
+      0.83,
+      0.92,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: each key plays a note and lights a bar further right the higher it is; square and saw light the bars above it too (harmonics), noise lights them all;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "M plays a loop and the bars dance with it; the level bar follows the loudness. Bars fall back smoothly, never flicker.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_215_spectrum_and_synth.lua"
+    }
+   }
+  }
+ ]
+}

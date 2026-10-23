@@ -1,0 +1,1156 @@
+{
+ "name": "18 - Graveyard Watch",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.3
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.0
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   },
+   {
+    "name": "pixelate",
+    "enabled": true,
+    "params": {
+     "lines": {
+      "Float": 180.0
+     }
+    }
+   },
+   {
+    "name": "crt",
+    "enabled": true,
+    "params": {
+     "lines": {
+      "Float": 180.0
+     },
+     "scanline": {
+      "Float": 0.4
+     },
+     "mask": {
+      "Float": 0.2
+     },
+     "curvature": {
+      "Float": 0.05
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.34239,
+      1.0
+     ],
+     "intensity": 0.05
+    }
+   }
+  },
+  {
+   "name": "Toon",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "toon_lighting": {
+     "bands": 4,
+     "softness": 1.0,
+     "dither": 4.0
+    }
+   }
+  },
+  {
+   "name": "Moonlight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": -2.3,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      0.31855,
+      0.42003,
+      1.0
+     ],
+     "intensity": 0.1,
+     "height": 1.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      -704.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1408.0,
+      560.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      208.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_moon.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -99,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hills",
+   "components": {
+    "transform": {
+     "position": [
+      -704.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_hills.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1408.0,
+      176.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Fence",
+   "components": {
+    "transform": {
+     "position": [
+      -704.0,
+      -248.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1408.0,
+      64.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Chapel",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_chapel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      480.0,
+      368.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Glass",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_chapel_glass.png",
+     "color": [
+      1.25,
+      1.25,
+      1.25,
+      1.0
+     ],
+     "z_order": -49,
+     "size": [
+      480.0,
+      368.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "GlassLight1",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.78741,
+      0.10048,
+      0.21404
+     ],
+     "intensity": 0.45,
+     "radius": 110.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "GlassLight2",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.13287,
+      0.26327,
+      1.0
+     ],
+     "intensity": 0.45,
+     "radius": 110.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tree",
+   "components": {
+    "transform": {
+     "position": [
+      -568.0,
+      -248.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      200.0,
+      280.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      -704.0,
+      -376.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_ground.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1408.0,
+      136.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       136.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Grave1",
+   "components": {
+    "transform": {
+     "position": [
+      -392.0,
+      -248.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_grave_round.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      48.0,
+      64.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Grave2",
+   "components": {
+    "transform": {
+     "position": [
+      -304.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_grave_cross.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      44.0,
+      68.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Grave3",
+   "components": {
+    "transform": {
+     "position": [
+      288.0,
+      -256.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_grave_round.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      48.0,
+      64.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Grave4",
+   "components": {
+    "transform": {
+     "position": [
+      384.0,
+      -256.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_grave_obelisk.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      32.0,
+      84.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Grave5",
+   "components": {
+    "transform": {
+     "position": [
+      496.0,
+      -256.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_grave_cross.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      44.0,
+      68.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Grave6",
+   "components": {
+    "transform": {
+     "position": [
+      -496.0,
+      -268.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_grave_round.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      48.0,
+      64.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket1",
+   "components": {
+    "transform": {
+     "position": [
+      -64.0,
+      -64.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -48,
+     "size": [
+      20.0,
+      24.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      -64.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_flame.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -47,
+     "size": [
+      20.0,
+      24.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "TorchLight1",
+   "components": {
+    "transform": {
+     "position": [
+      -56.0,
+      -32.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.5,
+     "radius": 190.0,
+     "falloff": 1.0,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Bracket2",
+   "components": {
+    "transform": {
+     "position": [
+      44.0,
+      -64.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -48,
+     "size": [
+      20.0,
+      24.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      44.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_flame.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -47,
+     "size": [
+      20.0,
+      24.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "TorchLight2",
+   "components": {
+    "transform": {
+     "position": [
+      52.0,
+      -32.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.5,
+     "radius": 190.0,
+     "falloff": 1.0,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Ghost",
+   "components": {
+    "transform": {
+     "position": [
+      216.0,
+      -116.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_ghost.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.8
+     ],
+     "z_order": -35,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.0,
+      0.0
+     ]
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      40.0,
+      8.0
+     ],
+     "frequency": [
+      0.07,
+      0.5
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      -144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pixel/rt_lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      20.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "LanternLight",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      -144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.69207,
+      0.31855
+     ],
+     "intensity": 1.6,
+     "radius": 260.0,
+     "falloff": 1.0,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "18   Graveyard Watch",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Mouse  lantern   D  dithered / bands / smooth   P  pixelate   C  CRT   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s18_graveyard_watch.lua"
+    }
+   }
+  }
+ ]
+}

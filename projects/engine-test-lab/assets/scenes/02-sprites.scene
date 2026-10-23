@@ -1,0 +1,91 @@
+{
+  "name": "02-Sprites",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280, "viewport_height": 720 }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": { "position": [0.0, 300.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "02 - Sprites (tint / anchor / z-order / blend / uv_rect)", "font_id": "default", "font_scale": 2.2, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 100 }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": { "position": [0.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "default", "font_scale": 1.6, "color": [0.7, 0.75, 0.85, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "LabelTints",
+      "components": {
+        "transform": { "position": [-420.0, 200.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Tints", "font_id": "default", "font_scale": 1.4, "color": [1,1,1,1], "z_order": 100 }
+      }
+    },
+    { "name": "TintRed",   "components": { "transform": { "position": [-480.0, 130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.2, 0.2, 1.0], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "TintGreen", "components": { "transform": { "position": [-420.0, 130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.2, 1.0, 0.3, 1.0], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "TintBlue",  "components": { "transform": { "position": [-360.0, 130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.3, 0.5, 1.0, 1.0], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "TintAlpha", "components": { "transform": { "position": [-300.0, 130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 1.0, 1.0, 0.35], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+
+    { "name": "LabelZorder",
+      "components": {
+        "transform": { "position": [-100.0, 200.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Z-order (red < green < blue)", "font_id": "default", "font_scale": 1.4, "color": [1,1,1,1], "z_order": 100 }
+      }
+    },
+    { "name": "ZRed",   "components": { "transform": { "position": [-120.0, 130.0], "rotation": 0.0, "scale": [2.5, 2.5] }, "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.3, 0.3, 1.0], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "ZGreen", "components": { "transform": { "position": [-90.0, 110.0], "rotation": 0.0, "scale": [2.5, 2.5] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.3, 1.0, 0.3, 1.0], "z_order": 2, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "ZBlue",  "components": { "transform": { "position": [-60.0, 90.0], "rotation": 0.0, "scale": [2.5, 2.5] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.3, 0.5, 1.0, 1.0], "z_order": 3, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+
+    { "name": "LabelAnchor",
+      "components": {
+        "transform": { "position": [320.0, 200.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Anchor (tl / center / br)", "font_id": "default", "font_scale": 1.4, "color": [1,1,1,1], "z_order": 100 }
+      }
+    },
+    { "name": "AnchorTL",     "components": { "transform": { "position": [220.0, 130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": null, "anchor": [0.0, 0.0] } } },
+    { "name": "AnchorCenter", "components": { "transform": { "position": [320.0, 130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": null, "anchor": [0.5, 0.5] } } },
+    { "name": "AnchorBR",     "components": { "transform": { "position": [420.0, 130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": null, "anchor": [1.0, 1.0] } } },
+    { "name": "AnchorPivotTL",     "components": { "transform": { "position": [220.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] }, "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 1.0, 0.2, 1.0], "z_order": 5, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "AnchorPivotCenter", "components": { "transform": { "position": [320.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] }, "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 1.0, 0.2, 1.0], "z_order": 5, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "AnchorPivotBR",     "components": { "transform": { "position": [420.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] }, "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 1.0, 0.2, 1.0], "z_order": 5, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+
+    { "name": "LabelBlend",
+      "components": {
+        "transform": { "position": [0.0, -40.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Blend modes (Alpha | Additive | Multiply)", "font_id": "default", "font_scale": 1.4, "color": [1,1,1,1], "z_order": 100 }
+      }
+    },
+    { "name": "BlendBgA", "components": { "transform": { "position": [-300.0, -130.0], "rotation": 0.0, "scale": [4.0, 3.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.6, 0.6, 0.7, 1.0], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "BlendAlpha",    "components": { "transform": { "position": [-300.0, -130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.3, 0.3, 0.7], "z_order": 2, "size": [64.0, 64.0], "anchor": [0.5, 0.5] }, "material": { "material_id": "default_sprite", "blend_mode": "Alpha", "uniforms": {} } } },
+    { "name": "BlendBgB", "components": { "transform": { "position": [0.0, -130.0], "rotation": 0.0, "scale": [4.0, 3.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.15, 0.15, 0.2, 1.0], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "BlendAdditive", "components": { "transform": { "position": [0.0, -130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.5, 0.1, 1.0], "z_order": 2, "size": [64.0, 64.0], "anchor": [0.5, 0.5] }, "material": { "material_id": "default_sprite", "blend_mode": "Additive", "uniforms": {} } } },
+    { "name": "BlendBgC", "components": { "transform": { "position": [300.0, -130.0], "rotation": 0.0, "scale": [4.0, 3.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.95, 0.95, 1.0, 1.0], "z_order": 1, "size": [64.0, 64.0], "anchor": [0.5, 0.5] } } },
+    { "name": "BlendMultiply", "components": { "transform": { "position": [300.0, -130.0], "rotation": 0.0, "scale": [2.0, 2.0] }, "sprite": { "texture_id": "sprites/white32.png", "color": [0.2, 0.4, 0.6, 1.0], "z_order": 2, "size": [64.0, 64.0], "anchor": [0.5, 0.5] }, "material": { "material_id": "default_sprite", "blend_mode": "Multiply", "uniforms": {} } } },
+
+    { "name": "LabelUv",
+      "components": {
+        "transform": { "position": [0.0, -220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "uv_rect crops (full / top-left quadrant / right half)", "font_id": "default", "font_scale": 1.2, "color": [0.8,0.85,0.95,1], "z_order": 100 }
+      }
+    },
+    { "name": "UvFull", "components": { "transform": { "position": [-200.0, -260.0], "rotation": 0.0, "scale": [1.5, 1.5] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": null, "uv_rect": [0.0, 0.0, 1.0, 1.0], "anchor": [0.5, 0.5] } } },
+    { "name": "UvQuad", "components": { "transform": { "position": [0.0, -260.0], "rotation": 0.0, "scale": [1.5, 1.5] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": [64.0, 64.0], "uv_rect": [0.0, 0.0, 0.5, 0.5], "anchor": [0.5, 0.5] } } },
+    { "name": "UvRight", "components": { "transform": { "position": [200.0, -260.0], "rotation": 0.0, "scale": [1.5, 1.5] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": [64.0, 64.0], "uv_rect": [0.5, 0.0, 1.0, 1.0], "anchor": [0.5, 0.5] } } },
+
+    {
+      "name": "Controller",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_02_sprites.lua" }
+      }
+    }
+  ]
+}

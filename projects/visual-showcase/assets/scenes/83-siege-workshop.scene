@@ -1,0 +1,689 @@
+{
+ "name": "83 - Siege Workshop",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.95
+     },
+     "intensity": {
+      "Float": 0.25
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.01,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.85,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/siegeworks/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Castle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      78.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/siegeworks/castle.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1580.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       240.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Yard",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/siegeworks/dirt.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1320.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Road",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/siegeworks/dirt.png",
+     "color": [
+      0.477,
+      0.39312,
+      0.31855,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      1320.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       200.0,
+       200.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "ShowCatapult",
+   "components": {
+    "prefab_instance": {
+     "prefab_id": "SwCatapult",
+     "overrides": {
+      "transform.position": [
+       -420.0,
+       16.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "ShowCatapultPlaque",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/siegeworks/plaque.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      300.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShowCatapultText",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "CATAPULT  -  one prefab, 7 parts",
+     "font_id": "",
+     "font_scale": 0.72,
+     "color": [
+      0.05088,
+      0.01961,
+      0.00394,
+      1.0
+     ],
+     "z_order": 11,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "ShowBallista",
+   "components": {
+    "prefab_instance": {
+     "prefab_id": "SwBallista",
+     "overrides": {
+      "transform.position": [
+       0.0,
+       8.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "ShowBallistaPlaque",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/siegeworks/plaque.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      300.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShowBallistaText",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "BALLISTA  -  its head a part with parts",
+     "font_id": "",
+     "font_scale": 0.72,
+     "color": [
+      0.05088,
+      0.01961,
+      0.00394,
+      1.0
+     ],
+     "z_order": 11,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "ShowRoyal",
+   "components": {
+    "prefab_instance": {
+     "prefab_id": "SwRoyalCatapult",
+     "overrides": {
+      "transform.position": [
+       420.0,
+       16.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "ShowRoyalPlaque",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/siegeworks/plaque.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      300.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShowRoyalText",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "ROYAL CATAPULT  -  a variant + a banner",
+     "font_id": "",
+     "font_scale": 0.72,
+     "color": [
+      0.05088,
+      0.01961,
+      0.00394,
+      1.0
+     ],
+     "z_order": 11,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Motes",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 10.0,
+     "max_particles": 120,
+     "lifetime": [
+      5.0,
+      9.0
+     ],
+     "speed": [
+      4.0,
+      12.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      0.82757,
+      0.52252,
+      0.0
+     ],
+     "color_end": [
+      1.0,
+      0.82757,
+      0.52252,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       0.92,
+       0.75,
+       0.0
+      ],
+      [
+       0.3,
+       1.0,
+       0.92,
+       0.75,
+       0.4
+      ],
+      [
+       0.7,
+       1.0,
+       0.92,
+       0.75,
+       0.4
+      ],
+      [
+       1.0,
+       1.0,
+       0.92,
+       0.75,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1200.0,
+       400.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s83_siege_workshop.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "83   Siege Workshop",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  march / parade   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

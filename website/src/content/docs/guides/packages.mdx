@@ -1,0 +1,340 @@
+---
+draft: false
+title: Custom Rust Components & Packages
+description: How packages extend jEngine with components, systems and script commands - using the ones that ship, and writing your own.
+---
+
+A **package** is a Rust crate that implements the `JEnginePackage` trait. It can add ECS components,
+systems that run inside the engine's frame, script commands every runtime can call, and editor
+metadata. Packages are linked at **compile time**: there is no dynamic loading.
+
+The engine ships a handful of them - physics, audio, particles, parallax, swarms, networking and a
+chiptune player - see [All packages](/packages/) for one page each, generated from the package itself. The full contract a package works under is `docs/writing-packages.md` in
+the repository; this page is the tour.
+
+## Two kinds of package
+
+| | Built-in | Project package |
+|---|---|---|
+| Examples | `jengine-physics`, `jengine-audio`, `jengine-particles`, `jengine-parallax`, `jengine-swarm` | everything else: `jengine-net`, `jengine-online`, `jengine-tracker`, and your own |
+| Linked into | the stock native runtime, web runtime and editor viewport | the builds of a project that lists it |
+| Switched by | `settings.enabled_packages` | the top-level `"packages"` array |
+
+## Using a package in a project
+
+List it in the **top-level `"packages"` array** of `project.jengine`. That array is what links
+anything: `jengine-builder` turns each entry into a Cargo dependency of a crate it generates for the
+project.
+
+```json
+{
+  "packages": [
+    { "name": "jengine-online", "source": { "type": "path", "path": "../../packages/jengine-online" } },
+    { "name": "jengine-net", "source": { "type": "path", "path": "../../packages/jengine-net" } }
+  ]
+}
+```
+
+A source can also be git: `{ "type": "git", "url": "https://...", "tag": "v0.1.0" }` (or `rev`).
+`jengine package resolve` fetches git sources into `.jengine/packages/`.
+
+Then:
+
+1. **Rebuild the editor viewport** for the project: `jengine viewport-build projects/<name>` (or
+   `./build-project-viewport.ps1 -Project projects/<name>`, or the editor's *Rebuild viewport*
+   banner, which appears on project open when the viewport carries a different package set). The
+   viewport is shared between projects, so switching projects means rebuilding.
+2. **Use a v2 scene** for any scene with the package's components: `"version": 2` at the top. A v1
+   scene deserializes into a fixed struct with no field for a package component, so the component
+   lands in `CustomComponents` and nothing happens.
+3. **Call its commands through its namespace**: `Online.join(e, ...)`. A script can test whether
+   the package is linked with `if Online == nil then return end`.
+
+Native builds (`jengine-builder` writes `<project>/.jengine/runtime/`) and web builds
+(`<project>/.jengine/web/`) link the listed packages on their own.
+
+:::caution[A dependency is not a registration]
+A package that depends on another package's crate compiles it in but does **not** register it. List
+both - `jengine-online` needs `jengine-net` listed too, which is why the example above names both. The test
+`packages_a_project_lists_cover_their_dependencies` fails a project that lists only the outer one.
+:::
+
+:::caution[enabled_packages is an allow-list]
+`settings.enabled_packages` gates the built-ins. Once the key exists, a built-in it does not name is
+off; a project without the key gets them all. Naming a project package there does nothing - only the
+`"packages"` array links one.
+:::
+
+When a package seems dead - `attempt to call a nil value (global 'Online')` at Play, or a
+component that does nothing - check, in order: the `"packages"` array, the viewport stamp (rebuild),
+and the scene's `"version": 2`. `cargo test -p jengine-core --test
+projects_link_the_packages_their_scenes_use` catches a scene using a package its project does not
+link.
+
+## Writing a package
+
+### Scaffold it
+
+In the editor, **File > New Rust Package** (or the Packages dialog) makes one inside the open project:
+it lands in `packages/<name>/`, is listed in `project.jengine`, and the dialog offers the viewport
+rebuild that links it. From the command line:
+
+```bash
+jengine package new my-rules --project projects/my-game     # in a project, listed
+jengine package new my-package                  # a Rust package
+jengine package new my-sounds --type asset      # assets only, no crate
+jengine package new my-lib --type script        # Lua/JS only, no crate
+```
+
+The Rust scaffold is a working package: a component, a system, a script command, a value scripts read
+back with `Entity.get_custom`, and tests, with
+the type named the way the builder will link it (`my_package::MyPackagePackage`). Add it to the
+workspace `members` in the root `Cargo.toml` if it lives in this repository.
+
+### The trait
+
+```rust
+use jengine_core::package::component_registry::ComponentRegistry;
+use jengine_core::package::script_api::ScriptApiRegistry;
+use jengine_core::package::script_commands::PackageCommandRegistry;
+use jengine_core::package::system_schedule::{SystemPhase, SystemSchedule};
+use jengine_core::package::{JEnginePackage, PackageMetadata};
+
+pub struct MyPackage;
+
+impl JEnginePackage for MyPackage {
+    fn metadata(&self) -> PackageMetadata {
+        PackageMetadata {
+            name: "my-package".into(),
+            version: env!("CARGO_PKG_VERSION").into(),
+            description: "What it does".into(),
+            author: String::new(),
+            engine_version: Some("0.1.0".into()),
+            dependencies: vec![], // every jengine-* package this crate links
+        }
+    }
+
+    fn register_components(&self, registry: &mut ComponentRegistry) {
+        registry.register_defaulted::<Drifter>("drifter", "Drifter", "Custom");
+    }
+
+    fn register_systems(&self, schedule: &mut SystemSchedule) {
+        schedule.add_system("drift", SystemPhase::PreUpdate, 0, |ctx| {
+            let (world, dt, _resources) = ctx.split();
+            for (_, d) in world.query_mut::<&mut Drifter>() {
+                d.timer += dt;
+            }
+        });
+    }
+
+    fn register_script_api(&self, _api: &mut ScriptApiRegistry) {}
+
+    fn register_script_commands(&self, commands: &mut PackageCommandRegistry) {
+        // see "Script commands" below
+    }
+}
+```
+
+The builder registers the type named by `entry_point` in the package's `package.toml`. Without one it
+guesses: drop a leading `jengine-`, upper-camel the rest, append `Package` - so `cool-fx` is
+`cool_fx::CoolFxPackage`. The type must be `pub` at the crate root.
+
+```toml
+[package]
+name = "cool-fx"
+version = "0.1.0"
+description = "One line on what it is"
+package_type = "full"
+entry_point = "cool_fx::CoolFxPackage"
+```
+
+### Components
+
+Components are plain serde data. Register with **`register_defaulted`** when the type has a `Default`,
+and the editor derives an inspector from it - numbers, flags, strings, vectors, colours, asset paths
+and enum options - with no editor code. `register` works too; without a `Default` only a component that
+deserializes from `{}` gets a derived inspector.
+
+```rust
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[serde(default)]
+pub struct Drifter {
+    pub speed: f32,
+    pub timer: f32,
+}
+```
+
+Remember that a scene using it must be **v2**.
+
+### Systems and phases
+
+A runtime owns a `PackageHost` and runs each phase at the matching point of its frame. Within a phase,
+lower `priority` runs first.
+
+| Phase | When it runs | Typical use |
+|---|---|---|
+| `PreUpdate` | before scripts | input, resetting per-frame state |
+| `ScriptExec` | after the script system | reacting to what scripts queued |
+| `Physics` | after the runtime's physics step | reading this frame's simulation |
+| `PostPhysics` | after behaviour / trigger flush | contact reactions |
+| `Animation` | after skeleton, IK and hierarchy resolve | anything reading final transforms |
+| `PreRender` | just before the draw | camera-relative work (parallax) |
+| `Render`, `PostRender` | **not run** | a package cannot draw directly yet |
+
+Never panic in a system: it runs inside the frame. Log and return.
+
+### What the host lends
+
+A system gets the world, `dt` and a `ResourceMap`. Every host puts three things in it for each phase:
+
+| Resource | Is |
+|---|---|
+| `jengine_core::input::InputState` | this frame's keys, actions, mouse, gamepads, touches |
+| `jengine_core::package::host::FrameCamera` | the camera the frame is drawn through - `camera.0.screen_to_world(...)` |
+| `jengine_core::asset::AssetManager` | atlases, fonts, materials, textures |
+
+**Read them, never `remove` them** - they are moved in and back out, and a system that takes one
+loses it for everything after.
+
+Any other resource may be absent, and a system must then **do nothing**: that is how a runtime
+decides who owns a subsystem. The physics package's system steps rapier only if a host shares its
+`PhysicsWorld`, which no shipped host does, so it never double-steps.
+
+Packages can also read the project's data tables (`jengine_core::data::global()`, the tables scripts
+read with `Data.get`) and the music's playhead (`jengine_core::audio::music_position()`).
+
+### Script commands
+
+Register script-callable functions with **`register_script_commands`**. One handler serves every
+runtime - native Luau, the editor's Fengari and web builds - and is testable natively.
+
+```rust
+fn register_script_commands(&self, commands: &mut PackageCommandRegistry) {
+    let registered = commands.register("my-package", "mypackage_nudge", &["e", "amount"], |host, args| {
+        let amount = args.number("amount").unwrap_or(0.0) as f32;
+        let Some(e) = args.number("e").filter(|v| *v >= 0.0).and_then(|v| host.resolve_entity(v as u32))
+        else { return };
+        if let Ok(mut t) = host.world().get::<&mut Transform>(e) {
+            t.position.x += amount;
+        }
+    });
+    if let Err(err) = registered {
+        log::error!("[my-package] script commands not registered: {err}");
+    }
+}
+```
+
+Scripts call it as **`MyPackage.nudge(e, 5)`**:
+
+- The **namespace** is the package name in PascalCase without `jengine-`: `jengine-online` is `Online`,
+  `my-package` is `MyPackage`.
+- If every command shares a prefix up to its first `_`, the prefix is dropped: `mypackage_nudge` is
+  `MyPackage.nudge`. With mixed prefixes the names stay whole (`MyPackage.ship_fire`). A remainder that is
+  a Lua keyword keeps the whole name.
+- A namespace already taken by core (`Sprite`, `Physics`, ...) or another package is refused in the
+  log; the flat name `mypackage_nudge` always works.
+
+**A command cannot return a value**: the browser hosts run commands after the script has finished.
+Registration refuses getter-shaped names (`get_`, `is_`, `has_`, `find_`). To give scripts something
+to read, publish it on a component they can read - a custom component rewritten every frame is the
+usual way (`Entity.get_custom(e, "BallState", "events")`).
+
+:::danger[register_script_api is native-only]
+Handlers registered through `register_script_api` are installed by the native runtime alone, so they
+are `nil` in the editor and in web builds. Use it for nothing but editor-tooltip metadata.
+:::
+
+### Composing packages
+
+A package may depend on another package's crate to use its types (`jengine-online` talks to its
+server through `jengine-net`'s channel). Name every such package in `PackageMetadata::dependencies` -
+`every_cargo_dependency_on_a_package_is_declared` checks it - and remember that projects must list
+both packages.
+
+### Testing
+
+Drive a `PackageHost` directly - no window or runtime needed:
+
+```rust
+let mut registry = ComponentRegistry::new();
+jengine_core::package::core_registration::register_core_components(&mut registry);
+let mut host = PackageHost::new();
+host.add_package(Box::new(MyPackage));
+host.initialize(&mut registry);
+
+host.run_phase(SystemPhase::PreUpdate, &mut world, 1.0 / 60.0);
+```
+
+Commands are tested through `handle_package_command` with `JsonArgs`, exactly as the runtimes dispatch
+them. `packages/jengine-parallax/tests/` has both kinds - a package hosted by a `PackageHost`, and its
+script commands driven the way every runtime dispatches them - and is a small package to copy from.
+
+Rules: add every package **before** `initialize`, and call `initialize` once.
+
+### Documenting it
+
+Each package's page under [All packages](/packages/) is generated by `npm run sync` in `website/`:
+
+- the facts - components, script commands under their namespace, dependencies, the projects and scenes
+  that use it - are read from the source;
+- the prose is the package's **`README.md`**, or with no README the `//!` crate doc in `src/lib.rs`.
+
+So document a package in its README, and the site follows. The sync **fails** for a package with no
+documentation, or one still carrying the scaffold's `TODO`s.
+
+## Script and asset packages
+
+Packages with no Rust code are copied into the project when resolved (`jengine package resolve`), to
+`assets/packages/<name>/`.
+
+```toml
+# a script package
+[package]
+name = "my-lib"
+version = "0.1.0"
+package_type = "script"
+
+[scripts]
+files = ["scripts/**/*.lua", "scripts/**/*.js"]
+```
+
+```toml
+# an asset package
+[package]
+name = "my-sounds"
+version = "0.1.0"
+package_type = "asset"
+
+[assets]
+files = ["sprites/**/*.png", "sounds/**/*.ogg", "sounds/**/*.wav", "prefabs/**/*.prefab"]
+include_prefabs = true
+```
+
+## Editor extensions
+
+`register_editor` can describe inspector fields by hand (ranges and descriptions a derived inspector
+cannot know), add menu items and toolbar actions, and ship an HTML panel:
+
+```rust
+use jengine_core::package::editor_registry::{
+    ComponentEditorInfo, ComponentFieldDescriptor, EditorRegistry, FieldType,
+};
+
+fn register_editor(&self, editor: &mut EditorRegistry) {
+    editor.add_component_info(ComponentEditorInfo {
+        component_name: "drifter".into(),
+        category: "Custom".into(),
+        fields: vec![ComponentFieldDescriptor {
+            name: "speed".into(),
+            display_name: "Speed".into(),
+            field_type: FieldType::Float { min: Some(0.0), max: Some(500.0) },
+            default_value: Some(serde_json::json!(40.0)),
+            description: "Units per second".into(),
+        }],
+        default: None,
+    });
+}
+```
+
+Hand-written metadata wins over the derived inspector. `editor.add_menu_item`,
+`editor.add_toolbar_action` and `editor.add_panel` add the rest.

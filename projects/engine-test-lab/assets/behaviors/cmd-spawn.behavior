@@ -1,0 +1,22 @@
+{
+  "name": "CmdSpawn",
+  "version": 1,
+  "nodes": [
+    { "id": "key",   "op": "OnKey", "params": { "key": "S", "edge": "pressed" } },
+    { "id": "spawn", "op": "SpawnEntity",
+      "params": { "prefab_id": "Coin" },
+      "in": {
+        "at": { "value": [-480.0, -20.0] },
+        "with_velocity": { "value": [180.0, 260.0] }
+      }
+    },
+    { "id": "blip",  "op": "PlaySound",
+      "params": { "sound_id": "sounds/blip.wav" },
+      "in": { "volume": { "value": 0.8 } }
+    }
+  ],
+  "edges": [
+    { "from": "key",   "to": "spawn" },
+    { "from": "spawn", "to": "blip" }
+  ]
+}

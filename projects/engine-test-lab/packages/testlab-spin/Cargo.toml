@@ -1,0 +1,15 @@
+[package]
+name = "testlab-spin"
+version = "0.1.0"
+edition = "2024"
+
+# Standalone: it lives inside a project, not the engine workspace.
+[workspace]
+
+[dependencies]
+jengine-core = { path = "../../../../crates/jengine-core", default-features = false }
+serde = { version = "1", features = ["derive"] }
+log = "0.4"
+
+[dev-dependencies]
+hecs = "0.10"

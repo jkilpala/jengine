@@ -1,0 +1,541 @@
+{
+ "name": "210 - Particle flipbooks",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "210 - Particle flipbooks",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   1 / 2 / 3 burst one emitter   F toggle the middle one's fps between 4 and 16 (Particles.set)",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "EmitterLife",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/lab210_sheet.png",
+     "emission_rate": 1.2,
+     "max_particles": 60,
+     "lifetime": [
+      3.0,
+      3.0
+     ],
+     "speed": [
+      40.0,
+      70.0
+     ],
+     "angle": [
+      1.2,
+      1.95
+     ],
+     "size_start": [
+      56.0,
+      56.0
+     ],
+     "size_end": [
+      56.0,
+      56.0
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.6
+     ],
+     "gravity_modifier": 0.0,
+     "world_space": true,
+     "z_order": 2,
+     "flipbook": {
+      "columns": 4,
+      "rows": 4,
+      "mode": "life"
+     }
+    }
+   }
+  },
+  {
+   "name": "EmitterFps",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/lab210_sheet.png",
+     "emission_rate": 1.2,
+     "max_particles": 60,
+     "lifetime": [
+      3.0,
+      3.0
+     ],
+     "speed": [
+      40.0,
+      70.0
+     ],
+     "angle": [
+      1.2,
+      1.95
+     ],
+     "size_start": [
+      56.0,
+      56.0
+     ],
+     "size_end": [
+      56.0,
+      56.0
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.6
+     ],
+     "gravity_modifier": 0.0,
+     "world_space": true,
+     "z_order": 2,
+     "flipbook": {
+      "columns": 4,
+      "rows": 4,
+      "mode": "fps",
+      "fps": 4,
+      "random_start": true
+     }
+    }
+   }
+  },
+  {
+   "name": "EmitterRandom",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/lab210_sheet.png",
+     "emission_rate": 1.2,
+     "max_particles": 60,
+     "lifetime": [
+      3.0,
+      3.0
+     ],
+     "speed": [
+      40.0,
+      70.0
+     ],
+     "angle": [
+      1.2,
+      1.95
+     ],
+     "size_start": [
+      56.0,
+      56.0
+     ],
+     "size_end": [
+      56.0,
+      56.0
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.6
+     ],
+     "gravity_modifier": 0.0,
+     "world_space": true,
+     "z_order": 2,
+     "flipbook": {
+      "columns": 4,
+      "rows": 4,
+      "frames": 8,
+      "mode": "random"
+     }
+    }
+   }
+  },
+  {
+   "name": "Label-380",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -380.0,
+      -220.0
+     ],
+     "size": [
+      360.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "over its life",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sub-380",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -380.0,
+      -246.0
+     ],
+     "size": [
+      360.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "0 -> 15 as each rises",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Label0",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      -220.0
+     ],
+     "size": [
+      360.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "4 frames a second",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sub0",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      -246.0
+     ],
+     "size": [
+      360.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "each from a frame of its own",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Label380",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      380.0,
+      -220.0
+     ],
+     "size": [
+      360.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "one random frame",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sub380",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      380.0,
+      -246.0
+     ],
+     "size": [
+      360.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "held, 0 to 7 only",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -120.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.78,
+      0.83,
+      0.92,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: left - numbers count up 0 to 15 as each ring rises; middle - each counts on from a frame of its own, never all alike;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "right - each keeps one number between 0 and 7; F makes the middle ones count four times faster.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_210_particle_flipbooks.lua"
+    }
+   }
+  }
+ ]
+}

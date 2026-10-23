@@ -1,0 +1,681 @@
+{
+ "name": "133 - Light shafts",
+ "post_process": {
+  "effects": [
+   {
+    "name": "light_shafts",
+    "enabled": true,
+    "params": {
+     "source_x": {
+      "Float": 0.0
+     },
+     "source_y": {
+      "Float": 170.0
+     },
+     "length": {
+      "Float": 0.7
+     },
+     "intensity": {
+      "Float": 1.5
+     },
+     "decay": {
+      "Float": 0.985
+     },
+     "threshold": {
+      "Float": 1.0
+     },
+     "color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.7,
+       1.0
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "133 - Light shafts",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -100.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   [G] shafts on / off",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/soft_disc.png",
+     "color": [
+      3,
+      2.8,
+      2.4,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      240.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "oscillator": {
+     "amplitude": [
+      260.0,
+      30.0
+     ],
+     "frequency": [
+      0.07,
+      0.11
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar1",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar3",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar4",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar6",
+   "components": {
+    "transform": {
+     "position": [
+      50.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar7",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar8",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar9",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rail",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      440.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.006,
+      0.007,
+      0.01,
+      1
+     ],
+     "z_order": -10,
+     "size": [
+      1400.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.02,
+      0.022,
+      0.03,
+      1
+     ],
+     "z_order": -5,
+     "size": [
+      1280.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      64.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "light shafts on",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.85,
+      0.6,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Beams stream from the bright disc through the gaps in the grate in front of it, and swing as it moves.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Each bar cuts a dark wedge; clear of the grate the disc just glows. G: off - the disc stays, the beams go.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_133_light_shafts.lua"
+    }
+   }
+  }
+ ]
+}

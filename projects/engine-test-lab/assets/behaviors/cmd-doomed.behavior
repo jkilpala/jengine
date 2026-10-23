@@ -1,0 +1,22 @@
+{
+  "name": "CmdDoomed",
+  "version": 1,
+  "nodes": [
+    { "id": "born",  "op": "OnSpawn" },
+    { "id": "timer", "op": "DespawnAfter", "in": { "seconds": { "value": 4.0 } } },
+    { "id": "gone",  "op": "OnDespawn" },
+    { "id": "blip",  "op": "PlaySound",
+      "params": { "sound_id": "sounds/blip.wav" },
+      "in": { "volume": { "value": 0.8 } }
+    },
+    { "id": "tell",  "op": "EmitEvent",
+      "params": { "name": "scene68_doomed_gone" },
+      "in": { "value": { "value": 1.0 } }
+    }
+  ],
+  "edges": [
+    { "from": "born", "to": "timer" },
+    { "from": "gone", "to": "blip" },
+    { "from": "blip", "to": "tell" }
+  ]
+}

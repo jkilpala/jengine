@@ -1,0 +1,302 @@
+{
+ "name": "95 - Frame pacing",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [0.0, 0.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [0.0, 310.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "95 - A good FPS number can still judder",
+     "font_id": "",
+     "font_scale": 2.0,
+     "color": [1, 1, 1, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [0.0, 272.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "Three bars at a constant speed. Nothing below is frame-rate dependent, so any wobble you see came out of `dt`.",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [0.75, 0.78, 0.85, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [0.0, 248.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "The gap between two frame starts absorbs acquire latency and compositor scheduling, so a steady display still hands the simulation an uneven delta. FramePacer snaps it onto the refresh grid.",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [0.75, 0.78, 0.85, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1180.0
+    }
+   }
+  },
+
+  {
+   "name": "LaneSlow",
+   "components": {
+    "transform": {
+     "position": [-560.0, 110.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [0.5, 0.9, 0.6, 1],
+     "z_order": 5,
+     "anchor": [0.5, 0.5],
+     "size": [26.0, 54.0]
+    }
+   }
+  },
+  {
+   "name": "LabelSlow",
+   "components": {
+    "transform": {
+     "position": [-580.0, 110.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "120 u/s",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [0.5, 0.9, 0.6, 1],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    }
+   }
+  },
+
+  {
+   "name": "LaneMid",
+   "components": {
+    "transform": {
+     "position": [-560.0, 30.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [1.0, 0.85, 0.4, 1],
+     "z_order": 5,
+     "anchor": [0.5, 0.5],
+     "size": [26.0, 54.0]
+    }
+   }
+  },
+  {
+   "name": "LabelMid",
+   "components": {
+    "transform": {
+     "position": [-580.0, 30.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "420 u/s",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [1.0, 0.85, 0.4, 1],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    }
+   }
+  },
+
+  {
+   "name": "LaneFast",
+   "components": {
+    "transform": {
+     "position": [-560.0, -50.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [0.95, 0.5, 0.45, 1],
+     "z_order": 5,
+     "anchor": [0.5, 0.5],
+     "size": [26.0, 54.0]
+    }
+   }
+  },
+  {
+   "name": "LabelFast",
+   "components": {
+    "transform": {
+     "position": [-580.0, -50.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "900 u/s",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [0.95, 0.5, 0.45, 1],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    }
+   }
+  },
+
+  {
+   "name": "ReadoutDt",
+   "components": {
+    "transform": {
+     "position": [0.0, -140.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [1, 0.85, 0.4, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1180.0
+    }
+   }
+  },
+  {
+   "name": "ReadoutDrift",
+   "components": {
+    "transform": {
+     "position": [0.0, -180.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [0.75, 0.78, 0.85, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1180.0
+    }
+   }
+  },
+  {
+   "name": "ReadoutHint",
+   "components": {
+    "transform": {
+     "position": [0.0, -220.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [0.6, 0.62, 0.7, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1180.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [0.0, -268.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "Drag the window between displays: a mismatched refresh rate, or a panel driven by a different GPU than the one rendering, widens the spread.",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [0.6, 0.62, 0.7, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1180.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [0.0, -300.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev/next   [F3] overlay",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [0.6, 0.62, 0.7, 1],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Runner",
+   "components": {
+    "transform": {
+     "position": [0.0, 0.0],
+     "rotation": 0.0,
+     "scale": [1.0, 1.0]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_95_frame_pacing.lua"
+    }
+   }
+  }
+ ]
+}

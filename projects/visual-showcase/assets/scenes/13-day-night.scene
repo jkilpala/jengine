@@ -1,0 +1,2914 @@
+{
+ "name": "13 - Day & Night",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.7
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.52252,
+      0.63828,
+      1.0
+     ],
+     "intensity": 0.45
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      1.0,
+      0.95,
+      0.88
+     ],
+     "intensity": 1.0,
+     "direction": 3.141592653589793,
+     "height": 1.0,
+     "softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      0.55,
+      0.65,
+      1.0
+     ],
+     "intensity": 0.0,
+     "direction": 3.141592653589793,
+     "height": 0.7,
+     "softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Grass",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_grass"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_grass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_grass_n.png"
+    }
+   }
+  },
+  {
+   "name": "StreetMain",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      1480.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       220.0,
+       110.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "StreetSouth",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -56,
+     "size": [
+      110.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       110.0,
+       220.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "Pond",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      218.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_pond.png",
+     "color": [
+      0.26327,
+      0.44799,
+      0.89001,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      250.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "PondStars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      218.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_pond_stars.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -49,
+     "size": [
+      250.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "House1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.62,
+      0.22,
+      0.16,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      190.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      190.0,
+      120.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door1",
+   "components": {
+    "transform": {
+     "position": [
+      -508.0,
+      139.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "House2",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      222.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.34,
+      0.36,
+      0.42,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      160.0,
+      108.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      160.0,
+      108.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door2",
+   "components": {
+    "transform": {
+     "position": [
+      -218.0,
+      152.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "House3",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.66,
+      0.44,
+      0.2,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      170.0,
+      118.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      170.0,
+      118.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door3",
+   "components": {
+    "transform": {
+     "position": [
+      216.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "House4",
+   "components": {
+    "transform": {
+     "position": [
+      472.0,
+      222.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.52,
+      0.2,
+      0.18,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      160.0,
+      104.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      160.0,
+      104.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door4",
+   "components": {
+    "transform": {
+     "position": [
+      504.0,
+      154.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "House5",
+   "components": {
+    "transform": {
+     "position": [
+      -462.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.36,
+      0.38,
+      0.44,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      176.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      176.0,
+      120.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door5",
+   "components": {
+    "transform": {
+     "position": [
+      -497.2,
+      -129.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "House6",
+   "components": {
+    "transform": {
+     "position": [
+      -232.0,
+      -212.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.64,
+      0.3,
+      0.18,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      150.0,
+      104.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      150.0,
+      104.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door6",
+   "components": {
+    "transform": {
+     "position": [
+      -202.0,
+      -144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "House7",
+   "components": {
+    "transform": {
+     "position": [
+      232.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.46,
+      0.24,
+      0.2,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      176.0,
+      118.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      176.0,
+      118.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door7",
+   "components": {
+    "transform": {
+     "position": [
+      196.8,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "House8",
+   "components": {
+    "transform": {
+     "position": [
+      466.0,
+      -212.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_roof.png",
+     "color": [
+      0.6,
+      0.46,
+      0.24,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      156.0,
+      106.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_roof_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      156.0,
+      106.0
+     ],
+     "shadow_length": 70.0
+    }
+   }
+  },
+  {
+   "name": "Door8",
+   "components": {
+    "transform": {
+     "position": [
+      497.2,
+      -143.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       58.8,
+       0.0
+      ],
+      [
+       47.57,
+       34.56
+      ],
+      [
+       18.17,
+       55.92
+      ],
+      [
+       -18.17,
+       55.92
+      ],
+      [
+       -47.57,
+       34.56
+      ],
+      [
+       -58.8,
+       0.0
+      ],
+      [
+       -47.57,
+       -34.56
+      ],
+      [
+       -18.17,
+       -55.92
+      ],
+      [
+       18.17,
+       -55.92
+      ],
+      [
+       47.57,
+       -34.56
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       47.04,
+       0.0
+      ],
+      [
+       38.06,
+       27.65
+      ],
+      [
+       14.54,
+       44.74
+      ],
+      [
+       -14.54,
+       44.74
+      ],
+      [
+       -38.06,
+       27.65
+      ],
+      [
+       -47.04,
+       0.0
+      ],
+      [
+       -38.06,
+       -27.65
+      ],
+      [
+       -14.54,
+       -44.74
+      ],
+      [
+       14.54,
+       -44.74
+      ],
+      [
+       38.06,
+       -27.65
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       53.9,
+       0.0
+      ],
+      [
+       43.61,
+       31.68
+      ],
+      [
+       16.66,
+       51.26
+      ],
+      [
+       -16.66,
+       51.26
+      ],
+      [
+       -43.61,
+       31.68
+      ],
+      [
+       -53.9,
+       0.0
+      ],
+      [
+       -43.61,
+       -31.68
+      ],
+      [
+       -16.66,
+       -51.26
+      ],
+      [
+       16.66,
+       -51.26
+      ],
+      [
+       43.61,
+       -31.68
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      305.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      104.0,
+      104.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       50.96,
+       0.0
+      ],
+      [
+       41.23,
+       29.95
+      ],
+      [
+       15.75,
+       48.47
+      ],
+      [
+       -15.75,
+       48.47
+      ],
+      [
+       -41.23,
+       29.95
+      ],
+      [
+       -50.96,
+       0.0
+      ],
+      [
+       -41.23,
+       -29.95
+      ],
+      [
+       -15.75,
+       -48.47
+      ],
+      [
+       15.75,
+       -48.47
+      ],
+      [
+       41.23,
+       -29.95
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree5",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       49.0,
+       0.0
+      ],
+      [
+       39.64,
+       28.8
+      ],
+      [
+       15.14,
+       46.6
+      ],
+      [
+       -15.14,
+       46.6
+      ],
+      [
+       -39.64,
+       28.8
+      ],
+      [
+       -49.0,
+       0.0
+      ],
+      [
+       -39.64,
+       -28.8
+      ],
+      [
+       -15.14,
+       -46.6
+      ],
+      [
+       15.14,
+       -46.6
+      ],
+      [
+       39.64,
+       -28.8
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree6",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      116.0,
+      116.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       56.84,
+       0.0
+      ],
+      [
+       45.98,
+       33.41
+      ],
+      [
+       17.56,
+       54.06
+      ],
+      [
+       -17.56,
+       54.06
+      ],
+      [
+       -45.98,
+       33.41
+      ],
+      [
+       -56.84,
+       0.0
+      ],
+      [
+       -45.98,
+       -33.41
+      ],
+      [
+       -17.56,
+       -54.06
+      ],
+      [
+       17.56,
+       -54.06
+      ],
+      [
+       45.98,
+       -33.41
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree7",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      118.0,
+      118.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       57.82,
+       0.0
+      ],
+      [
+       46.78,
+       33.99
+      ],
+      [
+       17.87,
+       54.99
+      ],
+      [
+       -17.87,
+       54.99
+      ],
+      [
+       -46.78,
+       33.99
+      ],
+      [
+       -57.82,
+       0.0
+      ],
+      [
+       -46.78,
+       -33.99
+      ],
+      [
+       -17.87,
+       -54.99
+      ],
+      [
+       17.87,
+       -54.99
+      ],
+      [
+       46.78,
+       -33.99
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree8",
+   "components": {
+    "transform": {
+     "position": [
+      -340.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       45.08,
+       0.0
+      ],
+      [
+       36.47,
+       26.5
+      ],
+      [
+       13.93,
+       42.87
+      ],
+      [
+       -13.93,
+       42.87
+      ],
+      [
+       -36.47,
+       26.5
+      ],
+      [
+       -45.08,
+       0.0
+      ],
+      [
+       -36.47,
+       -26.5
+      ],
+      [
+       -13.93,
+       -42.87
+      ],
+      [
+       13.93,
+       -42.87
+      ],
+      [
+       36.47,
+       -26.5
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree9",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      108.0,
+      108.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       52.92,
+       0.0
+      ],
+      [
+       42.81,
+       31.11
+      ],
+      [
+       16.35,
+       50.33
+      ],
+      [
+       -16.35,
+       50.33
+      ],
+      [
+       -42.81,
+       31.11
+      ],
+      [
+       -52.92,
+       0.0
+      ],
+      [
+       -42.81,
+       -31.11
+      ],
+      [
+       -16.35,
+       -50.33
+      ],
+      [
+       16.35,
+       -50.33
+      ],
+      [
+       42.81,
+       -31.11
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree10",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      112.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       54.88,
+       0.0
+      ],
+      [
+       44.4,
+       32.26
+      ],
+      [
+       16.96,
+       52.19
+      ],
+      [
+       -16.96,
+       52.19
+      ],
+      [
+       -44.4,
+       32.26
+      ],
+      [
+       -54.88,
+       0.0
+      ],
+      [
+       -44.4,
+       -32.26
+      ],
+      [
+       -16.96,
+       -52.19
+      ],
+      [
+       16.96,
+       -52.19
+      ],
+      [
+       44.4,
+       -32.26
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree11",
+   "components": {
+    "transform": {
+     "position": [
+      350.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       47.04,
+       0.0
+      ],
+      [
+       38.06,
+       27.65
+      ],
+      [
+       14.54,
+       44.74
+      ],
+      [
+       -14.54,
+       44.74
+      ],
+      [
+       -38.06,
+       27.65
+      ],
+      [
+       -47.04,
+       0.0
+      ],
+      [
+       -38.06,
+       -27.65
+      ],
+      [
+       -14.54,
+       -44.74
+      ],
+      [
+       14.54,
+       -44.74
+      ],
+      [
+       38.06,
+       -27.65
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Tree12",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_town_tree"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/town_tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/town_tree_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       58.8,
+       0.0
+      ],
+      [
+       47.57,
+       34.56
+      ],
+      [
+       18.17,
+       55.92
+      ],
+      [
+       -18.17,
+       55.92
+      ],
+      [
+       -47.57,
+       34.56
+      ],
+      [
+       -58.8,
+       0.0
+      ],
+      [
+       -47.57,
+       -34.56
+      ],
+      [
+       -18.17,
+       -55.92
+      ],
+      [
+       18.17,
+       -55.92
+      ],
+      [
+       47.57,
+       -34.56
+      ]
+     ],
+     "shadow_length": 55.0
+    }
+   }
+  },
+  {
+   "name": "Lamp1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lamp2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lamp3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lamp4",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow4",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lamp5",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -78.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow5",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -78.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lamp6",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      -78.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow6",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      -78.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lamp7",
+   "components": {
+    "transform": {
+     "position": [
+      58.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow7",
+   "components": {
+    "transform": {
+     "position": [
+      58.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lamp8",
+   "components": {
+    "transform": {
+     "position": [
+      -58.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/town_lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 0.0,
+     "radius": 250.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "LampGlow8",
+   "components": {
+    "transform": {
+     "position": [
+      -58.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      1.79196,
+      0.40192,
+      0.0
+     ],
+     "z_order": -19,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Fog",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      1400.0,
+      840.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "materials/night_fog",
+     "uniforms": {
+      "fog": {
+       "Vec4": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "13   Day & Night",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Space  pause   F  fast   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s13_day_night.lua"
+    }
+   }
+  }
+ ]
+}

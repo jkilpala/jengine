@@ -1,0 +1,165 @@
+{
+ "_doc": "A skinned mesh bent by its bones: the engine's compute_skinned_positions (skin_sample_matches_the_editor) and the skin editor's preview (skinEdit.test.ts, which also writes the same offsets back) must put every vertex at `expected`, in world space - so what the skin editor shows bending is what plays.",
+ "root": {
+  "position": [
+   30,
+   -20
+  ],
+  "rotation": 0.3
+ },
+ "bones": [
+  {
+   "name": "a",
+   "position": [
+    0,
+    0
+   ],
+   "rotation": 0,
+   "length": 10
+  },
+  {
+   "name": "b",
+   "parent": "a",
+   "position": [
+    10,
+    0
+   ],
+   "rotation": 0,
+   "length": 10
+  }
+ ],
+ "pose": {
+  "b": 1.5707963267948966
+ },
+ "mesh": {
+  "texture_id": "sprites/x.png",
+  "bones": [
+   "a",
+   "b"
+  ],
+  "indices": [
+   0,
+   1,
+   2,
+   1,
+   3,
+   2
+  ],
+  "vertices": [
+   {
+    "rest_position": [
+     15,
+     2
+    ],
+    "uv": [
+     0.75,
+     0.4
+    ],
+    "influences": [
+     {
+      "bone_index": 1,
+      "weight": 1,
+      "offset": [
+       5,
+       2
+      ]
+     }
+    ]
+   },
+   {
+    "rest_position": [
+     10,
+     0
+    ],
+    "uv": [
+     0.5,
+     0.5
+    ],
+    "influences": [
+     {
+      "bone_index": 0,
+      "weight": 0.5,
+      "offset": [
+       10,
+       0
+      ]
+     },
+     {
+      "bone_index": 1,
+      "weight": 0.5,
+      "offset": [
+       0,
+       0
+      ]
+     }
+    ]
+   },
+   {
+    "rest_position": [
+     12,
+     1
+    ],
+    "uv": [
+     0.6,
+     0.45
+    ],
+    "influences": [
+     {
+      "bone_index": 0,
+      "weight": 0.25,
+      "offset": [
+       12,
+       1
+      ]
+     },
+     {
+      "bone_index": 1,
+      "weight": 0.75,
+      "offset": [
+       2,
+       1
+      ]
+     }
+    ]
+   },
+   {
+    "rest_position": [
+     4,
+     -1
+    ],
+    "uv": [
+     0.2,
+     0.55
+    ],
+    "influences": [
+     {
+      "bone_index": 0,
+      "weight": 1,
+      "offset": [
+       4,
+       -1
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "expected": [
+  [
+   36.165091,
+   -12.859156
+  ],
+  [
+   39.553365,
+   -17.044798
+  ],
+  [
+   38.79737,
+   -15.446839
+  ],
+  [
+   34.116866,
+   -19.773256
+  ]
+ ]
+}

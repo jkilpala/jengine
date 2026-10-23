@@ -1,0 +1,1243 @@
+{
+ "name": "Hub",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.55
+     },
+     "intensity": {
+      "Float": 1.1
+     },
+     "blur_size": {
+      "Float": 3.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.9,
+       0.08
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.34239,
+      0.69207
+     ],
+     "intensity": 0.22
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      0.26327,
+      0.23302,
+      0.21404,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       400.0,
+       400.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "SelectLight",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 2.2,
+     "radius": 520.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "SelectGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.55
+     ],
+     "z_order": 5,
+     "size": [
+      520.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "CoolLight",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.10048,
+      0.26327,
+      1.0
+     ],
+     "intensity": 1.3,
+     "radius": 620.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 30.0,
+     "max_particles": 400,
+     "lifetime": [
+      6.0,
+      10.0
+     ],
+     "speed": [
+      4.0,
+      16.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      0.82757,
+      0.60383,
+      0.55
+     ],
+     "color_end": [
+      1.0,
+      0.82757,
+      0.60383,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       820.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "HubTitle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      272.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "jEngine  Visual  Showcase",
+     "font_id": "",
+     "font_scale": 3.4,
+     "color": [
+      1.0,
+      0.89001,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HubSubtitle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "how far can 2D go on this engine?",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      0.44799,
+      0.50708,
+      0.69207,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row1",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row2",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      139.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row3",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      118.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row4",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      97.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row5",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      76.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row6",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      55.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row7",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      34.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row8",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      13.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row9",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row10",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -29.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row11",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row12",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -71.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row13",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row14",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -113.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row15",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -134.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row16",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -155.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row17",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row18",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -197.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row19",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -218.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row20",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -239.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row21",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Row22",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -281.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.52252,
+      0.53824,
+      0.60383,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ScrollTrack",
+   "components": {
+    "transform": {
+     "position": [
+      -442.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07324,
+      0.07829,
+      0.10654,
+      0.6
+     ],
+     "z_order": 90,
+     "size": [
+      3.0,
+      462.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ScrollThumb",
+   "components": {
+    "transform": {
+     "position": [
+      -442.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      0.60383,
+      0.23302,
+      1.0
+     ],
+     "z_order": 91,
+     "size": [
+      5.0,
+      1.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ScrollCount",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -306.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.26327,
+      0.28465,
+      0.36725,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Blurb",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.15,
+     "color": [
+      0.71057,
+      0.72935,
+      0.82757,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 520.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HubHint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -334.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Up / Down / wheel  choose    PgUp / PgDn  page    Enter or click  open    in a scene:  PgUp / PgDn  prev / next    H  hub",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.34239,
+      0.36725,
+      0.477,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/hub.lua"
+    }
+   }
+  }
+ ]
+}

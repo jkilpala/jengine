@@ -1,0 +1,684 @@
+{
+ "name": "16 - Festival Night",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 1.0
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.95,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0008
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.21404,
+      0.26327,
+      0.78741
+     ],
+     "intensity": 0.22
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/night_sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1480.0,
+      840.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      0.60383,
+      0.69207,
+      1.0,
+      0.5
+     ],
+     "z_order": -98,
+     "size": [
+      1480.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HorizonGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.24601,
+      0.29966,
+      0.18602,
+      0.75
+     ],
+     "z_order": -95,
+     "size": [
+      2816.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hills",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_hills"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/hills.png",
+     "color": [
+      0.17064,
+      0.17064,
+      0.31855,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1680.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       820.0,
+       190.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/hills_n.png"
+    }
+   }
+  },
+  {
+   "name": "Town",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/harbour_town.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1480.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       731.0,
+       200.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Windows",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/harbour_windows.png",
+     "color": [
+      1.6,
+      0.7632,
+      0.19085,
+      1.0
+     ],
+     "z_order": -59,
+     "size": [
+      1480.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       731.0,
+       200.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Boats",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -32.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/harbour_boats.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1480.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       700.0,
+       150.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "QuayLamp1",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.8,
+     "radius": 260.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "QuayLamp2",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.8,
+     "radius": 260.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "QuayLamp3",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.8,
+     "radius": 260.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 60,
+     "size": [
+      1480.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/lake_water",
+     "uniforms": {
+      "lake": {
+       "Vec4": [
+        -30.0,
+        100000.0,
+        0.2,
+        0.0
+       ]
+      },
+      "ripple_a": {
+       "Vec4": [
+        0.0,
+        0.0,
+        99.0,
+        0.0
+       ]
+      },
+      "ripple_b": {
+       "Vec4": [
+        0.0,
+        0.0,
+        99.0,
+        0.0
+       ]
+      },
+      "ripple_c": {
+       "Vec4": [
+        0.0,
+        0.0,
+        99.0,
+        0.0
+       ]
+      }
+     }
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "16   Festival Night",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click  send a shell there   Space  salvo   F  finale   A  auto   1-4 post   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s16_festival_night.lua"
+    }
+   }
+  }
+ ]
+}

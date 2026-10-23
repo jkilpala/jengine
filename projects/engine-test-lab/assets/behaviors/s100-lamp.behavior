@@ -1,0 +1,69 @@
+{
+  "name": "S100Lamp",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "level",
+      "op": "OnEvent",
+      "params": {
+        "name": "lamp_level"
+      }
+    },
+    {
+      "id": "bright",
+      "op": "MathFloat",
+      "params": {
+        "op": "Mul"
+      },
+      "in": {
+        "a": {
+          "from": "level"
+        },
+        "b": {
+          "value": 0.333
+        }
+      }
+    },
+    {
+      "id": "glow",
+      "op": "SetSpriteColor",
+      "in": {
+        "r": {
+          "from": "bright"
+        },
+        "g": {
+          "from": "bright"
+        },
+        "b": {
+          "from": "bright",
+          "scale": 0.4
+        },
+        "a": {
+          "value": 1.0
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "level",
+      "to": "glow"
+    }
+  ],
+  "editor": {
+    "positions": {
+      "level": {
+        "x": 40,
+        "y": 60
+      },
+      "bright": {
+        "x": 300,
+        "y": 60
+      },
+      "glow": {
+        "x": 560,
+        "y": 60
+      }
+    }
+  }
+}

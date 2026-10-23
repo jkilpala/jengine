@@ -1,0 +1,2243 @@
+{
+ "name": "126 - Billiard Hall",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.35
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.9,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      1.0,
+      0.78741,
+      0.52252
+     ],
+     "intensity": 0.3
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.84809,
+      0.60383
+     ],
+     "intensity": 1.5,
+     "radius": 1150.0,
+     "falloff": 1.2,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      1700.0,
+      1000.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Felt",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/felt.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1040.0,
+      540.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rail",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/rail.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1152.0,
+      652.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cushion0",
+   "components": {
+    "transform": {
+     "position": [
+      -257.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 446.0,
+       "height": 30.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion1",
+   "components": {
+    "transform": {
+     "position": [
+      257.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 446.0,
+       "height": 30.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion2",
+   "components": {
+    "transform": {
+     "position": [
+      -257.0,
+      -285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 446.0,
+       "height": 30.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion3",
+   "components": {
+    "transform": {
+     "position": [
+      257.0,
+      -285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 446.0,
+       "height": 30.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion4",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 30.0,
+       "height": 460.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion5",
+   "components": {
+    "transform": {
+     "position": [
+      -535.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 30.0,
+       "height": 460.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1300.0,
+       "height": 40.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1300.0,
+       "height": 40.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion8",
+   "components": {
+    "transform": {
+     "position": [
+      590.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 800.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cushion9",
+   "components": {
+    "transform": {
+     "position": [
+      -590.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 800.0
+      }
+     },
+     "restitution": 0.78,
+     "friction": 0.1
+    }
+   }
+  },
+  {
+   "name": "Cue",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    },
+    "trajectory": {
+     "velocity": [
+      0.0,
+      0.0
+     ],
+     "seconds": 4.0,
+     "every": 2,
+     "line": "Aim",
+     "hit_line": "Ghost"
+    }
+   }
+  },
+  {
+   "name": "CueShadow",
+   "parent": "Cue",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball1",
+   "components": {
+    "transform": {
+     "position": [
+      260.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball1Shadow",
+   "parent": "Ball1",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball9",
+   "components": {
+    "transform": {
+     "position": [
+      283.0356,
+      -13.3
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball9.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball9Shadow",
+   "parent": "Ball9",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball2",
+   "components": {
+    "transform": {
+     "position": [
+      283.0356,
+      13.3
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball2Shadow",
+   "parent": "Ball2",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball10",
+   "components": {
+    "transform": {
+     "position": [
+      306.0712,
+      -26.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball10.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball10Shadow",
+   "parent": "Ball10",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball8",
+   "components": {
+    "transform": {
+     "position": [
+      306.0712,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball8.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball8Shadow",
+   "parent": "Ball8",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball3",
+   "components": {
+    "transform": {
+     "position": [
+      306.0712,
+      26.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball3Shadow",
+   "parent": "Ball3",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball11",
+   "components": {
+    "transform": {
+     "position": [
+      329.1068,
+      -39.900000000000006
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball11.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball11Shadow",
+   "parent": "Ball11",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball4",
+   "components": {
+    "transform": {
+     "position": [
+      329.1068,
+      -13.3
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball4Shadow",
+   "parent": "Ball4",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball12",
+   "components": {
+    "transform": {
+     "position": [
+      329.1068,
+      13.3
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball12.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball12Shadow",
+   "parent": "Ball12",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball5",
+   "components": {
+    "transform": {
+     "position": [
+      329.1068,
+      39.900000000000006
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball5Shadow",
+   "parent": "Ball5",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball13",
+   "components": {
+    "transform": {
+     "position": [
+      352.1424,
+      -53.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball13.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball13Shadow",
+   "parent": "Ball13",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball6",
+   "components": {
+    "transform": {
+     "position": [
+      352.1424,
+      -26.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball6.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball6Shadow",
+   "parent": "Ball6",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball14",
+   "components": {
+    "transform": {
+     "position": [
+      352.1424,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball14.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball14Shadow",
+   "parent": "Ball14",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball7",
+   "components": {
+    "transform": {
+     "position": [
+      352.1424,
+      26.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball7.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball7Shadow",
+   "parent": "Ball7",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball15",
+   "components": {
+    "transform": {
+     "position": [
+      352.1424,
+      53.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/ball15.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      27.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.17,
+     "gravity_scale": 0.0,
+     "linear_damping": 1.1,
+     "angular_damping": 1.0,
+     "fixed_rotation": true,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 13.0
+      }
+     },
+     "restitution": 0.94,
+     "friction": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ball15Shadow",
+   "parent": "Ball15",
+   "components": {
+    "transform": {
+     "position": [
+      5.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": 2,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Aim",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [],
+     "width": 6.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.75
+     ],
+     "texture_id": "sprites/billiards/dot.png",
+     "texture_mode": "tile",
+     "tile_length": 14.0,
+     "z_order": 6
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [],
+     "width": 6.0,
+     "color": [
+      1.0,
+      0.69207,
+      0.07324,
+      0.8
+     ],
+     "texture_id": "sprites/billiards/dot.png",
+     "texture_mode": "tile",
+     "tile_length": 14.0,
+     "z_order": 6
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ring",
+   "components": {
+    "transform": {
+     "position": [
+      -9999.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/billiards/ring.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.8
+     ],
+     "z_order": 7,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stick",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/cue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      420.0,
+      11.0
+     ],
+     "anchor": [
+      1.0,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StickShadow",
+   "components": {
+    "transform": {
+     "position": [
+      -295.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/billiards/cue.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.35
+     ],
+     "z_order": 3,
+     "size": [
+      420.0,
+      11.0
+     ],
+     "anchor": [
+      1.0,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s126_billiard_hall.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "126   Billiard Hall",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space take the shot   A aim line on / off   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,4308 @@
+{
+ "name": "30 - Spell Storm",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 1.0
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       0.95,
+       0.95,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0012
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.13287,
+      0.17064,
+      0.69207
+     ],
+     "intensity": 0.09
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1440.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       220.0,
+       220.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -48,
+     "size": [
+      1440.0,
+      550.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       250.0,
+       125.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "WallFoot",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/spark.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.75
+     ],
+     "z_order": -47,
+     "size": [
+      1680.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Circle",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.36
+     ]
+    }
+   }
+  },
+  {
+   "name": "CircleGlow",
+   "parent": "Circle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.54782,
+      0.23571,
+      1.6,
+      0.4
+     ],
+     "z_order": -40,
+     "size": [
+      720.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "RuneRing",
+   "parent": "Circle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/rune_ring.png",
+     "color": [
+      1.02717,
+      0.44196,
+      3.0,
+      0.9
+     ],
+     "z_order": -39,
+     "size": [
+      560.0,
+      560.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "RuneSeal",
+   "parent": "Circle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/rune_seal.png",
+     "color": [
+      0.63185,
+      1.66097,
+      2.4,
+      0.8
+     ],
+     "z_order": -38,
+     "size": [
+      380.0,
+      380.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NovaRing",
+   "parent": "Circle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": -37,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "CircleLight",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.34239,
+      0.14732,
+      1.0
+     ],
+     "intensity": 1.5,
+     "radius": 460.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "height": 0.25
+    }
+   }
+  },
+  {
+   "name": "MageShadow",
+   "components": {
+    "transform": {
+     "position": [
+      -414.0,
+      -148.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.6
+     ],
+     "z_order": -30,
+     "size": [
+      190.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mage",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_mage"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/mage.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      192.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/mage_n.png"
+    }
+   }
+  },
+  {
+   "name": "StaffGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.57919,
+      1.52255,
+      2.2,
+      0.55
+     ],
+     "z_order": 20,
+     "size": [
+      170.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "StaffCore",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ember.png",
+     "color": [
+      4.84449,
+      6.23007,
+      7.0,
+      1.0
+     ],
+     "z_order": 21,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "StaffLight",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.69207,
+      1.0
+     ],
+     "intensity": 1.6,
+     "radius": 420.0,
+     "falloff": 2.0,
+     "shadow_softness": 6.0,
+     "height": 0.35
+    }
+   }
+  },
+  {
+   "name": "Orb1",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ember.png",
+     "color": [
+      2.05434,
+      0.88392,
+      6.0,
+      1.0
+     ],
+     "z_order": 22,
+     "size": [
+      16.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 70.0,
+     "max_particles": 90,
+     "lifetime": [
+      0.3,
+      0.6
+     ],
+     "speed": [
+      0.0,
+      8.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      8.0,
+      10.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 21,
+     "color_curve": [
+      [
+       0.0,
+       1.02717,
+       0.44196,
+       3.0,
+       0.7
+      ],
+      [
+       1.0,
+       0.39491,
+       1.0381,
+       1.5,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Orb2",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ember.png",
+     "color": [
+      2.05434,
+      0.88392,
+      6.0,
+      1.0
+     ],
+     "z_order": 22,
+     "size": [
+      16.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 70.0,
+     "max_particles": 90,
+     "lifetime": [
+      0.3,
+      0.6
+     ],
+     "speed": [
+      0.0,
+      8.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      8.0,
+      10.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 21,
+     "color_curve": [
+      [
+       0.0,
+       1.02717,
+       0.44196,
+       3.0,
+       0.7
+      ],
+      [
+       1.0,
+       0.39491,
+       1.0381,
+       1.5,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Orb3",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ember.png",
+     "color": [
+      2.05434,
+      0.88392,
+      6.0,
+      1.0
+     ],
+     "z_order": 22,
+     "size": [
+      16.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 70.0,
+     "max_particles": 90,
+     "lifetime": [
+      0.3,
+      0.6
+     ],
+     "speed": [
+      0.0,
+      8.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      8.0,
+      10.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 21,
+     "color_curve": [
+      [
+       0.0,
+       1.02717,
+       0.44196,
+       3.0,
+       0.7
+      ],
+      [
+       1.0,
+       0.39491,
+       1.0381,
+       1.5,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Ward1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      96.0,
+      -58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.65
+     ],
+     "z_order": -30,
+     "size": [
+      130.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ward1",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_column"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       70.0,
+       210.0
+      ]
+     },
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/column_n.png"
+    }
+   }
+  },
+  {
+   "name": "Ward1Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -31.5,
+       0.0
+      ],
+      [
+       31.5,
+       0.0
+      ],
+      [
+       31.5,
+       210.0
+      ],
+      [
+       -31.5,
+       210.0
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "Ward1Crystal",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      184.0
+     ],
+     "rotation": 0.785,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85598,
+      0.3683,
+      2.5,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ward1Halo",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      184.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.54782,
+      0.23571,
+      1.6,
+      0.4
+     ],
+     "z_order": 19,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ward1Light",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.34239,
+      0.14732,
+      1.0
+     ],
+     "intensity": 2.2,
+     "radius": 380.0,
+     "falloff": 1.7,
+     "shadow_softness": 6.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Ward2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      336.0,
+      -198.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.65
+     ],
+     "z_order": -30,
+     "size": [
+      130.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ward2",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_column"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       70.0,
+       210.0
+      ]
+     },
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/column_n.png"
+    }
+   }
+  },
+  {
+   "name": "Ward2Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -31.5,
+       0.0
+      ],
+      [
+       31.5,
+       0.0
+      ],
+      [
+       31.5,
+       210.0
+      ],
+      [
+       -31.5,
+       210.0
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "Ward2Crystal",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      44.0
+     ],
+     "rotation": 0.785,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85598,
+      0.3683,
+      2.5,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ward2Halo",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      44.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.54782,
+      0.23571,
+      1.6,
+      0.4
+     ],
+     "z_order": 19,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ward2Light",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      54.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.34239,
+      0.14732,
+      1.0
+     ],
+     "intensity": 2.2,
+     "radius": 380.0,
+     "falloff": 1.7,
+     "shadow_softness": 6.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Ward3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      566.0,
+      -38.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.65
+     ],
+     "z_order": -30,
+     "size": [
+      130.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ward3",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_column"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       70.0,
+       210.0
+      ]
+     },
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/column_n.png"
+    }
+   }
+  },
+  {
+   "name": "Ward3Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -31.5,
+       0.0
+      ],
+      [
+       31.5,
+       0.0
+      ],
+      [
+       31.5,
+       210.0
+      ],
+      [
+       -31.5,
+       210.0
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "Ward3Crystal",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      204.0
+     ],
+     "rotation": 0.785,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85598,
+      0.3683,
+      2.5,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ward3Halo",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.54782,
+      0.23571,
+      1.6,
+      0.4
+     ],
+     "z_order": 19,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ward3Light",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      214.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.34239,
+      0.14732,
+      1.0
+     ],
+     "intensity": 2.2,
+     "radius": 380.0,
+     "falloff": 1.7,
+     "shadow_softness": 6.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "BoltGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt1",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt2",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow3",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt3",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow4",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt4",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow5",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt5",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow6",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt6",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow7",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt7",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow8",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt8",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow9",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt9",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow10",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt10",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow11",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt11",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow12",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt12",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow13",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt13",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow14",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt14",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow15",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt15",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow16",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt16",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow17",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt17",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow18",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt18",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow19",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt19",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltGlow20",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      0.5351,
+      0.95015,
+      2.5,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      16.0,
+      40.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt20",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/bolt.png",
+     "color": [
+      5.53656,
+      6.62056,
+      8.0,
+      0.0
+     ],
+     "z_order": 41,
+     "size": [
+      16.0,
+      10.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BoltLight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.44799,
+      0.63828,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 620.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Shard1",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard2",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard3",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard4",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard5",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard6",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard7",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard8",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard9",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard10",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard11",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard12",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard13",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard14",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard15",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard16",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard17",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shard18",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shard.png",
+     "color": [
+      1.05308,
+      2.76828,
+      4.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      64.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NovaLight",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.69207,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 700.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0,
+     "height": 0.3
+    }
+   }
+  },
+  {
+   "name": "StormVortex",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -146.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.36
+     ]
+    },
+    "unlit": {},
+    "gpu_particles": {
+     "count": 140000,
+     "blend_mode": "Additive",
+     "z_order": -36,
+     "color_start": [
+      0.6163,
+      0.26518,
+      1.8,
+      0.0
+     ],
+     "color_mid": [
+      0.6163,
+      0.26518,
+      1.8,
+      0.3
+     ],
+     "color_end": [
+      0.31592,
+      0.83048,
+      1.2,
+      0.0
+     ],
+     "lifetime": [
+      2.5,
+      4.5
+     ],
+     "speed": [
+      60.0,
+      240.0
+     ],
+     "drag": 0.8,
+     "swirl": 1.1,
+     "arms": 4,
+     "radius": 40.0,
+     "size": [
+      2.2,
+      0.8
+     ],
+     "stretch": 1.5,
+     "noise": 18.0,
+     "noise_speed": 3.0,
+     "seed": 11
+    }
+   }
+  },
+  {
+   "name": "StormColumn",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.36
+     ]
+    },
+    "unlit": {},
+    "gpu_particles": {
+     "count": 50000,
+     "blend_mode": "Additive",
+     "z_order": 24,
+     "color_start": [
+      0.63185,
+      1.66097,
+      2.4,
+      0.0
+     ],
+     "color_mid": [
+      0.63185,
+      1.66097,
+      2.4,
+      0.55
+     ],
+     "color_end": [
+      0.41087,
+      0.17678,
+      1.2,
+      0.0
+     ],
+     "lifetime": [
+      2.0,
+      4.0
+     ],
+     "speed": [
+      2.0,
+      18.0
+     ],
+     "angle": [
+      1.37,
+      1.77
+     ],
+     "gravity": [
+      0.0,
+      170.0
+     ],
+     "radius": 230.0,
+     "edge": true,
+     "size": [
+      2.4,
+      0.4
+     ],
+     "stretch": 1.0,
+     "noise": 20.0,
+     "noise_speed": 2.0,
+     "seed": 23
+    }
+   }
+  },
+  {
+   "name": "StormKnot",
+   "components": {
+    "transform": {
+     "position": [
+      -355.5,
+      112.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "gpu_particles": {
+     "count": 20000,
+     "blend_mode": "Additive",
+     "z_order": 26,
+     "color_start": [
+      1.38414,
+      1.78002,
+      2.0,
+      0.0
+     ],
+     "color_mid": [
+      1.38414,
+      1.78002,
+      2.0,
+      0.3
+     ],
+     "color_end": [
+      0.51359,
+      0.22098,
+      1.5,
+      0.0
+     ],
+     "lifetime": [
+      0.7,
+      1.5
+     ],
+     "speed": [
+      80.0,
+      160.0
+     ],
+     "drag": 1.5,
+     "attract": 2.5,
+     "swirl": 3.5,
+     "size": [
+      1.8,
+      0.4
+     ],
+     "stretch": 2.0,
+     "seed": 37
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "30   Spell Storm",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Up / Down  how many   Space  stop time   1-4 post   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s30_spell_storm.lua"
+    }
+   }
+  }
+ ]
+}

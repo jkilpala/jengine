@@ -1,0 +1,4177 @@
+{
+ "name": "03 - Crypt",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.3,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.8
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.42
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.01,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.8,
+       0.08
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0012
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.13287,
+      0.17887,
+      0.52252
+     ],
+     "intensity": 0.05
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1440.0,
+      540.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -48,
+     "size": [
+      1440.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       360.0,
+       180.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "WallFoot",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -172.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/spark.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.75
+     ],
+     "z_order": -47,
+     "size": [
+      1680.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth1",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      116.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Column1",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_column"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      84.0,
+      454.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       84.0,
+       224.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/column_n.png"
+    }
+   }
+  },
+  {
+   "name": "Capital1",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      318.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      112.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Column1Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       42.0,
+       0.0
+      ],
+      [
+       42.0,
+       540.0
+      ],
+      [
+       -42.0,
+       540.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      116.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Column2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_column"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      84.0,
+      454.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       84.0,
+       224.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/column_n.png"
+    }
+   }
+  },
+  {
+   "name": "Capital2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      318.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      112.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Column2Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       42.0,
+       0.0
+      ],
+      [
+       42.0,
+       540.0
+      ],
+      [
+       -42.0,
+       540.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth3",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      116.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Column3",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_column"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      84.0,
+      454.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       84.0,
+       224.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/column_n.png"
+    }
+   }
+  },
+  {
+   "name": "Capital3",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      318.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      112.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Column3Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       42.0,
+       0.0
+      ],
+      [
+       42.0,
+       540.0
+      ],
+      [
+       -42.0,
+       540.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      348.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -28,
+     "size": [
+      1440.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Chain1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      348.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_chain"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      18.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       18.0,
+       72.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/chain_n.png"
+    }
+   }
+  },
+  {
+   "name": "Chain2",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      348.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_chain"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      18.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       18.0,
+       72.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/chain_n.png"
+    }
+   }
+  },
+  {
+   "name": "Chain3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      348.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_chain"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      18.0,
+      290.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       18.0,
+       72.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/chain_n.png"
+    }
+   }
+  },
+  {
+   "name": "Barrel1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -577.0,
+      -206.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.7
+     ],
+     "z_order": -21,
+     "size": [
+      138.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel1",
+   "components": {
+    "transform": {
+     "position": [
+      -585.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrel"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      92.0,
+      118.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/barrel_n.png"
+    }
+   }
+  },
+  {
+   "name": "Barrel1Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -585.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -41.4,
+       0.0
+      ],
+      [
+       41.4,
+       0.0
+      ],
+      [
+       41.4,
+       113.28
+      ],
+      [
+       -41.4,
+       113.28
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -492.0,
+      -224.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.7
+     ],
+     "z_order": -21,
+     "size": [
+      150.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel2",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrel"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      100.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/barrel_n.png"
+    }
+   }
+  },
+  {
+   "name": "Barrel2Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -45.0,
+       0.0
+      ],
+      [
+       45.0,
+       0.0
+      ],
+      [
+       45.0,
+       122.88
+      ],
+      [
+       -45.0,
+       122.88
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -292.0,
+      -216.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.7
+     ],
+     "z_order": -21,
+     "size": [
+      126.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      84.0,
+      84.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/crate_n.png"
+    }
+   }
+  },
+  {
+   "name": "Crate1Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -37.800000000000004,
+       0.0
+      ],
+      [
+       37.800000000000004,
+       0.0
+      ],
+      [
+       37.800000000000004,
+       80.64
+      ],
+      [
+       -37.800000000000004,
+       80.64
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      178.0,
+      -212.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.7
+     ],
+     "z_order": -21,
+     "size": [
+      132.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel3",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -216.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrel"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      88.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/barrel_n.png"
+    }
+   }
+  },
+  {
+   "name": "Barrel3Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -216.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -39.6,
+       0.0
+      ],
+      [
+       39.6,
+       0.0
+      ],
+      [
+       39.6,
+       107.52
+      ],
+      [
+       -39.6,
+       107.52
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      553.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.7
+     ],
+     "z_order": -21,
+     "size": [
+      180.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate2",
+   "components": {
+    "transform": {
+     "position": [
+      545.0,
+      -234.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/crate_n.png"
+    }
+   }
+  },
+  {
+   "name": "Crate2Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      545.0,
+      -234.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -54.0,
+       0.0
+      ],
+      [
+       54.0,
+       0.0
+      ],
+      [
+       54.0,
+       115.19999999999999
+      ],
+      [
+       -54.0,
+       115.19999999999999
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate3",
+   "components": {
+    "transform": {
+     "position": [
+      556.0,
+      -118.0
+     ],
+     "rotation": 0.08,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/crate_n.png"
+    }
+   }
+  },
+  {
+   "name": "Crate3Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      556.0,
+      -118.0
+     ],
+     "rotation": 0.08,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -41.4,
+       0.0
+      ],
+      [
+       41.4,
+       0.0
+      ],
+      [
+       41.4,
+       88.32
+      ],
+      [
+       -41.4,
+       88.32
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch1Stick",
+   "components": {
+    "transform": {
+     "position": [
+      -545.0,
+      14.0
+     ],
+     "rotation": 0.25,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.03968,
+      0.02452,
+      0.01341,
+      1.0
+     ],
+     "z_order": -26,
+     "size": [
+      8.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch1Bracket",
+   "components": {
+    "transform": {
+     "position": [
+      -555.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.02721,
+      0.02721,
+      0.0331,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      30.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch1Glow",
+   "components": {
+    "transform": {
+     "position": [
+      -541.0,
+      62.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.31358,
+      0.02782,
+      0.45
+     ],
+     "z_order": -10,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Torch1Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      -546.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch1Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      -539.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      4.4,
+      3.64131,
+      1.97116,
+      0.95
+     ],
+     "z_order": -21,
+     "size": [
+      26.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch1Flame3",
+   "components": {
+    "transform": {
+     "position": [
+      -532.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch1Embers",
+   "components": {
+    "transform": {
+     "position": [
+      -539.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 6.0,
+     "max_particles": 40,
+     "lifetime": [
+      1.2,
+      2.4
+     ],
+     "speed": [
+      30.0,
+      90.0
+     ],
+     "angle": [
+      1.25,
+      1.89
+     ],
+     "color_start": [
+      5.0,
+      3.46035,
+      0.8532,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      4.0,
+      7.0
+     ],
+     "size_end": [
+      1.5,
+      2.5
+     ],
+     "gravity_modifier": -0.1,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -9,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 8.0
+     },
+     "blend_mode": "Additive",
+     "stretch": 0.03
+    }
+   }
+  },
+  {
+   "name": "Torch1Light",
+   "components": {
+    "transform": {
+     "position": [
+      -539.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.39312,
+      0.11928
+     ],
+     "intensity": 2.4,
+     "radius": 400.0,
+     "falloff": 2.3,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "Torch2Stick",
+   "components": {
+    "transform": {
+     "position": [
+      -215.0,
+      44.0
+     ],
+     "rotation": 0.25,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.03968,
+      0.02452,
+      0.01341,
+      1.0
+     ],
+     "z_order": -26,
+     "size": [
+      8.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch2Bracket",
+   "components": {
+    "transform": {
+     "position": [
+      -225.0,
+      26.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.02721,
+      0.02721,
+      0.0331,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      30.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch2Glow",
+   "components": {
+    "transform": {
+     "position": [
+      -211.0,
+      92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.31358,
+      0.02782,
+      0.45
+     ],
+     "z_order": -10,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Torch2Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      -216.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch2Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      -209.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      4.4,
+      3.64131,
+      1.97116,
+      0.95
+     ],
+     "z_order": -21,
+     "size": [
+      26.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch2Flame3",
+   "components": {
+    "transform": {
+     "position": [
+      -202.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch2Embers",
+   "components": {
+    "transform": {
+     "position": [
+      -209.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 6.0,
+     "max_particles": 40,
+     "lifetime": [
+      1.2,
+      2.4
+     ],
+     "speed": [
+      30.0,
+      90.0
+     ],
+     "angle": [
+      1.25,
+      1.89
+     ],
+     "color_start": [
+      5.0,
+      3.46035,
+      0.8532,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      4.0,
+      7.0
+     ],
+     "size_end": [
+      1.5,
+      2.5
+     ],
+     "gravity_modifier": -0.1,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -9,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 8.0
+     },
+     "blend_mode": "Additive",
+     "stretch": 0.03
+    }
+   }
+  },
+  {
+   "name": "Torch2Light",
+   "components": {
+    "transform": {
+     "position": [
+      -209.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.39312,
+      0.11928
+     ],
+     "intensity": 2.4,
+     "radius": 400.0,
+     "falloff": 2.3,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "Torch3Stick",
+   "components": {
+    "transform": {
+     "position": [
+      215.0,
+      44.0
+     ],
+     "rotation": 0.25,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.03968,
+      0.02452,
+      0.01341,
+      1.0
+     ],
+     "z_order": -26,
+     "size": [
+      8.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch3Bracket",
+   "components": {
+    "transform": {
+     "position": [
+      205.0,
+      26.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.02721,
+      0.02721,
+      0.0331,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      30.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch3Glow",
+   "components": {
+    "transform": {
+     "position": [
+      219.0,
+      92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.31358,
+      0.02782,
+      0.45
+     ],
+     "z_order": -10,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Torch3Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      214.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch3Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      221.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      4.4,
+      3.64131,
+      1.97116,
+      0.95
+     ],
+     "z_order": -21,
+     "size": [
+      26.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch3Flame3",
+   "components": {
+    "transform": {
+     "position": [
+      228.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch3Embers",
+   "components": {
+    "transform": {
+     "position": [
+      221.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 6.0,
+     "max_particles": 40,
+     "lifetime": [
+      1.2,
+      2.4
+     ],
+     "speed": [
+      30.0,
+      90.0
+     ],
+     "angle": [
+      1.25,
+      1.89
+     ],
+     "color_start": [
+      5.0,
+      3.46035,
+      0.8532,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      4.0,
+      7.0
+     ],
+     "size_end": [
+      1.5,
+      2.5
+     ],
+     "gravity_modifier": -0.1,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -9,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 8.0
+     },
+     "blend_mode": "Additive",
+     "stretch": 0.03
+    }
+   }
+  },
+  {
+   "name": "Torch3Light",
+   "components": {
+    "transform": {
+     "position": [
+      221.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.39312,
+      0.11928
+     ],
+     "intensity": 2.4,
+     "radius": 400.0,
+     "falloff": 2.3,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "Torch4Stick",
+   "components": {
+    "transform": {
+     "position": [
+      545.0,
+      14.0
+     ],
+     "rotation": 0.25,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.03968,
+      0.02452,
+      0.01341,
+      1.0
+     ],
+     "z_order": -26,
+     "size": [
+      8.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch4Bracket",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.02721,
+      0.02721,
+      0.0331,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      30.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch4Glow",
+   "components": {
+    "transform": {
+     "position": [
+      549.0,
+      62.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.31358,
+      0.02782,
+      0.45
+     ],
+     "z_order": -10,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Torch4Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      544.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch4Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      551.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      4.4,
+      3.64131,
+      1.97116,
+      0.95
+     ],
+     "z_order": -21,
+     "size": [
+      26.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch4Flame3",
+   "components": {
+    "transform": {
+     "position": [
+      558.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      2.2,
+      0.37541,
+      0.02204,
+      0.85
+     ],
+     "z_order": -24,
+     "size": [
+      15.6,
+      31.2
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Torch4Embers",
+   "components": {
+    "transform": {
+     "position": [
+      551.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 6.0,
+     "max_particles": 40,
+     "lifetime": [
+      1.2,
+      2.4
+     ],
+     "speed": [
+      30.0,
+      90.0
+     ],
+     "angle": [
+      1.25,
+      1.89
+     ],
+     "color_start": [
+      5.0,
+      3.46035,
+      0.8532,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      4.0,
+      7.0
+     ],
+     "size_end": [
+      1.5,
+      2.5
+     ],
+     "gravity_modifier": -0.1,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -9,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 8.0
+     },
+     "blend_mode": "Additive",
+     "stretch": 0.03
+    }
+   }
+  },
+  {
+   "name": "Torch4Light",
+   "components": {
+    "transform": {
+     "position": [
+      551.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.39312,
+      0.11928
+     ],
+     "intensity": 2.4,
+     "radius": 400.0,
+     "falloff": 2.3,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "Candle1Stick1",
+   "components": {
+    "transform": {
+     "position": [
+      -383.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      -383.0,
+      -228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle1Stick2",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -256.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle1Stick3",
+   "components": {
+    "transform": {
+     "position": [
+      -357.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1Flame3",
+   "components": {
+    "transform": {
+     "position": [
+      -357.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle1Glow",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.42123,
+      0.05296,
+      0.5
+     ],
+     "z_order": -10,
+     "size": [
+      190.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle1Light",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.14732
+     ],
+     "intensity": 2.2,
+     "radius": 300.0,
+     "falloff": 1.8,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "Candle2Stick1",
+   "components": {
+    "transform": {
+     "position": [
+      50.5,
+      -281.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      50.5,
+      -259.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle2Stick2",
+   "components": {
+    "transform": {
+     "position": [
+      63.5,
+      -275.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      63.5,
+      -239.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle2Stick3",
+   "components": {
+    "transform": {
+     "position": [
+      76.5,
+      -281.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Flame3",
+   "components": {
+    "transform": {
+     "position": [
+      76.5,
+      -231.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle2Stick4",
+   "components": {
+    "transform": {
+     "position": [
+      89.5,
+      -275.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Flame4",
+   "components": {
+    "transform": {
+     "position": [
+      89.5,
+      -253.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle2Glow",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      -245.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.42123,
+      0.05296,
+      0.5
+     ],
+     "z_order": -10,
+     "size": [
+      190.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle2Light",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      -245.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.14732
+     ],
+     "intensity": 2.2,
+     "radius": 300.0,
+     "falloff": 1.8,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "Candle3Stick1",
+   "components": {
+    "transform": {
+     "position": [
+      353.5,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle3Flame1",
+   "components": {
+    "transform": {
+     "position": [
+      353.5,
+      -213.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle3Stick2",
+   "components": {
+    "transform": {
+     "position": [
+      366.5,
+      -241.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69207,
+      0.60383,
+      0.39312,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      8.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle3Flame2",
+   "components": {
+    "transform": {
+     "position": [
+      366.5,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -17,
+     "size": [
+      13.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle3Glow",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.42123,
+      0.05296,
+      0.5
+     ],
+     "z_order": -10,
+     "size": [
+      190.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle3Light",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.14732
+     ],
+     "intensity": 2.2,
+     "radius": 300.0,
+     "falloff": 1.8,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "WispGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.37541,
+      1.32843,
+      2.2,
+      0.6
+     ],
+     "z_order": 30,
+     "size": [
+      170.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "WispCore",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ember.png",
+     "color": [
+      4.15242,
+      5.34006,
+      6.0,
+      1.0
+     ],
+     "z_order": 31,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "WispTrail",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 40.0,
+     "max_particles": 160,
+     "lifetime": [
+      0.6,
+      1.4
+     ],
+     "speed": [
+      6.0,
+      30.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.04,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 29,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 10.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       1.79196,
+       3.14964,
+       4.0,
+       0.9
+      ],
+      [
+       1.0,
+       0.14648,
+       0.42808,
+       2.0,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Wisp",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      0.52252,
+      1.0
+     ],
+     "intensity": 2.6,
+     "radius": 460.0,
+     "falloff": 1.8,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 30.0,
+     "max_particles": 400,
+     "lifetime": [
+      6.0,
+      11.0
+     ],
+     "speed": [
+      3.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 40,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       720
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       0.89001,
+       0.69207,
+       0.0
+      ],
+      [
+       0.25,
+       1.0,
+       0.89001,
+       0.69207,
+       0.6
+      ],
+      [
+       0.75,
+       1.0,
+       0.89001,
+       0.69207,
+       0.6
+      ],
+      [
+       1.0,
+       1.0,
+       0.89001,
+       0.69207,
+       0.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "03   Crypt",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Mouse  wisp   N normal maps   L torches   1-4 post effects   0 all   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s03_crypt.lua"
+    }
+   }
+  }
+ ]
+}

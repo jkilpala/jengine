@@ -1,0 +1,510 @@
+{
+ "name": "181 - Emission shapes",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Fuse",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 120.0,
+       "c1y": 260.0,
+       "c2x": 260.0,
+       "c2y": -60.0,
+       "x": 380.0,
+       "y": 200.0
+      }
+     ],
+     "stroke_color": [
+      0.45,
+      0.35,
+      0.3,
+      1.0
+     ],
+     "stroke_width": 6.0,
+     "z_order": 1,
+     "closed": false
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/circle16.png",
+     "emission_rate": 60.0,
+     "max_particles": 400,
+     "lifetime": [
+      0.6,
+      1.2
+     ],
+     "speed": [
+      30.0,
+      90.0
+     ],
+     "angle": [
+      0.0,
+      6.283
+     ],
+     "color_start": [
+      1.0,
+      0.75,
+      0.3,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.3,
+      0.1,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      1.0
+     ],
+     "gravity_modifier": 0.3,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "path"
+     }
+    }
+   }
+  },
+  {
+   "name": "Star",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emit_star.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      256.0,
+      256.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/circle16.png",
+     "emission_rate": 140.0,
+     "max_particles": 400,
+     "lifetime": [
+      0.6,
+      1.2
+     ],
+     "speed": [
+      10.0,
+      40.0
+     ],
+     "angle": [
+      1.2,
+      1.9
+     ],
+     "color_start": [
+      1.0,
+      0.6,
+      0.2,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.2,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      1.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 6,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "sprite",
+      "edge": true
+     }
+    }
+   }
+  },
+  {
+   "name": "StarMist",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emit_star.png",
+     "color": [
+      1,
+      1,
+      1,
+      0
+     ],
+     "z_order": 1,
+     "size": [
+      256.0,
+      256.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/circle16.png",
+     "emission_rate": 30.0,
+     "max_particles": 400,
+     "lifetime": [
+      1.5,
+      2.5
+     ],
+     "speed": [
+      5.0,
+      15.0
+     ],
+     "angle": [
+      1.4,
+      1.7
+     ],
+     "color_start": [
+      0.6,
+      0.8,
+      1.0,
+      0.5
+     ],
+     "color_end": [
+      0.6,
+      0.8,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      10.0,
+      14.0
+     ],
+     "size_end": [
+      16.0,
+      20.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 4,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "sprite",
+      "edge": false
+     }
+    }
+   }
+  },
+  {
+   "name": "LFuse",
+   "components": {
+    "transform": {
+     "position": [
+      -310.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "a path: sparks along a curve",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "LStar",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "a sprite: its outline and its body",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "181 - Emission shapes",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   E: the star burns its outline / its whole shape   Space: stop / start turning",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: sparks rise from every part of the curve, none off it; fire burns along the star's outline and mist rises",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "off its body, both turning with it; E moves the fire from the outline to the whole star and back.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_181_emission_shapes.lua"
+    }
+   }
+  }
+ ]
+}

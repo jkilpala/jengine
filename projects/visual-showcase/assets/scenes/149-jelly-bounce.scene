@@ -1,0 +1,701 @@
+{
+ "name": "149 - Jelly Bounce",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.25
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Kitchen",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/jellybounce/kitchen.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Table",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1400.0,
+       "height": 80.0
+      }
+     },
+     "friction": 0.8
+    }
+   }
+  },
+  {
+   "name": "Shelf",
+   "components": {
+    "transform": {
+     "position": [
+      110.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/jellybounce/shelf.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      512.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 512.0,
+       "height": 34.0
+      }
+     },
+     "friction": 0.8
+    }
+   }
+  },
+  {
+   "name": "Wall-1",
+   "components": {
+    "transform": {
+     "position": [
+      -680.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 1000.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Wall1",
+   "components": {
+    "transform": {
+     "position": [
+      680.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 1000.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Ceiling",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      420.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1400.0,
+       "height": 80.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Cherry",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/jellybounce/jelly.png",
+     "color": [
+      1.0,
+      0.06372,
+      0.11928,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "angular_damping": 2.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 110.4,
+       "height": 110.4
+      }
+     },
+     "restitution": 0.3,
+     "friction": 0.7
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "jelly": {
+     "cols": 6,
+     "rows": 6,
+     "response": 0.55
+    },
+    "tags": [
+     "jelly"
+    ]
+   }
+  },
+  {
+   "name": "Lime",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/jellybounce/jelly.png",
+     "color": [
+      0.14732,
+      0.82757,
+      0.19599,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "angular_damping": 2.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 92.0,
+       "height": 92.0
+      }
+     },
+     "restitution": 0.3,
+     "friction": 0.7
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "jelly": {
+     "cols": 6,
+     "rows": 6,
+     "response": 0.55
+    },
+    "tags": [
+     "jelly"
+    ]
+   }
+  },
+  {
+   "name": "Berry",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/jellybounce/jelly.png",
+     "color": [
+      0.21404,
+      0.2957,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "angular_damping": 2.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 101.2,
+       "height": 101.2
+      }
+     },
+     "restitution": 0.3,
+     "friction": 0.7
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "jelly": {
+     "cols": 6,
+     "rows": 6,
+     "response": 0.55
+    },
+    "tags": [
+     "jelly"
+    ]
+   }
+  },
+  {
+   "name": "Lemon",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/jellybounce/jelly.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "angular_damping": 2.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 92.0,
+       "height": 92.0
+      }
+     },
+     "restitution": 0.3,
+     "friction": 0.7
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "jelly": {
+     "cols": 6,
+     "rows": 6,
+     "response": 0.55
+    },
+    "tags": [
+     "jelly"
+    ]
+   }
+  },
+  {
+   "name": "Grape",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/jellybounce/jelly.png",
+     "color": [
+      0.477,
+      0.13287,
+      0.89001,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      130.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "angular_damping": 2.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 119.60000000000001,
+       "height": 119.60000000000001
+      }
+     },
+     "restitution": 0.3,
+     "friction": 0.7
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "jelly": {
+     "cols": 6,
+     "rows": 6,
+     "response": 0.55
+    },
+    "tags": [
+     "jelly"
+    ]
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s149_jelly_bounce.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "149   Jelly Bounce",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click a jelly to poke it and send it flying   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,453 @@
+{
+  "name": "45-AnimStateMachine",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "45 - Animation State Machine",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "AnimStateMachine rides alongside SpriteAnimator and chooses the clip; the animator plays it.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Transitions are checked in order and the first whose conditions all hold wins: BoolEquals, FloatGreaterThan, FloatLessThan, ClipFinished.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Parameters come from scripts - set_anim_float / set_anim_bool / set_anim_trigger. The FSM never reads input itself.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Hold Left/Right to raise `speed` (idle -> walk -> run); press W to set the `wave` bool - the non-looping clip returns via ClipFinished.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Villager",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            4.0,
+            4.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/npc_villager.png",
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 3,
+          "size": [
+            32.0,
+            32.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "sprite_animator": {
+          "clip_source": "animations/villager_states.anim",
+          "current_clip": "idle",
+          "current_frame": 0,
+          "elapsed": 0.0,
+          "playing": true,
+          "speed": 1.0
+        },
+        "anim_state_machine": {
+          "states": {
+            "idle": {
+              "clip_name": "idle",
+              "transitions": [
+                {
+                  "target": "wave",
+                  "conditions": [
+                    {
+                      "type": "BoolEquals",
+                      "param": "wave",
+                      "value": true
+                    }
+                  ]
+                },
+                {
+                  "target": "walk",
+                  "conditions": [
+                    {
+                      "type": "FloatGreaterThan",
+                      "param": "speed",
+                      "threshold": 0.1
+                    }
+                  ]
+                }
+              ]
+            },
+            "walk": {
+              "clip_name": "walk",
+              "transitions": [
+                {
+                  "target": "run",
+                  "conditions": [
+                    {
+                      "type": "FloatGreaterThan",
+                      "param": "speed",
+                      "threshold": 0.65
+                    }
+                  ]
+                },
+                {
+                  "target": "idle",
+                  "conditions": [
+                    {
+                      "type": "FloatLessThan",
+                      "param": "speed",
+                      "threshold": 0.1
+                    }
+                  ]
+                }
+              ]
+            },
+            "run": {
+              "clip_name": "run",
+              "transitions": [
+                {
+                  "target": "walk",
+                  "conditions": [
+                    {
+                      "type": "FloatLessThan",
+                      "param": "speed",
+                      "threshold": 0.65
+                    }
+                  ]
+                }
+              ]
+            },
+            "wave": {
+              "clip_name": "wave",
+              "transitions": [
+                {
+                  "target": "idle",
+                  "conditions": [
+                    {
+                      "type": "ClipFinished"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "current_state": "idle",
+          "parameters": {}
+        }
+      }
+    },
+    {
+      "name": "StateLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -80.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "state: idle",
+          "font_id": "",
+          "font_scale": 1.8,
+          "color": [
+            1.0,
+            0.9,
+            0.5,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SpeedLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -130.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "speed: 0.00",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            0.8,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Graph",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -180.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "idle -(speed>0.1)-> walk -(speed>0.65)-> run     idle -(wave)-> wave -(ClipFinished)-> idle",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.7,
+            0.8,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "anim: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_45_anim_fsm.lua"
+        }
+      }
+    }
+  ]
+}

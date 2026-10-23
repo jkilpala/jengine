@@ -1,0 +1,85 @@
+---
+draft: false
+title: Scene Management
+description: Loading and managing multiple scenes in jEngine.
+---
+
+jEngine supports scene transitions, stacking, and querying.
+
+## Scene Transitions
+
+```lua
+-- Replace current scene with a new one
+Scene.load("scenes/level2.scene")
+
+-- Push current scene onto stack and load new one (for menus, overlays)
+Scene.push("scenes/pause_menu.scene")
+
+-- Return to previous scene
+Scene.pop()
+
+-- Query current scene
+local name = Scene.get_name()
+
+-- Fade to and from a colour around a transition
+Scene.fade_out(0.4, 0, 0, 0)
+Scene.fade_in(0.4, 0, 0, 0)
+
+-- Quit (native closes the window, the editor stops Play; a web page cannot close itself)
+Scene.quit()
+```
+
+Scene paths are relative to `assets/`.
+
+## Scene File Format
+
+Scenes are JSON files (`.scene`):
+
+```json
+{
+  "version": 2,
+  "name": "Level 1",
+  "audio_refs": ["sounds/jump.wav"],
+  "atlas_refs": [],
+  "entities": [
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [100, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "player.png", "color": [1,1,1,1], "z_order": 1 },
+        "script": { "language": "Lua", "source_path": "scripts/player.lua" },
+        "rigid_body": { "body_type": "Dynamic", "mass": 1.0 },
+        "collider": { "shape": { "Box": { "width": 32, "height": 32 } } }
+      }
+    },
+    {
+      "name": "Ground",
+      "components": {
+        "transform": { "position": [0, -200], "rotation": 0, "scale": [20, 1] },
+        "sprite": { "texture_id": "ground.png", "color": [1,1,1,1], "z_order": 0 },
+        "rigid_body": { "body_type": "Static" },
+        "collider": { "shape": { "Box": { "width": 640, "height": 32 } } }
+      }
+    }
+  ]
+}
+```
+
+:::note
+Scene transitions are deferred — they happen at the frame boundary after all scripts finish executing.
+:::
+
+- **`"version": 2`** dispatches every component through the registry, so [package](/packages/)
+  components load; a v1 scene keeps an unknown key as inert custom data. Both versions hold a
+  hierarchy: `"parent": "Body"` beside an entity's `"name"`.
+- **`audio_refs`** lists every clip the scene may play - a clip not listed does not play.
+- **`atlas_refs`** names ready-made sprite sheets to load with the scene.
+- A component key the engine does not know is kept as custom data, so a misspelt `"velocity2d"` loads,
+  saves and does nothing. Custom components are CapitalCase to tell them apart.
+
+:::caution[Module state outlives a scene]
+`require` caches modules for the whole session, not per scene. A module-level variable keeps its value
+into the next scene; reset a module's state from the new scene's `init`.
+:::
+
+See the [Scene Format Reference](/api-reference/scene-format/) for full documentation.

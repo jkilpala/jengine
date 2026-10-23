@@ -1,0 +1,19 @@
+[package]
+name = "jengine-parallax"
+description = "Parallax scrolling background package for jEngine — multi-layer depth-based scrolling"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+jengine-core = { path = "../../crates/jengine-core", default-features = false }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+# The integration tests drive a real `hecs::World` through the package host.
+hecs = { workspace = true }

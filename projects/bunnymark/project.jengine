@@ -1,0 +1,47 @@
+{
+  "name": "BunnyMark",
+  "default_scene": "scenes/main.scene",
+  "settings": {
+    "width": 1280,
+    "height": 720,
+    "background_color": [0.2, 0.2, 0.25, 1.0],
+    "target_fps": 60,
+    "title": "jEngine BunnyMark",
+    "entry_scene": "scenes/main.scene",
+    "physics": {
+      "gravity_x": 0.0,
+      "gravity_y": 0.0,
+      "backend": "none",
+      "fixed_timestep": 0.016666,
+      "length_unit": 1.0
+    },
+    "input_actions": [
+      {
+        "name": "spawn_bunnies",
+        "keys": ["Space"]
+      }
+    ],
+    "code_editor": "",
+    "asset_pipeline": null,
+    "enabled_packages": []
+  },
+  "component_definitions": [
+    {
+      "name": "BunnyData",
+      "fields": [
+        { "name": "velocity_x", "field_type": "Float", "default_value": 0.0 },
+        { "name": "velocity_y", "field_type": "Float", "default_value": 0.0 },
+        { "name": "tint_index", "field_type": "Int", "default_value": 0 }
+      ]
+    },
+    {
+      "name": "BunnySpawner",
+      "fields": [
+        { "name": "spawn_count", "field_type": "Int", "default_value": 100 },
+        { "name": "total_spawned", "field_type": "Int", "default_value": 0 },
+        { "name": "auto_spawn", "field_type": "Bool", "default_value": false }
+      ]
+    }
+  ],
+  "packages": []
+}

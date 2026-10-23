@@ -1,0 +1,91 @@
+[package]
+name = "jengine-server"
+description = "A game server framework for jEngine: rooms, players whose state outlives a room, interest-managed sync, and a store"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "jengine-server"
+path = "src/main.rs"
+
+# The deploy tool: an agent for each machine and the CLI that talks to them.
+[[bin]]
+name = "jengine-fleet"
+path = "src/bin/jengine-fleet.rs"
+required-features = ["fleet"]
+
+[[example]]
+name = "zones"
+path = "examples/zones/main.rs"
+required-features = ["sqlite"]
+
+[features]
+default = ["sqlite", "fleet"]
+# `jengine-fleet`: deploying servers to machines. A game's own server crate
+# that wants only the library turns this off.
+fleet = ["tokio/process", "dep:zip"]
+# The single-node store. Off, the server keeps players in memory only.
+sqlite = ["dep:rusqlite"]
+
+[dependencies]
+# The step function and the bookkeeping a client and this server share.
+jengine-netcode = { path = "../jengine-netcode" }
+# Live ops: the snapshot and manifest a game reads, and the key that signs them.
+jengine-liveops = { path = "../jengine-liveops" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+# Unlike `jengine-relay` (a thread per connection, a few messages a minute)
+# this holds thousands of sockets and ticks rooms on timers, which is what an
+# async runtime is for.
+tokio = { version = "1", features = ["rt-multi-thread", "net", "sync", "time", "macros", "signal", "io-util"] }
+# HTTP and the WebSocket upgrade on one port: a load balancer wants a health
+# check at the same address the players connect to.
+axum = { version = "0.8", default-features = false, features = ["http1", "tokio", "ws", "json", "query"] }
+futures-util = { version = "0.3", default-features = false, features = ["sink"] }
+getrandom = "0.3"
+# What the process and the machine are using: the dashboard's CPU and memory.
+sysinfo = { version = "0.33", default-features = false, features = ["system", "disk", "network"] }
+# TLS for the listeners that carry secrets - the fleet's agent and web
+# interface, a cluster's coordinator. `ring` rather than the default
+# provider, which needs NASM and CMake to build on Windows.
+axum-server = { version = "0.7", default-features = false, features = ["tls-rustls-no-provider"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+rustls-pemfile = "2"
+webpki-roots = "0.26"
+# `jengine-fleet cert`: a self-signed certificate without needing openssl.
+rcgen = "0.13"
+# An archive release: a zip the agent unpacks beside the executable.
+zip = { version = "2", default-features = false, features = ["deflate"], optional = true }
+# Blocking HTTP: between a node and its cluster's coordinator, and between
+# the fleet's command line and its agents.
+ureq = { version = "2", default-features = false, features = ["tls", "json"] }
+sha2 = "0.10"
+# Accounts: a password is kept as a salted, stretched hash, and a ticket from
+# somebody else's backend is believed by its signature.
+hmac = "0.12"
+pbkdf2 = "0.12"
+# `bundled` compiles SQLite in, so the binary has no system dependency and a
+# container needs nothing but the executable.
+rusqlite = { version = "0.37", features = ["bundled"], optional = true }
+
+# A server started here ends with this process however it ends - a job
+# object that kills its processes when the last handle closes (`fleet::tied`).
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Security", "Win32_System_JobObjects", "Win32_System_Threading"] }
+
+[dev-dependencies]
+# The engine's live ops client's HTTP hook returns `anyhow::Result`.
+anyhow = "1"
+# The engine itself, headless: the zones example owns a `Tilemap` and paths
+# its monsters with the engine's A*. A server links the same crates the
+# engine's packages are made of - this is the worked example of that.
+jengine-core = { path = "../jengine-core", default-features = false }
+# The engine's own client against this server, over a real socket - what a
+# game ships with, not a test double.
+jengine-net = { path = "../../packages/jengine-net" }

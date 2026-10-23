@@ -1,0 +1,1159 @@
+{
+ "name": "75 - The Controls Room",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.6
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.02,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   },
+   {
+    "name": "crt",
+    "enabled": true,
+    "params": {
+     "lines": {
+      "Float": 300.0
+     },
+     "scanline": {
+      "Float": 0.3
+     },
+     "mask": {
+      "Float": 0.15
+     },
+     "curvature": {
+      "Float": 0.04
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Screen",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/controls/screen.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "CONTROLS",
+     "font_id": "",
+     "font_scale": 3.2,
+     "color": [
+      0.17064,
+      1.0,
+      0.31855,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Rule",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.05088,
+      0.26327,
+      0.10048,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      460.0,
+      3.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Row0Label",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "THRUST",
+     "font_id": "",
+     "font_scale": 1.5,
+     "color": [
+      0.17064,
+      1.0,
+      0.31855,
+      1.0
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "Row0Keys",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      1.0,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Row1Label",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "TURN LEFT",
+     "font_id": "",
+     "font_scale": 1.5,
+     "color": [
+      0.17064,
+      1.0,
+      0.31855,
+      1.0
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "Row1Keys",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      1.0,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Row2Label",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "TURN RIGHT",
+     "font_id": "",
+     "font_scale": 1.5,
+     "color": [
+      0.17064,
+      1.0,
+      0.31855,
+      1.0
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "Row2Keys",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      1.0,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Row3Label",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "FIRE",
+     "font_id": "",
+     "font_scale": 1.5,
+     "color": [
+      0.17064,
+      1.0,
+      0.31855,
+      1.0
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "Row3Keys",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      1.0,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Row4Label",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "SHIELD",
+     "font_id": "",
+     "font_scale": 1.5,
+     "color": [
+      0.17064,
+      1.0,
+      0.31855,
+      1.0
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "Row4Keys",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      1.0,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Cursor",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      135.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.0331,
+      0.31855,
+      0.07324,
+      0.25
+     ],
+     "z_order": 3,
+     "size": [
+      480.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Help",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "UP / DOWN  choose     ENTER  rebind     BACKSPACE  defaults",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.05088,
+      0.26327,
+      0.10048,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Saved",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -275.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      1.0,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Field",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       -260.0,
+       -230.0
+      ],
+      [
+       260.0,
+       -230.0
+      ],
+      [
+       260.0,
+       230.0
+      ],
+      [
+       -260.0,
+       230.0
+      ]
+     ],
+     "closed": true,
+     "width": 3.0,
+     "color": [
+      0.05088,
+      0.26327,
+      0.10048,
+      1.0
+     ],
+     "z_order": 4,
+     "joint": "sharp"
+    }
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/controls/stars.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      512.0,
+      452.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ship",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/controls/ship.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Flame",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.0331,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      26.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shield",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/controls/shield.png",
+     "color": [
+      0.13287,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      76.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shot0",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -2010.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      10.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shot1",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -2010.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      10.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shot2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -2010.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      10.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shot3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -2010.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      10.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shot4",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -2010.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      10.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shot5",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -2010.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      10.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FieldLabel",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -266.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "the ship flies by these bindings",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.05088,
+      0.26327,
+      0.10048,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s75_controls_room.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "75   The Controls Room",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "Dialogue",
+  "version": 1,
+  "rows": [
+    {
+      "id": "start",
+      "if": "gate_open",
+      "else": "check",
+      "next": "open"
+    },
+    {
+      "id": "check",
+      "if": "loaves >= 1",
+      "else": "hungry",
+      "next": "bread"
+    },
+    {
+      "id": "hungry",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "The gate stays shut. Captain's orders - and no breakfast yet.",
+      "choices": [
+        {
+          "text": "Could you open it for me?",
+          "next": "no"
+        },
+        {
+          "text": "You look like a man who needs bread.",
+          "next": "hint"
+        },
+        {
+          "text": "Lazy guard.",
+          "set": {
+            "grumpy": true
+          },
+          "next": "insult"
+        }
+      ]
+    },
+    {
+      "id": "no",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "Not on an empty stomach, friend."
+    },
+    {
+      "id": "hint",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "One of Bess's loaves? I'd open [b]any[/b] gate for that."
+    },
+    {
+      "id": "insult",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "[color=red]Watch your tongue.[/color]"
+    },
+    {
+      "id": "bread",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "Is that... [b]a fresh loaf[/b]?",
+      "choices": [
+        {
+          "text": "For you, Sergeant.",
+          "if": "!grumpy",
+          "set": {
+            "loaves": "-1",
+            "gate_open": true
+          },
+          "next": "thanks"
+        },
+        {
+          "text": "Sorry about earlier. For you.",
+          "if": "grumpy",
+          "set": {
+            "loaves": "-1",
+            "gate_open": true,
+            "grumpy": false
+          },
+          "next": "thanks"
+        },
+        {
+          "text": "It's mine.",
+          "next": "sulk"
+        }
+      ]
+    },
+    {
+      "id": "thanks",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "Bless you. [wave]The gate is open![/wave]",
+      "event": "open_gate"
+    },
+    {
+      "id": "sulk",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "...Cruel."
+    },
+    {
+      "id": "open",
+      "speaker": "Sergeant Holt",
+      "portrait": "sprites/villagechatter/guard_portrait.png",
+      "text": "Safe travels, friend."
+    }
+  ]
+}

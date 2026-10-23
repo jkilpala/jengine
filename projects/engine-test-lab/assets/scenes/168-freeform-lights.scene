@@ -1,0 +1,455 @@
+{
+ "name": "168 - Freeform lights",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "intensity": 0.08
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.55,
+      0.55,
+      0.6,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      1180.0,
+      480.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LLight",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -110.0,
+       -120.0
+      ],
+      [
+       110.0,
+       -120.0
+      ],
+      [
+       110.0,
+       -50.0
+      ],
+      [
+       -40.0,
+       -50.0
+      ],
+      [
+       -40.0,
+       120.0
+      ],
+      [
+       -110.0,
+       120.0
+      ]
+     ],
+     "color": [
+      1.0,
+      0.65,
+      0.3
+     ],
+     "intensity": 1.0,
+     "falloff": 40.0
+    }
+   }
+  },
+  {
+   "name": "LLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "concave: an L",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Window",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -90.0,
+       -110.0
+      ],
+      [
+       40.0,
+       -110.0
+      ],
+      [
+       110.0,
+       100.0
+      ],
+      [
+       -20.0,
+       100.0
+      ]
+     ],
+     "color": [
+      0.6,
+      0.75,
+      1.0
+     ],
+     "intensity": 1.1,
+     "falloff": 70.0
+    }
+   }
+  },
+  {
+   "name": "WindowLabel",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "a window's pool, soft (falloff 70)",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hex",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       90.0,
+       0.0
+      ],
+      [
+       45.0,
+       77.94
+      ],
+      [
+       -45.0,
+       77.94
+      ],
+      [
+       -90.0,
+       0.0
+      ],
+      [
+       -45.0,
+       -77.94
+      ],
+      [
+       45.0,
+       -77.94
+      ]
+     ],
+     "color": [
+      0.4,
+      1.0,
+      0.6
+     ],
+     "intensity": 1.0,
+     "falloff": 30.0
+    }
+   }
+  },
+  {
+   "name": "HexLabel",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "Lighting.set_intensity / set_color",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "168 - Freeform lights",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Space: turn the window   R: spin the L",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: each light fills its outline evenly and fades smoothly past its edge - no brighter seam in the L's inside corner;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the window's pool is softer (a wider falloff); the hexagon pulses and shifts colour. They turn with their entity.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_168_freeform_lights.lua"
+    }
+   }
+  }
+ ]
+}

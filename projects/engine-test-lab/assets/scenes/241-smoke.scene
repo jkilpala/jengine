@@ -1,0 +1,335 @@
+{
+ "name": "241 - Smoke",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Air",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      960.0,
+      520.0
+     ]
+    },
+    "smoke": {
+     "cells": [
+      144,
+      78
+     ],
+     "walls": [
+      true,
+      true,
+      true,
+      true
+     ],
+     "fade": 0.05,
+     "vorticity": 0.7,
+     "color": [
+      0.9,
+      0.9,
+      0.95,
+      1.0
+     ],
+     "sources": [
+      {
+       "at": [
+        -300.0,
+        -220.0
+       ],
+       "radius": 24.0,
+       "density": 30.0,
+       "temperature": 10.0,
+       "velocity": [
+        0.0,
+        160.0
+       ],
+       "push": 6.0,
+       "color": [
+        0.9,
+        0.9,
+        0.95,
+        1.0
+       ],
+       "active": true
+      },
+      {
+       "at": [
+        420.0,
+        120.0
+       ],
+       "radius": 50.0,
+       "density": 0.0,
+       "temperature": 0.0,
+       "velocity": [
+        -500.0,
+        0.0
+       ],
+       "push": 5.0,
+       "active": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.4,
+      0.5,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      160.0,
+      30.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 160.0,
+       "height": 30.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Paddle",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.85,
+      0.55,
+      0.3,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      30.0,
+      140.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 30.0,
+       "height": 140.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "241 - Smoke",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   F fan   P puff   R reset",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: smoke rises from the bottom left, parts round the blue beam above it and pools under the top; the orange paddle sweeps",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "through it and pushes it aside, leaving a wake; F turns on a fan blowing it left from the right; P puffs at the paddle (`smoke`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_241_smoke.lua"
+    }
+   }
+  }
+ ]
+}

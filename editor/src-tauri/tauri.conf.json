@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "jEngine Editor",
+  "mainBinaryName": "jengine-editor",
+  "version": "0.1.0",
+  "identifier": "com.jengine.editor",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "jEngine Editor",
+        "width": 1280,
+        "height": 800,
+        "resizable": true,
+        "fullscreen": false,
+        "dragDropEnabled": false,
+        "create": false,
+        "additionalBrowserArgs": "--disable-features=msWebOOUI,msPdfOOUI,msSmartScreenProtection"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "publisher": "Juha Kilpala",
+    "copyright": "Copyright (c) 2026 Juha Kilpala and the jEngine contributors. MIT licence.",
+    "category": "DeveloperTool",
+    "shortDescription": "The jEngine 2D game engine editor",
+    "longDescription": "The editor for jEngine, a 2D game engine in Rust with Lua scripting. Building a game compiles the engine from source: the editor ships the engine's source and needs a Rust toolchain (Help > Check Build Tools says what is missing).",
+    "homepage": "https://jengine.hirakame.com",
+    "license": "MIT",
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    }
+  }
+}

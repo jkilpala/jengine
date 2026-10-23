@@ -1,0 +1,499 @@
+{
+ "name": "121 - Ambient occlusion",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "ambient_light": {
+     "color": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "intensity": 0.9
+    }
+   }
+  },
+  {
+   "name": "Occlusion",
+   "components": {
+    "ambient_occlusion": {
+     "radius": 40.0,
+     "strength": 0.8
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "121 - Ambient occlusion",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      292.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.9,
+      0.9,
+      0.9,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1280.0,
+      470.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lone",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.95,
+      0.95,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      110.0,
+      110.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "PairA",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.95,
+      0.95,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      110.0,
+      110.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "PairB",
+   "components": {
+    "transform": {
+     "position": [
+      -8.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.95,
+      0.95,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      110.0,
+      110.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LLong",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.95,
+      0.95,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      260.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      260.0,
+      50.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LShort",
+   "components": {
+    "transform": {
+     "position": [
+      405.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.95,
+      0.95,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      50.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      50.0,
+      150.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Turned",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -150.0
+     ],
+     "rotation": 0.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.95,
+      0.95,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      80.0,
+      80.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "State",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      0.1,
+      0.1,
+      0.12,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "White boxes under ambient light only. With occlusion on: a soft grey ring around each box, darker in the",
+     "font_id": "",
+     "font_scale": 1.05,
+     "color": [
+      0.8,
+      0.8,
+      0.9,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -275.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "narrow gap between the pair and in the L's inside corner; the boxes' own tops stay white. Off: flat white.",
+     "font_id": "",
+     "font_scale": 1.05,
+     "color": [
+      0.8,
+      0.8,
+      0.9,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_121_ambient_occlusion.lua"
+    }
+   }
+  }
+ ]
+}

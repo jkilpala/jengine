@@ -1,0 +1,46 @@
+name: Bug report
+description: Something in the engine or the editor does not work as it should
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Where
+      description: Which runtime shows it? A bug in one runtime only is often a parity gap.
+      multiple: true
+      options:
+        - Native runtime (Windows)
+        - Native runtime (Linux / macOS)
+        - Editor Play mode
+        - Web build
+        - Android
+        - The editor itself
+        - jengine CLI / builds
+        - jengine-server
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: The smallest scene, script or project that shows it. Attach a zip if you can.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "`jengine --version`, Help > About in the editor, or the commit you built."
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log output
+      description: The console or log around the problem (Help > Open logs folder in the editor).
+      render: text

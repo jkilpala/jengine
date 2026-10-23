@@ -1,0 +1,430 @@
+{
+ "name": "130 - A graph knows where it is",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "130 - A graph knows where it is",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -100.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Backdrop",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.13,
+      0.18,
+      1
+     ],
+     "z_order": -100,
+     "size": [
+      3000.0,
+      2000.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stripes",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      300.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "materials/lab_world_stripes"
+    },
+    "oscillator": {
+     "amplitude": [
+      120.0,
+      0.0
+     ],
+     "frequency": [
+      0.2,
+      0.0
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LabelStripes",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "PositionInput: the stripes stay, the window slides",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Ball",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sphere.png",
+     "color": [
+      1.0,
+      0.6,
+      0.3,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "oscillator": {
+     "amplitude": [
+      0.0,
+      70.0
+     ],
+     "frequency": [
+      0.0,
+      0.4
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.5,
+      0.8,
+      0.5,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      20.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 60,
+     "size": [
+      3000.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/lake_water",
+     "uniforms": {
+      "lake": {
+       "Vec4": [
+        -80.0,
+        100000.0,
+        0.1,
+        0.0
+       ]
+      },
+      "ripple_a": {
+       "Vec4": [
+        0.0,
+        0.0,
+        99.0,
+        0.0
+       ]
+      },
+      "ripple_b": {
+       "Vec4": [
+        0.0,
+        0.0,
+        99.0,
+        0.0
+       ]
+      },
+      "ripple_c": {
+       "Vec4": [
+        0.0,
+        0.0,
+        99.0,
+        0.0
+       ]
+      }
+     }
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Top left: a window slides over red and blue stripes that do not move. Below the line, the ball and the green post",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "are mirrored upside down, meeting their reflections at the waterline, while the camera pans and zooms.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_130_graph_position.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,5712 @@
+{
+ "name": "24 - Collapse",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.1
+     },
+     "intensity": {
+      "Float": 0.55
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.01,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.78,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.23302,
+      0.60383
+     ],
+     "intensity": 0.22
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_wall.png",
+     "color": [
+      0.60383,
+      0.57048,
+      0.53824,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      1580.0,
+      1020.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_wall_n.png"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      0.26327,
+      0.23302,
+      0.21404,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1680.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       220.0,
+       110.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 2080.0,
+       "height": 200.0
+      }
+     },
+     "offset": [
+      0.0,
+      -100.0
+     ],
+     "friction": 0.9,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "Block1",
+   "components": {
+    "transform": {
+     "position": [
+      42.0,
+      -264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block2",
+   "components": {
+    "transform": {
+     "position": [
+      106.0,
+      -264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block3",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block4",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      -264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block5",
+   "components": {
+    "transform": {
+     "position": [
+      298.0,
+      -264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block6",
+   "components": {
+    "transform": {
+     "position": [
+      26.0,
+      -232.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block7",
+   "components": {
+    "transform": {
+     "position": [
+      74.0,
+      -232.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block8",
+   "components": {
+    "transform": {
+     "position": [
+      138.0,
+      -232.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block9",
+   "components": {
+    "transform": {
+     "position": [
+      202.0,
+      -232.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block10",
+   "components": {
+    "transform": {
+     "position": [
+      266.0,
+      -232.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block11",
+   "components": {
+    "transform": {
+     "position": [
+      314.0,
+      -232.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block12",
+   "components": {
+    "transform": {
+     "position": [
+      42.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block13",
+   "components": {
+    "transform": {
+     "position": [
+      106.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block14",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block15",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block16",
+   "components": {
+    "transform": {
+     "position": [
+      298.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block17",
+   "components": {
+    "transform": {
+     "position": [
+      26.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block18",
+   "components": {
+    "transform": {
+     "position": [
+      74.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block19",
+   "components": {
+    "transform": {
+     "position": [
+      138.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block20",
+   "components": {
+    "transform": {
+     "position": [
+      202.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block21",
+   "components": {
+    "transform": {
+     "position": [
+      266.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block22",
+   "components": {
+    "transform": {
+     "position": [
+      314.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block23",
+   "components": {
+    "transform": {
+     "position": [
+      42.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block24",
+   "components": {
+    "transform": {
+     "position": [
+      106.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block25",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block26",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block27",
+   "components": {
+    "transform": {
+     "position": [
+      298.0,
+      -136.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block28",
+   "components": {
+    "transform": {
+     "position": [
+      26.0,
+      -104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block29",
+   "components": {
+    "transform": {
+     "position": [
+      74.0,
+      -104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block30",
+   "components": {
+    "transform": {
+     "position": [
+      138.0,
+      -104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block31",
+   "components": {
+    "transform": {
+     "position": [
+      202.0,
+      -104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block32",
+   "components": {
+    "transform": {
+     "position": [
+      266.0,
+      -104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block33",
+   "components": {
+    "transform": {
+     "position": [
+      314.0,
+      -104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block34",
+   "components": {
+    "transform": {
+     "position": [
+      42.0,
+      -72.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block35",
+   "components": {
+    "transform": {
+     "position": [
+      106.0,
+      -72.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block36",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -72.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block37",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      -72.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block38",
+   "components": {
+    "transform": {
+     "position": [
+      298.0,
+      -72.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block39",
+   "components": {
+    "transform": {
+     "position": [
+      26.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block40",
+   "components": {
+    "transform": {
+     "position": [
+      74.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block41",
+   "components": {
+    "transform": {
+     "position": [
+      138.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block42",
+   "components": {
+    "transform": {
+     "position": [
+      202.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block43",
+   "components": {
+    "transform": {
+     "position": [
+      266.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block44",
+   "components": {
+    "transform": {
+     "position": [
+      314.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block45",
+   "components": {
+    "transform": {
+     "position": [
+      42.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block46",
+   "components": {
+    "transform": {
+     "position": [
+      106.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block47",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block48",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block49",
+   "components": {
+    "transform": {
+     "position": [
+      298.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block50",
+   "components": {
+    "transform": {
+     "position": [
+      26.0,
+      24.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block51",
+   "components": {
+    "transform": {
+     "position": [
+      74.0,
+      24.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block52",
+   "components": {
+    "transform": {
+     "position": [
+      138.0,
+      24.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block53",
+   "components": {
+    "transform": {
+     "position": [
+      202.0,
+      24.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block54",
+   "components": {
+    "transform": {
+     "position": [
+      266.0,
+      24.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block55",
+   "components": {
+    "transform": {
+     "position": [
+      314.0,
+      24.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 31.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block56",
+   "components": {
+    "transform": {
+     "position": [
+      42.0,
+      56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block57",
+   "components": {
+    "transform": {
+     "position": [
+      106.0,
+      56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block58",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block59",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Block60",
+   "components": {
+    "transform": {
+     "position": [
+      298.0,
+      56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.71057,
+      0.67386,
+      0.63828,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 63.5,
+       "height": 31.5
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "shadows_casters": false
+    },
+    "breakable": {
+     "break_speed": 320.0,
+     "cols": 2,
+     "rows": 1,
+     "generations": 0,
+     "scatter": 25.0,
+     "piece_lifetime": 0.0,
+     "debris": "Dust",
+     "debris_count": 14
+    }
+   }
+  },
+  {
+   "name": "Boulder",
+   "components": {
+    "transform": {
+     "position": [
+      -900.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_boulder.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      76.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_boulder_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 40.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 38.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.1,
+     "density": 12.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       36.0,
+       0.0
+      ],
+      [
+       29.12,
+       21.16
+      ],
+      [
+       11.12,
+       34.24
+      ],
+      [
+       -11.12,
+       34.24
+      ],
+      [
+       -29.12,
+       21.16
+      ],
+      [
+       -36.0,
+       0.0
+      ],
+      [
+       -29.12,
+       -21.16
+      ],
+      [
+       -11.12,
+       -34.24
+      ],
+      [
+       11.12,
+       -34.24
+      ],
+      [
+       29.12,
+       -21.16
+      ]
+     ],
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "BrazierL",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_brazier.png",
+     "color": [
+      0.02198,
+      0.01739,
+      0.01533,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      54.0,
+      82.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BrazierLFire",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -206.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 70.0,
+     "max_particles": 160,
+     "lifetime": [
+      0.35,
+      0.8
+     ],
+     "speed": [
+      30.0,
+      80.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      26.0
+     ],
+     "size_end": [
+      4.0,
+      8.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 9,
+     "color_curve": [
+      [
+       0.0,
+       5.0,
+       2.6126,
+       0.5024,
+       0.0
+      ],
+      [
+       0.15,
+       5.0,
+       1.59275,
+       0.2544,
+       1.0
+      ],
+      [
+       1.0,
+       2.36223,
+       0.15264,
+       0.02157,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "line",
+      "length": 30.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    }
+   }
+  },
+  {
+   "name": "BrazierLLight",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.7,
+     "radius": 950.0,
+     "falloff": 1.2,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "BrazierR",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_brazier.png",
+     "color": [
+      0.02198,
+      0.01739,
+      0.01533,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      54.0,
+      82.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BrazierRFire",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -206.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 70.0,
+     "max_particles": 160,
+     "lifetime": [
+      0.35,
+      0.8
+     ],
+     "speed": [
+      30.0,
+      80.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      26.0
+     ],
+     "size_end": [
+      4.0,
+      8.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 9,
+     "color_curve": [
+      [
+       0.0,
+       5.0,
+       2.6126,
+       0.5024,
+       0.0
+      ],
+      [
+       0.15,
+       5.0,
+       1.59275,
+       0.2544,
+       1.0
+      ],
+      [
+       1.0,
+       2.36223,
+       0.15264,
+       0.02157,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "line",
+      "length": 30.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    }
+   }
+  },
+  {
+   "name": "BrazierRLight",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.7,
+     "radius": 950.0,
+     "falloff": 1.2,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 900,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      30.0,
+      170.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      8.0,
+      14.0
+     ],
+     "size_end": [
+      30.0,
+      52.0
+     ],
+     "gravity_modifier": -0.02,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 12,
+     "color_curve": [
+      [
+       0.0,
+       0.34239,
+       0.27384,
+       0.19599,
+       0.0
+      ],
+      [
+       0.1,
+       0.34239,
+       0.27384,
+       0.19599,
+       0.55
+      ],
+      [
+       1.0,
+       0.21404,
+       0.17887,
+       0.13287,
+       0.0
+      ]
+     ],
+     "drag": 2.2,
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 90.0,
+      "speed": 0.3
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "24   Collapse",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Space  throw   R  rebuild   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s24_collapse.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,518 @@
+{
+ "name": "153 - Carvable sprite",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Slab",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carve_slab.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      800.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "carvable": {
+     "alpha_cutoff": 0.5,
+     "collider": true,
+     "collider_step": 2,
+     "scorch": 10.0,
+     "scorch_color": [
+      0.25,
+      0.2,
+      0.15,
+      1.0
+     ],
+     "friction": 0.8
+    }
+   }
+  },
+  {
+   "name": "Ball1",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.9,
+      0.5,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 18.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.9,
+      0.58,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 18.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball3",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.9,
+      0.66,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 18.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball4",
+   "components": {
+    "transform": {
+     "position": [
+      50.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.9,
+      0.74,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 18.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball5",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.9,
+      0.8200000000000001,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 18.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball6",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.9,
+      0.9,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 18.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "153 - Carvable sprite",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   click: cut a hole   R: reload",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "A click cuts a round hole with a dark rim in the slab, the frame it lands; the balls resting above it fall through.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Balls roll on the cut edges and settle in the hollows - nothing sinks into the solid part or falls through it.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_153_carvable_sprite.lua"
+    }
+   }
+  }
+ ]
+}

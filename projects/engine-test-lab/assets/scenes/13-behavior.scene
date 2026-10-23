@@ -1,0 +1,173 @@
+{
+  "name": "13 - Behavior Graphs",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-300.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "13 - BEHAVIOR GRAPHS", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-540.0, 270.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "WASD / arrows = move yellow Player (player-mover.behavior)", "font_id": "", "font_scale": 1.1, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-540.0, 240.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Coloured dots: bouncer.behavior  (OnTick -> BounceOnBounds)", "font_id": "", "font_scale": 1.1, "color": [0.7, 1.0, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-540.0, 210.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Right side: fader-3s/6s/9s (OnTick -> DespawnAfter) - watch them vanish", "font_id": "", "font_scale": 1.1, "color": [1.0, 0.8, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0.0, -260.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [1.0, 0.85, 0.2, 1.0], "z_order": 3 },
+        "velocity": { "x": 0.0, "y": 0.0 },
+        "input_axis": {
+          "x_neg": "move_left",
+          "x_pos": "move_right",
+          "y_neg": "move_down",
+          "y_pos": "move_up"
+        },
+        "behavior_graph": { "graph_path": "behaviors/player-mover.behavior" }
+      }
+    },
+    {
+      "name": "PlayerLabel",
+      "components": {
+        "transform": { "position": [-40.0, -210.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Player", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.85, 0.2, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Bouncer1",
+      "components": {
+        "transform": { "position": [-400.0, 100.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [1.0, 0.3, 0.3, 1.0], "z_order": 2 },
+        "velocity": { "x":  180.0, "y":  140.0 },
+        "behavior_graph": { "graph_path": "behaviors/bouncer.behavior" }
+      }
+    },
+    {
+      "name": "Bouncer2",
+      "components": {
+        "transform": { "position": [-200.0, 150.0], "rotation": 0.0, "scale": [2.5, 2.5] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [0.3, 1.0, 0.4, 1.0], "z_order": 2 },
+        "velocity": { "x": -220.0, "y":  170.0 },
+        "behavior_graph": { "graph_path": "behaviors/bouncer.behavior" }
+      }
+    },
+    {
+      "name": "Bouncer3",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [0.4, 0.6, 1.0, 1.0], "z_order": 2 },
+        "velocity": { "x":  260.0, "y": -200.0 },
+        "behavior_graph": { "graph_path": "behaviors/bouncer.behavior" }
+      }
+    },
+    {
+      "name": "Bouncer4",
+      "components": {
+        "transform": { "position": [200.0, 100.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [1.0, 0.9, 0.3, 1.0], "z_order": 2 },
+        "velocity": { "x": -180.0, "y": -160.0 },
+        "behavior_graph": { "graph_path": "behaviors/bouncer.behavior" }
+      }
+    },
+    {
+      "name": "Bouncer5",
+      "components": {
+        "transform": { "position": [-100.0, -100.0], "rotation": 0.0, "scale": [1.5, 1.5] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [0.9, 0.4, 1.0, 1.0], "z_order": 2 },
+        "velocity": { "x":  300.0, "y":  220.0 },
+        "behavior_graph": { "graph_path": "behaviors/bouncer.behavior" }
+      }
+    },
+    {
+      "name": "Bouncer6",
+      "components": {
+        "transform": { "position": [150.0, -150.0], "rotation": 0.0, "scale": [2.5, 2.5] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [0.3, 1.0, 1.0, 1.0], "z_order": 2 },
+        "velocity": { "x": -240.0, "y":  190.0 },
+        "behavior_graph": { "graph_path": "behaviors/bouncer.behavior" }
+      }
+    },
+
+    {
+      "name": "Fader3s",
+      "components": {
+        "transform": { "position": [500.0, 200.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [1.0, 0.6, 0.3, 1.0], "z_order": 1 },
+        "behavior_graph": { "graph_path": "behaviors/fader-3s.behavior" }
+      }
+    },
+    {
+      "name": "Fader3sLabel",
+      "components": {
+        "transform": { "position": [460.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "3s", "font_id": "", "font_scale": 1.2, "color": [1.0, 0.6, 0.3, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Fader6s",
+      "components": {
+        "transform": { "position": [500.0, 60.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [1.0, 0.5, 0.5, 1.0], "z_order": 1 },
+        "behavior_graph": { "graph_path": "behaviors/fader-6s.behavior" }
+      }
+    },
+    {
+      "name": "Fader6sLabel",
+      "components": {
+        "transform": { "position": [460.0, 110.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "6s", "font_id": "", "font_scale": 1.2, "color": [1.0, 0.5, 0.5, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Fader9s",
+      "components": {
+        "transform": { "position": [500.0, -80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [0.8, 0.4, 0.8, 1.0], "z_order": 1 },
+        "behavior_graph": { "graph_path": "behaviors/fader-9s.behavior" }
+      }
+    },
+    {
+      "name": "Fader9sLabel",
+      "components": {
+        "transform": { "position": [460.0, -30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "9s", "font_id": "", "font_scale": 1.2, "color": [0.8, 0.4, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_13_behavior.lua" }
+      }
+    }
+  ]
+}

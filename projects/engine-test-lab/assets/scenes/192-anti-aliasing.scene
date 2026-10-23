@@ -1,0 +1,835 @@
+{
+ "name": "192 - Anti-aliasing",
+ "post_process": {
+  "effects": [
+   {
+    "name": "fxaa",
+    "enabled": true,
+    "params": {
+     "span": {
+      "Float": 8.0
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Back",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.02,
+      0.02,
+      0.03,
+      1
+     ],
+     "z_order": -10,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Square",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.95,
+      0.95,
+      0.95,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      170.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Star",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0.0,
+       130.0
+      ],
+      [
+       -76.41,
+       -105.17
+      ],
+      [
+       123.64,
+       40.17
+      ],
+      [
+       -123.64,
+       40.17
+      ],
+      [
+       76.41,
+       -105.17
+      ],
+      [
+       0.0,
+       130.0
+      ],
+      [
+       -76.41,
+       -105.17
+      ],
+      [
+       123.64,
+       40.17
+      ],
+      [
+       -123.64,
+       40.17
+      ],
+      [
+       76.41,
+       -105.17
+      ],
+      [
+       -0.0,
+       130.0
+      ]
+     ],
+     "width": 2.0,
+     "joint": "sharp",
+     "color": [
+      0.95,
+      0.85,
+      0.5,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke0",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke1",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 0.2618,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke2",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 0.5236,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke3",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 0.7854,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke4",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 1.0472,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke5",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 1.309,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke6",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke7",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 1.8326,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke8",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 2.0944,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke9",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 2.3562,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke10",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 2.618,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spoke11",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 2.8798,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      1.0,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label-380",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "a turned sprite",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "a 2-pixel line",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label380",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "1-pixel-thin spokes",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "192 - Anti-aliasing",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   F: FXAA on / off",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: with FXAA on, the turning edges are smooth; off, they stair-step and crawl as they turn.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "The UI text stays crisp either way - it is drawn after the post chain.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_192_anti_aliasing.lua"
+    }
+   }
+  }
+ ]
+}

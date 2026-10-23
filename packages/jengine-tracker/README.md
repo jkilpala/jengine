@@ -1,0 +1,78 @@
+# jengine-tracker
+
+Tracker music for jEngine. A `.song` is chip music written as notes - the
+JSON jSuite's Music Tracker (🎼) saves - and this package renders it to PCM
+when it loads, so a game plays it like any other clip.
+
+| Song (jSuite demo) | `.song` | OGG q6 |
+|---|---|---|
+| Sunny Fields, 48 s | 25 KB | 966 KB |
+| Deep Cavern, 50 s | 25 KB | 1048 KB |
+| Victory jingle, 3 s | 2 KB | 55 KB |
+
+The trade is disk for CPU at load: the song becomes the same PCM an OGG
+decodes to, so memory at runtime is unchanged and only the shipped bytes
+shrink.
+
+## Using it
+
+List the package in `project.jengine`'s top-level `"packages"`, put the
+song in a scene's `audio_refs`, and play it:
+
+```lua
+Audio.play_music("music/theme.song")
+Audio.crossfade_music("music/boss.song", 2)
+Audio.play_sound("music/victory.song")
+```
+
+Every music feature works on it unchanged - crossfades, stem layers
+(`Audio.play_music_layers`, a `.song` per layer), playlists, pitch, seek,
+`Audio.get_music_position`, `beat_clock`, buses - because once loaded it is
+just a clip. A song whose `loop` is past its first order entry has an intro
+that plays once: the clip loops from its loop point, not from the top (kira's
+loop region natively, `loopStart` in the browsers).
+
+A project that plays a `.song` without listing the package gets *"no player
+for .song - add jengine-tracker"* in the log, and
+`every_song_a_project_plays_has_its_player_linked` fails it.
+
+## How it plugs in
+
+There are no components, systems or script commands. The package registers
+`.song` with the engine's clip transcoders (`JEnginePackage::register_audio`,
+`jengine_core::audio::transcode`), and both audio backends - kira natively,
+Web Audio in the editor and web builds - ask that registry before decoding a
+file. Natively a clip is loaded on its first play, so `audio_refs`
+preloading renders the song while the scene loads (`transcode::prepare`)
+and the first play takes the result; a 48 s song renders in well under a
+second in a release build.
+
+Songs are rendered at 44.1 kHz in stereo, the rate jSuite's fixtures pin;
+each backend resamples to its device, as it does a 44.1 kHz OGG.
+
+## The player
+
+[`FORMAT.md`](FORMAT.md) is the format, copied from jSuite's
+`docs/song-format.md`. The player (`synth`) is a line-by-line port of
+jSuite's `src/lib/tracker/synth.ts` and the parser (`song`) of its
+`song.ts`, kept in the same order and under the same names so the two can be
+read side by side - the tracker previews exactly what the game plays only
+while they agree.
+
+`tests/data/` holds jSuite's four pinned songs and the digests `synth.ts`
+rendered of them (`songs_match_jsuite`): per 2048-frame window, the RMS of
+each side and the left's zero crossings, with frame counts and loop points
+exact. The format allows a port some slack for libm differences; this one
+currently matches every window exactly. When jSuite's player changes, port
+the change and copy its `fixtures/*.song`, `fixtures/*.digest.json` and
+`demos/*.song` here again.
+
+## Limits
+
+- **A song is a clip, so its channels cannot change at runtime** - no muting
+  the drums mid-song. Export each layer as its own `.song` and use the music
+  director's stem layers instead.
+- Render time is paid at load. A very long song may want a worker thread;
+  none has needed one yet.
+
+Test Lab scene 294 plays the three demos.

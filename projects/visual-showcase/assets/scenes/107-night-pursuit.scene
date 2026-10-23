@@ -1,0 +1,3743 @@
+{
+ "name": "107 - Night Pursuit",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "motion_blur",
+    "enabled": true,
+    "params": {
+     "shutter": {
+      "Float": 1.0
+     },
+     "samples": {
+      "Float": 12.0
+     },
+     "max_length": {
+      "Float": 0.08
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       0.9,
+       0.93,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   },
+   {
+    "name": "film_grain",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.035
+     },
+     "size": {
+      "Float": 1.3
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.7,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.10048,
+      0.14732,
+      0.44799
+     ],
+     "intensity": 0.24
+    }
+   }
+  },
+  {
+   "name": "Street0",
+   "components": {
+    "transform": {
+     "position": [
+      -1200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_street"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/street.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1200.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/street_n.png",
+     "specular": 1.0,
+     "shininess": 60.0
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Street1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_street"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/street.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1200.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/street_n.png",
+     "specular": 1.0,
+     "shininess": 60.0
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Street2",
+   "components": {
+    "transform": {
+     "position": [
+      1200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_street"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/street.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1200.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/street_n.png",
+     "specular": 1.0,
+     "shininess": 60.0
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof0N",
+   "components": {
+    "transform": {
+     "position": [
+      -1640.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.9477402343661276,
+      0.9099044471282136,
+      0.9967299247805746,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof0S",
+   "components": {
+    "transform": {
+     "position": [
+      -1640.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.8701597312528534,
+      0.9099044471282136,
+      1.0032967674588569,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof1N",
+   "components": {
+    "transform": {
+     "position": [
+      -1260.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      1.1417862232442884,
+      1.0993698468207629,
+      1.0993952162957032,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof1S",
+   "components": {
+    "transform": {
+     "position": [
+      -1260.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      1.0978301014278065,
+      1.0993698468207629,
+      1.200241810402253,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof2N",
+   "components": {
+    "transform": {
+     "position": [
+      -850.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.9179139724810865,
+      1.0226471756155064,
+      1.157015861925935,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      368.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof2S",
+   "components": {
+    "transform": {
+     "position": [
+      -850.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.9187510928034045,
+      1.0226471756155064,
+      1.0028711054509443,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      368.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Neon2",
+   "components": {
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.85616,
+      4.0,
+      0.29296,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      228.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.07324
+     ],
+     "intensity": 0.8,
+     "radius": 300.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -850.0,
+      455.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof3N",
+   "components": {
+    "transform": {
+     "position": [
+      -530.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.5681937288929734,
+      0.6382549053281211,
+      0.6692735062331836,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      248.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof3S",
+   "components": {
+    "transform": {
+     "position": [
+      -530.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.566987710563782,
+      0.6382549053281211,
+      0.6408810972752814,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      248.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Neon3",
+   "components": {
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      4.0,
+      1.2742,
+      0.04008,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      156.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.31855,
+      0.01002
+     ],
+     "intensity": 0.8,
+     "radius": 300.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -530.0,
+      -455.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof4N",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.5894137852568566,
+      0.6356713593491271,
+      0.7207362503752678,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof4S",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.6684069952030064,
+      0.6356713593491271,
+      0.7211337998609105,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Neon4",
+   "components": {
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.85616,
+      4.0,
+      0.29296,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      192.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.07324
+     ],
+     "intensity": 0.8,
+     "radius": 300.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -240.0,
+      -455.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof5N",
+   "components": {
+    "transform": {
+     "position": [
+      80.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.7109651428676169,
+      0.7169299677735231,
+      0.7684248476985466,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof5S",
+   "components": {
+    "transform": {
+     "position": [
+      80.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.7500525829824828,
+      0.7169299677735231,
+      0.8110224154462828,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof6N",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.9881445663766164,
+      0.9412520821889849,
+      0.9877397705446356,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof6S",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.9878506797147921,
+      0.9412520821889849,
+      1.0589631636975956,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      308.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Neon6",
+   "components": {
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      4.0,
+      0.1324,
+      1.2742,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      192.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.0331,
+      0.31855
+     ],
+     "intensity": 0.8,
+     "radius": 300.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      400.0,
+      -455.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof7N",
+   "components": {
+    "transform": {
+     "position": [
+      780.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      1.1370782183060022,
+      1.0511021808254242,
+      1.0062203736678896,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof7S",
+   "components": {
+    "transform": {
+     "position": [
+      780.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      1.1288007088606578,
+      1.0511021808254242,
+      1.1695843016696283,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Neon7",
+   "components": {
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.85616,
+      4.0,
+      0.29296,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      264.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.07324
+     ],
+     "intensity": 0.8,
+     "radius": 300.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      780.0,
+      -455.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof8N",
+   "components": {
+    "transform": {
+     "position": [
+      1130.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.7777013530238768,
+      0.7155221886949407,
+      0.7808776529213934,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      248.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof8S",
+   "components": {
+    "transform": {
+     "position": [
+      1130.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.7672548039570759,
+      0.7155221886949407,
+      0.7204175247249032,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      248.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Neon8",
+   "components": {
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.1324,
+      3.14964,
+      4.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      156.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.0331,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.8,
+     "radius": 300.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      1130.0,
+      -455.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof9N",
+   "components": {
+    "transform": {
+     "position": [
+      1480.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      1.015323714226806,
+      1.0648965315416286,
+      1.0985030447061586,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof9S",
+   "components": {
+    "transform": {
+     "position": [
+      1480.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      1.0238933956591112,
+      1.0648965315416286,
+      1.1749404959696295,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof10N",
+   "components": {
+    "transform": {
+     "position": [
+      1920.0,
+      580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.8969716840291383,
+      0.9720219957894132,
+      0.9528454762139577,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Roof10S",
+   "components": {
+    "transform": {
+     "position": [
+      1920.0,
+      -580.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_roof"
+    ],
+    "sprite": {
+     "texture_id": "sprites/pursuit/roof.png",
+     "color": [
+      0.9824241259036071,
+      0.9720219957894132,
+      1.1153440420883216,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      428.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/pursuit/roof_n.png"
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp0",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -1800.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp1",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -1440.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp2",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -1080.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp3",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -720.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp4",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      -360.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp5",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      0.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp6",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      360.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp7",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      720.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp8",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      1080.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp9",
+   "components": {
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/lamp.png",
+     "color": [
+      3.0,
+      2.07621,
+      0.95565,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 2.1,
+     "radius": 540.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      1440.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Parked0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/pursuit/sedan.png",
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "transform": {
+     "position": [
+      -1500.0,
+      228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Parked1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/pursuit/van.png",
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      150.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "transform": {
+     "position": [
+      -700.0,
+      -228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Parked2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/pursuit/taxi.png",
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "transform": {
+     "position": [
+      300.0,
+      228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Parked3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/pursuit/sedan.png",
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "transform": {
+     "position": [
+      1100.0,
+      -228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Parked4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/pursuit/van.png",
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      150.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "transform": {
+     "position": [
+      1700.0,
+      228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Parked5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/pursuit/sedan.png",
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "transform": {
+     "position": [
+      -200.0,
+      -228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": -1400.0,
+     "y": 0.0
+    }
+   }
+  },
+  {
+   "name": "Coupe",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -65.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/coupe.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CoupeBeam",
+   "parent": "Coupe",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "CoupeTail",
+   "parent": "Coupe",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Police0",
+   "components": {
+    "transform": {
+     "position": [
+      -700.0,
+      -65.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/police.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Police0Beam",
+   "parent": "Police0",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Police0Tail",
+   "parent": "Police0",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Police0Red",
+   "parent": "Police0",
+   "components": {
+    "transform": {
+     "position": [
+      2.0,
+      12.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      6.0,
+      0.06012,
+      0.06012,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.01002,
+      0.01002
+     ],
+     "intensity": 0.0,
+     "radius": 380.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Police0Blue",
+   "parent": "Police0",
+   "components": {
+    "transform": {
+     "position": [
+      2.0,
+      -12.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.11766,
+      0.60288,
+      6.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.01961,
+      0.10048,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 380.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Police1",
+   "components": {
+    "transform": {
+     "position": [
+      -960.0,
+      -195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/police.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Police1Beam",
+   "parent": "Police1",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Police1Tail",
+   "parent": "Police1",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Police1Red",
+   "parent": "Police1",
+   "components": {
+    "transform": {
+     "position": [
+      2.0,
+      12.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      6.0,
+      0.06012,
+      0.06012,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.01002,
+      0.01002
+     ],
+     "intensity": 0.0,
+     "radius": 380.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Police1Blue",
+   "parent": "Police1",
+   "components": {
+    "transform": {
+     "position": [
+      2.0,
+      -12.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.11766,
+      0.60288,
+      6.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.01961,
+      0.10048,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 380.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Traffic0",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      -65.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/sedan.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic0Beam",
+   "parent": "Traffic0",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Traffic0Tail",
+   "parent": "Traffic0",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic1",
+   "components": {
+    "transform": {
+     "position": [
+      1100.0,
+      -195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/taxi.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic1Beam",
+   "parent": "Traffic1",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Traffic1Tail",
+   "parent": "Traffic1",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic2",
+   "components": {
+    "transform": {
+     "position": [
+      1600.0,
+      -65.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/van.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      150.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic2Beam",
+   "parent": "Traffic2",
+   "components": {
+    "transform": {
+     "position": [
+      75.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Traffic2Tail",
+   "parent": "Traffic2",
+   "components": {
+    "transform": {
+     "position": [
+      -71.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      59.4
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic3",
+   "components": {
+    "transform": {
+     "position": [
+      2100.0,
+      195.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/sedan.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic3Beam",
+   "parent": "Traffic3",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Traffic3Tail",
+   "parent": "Traffic3",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic4",
+   "components": {
+    "transform": {
+     "position": [
+      2600.0,
+      65.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/taxi.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      128.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic4Beam",
+   "parent": "Traffic4",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Traffic4Tail",
+   "parent": "Traffic4",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic5",
+   "components": {
+    "transform": {
+     "position": [
+      3100.0,
+      195.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/van.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      150.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Traffic5Beam",
+   "parent": "Traffic5",
+   "components": {
+    "transform": {
+     "position": [
+      75.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.63828
+     ],
+     "intensity": 1.5,
+     "radius": 560.0,
+     "angle": 0.42,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Traffic5Tail",
+   "parent": "Traffic5",
+   "components": {
+    "transform": {
+     "position": [
+      -71.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      3.0,
+      0.02157,
+      0.01182,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      30.0,
+      59.4
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Searchlight",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -65.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.69207,
+      0.82757,
+      1.0
+     ],
+     "intensity": 2.2,
+     "radius": 360.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "Rotor",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/pursuit/rotor.png",
+     "color": [
+      0.45,
+      0.47,
+      0.55,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      620.0,
+      620.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s107_night_pursuit.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "107   Night Pursuit",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "each thing is smeared by its own motion on screen   M motion blur   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

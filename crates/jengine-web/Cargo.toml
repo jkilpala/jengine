@@ -1,0 +1,75 @@
+[package]
+name = "jengine-web"
+description = "WASM/WebGPU runtime for jEngine — runs scenes in a browser"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["standalone", "physics", "backend-webgpu"]
+# The `#[wasm_bindgen(start)]` of a stock build. A generated per-project web
+# crate (`jengine_builder::packages::generate_project_web`) turns this off and
+# supplies its own start, which registers the project's packages first -
+# wasm-bindgen allows one start function per module.
+standalone = []
+# `jengine-physics` rides on this feature rather than being a plain
+# dependency: it enables jengine-core's `physics` itself, so depending on it
+# unconditionally would make this switch impossible to turn off.
+physics = ["jengine-core/physics", "dep:jengine-physics"]
+
+# Graphics backends, selected per project by the builder from
+# `settings.graphics_backends.web`. WebGPU alone is the smallest build;
+# adding `backend-gl` brings the WebGL2 fallback (and wgpu-core with it) for
+# browsers that do not ship WebGPU yet.
+backend-webgpu = ["jengine-core/backend-webgpu"]
+backend-webgl = ["jengine-core/backend-webgl"]
+
+[dependencies]
+jengine-core = { path = "../jengine-core", default-features = false, features = ["web", "gpu-wgpu"] }
+hecs = { workspace = true }
+# The built-in packages the editor viewport hosts, so a web build hosts the
+# same set (see `init_and_run`). No `jengine-audio`: it is kira, native-only.
+jengine-physics = { path = "../../packages/jengine-physics", optional = true }
+jengine-particles = { path = "../../packages/jengine-particles" }
+jengine-parallax = { path = "../../packages/jengine-parallax" }
+jengine-swarm = { path = "../../packages/jengine-swarm" }
+
+glam = { workspace = true }
+wgpu = { workspace = true }
+wasm-bindgen = { workspace = true }
+web-sys = { workspace = true, features = [
+    "Window",
+    "Document",
+    "Element",
+    "HtmlCanvasElement",
+    "Performance",
+    "console",
+    "Request",
+    "RequestInit",
+    "RequestMode",
+    "Response",
+    "Headers",
+    "Event",
+    "KeyboardEvent",
+    "MouseEvent",
+    "WheelEvent",
+    # Touch input — mapped onto the left mouse button so existing
+    # click-driven UI works on a phone.
+    "TouchEvent",
+    "Touch",
+    "TouchList",
+    # Reading `env(safe-area-inset-*)` off a probe element: the notch.
+    "CssStyleDeclaration",
+] }
+js-sys = { workspace = true }
+wasm-bindgen-futures = "0.4"
+log = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+console_error_panic_hook = "0.1"

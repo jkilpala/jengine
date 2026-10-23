@@ -1,0 +1,384 @@
+{
+ "name": "200 - Tile data",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Map",
+   "components": {
+    "transform": {
+     "position": [
+      -384.0,
+      152.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tilemap": {
+     "tile_size": [
+      64.0,
+      64.0
+     ],
+     "tilesets": [
+      {
+       "texture_id": "sprites/lab200_tiles.png",
+       "tile_width": 32,
+       "tile_height": 32,
+       "columns": 4,
+       "tile_count": 8,
+       "first_gid": 1,
+       "image_width": 128,
+       "image_height": 64,
+       "data": {
+        "0": {
+         "kind": "grass",
+         "walk": true
+        },
+        "4": {
+         "kind": "lava",
+         "burns": true,
+         "damage": 3
+        },
+        "5": {
+         "kind": "rock",
+         "walk": false
+        },
+        "7": {
+         "kind": "sand",
+         "walk": true
+        }
+       },
+       "random": [
+        {
+         "tile": 0,
+         "variants": [
+          [
+           0,
+           4.0
+          ],
+          [
+           1,
+           1.0
+          ],
+          [
+           2,
+           1.0
+          ],
+          [
+           3,
+           1.0
+          ]
+         ]
+        }
+       ],
+       "spawns": [
+        {
+         "tile": 6,
+         "prefab": "Lab200Crate"
+        }
+       ]
+      }
+     ],
+     "layers": [
+      {
+       "name": "ground",
+       "width": 12,
+       "height": 6,
+       "tiles": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        7,
+        1,
+        8,
+        8,
+        1,
+        7,
+        1,
+        5,
+        5,
+        5,
+        1,
+        1,
+        1,
+        1,
+        8,
+        8,
+        1,
+        1,
+        1,
+        5,
+        5,
+        5,
+        1,
+        1,
+        7,
+        1,
+        8,
+        8,
+        6,
+        1,
+        1,
+        1,
+        1,
+        1,
+        6,
+        1,
+        1,
+        1,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cursor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1,
+      1,
+      1,
+      0.25
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "200 - Tile data",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Point at a cell to read its tile's data",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: grass of four looks (yellow flowers, a dark tuft, a stone), the same each run; three orange crates standing",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "where the X tiles were (on empty cells); pointing reads kind / walk / burns / damage, and nothing on a crate's cell.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_200_tile_data.lua"
+    }
+   }
+  }
+ ]
+}

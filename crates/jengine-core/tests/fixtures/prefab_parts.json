@@ -1,0 +1,43 @@
+{
+ "_doc": "A placed prefab's parts in a scene: named `Instance/Part` (`#2` for a second of one name), a part that is a prefab resolved through it, and a scene entity of a part's name and parent laid over it. The engine's expansion (prefab_parts_match_the_editor) and the editor's scene tree (prefabParts.test.ts) must agree on every name, parent, position and texture in `expected`.",
+ "prefabs": [
+  { "name": "Wheel", "components": {
+    "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+    "sprite": { "texture_id": "sprites/wheel.png", "color": [1.0, 1.0, 1.0, 1.0], "z_order": 1, "size": [16.0, 16.0] } } },
+  { "name": "Cart", "components": {
+    "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+    "sprite": { "texture_id": "sprites/cart.png", "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "size": [60.0, 20.0] } },
+    "children": [
+     { "name": "Wheel", "components": {
+       "transform": { "position": [-10.0, -5.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+       "prefab_instance": { "prefab_id": "Wheel" } } },
+     { "name": "Wheel", "components": {
+       "transform": { "position": [10.0, -5.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+       "prefab_instance": { "prefab_id": "Wheel" } } },
+     { "name": "Mast", "components": {
+       "transform": { "position": [0.0, 10.0], "rotation": 0.0, "scale": [1.0, 1.0] } },
+       "children": [
+        { "name": "Flag", "components": {
+          "transform": { "position": [0.0, 8.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+          "sprite": { "texture_id": "sprites/flag.png", "color": [1.0, 1.0, 1.0, 1.0], "z_order": 2, "size": [8.0, 6.0] } } }
+       ] }
+    ] }
+ ],
+ "scene": {
+  "name": "parts",
+  "entities": [
+   { "name": "Cart", "components": {
+     "transform": { "position": [100.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+     "prefab_instance": { "prefab_id": "Cart" } } },
+   { "name": "Cart/Wheel#2", "parent": "Cart", "components": {
+     "transform": { "position": [12.0, -6.0], "rotation": 0.0, "scale": [1.0, 1.0] } } }
+  ]
+ },
+ "expected": [
+  { "name": "Cart", "parent": null, "position": [100.0, 0.0], "texture": "sprites/cart.png" },
+  { "name": "Cart/Mast", "parent": "Cart", "position": [0.0, 10.0], "texture": null },
+  { "name": "Cart/Mast/Flag", "parent": "Cart/Mast", "position": [0.0, 8.0], "texture": "sprites/flag.png" },
+  { "name": "Cart/Wheel", "parent": "Cart", "position": [-10.0, -5.0], "texture": "sprites/wheel.png" },
+  { "name": "Cart/Wheel#2", "parent": "Cart", "position": [12.0, -6.0], "texture": "sprites/wheel.png" }
+ ]
+}

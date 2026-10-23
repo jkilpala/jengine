@@ -1,0 +1,155 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/jengine-core",
+    "crates/jengine-runtime",
+    "crates/jengine-web",
+    "crates/jengine-builder",
+    "crates/jengine-editor-viewport",
+    "crates/jengine-benchmark",
+    "crates/jengine-benchmark-web",
+    "crates/jengine-relay",
+    "crates/jengine-server",
+    "crates/jengine-netcode",
+    "crates/jengine-liveops",
+    "editor/src-tauri",
+    "packages/jengine-physics",
+    "packages/jengine-audio",
+    "packages/jengine-particles",
+    "packages/jengine-parallax",
+    "packages/jengine-swarm",
+    "packages/jengine-net",
+    "packages/jengine-online",
+    "packages/jengine-tracker",
+]
+# A patched winit (see vendor/winit/JENGINE-PATCH.md) - a dependency, not
+# a member, so `cargo test --workspace` does not test it.
+exclude = ["vendor"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/jkilpala/jengine"
+homepage = "https://jengine.hirakame.com"
+rust-version = "1.97"
+
+[workspace.dependencies]
+# Rendering
+glam = { version = "0.29", features = ["serde"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp"] }
+
+# GPU backend — wgpu (the only path after the Phase 8 glow cut). Behind the
+# `gpu-wgpu` feature on jengine-core for opt-out builds (e.g. headless tests).
+# Pinned to the wgpu 23 line which matches Bevy 0.16 + WebGPU spec-stable.
+# Features:
+#   - `wgsl`: WGSL shader source (canonical engine shader language).
+#   - native default backends: vulkan / metal / dx12. Web auto-picks WebGPU+GL.
+# Backends are NOT listed here. Each consumer picks them through the
+# `backend-*` features on jengine-core, so a build only compiles the APIs it
+# will actually use - see `docs/graphics-backends.md`.
+wgpu = { version = "23", default-features = false, features = [
+    "wgsl",
+] }
+naga = { version = "23", default-features = false }
+bytemuck = { version = "1", features = ["derive", "min_const_generics"] }
+pollster = "0.4"
+
+# ECS
+hecs = "0.10"
+
+# Parallelism (native only — rayon breaks single-threaded WASM)
+rayon = "1.10"
+crossbeam-channel = "0.5"
+
+# Scripting
+# Phase 3: Luau replaces Lua 5.4 as the native Lua backend (auto-vendored).
+mlua = { version = "0.10", features = ["luau"] }
+rquickjs = { version = "0.8", features = ["loader", "array-buffer"] }
+
+# Windowing (native only)
+winit = "0.30"
+glutin = "0.32"
+glutin-winit = "0.5"
+raw-window-handle = "0.6"
+
+# WASM
+wasm-bindgen = "0.2"
+web-sys = "0.3"
+js-sys = "0.3"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "2.0"
+
+# CLI
+clap = { version = "4.5", features = ["derive"] }
+
+# Vector path tessellation
+lyon = "1.0"
+
+# Font rasterization (default UI font)
+fontdue = "0.9"
+
+# Physics
+rapier2d = "0.22"
+
+# Audio
+# `wav` and `ogg` are containers only; `pcm` and `vorbis` are the codecs
+# inside them. Without `pcm` native could not decode a single WAV (BUGS #104).
+kira = { version = "0.12", default-features = false, features = ["cpal", "ogg", "vorbis", "wav", "pcm", "mp3"] }
+
+# Asset pipeline
+rectangle-pack = "0.4"
+oxipng = { version = "9", default-features = false, features = ["parallel"] }
+basis-universal = "0.3"
+glob = "0.3"
+
+# Filesystem watching (native only — used for script hot-reload)
+notify = "8"
+
+# Optimize dependencies even in debug builds — critical for game engine perf.
+# Deps like glam, hecs, rapier, image, serde, rquickjs are compiled with full optimizations.
+[profile.dev.package."*"]
+opt-level = 3
+
+# Optimize the engine crates in debug builds too — velocity_system, render_sprites,
+# snapshot_world, etc. are workspace code that must run fast even during development.
+# Note: jengine-editor is intentionally left at opt-level=0 to avoid cdylib linker issues.
+[profile.dev.package.jengine-core]
+opt-level = 2
+
+[profile.dev.package.jengine-runtime]
+opt-level = 2
+
+[profile.dev.package.jengine-physics]
+opt-level = 2
+
+[profile.dev.package.jengine-audio]
+opt-level = 2
+
+[profile.dev.package.jengine-particles]
+opt-level = 2
+
+[profile.dev.package.jengine-parallax]
+opt-level = 2
+
+# Puzzle generation is a search run after every clue it removes: at
+# opt-level 0 a killer grid takes seconds in a test and in a debug runtime.
+[profile.dev.package.jengine-tracker]
+opt-level = 2
+
+# winit with an Android input hook, which is how game controllers reach the
+# engine there (vendor/winit/JENGINE-PATCH.md). The Android crate
+# jengine-builder generates carries the same patch.
+[patch.crates-io]
+winit = { path = "vendor/winit" }

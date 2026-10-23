@@ -1,0 +1,629 @@
+{
+ "name": "122 - Trails",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "122 - Trails",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      292.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Backdrop",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.02,
+      0.022,
+      0.03,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wanderer",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 10,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "oscillator": {
+     "amplitude": [
+      130.0,
+      110.0
+     ],
+     "frequency": [
+      0.45,
+      0.9
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    },
+    "trail": {
+     "lifetime": 1.2,
+     "width": 20.0,
+     "width_end": 0.0,
+     "color": [
+      0.9,
+      0.95,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      0.2,
+      0.4,
+      1.0,
+      0.0
+     ],
+     "min_distance": 3.0
+    }
+   }
+  },
+  {
+   "name": "LabelLeft",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "alpha, tapering and fading",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Emitting",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Arm",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "angular_velocity": {
+     "omega": 3.0
+    }
+   }
+  },
+  {
+   "name": "Tip",
+   "parent": "Arm",
+   "components": {
+    "transform": {
+     "position": [
+      110.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      1.0,
+      0.8,
+      0.4,
+      1
+     ],
+     "z_order": 10,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.45,
+     "width": 26.0,
+     "width_end": 4.0,
+     "color": [
+      1.0,
+      0.55,
+      0.15,
+      1.0
+     ],
+     "color_end": [
+      0.6,
+      0.1,
+      0.3,
+      0.0
+     ],
+     "min_distance": 3.0,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Hub",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.5,
+      0.5,
+      0.55,
+      1
+     ],
+     "z_order": 10,
+     "size": [
+      16.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LabelMid",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "child of a spinning arm, additive",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.18,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      300.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Block",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.55,
+      0.6,
+      0.7,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shuttle",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.4,
+      1.0,
+      0.6,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "oscillator": {
+     "amplitude": [
+      130.0,
+      0.0
+     ],
+     "frequency": [
+      0.6,
+      0.0
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.8,
+     "width": 14.0,
+     "width_end": 14.0,
+     "color": [
+      0.3,
+      1.0,
+      0.5,
+      1.0
+     ],
+     "color_end": [
+      0.3,
+      1.0,
+      0.5,
+      0.0
+     ],
+     "min_distance": 3.0,
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "LabelRight",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "z 5: over the floor (0), under the block (20)",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "Left: a ribbon narrowing and fading to blue, gone for two seconds in four. Middle: an orange arc glowing behind the spinning tip.",
+     "font_id": "",
+     "font_scale": 1.05,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -275.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "Right: a green streak across the dark floor that passes behind the light block. No trail ahead of any dot.",
+     "font_id": "",
+     "font_scale": 1.05,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_122_trails.lua"
+    }
+   }
+  }
+ ]
+}

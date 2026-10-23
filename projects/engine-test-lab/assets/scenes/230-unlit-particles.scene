@@ -1,0 +1,566 @@
+{
+ "name": "230 - Unlit particles",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.5,
+      0.55,
+      0.8
+     ],
+     "intensity": 0.04
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": -10,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      1280.0,
+      520.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "LitSnow",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/soft_disc.png",
+     "emission_rate": 30,
+     "max_particles": 200,
+     "lifetime": [
+      2.6,
+      3.4
+     ],
+     "speed": [
+      55.0,
+      110.0
+     ],
+     "angle": [
+      1.2,
+      1.95
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      26.0
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Alpha"
+    }
+   }
+  },
+  {
+   "name": "UnlitSnow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/soft_disc.png",
+     "emission_rate": 30,
+     "max_particles": 200,
+     "lifetime": [
+      2.6,
+      3.4
+     ],
+     "speed": [
+      55.0,
+      110.0
+     ],
+     "angle": [
+      1.2,
+      1.95
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      0.9
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      26.0
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Alpha"
+    }
+   }
+  },
+  {
+   "name": "Glow",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/soft_disc.png",
+     "color": [
+      0.3,
+      1.0,
+      0.5,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      200.0,
+      200.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LitSmoke",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/soft_disc.png",
+     "emission_rate": 22,
+     "max_particles": 200,
+     "lifetime": [
+      2.6,
+      3.4
+     ],
+     "speed": [
+      55.0,
+      110.0
+     ],
+     "angle": [
+      1.2,
+      1.95
+     ],
+     "color_start": [
+      0.5,
+      0.5,
+      0.55,
+      0.9
+     ],
+     "color_end": [
+      0.5,
+      0.5,
+      0.55,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      26.0
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Alpha"
+    }
+   }
+  },
+  {
+   "name": "LabelLit",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "lit emitter: dark under no light",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "LabelUnlit",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "unlit emitter: full white",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "LabelCut",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "lit smoke over an unlit glow: cuts it",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "230 - Unlit particles",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   L lamp on / off",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.8,
+      0.5
+     ],
+     "intensity": 0.0,
+     "radius": 900.0,
+     "falloff": 1.0,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: in the dark, the left column of particles is barely visible (lit), the middle one is full white (unlit), and on the right the lit grey smoke",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "rising over a green unlit glow hides the glow where it passes. L lights a lamp: the left column and the smoke brighten, the middle does not change.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_230_unlit_particles.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cargo-build-runtime",
+            "type": "shell",
+            "command": "cargo build -p jengine-runtime",
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "cargo-run-runtime",
+            "type": "shell",
+            "command": "cargo run -p jengine-runtime",
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "cargo-run-runtime-profile",
+            "type": "shell",
+            "command": "cargo run -p jengine-runtime",
+            "options": {
+                "env": {
+                    "JENGINE_SCRIPT_PROFILE": "${input:scriptProfileFrames}",
+                    "RUST_LOG": "info"
+                }
+            },
+            "group": "build",
+            "problemMatcher": ["$rustc"],
+            "detail": "Runs the native runtime (debug) with [Script][PROF] timing logs every N frames."
+        },
+        {
+            "label": "cargo-run-runtime-profile-release",
+            "type": "shell",
+            "command": "cargo run --release -p jengine-runtime",
+            "options": {
+                "env": {
+                    "JENGINE_SCRIPT_PROFILE": "${input:scriptProfileFrames}",
+                    "RUST_LOG": "info"
+                }
+            },
+            "group": "build",
+            "problemMatcher": ["$rustc"],
+            "detail": "Runs the native runtime (release, much faster) with [Script][PROF] timing logs every N frames."
+        },
+        {
+            "label": "cargo-check-all",
+            "type": "shell",
+            "command": "cargo check --workspace",
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "cargo-test-all",
+            "type": "shell",
+            "command": "cargo test --workspace",
+            "group": "test",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "cargo-clippy",
+            "type": "shell",
+            "command": "cargo clippy --workspace -- -D warnings",
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "wasm-build",
+            "type": "shell",
+            "command": "wasm-pack build crates/jengine-web --target web --release",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "tauri-dev",
+            "type": "shell",
+            "command": "npm run tauri dev",
+            "options": { "cwd": "${workspaceFolder}/editor" },
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "label": "tauri-dev-build",
+            "type": "shell",
+            "command": "npm run tauri build -- --debug",
+            "options": { "cwd": "${workspaceFolder}/editor" },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "benchmark-run",
+            "type": "shell",
+            "command": "cargo run -p jengine-benchmark -- --no-vsync",
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "benchmark-autoramp",
+            "type": "shell",
+            "command": "cargo run -p jengine-benchmark -- --mode autoramp --no-vsync --json",
+            "group": "build",
+            "problemMatcher": ["$rustc"]
+        },
+        {
+            "label": "benchmark-wasm-build",
+            "type": "shell",
+            "command": "wasm-pack build crates/jengine-benchmark-web --target web --dev",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "benchmark-wasm-serve",
+            "type": "shell",
+            "command": "python -m http.server 8080 --directory crates/jengine-benchmark-web",
+            "group": "build",
+            "isBackground": true,
+            "problemMatcher": []
+        }
+    ]
+}

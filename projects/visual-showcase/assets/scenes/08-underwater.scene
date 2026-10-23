@@ -1,0 +1,4053 @@
+{
+ "name": "08 - Underwater",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.8
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.02,
+       0.05,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       0.85,
+       1.0,
+       1.0,
+       0.08
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.52252,
+      0.69207
+     ],
+     "intensity": 0.22
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/water_bg.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1440.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Surface",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      354.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.98558,
+      2.2,
+      2.2,
+      0.7
+     ],
+     "z_order": -95,
+     "size": [
+      2048.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "FarRock1",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      0.07324,
+      0.26327,
+      0.38006,
+      0.55
+     ],
+     "z_order": -90,
+     "size": [
+      300.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "FarRock2",
+   "components": {
+    "transform": {
+     "position": [
+      -230.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      0.07324,
+      0.26327,
+      0.38006,
+      0.55
+     ],
+     "z_order": -90,
+     "size": [
+      200.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "FarRock3",
+   "components": {
+    "transform": {
+     "position": [
+      260.0,
+      -50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      0.07324,
+      0.26327,
+      0.38006,
+      0.55
+     ],
+     "z_order": -90,
+     "size": [
+      260.0,
+      182.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "FarRock4",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      0.07324,
+      0.26327,
+      0.38006,
+      0.55
+     ],
+     "z_order": -90,
+     "size": [
+      180.0,
+      125.99999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ray1",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      380.0
+     ],
+     "rotation": -1.2908,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.83603,
+      1.6,
+      1.6,
+      0.16
+     ],
+     "z_order": -40,
+     "size": [
+      820.0,
+      170.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ray2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      380.0
+     ],
+     "rotation": -1.3908,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.83603,
+      1.6,
+      1.6,
+      0.16
+     ],
+     "z_order": -40,
+     "size": [
+      820.0,
+      210.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ray3",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      380.0
+     ],
+     "rotation": -1.4707999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.83603,
+      1.6,
+      1.6,
+      0.16
+     ],
+     "z_order": -40,
+     "size": [
+      820.0,
+      170.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ray4",
+   "components": {
+    "transform": {
+     "position": [
+      390.0,
+      380.0
+     ],
+     "rotation": -1.5208,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.83603,
+      1.6,
+      1.6,
+      0.16
+     ],
+     "z_order": -40,
+     "size": [
+      820.0,
+      210.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ray5",
+   "components": {
+    "transform": {
+     "position": [
+      620.0,
+      380.0
+     ],
+     "rotation": -1.5908,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.83603,
+      1.6,
+      1.6,
+      0.16
+     ],
+     "z_order": -40,
+     "size": [
+      820.0,
+      170.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Sand",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_sand"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/sand.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1440.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       300.0,
+       110.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/sand_n.png"
+    }
+   }
+  },
+  {
+   "name": "FloorHaze",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -116.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/vfade.png",
+     "color": [
+      0.00294,
+      0.02425,
+      0.06464,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      1480.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Caustics",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "lightmap": {
+     "texture_id": "",
+     "size": [
+      1480.0,
+      520.0
+     ],
+     "intensity": 0.75
+    },
+    "material": {
+     "material_id": "materials/caustics_light"
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      560.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.31855,
+      0.78741,
+      1.0
+     ],
+     "intensity": 1.1,
+     "radius": 1500.0,
+     "falloff": 1.0,
+     "shadow_softness": 12.0,
+     "height": 1.2
+    }
+   }
+  },
+  {
+   "name": "Rock1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -462.0,
+      -201.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.55
+     ],
+     "z_order": -30,
+     "size": [
+      253.00000000000003,
+      50.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      230.0,
+      172.5
+     ],
+     "anchor": [
+      0.5,
+      0.12
+     ],
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/rock_n.png"
+    }
+   }
+  },
+  {
+   "name": "Rock1Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -147.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       87.4,
+       0.0
+      ],
+      [
+       61.8,
+       61.8
+      ],
+      [
+       0.0,
+       87.4
+      ],
+      [
+       -61.8,
+       61.8
+      ],
+      [
+       -87.4,
+       0.0
+      ],
+      [
+       -61.8,
+       -61.8
+      ],
+      [
+       -0.0,
+       -87.4
+      ],
+      [
+       61.8,
+       -61.8
+      ]
+     ],
+     "shadow_length": 103.5
+    }
+   }
+  },
+  {
+   "name": "Rock2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -142.0,
+      -286.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.55
+     ],
+     "z_order": -30,
+     "size": [
+      187.00000000000003,
+      37.4
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      170.0,
+      127.5
+     ],
+     "anchor": [
+      0.5,
+      0.12
+     ],
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/rock_n.png"
+    }
+   }
+  },
+  {
+   "name": "Rock2Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -247.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       64.6,
+       0.0
+      ],
+      [
+       45.68,
+       45.68
+      ],
+      [
+       0.0,
+       64.6
+      ],
+      [
+       -45.68,
+       45.68
+      ],
+      [
+       -64.6,
+       0.0
+      ],
+      [
+       -45.68,
+       -45.68
+      ],
+      [
+       -0.0,
+       -64.6
+      ],
+      [
+       45.68,
+       -45.68
+      ]
+     ],
+     "shadow_length": 76.5
+    }
+   }
+  },
+  {
+   "name": "Rock3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      218.0,
+      -171.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.55
+     ],
+     "z_order": -30,
+     "size": [
+      165.0,
+      33.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock3",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      -175.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      150.0,
+      112.5
+     ],
+     "anchor": [
+      0.5,
+      0.12
+     ],
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/rock_n.png"
+    }
+   }
+  },
+  {
+   "name": "Rock3Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      -137.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       57.0,
+       0.0
+      ],
+      [
+       40.31,
+       40.31
+      ],
+      [
+       0.0,
+       57.0
+      ],
+      [
+       -40.31,
+       40.31
+      ],
+      [
+       -57.0,
+       0.0
+      ],
+      [
+       -40.31,
+       -40.31
+      ],
+      [
+       -0.0,
+       -57.0
+      ],
+      [
+       40.31,
+       -40.31
+      ]
+     ],
+     "shadow_length": 67.5
+    }
+   }
+  },
+  {
+   "name": "Rock4Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      478.0,
+      -266.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.55
+     ],
+     "z_order": -30,
+     "size": [
+      264.0,
+      52.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock4",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      240.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.12
+     ],
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/rock_n.png"
+    }
+   }
+  },
+  {
+   "name": "Rock4Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       91.2,
+       0.0
+      ],
+      [
+       64.49,
+       64.49
+      ],
+      [
+       0.0,
+       91.2
+      ],
+      [
+       -64.49,
+       64.49
+      ],
+      [
+       -91.2,
+       0.0
+      ],
+      [
+       -64.49,
+       -64.49
+      ],
+      [
+       -0.0,
+       -91.2
+      ],
+      [
+       64.49,
+       -64.49
+      ]
+     ],
+     "shadow_length": 108.0
+    }
+   }
+  },
+  {
+   "name": "Rock5Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      48.0,
+      -146.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.55
+     ],
+     "z_order": -30,
+     "size": [
+      99.00000000000001,
+      19.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock5",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      67.5
+     ],
+     "anchor": [
+      0.5,
+      0.12
+     ],
+     "y_sort": true
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/rock_n.png"
+    }
+   }
+  },
+  {
+   "name": "Rock5Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -127.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       34.2,
+       0.0
+      ],
+      [
+       24.18,
+       24.18
+      ],
+      [
+       0.0,
+       34.2
+      ],
+      [
+       -24.18,
+       24.18
+      ],
+      [
+       -34.2,
+       0.0
+      ],
+      [
+       -24.18,
+       -24.18
+      ],
+      [
+       -0.0,
+       -34.2
+      ],
+      [
+       24.18,
+       -24.18
+      ]
+     ],
+     "shadow_length": 40.5
+    }
+   }
+  },
+  {
+   "name": "Kelp1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Kelp1_2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp1_1"
+  },
+  {
+   "name": "Kelp1_3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp1_2"
+  },
+  {
+   "name": "Kelp1_4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp1_3"
+  },
+  {
+   "name": "Kelp1_5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp1_4"
+  },
+  {
+   "name": "Kelp1_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp1_5"
+  },
+  {
+   "name": "Kelp2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Kelp2_2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp2_1"
+  },
+  {
+   "name": "Kelp2_3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp2_2"
+  },
+  {
+   "name": "Kelp2_4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp2_3"
+  },
+  {
+   "name": "Kelp2_5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp2_4"
+  },
+  {
+   "name": "Kelp3_1",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Kelp3_2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp3_1"
+  },
+  {
+   "name": "Kelp3_3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp3_2"
+  },
+  {
+   "name": "Kelp3_4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp3_3"
+  },
+  {
+   "name": "Kelp3_5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp3_4"
+  },
+  {
+   "name": "Kelp3_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp3_5"
+  },
+  {
+   "name": "Kelp3_7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp3_6"
+  },
+  {
+   "name": "Kelp4_1",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -145.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Kelp4_2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp4_1"
+  },
+  {
+   "name": "Kelp4_3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp4_2"
+  },
+  {
+   "name": "Kelp4_4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp4_3"
+  },
+  {
+   "name": "Kelp4_5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp4_4"
+  },
+  {
+   "name": "Kelp4_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp4_5"
+  },
+  {
+   "name": "Kelp5_1",
+   "components": {
+    "transform": {
+     "position": [
+      590.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Kelp5_2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp5_1"
+  },
+  {
+   "name": "Kelp5_3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp5_2"
+  },
+  {
+   "name": "Kelp5_4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp5_3"
+  },
+  {
+   "name": "Kelp5_5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp5_4"
+  },
+  {
+   "name": "Kelp5_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp5_5"
+  },
+  {
+   "name": "Kelp5_7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp5_6"
+  },
+  {
+   "name": "Kelp6_1",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Kelp6_2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp6_1"
+  },
+  {
+   "name": "Kelp6_3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp6_2"
+  },
+  {
+   "name": "Kelp6_4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/kelp.png",
+     "color": [
+      0.52252,
+      0.89001,
+      0.44799,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      34.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.05
+     ]
+    }
+   },
+   "parent": "Kelp6_3"
+  },
+  {
+   "name": "Fish1",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish2",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish3",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish4",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish5",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish6",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish7",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish8",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish9",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish10",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish11",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish12",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish13",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish14",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish15",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish16",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish17",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish18",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish19",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish20",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish21",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish22",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish23",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish24",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish25",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      148.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fish26",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      148.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/fish.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      38.0,
+      19.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vent1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/bubble.png",
+     "emission_rate": 5.0,
+     "max_particles": 60,
+     "lifetime": [
+      3.0,
+      5.5
+     ],
+     "speed": [
+      50.0,
+      110.0
+     ],
+     "angle": [
+      1.45,
+      1.69
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      16.0
+     ],
+     "size_end": [
+      8.0,
+      22.0
+     ],
+     "gravity_modifier": -0.03,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 10.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.8,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.08,
+       0.8,
+       1.0,
+       1.0,
+       0.8
+      ],
+      [
+       0.85,
+       0.8,
+       1.0,
+       1.0,
+       0.7
+      ],
+      [
+       1.0,
+       0.8,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vent2",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/bubble.png",
+     "emission_rate": 7.0,
+     "max_particles": 60,
+     "lifetime": [
+      3.0,
+      5.5
+     ],
+     "speed": [
+      50.0,
+      110.0
+     ],
+     "angle": [
+      1.45,
+      1.69
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      16.0
+     ],
+     "size_end": [
+      8.0,
+      22.0
+     ],
+     "gravity_modifier": -0.03,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 10.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.8,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.08,
+       0.8,
+       1.0,
+       1.0,
+       0.8
+      ],
+      [
+       0.85,
+       0.8,
+       1.0,
+       1.0,
+       0.7
+      ],
+      [
+       1.0,
+       0.8,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vent3",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/bubble.png",
+     "emission_rate": 9.0,
+     "max_particles": 60,
+     "lifetime": [
+      3.0,
+      5.5
+     ],
+     "speed": [
+      50.0,
+      110.0
+     ],
+     "angle": [
+      1.45,
+      1.69
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      16.0
+     ],
+     "size_end": [
+      8.0,
+      22.0
+     ],
+     "gravity_modifier": -0.03,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 10.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.8,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.08,
+       0.8,
+       1.0,
+       1.0,
+       0.8
+      ],
+      [
+       0.85,
+       0.8,
+       1.0,
+       1.0,
+       0.7
+      ],
+      [
+       1.0,
+       0.8,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Snow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 40.0,
+     "max_particles": 500,
+     "lifetime": [
+      6.0,
+      11.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      4.4,
+      5.0
+     ],
+     "color_start": [
+      0.78741,
+      1.0,
+      1.0,
+      0.6
+     ],
+     "color_end": [
+      0.78741,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 25,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       820.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Jelly",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/jelly.png",
+     "color": [
+      3.0,
+      0.51192,
+      2.07621,
+      0.85
+     ],
+     "z_order": 40,
+     "size": [
+      84.0,
+      126.0
+     ],
+     "anchor": [
+      0.5,
+      0.75
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "JellyGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.21259,
+      0.96613,
+      0.35
+     ],
+     "z_order": 39,
+     "size": [
+      260.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "JellyLight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.69207
+     ],
+     "intensity": 2.2,
+     "radius": 380.0,
+     "falloff": 1.8,
+     "shadow_softness": 6.0,
+     "height": 0.4
+    }
+   }
+  },
+  {
+   "name": "Wobble",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 200,
+     "size": [
+      1340.0,
+      780.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "materials/water_wobble"
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "08   Underwater",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Mouse  jellyfish   W  water wobble   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s08_underwater.lua"
+    }
+   }
+  }
+ ]
+}

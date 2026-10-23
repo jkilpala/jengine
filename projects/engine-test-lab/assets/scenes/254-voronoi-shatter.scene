@@ -1,0 +1,409 @@
+{
+ "name": "254 - Voronoi Shatter",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1300.0,
+       "height": 40.0
+      }
+     },
+     "collision_membership": 4
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.38,
+      0.45,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      1300.0,
+      40.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GridPane",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 150.0,
+       "height": 240.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5
+    },
+    "sprite": {
+     "texture_id": "sprites/lab254_pane.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      150.0,
+      240.0
+     ]
+    },
+    "breakable": {
+     "pattern": "grid",
+     "cols": 2,
+     "rows": 4,
+     "pieces": 14,
+     "focus": 0.7,
+     "break_speed": 250.0,
+     "scatter": 20.0,
+     "piece_lifetime": 3.5
+    }
+   }
+  },
+  {
+   "name": "VoronoiPane",
+   "components": {
+    "transform": {
+     "position": [
+      260.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 150.0,
+       "height": 240.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5
+    },
+    "sprite": {
+     "texture_id": "sprites/lab254_pane.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      150.0,
+      240.0
+     ]
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "cols": 2,
+     "rows": 4,
+     "pieces": 14,
+     "focus": 0.7,
+     "break_speed": 250.0,
+     "scatter": 20.0,
+     "piece_lifetime": 3.5
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "254 - Voronoi Shatter",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   Space throw now",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "LabelL",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      330.0,
+      -150.0
+     ],
+     "size": [
+      300.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "grid",
+     "font_size": 18.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "LabelR",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      790.0,
+      -150.0
+     ],
+     "size": [
+      300.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "voronoi",
+     "font_size": 18.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: a ball strikes each pane at a different height; the left breaks into its grid of boxes, the right into shards small round",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the impact and long away from it, each showing its own part of the picture; the shards fall and the panes come back (`breakable` `voronoi`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_254_voronoi_shatter.lua"
+    }
+   }
+  }
+ ]
+}

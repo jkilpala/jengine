@@ -1,0 +1,18 @@
+[package]
+name = "jengine-liveops"
+description = "What a live ops service and a jEngine game share: the content manifest, the signed snapshot of config, experiments and events, and the key that vouches for it"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+# Linked by the server (`jengine-server`'s live ops) and by `jengine-core`,
+# which builds for wasm32 - so nothing here may need a platform. Ed25519 is
+# pure Rust; a snapshot is checked by the game against a public key it was
+# built with, because a content release can carry scripts.
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+ed25519-dalek = { version = "2", default-features = false, features = ["std", "fast"] }

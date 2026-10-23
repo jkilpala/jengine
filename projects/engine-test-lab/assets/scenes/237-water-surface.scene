@@ -1,0 +1,472 @@
+{
+ "name": "237 - Water surface",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "water_surface": {
+     "width": 1000.0,
+     "depth": 240.0,
+     "spacing": 8.0,
+     "swell_height": 12.0,
+     "swell_length": 420.0,
+     "swell_speed": 60.0,
+     "buoyancy": 2.0,
+     "drag": 3.0,
+     "angular_drag": 3.0,
+     "splash": 0.014,
+     "color_top": [
+      0.1,
+      0.35,
+      0.55,
+      0.85
+     ],
+     "color_deep": [
+      0.01,
+      0.05,
+      0.12,
+      0.95
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "WallW",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.3,
+      0.3,
+      0.35,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      80.0,
+      520.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 520.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "WallE",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.3,
+      0.3,
+      0.35,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      80.0,
+      520.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 520.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1200.0,
+       "height": 40.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Raft",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.75,
+      0.55,
+      0.3,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      180.0,
+      26.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 6.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 180.0,
+       "height": 26.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Block",
+   "components": {
+    "transform": {
+     "position": [
+      220.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      1.0,
+      0.5,
+      0.2,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      44.0,
+      44.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 2.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "237 - Water surface",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   Space splash",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      700.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: a swell rolls along the water and the raft rises and falls on it, tilting with the slope; the orange block drops in every few seconds and",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "splashes - a dip and waves running out both ways - then floats; Space pokes the surface by the raft (`water_surface`, `Water.splash`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_237_water_surface.lua"
+    }
+   }
+  }
+ ]
+}

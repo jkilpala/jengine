@@ -1,0 +1,1844 @@
+{
+ "name": "128 - Quicksave Workshop",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.3
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      1.0,
+      0.74841,
+      0.477
+     ],
+     "intensity": 0.55
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.69207,
+      0.31855
+     ],
+     "intensity": 1.1,
+     "radius": 1100.0,
+     "falloff": 1.1,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1400.0,
+      640.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Shelf",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/shelf.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      900.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bench",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/bench.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      1400.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       160.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1400.0,
+       "height": 160.0
+      }
+     },
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "Peg",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/peg.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      60.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 4.0
+      }
+     },
+     "is_sensor": true
+    }
+   }
+  },
+  {
+   "name": "Bob",
+   "components": {
+    "transform": {
+     "position": [
+      -614.0424652063002,
+      -47.55599459593165
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/bob.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 6.0,
+     "gravity_scale": 1.0,
+     "angular_damping": 0.2
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 23.0
+      }
+     },
+     "restitution": 0.2,
+     "friction": 0.4
+    },
+    "joint": {
+     "target_entity": "Peg",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        184.04246520630022,
+        197.55599459593165
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "String",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -430.0,
+       150.0
+      ],
+      [
+       -614.0424652063002,
+       -47.55599459593165
+      ]
+     ],
+     "width": 2.5,
+     "color": [
+      0.69207,
+      0.63828,
+      0.477,
+      1.0
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "Domino0",
+   "components": {
+    "transform": {
+     "position": [
+      -395.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino1",
+   "components": {
+    "transform": {
+     "position": [
+      -357.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino2",
+   "components": {
+    "transform": {
+     "position": [
+      -319.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino3",
+   "components": {
+    "transform": {
+     "position": [
+      -281.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino4",
+   "components": {
+    "transform": {
+     "position": [
+      -243.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino5",
+   "components": {
+    "transform": {
+     "position": [
+      -205.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino6",
+   "components": {
+    "transform": {
+     "position": [
+      -167.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino7",
+   "components": {
+    "transform": {
+     "position": [
+      -129.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino8",
+   "components": {
+    "transform": {
+     "position": [
+      -91.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino9",
+   "components": {
+    "transform": {
+     "position": [
+      -53.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino10",
+   "components": {
+    "transform": {
+     "position": [
+      -15.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino11",
+   "components": {
+    "transform": {
+     "position": [
+      23.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino12",
+   "components": {
+    "transform": {
+     "position": [
+      61.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino13",
+   "components": {
+    "transform": {
+     "position": [
+      99.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino14",
+   "components": {
+    "transform": {
+     "position": [
+      137.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino15",
+   "components": {
+    "transform": {
+     "position": [
+      175.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Domino16",
+   "components": {
+    "transform": {
+     "position": [
+      213.0,
+      -164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/domino.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      18.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 0.6,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 72.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Ramp0",
+   "components": {
+    "transform": {
+     "position": [
+      305.0,
+      264.0
+     ],
+     "rotation": -0.16619470213772036,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/ramp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      314.33103569326397,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 314.33103569326397,
+       "height": 16.0
+      }
+     },
+     "friction": 0.4
+    }
+   }
+  },
+  {
+   "name": "Ramp1",
+   "components": {
+    "transform": {
+     "position": [
+      364.0,
+      142.0
+     ],
+     "rotation": 0.16162135518301302,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/ramp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      372.8592227637664,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 372.8592227637664,
+       "height": 16.0
+      }
+     },
+     "friction": 0.4
+    }
+   }
+  },
+  {
+   "name": "Ramp2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      17.0
+     ],
+     "rotation": -0.19097716275089585,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/ramp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      305.5552323230614,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 305.5552323230614,
+       "height": 16.0
+      }
+     },
+     "friction": 0.4
+    }
+   }
+  },
+  {
+   "name": "Stop0",
+   "components": {
+    "transform": {
+     "position": [
+      556.0,
+      215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/ramp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      12.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 12.0,
+       "height": 110.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Stop1",
+   "components": {
+    "transform": {
+     "position": [
+      118.0,
+      85.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/ramp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      12.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 12.0,
+       "height": 110.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Jar",
+   "components": {
+    "transform": {
+     "position": [
+      490.0,
+      -135.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/jar.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      120.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "JarWall0",
+   "components": {
+    "transform": {
+     "position": [
+      434.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 8.0,
+       "height": 120.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "JarWall1",
+   "components": {
+    "transform": {
+     "position": [
+      546.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 8.0,
+       "height": 120.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Hopper",
+   "components": {
+    "transform": {
+     "position": [
+      168.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/jar.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      70.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Photo",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      52.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__save/quick",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 60,
+     "size": [
+      140.0,
+      79.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "PhotoFrame",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/workshop/polaroid.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 59,
+     "size": [
+      152.0,
+      117.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 80,
+     "size": [
+      1500.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s128_quicksave_workshop.lua"
+    },
+    "Run": {
+     "t": 0.0,
+     "marbles": 0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "128   Quicksave Workshop",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "F5 quicksave   F9 quickload   R start over   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

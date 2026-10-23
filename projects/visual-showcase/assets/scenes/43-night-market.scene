@@ -1,0 +1,4894 @@
+{
+ "name": "43 - Night Market",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.55
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.02
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.9,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "audio_refs": [
+  "sounds/market_lute.wav",
+  "sounds/market_grill.wav",
+  "sounds/market_fountain.wav",
+  "sounds/market_chimes.wav",
+  "sounds/market_coin.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.13287,
+      0.19599,
+      0.69207
+     ],
+     "intensity": 0.28
+    }
+   }
+  },
+  {
+   "name": "Street",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/street.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      3000.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       224.0,
+       224.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "RoofsTop",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.01002,
+      0.00854,
+      0.01341,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      3000.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "RoofsBottom",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -370.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.01002,
+      0.00854,
+      0.01341,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      3000.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stall1",
+   "components": {
+    "transform": {
+     "position": [
+      -1150.0,
+      255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp1",
+   "components": {
+    "transform": {
+     "position": [
+      -1150.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall2",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_grill.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp2",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall3",
+   "components": {
+    "transform": {
+     "position": [
+      50.0,
+      255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_green.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp3",
+   "components": {
+    "transform": {
+     "position": [
+      50.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall4",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp4",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall5",
+   "components": {
+    "transform": {
+     "position": [
+      1150.0,
+      255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp5",
+   "components": {
+    "transform": {
+     "position": [
+      1150.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall6",
+   "components": {
+    "transform": {
+     "position": [
+      -1150.0,
+      -285.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_green.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp6",
+   "components": {
+    "transform": {
+     "position": [
+      -1150.0,
+      -225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall7",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      -285.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp7",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      -225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall8",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      -285.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp8",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      -225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Stall9",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      -285.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/stall_green.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      240.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "StallLamp9",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      -225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.13287
+     ],
+     "intensity": 1.1,
+     "radius": 260.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Coals",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.0,
+      0.34128,
+      0.02682,
+      0.8
+     ],
+     "z_order": 6,
+     "size": [
+      200.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Smoke",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 14.0,
+     "max_particles": 120,
+     "lifetime": [
+      2.0,
+      3.0
+     ],
+     "speed": [
+      20.0,
+      40.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      0.5,
+      0.5,
+      0.55,
+      0.3
+     ],
+     "color_end": [
+      0.5,
+      0.5,
+      0.55,
+      0.0
+     ],
+     "size_start": [
+      20.0,
+      30.0
+     ],
+     "size_end": [
+      70.0,
+      100.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 7,
+     "drag": 0.5,
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 160.0,
+      "speed": 0.3
+     }
+    }
+   }
+  },
+  {
+   "name": "Fountain",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/fountain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      260.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainLight",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.31855,
+      0.60383,
+      1.0
+     ],
+     "intensity": 0.9,
+     "radius": 300.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "ChimeBar",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/chimes.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      120.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Musician",
+   "components": {
+    "transform": {
+     "position": [
+      -880.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/market/musician.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      72.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_0",
+   "components": {
+    "transform": {
+     "position": [
+      -1300.0,
+      72.79970738570336
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_1",
+   "components": {
+    "transform": {
+     "position": [
+      -1230.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_2",
+   "components": {
+    "transform": {
+     "position": [
+      -1160.0,
+      71.63938841813133
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_3",
+   "components": {
+    "transform": {
+     "position": [
+      -1090.0,
+      82.26975387021045
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_4",
+   "components": {
+    "transform": {
+     "position": [
+      -1020.0,
+      84.14718939753314
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_5",
+   "components": {
+    "transform": {
+     "position": [
+      -950.0,
+      72.79970738570336
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_6",
+   "components": {
+    "transform": {
+     "position": [
+      -880.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_7",
+   "components": {
+    "transform": {
+     "position": [
+      -810.0,
+      71.63938841813133
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_8",
+   "components": {
+    "transform": {
+     "position": [
+      -740.0,
+      82.26975387021045
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_9",
+   "components": {
+    "transform": {
+     "position": [
+      -670.0,
+      84.14718939753315
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_10",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      72.79970738570334
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_11",
+   "components": {
+    "transform": {
+     "position": [
+      -530.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_12",
+   "components": {
+    "transform": {
+     "position": [
+      -460.0,
+      71.63938841813135
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_13",
+   "components": {
+    "transform": {
+     "position": [
+      -390.0,
+      82.26975387021045
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_14",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      84.14718939753314
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_15",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      72.79970738570334
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_16",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_17",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      71.63938841813135
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_18",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      82.26975387021045
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_19",
+   "components": {
+    "transform": {
+     "position": [
+      30.0,
+      84.14718939753315
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_20",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      72.79970738570334
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_21",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_22",
+   "components": {
+    "transform": {
+     "position": [
+      240.0,
+      71.63938841813135
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_23",
+   "components": {
+    "transform": {
+     "position": [
+      310.0,
+      82.26975387021045
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_24",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      84.14718939753315
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_25",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      72.79970738570334
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_26",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_27",
+   "components": {
+    "transform": {
+     "position": [
+      590.0,
+      71.63938841813135
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_28",
+   "components": {
+    "transform": {
+     "position": [
+      660.0,
+      82.26975387021045
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_29",
+   "components": {
+    "transform": {
+     "position": [
+      730.0,
+      84.14718939753314
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_30",
+   "components": {
+    "transform": {
+     "position": [
+      800.0,
+      72.79970738570336
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_31",
+   "components": {
+    "transform": {
+     "position": [
+      870.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_32",
+   "components": {
+    "transform": {
+     "position": [
+      940.0,
+      71.63938841813133
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_33",
+   "components": {
+    "transform": {
+     "position": [
+      1010.0,
+      82.26975387021045
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_34",
+   "components": {
+    "transform": {
+     "position": [
+      1080.0,
+      84.14718939753314
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_35",
+   "components": {
+    "transform": {
+     "position": [
+      1150.0,
+      72.79970738570336
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_36",
+   "components": {
+    "transform": {
+     "position": [
+      1220.0,
+      68.02215253609108
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb0_37",
+   "components": {
+    "transform": {
+     "position": [
+      1290.0,
+      71.63938841813133
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -1265.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -1195.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -1125.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -1055.0,
+      -130.98702626771134
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -985.0,
+      -142.11973359194624
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_5",
+   "components": {
+    "transform": {
+     "position": [
+      -915.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_6",
+   "components": {
+    "transform": {
+     "position": [
+      -845.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_7",
+   "components": {
+    "transform": {
+     "position": [
+      -775.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_8",
+   "components": {
+    "transform": {
+     "position": [
+      -705.0,
+      -130.98702626771134
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_9",
+   "components": {
+    "transform": {
+     "position": [
+      -635.0,
+      -142.11973359194624
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_10",
+   "components": {
+    "transform": {
+     "position": [
+      -565.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_11",
+   "components": {
+    "transform": {
+     "position": [
+      -495.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_12",
+   "components": {
+    "transform": {
+     "position": [
+      -425.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_13",
+   "components": {
+    "transform": {
+     "position": [
+      -355.0,
+      -130.98702626771134
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_14",
+   "components": {
+    "transform": {
+     "position": [
+      -285.0,
+      -142.11973359194624
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_15",
+   "components": {
+    "transform": {
+     "position": [
+      -215.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_16",
+   "components": {
+    "transform": {
+     "position": [
+      -145.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_17",
+   "components": {
+    "transform": {
+     "position": [
+      -75.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_18",
+   "components": {
+    "transform": {
+     "position": [
+      -5.0,
+      -130.98702626771134
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_19",
+   "components": {
+    "transform": {
+     "position": [
+      65.0,
+      -142.11973359194624
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_20",
+   "components": {
+    "transform": {
+     "position": [
+      135.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_21",
+   "components": {
+    "transform": {
+     "position": [
+      205.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_22",
+   "components": {
+    "transform": {
+     "position": [
+      275.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_23",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      -130.98702626771134
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_24",
+   "components": {
+    "transform": {
+     "position": [
+      415.0,
+      -142.11973359194624
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_25",
+   "components": {
+    "transform": {
+     "position": [
+      485.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_26",
+   "components": {
+    "transform": {
+     "position": [
+      555.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_27",
+   "components": {
+    "transform": {
+     "position": [
+      625.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_28",
+   "components": {
+    "transform": {
+     "position": [
+      695.0,
+      -130.98702626771134
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_29",
+   "components": {
+    "transform": {
+     "position": [
+      765.0,
+      -142.11973359194624
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_30",
+   "components": {
+    "transform": {
+     "position": [
+      835.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_31",
+   "components": {
+    "transform": {
+     "position": [
+      905.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_32",
+   "components": {
+    "transform": {
+     "position": [
+      975.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_33",
+   "components": {
+    "transform": {
+     "position": [
+      1045.0,
+      -130.98702626771134
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_34",
+   "components": {
+    "transform": {
+     "position": [
+      1115.0,
+      -142.11973359194624
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_35",
+   "components": {
+    "transform": {
+     "position": [
+      1185.0,
+      -150.5971671540742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_36",
+   "components": {
+    "transform": {
+     "position": [
+      1255.0,
+      -151.20718293530877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.30715,
+      0.18086,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1_37",
+   "components": {
+    "transform": {
+     "position": [
+      1325.0,
+      -143.71677564089214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.8,
+      0.94054,
+      0.23917,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MusicianSound",
+   "components": {
+    "transform": {
+     "position": [
+      -880.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_lute.wav",
+     "volume": 0.9,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 140.0,
+     "max_distance": 900.0,
+     "pan_width": 500.0
+    }
+   }
+  },
+  {
+   "name": "MusicianRing1",
+   "components": {
+    "transform": {
+     "position": [
+      -880.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.69207,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MusicianRing2",
+   "components": {
+    "transform": {
+     "position": [
+      -880.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.69207,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MusicianRing3",
+   "components": {
+    "transform": {
+     "position": [
+      -880.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.69207,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GrillSound",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      175.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_grill.wav",
+     "volume": 0.8,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 140.0,
+     "max_distance": 900.0,
+     "pan_width": 500.0
+    }
+   }
+  },
+  {
+   "name": "GrillRing1",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      175.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GrillRing2",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      175.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GrillRing3",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      175.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainSound",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_fountain.wav",
+     "volume": 0.9,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 140.0,
+     "max_distance": 900.0,
+     "pan_width": 500.0
+    }
+   }
+  },
+  {
+   "name": "FountainRing1",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.21404,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainRing2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.21404,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainRing3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.21404,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChimesSound",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_chimes.wav",
+     "volume": 0.8,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 140.0,
+     "max_distance": 900.0,
+     "pan_width": 500.0
+    }
+   }
+  },
+  {
+   "name": "ChimesRing1",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChimesRing2",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChimesRing3",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Player",
+   "components": {
+    "transform": {
+     "position": [
+      -1100.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_listener": {},
+    "sprite": {
+     "texture_id": "sprites/market/player.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PlayerLight",
+   "components": {
+    "transform": {
+     "position": [
+      -1100.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.78741,
+      0.69207,
+      0.52252
+     ],
+     "intensity": 0.5,
+     "radius": 160.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Glint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/spark.png",
+     "emission_rate": 0.0,
+     "max_particles": 40,
+     "lifetime": [
+      0.3,
+      0.6
+     ],
+     "speed": [
+      60.0,
+      160.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.0,
+      1.38414,
+      0.26574,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.8,
+      0.3,
+      0.0
+     ],
+     "size_start": [
+      10.0,
+      14.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 31,
+     "drag": 3.0,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "43   Night Market",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "WASD / arrows  walk   Click  toss a coin   1-4 post   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s43_market.lua"
+    }
+   }
+  }
+ ]
+}

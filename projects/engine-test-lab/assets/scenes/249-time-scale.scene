@@ -1,0 +1,451 @@
+{
+ "name": "249 - Time Scale",
+ "audio_refs": [
+  "sounds/hum.wav",
+  "sounds/blip.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "World",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": 200.0,
+     "y": 0.0
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.9,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      28.0,
+      28.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.6,
+     "width": 10.0,
+     "width_end": 0.0,
+     "color": [
+      0.9,
+      0.9,
+      0.95,
+      0.7
+     ],
+     "color_end": [
+      0.9,
+      0.9,
+      0.95,
+      0.0
+     ],
+     "min_distance": 3.0,
+     "z_order": 3
+    }
+   }
+  },
+  {
+   "name": "Hero",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": 200.0,
+     "y": 0.0
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.4,
+      0.9,
+      1.0,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      28.0,
+      28.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.6,
+     "width": 10.0,
+     "width_end": 0.0,
+     "color": [
+      0.4,
+      0.9,
+      1.0,
+      0.7
+     ],
+     "color_end": [
+      0.4,
+      0.9,
+      1.0,
+      0.0
+     ],
+     "min_distance": 3.0,
+     "z_order": 3
+    },
+    "time_scale": {
+     "scale": 1.0,
+     "ignore_world": true
+    }
+   }
+  },
+  {
+   "name": "Quick",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": 200.0,
+     "y": 0.0
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      1.0,
+      0.7,
+      0.3,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      28.0,
+      28.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.6,
+     "width": 10.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      0.7,
+      0.3,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.7,
+      0.3,
+      0.0
+     ],
+     "min_distance": 3.0,
+     "z_order": 3
+    },
+    "time_scale": {
+     "scale": 2.0,
+     "ignore_world": false
+    }
+   }
+  },
+  {
+   "name": "LabelW",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "the world's time",
+     "font_scale": 1.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "LabelH",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "time_scale ignore_world - real time",
+     "font_scale": 1.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "LabelQ",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "time_scale scale 2 - twice the world's",
+     "font_scale": 1.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "249 - Time Scale",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   1 full speed  2 quarter  3 pause   A audio follows time   B beep",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1000.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: three dots wrap across; at a quarter (2) the white one crawls, the blue one keeps its speed, the orange one goes at half;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "3 stops all three; with A on the hum and B's beep drop in pitch at a quarter (`time_scale`, `Time.get_scale`, `Audio.follow_time`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_249_time_scale.lua"
+    }
+   }
+  }
+ ]
+}

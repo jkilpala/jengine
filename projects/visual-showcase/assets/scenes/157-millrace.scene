@@ -1,0 +1,1187 @@
+{
+ "name": "157 - Millrace",
+ "post_process": {
+  "effects": [
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.3
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Field",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/field.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Race",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -560.0,
+       "y": 250.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -320.0,
+       "c1y": 270.0,
+       "c2x": -250.0,
+       "c2y": 60.0,
+       "x": -60.0,
+       "y": 40.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 130.0,
+       "c1y": 20.0,
+       "c2x": 200.0,
+       "c2y": 120.0,
+       "x": 330.0,
+       "y": 30.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 460.0,
+       "c1y": -60.0,
+       "c2x": 420.0,
+       "c2y": -250.0,
+       "x": 660.0,
+       "y": -400.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pond",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/pond.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      300.0,
+      216.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bank",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "flow_path": {
+     "path": "Race",
+     "width": 132.0,
+     "speed": 0.0,
+     "grip": 0.0,
+     "color": [
+      0.08898,
+      0.05497,
+      0.02452,
+      1.0
+     ],
+     "soft": 0.3,
+     "z_order": -60
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "flow_path": {
+     "path": "Race",
+     "width": 96.0,
+     "speed": 110.0,
+     "bank_speed": 0.3,
+     "grip": 2.5,
+     "tag": "floats",
+     "texture": "sprites/millrace/water.png",
+     "tile": 160.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "soft": 0.14,
+     "z_order": -55
+    }
+   }
+  },
+  {
+   "name": "Foam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "flow_path": {
+     "path": "Race",
+     "width": 64.0,
+     "speed": 150.0,
+     "grip": 0.0,
+     "texture": "sprites/millrace/foam.png",
+     "tile": 230.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "soft": 0.3,
+     "z_order": -54
+    }
+   }
+  },
+  {
+   "name": "Wheel",
+   "components": {
+    "transform": {
+     "position": [
+      386.3004000000001,
+      -27.503519999999998
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/wheel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mill",
+   "components": {
+    "transform": {
+     "position": [
+      530.5778482223963,
+      71.53696633984883
+     ],
+     "rotation": -0.9692165234244151,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/roof.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      260.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bridge",
+   "components": {
+    "transform": {
+     "position": [
+      103.11749999999999,
+      49.808749999999996
+     ],
+     "rotation": 1.7713062062448373,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/bridge.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      180.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Leaf0",
+   "components": {
+    "transform": {
+     "position": [
+      -259.7662027184849,
+      108.82625119063874
+     ],
+     "rotation": -0.641107836462181,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.17064,
+      0.44799,
+      0.05088,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf1",
+   "components": {
+    "transform": {
+     "position": [
+      97.89356383180632,
+      63.592751298123424
+     ],
+     "rotation": 0.20502752348704018,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.69207,
+      0.52252,
+      0.05088,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf2",
+   "components": {
+    "transform": {
+     "position": [
+      362.4531403539364,
+      -26.142867437953957
+     ],
+     "rotation": -0.885582203865623,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.78741,
+      0.21404,
+      0.0331,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf3",
+   "components": {
+    "transform": {
+     "position": [
+      -455.3190735111386,
+      259.8140741252315
+     ],
+     "rotation": -0.19796214955348565,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.38006,
+      0.60383,
+      0.07324,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf4",
+   "components": {
+    "transform": {
+     "position": [
+      118.12588668442095,
+      45.852827325608054
+     ],
+     "rotation": 0.21200747006235182,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.60383,
+      0.10048,
+      0.0331,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf5",
+   "components": {
+    "transform": {
+     "position": [
+      481.2408596713273,
+      -243.59541839177504
+     ],
+     "rotation": -0.9987623801056355,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.17064,
+      0.44799,
+      0.05088,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf6",
+   "components": {
+    "transform": {
+     "position": [
+      -418.5172192963058,
+      243.25788929622448
+     ],
+     "rotation": -0.29619839593829195,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.69207,
+      0.52252,
+      0.05088,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf7",
+   "components": {
+    "transform": {
+     "position": [
+      219.18551704126122,
+      61.549530243188755
+     ],
+     "rotation": -0.04398939434838818,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.78741,
+      0.21404,
+      0.0331,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf8",
+   "components": {
+    "transform": {
+     "position": [
+      592.8871231031145,
+      -345.1760282790305
+     ],
+     "rotation": -0.7080073617063306,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.38006,
+      0.60383,
+      0.07324,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf9",
+   "components": {
+    "transform": {
+     "position": [
+      -382.64597914970966,
+      239.32845311821626
+     ],
+     "rotation": -0.4077528142852986,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.60383,
+      0.10048,
+      0.0331,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf10",
+   "components": {
+    "transform": {
+     "position": [
+      286.51651431563045,
+      53.6412992281967
+     ],
+     "rotation": -0.3117488229538736,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.17064,
+      0.44799,
+      0.05088,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf11",
+   "components": {
+    "transform": {
+     "position": [
+      563.3840069668045,
+      -321.98078117161856
+     ],
+     "rotation": -0.7858675510697865,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.69207,
+      0.52252,
+      0.05088,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf12",
+   "components": {
+    "transform": {
+     "position": [
+      -522.1996356221748,
+      259.2807439984936
+     ],
+     "rotation": -0.05884005342151782,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.78741,
+      0.21404,
+      0.0331,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Leaf13",
+   "components": {
+    "transform": {
+     "position": [
+      313.05468834137287,
+      57.045937710660354
+     ],
+     "rotation": -0.4820209433737844,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/leaf.png",
+     "color": [
+      0.38006,
+      0.60383,
+      0.07324,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 3.0
+    }
+   }
+  },
+  {
+   "name": "Boat",
+   "components": {
+    "transform": {
+     "position": [
+      -335.03999999999996,
+      190.48
+     ],
+     "rotation": -0.5718749697039313,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/millrace/boat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -44,
+     "size": [
+      64.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "tags": [
+     "floats"
+    ],
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 2.0
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s157_millrace.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "157   Millrace",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click to drop a leaf   Up/Down the race   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

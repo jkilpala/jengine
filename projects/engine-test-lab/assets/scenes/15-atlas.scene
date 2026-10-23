@@ -1,0 +1,170 @@
+{
+  "name": "15 - Atlas Regions",
+  "atlas_refs": ["sprites/_atlases/demo.atlas"],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-330.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "15 - ATLAS REGIONS", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 270.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Top row: 8 sprites scene-authored with explicit uv_rect (one shared atlas PNG).", "font_id": "", "font_scale": 1.1, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 240.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Bottom row: 4 sprites swapped by Lua via set_sprite_region(entity, atlas_id, region).", "font_id": "", "font_scale": 1.1, "color": [1.0, 0.95, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 210.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "SPACE pause/resume auto-cycle    1/2/3/4 step one region    [H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "", "font_scale": 1.1, "color": [0.7, 1.0, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+
+    { "name": "RowLabelTop",
+      "components": {
+        "transform": { "position": [-580.0, 150.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "scene-authored uv_rect:", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+
+    { "name": "StaticTile0",
+      "components": {
+        "transform": { "position": [-350.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.0, 0.0, 0.25, 0.5] }
+      }
+    },
+    { "name": "StaticTile1",
+      "components": {
+        "transform": { "position": [-250.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.25, 0.0, 0.5, 0.5] }
+      }
+    },
+    { "name": "StaticTile2",
+      "components": {
+        "transform": { "position": [-150.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.5, 0.0, 0.75, 0.5] }
+      }
+    },
+    { "name": "StaticTile3",
+      "components": {
+        "transform": { "position": [-50.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.75, 0.0, 1.0, 0.5] }
+      }
+    },
+    { "name": "StaticTile4",
+      "components": {
+        "transform": { "position": [50.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.0, 0.5, 0.25, 1.0] }
+      }
+    },
+    { "name": "StaticTile5",
+      "components": {
+        "transform": { "position": [150.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.25, 0.5, 0.5, 1.0] }
+      }
+    },
+    { "name": "StaticTile6",
+      "components": {
+        "transform": { "position": [250.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.5, 0.5, 0.75, 1.0] }
+      }
+    },
+    { "name": "StaticTile7",
+      "components": {
+        "transform": { "position": [350.0, 80.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.75, 0.5, 1.0, 1.0] }
+      }
+    },
+
+    { "name": "RowLabelBottom",
+      "components": {
+        "transform": { "position": [-580.0, -40.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Lua-driven set_sprite_region:", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+
+    { "name": "Cycler0",
+      "components": {
+        "transform": { "position": [-240.0, -130.0], "rotation": 0.0, "scale": [3.5, 3.5] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.0, 0.0, 0.25, 0.5] }
+      }
+    },
+    { "name": "Cycler1",
+      "components": {
+        "transform": { "position": [-80.0, -130.0], "rotation": 0.0, "scale": [3.5, 3.5] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.25, 0.0, 0.5, 0.5] }
+      }
+    },
+    { "name": "Cycler2",
+      "components": {
+        "transform": { "position": [80.0, -130.0], "rotation": 0.0, "scale": [3.5, 3.5] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.5, 0.0, 0.75, 0.5] }
+      }
+    },
+    { "name": "Cycler3",
+      "components": {
+        "transform": { "position": [240.0, -130.0], "rotation": 0.0, "scale": [3.5, 3.5] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0, "uv_rect": [0.75, 0.0, 1.0, 0.5] }
+      }
+    },
+
+    { "name": "RegionAnimLabel",
+      "components": {
+        "transform": { "position": [370.0, -40.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "animation frames by region name:", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.85, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    { "name": "RegionAnimated",
+      "components": {
+        "transform": { "position": [480.0, -130.0], "rotation": 0.0, "scale": [3.5, 3.5] },
+        "sprite": { "texture_id": "sprites/_atlases/demo.png", "size": [32.0, 32.0], "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0 },
+        "sprite_animator": {
+          "clips": { "cycle": { "name": "cycle", "frame_duration": 0.25, "looping": true,
+            "frames": [ { "region": "tile_0" }, { "region": "tile_1" }, { "region": "tile_2" }, { "region": "tile_3" }, { "region": "tile_4" }, { "region": "tile_5" }, { "region": "tile_6" }, { "region": "tile_7" } ] } },
+          "current_clip": "cycle",
+          "playing": true
+        }
+      }
+    },
+
+    { "name": "Status",
+      "components": {
+        "transform": { "position": [-580.0, -300.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "regions: 0 1 2 3   atlas: sprites/_atlases/demo.png   auto-cycle: ON", "font_id": "", "font_scale": 1.0, "color": [0.9, 0.9, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+    { "name": "Status2",
+      "components": {
+        "transform": { "position": [-580.0, -330.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "atlas regions loaded: 8 (tile_0 .. tile_7)", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_15_atlas.lua" }
+      }
+    }
+  ]
+}

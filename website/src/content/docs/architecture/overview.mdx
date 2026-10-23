@@ -1,0 +1,142 @@
+---
+draft: false
+title: Engine Architecture
+description: High-level architecture of the jEngine 2D game engine.
+---
+
+## Crate Structure
+
+jEngine is a Cargo workspace (edition 2024):
+
+| Crate | Purpose |
+|-------|---------|
+| `jengine-core` | The engine library: wgpu renderer, ECS, scripting bridge, physics, audio, animation, UI, input, assets |
+| `jengine-runtime` | Native runtime: winit + wgpu loop, Luau scripts. Windows and Android; Linux tested under WSL only; macOS and iOS type-checked, never run |
+| `jengine-web` | WASM runtime: wasm-bindgen + WebGPU (WebGL2 fallback), `requestAnimationFrame` loop, Lua through Fengari |
+| `jengine-editor-viewport` | WASM module that runs the game inside the editor |
+| `jengine-builder` | Build pipeline and the `jengine` CLI: Windows, web, Android, Linux, macOS and iOS builds, project runtime crates, project and package scaffolding |
+| `jengine-server` | The game server framework: rooms, players whose state outlives a room, accounts, a store, state sync, an admin dashboard, live ops - plus `jengine-fleet`, the tool that deploys servers |
+| `jengine-relay` | The smallest server: rooms, seats and one ordered log, for turn-based games |
+| `jengine-netcode` | No-dependency crate both ends link for predicted movement: numbered inputs per fixed step, the server's input queue, the client's reconciler |
+| `jengine-liveops` | What a live ops service and a game share: asset pack manifests, the signed snapshot of config, experiments, events and content release, and Ed25519 signing |
+| `jengine-benchmark`, `jengine-benchmark-web` | Performance harnesses |
+
+`editor/` is the Tauri 2 + Svelte editor, and `packages/` holds the engine's [packages](/packages/).
+The server side is described in [Game Servers](/servers/overview/).
+
+## Technology Stack
+
+| Category | Technology | Purpose |
+|----------|-----------|---------|
+| **Rendering** | `wgpu` 23 | One WGSL pipeline over DX12 / Vulkan / Metal / WebGPU / WebGL2 / GLES |
+| **Windowing** | `winit` 0.30 (vendored, with an Android controller hook) | Native window + surface |
+| **ECS** | `hecs` 0.10 | Minimal entity-component-system |
+| **Scripting** | `mlua` 0.10 (Luau), Fengari, `rquickjs` 0.8 | Luau natively; Lua 5.3 in the editor and web; JavaScript on desktop |
+| **Math** | `glam` 0.29 | Vectors and matrices |
+| **Physics** | `rapier2d` 0.22 | 2D rigid body physics |
+| **Audio** | `kira` 0.12 natively, Web Audio in the browser | WAV / OGG / MP3 playback, buses, effects |
+| **Vector shapes** | `lyon` 1.0 | Path tessellation |
+| **Serialization** | `serde` + `serde_json` | Scenes, prefabs, project files |
+| **Editor** | Tauri 2 + Svelte | Visual game editor |
+
+## Module Architecture
+
+```
+jengine-core/src/
+├── renderer/      # wgpu renderer: sprites, text, lighting, post-processing,
+│                  #   shader graphs (WGSL codegen), materials, masks, lines, meshes
+├── ecs/           # components, systems, the shared motion step, hierarchy, views
+├── scripting/     # the script bridge, Luau adapter, JS adapters, namespaces,
+│                  #   host commands shared by the browser hosts, batch scripts
+├── behavior/      # behavior graphs: op catalog, compiler, interpreter
+├── scene/         # JSON scene format (v1 and v2), prefabs, scene stack
+├── package/       # JEnginePackage, component registry, system schedule,
+│                  #   PackageHost, package script commands, editor registry
+├── physics/       # rapier2d wrapper, shape queries, character controller
+├── audio/         # backends, mixer buses, spatial audio, zones
+├── animation/     # sprite sheets, tweens, skeletons, IK, jiggle
+├── input/         # keyboard, mouse, gamepads, touch, touch controls, haptics
+├── particles/     # CPU emitters and GPU particles
+├── tilemap/       # tile maps, autotiling, pathfinding
+├── navigation.rs  # baked navigation graphs and agents
+├── ui/            # entity UI, .gui documents, scaling, navigation
+├── locale.rs      # string tables and plural rules
+├── data/          # data tables (.data / .dataschema)
+├── save/          # save system
+├── asset/         # asset manager and loaders
+└── profiling/     # frame stats and debug overlay
+```
+
+## Package System
+
+Packages extend the engine through the `JEnginePackage` trait: **components** with serialization,
+**systems** in execution phases, **script commands** every runtime can call, and **editor** metadata.
+Each runtime owns a `PackageHost` and runs the phases at matching points of its frame.
+
+| Phase | Runs |
+|-------|------|
+| `PreUpdate` | before scripts |
+| `ScriptExec` | after the script system |
+| `Physics` | after the runtime's physics step |
+| `PostPhysics` | after behaviour / trigger flush |
+| `Animation` | after skeleton, IK and hierarchy resolve |
+| `PreRender` | just before the draw |
+| `Render`, `PostRender` | not run: the renderer is owned by the runtime |
+
+Packages are linked at compile time: a project's builds are generated crates that depend on the
+packages it lists. See the [Package System guide](/guides/packages/) and [All packages](/packages/).
+
+## Rendering
+
+- **One pass in z order.** Sprites, text, meshes, lines, trails, vector paths and skinned meshes are
+  sorted together by `z_order` (with `y_sort` and sorting groups) and batched per texture, material and
+  blend mode. Tilemaps draw first, except `y_sort` layers.
+- **Materials**: a `material` names a built-in (`default_sprite`, `additive`, `multiply`, `screen`,
+  `unlit`, `lit_sprite`) or a `.material` built from a shader graph, compiled to WGSL; per-instance
+  parameters ride in the batch's uniforms.
+- **Lighting** is deferred into a float light buffer: point, spot, directional (a sun) and freeform
+  lights, occluder shadows from a shared pool of edges, normal maps and specular, ambient occlusion, toon
+  bands, cookies and lightmaps. `renderer::lighting::light_at` answers the same lighting on the CPU, so
+  gameplay can read light the player sees.
+- **The world is drawn into a float target** and through a post chain (bloom, tonemapping, blur,
+  light shafts, pixelate, CRT, ...), then the UI is drawn on top in the display format.
+- Colours are **linear**; the swapchain encodes to sRGB.
+
+## Game Loop
+
+Every host - native, editor viewport, web - runs one frame in the same order, and a test reads each
+host's source to keep it so:
+
+```
+1. Input: events → InputState (touch controls, pad poll, hold / tap interactions, gestures)
+2. Behaviour graphs
+3. Motion step (velocity, patrols, path followers, nav agents, timelines, ...)
+4. Physics at a fixed step (60 Hz by default), trigger areas, contacts
+5. Animation, UI navigation, lifetimes, visibility, UI widgets
+6. Scripts: update(entity, dt) against a snapshot of this frame; commands queued and applied
+7. Camera update
+8. Posing (skeletons, IK, hierarchy resolve, trails, cloth), dynamic bodies blended between steps
+9. Render the world (views, lights, post chain), then the UI on top
+```
+
+Package systems run in their phases at the matching points. Because scripts run after the physics step,
+a script reads this frame's physics, contacts and triggers.
+
+## Data Flow
+
+Entities live in a `hecs::World`. Scripts interact through deferred commands:
+
+```
+Scripts read  → snapshot (start of frame)
+Scripts write → command queue (deferred)
+Frame         → apply commands → world mutated → next frame's snapshot
+```
+
+All scripts see the same world state regardless of execution order.
+
+## Four runtimes, one API
+
+A script function exists separately in each of four execution paths — native Luau, the editor's Fengari,
+the web runtime, and the JavaScript preamble — so the repository guards their agreement with tests
+(`script_global_parity`, `host_command_parity`, and others) and keeps a register of every known
+difference in `docs/parity-gaps.md`.

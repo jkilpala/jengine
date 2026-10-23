@@ -1,0 +1,197 @@
+{
+  "name": "68 - Graph Commands",
+  "audio_refs": ["sounds/blip.wav"],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": { "position": [-270.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "68 - GRAPH COMMANDS", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-600.0, 265.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "S  spawn a Coin prefab and play a blip (SpawnEntity, PlaySound)", "font_id": "", "font_scale": 1.1, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-600.0, 235.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "A  start the orange spin    X  stop the purple spin (Play/StopAnimation)", "font_id": "", "font_scale": 1.1, "color": [1.0, 0.85, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-600.0, 205.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Click  spark at the pointer (OnMouseClick)    L  reload (ChangeScene)", "font_id": "", "font_scale": 1.1, "color": [0.7, 1.0, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": { "position": [-600.0, 175.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "The hand ticks each second (OnTimer). Red leaves at 4s; grey turns green (OnDespawn).", "font_id": "", "font_scale": 1.1, "color": [1.0, 0.75, 0.75, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": { "position": [-600.0, 145.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Every effect here is a .behavior graph; the script only navigates.", "font_id": "", "font_scale": 1.0, "color": [0.65, 0.65, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Spawner",
+      "components": {
+        "transform": { "position": [-480.0, -20.0], "rotation": 0.0, "scale": [1.5, 1.5] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [0.3, 0.8, 0.85, 1.0], "z_order": 2 },
+        "behavior_graph": { "graph_path": "behaviors/cmd-spawn.behavior" }
+      }
+    },
+    {
+      "name": "SpawnerLabel",
+      "components": {
+        "transform": { "position": [-505.0, 40.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "S", "font_id": "", "font_scale": 1.2, "color": [0.3, 0.8, 0.85, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "SpinA",
+      "components": {
+        "transform": { "position": [-260.0, -20.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [1.0, 0.6, 0.2, 1.0], "z_order": 2 },
+        "sprite_animator": {
+          "clip_source": "animations/rotate_spin.anim",
+          "current_clip": "spin",
+          "current_frame": 0,
+          "elapsed": 0.0,
+          "playing": false,
+          "speed": 1.0
+        },
+        "behavior_graph": { "graph_path": "behaviors/cmd-anim-play.behavior" }
+      }
+    },
+    {
+      "name": "SpinALabel",
+      "components": {
+        "transform": { "position": [-300.0, 50.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "A starts", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.6, 0.2, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "SpinB",
+      "components": {
+        "transform": { "position": [-60.0, -20.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [0.7, 0.4, 1.0, 1.0], "z_order": 2 },
+        "sprite_animator": {
+          "clip_source": "animations/rotate_spin.anim",
+          "current_clip": "spin",
+          "current_frame": 0,
+          "elapsed": 0.0,
+          "playing": true,
+          "speed": 1.0
+        },
+        "behavior_graph": { "graph_path": "behaviors/cmd-anim-stop.behavior" }
+      }
+    },
+    {
+      "name": "SpinBLabel",
+      "components": {
+        "transform": { "position": [-95.0, 50.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "X stops", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.4, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "ClockFace",
+      "components": {
+        "transform": { "position": [160.0, -20.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.25, 0.25, 0.3, 1.0], "z_order": 1, "size": [84.0, 84.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "ClockHand",
+      "components": {
+        "transform": { "position": [160.0, -20.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 1.0, 0.6, 1.0], "z_order": 2, "size": [6.0, 38.0], "anchor": [0.5, 0.0] },
+        "behavior_graph": { "graph_path": "behaviors/cmd-clock.behavior" }
+      }
+    },
+    {
+      "name": "ClockLabel",
+      "components": {
+        "transform": { "position": [115.0, 50.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "OnTimer 1s", "font_id": "", "font_scale": 1.0, "color": [1.0, 1.0, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Doomed",
+      "components": {
+        "transform": { "position": [370.0, -20.0], "rotation": 0.0, "scale": [1.5, 1.5] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [1.0, 0.3, 0.3, 1.0], "z_order": 2 },
+        "behavior_graph": { "graph_path": "behaviors/cmd-doomed.behavior" }
+      }
+    },
+    {
+      "name": "DoomedLabel",
+      "components": {
+        "transform": { "position": [335.0, 40.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "gone 4s", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.4, 0.4, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Witness",
+      "components": {
+        "transform": { "position": [520.0, -20.0], "rotation": 0.0, "scale": [1.5, 1.5] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/white32.png", "color": [0.45, 0.45, 0.5, 1.0], "z_order": 2 },
+        "behavior_graph": { "graph_path": "behaviors/cmd-witness.behavior" }
+      }
+    },
+    {
+      "name": "WitnessLabel",
+      "components": {
+        "transform": { "position": [480.0, 40.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "hears it", "font_id": "", "font_scale": 1.0, "color": [0.75, 0.75, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Clicker",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "behavior_graph": { "graph_path": "behaviors/cmd-click.behavior" }
+      }
+    },
+    {
+      "name": "Reloader",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "behavior_graph": { "graph_path": "behaviors/cmd-reload.behavior" }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": { "position": [-600.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "", "font_scale": 1.0, "color": [0.6, 0.6, 0.65, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_68_graph_commands.lua" }
+      }
+    }
+  ]
+}

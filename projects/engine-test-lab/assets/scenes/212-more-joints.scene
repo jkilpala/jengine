@@ -1,0 +1,1561 @@
+{
+ "name": "212 - More joints",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "212 - More joints",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   1 reverse the cart (it turns by itself too)   hold the mouse: the targets follow it   2 knock the arm   3 drop the pucks again",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Floor1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4,
+      0.34,
+      0.26,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      300.0,
+      40.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 300.0,
+       "height": 40.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.0,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Bump1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.6,
+      0.5,
+      0.35,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      24.0,
+      24.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.0,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Bump1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.6,
+      0.5,
+      0.35,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      24.0,
+      24.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.0,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Wall1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -630.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4,
+      0.34,
+      0.26,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      20.0,
+      260.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 20.0,
+       "height": 260.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Wall1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -310.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4,
+      0.34,
+      0.26,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      20.0,
+      260.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 20.0,
+       "height": 260.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Chassis1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5,
+      0.9,
+      0.6,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      130.0,
+      26.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 200.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 4.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 130.0,
+       "height": 26.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.3,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rear1",
+   "components": {
+    "transform": {
+     "position": [
+      -516.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.88,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      40.0,
+      40.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 24.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 20.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "Chassis1",
+     "joint_type": {
+      "Wheel": {
+       "anchor_b": [
+        -46.0,
+        -36.0
+       ],
+       "frequency": 2.5,
+       "damping_ratio": 0.35,
+       "motor_speed": 5.0,
+       "motor_max_torque": 900000.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Front1",
+   "components": {
+    "transform": {
+     "position": [
+      -424.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.88,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      40.0,
+      40.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 24.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 20.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "Chassis1",
+     "joint_type": {
+      "Wheel": {
+       "anchor_b": [
+        46.0,
+        -36.0
+       ],
+       "frequency": 2.5,
+       "damping_ratio": 0.35,
+       "motor_speed": 5.0,
+       "motor_max_torque": 900000.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Orbit",
+   "components": {
+    "transform": {
+     "position": [
+      -160.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.85,
+      0.4,
+      1
+     ],
+     "z_order": 8,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      14.0,
+      14.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Strong",
+   "components": {
+    "transform": {
+     "position": [
+      -185.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5,
+      0.8,
+      1.0,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      34.0,
+      34.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 2.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 1.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 34.0,
+       "height": 34.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "Orbit",
+     "joint_type": {
+      "Target": {
+       "anchor": [
+        25.0,
+        0.0
+       ],
+       "frequency": 4.0,
+       "damping_ratio": 0.7,
+       "max_force": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Weak",
+   "components": {
+    "transform": {
+     "position": [
+      -135.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.6,
+      0.5,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      34.0,
+      34.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 2.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 1.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 34.0,
+       "height": 34.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "Orbit",
+     "joint_type": {
+      "Target": {
+       "anchor": [
+        -25.0,
+        0.0
+       ],
+       "frequency": 4.0,
+       "damping_ratio": 0.7,
+       "max_force": 4000.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Base3",
+   "components": {
+    "transform": {
+     "position": [
+      160.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.55,
+      0.55,
+      0.6,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      90.0,
+      30.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 90.0,
+       "height": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Arm3",
+   "components": {
+    "transform": {
+     "position": [
+      160.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.85,
+      0.6,
+      1.0,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      26.0,
+      110.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 26.0,
+       "height": 110.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "Base3",
+     "joint_type": {
+      "Motor": {
+       "linear_offset": [
+        0.0,
+        110.0
+       ],
+       "angular_offset": 0.4,
+       "max_force": 60000.0,
+       "max_torque": 4000000.0,
+       "frequency": 2.0,
+       "damping_ratio": 0.25
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Rail4",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.55,
+      0.55,
+      0.6,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      260.0,
+      10.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 260.0,
+       "height": 10.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Floor4",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4,
+      0.34,
+      0.26,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      300.0,
+      40.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 300.0,
+       "height": 40.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Puck0",
+   "components": {
+    "transform": {
+     "position": [
+      390.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.9,
+      0.4,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      36.0,
+      36.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Puck1",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.65,
+      0.65,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      36.0,
+      36.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "Rail4",
+     "joint_type": {
+      "Friction": {
+       "max_force": 850.0,
+       "max_torque": 34000.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Puck2",
+   "components": {
+    "transform": {
+     "position": [
+      550.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.4,
+      0.9,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      36.0,
+      36.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "Rail4",
+     "joint_type": {
+      "Friction": {
+       "max_force": 1300.0,
+       "max_torque": 52000.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Label-470",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -470.0,
+      -262.0
+     ],
+     "size": [
+      300.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Wheel",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sub-470",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -470.0,
+      -283.0
+     ],
+     "size": [
+      300.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "sprung, driven, over bumps",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Label-160",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -160.0,
+      -262.0
+     ],
+     "size": [
+      300.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Target",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sub-160",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -160.0,
+      -283.0
+     ],
+     "size": [
+      300.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "blue unlimited, red weak",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Label160",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      160.0,
+      -262.0
+     ],
+     "size": [
+      300.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Motor",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sub160",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      160.0,
+      -283.0
+     ],
+     "size": [
+      300.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "held at an offset and an angle",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Label470",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      470.0,
+      -262.0
+     ],
+     "size": [
+      300.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Friction",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Sub470",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      470.0,
+      -283.0
+     ],
+     "size": [
+      300.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "none / half / more than its weight",
+     "font_size": 15.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.78,
+      0.83,
+      0.92,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the cart's body bobs on its springs over each bump and 1 turns it round; blue snaps to the yellow dot, red lags and swings;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the purple arm leans at its angle and sways back after 2; the left puck falls, the middle slides down slowly, the right stays.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_212_more_joints.lua"
+    }
+   }
+  }
+ ]
+}

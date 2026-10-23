@@ -1,0 +1,1545 @@
+{
+ "name": "57 - Picture House",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.9,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.21404,
+      0.21404,
+      0.44799
+     ],
+     "intensity": 0.06
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.01002,
+      0.00598,
+      0.00719,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CurtainL",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/curtain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      300.0,
+      470.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "CurtainR",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/curtain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      300.0,
+      470.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "ScreenGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.60383,
+      0.44799,
+      0.31855,
+      0.35
+     ],
+     "z_order": -56,
+     "size": [
+      1000.0,
+      620.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Screen",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "videos/voyage.mp4",
+     "color": [
+      1.15,
+      1.15,
+      1.15,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      576.0,
+      324.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "video_player": {
+     "source": "videos/voyage.mp4",
+     "playing": true,
+     "looping": true,
+     "speed": 1.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ScreenLight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.26327
+     ],
+     "intensity": 0.9,
+     "radius": 900.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Projector",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/projector.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      90.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -320.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/beam.png",
+     "color": [
+      0.94489,
+      0.83048,
+      0.62702,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      480.0,
+      640.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 22.0,
+     "max_particles": 260,
+     "lifetime": [
+      5.0,
+      9.0
+     ],
+     "speed": [
+      2.0,
+      8.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.5,
+      1.33501,
+      1.0381,
+      0.5
+     ],
+     "color_end": [
+      1.5,
+      1.33501,
+      1.0381,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      3.5
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 31,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       360.0,
+       420.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 5.0,
+      "scale": 150.0,
+      "speed": 0.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Seats1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/seats.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      1360.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       70.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Viewer1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -197.76827026383376,
+      -166.0
+     ],
+     "rotation": 0.057197536358856924,
+     "scale": [
+      1.002825227858454,
+      1.002825227858454
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -122.30936183598297,
+      -166.0
+     ],
+     "rotation": 0.04607845042166764,
+     "scale": [
+      1.0272062343856927,
+      1.0272062343856927
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer1_5",
+   "components": {
+    "transform": {
+     "position": [
+      0.20045041254586948,
+      -166.0
+     ],
+     "rotation": -0.014642448665333561,
+     "scale": [
+      1.0208691230011406,
+      1.0208691230011406
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer1_6",
+   "components": {
+    "transform": {
+     "position": [
+      65.86331923741213,
+      -166.0
+     ],
+     "rotation": 0.021988458471689926,
+     "scale": [
+      1.045115611828861,
+      1.045115611828861
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer1_7",
+   "components": {
+    "transform": {
+     "position": [
+      131.76100462504505,
+      -166.0
+     ],
+     "rotation": 0.0078324751340028,
+     "scale": [
+      1.0232537256767982,
+      1.0232537256767982
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer1_9",
+   "components": {
+    "transform": {
+     "position": [
+      251.85343546983606,
+      -166.0
+     ],
+     "rotation": -0.008823214610564609,
+     "scale": [
+      1.017256939313175,
+      1.017256939313175
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Seats2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/seats.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      1360.0,
+      75.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       276.48,
+       75.60000000000001
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Viewer2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -309.9663207229394,
+      -243.08
+     ],
+     "rotation": 0.002176356478425283,
+     "scale": [
+      1.0508526023949116,
+      1.0508526023949116
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -168.5353939462894,
+      -243.08
+     ],
+     "rotation": -0.03388306044172823,
+     "scale": [
+      1.0573897579956297,
+      1.0573897579956297
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -102.02033896407998,
+      -243.08
+     ],
+     "rotation": 0.052947289992884894,
+     "scale": [
+      1.0682733543241574,
+      1.0682733543241574
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer2_6",
+   "components": {
+    "transform": {
+     "position": [
+      34.75984252102225,
+      -243.08
+     ],
+     "rotation": -0.004045446621906049,
+     "scale": [
+      0.9818456544371021,
+      0.9818456544371021
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer2_7",
+   "components": {
+    "transform": {
+     "position": [
+      101.32665064219088,
+      -243.08
+     ],
+     "rotation": -0.01808890131219111,
+     "scale": [
+      1.1866795007041673,
+      1.1866795007041673
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer2_8",
+   "components": {
+    "transform": {
+     "position": [
+      173.93773832083377,
+      -243.08
+     ],
+     "rotation": -0.003460582785533635,
+     "scale": [
+      1.029152914732661,
+      1.029152914732661
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Seats3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -295.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/seats.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 19,
+     "size": [
+      1360.0,
+      82.6
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       302.08,
+       82.6
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Viewer3_1",
+   "components": {
+    "transform": {
+     "position": [
+      -380.25989020137354,
+      -325.68
+     ],
+     "rotation": -0.029042776190507106,
+     "scale": [
+      1.0999678662454575,
+      1.0999678662454575
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_2",
+   "components": {
+    "transform": {
+     "position": [
+      -306.31785702308736,
+      -325.68
+     ],
+     "rotation": 0.026663983865039154,
+     "scale": [
+      1.2260304675149083,
+      1.2260304675149083
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_3",
+   "components": {
+    "transform": {
+     "position": [
+      -232.04834187340472,
+      -325.68
+     ],
+     "rotation": 0.020752658983337793,
+     "scale": [
+      1.136389375662966,
+      1.136389375662966
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_4",
+   "components": {
+    "transform": {
+     "position": [
+      -154.07079670635332,
+      -325.68
+     ],
+     "rotation": -0.0549596352209965,
+     "scale": [
+      1.2665570584191461,
+      1.2665570584191461
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_5",
+   "components": {
+    "transform": {
+     "position": [
+      -81.23095262998434,
+      -325.68
+     ],
+     "rotation": 0.025799686583793585,
+     "scale": [
+      1.099472039403739,
+      1.099472039403739
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_6",
+   "components": {
+    "transform": {
+     "position": [
+      4.9261612754753585,
+      -325.68
+     ],
+     "rotation": -0.006424105908614745,
+     "scale": [
+      1.2835317613398456,
+      1.2835317613398456
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_7",
+   "components": {
+    "transform": {
+     "position": [
+      74.06121633026473,
+      -325.68
+     ],
+     "rotation": -0.009778396635671725,
+     "scale": [
+      1.1012884979714324,
+      1.1012884979714324
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_8",
+   "components": {
+    "transform": {
+     "position": [
+      149.98175072641328,
+      -325.68
+     ],
+     "rotation": -0.043770301298220585,
+     "scale": [
+      1.2517811626092723,
+      1.2517811626092723
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_10",
+   "components": {
+    "transform": {
+     "position": [
+      298.87513420690146,
+      -325.68
+     ],
+     "rotation": 0.046315197074531245,
+     "scale": [
+      1.0957192176517272,
+      1.0957192176517272
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewer3_11",
+   "components": {
+    "transform": {
+     "position": [
+      382.17492504518833,
+      -325.68
+     ],
+     "rotation": -0.04543586967497888,
+     "scale": [
+      1.2659893828822235,
+      1.2659893828822235
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cinema/viewer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      80.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Monitor",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -190.0
+     ],
+     "rotation": -0.05,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "videos/voyage.mp4",
+     "color": [
+      0.44799,
+      1.0,
+      0.60383,
+      1.0
+     ],
+     "z_order": 45,
+     "size": [
+      192.0,
+      108.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "MonitorFrame",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -190.0
+     ],
+     "rotation": -0.05,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.02721,
+      0.02452,
+      0.0331,
+      1.0
+     ],
+     "z_order": 44,
+     "size": [
+      208.0,
+      124.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "57   Picture House",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  pause   R  from the start   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s57_picture_house.lua"
+    }
+   }
+  }
+ ]
+}

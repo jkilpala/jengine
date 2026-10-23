@@ -1,0 +1,380 @@
+{
+ "_doc": "A skeletal clip's track at a time (animation::skeletal::sample_scalar / sample_vec2) and a blend space's weights (blend_weights), checked in Rust by skeletal_sample_matches_the_editor and in the editor by skelEdit.test.ts, whose clip preview and blend-space plot compute them itself - so what the editor shows is what plays.",
+ "cases": [
+  {
+   "name": "one key holds",
+   "kind": "scalar",
+   "keys": [
+    {
+     "time": 0.5,
+     "value": 1.0
+    }
+   ],
+   "t": 3.0,
+   "expected": 1.0
+  },
+  {
+   "name": "before the first key, the first",
+   "kind": "scalar",
+   "keys": [
+    {
+     "time": 0.2,
+     "value": 1.0
+    },
+    {
+     "time": 1.0,
+     "value": 3.0
+    }
+   ],
+   "t": 0.0,
+   "expected": 1.0
+  },
+  {
+   "name": "after the last, the last",
+   "kind": "scalar",
+   "keys": [
+    {
+     "time": 0.2,
+     "value": 1.0
+    },
+    {
+     "time": 1.0,
+     "value": 3.0
+    }
+   ],
+   "t": 2.0,
+   "expected": 3.0
+  },
+  {
+   "name": "linear between",
+   "kind": "scalar",
+   "keys": [
+    {
+     "time": 0.0,
+     "value": 0.0
+    },
+    {
+     "time": 1.0,
+     "value": 2.0
+    }
+   ],
+   "t": 0.25,
+   "expected": 0.5
+  },
+  {
+   "name": "a later span",
+   "kind": "scalar",
+   "keys": [
+    {
+     "time": 0.0,
+     "value": 0.0
+    },
+    {
+     "time": 0.5,
+     "value": 1.0
+    },
+    {
+     "time": 1.0,
+     "value": -1.0
+    }
+   ],
+   "t": 0.75,
+   "expected": 0.0
+  },
+  {
+   "name": "on a key",
+   "kind": "scalar",
+   "keys": [
+    {
+     "time": 0.0,
+     "value": 0.0
+    },
+    {
+     "time": 0.5,
+     "value": 1.0
+    },
+    {
+     "time": 1.0,
+     "value": -1.0
+    }
+   ],
+   "t": 0.5,
+   "expected": 1.0
+  },
+  {
+   "name": "past a turn, no wrapping",
+   "kind": "scalar",
+   "keys": [
+    {
+     "time": 0.0,
+     "value": 3.0
+    },
+    {
+     "time": 1.0,
+     "value": -3.0
+    }
+   ],
+   "t": 0.5,
+   "expected": 0.0
+  },
+  {
+   "name": "vec2 linear",
+   "kind": "vec2",
+   "keys": [
+    {
+     "time": 0.0,
+     "value": [
+      0.0,
+      10.0
+     ]
+    },
+    {
+     "time": 2.0,
+     "value": [
+      4.0,
+      -10.0
+     ]
+    }
+   ],
+   "t": 0.5,
+   "expected": [
+    1.0,
+    5.0
+   ]
+  },
+  {
+   "name": "vec2 held after",
+   "kind": "vec2",
+   "keys": [
+    {
+     "time": 0.0,
+     "value": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "time": 1.0,
+     "value": [
+      2.0,
+      3.0
+     ]
+    }
+   ],
+   "t": 4.0,
+   "expected": [
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "name": "vec2 between three",
+   "kind": "vec2",
+   "keys": [
+    {
+     "time": 0.0,
+     "value": [
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "time": 1.0,
+     "value": [
+      1.0,
+      1.0
+     ]
+    },
+    {
+     "time": 3.0,
+     "value": [
+      5.0,
+      -3.0
+     ]
+    }
+   ],
+   "t": 2.0,
+   "expected": [
+    3.0,
+    -1.0
+   ]
+  },
+  {
+   "name": "on a point, that clip",
+   "kind": "blend",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "p": [
+    1,
+    0
+   ],
+   "expected": [
+    0.0,
+    1.0,
+    0.0
+   ]
+  },
+  {
+   "name": "between two",
+   "kind": "blend",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "p": [
+    0.25,
+    0
+   ],
+   "expected": [
+    0.75,
+    0.25
+   ]
+  },
+  {
+   "name": "eight ways about an idle",
+   "kind": "blend",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     -1,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     -1
+    ],
+    [
+     0.7,
+     0.7
+    ],
+    [
+     -0.7,
+     0.7
+    ],
+    [
+     0.7,
+     -0.7
+    ],
+    [
+     -0.7,
+     -0.7
+    ]
+   ],
+   "p": [
+    0.4,
+    0.3
+   ],
+   "expected": [
+    0.337209,
+    0.22093,
+    0.0,
+    0.104651,
+    0.0,
+    0.337209,
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "outside them all",
+   "kind": "blend",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "p": [
+    3,
+    3
+   ],
+   "expected": [
+    0.0,
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "name": "a triangle's middle",
+   "kind": "blend",
+   "points": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "p": [
+    0.3,
+    0.3
+   ],
+   "expected": [
+    0.538462,
+    0.230769,
+    0.230769
+   ]
+  },
+  {
+   "name": "one point",
+   "kind": "blend",
+   "points": [
+    [
+     2,
+     2
+    ]
+   ],
+   "p": [
+    0,
+    0
+   ],
+   "expected": [
+    1.0
+   ]
+  }
+ ]
+}

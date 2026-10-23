@@ -1,0 +1,1821 @@
+{
+ "name": "66 - Puppet Theatre",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.35
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.88,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Room",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.00232,
+      0.00155,
+      0.00155,
+      1.0
+     ],
+     "z_order": -200,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BackdropDay",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/backdrop_day.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      920.0,
+      480.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BackdropNight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/backdrop_night.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -79,
+     "size": [
+      920.0,
+      480.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/sun.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/moon.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -197.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      920.0,
+      62.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Knight",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/knight.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      150.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dragon",
+   "components": {
+    "transform": {
+     "position": [
+      640.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/dragon.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -31,
+     "size": [
+      300.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Flash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.52252,
+      0.63828,
+      1.0,
+      0.0
+     ],
+     "z_order": -20,
+     "size": [
+      920.0,
+      480.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CurtainL",
+   "components": {
+    "transform": {
+     "position": [
+      -232.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/curtain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      480.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CurtainR",
+   "components": {
+    "transform": {
+     "position": [
+      232.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/curtain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      480.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Valance",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      228.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/theatre/valance.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      1000.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Caption",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.25,
+     "color": [
+      0.9551,
+      0.84809,
+      0.60383,
+      1.0
+     ],
+     "z_order": -4,
+     "align": "center",
+     "wrap_width": 0.0,
+     "outline": {
+      "width": 2.5,
+      "color": [
+       0.05,
+       0.02,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Frame",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/theatre/frame.png",
+     "color": [
+      0.52252,
+      0.477,
+      0.44799,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "House",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      1.0,
+      0.95,
+      0.9
+     ],
+     "intensity": 0.25
+    }
+   }
+  },
+  {
+   "name": "SpotL",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.85,
+      0.62
+     ],
+     "intensity": 0.0,
+     "radius": 1100.0,
+     "angle": 0.42,
+     "direction": -0.72,
+     "falloff": 1.2,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "SpotR",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.85,
+      0.62
+     ],
+     "intensity": 0.0,
+     "radius": 1100.0,
+     "angle": 0.42,
+     "direction": 3.861592653589793,
+     "falloff": 1.2,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Footlights",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.85,
+      0.62
+     ],
+     "intensity": 0.0,
+     "radius": 520.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Confetti0",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "__white",
+     "emission_rate": 0.0,
+     "max_particles": 160,
+     "lifetime": [
+      2.5,
+      3.5
+     ],
+     "speed": [
+      40.0,
+      160.0
+     ],
+     "angle": [
+      3.4,
+      6.0
+     ],
+     "color_start": [
+      1.0,
+      0.07324,
+      0.07324,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.07324,
+      0.07324,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      5.0,
+      8.0
+     ],
+     "gravity_modifier": 0.25,
+     "angular_velocity": [
+      -6.0,
+      6.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -3
+    }
+   }
+  },
+  {
+   "name": "Confetti1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "__white",
+     "emission_rate": 0.0,
+     "max_particles": 160,
+     "lifetime": [
+      2.5,
+      3.5
+     ],
+     "speed": [
+      40.0,
+      160.0
+     ],
+     "angle": [
+      3.4,
+      6.0
+     ],
+     "color_start": [
+      1.0,
+      0.69207,
+      0.07324,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.69207,
+      0.07324,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      5.0,
+      8.0
+     ],
+     "gravity_modifier": 0.25,
+     "angular_velocity": [
+      -6.0,
+      6.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -3
+    }
+   }
+  },
+  {
+   "name": "Confetti2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "__white",
+     "emission_rate": 0.0,
+     "max_particles": 160,
+     "lifetime": [
+      2.5,
+      3.5
+     ],
+     "speed": [
+      40.0,
+      160.0
+     ],
+     "angle": [
+      3.4,
+      6.0
+     ],
+     "color_start": [
+      0.10048,
+      0.31855,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      0.10048,
+      0.31855,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      5.0,
+      8.0
+     ],
+     "gravity_modifier": 0.25,
+     "angular_velocity": [
+      -6.0,
+      6.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -3
+    }
+   }
+  },
+  {
+   "name": "StageManager",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "timeline": {
+     "clips": {
+      "play": {
+       "duration": 26.0,
+       "tracks": [
+        {
+         "target": "CurtainL",
+         "component": "transform",
+         "field": "position.0",
+         "keys": [
+          [
+           1.0,
+           -232.0
+          ],
+          [
+           3.0,
+           -640.0
+          ],
+          [
+           22.0,
+           -640.0
+          ],
+          [
+           24.0,
+           -232.0
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "CurtainR",
+         "component": "transform",
+         "field": "position.0",
+         "keys": [
+          [
+           1.0,
+           232.0
+          ],
+          [
+           3.0,
+           640.0
+          ],
+          [
+           22.0,
+           640.0
+          ],
+          [
+           24.0,
+           232.0
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Caption",
+         "component": "text",
+         "field": "text",
+         "keys": [
+          [
+           0.0,
+           ""
+          ],
+          [
+           3.2,
+           "Act I - The Knight Sets Out"
+          ],
+          [
+           8.8,
+           ""
+          ],
+          [
+           10.6,
+           "Act II - Here Be Dragons"
+          ],
+          [
+           16.8,
+           ""
+          ],
+          [
+           18.6,
+           "The End"
+          ],
+          [
+           22.0,
+           ""
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Knight",
+         "component": "transform",
+         "field": "position",
+         "keys": [
+          [
+           3.0,
+           [
+            -560.0,
+            -168.0
+           ]
+          ],
+          [
+           3.417,
+           [
+            -525.8,
+            -161.0
+           ]
+          ],
+          [
+           3.833,
+           [
+            -491.7,
+            -168.0
+           ]
+          ],
+          [
+           4.25,
+           [
+            -457.5,
+            -161.0
+           ]
+          ],
+          [
+           4.667,
+           [
+            -423.3,
+            -168.0
+           ]
+          ],
+          [
+           5.083,
+           [
+            -389.2,
+            -161.0
+           ]
+          ],
+          [
+           5.5,
+           [
+            -355.0,
+            -168.0
+           ]
+          ],
+          [
+           5.917,
+           [
+            -320.8,
+            -161.0
+           ]
+          ],
+          [
+           6.333,
+           [
+            -286.7,
+            -168.0
+           ]
+          ],
+          [
+           6.75,
+           [
+            -252.5,
+            -161.0
+           ]
+          ],
+          [
+           7.167,
+           [
+            -218.3,
+            -168.0
+           ]
+          ],
+          [
+           7.583,
+           [
+            -184.2,
+            -161.0
+           ]
+          ],
+          [
+           8.0,
+           [
+            -150.0,
+            -168.0
+           ]
+          ],
+          [
+           13.6,
+           [
+            -150.0,
+            -168.0
+           ]
+          ],
+          [
+           14.0,
+           [
+            -60.0,
+            -158.0
+           ]
+          ],
+          [
+           14.6,
+           [
+            -150.0,
+            -168.0
+           ]
+          ],
+          [
+           15.2,
+           [
+            -50.0,
+            -158.0
+           ]
+          ],
+          [
+           15.8,
+           [
+            -150.0,
+            -168.0
+           ]
+          ],
+          [
+           16.4,
+           [
+            -40.0,
+            -158.0
+           ]
+          ],
+          [
+           17.0,
+           [
+            -120.0,
+            -168.0
+           ]
+          ],
+          [
+           23.0,
+           [
+            -120.0,
+            -168.0
+           ]
+          ],
+          [
+           25.9,
+           [
+            -560.0,
+            -168.0
+           ]
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Knight",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           3.0,
+           -0.06
+          ],
+          [
+           3.4,
+           0.06
+          ],
+          [
+           3.8,
+           -0.06
+          ],
+          [
+           4.2,
+           0.06
+          ],
+          [
+           4.6,
+           -0.06
+          ],
+          [
+           5.0,
+           0.06
+          ],
+          [
+           5.4,
+           -0.06
+          ],
+          [
+           5.8,
+           0.06
+          ],
+          [
+           6.2,
+           -0.06
+          ],
+          [
+           6.6,
+           0.06
+          ],
+          [
+           7.0,
+           -0.06
+          ],
+          [
+           7.4,
+           0.06
+          ],
+          [
+           7.8,
+           -0.06
+          ],
+          [
+           8.2,
+           0.0
+          ],
+          [
+           18.6,
+           0.0
+          ],
+          [
+           19.0,
+           0.18
+          ],
+          [
+           19.6,
+           0.0
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Sun",
+         "component": "transform",
+         "field": "position",
+         "keys": [
+          [
+           3.5,
+           [
+            -380.0,
+            -330.0
+           ]
+          ],
+          [
+           4.5,
+           [
+            -380.0,
+            20.0
+           ]
+          ],
+          [
+           6.5,
+           [
+            0.0,
+            110.0
+           ]
+          ],
+          [
+           8.5,
+           [
+            380.0,
+            20.0
+           ]
+          ],
+          [
+           9.5,
+           [
+            380.0,
+            -330.0
+           ]
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Moon",
+         "component": "transform",
+         "field": "position",
+         "keys": [
+          [
+           9.5,
+           [
+            380.0,
+            -330.0
+           ]
+          ],
+          [
+           12.0,
+           [
+            240.0,
+            140.0
+           ]
+          ],
+          [
+           19.0,
+           [
+            240.0,
+            140.0
+           ]
+          ],
+          [
+           20.5,
+           [
+            240.0,
+            -330.0
+           ]
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "BackdropNight",
+         "component": "sprite",
+         "field": "color.3",
+         "keys": [
+          [
+           9.0,
+           0.0
+          ],
+          [
+           10.5,
+           1.0
+          ],
+          [
+           19.0,
+           1.0
+          ],
+          [
+           20.5,
+           0.0
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Dragon",
+         "component": "transform",
+         "field": "position",
+         "keys": [
+          [
+           10.5,
+           [
+            640.0,
+            -168.0
+           ]
+          ],
+          [
+           13.5,
+           [
+            210.0,
+            -168.0
+           ]
+          ],
+          [
+           14.2,
+           [
+            170.0,
+            -156.0
+           ]
+          ],
+          [
+           14.8,
+           [
+            230.0,
+            -168.0
+           ]
+          ],
+          [
+           15.4,
+           [
+            160.0,
+            -156.0
+           ]
+          ],
+          [
+           16.4,
+           [
+            260.0,
+            -168.0
+           ]
+          ],
+          [
+           17.0,
+           [
+            260.0,
+            -168.0
+           ]
+          ],
+          [
+           18.5,
+           [
+            700.0,
+            -168.0
+           ]
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Dragon",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           10.5,
+           -0.07
+          ],
+          [
+           11.0,
+           0.07
+          ],
+          [
+           11.5,
+           -0.07
+          ],
+          [
+           12.0,
+           0.07
+          ],
+          [
+           12.5,
+           -0.07
+          ],
+          [
+           13.0,
+           0.07
+          ],
+          [
+           13.5,
+           -0.07
+          ],
+          [
+           14.0,
+           0.07
+          ],
+          [
+           14.5,
+           -0.07
+          ],
+          [
+           15.0,
+           0.07
+          ],
+          [
+           15.5,
+           -0.07
+          ],
+          [
+           16.0,
+           0.07
+          ],
+          [
+           16.5,
+           -0.07
+          ],
+          [
+           17.0,
+           0.07
+          ],
+          [
+           17.5,
+           -0.07
+          ],
+          [
+           18.0,
+           0.07
+          ],
+          [
+           18.5,
+           -0.07
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "House",
+         "component": "ambient_light",
+         "field": "intensity",
+         "keys": [
+          [
+           0.0,
+           0.25
+          ],
+          [
+           3.0,
+           0.55
+          ],
+          [
+           9.0,
+           0.55
+          ],
+          [
+           10.5,
+           0.15
+          ],
+          [
+           18.5,
+           0.15
+          ],
+          [
+           19.5,
+           0.6
+          ],
+          [
+           22.0,
+           0.6
+          ],
+          [
+           24.0,
+           0.25
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "SpotL",
+         "component": "spot_light",
+         "field": "intensity",
+         "keys": [
+          [
+           1.0,
+           0.0
+          ],
+          [
+           3.0,
+           2.6
+          ],
+          [
+           22.0,
+           2.6
+          ],
+          [
+           24.0,
+           0.0
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "SpotR",
+         "component": "spot_light",
+         "field": "intensity",
+         "keys": [
+          [
+           1.0,
+           0.0
+          ],
+          [
+           3.0,
+           2.6
+          ],
+          [
+           22.0,
+           2.6
+          ],
+          [
+           24.0,
+           0.0
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "SpotL",
+         "component": "spot_light",
+         "field": "color",
+         "keys": [
+          [
+           9.0,
+           [
+            1.0,
+            0.85,
+            0.62
+           ]
+          ],
+          [
+           10.5,
+           [
+            0.45,
+            0.55,
+            1.0
+           ]
+          ],
+          [
+           18.5,
+           [
+            0.45,
+            0.55,
+            1.0
+           ]
+          ],
+          [
+           19.5,
+           [
+            1.0,
+            0.85,
+            0.62
+           ]
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "SpotR",
+         "component": "spot_light",
+         "field": "color",
+         "keys": [
+          [
+           9.0,
+           [
+            1.0,
+            0.85,
+            0.62
+           ]
+          ],
+          [
+           10.5,
+           [
+            0.45,
+            0.55,
+            1.0
+           ]
+          ],
+          [
+           18.5,
+           [
+            0.45,
+            0.55,
+            1.0
+           ]
+          ],
+          [
+           19.5,
+           [
+            1.0,
+            0.85,
+            0.62
+           ]
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Footlights",
+         "component": "point_light",
+         "field": "intensity",
+         "keys": [
+          [
+           0.0,
+           0.3
+          ],
+          [
+           2.0,
+           1.6
+          ],
+          [
+           9.0,
+           1.6
+          ],
+          [
+           10.5,
+           0.5
+          ],
+          [
+           18.5,
+           0.5
+          ],
+          [
+           19.5,
+           1.8
+          ],
+          [
+           23.0,
+           1.8
+          ],
+          [
+           25.0,
+           0.3
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Flash",
+         "component": "sprite",
+         "field": "color.3",
+         "keys": [
+          [
+           14.0,
+           0.0
+          ],
+          [
+           14.05,
+           0.32
+          ],
+          [
+           14.45,
+           0.0
+          ],
+          [
+           15.2,
+           0.0
+          ],
+          [
+           15.25,
+           0.22
+          ],
+          [
+           15.6,
+           0.0
+          ]
+         ],
+         "ease": "linear"
+        }
+       ],
+       "events": [
+        [
+         14.0,
+         "thunder"
+        ],
+        [
+         15.2,
+         "thunder"
+        ],
+        [
+         19.4,
+         "applause"
+        ]
+       ]
+      }
+     },
+     "clip": "play",
+     "playing": true,
+     "looping": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s66_puppet_theatre.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "66   Puppet Theatre",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  pause / play   R  from the top   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

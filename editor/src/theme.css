@@ -1,0 +1,242 @@
+/*
+ * The editor's palettes - the website's three (website/src/styles/palettes.css)
+ * turned into editor roles. The design is the "jEngine Editor Redesign"
+ * canvas; its Tokens board lists these values.
+ *
+ *   dusk   - MegaTokyo Dusk: plum, coral neon, teal (the default)
+ *   sabers - Knight Sabers: night blue, hot pink, cyan
+ *   genom  - GENOM Tower: blue-black steel, HUD cyan, alarm red
+ *
+ * Picked in View > Theme and kept in localStorage (`jx-palette`, `jx-theme`);
+ * `theme.ts` puts them on <html> as `data-palette` / `data-theme` before the
+ * first paint.
+ *
+ * Every colour a component draws is an `--ed-*` token. Every token is defined
+ * in every block, so no combination falls through to another palette.
+ * The `--ctp-*` names and the older `--border` / `--text` / ... names below
+ * are aliases for code written against the Catppuccin look this replaced.
+ *
+ * The style guide built on these is docs/brand/README.md. After changing a
+ * value, run `python docs/brand/build_brand.py`: it regenerates the brand
+ * kit and fails if this file and the website's palettes.css disagree.
+ */
+
+:root {
+  --ed-display: 'Dela Gothic One', 'Arial Black', Impact, sans-serif;
+  --ed-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --ed-mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}
+
+/* ---------- MegaTokyo Dusk (default) ---------- */
+:root {
+  color-scheme: dark;
+  --ed-crust: #120a20;
+  --ed-mantle: #170d29;
+  --ed-base: #1b0f2e;
+  --ed-raised: #241439;
+  --ed-hover: #2e1a48;
+  --ed-line: #3d2459;
+  --ed-line-strong: #553374;
+  --ed-ink: #fff1e6;
+  --ed-text: #e8d5dc;
+  --ed-muted: #b89bb8;
+  --ed-faint: #8f7193;
+  --ed-accent: #ff5d73;
+  --ed-accent-low: #47193d;
+  --ed-accent-high: #ffb3bd;
+  --ed-a2: #3ee0c5;
+  --ed-a3: #ff9f43;
+  --ed-ok: #3ee0c5;
+  --ed-warn: #ff9f43;
+  --ed-err: #ff6b81;
+  --ed-on-accent: #1b0f2e;
+  --ed-sun1: #ffcf5c;
+  --ed-sun2: #ff4f8b;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+  --ed-crust: #f3e0d3;
+  --ed-mantle: #f9ebe1;
+  --ed-base: #fff6ef;
+  --ed-raised: #ffffff;
+  --ed-hover: #fbe3d6;
+  --ed-line: #efd2c3;
+  --ed-line-strong: #dcb7a6;
+  --ed-ink: #2a1238;
+  --ed-text: #3d2348;
+  --ed-muted: #6f4d6b;
+  --ed-faint: #8c6c86;
+  --ed-accent: #c43a52;
+  --ed-accent-low: #fbdbdd;
+  --ed-accent-high: #8e1f37;
+  --ed-a2: #6a2fb8;
+  --ed-a3: #a85400;
+  --ed-ok: #1d7f66;
+  --ed-warn: #a85400;
+  --ed-err: #c4253f;
+  --ed-on-accent: #ffffff;
+}
+
+/* ---------- Knight Sabers ---------- */
+:root[data-palette='sabers'] {
+  color-scheme: dark;
+  --ed-crust: #070614;
+  --ed-mantle: #0a0819;
+  --ed-base: #0c0a1f;
+  --ed-raised: #141236;
+  --ed-hover: #1c1947;
+  --ed-line: #2c2766;
+  --ed-line-strong: #3e378a;
+  --ed-ink: #ece9ff;
+  --ed-text: #d6d2f2;
+  --ed-muted: #9d97d4;
+  --ed-faint: #7570ab;
+  --ed-accent: #ff2e88;
+  --ed-accent-low: #3d0f35;
+  --ed-accent-high: #ffa8cf;
+  --ed-a2: #29e3f0;
+  --ed-a3: #ffbe3d;
+  --ed-ok: #29e3f0;
+  --ed-warn: #ffbe3d;
+  --ed-err: #ff4d6d;
+  --ed-on-accent: #0c0a1f;
+  --ed-sun1: #ffd166;
+  --ed-sun2: #ff2e88;
+}
+:root[data-palette='sabers'][data-theme='light'] {
+  color-scheme: light;
+  --ed-crust: #e4dffb;
+  --ed-mantle: #eeebff;
+  --ed-base: #f6f4ff;
+  --ed-raised: #ffffff;
+  --ed-hover: #e3defb;
+  --ed-line: #d6d0f5;
+  --ed-line-strong: #bdb5ea;
+  --ed-ink: #1a1640;
+  --ed-text: #2c2756;
+  --ed-muted: #5b5585;
+  --ed-faint: #77729f;
+  --ed-accent: #c1125f;
+  --ed-accent-low: #fbd3e6;
+  --ed-accent-high: #8a0c44;
+  --ed-a2: #08717b;
+  --ed-a3: #8f5c00;
+  --ed-ok: #08717b;
+  --ed-warn: #8f5c00;
+  --ed-err: #b8102f;
+  --ed-on-accent: #ffffff;
+}
+
+/* ---------- GENOM Tower ---------- */
+:root[data-palette='genom'] {
+  color-scheme: dark;
+  --ed-crust: #04070c;
+  --ed-mantle: #060a10;
+  --ed-base: #070b12;
+  --ed-raised: #0d1420;
+  --ed-hover: #142034;
+  --ed-line: #1e2d42;
+  --ed-line-strong: #2b4060;
+  --ed-ink: #dfe8f2;
+  --ed-text: #c4d0dd;
+  --ed-muted: #7f93ab;
+  --ed-faint: #62758c;
+  --ed-accent: #00d0ff;
+  --ed-accent-low: #062a3a;
+  --ed-accent-high: #a6ecff;
+  --ed-a2: #ff3b3b;
+  --ed-a3: #ffb000;
+  --ed-ok: #3ddc97;
+  --ed-warn: #ffb000;
+  --ed-err: #ff3b3b;
+  --ed-on-accent: #04070c;
+  --ed-sun1: #c7d3e0;
+  --ed-sun2: #00d0ff;
+}
+:root[data-palette='genom'][data-theme='light'] {
+  color-scheme: light;
+  --ed-crust: #dbe3ec;
+  --ed-mantle: #e7ecf3;
+  --ed-base: #f2f5f9;
+  --ed-raised: #ffffff;
+  --ed-hover: #dfe7f0;
+  --ed-line: #cbd5e1;
+  --ed-line-strong: #aebccd;
+  --ed-ink: #0b1320;
+  --ed-text: #1f2b3b;
+  --ed-muted: #4b5b70;
+  --ed-faint: #677689;
+  --ed-accent: #0072a8;
+  --ed-accent-low: #cfe9f6;
+  --ed-accent-high: #004f75;
+  --ed-a2: #c4161c;
+  --ed-a3: #945500;
+  --ed-ok: #127a4f;
+  --ed-warn: #945500;
+  --ed-err: #c4161c;
+  --ed-on-accent: #ffffff;
+}
+
+/* ---------- categories ----------
+ * Eight hues that tell kinds of thing apart where colour is the label: node
+ * categories, pin and data types, joint kinds. The first three and the last
+ * are the palette's own accents; 4-7 fill the gaps (yellow, blue, violet,
+ * green) at the same strength - bright on dark, deep on light, so the
+ * `--ed-on-accent` text reads on every one. */
+:root {
+  --ed-cat-1: var(--ed-accent);
+  --ed-cat-2: var(--ed-a2);
+  --ed-cat-3: var(--ed-a3);
+  --ed-cat-4: #ffd166;
+  --ed-cat-5: #8fb3ff;
+  --ed-cat-6: #c49bff;
+  --ed-cat-7: #7fe08a;
+  --ed-cat-8: var(--ed-accent-high);
+}
+:root[data-theme='light'] {
+  --ed-cat-4: #8a6a00;
+  --ed-cat-5: #3355b8;
+  --ed-cat-6: #6c3bbd;
+  --ed-cat-7: #2a7d38;
+}
+
+/* ---------- aliases ---------- */
+:root {
+  --ctp-rosewater: var(--ed-accent-high);
+  --ctp-flamingo: var(--ed-accent-high);
+  --ctp-pink: var(--ed-accent-high);
+  --ctp-mauve: var(--ed-a2);
+  --ctp-red: var(--ed-err);
+  --ctp-maroon: var(--ed-err);
+  --ctp-peach: var(--ed-a3);
+  --ctp-yellow: var(--ed-warn);
+  --ctp-green: var(--ed-ok);
+  --ctp-teal: var(--ed-a2);
+  --ctp-sky: var(--ed-a2);
+  --ctp-sapphire: var(--ed-a2);
+  --ctp-blue: var(--ed-accent);
+  --ctp-lavender: var(--ed-accent-high);
+  --ctp-text: var(--ed-text);
+  --ctp-subtext1: var(--ed-text);
+  --ctp-subtext0: var(--ed-muted);
+  --ctp-overlay2: var(--ed-muted);
+  --ctp-overlay1: var(--ed-faint);
+  --ctp-overlay0: var(--ed-faint);
+  --ctp-surface2: var(--ed-line-strong);
+  --ctp-surface1: var(--ed-line-strong);
+  --ctp-surface0: var(--ed-line);
+  --ctp-base: var(--ed-base);
+  --ctp-mantle: var(--ed-mantle);
+  --ctp-crust: var(--ed-crust);
+
+  --surface0: var(--ed-line);
+  --surface1: var(--ed-line-strong);
+  --mantle: var(--ed-mantle);
+  --crust: var(--ed-crust);
+  --subtext0: var(--ed-muted);
+  --yellow: var(--ed-warn);
+  --blue: var(--ed-accent);
+  --mauve: var(--ed-a2);
+  --text-h: var(--ed-ink);
+  --comment-color: var(--ed-faint);
+}

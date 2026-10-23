@@ -1,0 +1,518 @@
+{
+ "name": "209 - Animation layers",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "209 - Animation layers and bone masks",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   1 raise (one-shot)   2 wave (loop)   3 stop layer   4 / 5 layer weight 0.5 / 1   B breath (additive)   Space base walk on/off",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -130.0
+     ],
+     "size": [
+      1200.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line1",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -160.0
+     ],
+     "size": [
+      1200.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.78,
+      0.83,
+      0.92,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line2",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -190.0
+     ],
+     "size": [
+      1200.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.78,
+      0.83,
+      0.92,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Rig",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "lab209"
+    },
+    "skeletal_player": {
+     "clip": "animations/lab209_walk.skelanim",
+     "layers": [
+      {
+       "name": "upper",
+       "clip": "",
+       "mask": [
+        "arm"
+       ],
+       "weight": 0.0
+      },
+      {
+       "name": "breath",
+       "clip": "animations/lab209_breathe.skelanim",
+       "mode": "additive",
+       "mask": [
+        "body"
+       ],
+       "weight": 0.0
+      }
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/lab209_rig.lua"
+    }
+   }
+  },
+  {
+   "name": "Leg_l",
+   "parent": "Rig",
+   "components": {
+    "transform": {
+     "position": [
+      -10.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "leg_l",
+     "length": 110.0
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.35,
+      0.45,
+      0.7,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      18.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Leg_r",
+   "parent": "Rig",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "leg_r",
+     "length": 110.0
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.45,
+      0.55,
+      0.8,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      18.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Body",
+   "parent": "Rig",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "body",
+     "length": 120.0
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.85,
+      0.55,
+      0.3,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      46.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Head",
+   "parent": "Body",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      124.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.95,
+      0.8,
+      0.6,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arm",
+   "parent": "Body",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      112.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "arm",
+     "length": 60.0
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.9,
+      0.7,
+      0.45,
+      1
+     ],
+     "z_order": 4,
+     "size": [
+      16.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hand",
+   "parent": "Arm",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "hand",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.95,
+      0.85,
+      0.6,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      14.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the legs keep walking whatever the arm does; 1 raises the arm (only the arm and hand) and lets it fall back after,",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the end line counting; 2 waves until 3; 4 is half raised; B rocks the whole body on top of the walk; Space stops the walk, layers play on.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_209_animation_layers.lua"
+    }
+   }
+  }
+ ]
+}

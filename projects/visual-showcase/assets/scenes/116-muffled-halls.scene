@@ -1,0 +1,1901 @@
+{
+ "name": "116 - Muffled Halls",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.55
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.9,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "audio_refs": [
+  "sounds/market_fountain.wav",
+  "sounds/forge_fire.wav",
+  "sounds/market_lute.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.8,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.21404,
+      0.26327,
+      0.60383
+     ],
+     "intensity": 0.5
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      -525.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/env/cb_sky.png",
+     "color": [
+      0.10048,
+      0.13287,
+      0.44799,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      560.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      -640.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.73153,
+      0.89359,
+      1.4,
+      0.8
+     ],
+     "z_order": -99,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GuardWall",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.39312,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      400.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       200.0,
+       200.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "HallWall",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.39312,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      650.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       200.0,
+       200.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "CourtWall",
+   "components": {
+    "transform": {
+     "position": [
+      -525.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bricks"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.13287,
+      0.14732,
+      0.21404,
+      1.0
+     ],
+     "z_order": -49,
+     "size": [
+      550.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       200.0,
+       200.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/bricks_n.png"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1700.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       240.0,
+       120.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "FloorSolid",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1700,
+       "height": 60
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Roof",
+   "components": {
+    "transform": {
+     "position": [
+      275.0,
+      320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1150,
+       "height": 40
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      0.21404,
+      0.10654,
+      0.04696,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      1150.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       40.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "OuterL",
+   "components": {
+    "transform": {
+     "position": [
+      -820.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40,
+       "height": 700
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.07324,
+      0.07324,
+      0.10048,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      40.0,
+      700.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       100.0,
+       100.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "OuterR",
+   "components": {
+    "transform": {
+     "position": [
+      820.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40,
+       "height": 700
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.07324,
+      0.07324,
+      0.10048,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      40.0,
+      700.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       100.0,
+       100.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Wall0",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      85.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40,
+       "height": 430.0
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.44799,
+      0.39312,
+      0.42003,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      40.0,
+      430.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       100.0,
+       100.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      40.0,
+      430.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Door0",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 30,
+       "height": 170.0
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      0.26327,
+      0.11928,
+      0.04696,
+      1.0
+     ],
+     "z_order": 19,
+     "size": [
+      30.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       30.0,
+       24.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      30.0,
+      170.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall1",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      85.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40,
+       "height": 430.0
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.44799,
+      0.39312,
+      0.42003,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      40.0,
+      430.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       100.0,
+       100.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      40.0,
+      430.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Door1",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 30,
+       "height": 170.0
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      0.26327,
+      0.11928,
+      0.04696,
+      1.0
+     ],
+     "z_order": 19,
+     "size": [
+      30.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       30.0,
+       24.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      30.0,
+      170.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MoonLight",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.31855,
+      0.44799,
+      1.0
+     ],
+     "intensity": 1.0,
+     "radius": 700.0,
+     "falloff": 1.2,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "HearthFire",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 40.0,
+     "max_particles": 60,
+     "lifetime": [
+      0.3,
+      0.7
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      26.0,
+      34.0
+     ],
+     "size_end": [
+      6.0,
+      9.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Additive",
+     "color_curve": [
+      [
+       0.0,
+       3.0,
+       2.07621,
+       0.64212,
+       0.0
+      ],
+      [
+       0.2,
+       3.0,
+       1.14018,
+       0.21972,
+       1.0
+      ],
+      [
+       1.0,
+       0.3,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.31855,
+      0.07324
+     ],
+     "intensity": 1.8,
+     "radius": 520.0,
+     "falloff": 1.2,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "GuardTorch",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.5,
+      0.67199,
+      0.1993,
+      0.9
+     ],
+     "z_order": 21,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.10048
+     ],
+     "intensity": 1.2,
+     "radius": 480.0,
+     "falloff": 1.3,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "Chandelier0",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.96613,
+      0.34246,
+      0.9
+     ],
+     "z_order": 21,
+     "size": [
+      120.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 1.5,
+     "radius": 640.0,
+     "falloff": 1.2,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "Chandelier1",
+   "components": {
+    "transform": {
+     "position": [
+      640.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.96613,
+      0.34246,
+      0.9
+     ],
+     "z_order": 21,
+     "size": [
+      120.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 1.5,
+     "radius": 640.0,
+     "falloff": 1.2,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "Basin",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      0.21404,
+      0.23302,
+      0.31855,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      140.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spray",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 90.0,
+     "max_particles": 200,
+     "lifetime": [
+      0.8,
+      1.2
+     ],
+     "speed": [
+      160.0,
+      220.0
+     ],
+     "angle": [
+      1.45,
+      1.69
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      6.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.35,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "color_curve": [
+      [
+       0.0,
+       0.44799,
+       0.69207,
+       1.0,
+       0.0
+      ],
+      [
+       0.1,
+       0.44799,
+       0.69207,
+       1.0,
+       0.8
+      ],
+      [
+       1.0,
+       0.31855,
+       0.52252,
+       1.0,
+       0.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Minstrel",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ruins/pilgrim.png",
+     "color": [
+      0.26327,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      54.0,
+      81.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainSound",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_fountain.wav",
+     "volume": 0.7,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 160.0,
+     "max_distance": 1700.0,
+     "pan_width": 700.0,
+     "occlusion": 0.45,
+     "muffle": 900.0
+    }
+   }
+  },
+  {
+   "name": "FountainRing1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.26327,
+      0.52252,
+      1.0,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainRing2",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.26327,
+      0.52252,
+      1.0,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainRing3",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.26327,
+      0.52252,
+      1.0,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthSound",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/forge_fire.wav",
+     "volume": 0.8,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 160.0,
+     "max_distance": 1700.0,
+     "pan_width": 700.0,
+     "occlusion": 0.45,
+     "muffle": 900.0
+    }
+   }
+  },
+  {
+   "name": "HearthRing1",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.05088,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthRing2",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.05088,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthRing3",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.05088,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LuteSound",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_lute.wav",
+     "volume": 0.9,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 160.0,
+     "max_distance": 1700.0,
+     "pan_width": 700.0,
+     "occlusion": 0.45,
+     "muffle": 900.0
+    }
+   }
+  },
+  {
+   "name": "LuteRing1",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LuteRing2",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LuteRing3",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.0
+     ],
+     "z_order": 29,
+     "size": [
+      100.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Knight",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_listener": {
+     "room_reverb": "sfx",
+     "room_reach": 1100.0,
+     "room_mix": 0.55
+    },
+    "sprite": {
+     "texture_id": "sprites/ruins/pilgrim.png",
+     "color": [
+      0.44799,
+      0.52252,
+      0.78741,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      56.0,
+      84.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "sprite_animator": {
+     "clips": {
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.15,
+       "looping": true,
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ]
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ]
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ]
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ]
+        }
+       ],
+       "property_tracks": []
+      }
+     },
+     "current_clip": "walk",
+     "playing": true,
+     "speed": 1.0
+    }
+   }
+  },
+  {
+   "name": "KnightLamp",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.69207,
+      0.31855
+     ],
+     "intensity": 0.6,
+     "radius": 260.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Keeper",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s116_muffled_halls.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "116   Muffled Halls",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "walls muffle, rooms ring   D doors   Space hurry   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

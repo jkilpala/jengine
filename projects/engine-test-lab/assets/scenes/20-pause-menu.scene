@@ -1,0 +1,73 @@
+{
+  "name": "20 - Pause Menu",
+  "audio_refs": ["sounds/hum.wav", "sounds/blip.wav"],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-320.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "20 - PAUSE MENU (fade + push)", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "P    pause (push overlay scene, mute audio)", "font_id": "", "font_scale": 1.2, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 215.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "M    toggle background music (hum loop)", "font_id": "", "font_scale": 1.2, "color": [1.0, 0.95, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "on_ready calls fade_in(0.4) for a black-to-clear reveal.", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.8, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": { "position": [-580.0, 145.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.8, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Bouncer",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [3.0, 3.0] },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [0.35, 0.85, 1.0, 1.0], "z_order": 5 }
+      }
+    },
+
+    {
+      "name": "Status",
+      "components": {
+        "transform": { "position": [-580.0, -260.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "music: stopped", "font_id": "", "font_scale": 1.2, "color": [0.95, 0.95, 0.95, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_20.lua" }
+      }
+    }
+  ]
+}

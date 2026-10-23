@@ -1,0 +1,1905 @@
+{
+ "name": "98 - Searchlight",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Header",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "98 - SEARCHLIGHT: A SPOT THAT IS AIMED BY ITS TRANSFORM",
+     "font_id": "",
+     "font_scale": 1.8,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "The left spot sweeps by `set_rotation` on its ENTITY. The right one is identical but never turns.",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint2",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Cone direction on screen is Transform.rotation + SpotLight2D.direction - the sum the wgpu pass writes.",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint3",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Both cast shadows from the same occluder set the point lights use. Watch the pillar shadows swing.",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lighting",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.35,
+      0.42,
+      0.6
+     ],
+     "intensity": 0.06
+    }
+   }
+  },
+  {
+   "name": "FloorR0C0",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C1",
+   "components": {
+    "transform": {
+     "position": [
+      -448.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C2",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C3",
+   "components": {
+    "transform": {
+     "position": [
+      -192.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C4",
+   "components": {
+    "transform": {
+     "position": [
+      -64.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C5",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C6",
+   "components": {
+    "transform": {
+     "position": [
+      192.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C7",
+   "components": {
+    "transform": {
+     "position": [
+      320.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C8",
+   "components": {
+    "transform": {
+     "position": [
+      448.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR0C9",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C0",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C1",
+   "components": {
+    "transform": {
+     "position": [
+      -448.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C2",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C3",
+   "components": {
+    "transform": {
+     "position": [
+      -192.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C4",
+   "components": {
+    "transform": {
+     "position": [
+      -64.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C5",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C6",
+   "components": {
+    "transform": {
+     "position": [
+      192.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C7",
+   "components": {
+    "transform": {
+     "position": [
+      320.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C8",
+   "components": {
+    "transform": {
+     "position": [
+      448.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR1C9",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -68.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C0",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C1",
+   "components": {
+    "transform": {
+     "position": [
+      -448.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C2",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C3",
+   "components": {
+    "transform": {
+     "position": [
+      -192.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C4",
+   "components": {
+    "transform": {
+     "position": [
+      -64.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C5",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C6",
+   "components": {
+    "transform": {
+     "position": [
+      192.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C7",
+   "components": {
+    "transform": {
+     "position": [
+      320.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C8",
+   "components": {
+    "transform": {
+     "position": [
+      448.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR2C9",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C0",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C1",
+   "components": {
+    "transform": {
+     "position": [
+      -448.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C2",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C3",
+   "components": {
+    "transform": {
+     "position": [
+      -192.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C4",
+   "components": {
+    "transform": {
+     "position": [
+      -64.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C5",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C6",
+   "components": {
+    "transform": {
+     "position": [
+      192.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C7",
+   "components": {
+    "transform": {
+     "position": [
+      320.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C8",
+   "components": {
+    "transform": {
+     "position": [
+      448.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorR3C9",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -324.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.82,
+      0.84,
+      0.9,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar1",
+   "components": {
+    "transform": {
+     "position": [
+      -360.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.16,
+      0.17,
+      0.22,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "size": [
+      56.0,
+      56.0
+     ],
+     "enabled": true
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pillar2",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.16,
+      0.17,
+      0.22,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "size": [
+      56.0,
+      56.0
+     ],
+     "enabled": true
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pillar3",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.16,
+      0.17,
+      0.22,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "size": [
+      56.0,
+      56.0
+     ],
+     "enabled": true
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pillar4",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.16,
+      0.17,
+      0.22,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "size": [
+      56.0,
+      56.0
+     ],
+     "enabled": true
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Sweeper",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      1.0,
+      0.86,
+      0.5,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      20.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "spot_light": {
+     "color": [
+      1.0,
+      0.86,
+      0.5
+     ],
+     "intensity": 2.6,
+     "radius": 520.0,
+     "angle": 0.34,
+     "direction": 0.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Fixed",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.45,
+      0.75,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      20.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "spot_light": {
+     "color": [
+      0.45,
+      0.75,
+      1.0
+     ],
+     "intensity": 2.6,
+     "radius": 520.0,
+     "angle": 0.34,
+     "direction": -1.5707963267948966,
+     "falloff": 1.4,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "SweepLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "SWEEPING (entity rotation)",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      1.0,
+      0.86,
+      0.5,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "FixedLabel",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "FIXED (direction only)",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.45,
+      0.75,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Readout",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.85,
+      0.9,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Footer",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "The CPU twin, renderer::lighting::spot_light_at, is pinned to spot_light.wgsl by cpu_light_matches_the_shader.",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.55,
+      0.6,
+      0.7,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NavScript",
+   "components": {
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_98_searchlight.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,548 @@
+{
+ "name": "152 - Spell Wheel",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Tower",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/spellwheel/tower.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wizard",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/spellwheel/wizard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      140.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spell",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -55.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 600,
+     "lifetime": [
+      0.6,
+      1.2
+     ],
+     "speed": [
+      300.0,
+      620.0
+     ],
+     "angle": [
+      -0.35,
+      0.35
+     ],
+     "color_start": [
+      1.0,
+      0.5,
+      0.2,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.5,
+      0.2,
+      0.0
+     ],
+     "size_start": [
+      16.0,
+      26.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 8,
+     "drag": 1.2
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flash",
+   "components": {
+    "transform": {
+     "position": [
+      -360.0,
+      -55.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.07324,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Wheel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      140.0,
+      20.0
+     ],
+     "size": [
+      360.0,
+      360.0
+     ],
+     "z_order": 10
+    },
+    "ui_image": {
+     "texture_id": "sprites/spellwheel/wheel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_radial_menu": {
+     "sections": [
+      "Fire",
+      "Ice",
+      "Wind",
+      "Earth",
+      "Lightning",
+      "Heal"
+     ],
+     "radius": 128.0,
+     "dead_zone": 40.0,
+     "start": 90.0,
+     "hover_scale": 1.3,
+     "hover_tint": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "idle_tint": [
+      0.62,
+      0.62,
+      0.7,
+      0.85
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s152_spell_wheel.lua"
+    }
+   }
+  },
+  {
+   "name": "Fire",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "size": [
+      92.0,
+      92.0
+     ],
+     "z_order": 11
+    },
+    "ui_image": {
+     "texture_id": "sprites/spellwheel/fire.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ice",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "size": [
+      92.0,
+      92.0
+     ],
+     "z_order": 11
+    },
+    "ui_image": {
+     "texture_id": "sprites/spellwheel/ice.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wind",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "size": [
+      92.0,
+      92.0
+     ],
+     "z_order": 11
+    },
+    "ui_image": {
+     "texture_id": "sprites/spellwheel/wind.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Earth",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "size": [
+      92.0,
+      92.0
+     ],
+     "z_order": 11
+    },
+    "ui_image": {
+     "texture_id": "sprites/spellwheel/earth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lightning",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "size": [
+      92.0,
+      92.0
+     ],
+     "z_order": 11
+    },
+    "ui_image": {
+     "texture_id": "sprites/spellwheel/lightning.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Heal",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "size": [
+      92.0,
+      92.0
+     ],
+     "z_order": 11
+    },
+    "ui_image": {
+     "texture_id": "sprites/spellwheel/heal.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "152   Spell Wheel",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Point at a spell, click to cast (or use a stick and A)   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

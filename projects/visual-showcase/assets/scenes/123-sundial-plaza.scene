@@ -1,0 +1,1664 @@
+{
+ "name": "123 - Sundial Plaza",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.45
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "intensity": 0.5
+    }
+   }
+  },
+  {
+   "name": "Day",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "day_cycle": {
+     "hour": 7.5,
+     "hours_per_second": 0.35,
+     "keys": [
+      {
+       "hour": 0.0,
+       "sky_top": [
+        0.00077,
+        0.00116,
+        0.00394
+       ],
+       "sky_horizon": [
+        0.00232,
+        0.00394,
+        0.01341
+       ],
+       "ambient": [
+        0.45,
+        0.55,
+        0.9
+       ],
+       "ambient_intensity": 0.14,
+       "sun_color": [
+        1.0,
+        0.6,
+        0.3
+       ],
+       "sun_intensity": 0.0
+      },
+      {
+       "hour": 5.5,
+       "sky_top": [
+        0.00394,
+        0.0049,
+        0.02721
+       ],
+       "sky_horizon": [
+        0.17064,
+        0.05088,
+        0.07324
+       ],
+       "ambient": [
+        0.7,
+        0.55,
+        0.65
+       ],
+       "ambient_intensity": 0.22,
+       "sun_color": [
+        1.0,
+        0.5,
+        0.35
+       ],
+       "sun_intensity": 0.0
+      },
+      {
+       "hour": 7.0,
+       "sky_top": [
+        0.05088,
+        0.10048,
+        0.44799
+       ],
+       "sky_horizon": [
+        1.0,
+        0.31855,
+        0.17064
+       ],
+       "ambient": [
+        1.0,
+        0.8,
+        0.7
+       ],
+       "ambient_intensity": 0.45,
+       "sun_color": [
+        1.0,
+        0.7,
+        0.45
+       ],
+       "sun_intensity": 0.9
+      },
+      {
+       "hour": 9.5,
+       "sky_top": [
+        0.01739,
+        0.10654,
+        0.63828
+       ],
+       "sky_horizon": [
+        0.34239,
+        0.60383,
+        1.0
+       ],
+       "ambient": [
+        0.9,
+        0.92,
+        1.0
+       ],
+       "ambient_intensity": 0.56,
+       "sun_color": [
+        1.0,
+        0.92,
+        0.8
+       ],
+       "sun_intensity": 1.1
+      },
+      {
+       "hour": 12.0,
+       "sky_top": [
+        0.01341,
+        0.10048,
+        0.69207
+       ],
+       "sky_horizon": [
+        0.31855,
+        0.60383,
+        1.0
+       ],
+       "ambient": [
+        0.85,
+        0.92,
+        1.0
+       ],
+       "ambient_intensity": 0.6,
+       "sun_color": [
+        1.0,
+        0.97,
+        0.9
+       ],
+       "sun_intensity": 1.2
+      },
+      {
+       "hour": 15.5,
+       "sky_top": [
+        0.01739,
+        0.09463,
+        0.60383
+       ],
+       "sky_horizon": [
+        0.52252,
+        0.60383,
+        0.89001
+       ],
+       "ambient": [
+        0.95,
+        0.92,
+        0.95
+       ],
+       "ambient_intensity": 0.55,
+       "sun_color": [
+        1.0,
+        0.88,
+        0.7
+       ],
+       "sun_intensity": 1.1
+      },
+      {
+       "hour": 17.3,
+       "sky_top": [
+        0.04696,
+        0.11928,
+        0.52252
+       ],
+       "sky_horizon": [
+        1.0,
+        0.44799,
+        0.13287
+       ],
+       "ambient": [
+        1.0,
+        0.85,
+        0.65
+       ],
+       "ambient_intensity": 0.5,
+       "sun_color": [
+        1.0,
+        0.68,
+        0.38
+       ],
+       "sun_intensity": 1.0
+      },
+      {
+       "hour": 18.5,
+       "sky_top": [
+        0.01739,
+        0.01341,
+        0.10654
+       ],
+       "sky_horizon": [
+        0.89001,
+        0.11928,
+        0.0331
+       ],
+       "ambient": [
+        0.95,
+        0.65,
+        0.55
+       ],
+       "ambient_intensity": 0.32,
+       "sun_color": [
+        1.0,
+        0.45,
+        0.25
+       ],
+       "sun_intensity": 0.6
+      },
+      {
+       "hour": 19.5,
+       "sky_top": [
+        0.0031,
+        0.00394,
+        0.02198
+       ],
+       "sky_horizon": [
+        0.10048,
+        0.01961,
+        0.05088
+       ],
+       "ambient": [
+        0.55,
+        0.5,
+        0.85
+       ],
+       "ambient_intensity": 0.18,
+       "sun_color": [
+        1.0,
+        0.4,
+        0.3
+       ],
+       "sun_intensity": 0.0
+      }
+     ],
+     "sun": "Sun",
+     "sunrise": 6.0,
+     "sunset": 18.0,
+     "sky": true,
+     "sky_z": -100,
+     "bodies": [
+      {
+       "name": "SunDisc",
+       "rise": 6.0,
+       "set": 18.0,
+       "height": 0.85
+      },
+      {
+       "name": "MoonDisc",
+       "rise": 19.0,
+       "set": 5.5,
+       "height": 0.7
+      }
+     ],
+     "night": [
+      "Stars"
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s123_sundial_plaza.lua"
+    }
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -99,
+     "size": [
+      1500.0,
+      500.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "SunDisc",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.4,
+      1.66097,
+      0.76452,
+      1.0
+     ],
+     "z_order": -98,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MoonDisc",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.96613,
+      1.10731,
+      1.6,
+      0.9
+     ],
+     "z_order": -98,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      1.0,
+      0.95,
+      0.85
+     ],
+     "intensity": 1.0,
+     "direction": -1.5708,
+     "casts_shadows": false,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "Facades",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/square/facades.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1536.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       220.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Cobbles",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/paving.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1536.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Obelisk",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/obelisk.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      80.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "cast_shadow": {
+     "opacity": 0.8,
+     "fade": 0.6,
+     "lights": 1,
+     "max_length": 6.0,
+     "light": "Sun"
+    }
+   }
+  },
+  {
+   "name": "Hour8",
+   "components": {
+    "transform": {
+     "position": [
+      -588.8972745734185,
+      -100.88595389930353
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel8",
+   "components": {
+    "transform": {
+     "position": [
+      -588.8972745734185,
+      -83.88595389930353
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "VIII",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour9",
+   "components": {
+    "transform": {
+     "position": [
+      -340.0,
+      -188.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel9",
+   "components": {
+    "transform": {
+     "position": [
+      -340.0,
+      -171.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "IX",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour10",
+   "components": {
+    "transform": {
+     "position": [
+      -196.2990915244728,
+      -238.29531796643454
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel10",
+   "components": {
+    "transform": {
+     "position": [
+      -196.2990915244728,
+      -221.29531796643454
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "X",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour11",
+   "components": {
+    "transform": {
+     "position": [
+      -91.1027254265817,
+      -275.1140461006964
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel11",
+   "components": {
+    "transform": {
+     "position": [
+      -91.1027254265817,
+      -258.1140461006964
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "XI",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour12",
+   "components": {
+    "transform": {
+     "position": [
+      -2.0818995585505004e-14,
+      -279.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel12",
+   "components": {
+    "transform": {
+     "position": [
+      -2.0818995585505004e-14,
+      -262.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "XII",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour13",
+   "components": {
+    "transform": {
+     "position": [
+      91.10272542658176,
+      -275.1140461006964
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel13",
+   "components": {
+    "transform": {
+     "position": [
+      91.10272542658176,
+      -258.1140461006964
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "I",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour14",
+   "components": {
+    "transform": {
+     "position": [
+      196.29909152447266,
+      -238.2953179664346
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel14",
+   "components": {
+    "transform": {
+     "position": [
+      196.29909152447266,
+      -221.2953179664346
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "II",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour15",
+   "components": {
+    "transform": {
+     "position": [
+      339.99999999999994,
+      -188.00000000000003
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel15",
+   "components": {
+    "transform": {
+     "position": [
+      339.99999999999994,
+      -171.00000000000003
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "III",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hour16",
+   "components": {
+    "transform": {
+     "position": [
+      588.8972745734185,
+      -100.88595389930353
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/hourstone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      32.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HourLabel16",
+   "components": {
+    "transform": {
+     "position": [
+      588.8972745734185,
+      -83.88595389930353
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "IV",
+     "font_scale": 0.8,
+     "color": [
+      0.05088,
+      0.0331,
+      0.01961,
+      1.0
+     ],
+     "z_order": 3,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Fountain",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      -105.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/fountain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      260.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "cast_shadow": {
+     "opacity": 0.8,
+     "fade": 0.6,
+     "lights": 2,
+     "max_length": 4.0
+    }
+   }
+  },
+  {
+   "name": "Post0",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/lamppost.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "cast_shadow": {
+     "opacity": 0.8,
+     "fade": 0.6,
+     "lights": 1,
+     "max_length": 4.0,
+     "light": "Sun"
+    }
+   }
+  },
+  {
+   "name": "Lamp0",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.2,
+      1.32843,
+      0.47089,
+      0.0
+     ],
+     "z_order": 9,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.57048,
+      0.21404
+     ],
+     "intensity": 0.0,
+     "radius": 900.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Post1",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/lamppost.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "cast_shadow": {
+     "opacity": 0.8,
+     "fade": 0.6,
+     "lights": 1,
+     "max_length": 4.0,
+     "light": "Sun"
+    }
+   }
+  },
+  {
+   "name": "Lamp1",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.2,
+      1.32843,
+      0.47089,
+      0.0
+     ],
+     "z_order": 9,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.57048,
+      0.21404
+     ],
+     "intensity": 0.0,
+     "radius": 900.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Walker0",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/person0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      60.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "cast_shadow": {
+     "opacity": 0.8,
+     "fade": 0.6,
+     "lights": 2,
+     "max_length": 4.0
+    }
+   }
+  },
+  {
+   "name": "Walker1",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/person1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 21,
+     "size": [
+      60.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "cast_shadow": {
+     "opacity": 0.8,
+     "fade": 0.6,
+     "lights": 2,
+     "max_length": 4.0
+    }
+   }
+  },
+  {
+   "name": "Walker2",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/plaza/person2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 22,
+     "size": [
+      60.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "cast_shadow": {
+     "opacity": 0.8,
+     "fade": 0.6,
+     "lights": 2,
+     "max_length": 4.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "123   Sundial Plaza",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "a day in a minute   1-4 morning noon afternoon night   Space hurry   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,41 @@
+[package]
+name = "jengine-benchmark"
+description = "BunnyMark performance benchmark for jEngine — measures sprite rendering throughput"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "jengine_benchmark"
+path = "src/lib.rs"
+
+[[bin]]
+name = "jengine-benchmark"
+path = "src/main.rs"
+
+[dependencies]
+jengine-core = { path = "../jengine-core", default-features = false }
+glam = { workspace = true }
+log = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+bytemuck = { workspace = true, optional = true }
+
+# WASM-only dependencies (for platform-specific code in shared modules)
+js-sys = { workspace = true, optional = true }
+
+# Native-only dependencies (wgpu)
+winit = { workspace = true, optional = true }
+wgpu = { workspace = true, optional = true }
+pollster = { workspace = true, optional = true }
+env_logger = { workspace = true, optional = true }
+clap = { workspace = true, optional = true }
+
+[features]
+default = ["native"]
+native = ["jengine-core/native", "jengine-core/gpu-wgpu", "jengine-core/backend-dx12", "jengine-core/backend-vulkan", "jengine-core/backend-metal", "dep:winit", "dep:wgpu", "dep:pollster", "dep:bytemuck", "dep:env_logger", "dep:clap"]
+web = ["jengine-core/web", "jengine-core/gpu-wgpu", "jengine-core/backend-webgpu", "dep:js-sys", "dep:wgpu", "dep:bytemuck"]

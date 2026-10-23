@@ -1,0 +1,140 @@
+{
+  "name": "30-SpriteFill",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280, "viewport_height": 720 }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": { "position": [0.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "30 - SpriteFill (Stretch / NineSlice / Tile)", "font_id": "default", "font_scale": 2.0, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 100 }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": { "position": [0.0, -330.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "[H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "default", "font_scale": 1.6, "color": [0.7, 0.75, 0.85, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "LabelStretch",
+      "components": {
+        "transform": { "position": [-420.0, 220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "Stretch", "font_id": "default", "font_scale": 1.4, "color": [1,1,1,1], "z_order": 100 }
+      }
+    },
+    { "name": "StretchSmall",
+      "components": {
+        "transform": { "position": [-420.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/frame48.png", "color": [1,1,1,1], "z_order": 1, "size": [120.0, 80.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    { "name": "StretchWide",
+      "components": {
+        "transform": { "position": [-420.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/frame48.png", "color": [1,1,1,1], "z_order": 1, "size": [260.0, 90.0], "anchor": [0.5, 0.5], "fill": { "mode": "stretch" } }
+      }
+    },
+    { "name": "StretchCaption",
+      "components": {
+        "transform": { "position": [-420.0, -70.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "corners distort", "font_id": "default", "font_scale": 1.0, "color": [0.75, 0.8, 0.9, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "LabelNineSlice",
+      "components": {
+        "transform": { "position": [0.0, 220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "NineSlice", "font_id": "default", "font_scale": 1.4, "color": [1,1,1,1], "z_order": 100 }
+      }
+    },
+    { "name": "NineSliceSmall",
+      "components": {
+        "transform": { "position": [0.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/frame48.png", "color": [1,1,1,1], "z_order": 1, "size": [120.0, 80.0], "anchor": [0.5, 0.5],
+                    "fill": { "mode": "nine_slice", "left": 16.0, "right": 16.0, "top": 16.0, "bottom": 16.0 } }
+      }
+    },
+    { "name": "NineSliceWide",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/frame48.png", "color": [1,1,1,1], "z_order": 1, "size": [260.0, 90.0], "anchor": [0.5, 0.5],
+                    "fill": { "mode": "nine_slice", "left": 16.0, "right": 16.0, "top": 16.0, "bottom": 16.0 } }
+      }
+    },
+    { "name": "NineSliceCaption",
+      "components": {
+        "transform": { "position": [0.0, -70.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "corners stay 16x16", "font_id": "default", "font_scale": 1.0, "color": [0.75, 0.8, 0.9, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "LabelTile",
+      "components": {
+        "transform": { "position": [420.0, 220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "Tile", "font_id": "default", "font_scale": 1.4, "color": [1,1,1,1], "z_order": 100 }
+      }
+    },
+    { "name": "TileClean",
+      "components": {
+        "transform": { "position": [420.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": [160.0, 80.0], "anchor": [0.5, 0.5],
+                    "fill": { "mode": "tile", "tile_size": [40.0, 40.0] } }
+      }
+    },
+    { "name": "TileClipped",
+      "components": {
+        "transform": { "position": [420.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 1, "size": [200.0, 90.0], "anchor": [0.5, 0.5],
+                    "fill": { "mode": "tile", "tile_size": [48.0, 48.0] } }
+      }
+    },
+    { "name": "TileCaption",
+      "components": {
+        "transform": { "position": [420.0, -70.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "40-unit tiles\n48-unit tiles, edges clip", "font_id": "default", "font_scale": 1.0, "color": [0.75, 0.8, 0.9, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "LabelRotation",
+      "components": {
+        "transform": { "position": [0.0, -160.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "Rotation pivots around the sprite anchor for all fill modes", "font_id": "default", "font_scale": 1.2, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 100 }
+      }
+    },
+    { "name": "RotStretch",
+      "components": {
+        "transform": { "position": [-300.0, -240.0], "rotation": 0.5, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/frame48.png", "color": [1.0, 0.85, 0.85, 1.0], "z_order": 1, "size": [160.0, 70.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    { "name": "RotNineSlice",
+      "components": {
+        "transform": { "position": [0.0, -240.0], "rotation": 0.5, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/frame48.png", "color": [0.85, 1.0, 0.85, 1.0], "z_order": 1, "size": [160.0, 70.0], "anchor": [0.5, 0.5],
+                    "fill": { "mode": "nine_slice", "left": 16.0, "right": 16.0, "top": 16.0, "bottom": 16.0 } }
+      }
+    },
+    { "name": "RotTile",
+      "components": {
+        "transform": { "position": [300.0, -240.0], "rotation": 0.5, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.9, 1.0, 1.0], "z_order": 1, "size": [160.0, 70.0], "anchor": [0.5, 0.5],
+                    "fill": { "mode": "tile", "tile_size": [35.0, 35.0] } }
+      }
+    },
+
+    {
+      "name": "Controller",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_30_sprite_fill.lua" }
+      }
+    }
+  ]
+}

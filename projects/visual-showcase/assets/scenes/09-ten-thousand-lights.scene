@@ -1,0 +1,522 @@
+{
+ "name": "09 - Ten Thousand Lights",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.9
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.9,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.001
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.17064,
+      0.69207
+     ],
+     "intensity": 0.05
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/night_sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1440.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      0.60383,
+      0.69207,
+      1.0,
+      0.7
+     ],
+     "z_order": -95,
+     "size": [
+      1440.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HorizonGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.2,
+      0.20477,
+      0.08789,
+      0.35
+     ],
+     "z_order": -90,
+     "size": [
+      2560.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HillsFar",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_hills"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/hills.png",
+     "color": [
+      0.26327,
+      0.26327,
+      0.52252,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      1680.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       900.0,
+       230.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/hills_n.png"
+    }
+   }
+  },
+  {
+   "name": "HillsNear",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_hills"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/hills.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1680.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       700.0,
+       140.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/hills_n.png"
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00155,
+      0.00193,
+      0.0049,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1440.0,
+      270.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Mirror",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 60,
+     "size": [
+      1440.0,
+      158.4
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/lake_mirror"
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "09   Ten Thousand Lights",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "10,000 lanterns, 300 of them lights   L  lantern lights   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s09_ten_thousand_lights.lua"
+    }
+   }
+  }
+ ]
+}

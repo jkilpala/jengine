@@ -1,0 +1,2987 @@
+{
+ "name": "132 - Beat Hall",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.7
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.15
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.002
+     }
+    }
+   }
+  ]
+ },
+ "audio_refs": [
+  "sounds/bh_club.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1500.0,
+      560.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_0",
+   "components": {
+    "transform": {
+     "position": [
+      -423.35999999999996,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_1",
+   "components": {
+    "transform": {
+     "position": [
+      -352.8,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_2",
+   "components": {
+    "transform": {
+     "position": [
+      -282.24,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_3",
+   "components": {
+    "transform": {
+     "position": [
+      -211.67999999999998,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_4",
+   "components": {
+    "transform": {
+     "position": [
+      -141.12,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_5",
+   "components": {
+    "transform": {
+     "position": [
+      -70.56,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_7",
+   "components": {
+    "transform": {
+     "position": [
+      70.56,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_8",
+   "components": {
+    "transform": {
+     "position": [
+      141.12,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_9",
+   "components": {
+    "transform": {
+     "position": [
+      211.67999999999998,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_10",
+   "components": {
+    "transform": {
+     "position": [
+      282.24,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_11",
+   "components": {
+    "transform": {
+     "position": [
+      352.8,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_12",
+   "components": {
+    "transform": {
+     "position": [
+      423.35999999999996,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      66.24,
+      57.599999999999994
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -482.15999999999997,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -401.79999999999995,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -321.44,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -241.07999999999998,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -160.72,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_5",
+   "components": {
+    "transform": {
+     "position": [
+      -80.36,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_7",
+   "components": {
+    "transform": {
+     "position": [
+      80.36,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_8",
+   "components": {
+    "transform": {
+     "position": [
+      160.72,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_9",
+   "components": {
+    "transform": {
+     "position": [
+      241.07999999999998,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_10",
+   "components": {
+    "transform": {
+     "position": [
+      321.44,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_11",
+   "components": {
+    "transform": {
+     "position": [
+      401.79999999999995,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_12",
+   "components": {
+    "transform": {
+     "position": [
+      482.15999999999997,
+      -114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -39,
+     "size": [
+      75.44,
+      65.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_0",
+   "components": {
+    "transform": {
+     "position": [
+      -540.9599999999999,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -450.79999999999995,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_2",
+   "components": {
+    "transform": {
+     "position": [
+      -360.64,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -270.47999999999996,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -180.32,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_5",
+   "components": {
+    "transform": {
+     "position": [
+      -90.16,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_7",
+   "components": {
+    "transform": {
+     "position": [
+      90.16,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_8",
+   "components": {
+    "transform": {
+     "position": [
+      180.32,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_9",
+   "components": {
+    "transform": {
+     "position": [
+      270.47999999999996,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_10",
+   "components": {
+    "transform": {
+     "position": [
+      360.64,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_11",
+   "components": {
+    "transform": {
+     "position": [
+      450.79999999999995,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile2_12",
+   "components": {
+    "transform": {
+     "position": [
+      540.9599999999999,
+      -204.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      84.63999999999999,
+      73.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_0",
+   "components": {
+    "transform": {
+     "position": [
+      -599.76,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_1",
+   "components": {
+    "transform": {
+     "position": [
+      -499.8,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_2",
+   "components": {
+    "transform": {
+     "position": [
+      -399.84000000000003,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_3",
+   "components": {
+    "transform": {
+     "position": [
+      -299.88,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_4",
+   "components": {
+    "transform": {
+     "position": [
+      -199.92000000000002,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_5",
+   "components": {
+    "transform": {
+     "position": [
+      -99.96000000000001,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_7",
+   "components": {
+    "transform": {
+     "position": [
+      99.96000000000001,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_8",
+   "components": {
+    "transform": {
+     "position": [
+      199.92000000000002,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_9",
+   "components": {
+    "transform": {
+     "position": [
+      299.88,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_10",
+   "components": {
+    "transform": {
+     "position": [
+      399.84000000000003,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_11",
+   "components": {
+    "transform": {
+     "position": [
+      499.8,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile3_12",
+   "components": {
+    "transform": {
+     "position": [
+      599.76,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/beathall/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.25,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      93.84,
+      81.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cabinet0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/cabinet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      150.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cone0_0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/cone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      104.0,
+      104.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cone0_1",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/cone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      104.0,
+      104.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cabinet1",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/cabinet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      150.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cone1_0",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/cone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      104.0,
+      104.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cone1_1",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/cone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      104.0,
+      104.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DJ",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dj.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -9,
+     "size": [
+      128.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Booth",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/booth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      420.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BoothStrip",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -7,
+     "size": [
+      380.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot0",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.3,
+      0.3,
+      0.4,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot1",
+   "components": {
+    "transform": {
+     "position": [
+      -20.0,
+      84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.3,
+      0.3,
+      0.4,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot2",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.3,
+      0.3,
+      0.4,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot3",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.3,
+      0.3,
+      0.4,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer0",
+   "components": {
+    "transform": {
+     "position": [
+      -565.2542703647432,
+      -375.4764463827311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer1",
+   "components": {
+    "transform": {
+     "position": [
+      -396.1344940196027,
+      -367.6305434654354
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 21,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer2",
+   "components": {
+    "transform": {
+     "position": [
+      -291.57393211609815,
+      -368.42264786046405
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer3",
+   "components": {
+    "transform": {
+     "position": [
+      -112.5058176550666,
+      -368.6251689736337
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 21,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer4",
+   "components": {
+    "transform": {
+     "position": [
+      -28.505721577335734,
+      -366.3172858417257
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer5",
+   "components": {
+    "transform": {
+     "position": [
+      125.57297581561157,
+      -369.2146511730222
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 21,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer6",
+   "components": {
+    "transform": {
+     "position": [
+      260.2536159716126,
+      -372.7719275984572
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer7",
+   "components": {
+    "transform": {
+     "position": [
+      414.06995560851885,
+      -370.96462456450996
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 21,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer8",
+   "components": {
+    "transform": {
+     "position": [
+      576.1211021020562,
+      -368.4883814457246
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      106.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/beam.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      260.0,
+      820.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam1",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/beam.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      260.0,
+      820.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam2",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/beam.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      260.0,
+      820.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam3",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/beathall/beam.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 30,
+     "size": [
+      260.0,
+      820.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "beat_clock": {
+     "bpm": 124.0,
+     "offset": 0.0,
+     "beats_per_bar": 4,
+     "follow_music": true,
+     "running": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s132_beat_hall.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "132   Beat Hall",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "M pause the music - the clock keeps time on its own   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

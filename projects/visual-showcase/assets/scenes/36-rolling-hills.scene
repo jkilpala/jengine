@@ -1,0 +1,892 @@
+{
+ "name": "36 - Rolling Hills",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.2
+     },
+     "intensity": {
+      "Float": 0.2
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.3
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.02,
+       0.05,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.02
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.98,
+       0.92,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.75,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      2048.0,
+      1152.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud1",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "z_order": -55,
+     "size": [
+      256.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud2",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "z_order": -55,
+     "size": [
+      179.2,
+      89.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud3",
+   "components": {
+    "transform": {
+     "position": [
+      700.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "z_order": -55,
+     "size": [
+      307.2,
+      153.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud4",
+   "components": {
+    "transform": {
+     "position": [
+      1500.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "z_order": -55,
+     "size": [
+      230.4,
+      115.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud5",
+   "components": {
+    "transform": {
+     "position": [
+      2300.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "z_order": -55,
+     "size": [
+      281.6,
+      140.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FarHills",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spline_shape": {
+     "points": [
+      [
+       -2400.0,
+       -60.0
+      ],
+      [
+       -1800.0,
+       40.0
+      ],
+      [
+       -1200.0,
+       -20.0
+      ],
+      [
+       -600.0,
+       90.0
+      ],
+      [
+       0.0,
+       10.0
+      ],
+      [
+       600.0,
+       120.0
+      ],
+      [
+       1200.0,
+       0.0
+      ],
+      [
+       1800.0,
+       80.0
+      ],
+      [
+       2400.0,
+       -10.0
+      ],
+      [
+       3000.0,
+       70.0
+      ],
+      [
+       3600.0,
+       0.0
+      ]
+     ],
+     "closed": false,
+     "smooth": true,
+     "detail": 14,
+     "fill_bottom": -700.0,
+     "fill_texture": "",
+     "fill_tile": 256.0,
+     "fill_color": [
+      0.14732,
+      0.2957,
+      0.477,
+      1.0
+     ],
+     "edge_texture": "",
+     "edge_width": 64.0,
+     "edge_tile": 256.0,
+     "edge_offset": 0.45,
+     "edge_color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "collider": false,
+     "friction": 0.9,
+     "z_order": -40
+    }
+   }
+  },
+  {
+   "name": "Hills",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spline_shape": {
+     "points": [
+      [
+       -1400.0,
+       -60.0
+      ],
+      [
+       -1100.0,
+       -90.0
+      ],
+      [
+       -800.0,
+       10.0
+      ],
+      [
+       -520.0,
+       -30.0
+      ],
+      [
+       -260.0,
+       -120.0
+      ],
+      [
+       0.0,
+       -150.0
+      ],
+      [
+       260.0,
+       -80.0
+      ],
+      [
+       520.0,
+       40.0
+      ],
+      [
+       760.0,
+       70.0
+      ],
+      [
+       1000.0,
+       -40.0
+      ],
+      [
+       1280.0,
+       -110.0
+      ],
+      [
+       1560.0,
+       -60.0
+      ],
+      [
+       1840.0,
+       30.0
+      ],
+      [
+       2120.0,
+       0.0
+      ],
+      [
+       2400.0,
+       -100.0
+      ],
+      [
+       2700.0,
+       -20.0
+      ],
+      [
+       3000.0,
+       60.0
+      ]
+     ],
+     "closed": false,
+     "smooth": true,
+     "detail": 14,
+     "fill_bottom": -900.0,
+     "fill_texture": "sprites/env/rh_soil.png",
+     "fill_tile": 256.0,
+     "fill_color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "edge_texture": "sprites/env/rh_grass.png",
+     "edge_width": 64.0,
+     "edge_tile": 256.0,
+     "edge_offset": 0.45,
+     "edge_color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "collider": true,
+     "friction": 0.9,
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Island",
+   "components": {
+    "transform": {
+     "position": [
+      700.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spline_shape": {
+     "points": [
+      [
+       -160.0,
+       0.0
+      ],
+      [
+       -60.0,
+       50.0
+      ],
+      [
+       90.0,
+       48.0
+      ],
+      [
+       170.0,
+       10.0
+      ],
+      [
+       120.0,
+       -60.0
+      ],
+      [
+       0.0,
+       -95.0
+      ],
+      [
+       -110.0,
+       -60.0
+      ]
+     ],
+     "closed": true,
+     "smooth": true,
+     "detail": 14,
+     "fill_bottom": -900.0,
+     "fill_texture": "sprites/env/rh_soil.png",
+     "fill_tile": 256.0,
+     "fill_color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "edge_texture": "sprites/env/rh_grass.png",
+     "edge_width": 48.0,
+     "edge_tile": 256.0,
+     "edge_offset": 0.45,
+     "edge_color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "collider": true,
+     "friction": 0.9,
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Crate1",
+   "components": {
+    "transform": {
+     "position": [
+      -640.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Crate2",
+   "components": {
+    "transform": {
+     "position": [
+      340.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Crate3",
+   "components": {
+    "transform": {
+     "position": [
+      1460.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.5,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Wheel",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/rh_wheel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 2.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.1,
+     "angular_damping": 0.4,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 31.0
+      }
+     },
+     "friction": 1.0,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "36   Rolling Hills",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Left / Right  roll   Space  hop   1-4 post   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s36_rolling_hills.lua"
+    }
+   }
+  }
+ ]
+}

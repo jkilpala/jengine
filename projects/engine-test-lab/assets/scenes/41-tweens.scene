@@ -1,0 +1,733 @@
+{
+  "name": "41-Tweens",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "41 - Tweens & Easing",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "A Tween component animates one property (PositionX/Y, Rotation, ScaleX/Y, Opacity) from -> to over duration.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Ease picks the curve: Linear, EaseInQuad, EaseOutQuad, EaseInOutQuad. Watch the four rows start and stop differently.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "on_complete decides what happens at the end: Stop clamps, Loop restarts, PingPong swaps from/to and restarts.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Everything here is authored in the scene - no script drives the motion.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "RunnerLinear",
+      "components": {
+        "transform": {
+          "position": [
+            -420.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.75,
+            1.0,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            34.0,
+            34.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tween": {
+          "target": "PositionX",
+          "from": -420.0,
+          "to": 420.0,
+          "duration": 2.5,
+          "ease": "Linear",
+          "on_complete": "PingPong"
+        }
+      }
+    },
+    {
+      "name": "LabelLinear",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Linear",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "RunnerEaseInQuad",
+      "components": {
+        "transform": {
+          "position": [
+            -420.0,
+            130.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.75,
+            1.0,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            34.0,
+            34.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tween": {
+          "target": "PositionX",
+          "from": -420.0,
+          "to": 420.0,
+          "duration": 2.5,
+          "ease": "EaseInQuad",
+          "on_complete": "PingPong"
+        }
+      }
+    },
+    {
+      "name": "LabelEaseInQuad",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            130.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "EaseInQuad",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "RunnerEaseOutQuad",
+      "components": {
+        "transform": {
+          "position": [
+            -420.0,
+            70.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.75,
+            1.0,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            34.0,
+            34.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tween": {
+          "target": "PositionX",
+          "from": -420.0,
+          "to": 420.0,
+          "duration": 2.5,
+          "ease": "EaseOutQuad",
+          "on_complete": "PingPong"
+        }
+      }
+    },
+    {
+      "name": "LabelEaseOutQuad",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            70.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "EaseOutQuad",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "RunnerEaseInOutQuad",
+      "components": {
+        "transform": {
+          "position": [
+            -420.0,
+            10.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.75,
+            1.0,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            34.0,
+            34.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tween": {
+          "target": "PositionX",
+          "from": -420.0,
+          "to": 420.0,
+          "duration": 2.5,
+          "ease": "EaseInOutQuad",
+          "on_complete": "PingPong"
+        }
+      }
+    },
+    {
+      "name": "LabelEaseInOutQuad",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            10.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "EaseInOutQuad",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Spinner",
+      "components": {
+        "transform": {
+          "position": [
+            -260.0,
+            -80.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            1.0,
+            0.7,
+            0.3,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            60.0,
+            60.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tween": {
+          "target": "Rotation",
+          "from": 0.0,
+          "to": 6.2832,
+          "duration": 3.0,
+          "ease": "Linear",
+          "on_complete": "Loop"
+        }
+      }
+    },
+    {
+      "name": "SpinnerLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -260.0,
+            -140.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Rotation / Loop",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.8,
+            0.85,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Pulse",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -80.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.6,
+            0.95,
+            0.5,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            60.0,
+            60.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tween": {
+          "target": "ScaleX",
+          "from": 0.5,
+          "to": 1.8,
+          "duration": 1.2,
+          "ease": "EaseInOutQuad",
+          "on_complete": "PingPong"
+        }
+      }
+    },
+    {
+      "name": "PulseLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -140.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "ScaleX / PingPong",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.8,
+            0.85,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Fader",
+      "components": {
+        "transform": {
+          "position": [
+            260.0,
+            -80.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.9,
+            0.5,
+            0.9,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            60.0,
+            60.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tween": {
+          "target": "Opacity",
+          "from": 1.0,
+          "to": 0.05,
+          "duration": 1.6,
+          "ease": "EaseOutQuad",
+          "on_complete": "PingPong"
+        }
+      }
+    },
+    {
+      "name": "FaderLabel",
+      "components": {
+        "transform": {
+          "position": [
+            260.0,
+            -140.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Opacity / PingPong",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.8,
+            0.85,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "tweens run without a script",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_41_tweens.lua"
+        }
+      }
+    }
+  ]
+}

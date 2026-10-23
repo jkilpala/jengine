@@ -1,0 +1,2508 @@
+{
+ "name": "155 - Unit Select",
+ "post_process": {
+  "effects": [
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Field",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/field.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow0",
+   "components": {
+    "transform": {
+     "position": [
+      -415.0,
+      144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow1",
+   "components": {
+    "transform": {
+     "position": [
+      -363.0,
+      144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue1",
+   "components": {
+    "transform": {
+     "position": [
+      -368.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow2",
+   "components": {
+    "transform": {
+     "position": [
+      -311.0,
+      144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue2",
+   "components": {
+    "transform": {
+     "position": [
+      -316.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow3",
+   "components": {
+    "transform": {
+     "position": [
+      -259.0,
+      144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue3",
+   "components": {
+    "transform": {
+     "position": [
+      -264.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow4",
+   "components": {
+    "transform": {
+     "position": [
+      -415.0,
+      92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue4",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      98.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow5",
+   "components": {
+    "transform": {
+     "position": [
+      -363.0,
+      92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue5",
+   "components": {
+    "transform": {
+     "position": [
+      -368.0,
+      98.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow6",
+   "components": {
+    "transform": {
+     "position": [
+      -311.0,
+      92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue6",
+   "components": {
+    "transform": {
+     "position": [
+      -316.0,
+      98.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow7",
+   "components": {
+    "transform": {
+     "position": [
+      -259.0,
+      92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue7",
+   "components": {
+    "transform": {
+     "position": [
+      -264.0,
+      98.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow8",
+   "components": {
+    "transform": {
+     "position": [
+      -415.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue8",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      46.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow9",
+   "components": {
+    "transform": {
+     "position": [
+      -363.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue9",
+   "components": {
+    "transform": {
+     "position": [
+      -368.0,
+      46.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow10",
+   "components": {
+    "transform": {
+     "position": [
+      -311.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue10",
+   "components": {
+    "transform": {
+     "position": [
+      -316.0,
+      46.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow11",
+   "components": {
+    "transform": {
+     "position": [
+      -259.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue11",
+   "components": {
+    "transform": {
+     "position": [
+      -264.0,
+      46.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow12",
+   "components": {
+    "transform": {
+     "position": [
+      -375.0,
+      -156.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue12",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow13",
+   "components": {
+    "transform": {
+     "position": [
+      -323.0,
+      -156.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue13",
+   "components": {
+    "transform": {
+     "position": [
+      -328.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow14",
+   "components": {
+    "transform": {
+     "position": [
+      -271.0,
+      -156.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue14",
+   "components": {
+    "transform": {
+     "position": [
+      -276.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow15",
+   "components": {
+    "transform": {
+     "position": [
+      -375.0,
+      -208.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue15",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -202.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow16",
+   "components": {
+    "transform": {
+     "position": [
+      -323.0,
+      -208.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue16",
+   "components": {
+    "transform": {
+     "position": [
+      -328.0,
+      -202.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shadow17",
+   "components": {
+    "transform": {
+     "position": [
+      -271.0,
+      -208.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blue17",
+   "components": {
+    "transform": {
+     "position": [
+      -276.0,
+      -202.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      0.17064,
+      0.38006,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow0",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      234.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red0",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      240.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow1",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      174.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red1",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      180.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow2",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red2",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      120.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow3",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      54.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red3",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      60.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow4",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      -6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red4",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      0.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow5",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      -66.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red5",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -60.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow6",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      -126.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red6",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -120.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/archer.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "RedShadow7",
+   "components": {
+    "transform": {
+     "position": [
+      475.0,
+      -186.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red7",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -180.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/spear.png",
+     "color": [
+      1.0,
+      0.13287,
+      0.10048,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.25,
+      0.2,
+      1.0
+     ],
+     "width": 2.5,
+     "glow": 7.0,
+     "pulse": 0.0,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Flag",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/unitselect/flag.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BoxFill",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.4,
+      0.9,
+      0.5,
+      0.12
+     ],
+     "z_order": 50,
+     "size": [
+      1.0,
+      1.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BoxEdge0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.5,
+      1.0,
+      0.6,
+      0.9
+     ],
+     "z_order": 51,
+     "size": [
+      1.0,
+      1.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BoxEdge1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.5,
+      1.0,
+      0.6,
+      0.9
+     ],
+     "z_order": 51,
+     "size": [
+      1.0,
+      1.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BoxEdge2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.5,
+      1.0,
+      0.6,
+      0.9
+     ],
+     "z_order": 51,
+     "size": [
+      1.0,
+      1.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BoxEdge3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.5,
+      1.0,
+      0.6,
+      0.9
+     ],
+     "z_order": 51,
+     "size": [
+      1.0,
+      1.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s155_unit_select.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "155   Unit Select",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Drag a box to select   Right click to march   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

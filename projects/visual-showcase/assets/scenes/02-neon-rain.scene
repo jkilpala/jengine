@@ -1,0 +1,10602 @@
+{
+ "name": "02 - Neon Rain",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.15,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 1.1
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.3
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.2
+     },
+     "tint_color": {
+      "Vec4": [
+       0.85,
+       0.95,
+       1.0,
+       0.12
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0025
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.10048,
+      0.13287,
+      0.44799
+     ],
+     "intensity": 0.1
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00394,
+      0.0031,
+      0.01002,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "CityGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.31855,
+      0.02198,
+      0.21404,
+      0.65
+     ],
+     "z_order": -99,
+     "size": [
+      2000.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower0",
+   "components": {
+    "transform": {
+     "position": [
+      -657.9631563721462,
+      6.160111642109484
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      84.07368725570757,
+      312.32022328421897
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win0_1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -660.0,
+      140.32022328421897
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.6171,
+      0.32245,
+      0.08199,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -628.0,
+      140.32022328421897
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0752,
+      0.56181,
+      0.14286,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -628.0,
+      118.32022328421897
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.96466,
+      0.50405,
+      0.12817,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_3_1",
+   "components": {
+    "transform": {
+     "position": [
+      -676.0,
+      96.32022328421897
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93314,
+      0.48759,
+      0.12399,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_5_3",
+   "components": {
+    "transform": {
+     "position": [
+      -644.0,
+      52.32022328421897
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.23849,
+      0.64714,
+      0.16456,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_6_4",
+   "components": {
+    "transform": {
+     "position": [
+      -628.0,
+      30.32022328421897
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.59141,
+      0.30902,
+      0.07858,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_8_0",
+   "components": {
+    "transform": {
+     "position": [
+      -692.0,
+      -13.679776715781031
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.31495,
+      0.68709,
+      0.17472,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_8_1",
+   "components": {
+    "transform": {
+     "position": [
+      -676.0,
+      -13.679776715781031
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.279,
+      0.7871,
+      1.30351,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_8_3",
+   "components": {
+    "transform": {
+     "position": [
+      -644.0,
+      -13.679776715781031
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.26589,
+      0.66145,
+      0.1682,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_9_0",
+   "components": {
+    "transform": {
+     "position": [
+      -692.0,
+      -35.67977671578103
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.19986,
+      0.56382,
+      0.93374,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_11_0",
+   "components": {
+    "transform": {
+     "position": [
+      -692.0,
+      -79.67977671578103
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.27478,
+      0.6661,
+      0.16938,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_11_1",
+   "components": {
+    "transform": {
+     "position": [
+      -676.0,
+      -79.67977671578103
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.77811,
+      0.40658,
+      0.10339,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_11_2",
+   "components": {
+    "transform": {
+     "position": [
+      -660.0,
+      -79.67977671578103
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.1017,
+      0.57566,
+      0.14638,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_11_3",
+   "components": {
+    "transform": {
+     "position": [
+      -644.0,
+      -79.67977671578103
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.10035,
+      0.57496,
+      0.1462,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_12_0",
+   "components": {
+    "transform": {
+     "position": [
+      -692.0,
+      -101.67977671578103
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.50311,
+      0.26289,
+      0.06685,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win0_13_1",
+   "components": {
+    "transform": {
+     "position": [
+      -676.0,
+      -123.67977671578103
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.22554,
+      0.63626,
+      1.05372,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower1",
+   "components": {
+    "transform": {
+     "position": [
+      -542.6182868784567,
+      -21.99149570508405
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      87.49001942059972,
+      256.0170085898319
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win1_1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -546.3632965887566,
+      84.0170085898319
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.01672,
+      0.53126,
+      0.13509,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win1_1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -530.3632965887566,
+      84.0170085898319
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.37856,
+      0.72032,
+      0.18317,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win1_2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -514.3632965887566,
+      62.0170085898319
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.16028,
+      0.45215,
+      0.74881,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win1_6_3",
+   "components": {
+    "transform": {
+     "position": [
+      -530.3632965887566,
+      -25.982991410168097
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.64641,
+      0.33776,
+      0.08589,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win1_7_3",
+   "components": {
+    "transform": {
+     "position": [
+      -530.3632965887566,
+      -47.9829914101681
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.96029,
+      0.50177,
+      0.12759,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win1_8_0",
+   "components": {
+    "transform": {
+     "position": [
+      -578.3632965887566,
+      -69.9829914101681
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.63841,
+      0.33358,
+      0.08483,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win1_9_1",
+   "components": {
+    "transform": {
+     "position": [
+      -562.3632965887566,
+      -91.9829914101681
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.21205,
+      0.5982,
+      0.99068,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win1_9_4",
+   "components": {
+    "transform": {
+     "position": [
+      -514.3632965887566,
+      -91.9829914101681
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.27005,
+      0.66363,
+      0.16875,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower2",
+   "components": {
+    "transform": {
+     "position": [
+      -398.819609909346,
+      -30.247855944709144
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      141.48214857385852,
+      239.5042881105817
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win2_1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -445.56068419627525,
+      67.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.51034,
+      0.26666,
+      0.06781,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -413.56068419627525,
+      67.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.98604,
+      0.51523,
+      0.13102,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -397.56068419627525,
+      67.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.97196,
+      0.50787,
+      0.12914,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_1_5",
+   "components": {
+    "transform": {
+     "position": [
+      -381.56068419627525,
+      67.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.10994,
+      0.31016,
+      0.51365,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -445.56068419627525,
+      45.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85163,
+      0.445,
+      0.11316,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -397.56068419627525,
+      45.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.36395,
+      0.71269,
+      0.18123,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_3_5",
+   "components": {
+    "transform": {
+     "position": [
+      -381.56068419627525,
+      23.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.1606,
+      0.45307,
+      0.75033,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_3_6",
+   "components": {
+    "transform": {
+     "position": [
+      -365.56068419627525,
+      23.50428811058171
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.27094,
+      0.76434,
+      1.26582,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_4_2",
+   "components": {
+    "transform": {
+     "position": [
+      -429.56068419627525,
+      1.5042881105817116
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.27264,
+      0.76916,
+      1.2738,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_4_7",
+   "components": {
+    "transform": {
+     "position": [
+      -349.56068419627525,
+      1.5042881105817116
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.14432,
+      0.59793,
+      0.15205,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_5_0",
+   "components": {
+    "transform": {
+     "position": [
+      -461.56068419627525,
+      -20.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.212,
+      0.59808,
+      0.99048,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_7_0",
+   "components": {
+    "transform": {
+     "position": [
+      -461.56068419627525,
+      -64.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.17871,
+      0.6159,
+      0.15662,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_7_7",
+   "components": {
+    "transform": {
+     "position": [
+      -349.56068419627525,
+      -64.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.61007,
+      0.31878,
+      0.08106,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_8_2",
+   "components": {
+    "transform": {
+     "position": [
+      -429.56068419627525,
+      -86.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.73213,
+      0.38255,
+      0.09728,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_8_3",
+   "components": {
+    "transform": {
+     "position": [
+      -413.56068419627525,
+      -86.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.89397,
+      0.46712,
+      0.11878,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_8_7",
+   "components": {
+    "transform": {
+     "position": [
+      -349.56068419627525,
+      -86.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.77729,
+      0.40615,
+      0.10328,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_9_0",
+   "components": {
+    "transform": {
+     "position": [
+      -461.56068419627525,
+      -108.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.22316,
+      0.62955,
+      1.04259,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_9_3",
+   "components": {
+    "transform": {
+     "position": [
+      -413.56068419627525,
+      -108.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.13002,
+      0.36679,
+      0.60743,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win2_9_6",
+   "components": {
+    "transform": {
+     "position": [
+      -365.56068419627525,
+      -108.49571188941829
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.82711,
+      0.43218,
+      0.1099,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower3",
+   "components": {
+    "transform": {
+     "position": [
+      -260.9903926985016,
+      34.80177030928445
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      114.38081888544603,
+      369.6035406185689
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win3_1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -278.1808021412246,
+      197.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.18059,
+      0.50947,
+      0.84374,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      197.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.57103,
+      0.29838,
+      0.07587,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -246.1808021412246,
+      197.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.75766,
+      0.39589,
+      0.10067,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      175.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93606,
+      0.48911,
+      0.12437,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_3_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      153.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.04317,
+      0.54508,
+      0.13861,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_3_5",
+   "components": {
+    "transform": {
+     "position": [
+      -230.1808021412246,
+      153.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.8246,
+      0.43087,
+      0.10957,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_4_0",
+   "components": {
+    "transform": {
+     "position": [
+      -310.1808021412246,
+      131.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0515,
+      0.54943,
+      0.13971,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_5_0",
+   "components": {
+    "transform": {
+     "position": [
+      -310.1808021412246,
+      109.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85348,
+      0.44596,
+      0.1134,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_6_0",
+   "components": {
+    "transform": {
+     "position": [
+      -310.1808021412246,
+      87.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.28493,
+      0.6714,
+      0.17073,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_6_5",
+   "components": {
+    "transform": {
+     "position": [
+      -230.1808021412246,
+      87.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.21395,
+      0.63431,
+      0.1613,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_7_2",
+   "components": {
+    "transform": {
+     "position": [
+      -278.1808021412246,
+      65.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.13465,
+      0.37987,
+      0.6291,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_7_6",
+   "components": {
+    "transform": {
+     "position": [
+      -214.1808021412246,
+      65.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.16002,
+      0.45142,
+      0.74759,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_8_2",
+   "components": {
+    "transform": {
+     "position": [
+      -278.1808021412246,
+      43.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.23893,
+      0.67404,
+      1.11628,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_8_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      43.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.14888,
+      0.60031,
+      0.15265,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_9_0",
+   "components": {
+    "transform": {
+     "position": [
+      -310.1808021412246,
+      21.6035406185689
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.15701,
+      0.44294,
+      0.73355,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_10_0",
+   "components": {
+    "transform": {
+     "position": [
+      -310.1808021412246,
+      -0.39645938143110016
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.83838,
+      0.43807,
+      0.1114,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_10_2",
+   "components": {
+    "transform": {
+     "position": [
+      -278.1808021412246,
+      -0.39645938143110016
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.64822,
+      0.33871,
+      0.08613,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_10_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      -0.39645938143110016
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93895,
+      0.49062,
+      0.12476,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_11_0",
+   "components": {
+    "transform": {
+     "position": [
+      -310.1808021412246,
+      -22.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69652,
+      0.36395,
+      0.09255,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_11_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      -22.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.95058,
+      0.4967,
+      0.1263,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_12_1",
+   "components": {
+    "transform": {
+     "position": [
+      -294.1808021412246,
+      -44.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.21057,
+      0.63255,
+      0.16085,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_12_2",
+   "components": {
+    "transform": {
+     "position": [
+      -278.1808021412246,
+      -44.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85685,
+      0.44772,
+      0.11385,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_13_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      -66.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.29234,
+      0.67527,
+      0.17171,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_13_4",
+   "components": {
+    "transform": {
+     "position": [
+      -246.1808021412246,
+      -66.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.20082,
+      0.56652,
+      0.93821,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_15_0",
+   "components": {
+    "transform": {
+     "position": [
+      -310.1808021412246,
+      -110.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.3119,
+      0.68549,
+      0.17431,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_15_3",
+   "components": {
+    "transform": {
+     "position": [
+      -262.1808021412246,
+      -110.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.09384,
+      0.57155,
+      0.14534,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win3_15_5",
+   "components": {
+    "transform": {
+     "position": [
+      -230.1808021412246,
+      -110.3964593814311
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.15416,
+      0.60307,
+      0.15335,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower4",
+   "components": {
+    "transform": {
+     "position": [
+      -134.11536828399113,
+      -2.248143775508879
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      80.9588493969868,
+      295.50371244898224
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win4_3_3",
+   "components": {
+    "transform": {
+     "position": [
+      -118.59479298248453,
+      79.50371244898224
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.07319,
+      0.56076,
+      0.14259,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_4_0",
+   "components": {
+    "transform": {
+     "position": [
+      -166.59479298248453,
+      57.50371244898224
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.2943,
+      0.83026,
+      1.37498,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_4_2",
+   "components": {
+    "transform": {
+     "position": [
+      -134.59479298248453,
+      57.50371244898224
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.87065,
+      0.45493,
+      0.11568,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_5_3",
+   "components": {
+    "transform": {
+     "position": [
+      -118.59479298248453,
+      35.50371244898224
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.69196,
+      0.36156,
+      0.09194,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_6_3",
+   "components": {
+    "transform": {
+     "position": [
+      -118.59479298248453,
+      13.503712448982242
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.27737,
+      0.78248,
+      1.29586,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_6_4",
+   "components": {
+    "transform": {
+     "position": [
+      -102.59479298248453,
+      13.503712448982242
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.99344,
+      0.51909,
+      0.132,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_7_0",
+   "components": {
+    "transform": {
+     "position": [
+      -166.59479298248453,
+      -8.496287551017758
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.2987,
+      0.84266,
+      1.39552,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_9_0",
+   "components": {
+    "transform": {
+     "position": [
+      -166.59479298248453,
+      -52.49628755101776
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85628,
+      0.44742,
+      0.11377,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_9_1",
+   "components": {
+    "transform": {
+     "position": [
+      -150.59479298248453,
+      -52.49628755101776
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.77423,
+      0.40455,
+      0.10287,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_10_3",
+   "components": {
+    "transform": {
+     "position": [
+      -118.59479298248453,
+      -74.49628755101776
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.66486,
+      0.3474,
+      0.08834,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_11_2",
+   "components": {
+    "transform": {
+     "position": [
+      -134.59479298248453,
+      -96.49628755101776
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.57382,
+      0.29983,
+      0.07624,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_11_4",
+   "components": {
+    "transform": {
+     "position": [
+      -102.59479298248453,
+      -96.49628755101776
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.66223,
+      0.34603,
+      0.08799,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win4_12_3",
+   "components": {
+    "transform": {
+     "position": [
+      -118.59479298248453,
+      -118.49628755101776
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.126,
+      0.35547,
+      0.58869,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower5",
+   "components": {
+    "transform": {
+     "position": [
+      -27.038754867581403,
+      -16.41900297385706
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      102.54553073044679,
+      267.1619940522859
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win5_3_4",
+   "components": {
+    "transform": {
+     "position": [
+      -6.311520232804796,
+      51.16199405228588
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.11703,
+      0.58367,
+      0.14842,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_3_5",
+   "components": {
+    "transform": {
+     "position": [
+      9.688479767195204,
+      51.16199405228588
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.83246,
+      0.43498,
+      0.11061,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_4_1",
+   "components": {
+    "transform": {
+     "position": [
+      -54.311520232804796,
+      29.161994052285877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.3792,
+      0.72066,
+      0.18325,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_4_3",
+   "components": {
+    "transform": {
+     "position": [
+      -22.311520232804796,
+      29.161994052285877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.13027,
+      0.59059,
+      0.15018,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_5_4",
+   "components": {
+    "transform": {
+     "position": [
+      -6.311520232804796,
+      7.161994052285877
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.61358,
+      0.32061,
+      0.08153,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_7_1",
+   "components": {
+    "transform": {
+     "position": [
+      -54.311520232804796,
+      -36.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.54234,
+      0.28338,
+      0.07206,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_7_3",
+   "components": {
+    "transform": {
+     "position": [
+      -22.311520232804796,
+      -36.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.18228,
+      0.61777,
+      0.15709,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_7_4",
+   "components": {
+    "transform": {
+     "position": [
+      -6.311520232804796,
+      -36.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.99406,
+      0.51942,
+      0.13208,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_8_0",
+   "components": {
+    "transform": {
+     "position": [
+      -70.3115202328048,
+      -58.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.19119,
+      0.53937,
+      0.89325,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_10_0",
+   "components": {
+    "transform": {
+     "position": [
+      -70.3115202328048,
+      -102.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85878,
+      0.44873,
+      0.11411,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_10_2",
+   "components": {
+    "transform": {
+     "position": [
+      -38.311520232804796,
+      -102.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.62056,
+      0.32426,
+      0.08245,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_11_0",
+   "components": {
+    "transform": {
+     "position": [
+      -70.3115202328048,
+      -124.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.61208,
+      0.31982,
+      0.08133,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_11_2",
+   "components": {
+    "transform": {
+     "position": [
+      -38.311520232804796,
+      -124.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.53829,
+      0.28127,
+      0.07152,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win5_11_3",
+   "components": {
+    "transform": {
+     "position": [
+      -22.311520232804796,
+      -124.83800594771412
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.22439,
+      0.63302,
+      1.04833,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower6",
+   "components": {
+    "transform": {
+     "position": [
+      82.52594426692767,
+      23.63607303170079
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      70.09586325730633,
+      347.2721460634016
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win6_1_1",
+   "components": {
+    "transform": {
+     "position": [
+      71.47801263827449,
+      175.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.28167,
+      0.79463,
+      1.31598,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_1_3",
+   "components": {
+    "transform": {
+     "position": [
+      103.47801263827449,
+      175.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.63912,
+      0.33395,
+      0.08492,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_3_3",
+   "components": {
+    "transform": {
+     "position": [
+      103.47801263827449,
+      131.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.25316,
+      0.6548,
+      0.16651,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_4_2",
+   "components": {
+    "transform": {
+     "position": [
+      87.47801263827449,
+      109.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.14539,
+      0.59849,
+      0.15219,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_6_2",
+   "components": {
+    "transform": {
+     "position": [
+      87.47801263827449,
+      65.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.87906,
+      0.45932,
+      0.1168,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_8_0",
+   "components": {
+    "transform": {
+     "position": [
+      55.4780126382745,
+      21.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.22326,
+      0.62984,
+      1.04307,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_8_1",
+   "components": {
+    "transform": {
+     "position": [
+      71.47801263827449,
+      21.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.94876,
+      0.49575,
+      0.12606,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_8_2",
+   "components": {
+    "transform": {
+     "position": [
+      87.47801263827449,
+      21.27214606340158
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.9494,
+      0.49608,
+      0.12615,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_10_3",
+   "components": {
+    "transform": {
+     "position": [
+      103.47801263827449,
+      -22.72785393659842
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.18312,
+      0.51661,
+      0.85555,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_11_1",
+   "components": {
+    "transform": {
+     "position": [
+      71.47801263827449,
+      -44.72785393659842
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.22056,
+      0.63777,
+      0.16218,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_12_2",
+   "components": {
+    "transform": {
+     "position": [
+      87.47801263827449,
+      -66.72785393659842
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.05241,
+      0.54991,
+      0.13983,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_13_0",
+   "components": {
+    "transform": {
+     "position": [
+      55.4780126382745,
+      -88.72785393659842
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.74331,
+      0.38839,
+      0.09876,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_13_3",
+   "components": {
+    "transform": {
+     "position": [
+      103.47801263827449,
+      -88.72785393659842
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.59318,
+      0.30995,
+      0.07882,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_14_1",
+   "components": {
+    "transform": {
+     "position": [
+      71.47801263827449,
+      -110.72785393659842
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.15897,
+      0.44847,
+      0.74272,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win6_14_2",
+   "components": {
+    "transform": {
+     "position": [
+      87.47801263827449,
+      -110.72785393659842
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0387,
+      0.54274,
+      0.13801,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower7",
+   "components": {
+    "transform": {
+     "position": [
+      194.28227325990116,
+      48.58197859564331
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      127.28957303769789,
+      397.1639571912866
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win7_1_1",
+   "components": {
+    "transform": {
+     "position": [
+      154.63748674105221,
+      225.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.26603,
+      0.7505,
+      1.2429,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_2_3",
+   "components": {
+    "transform": {
+     "position": [
+      186.63748674105221,
+      203.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.27492,
+      0.66617,
+      0.1694,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_2_4",
+   "components": {
+    "transform": {
+     "position": [
+      202.63748674105221,
+      203.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.64056,
+      0.3347,
+      0.08511,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_2_5",
+   "components": {
+    "transform": {
+     "position": [
+      218.63748674105221,
+      203.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.20696,
+      0.63066,
+      0.16037,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_2_6",
+   "components": {
+    "transform": {
+     "position": [
+      234.63748674105221,
+      203.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70912,
+      0.37053,
+      0.09422,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_3_0",
+   "components": {
+    "transform": {
+     "position": [
+      138.63748674105221,
+      181.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.38421,
+      0.72328,
+      0.18392,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_3_5",
+   "components": {
+    "transform": {
+     "position": [
+      218.63748674105221,
+      181.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.64621,
+      0.33766,
+      0.08586,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_4_0",
+   "components": {
+    "transform": {
+     "position": [
+      138.63748674105221,
+      159.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.50797,
+      0.26543,
+      0.06749,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_4_5",
+   "components": {
+    "transform": {
+     "position": [
+      218.63748674105221,
+      159.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.16219,
+      0.45756,
+      0.75776,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_4_6",
+   "components": {
+    "transform": {
+     "position": [
+      234.63748674105221,
+      159.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.21408,
+      0.63438,
+      0.16131,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_5_5",
+   "components": {
+    "transform": {
+     "position": [
+      218.63748674105221,
+      137.1639571912866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.29855,
+      0.84225,
+      1.39484,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_6_1",
+   "components": {
+    "transform": {
+     "position": [
+      154.63748674105221,
+      115.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.24469,
+      0.65037,
+      0.16538,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_6_4",
+   "components": {
+    "transform": {
+     "position": [
+      202.63748674105221,
+      115.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.98337,
+      0.51383,
+      0.13066,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_7_3",
+   "components": {
+    "transform": {
+     "position": [
+      186.63748674105221,
+      93.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.19988,
+      0.56389,
+      0.93386,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_7_5",
+   "components": {
+    "transform": {
+     "position": [
+      218.63748674105221,
+      93.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.10669,
+      0.57827,
+      0.14705,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_8_3",
+   "components": {
+    "transform": {
+     "position": [
+      186.63748674105221,
+      71.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.25841,
+      0.72901,
+      1.20731,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_8_4",
+   "components": {
+    "transform": {
+     "position": [
+      202.63748674105221,
+      71.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.19054,
+      0.53753,
+      0.8902,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_8_5",
+   "components": {
+    "transform": {
+     "position": [
+      218.63748674105221,
+      71.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.66715,
+      0.3486,
+      0.08864,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_9_1",
+   "components": {
+    "transform": {
+     "position": [
+      154.63748674105221,
+      49.16395719128661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.00161,
+      0.52336,
+      0.13308,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_10_3",
+   "components": {
+    "transform": {
+     "position": [
+      186.63748674105221,
+      27.163957191286613
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.87802,
+      0.45878,
+      0.11666,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_11_0",
+   "components": {
+    "transform": {
+     "position": [
+      138.63748674105221,
+      5.163957191286613
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.14946,
+      0.42165,
+      0.69829,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_11_4",
+   "components": {
+    "transform": {
+     "position": [
+      202.63748674105221,
+      5.163957191286613
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.9953,
+      0.52006,
+      0.13225,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_12_1",
+   "components": {
+    "transform": {
+     "position": [
+      154.63748674105221,
+      -16.836042808713387
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93322,
+      0.48763,
+      0.124,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_13_3",
+   "components": {
+    "transform": {
+     "position": [
+      186.63748674105221,
+      -38.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.25226,
+      0.71164,
+      1.17855,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_13_4",
+   "components": {
+    "transform": {
+     "position": [
+      202.63748674105221,
+      -38.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.14675,
+      0.5992,
+      0.15237,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_13_6",
+   "components": {
+    "transform": {
+     "position": [
+      234.63748674105221,
+      -38.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70678,
+      0.36931,
+      0.09391,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_14_0",
+   "components": {
+    "transform": {
+     "position": [
+      138.63748674105221,
+      -60.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.24358,
+      0.68718,
+      1.13803,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_14_1",
+   "components": {
+    "transform": {
+     "position": [
+      154.63748674105221,
+      -60.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0877,
+      0.56835,
+      0.14452,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_15_3",
+   "components": {
+    "transform": {
+     "position": [
+      186.63748674105221,
+      -82.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.28414,
+      0.8016,
+      1.32753,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_15_6",
+   "components": {
+    "transform": {
+     "position": [
+      234.63748674105221,
+      -82.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.28816,
+      0.81294,
+      1.34631,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_16_5",
+   "components": {
+    "transform": {
+     "position": [
+      218.63748674105221,
+      -104.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.52313,
+      0.27335,
+      0.06951,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win7_17_1",
+   "components": {
+    "transform": {
+     "position": [
+      154.63748674105221,
+      -126.83604280871339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.1296,
+      0.36562,
+      0.6055,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower8",
+   "components": {
+    "transform": {
+     "position": [
+      324.46171081411603,
+      -64.1579539907184
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      94.74755628835186,
+      171.6840920185632
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win8_2_0",
+   "components": {
+    "transform": {
+     "position": [
+      285.0879326699401,
+      -22.315907981436794
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.85437,
+      0.44642,
+      0.11352,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_2_2",
+   "components": {
+    "transform": {
+     "position": [
+      317.0879326699401,
+      -22.315907981436794
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.72309,
+      0.37783,
+      0.09608,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_2_3",
+   "components": {
+    "transform": {
+     "position": [
+      333.0879326699401,
+      -22.315907981436794
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.21959,
+      0.61948,
+      1.02591,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_4_0",
+   "components": {
+    "transform": {
+     "position": [
+      285.0879326699401,
+      -66.3159079814368
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.11248,
+      0.31733,
+      0.52553,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_5_0",
+   "components": {
+    "transform": {
+     "position": [
+      285.0879326699401,
+      -88.3159079814368
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.32124,
+      0.69037,
+      0.17555,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_5_1",
+   "components": {
+    "transform": {
+     "position": [
+      301.0879326699401,
+      -88.3159079814368
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.27085,
+      0.76409,
+      1.26541,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_6_0",
+   "components": {
+    "transform": {
+     "position": [
+      285.0879326699401,
+      -110.3159079814368
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.36756,
+      0.71458,
+      0.18171,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_6_1",
+   "components": {
+    "transform": {
+     "position": [
+      301.0879326699401,
+      -110.3159079814368
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.18564,
+      0.5237,
+      0.8673,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win8_6_4",
+   "components": {
+    "transform": {
+     "position": [
+      349.0879326699401,
+      -110.3159079814368
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.8356,
+      0.43662,
+      0.11103,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower9",
+   "components": {
+    "transform": {
+     "position": [
+      445.51869160277954,
+      63.40573667528511
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      109.22702775487518,
+      426.8114733505702
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win9_1_2",
+   "components": {
+    "transform": {
+     "position": [
+      430.90517772534196,
+      254.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.22178,
+      0.62567,
+      1.03617,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_1_3",
+   "components": {
+    "transform": {
+     "position": [
+      446.90517772534196,
+      254.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.37864,
+      0.72037,
+      0.18318,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_2_0",
+   "components": {
+    "transform": {
+     "position": [
+      398.90517772534196,
+      232.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.03484,
+      0.54073,
+      0.1375,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_4_3",
+   "components": {
+    "transform": {
+     "position": [
+      446.90517772534196,
+      188.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.9984,
+      0.52169,
+      0.13266,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_4_4",
+   "components": {
+    "transform": {
+     "position": [
+      462.90517772534196,
+      188.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.75248,
+      0.39319,
+      0.09998,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_5_0",
+   "components": {
+    "transform": {
+     "position": [
+      398.90517772534196,
+      166.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.27482,
+      0.66612,
+      0.16939,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_5_2",
+   "components": {
+    "transform": {
+     "position": [
+      430.90517772534196,
+      166.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.7031,
+      0.36738,
+      0.09342,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_6_4",
+   "components": {
+    "transform": {
+     "position": [
+      462.90517772534196,
+      144.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.20593,
+      0.58096,
+      0.96212,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_7_1",
+   "components": {
+    "transform": {
+     "position": [
+      414.90517772534196,
+      122.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.08371,
+      0.56626,
+      0.14399,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_7_5",
+   "components": {
+    "transform": {
+     "position": [
+      478.90517772534196,
+      122.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.19524,
+      0.5508,
+      0.91218,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_8_0",
+   "components": {
+    "transform": {
+     "position": [
+      398.90517772534196,
+      100.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.18875,
+      0.5325,
+      0.88186,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_8_2",
+   "components": {
+    "transform": {
+     "position": [
+      430.90517772534196,
+      100.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.10097,
+      0.57528,
+      0.14629,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_9_3",
+   "components": {
+    "transform": {
+     "position": [
+      446.90517772534196,
+      78.81147335057022
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.09905,
+      0.57427,
+      0.14603,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_12_0",
+   "components": {
+    "transform": {
+     "position": [
+      398.90517772534196,
+      12.811473350570225
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.10748,
+      0.57868,
+      0.14715,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_12_1",
+   "components": {
+    "transform": {
+     "position": [
+      414.90517772534196,
+      12.811473350570225
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.12256,
+      0.34575,
+      0.5726,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_12_3",
+   "components": {
+    "transform": {
+     "position": [
+      446.90517772534196,
+      12.811473350570225
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.96738,
+      0.50548,
+      0.12854,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_13_0",
+   "components": {
+    "transform": {
+     "position": [
+      398.90517772534196,
+      -9.188526649429775
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.15654,
+      0.44163,
+      0.73138,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_13_3",
+   "components": {
+    "transform": {
+     "position": [
+      446.90517772534196,
+      -9.188526649429775
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.89198,
+      0.46608,
+      0.11852,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_13_4",
+   "components": {
+    "transform": {
+     "position": [
+      462.90517772534196,
+      -9.188526649429775
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.84066,
+      0.43926,
+      0.1117,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_15_3",
+   "components": {
+    "transform": {
+     "position": [
+      446.90517772534196,
+      -53.188526649429775
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.25933,
+      0.73161,
+      1.21161,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_17_2",
+   "components": {
+    "transform": {
+     "position": [
+      430.90517772534196,
+      -97.18852664942978
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.15702,
+      0.44298,
+      0.73361,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_17_5",
+   "components": {
+    "transform": {
+     "position": [
+      478.90517772534196,
+      -97.18852664942978
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.8388,
+      0.43829,
+      0.11145,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_18_2",
+   "components": {
+    "transform": {
+     "position": [
+      430.90517772534196,
+      -119.18852664942978
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.65809,
+      0.34387,
+      0.08744,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win9_18_3",
+   "components": {
+    "transform": {
+     "position": [
+      446.90517772534196,
+      -119.18852664942978
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.89168,
+      0.46592,
+      0.11848,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower10",
+   "components": {
+    "transform": {
+     "position": [
+      590.442667757054,
+      5.114608543412373
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      122.7348347471387,
+      310.22921708682475
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win10_1_1",
+   "components": {
+    "transform": {
+     "position": [
+      553.0752503834847,
+      138.22921708682475
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.17064,
+      0.4814,
+      0.79725,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_1_3",
+   "components": {
+    "transform": {
+     "position": [
+      585.0752503834847,
+      138.22921708682475
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.66021,
+      0.34497,
+      0.08772,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_3_4",
+   "components": {
+    "transform": {
+     "position": [
+      601.0752503834847,
+      94.22921708682475
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.62531,
+      0.32674,
+      0.08308,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_4_3",
+   "components": {
+    "transform": {
+     "position": [
+      585.0752503834847,
+      72.22921708682475
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.61489,
+      0.32129,
+      0.0817,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_5_0",
+   "components": {
+    "transform": {
+     "position": [
+      537.0752503834847,
+      50.22921708682475
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.13054,
+      0.36827,
+      0.60989,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_5_1",
+   "components": {
+    "transform": {
+     "position": [
+      553.0752503834847,
+      50.22921708682475
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.12297,
+      0.34691,
+      0.57452,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_6_1",
+   "components": {
+    "transform": {
+     "position": [
+      553.0752503834847,
+      28.229217086824747
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.50653,
+      0.26467,
+      0.0673,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_7_3",
+   "components": {
+    "transform": {
+     "position": [
+      585.0752503834847,
+      6.229217086824747
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.23278,
+      0.64415,
+      0.1638,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_7_5",
+   "components": {
+    "transform": {
+     "position": [
+      617.0752503834847,
+      6.229217086824747
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.21079,
+      0.59465,
+      0.9848,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_8_3",
+   "components": {
+    "transform": {
+     "position": [
+      585.0752503834847,
+      -15.770782913175253
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.77363,
+      0.40424,
+      0.10279,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_9_4",
+   "components": {
+    "transform": {
+     "position": [
+      601.0752503834847,
+      -37.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.2717,
+      0.76651,
+      1.26941,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_10_6",
+   "components": {
+    "transform": {
+     "position": [
+      633.0752503834847,
+      -59.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.67848,
+      0.35452,
+      0.09015,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_11_2",
+   "components": {
+    "transform": {
+     "position": [
+      569.0752503834847,
+      -81.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.11811,
+      0.3332,
+      0.55181,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_11_6",
+   "components": {
+    "transform": {
+     "position": [
+      633.0752503834847,
+      -81.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70489,
+      0.36832,
+      0.09366,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_12_2",
+   "components": {
+    "transform": {
+     "position": [
+      569.0752503834847,
+      -103.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.19723,
+      0.5564,
+      0.92145,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_12_4",
+   "components": {
+    "transform": {
+     "position": [
+      601.0752503834847,
+      -103.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.50262,
+      0.26263,
+      0.06678,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_13_0",
+   "components": {
+    "transform": {
+     "position": [
+      537.0752503834847,
+      -125.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.31041,
+      0.68472,
+      0.17411,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win10_13_4",
+   "components": {
+    "transform": {
+     "position": [
+      601.0752503834847,
+      -125.77078291317525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.16033,
+      0.6063,
+      0.15417,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Tower11",
+   "components": {
+    "transform": {
+     "position": [
+      737.3574564108077,
+      -21.718671145468306
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00271,
+      0.00271,
+      0.0049,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      137.63128748435525,
+      256.5626577090634
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Win11_1_1",
+   "components": {
+    "transform": {
+     "position": [
+      692.5418126686301,
+      84.56265770906339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.20862,
+      0.63153,
+      0.16059,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_1_4",
+   "components": {
+    "transform": {
+     "position": [
+      740.5418126686301,
+      84.56265770906339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.20257,
+      0.62837,
+      0.15979,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_1_5",
+   "components": {
+    "transform": {
+     "position": [
+      756.5418126686301,
+      84.56265770906339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.14312,
+      0.40376,
+      0.66866,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_2_0",
+   "components": {
+    "transform": {
+     "position": [
+      676.5418126686301,
+      62.56265770906339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.15349,
+      0.43303,
+      0.71713,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_3_4",
+   "components": {
+    "transform": {
+     "position": [
+      740.5418126686301,
+      40.56265770906339
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.26723,
+      0.75389,
+      1.24852,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_4_4",
+   "components": {
+    "transform": {
+     "position": [
+      740.5418126686301,
+      18.562657709063387
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.95958,
+      0.5014,
+      0.1275,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_4_7",
+   "components": {
+    "transform": {
+     "position": [
+      788.5418126686301,
+      18.562657709063387
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.26535,
+      0.74858,
+      1.23973,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_5_0",
+   "components": {
+    "transform": {
+     "position": [
+      676.5418126686301,
+      -3.4373422909366127
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.30924,
+      0.6841,
+      0.17396,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_5_6",
+   "components": {
+    "transform": {
+     "position": [
+      772.5418126686301,
+      -3.4373422909366127
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.01494,
+      0.53033,
+      0.13486,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_5_7",
+   "components": {
+    "transform": {
+     "position": [
+      788.5418126686301,
+      -3.4373422909366127
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.12624,
+      0.35613,
+      0.58978,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_6_3",
+   "components": {
+    "transform": {
+     "position": [
+      724.5418126686301,
+      -25.437342290936613
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.73354,
+      0.38329,
+      0.09747,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_6_4",
+   "components": {
+    "transform": {
+     "position": [
+      740.5418126686301,
+      -25.437342290936613
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.20022,
+      0.56483,
+      0.93542,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_6_5",
+   "components": {
+    "transform": {
+     "position": [
+      756.5418126686301,
+      -25.437342290936613
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.10454,
+      0.57714,
+      0.14676,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_7_2",
+   "components": {
+    "transform": {
+     "position": [
+      708.5418126686301,
+      -47.43734229093661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70218,
+      0.3669,
+      0.0933,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_9_0",
+   "components": {
+    "transform": {
+     "position": [
+      676.5418126686301,
+      -91.43734229093661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.28806,
+      0.81264,
+      1.34582,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_9_4",
+   "components": {
+    "transform": {
+     "position": [
+      740.5418126686301,
+      -91.43734229093661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70855,
+      0.37023,
+      0.09415,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Win11_10_3",
+   "components": {
+    "transform": {
+     "position": [
+      724.5418126686301,
+      -113.43734229093661
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.22449,
+      0.63982,
+      0.1627,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      6.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "FacadeL",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      0.21404,
+      0.17887,
+      0.27384,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      330.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       160.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "FacadeR",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      0.17887,
+      0.17887,
+      0.25295,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      320.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       160.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Road",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07324,
+      0.07324,
+      0.09463,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1480.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Kerb",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -154.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.13287,
+      0.13287,
+      0.16265,
+      1.0
+     ],
+     "z_order": -49,
+     "size": [
+      1480.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "NoodleFrameTube",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -15.0,
+       "y": -150.0
+      },
+      {
+       "type": "LineTo",
+       "x": 15.0,
+       "y": -150.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 33.0,
+       "cy": -150.0,
+       "x": 33.0,
+       "y": -132.0
+      },
+      {
+       "type": "LineTo",
+       "x": 33.0,
+       "y": 132.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 33.0,
+       "cy": 150.0,
+       "x": 15.0,
+       "y": 150.0
+      },
+      {
+       "type": "LineTo",
+       "x": -15.0,
+       "y": 150.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -33.0,
+       "cy": 150.0,
+       "x": -33.0,
+       "y": 132.0
+      },
+      {
+       "type": "LineTo",
+       "x": -33.0,
+       "y": -132.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -33.0,
+       "cy": -150.0,
+       "x": -15.0,
+       "y": -150.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "stroke_color": [
+      4.0,
+      0.10884,
+      2.09008,
+      1.0
+     ],
+     "stroke_width": 7.0,
+     "closed": true,
+     "z_order": 20
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NoodleFrameCore",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -15.0,
+       "y": -150.0
+      },
+      {
+       "type": "LineTo",
+       "x": 15.0,
+       "y": -150.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 33.0,
+       "cy": -150.0,
+       "x": 33.0,
+       "y": -132.0
+      },
+      {
+       "type": "LineTo",
+       "x": 33.0,
+       "y": 132.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 33.0,
+       "cy": 150.0,
+       "x": 15.0,
+       "y": 150.0
+      },
+      {
+       "type": "LineTo",
+       "x": -15.0,
+       "y": 150.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -33.0,
+       "cy": 150.0,
+       "x": -33.0,
+       "y": 132.0
+      },
+      {
+       "type": "LineTo",
+       "x": -33.0,
+       "y": -132.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -33.0,
+       "cy": -150.0,
+       "x": -15.0,
+       "y": -150.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "stroke_color": [
+      4.8,
+      2.9322432,
+      3.8832383999999998,
+      1.0
+     ],
+     "stroke_width": 2.4499999999999997,
+     "closed": true,
+     "z_order": 21
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NoodleText",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      206.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "N\nO\nO\nD\nL\nE",
+     "font_id": "",
+     "font_scale": 2.0,
+     "color": [
+      4.0,
+      0.10884,
+      2.09008,
+      1.0
+     ],
+     "z_order": 22,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NoodleHalo",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.02721,
+      0.52252,
+      0.35
+     ],
+     "z_order": 5,
+     "size": [
+      300.0,
+      480.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NoodleLight",
+   "components": {
+    "transform": {
+     "position": [
+      -440.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.02721,
+      0.52252
+     ],
+     "intensity": 2.2,
+     "radius": 520.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "GlassTube",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -34.0,
+       "y": 40.0
+      },
+      {
+       "type": "LineTo",
+       "x": 34.0,
+       "y": 40.0
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": -6.0
+      },
+      {
+       "type": "LineTo",
+       "x": -34.0,
+       "y": 40.0
+      },
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": -6.0
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": -40.0
+      },
+      {
+       "type": "MoveTo",
+       "x": -20.0,
+       "y": -40.0
+      },
+      {
+       "type": "LineTo",
+       "x": 20.0,
+       "y": -40.0
+      }
+     ],
+     "stroke_color": [
+      0.1324,
+      3.14964,
+      4.0,
+      1.0
+     ],
+     "stroke_width": 6.0,
+     "closed": false,
+     "z_order": 20
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "GlassCore",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -34.0,
+       "y": 40.0
+      },
+      {
+       "type": "LineTo",
+       "x": 34.0,
+       "y": 40.0
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": -6.0
+      },
+      {
+       "type": "LineTo",
+       "x": -34.0,
+       "y": 40.0
+      },
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": -6.0
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": -40.0
+      },
+      {
+       "type": "MoveTo",
+       "x": -20.0,
+       "y": -40.0
+      },
+      {
+       "type": "LineTo",
+       "x": 20.0,
+       "y": -40.0
+      }
+     ],
+     "stroke_color": [
+      2.943552,
+      4.3918272,
+      4.8,
+      1.0
+     ],
+     "stroke_width": 2.0999999999999996,
+     "closed": false,
+     "z_order": 21
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BarFrameTube",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -80.0,
+       "y": -45.0
+      },
+      {
+       "type": "LineTo",
+       "x": 80.0,
+       "y": -45.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 100.0,
+       "cy": -45.0,
+       "x": 100.0,
+       "y": -25.0
+      },
+      {
+       "type": "LineTo",
+       "x": 100.0,
+       "y": 25.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 100.0,
+       "cy": 45.0,
+       "x": 80.0,
+       "y": 45.0
+      },
+      {
+       "type": "LineTo",
+       "x": -80.0,
+       "y": 45.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -100.0,
+       "cy": 45.0,
+       "x": -100.0,
+       "y": 25.0
+      },
+      {
+       "type": "LineTo",
+       "x": -100.0,
+       "y": -25.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -100.0,
+       "cy": -45.0,
+       "x": -80.0,
+       "y": -45.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "stroke_color": [
+      0.1324,
+      3.14964,
+      4.0,
+      1.0
+     ],
+     "stroke_width": 7.0,
+     "closed": true,
+     "z_order": 20
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BarFrameCore",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -80.0,
+       "y": -45.0
+      },
+      {
+       "type": "LineTo",
+       "x": 80.0,
+       "y": -45.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 100.0,
+       "cy": -45.0,
+       "x": 100.0,
+       "y": -25.0
+      },
+      {
+       "type": "LineTo",
+       "x": 100.0,
+       "y": 25.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 100.0,
+       "cy": 45.0,
+       "x": 80.0,
+       "y": 45.0
+      },
+      {
+       "type": "LineTo",
+       "x": -80.0,
+       "y": 45.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -100.0,
+       "cy": 45.0,
+       "x": -100.0,
+       "y": 25.0
+      },
+      {
+       "type": "LineTo",
+       "x": -100.0,
+       "y": -25.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -100.0,
+       "cy": -45.0,
+       "x": -80.0,
+       "y": -45.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "stroke_color": [
+      2.943552,
+      4.3918272,
+      4.8,
+      1.0
+     ],
+     "stroke_width": 2.4499999999999997,
+     "closed": true,
+     "z_order": 21
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BarText",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      132.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "BAR",
+     "font_id": "",
+     "font_scale": 3.0,
+     "color": [
+      0.1324,
+      3.14964,
+      4.0,
+      1.0
+     ],
+     "z_order": 22,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BarHalo",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0331,
+      0.78741,
+      1.0,
+      0.32
+     ],
+     "z_order": 5,
+     "size": [
+      420.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BarLight",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.0331,
+      0.78741,
+      1.0
+     ],
+     "intensity": 2.0,
+     "radius": 520.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Shop",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.09463,
+      0.07324,
+      0.09463,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      210.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShopAwning",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.17064,
+      0.0331,
+      0.05088,
+      1.0
+     ],
+     "z_order": -54,
+     "size": [
+      230.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShopWindow",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -105.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.2848,
+      0.09462,
+      0.02344,
+      1.0
+     ],
+     "z_order": -54,
+     "size": [
+      160.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ShopBar0",
+   "components": {
+    "transform": {
+     "position": [
+      -280.0,
+      -105.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07324,
+      0.05497,
+      0.06372,
+      1.0
+     ],
+     "z_order": -53,
+     "size": [
+      4.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShopBar1",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -105.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07324,
+      0.05497,
+      0.06372,
+      1.0
+     ],
+     "z_order": -53,
+     "size": [
+      4.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShopBar2",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -105.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07324,
+      0.05497,
+      0.06372,
+      1.0
+     ],
+     "z_order": -53,
+     "size": [
+      4.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShopSill",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -105.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07324,
+      0.05497,
+      0.06372,
+      1.0
+     ],
+     "z_order": -53,
+     "size": [
+      160.0,
+      4.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "OpenText",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "OPEN",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      4.0,
+      0.40192,
+      0.85616,
+      1.0
+     ],
+     "z_order": 22,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "OpenFrameTube",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      2.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -61.0,
+       "y": -28.0
+      },
+      {
+       "type": "LineTo",
+       "x": 61.0,
+       "y": -28.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 75.0,
+       "cy": -28.0,
+       "x": 75.0,
+       "y": -14.0
+      },
+      {
+       "type": "LineTo",
+       "x": 75.0,
+       "y": 14.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 75.0,
+       "cy": 28.0,
+       "x": 61.0,
+       "y": 28.0
+      },
+      {
+       "type": "LineTo",
+       "x": -61.0,
+       "y": 28.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -75.0,
+       "cy": 28.0,
+       "x": -75.0,
+       "y": 14.0
+      },
+      {
+       "type": "LineTo",
+       "x": -75.0,
+       "y": -14.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -75.0,
+       "cy": -28.0,
+       "x": -61.0,
+       "y": -28.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "stroke_color": [
+      4.0,
+      0.40192,
+      0.85616,
+      1.0
+     ],
+     "stroke_width": 5.0,
+     "closed": true,
+     "z_order": 20
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "OpenFrameCore",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      2.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -61.0,
+       "y": -28.0
+      },
+      {
+       "type": "LineTo",
+       "x": 61.0,
+       "y": -28.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 75.0,
+       "cy": -28.0,
+       "x": 75.0,
+       "y": -14.0
+      },
+      {
+       "type": "LineTo",
+       "x": 75.0,
+       "y": 14.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": 75.0,
+       "cy": 28.0,
+       "x": 61.0,
+       "y": 28.0
+      },
+      {
+       "type": "LineTo",
+       "x": -61.0,
+       "y": 28.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -75.0,
+       "cy": 28.0,
+       "x": -75.0,
+       "y": 14.0
+      },
+      {
+       "type": "LineTo",
+       "x": -75.0,
+       "y": -14.0
+      },
+      {
+       "type": "QuadTo",
+       "cx": -75.0,
+       "cy": -28.0,
+       "x": -61.0,
+       "y": -28.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "stroke_color": [
+      4.8,
+      3.0729216,
+      3.2909568,
+      1.0
+     ],
+     "stroke_width": 1.75,
+     "closed": true,
+     "z_order": 21
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "OpenHalo",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      5.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.10048,
+      0.21404,
+      0.35
+     ],
+     "z_order": 5,
+     "size": [
+      280.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "OpenLight",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.10048,
+      0.21404
+     ],
+     "intensity": 1.6,
+     "radius": 360.0,
+     "falloff": 1.7,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "LampPole",
+   "components": {
+    "transform": {
+     "position": [
+      130.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.14732,
+      0.14732,
+      0.17887,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      8.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampArm",
+   "components": {
+    "transform": {
+     "position": [
+      110.0,
+      108.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.14732,
+      0.14732,
+      0.17887,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      48.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampHead",
+   "components": {
+    "transform": {
+     "position": [
+      88.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      6.0,
+      2.862,
+      0.71568,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      26.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "LampHalo",
+   "components": {
+    "transform": {
+     "position": [
+      88.0,
+      95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.477,
+      0.11928,
+      0.4
+     ],
+     "z_order": 5,
+     "size": [
+      180.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "LampLight",
+   "components": {
+    "transform": {
+     "position": [
+      88.0,
+      95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.11928
+     ],
+     "intensity": 4.0,
+     "radius": 480.0,
+     "angle": 0.42,
+     "direction": -1.5707963267948966,
+     "falloff": 1.3,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "ReflNoodle",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -256.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/spark.png",
+     "color": [
+      1.0,
+      0.02721,
+      0.52252,
+      0.55
+     ],
+     "z_order": -40,
+     "size": [
+      200.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ReflBar",
+   "components": {
+    "transform": {
+     "position": [
+      510.0,
+      -251.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/spark.png",
+     "color": [
+      0.0331,
+      0.78741,
+      1.0,
+      0.5
+     ],
+     "z_order": -40,
+     "size": [
+      190.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ReflOpen",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -231.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/spark.png",
+     "color": [
+      1.0,
+      0.10048,
+      0.21404,
+      0.45
+     ],
+     "z_order": -40,
+     "size": [
+      150.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "ReflLamp",
+   "components": {
+    "transform": {
+     "position": [
+      88.0,
+      -261.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/spark.png",
+     "color": [
+      1.0,
+      0.477,
+      0.11928,
+      0.6
+     ],
+     "z_order": -40,
+     "size": [
+      210.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Rain",
+   "components": {
+    "transform": {
+     "position": [
+      80.0,
+      420.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 900.0,
+     "max_particles": 1600,
+     "lifetime": [
+      0.9,
+      1.1
+     ],
+     "speed": [
+      950.0,
+      1150.0
+     ],
+     "angle": [
+      -1.78,
+      -1.72
+     ],
+     "color_start": [
+      0.52252,
+      0.63828,
+      1.0,
+      0.55
+     ],
+     "color_end": [
+      0.52252,
+      0.63828,
+      1.0,
+      0.35
+     ],
+     "size_start": [
+      1.6,
+      2.4
+     ],
+     "size_end": [
+      1.6,
+      2.4
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "emit_shape": {
+      "kind": "line",
+      "length": 1700.0
+     },
+     "blend_mode": "Additive",
+     "stretch": 0.035
+    }
+   }
+  },
+  {
+   "name": "Splash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 160.0,
+     "max_particles": 300,
+     "lifetime": [
+      0.12,
+      0.25
+     ],
+     "speed": [
+      40.0,
+      90.0
+     ],
+     "angle": [
+      0.5,
+      2.64
+     ],
+     "color_start": [
+      0.60383,
+      0.69207,
+      1.0,
+      0.7
+     ],
+     "color_end": [
+      0.60383,
+      0.69207,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.5,
+      3.5
+     ],
+     "size_end": [
+      1.0,
+      1.5
+     ],
+     "gravity_modifier": 2.5,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -30,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       200.0
+      ]
+     },
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Steam",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 7.0,
+     "max_particles": 60,
+     "lifetime": [
+      2.5,
+      4.0
+     ],
+     "speed": [
+      25.0,
+      50.0
+     ],
+     "angle": [
+      1.35,
+      1.95
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      50.0,
+      70.0
+     ],
+     "size_end": [
+      180.0,
+      240.0
+     ],
+     "gravity_modifier": -0.05,
+     "angular_velocity": [
+      -0.4,
+      0.4
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 25,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       60.0,
+       6.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.21404,
+       0.21404,
+       0.26327,
+       0.0
+      ],
+      [
+       0.2,
+       0.21404,
+       0.21404,
+       0.26327,
+       0.25
+      ],
+      [
+       1.0,
+       0.13287,
+       0.13287,
+       0.17064,
+       0.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ripple0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple12",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ripple13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -1000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.44799,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": -35,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "02   Neon Rain",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "1-4 post effects   0 all   R rain   T lightning   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s02_neon_rain.lua"
+    }
+   }
+  }
+ ]
+}

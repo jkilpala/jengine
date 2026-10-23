@@ -1,0 +1,181 @@
+---
+import Site from '../layouts/Site.astro';
+
+// Frames from the Visual Showcase project, captured by the native runtime.
+const reel = [
+	{ img: 'neon-rain', name: 'Neon Rain', what: 'HDR neon, real lights on wet asphalt', wide: true },
+	{ img: 'crypt', name: 'Crypt', what: 'Every surface normal-mapped, four torches' },
+	{ img: 'stained-glass', name: 'Stained Glass', what: 'Sunlight coloured by the panes it passes through' },
+	{ img: 'underwater', name: 'Underwater', what: 'Caustics drawn as light by a shader graph' },
+	{ img: 'murmuration', name: 'Murmuration', what: '4,500 starlings flocking in a package' },
+	{ img: 'orbital-station', name: 'Orbital Station', what: 'Lens flares and a normal-mapped planet' },
+	{ img: 'still-water', name: 'Still Water', what: 'A lake that reflects the scene above it', wide: true },
+];
+
+const tiles = [
+	{ tag: 'Rendering', title: 'Lights that cast shadows', text: 'Point, spot, sun and polygon lights, soft shadows, normal maps, bounced light, fog that catches it.', href: '/features/rendering/', go: 'Rendering & light' },
+	{ tag: 'Scripting', title: 'One Lua API, four runtimes', text: 'The same script runs natively, in the editor and in the browser. Change it and reload; nothing to rebuild.', href: '/guides/scripting/', go: 'Scripting guide' },
+	{ tag: 'Editor', title: 'A real editor', text: 'Scene tree, inspector, prefabs with variants, tilemaps, animation, a profiler, and Play inside the editor.', href: '/getting-started/editor-overview/', go: 'Editor overview' },
+	{ tag: 'Physics', title: 'Rapier underneath', text: 'Bodies, joints, character controllers, ragdolls that go limp, glass that breaks where it is struck.', href: '/guides/physics/', go: 'Physics guide' },
+	{ tag: 'Audio', title: 'A mixer, not a play button', text: 'Buses with reverb, echo and EQ, sounds heard from where they are, walls that muffle them, music that crossfades.', href: '/guides/audio/', go: 'Audio guide' },
+	{ tag: 'Behaviour', title: 'Creatures that decide', text: 'Behaviour trees and graphs, navigation that walks round walls, vision cones, dialogue from data tables.', href: '/guides/behavior-graph/', go: 'Behaviour graphs' },
+	{ tag: 'Online', title: 'Servers included', text: 'jengine-server runs rooms, accounts and world state; jengine-fleet deploys it, down to a Raspberry Pi.', href: '/servers/overview/', go: 'Game servers' },
+	{ tag: 'Packages', title: 'Extend it in Rust', text: 'Packages add components, systems and script commands that reach every runtime. Physics, audio, particles and networking are packages themselves.', href: '/packages/', go: 'Browse packages' },
+];
+
+const plats = [
+	{ name: 'Windows', text: 'A native executable on DirectX 12 or Vulkan.', cmd: 'jengine run <project>' },
+	{ name: 'Web', text: 'WebGPU with a WebGL2 fallback, running the editor’s own Lua VM.', cmd: 'jengine web-build <project>' },
+	{ name: 'Android', text: 'An APK or Play bundle, built without Gradle.', cmd: 'jengine android-build <project>' },
+	{ name: 'Linux', text: 'A folder with the binary and its assets, on Vulkan. Tested under WSL only.', cmd: 'jengine linux-build <project>' },
+];
+
+// Braces in the Rust would be read as template expressions, so it is a string.
+const serverCode = `<span class="kw">use</span> jengine_server::{KindOptions, Server, SqliteStore};
+
+<span class="fn">Server::new</span>()
+    .<span class="fn">store</span>(Arc::<span class="fn">new</span>(SqliteStore::<span class="fn">open</span>(<span class="st">"world.db"</span>)?))
+    .<span class="fn">relay</span>()                     <span class="cm">// turn-based games</span>
+    .<span class="fn">room</span>(<span class="st">"zone"</span>, KindOptions::<span class="fn">ticking</span>(<span class="nu">10.0</span>).<span class="fn">persistent</span>(), Zone::new)
+    .<span class="fn">run</span>(<span class="st">"0.0.0.0:9001"</span>)?;`;
+---
+
+<Site
+	title="jEngine — a 2D game engine in Rust"
+	description="A 2D game engine written in Rust: lights with real shadows, a Lua API that runs the same everywhere, a visual editor, game servers, and builds for Windows, the web and Android."
+	current="home"
+>
+	<section class="hero">
+		<div class="wrap">
+			<div class="hero-body">
+				<span class="kana" lang="ja">ジェイ・エンジン</span>
+				<h1 class="h-display">Make it <span class="glow flicker">glow.</span></h1>
+				<p class="lede">A 2D game engine written in Rust. <b>Script it in Lua</b>, light it with real shadows, and ship one project to Windows, the web and Android.</p>
+				<div class="btns">
+					<a class="btn pri" href="/getting-started/installation/">Get started</a>
+					<a class="btn sec" href="#showcase">See it running</a>
+				</div>
+				<div class="chips"><span>wgpu renderer</span><span>hecs ECS</span><span>rapier physics</span><span>Tauri editor</span></div>
+			</div>
+		</div>
+		<div class="sun" aria-hidden="true"></div>
+		<div class="city" aria-hidden="true"></div>
+		<div class="floor" aria-hidden="true"></div>
+	</section>
+
+	<section class="band" id="showcase">
+		<div class="wrap">
+			<div class="band-head">
+				<span class="eyebrow">Drawn by the engine</span>
+				<h2 class="h-section">Every frame here is jEngine</h2>
+				<p>These are scenes from the Visual Showcase project, captured by the native runtime as they ran. No offline render and no paint-over: light, shadow, reflection and every post effect is the engine.</p>
+			</div>
+			<div class="reel">
+				{reel.map((r) => (
+					<figure class:list={['shot', { wide: r.wide }]}>
+						<img src={`/shots/${r.img}.jpg`} alt={`${r.name}: ${r.what}`} loading="lazy" width="1440" height="810" />
+						<figcaption><b>{r.name}</b><span>{r.what}</span></figcaption>
+					</figure>
+				))}
+			</div>
+			<p style="margin-top:1.5rem"><a class="more" href="/features/rendering/">What the renderer does</a></p>
+		</div>
+	</section>
+
+	<section class="band alt" id="features">
+		<div class="wrap">
+			<div class="band-head">
+				<span class="eyebrow">What is in the box</span>
+				<h2 class="h-section">An engine, not a starter kit</h2>
+				<p>Rendering, physics, audio, animation, navigation, UI, saving, networking and an editor to drive them, all in one workspace and all reachable from a script.</p>
+			</div>
+			<div class="tiles">
+				{tiles.map((t) => (
+					<a class="tile" href={t.href}>
+						<small>{t.tag}</small>
+						<b>{t.title}</b>
+						<p>{t.text}</p>
+						<span class="go">{t.go} →</span>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="band">
+		<div class="wrap split">
+			<div class="split-text">
+				<span class="eyebrow">Scripting</span>
+				<h2 class="h-section">Write the game, not the glue</h2>
+				<p>Game code is Lua against one namespaced API. Native builds run it on Luau; the editor and web builds run it on the same Fengari VM, so what you test in the editor is what ships to the browser.</p>
+				<ul>
+					<li><b>Callbacks for what happens</b>: collisions with their impulse, triggers, animation frames, things coming on screen.</li>
+					<li><b>No rebuild for game work</b>: scripts, scenes, prefabs and data tables reload in the editor.</li>
+					<li><b>Guarded parity</b>: tests fail when a function exists in one runtime and not another.</li>
+				</ul>
+				<a class="more" href="/api-reference/scripting-api/">The scripting API</a>
+			</div>
+			<figure class="code">
+				<div class="code-bar"><span>scripts/crate.lua</span><b>Lua</b></div>
+<pre><code><span class="cm">-- A crate that cracks when something hits it hard.</span>
+<span class="kw">function</span> <span class="fn">on_collision_enter</span>(e, ev)
+  <span class="kw">if</span> ev.impulse &lt; <span class="nu">400</span> <span class="kw">then return end</span>
+  <span class="fn">Camera.shake</span>(<span class="nu">6</span>, <span class="nu">0.18</span>)
+  <span class="fn">Audio.play_sound</span>(<span class="st">"sounds/crack.wav"</span>)
+  <span class="fn">Sprite.set_color</span>(e, <span class="nu">1</span>, <span class="nu">0.45</span>, <span class="nu">0.4</span>, <span class="nu">1</span>)
+<span class="kw">end</span></code></pre>
+			</figure>
+		</div>
+	</section>
+
+	<section class="band alt">
+		<div class="wrap">
+			<div class="band-head">
+				<span class="eyebrow">Builds</span>
+				<h2 class="h-section">One project, every target</h2>
+				<p>A project is a folder of assets and a <code>project.jengine</code>. The builder packages it for each target, including the Rust packages it links.</p>
+			</div>
+			<div class="plats">
+				{plats.map((p) => (
+					<div class="plat"><b>{p.name}</b><p>{p.text}</p><code>{p.cmd}</code></div>
+				))}
+			</div>
+			<p class="note-line">macOS is type-checked only: no macOS build has been linked or run, so it is unverified. iOS is experimental and has never run. <a href="/architecture/cross-platform/">Platform details</a></p>
+		</div>
+	</section>
+
+	<section class="band">
+		<div class="wrap split flip">
+			<div class="split-text">
+				<span class="eyebrow">Online</span>
+				<h2 class="h-section">Multiplayer that ships with it</h2>
+				<p>The server framework is part of the engine. A room is plain Rust tested without sockets; players keep their state between rooms and through a dropped connection; a server can run the same Rust gameplay packages the client does.</p>
+				<ul>
+					<li><b>Rooms, accounts, a store</b> and interest-managed state sync.</li>
+					<li><b>Predicted steering</b> with one numbered input per fixed step.</li>
+					<li><b>jengine-fleet</b> deploys, drains and rolls back, with a web console.</li>
+				</ul>
+				<a class="more" href="/servers/overview/">Game servers</a>
+			</div>
+			<figure class="code">
+				<div class="code-bar"><span>server/src/main.rs</span><b>Rust</b></div>
+<pre><code set:html={serverCode} /></pre>
+			</figure>
+		</div>
+	</section>
+
+	<section class="band cta-band">
+		<div class="wrap">
+			<div class="cta-box">
+				<span class="eyebrow">Start</span>
+				<h2 class="h-section">Make your first scene</h2>
+				<p>Install the toolchain, make a project from the starter template, and open it in the editor.</p>
+				<code class="cmd">cargo run -p jengine-builder --bin jengine -- project new projects/my-game</code>
+				<div class="btns">
+					<a class="btn pri" href="/getting-started/installation/">Installation</a>
+					<a class="btn sec" href="/getting-started/first-project/">Your first project</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Site>

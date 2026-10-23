@@ -1,0 +1,21 @@
+[package]
+name = "jengine-tracker"
+description = "Tracker music for jEngine - .song files from jSuite's Music Tracker, synthesised to PCM when they load"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+jengine-core = { path = "../../crates/jengine-core", default-features = false }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+
+# `jengine-core` gates its browser bindings behind `web`, and does not compile
+# for wasm32 without them. A viewport build turns it on anyway; declaring it
+# here is what lets this crate be checked for wasm32 on its own.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+jengine-core = { path = "../../crates/jengine-core", default-features = false, features = ["web"] }

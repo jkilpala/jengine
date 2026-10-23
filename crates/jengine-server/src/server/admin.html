@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jengine-server</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d2126; --dim: #6b7280; --line: #e2e0d8;
+    --accent: #2f6f5e; --warn: #b4541a; --bad: #b3261e; --mono: ui-monospace, Consolas, monospace;
+    --series: #2a78d6; --grid: #ecebe6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171a; --panel: #1c2024; --ink: #e6e3dc; --dim: #8f97a3; --line: #2c3238;
+            --accent: #6cc0a6; --warn: #e39a5c; --bad: #f08a80;
+            --series: #3987e5; --grid: #272c31; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, sans-serif; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 16px;
+           border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 16px; margin: 0; }
+  header .grow { flex: 1; }
+  #status { color: var(--dim); font-size: 12px; }
+  #status.bad { color: var(--bad); }
+  main { padding: 16px; display: grid; gap: 16px; max-width: 1280px; margin: 0 auto; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+  .tile { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+  .tile b { display: block; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .tile span { color: var(--dim); font-size: 12px; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; align-items: start; }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+  section > h2 { font-size: 13px; margin: 0; padding: 10px 12px; border-bottom: 1px solid var(--line);
+                 display: flex; gap: 8px; align-items: center; }
+  section > h2 .grow { flex: 1; }
+  .scroll { overflow: auto; max-height: 360px; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 6px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { color: var(--dim); font-weight: 500; font-size: 12px; position: sticky; top: 0; background: var(--panel); }
+  td.num, th.num { text-align: right; }
+  tr.pick { cursor: pointer; }
+  tr.pick:hover td { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  tr.on td { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+  .slow { color: var(--warn); font-weight: 600; }
+  .empty { color: var(--dim); padding: 14px 12px; }
+  button, input { font: inherit; color: inherit; }
+  button { background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 3px 9px; cursor: pointer; }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  button.danger:hover { border-color: var(--bad); color: var(--bad); }
+  input[type=text] { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; min-width: 0; }
+  .row { display: flex; gap: 8px; padding: 10px 12px; flex-wrap: wrap; }
+  .row input { flex: 1; }
+  pre { margin: 0; padding: 10px 12px; font: 12px/1.4 var(--mono); white-space: pre-wrap; word-break: break-word; }
+  .log { font: 12px/1.5 var(--mono); padding: 8px 12px; }
+  .log div { display: flex; gap: 10px; }
+  .log time { color: var(--dim); }
+  .log .k { min-width: 52px; color: var(--accent); }
+  .log .k.panic, .log .k.slow { color: var(--bad); }
+  .log .k.admin { color: var(--warn); }
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+  .chart { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px 6px; position: relative; min-width: 0; }
+  .chart h3 { margin: 0; font-size: 12px; font-weight: 500; color: var(--dim); display: flex; gap: 8px; align-items: baseline; }
+  .chart h3 b { color: var(--ink); font-size: 18px; font-variant-numeric: tabular-nums; }
+  .chart h3 .grow { flex: 1; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; margin-top: 4px; }
+  .chart .gridline { stroke: var(--grid); stroke-width: 1; }
+  .chart .line { fill: none; stroke: var(--series); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .chart .wash { fill: var(--series); opacity: 0.1; }
+  .chart text { fill: var(--dim); font: 10px system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+  .chart .cross { stroke: var(--dim); stroke-width: 1; }
+  .chart .dot { fill: var(--series); stroke: var(--panel); stroke-width: 2; }
+  .chart .tip { position: absolute; pointer-events: none; background: var(--bg); border: 1px solid var(--line);
+                border-radius: 6px; padding: 3px 8px; font-size: 12px; white-space: nowrap; transform: translate(-50%, 0); }
+  .chart .tip b { font-variant-numeric: tabular-nums; }
+  .chart .tip span { color: var(--dim); margin-left: 6px; }
+  .chart .none { color: var(--dim); font-size: 12px; padding: 22px 0; }
+  details.table summary { cursor: pointer; color: var(--dim); font-size: 12px; padding: 6px 2px; }
+  details.table .scroll { max-height: 240px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+  a { color: var(--accent); }
+  /* An element styled with a display of its own still hides when told to. */
+  [hidden] { display: none !important; }
+  .warnings { border: 1px solid var(--warn); border-radius: 8px; padding: 8px 12px; color: var(--warn); display: grid; gap: 2px; }
+  .warnings b { color: var(--ink); font-weight: 600; }
+  .badge { font-size: 11px; padding: 1px 7px; border-radius: 99px; border: 1px solid var(--warn); color: var(--warn); }
+</style>
+</head>
+<body>
+<header>
+  <h1>jengine-server</h1>
+  <span id="drainBadge" class="badge" hidden>draining</span>
+  <span class="grow"></span>
+  <span id="status">connecting…</span>
+  <a id="liveopsLink" href="admin/liveops" hidden>Live ops</a>
+  <button id="drainBtn">Drain</button>
+  <button id="tokenBtn">Token</button>
+</header>
+<main>
+  <div id="warnings" class="warnings" hidden></div>
+  <div class="tiles" id="tiles"></div>
+  <div>
+    <div class="row" style="padding: 4px 2px"><label>Range <select id="historyRange"><option value="hours">6 hours</option><option value="week">7 days</option><option value="days">30 days</option></select></label> <span id="historyNote" style="color: var(--dim); font-size: 12px"></span></div>
+    <div class="charts" id="charts"></div>
+    <details class="table"><summary>The same numbers as a table</summary><div class="scroll" id="historyTable"></div></details>
+  </div>
+  <section id="cluster" hidden>
+    <h2>Cluster</h2>
+    <div class="scroll" id="nodes"></div>
+  </section>
+  <div class="cols">
+    <section>
+      <h2>Rooms</h2>
+      <div class="scroll" id="rooms"></div>
+    </section>
+    <section>
+      <h2>Players online</h2>
+      <div class="scroll" id="players"></div>
+    </section>
+    <section id="apiRoutes" hidden>
+      <h2>API routes</h2>
+      <div class="scroll" id="routes"></div>
+    </section>
+  </div>
+  <section id="detail" hidden>
+    <h2><span id="detailTitle"></span><span class="grow"></span>
+      <button id="closeRoom" class="danger">Close room</button>
+      <button id="hideDetail">Hide</button></h2>
+    <pre id="detailInfo"></pre>
+    <div class="scroll" id="detailPlayers"></div>
+    <div class="row">
+      <input type="text" id="cmd" placeholder='Room command as JSON, e.g. {"coin":[500,300]}'>
+      <button id="cmdBtn">Send command</button>
+    </div>
+    <pre id="cmdOut" hidden></pre>
+  </section>
+  <div class="cols">
+    <section>
+      <h2>Notice to everyone in a room</h2>
+      <div class="row">
+        <input type="text" id="notice" placeholder="Restarting in five minutes">
+        <button id="noticeBtn">Send</button>
+      </div>
+      <h2>Accounts</h2>
+      <div class="row">
+        <input type="text" id="account" placeholder="Account name">
+        <button id="resetBtn">Reset password</button>
+        <button id="deleteBtn" class="danger">Delete account</button>
+      </div>
+      <pre id="accountOut" hidden></pre>
+    </section>
+    <section>
+      <h2>Events</h2>
+      <div class="scroll log" id="events"></div>
+    </section>
+  </div>
+</main>
+<script>
+"use strict";
+// Everything shown here came from players or rooms, so nothing is ever set
+// as HTML: every node is built, and every string goes in as text.
+const $ = id => document.getElementById(id);
+function h(tag, props, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) {
+    if (k === "on") for (const [ev, fn] of Object.entries(v)) el.addEventListener(ev, fn);
+    else if (k === "class") el.className = v;
+    else el[k] = v;
+  }
+  for (const kid of kids.flat()) if (kid != null) el.append(kid);
+  return el;
+}
+
+let token = sessionStorage.getItem("jengine-admin-token") || "";
+if (location.hash.startsWith("#token=")) {
+  token = decodeURIComponent(location.hash.slice(7));
+  history.replaceState(null, "", location.pathname);
+}
+function askToken() {
+  const given = prompt("Admin token", token);
+  if (given != null) token = given.trim();
+  sessionStorage.setItem("jengine-admin-token", token);
+}
+if (!token) askToken(); else sessionStorage.setItem("jengine-admin-token", token);
+
+async function api(path, method = "GET", body) {
+  // Relative, so the dashboard works behind a gateway that serves it at
+  // /<service>/admin as well as at /admin.
+  const res = await fetch("admin/api/" + path, {
+    method,
+    headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || res.status + " " + res.statusText);
+  return data;
+}
+
+function ago(seconds) {
+  if (seconds < 90) return Math.round(seconds) + "s";
+  if (seconds < 5400) return Math.round(seconds / 60) + "m";
+  if (seconds < 129600) return (seconds / 3600).toFixed(1) + "h";
+  return (seconds / 86400).toFixed(1) + "d";
+}
+const num = n => Number(n).toLocaleString("en-US");
+
+let last = null, lastAt = 0, selected = null, draining = false, clustered = false;
+
+function tiles(o, rates) {
+  const t = o.totals, r = o.resources || {};
+  const gb = mb => (mb / 1024).toFixed(1);
+  const items = [
+    [(r.cpu ?? 0).toFixed(0) + "%", "CPU of one core · machine " + (r.machine_cpu ?? 0).toFixed(0) + "% of " + (r.cores || "?")],
+    [num(r.memory_mb ?? 0) + " MB", "memory · machine " + gb(r.machine_memory_used_mb || 0) + " / " + gb(r.machine_memory_total_mb || 0) + " GB"],
+    [gb(r.disk_free_mb || 0) + " GB", "disk free of " + gb(r.disk_total_mb || 0) + " GB"],
+    [(r.net_rx_kb_per_sec ?? 0).toFixed(0) + " / " + (r.net_tx_kb_per_sec ?? 0).toFixed(0), "KB/s in / out · the machine"],
+    [num(o.connections), "connections"], [num(o.players), "players signed in"],
+    [num(o.rooms.length), "rooms"], [ago(o.uptime), "uptime"],
+    [num(o.held_seats), "seats held for the dropped"], [num(o.channels), "channels"],
+    [rates ? rates.msgs.toFixed(0) : "–", "messages in / s"],
+    [rates ? rates.kb.toFixed(1) : "–", "KB out / s"],
+    [num(t.joins_refused), "joins refused"], [num(t.rate_limited), "rate limited"],
+    [num(t.slow_clients_dropped), "slow clients dropped"], [num(t.room_panics), "room panics"],
+  ];
+  $("tiles").replaceChildren(...items.map(([v, label]) => h("div", { class: "tile" }, h("b", {}, v), h("span", {}, label))));
+}
+
+function routes(o) {
+  const list = o.api_routes || [];
+  $("apiRoutes").hidden = !list.length;
+  if (!list.length) return;
+  const head = h("tr", {}, h("th", {}, "Route"), ...["Requests", "Failures", "Avg ms", "Max ms"].map(t => h("th", { class: "num" }, t)));
+  const rows = list.map(r => h("tr", {}, h("td", {}, r.route),
+    ...[num(r.requests), num(r.failures), r.avg_ms.toFixed(1), r.max_ms.toFixed(1)].map(v => h("td", { class: "num" }, v))));
+  $("routes").replaceChildren(h("table", {}, head, ...rows));
+}
+
+function rooms(o) {
+  if (!o.rooms.length) return $("rooms").replaceChildren(h("div", { class: "empty" }, "No rooms are open."));
+  const head = h("tr", {}, ...(o.cluster ? ["Node", "Kind", "Room"] : ["Kind", "Room"]).map(t => h("th", {}, t)),
+    ...["Players", "CPU", "Tick avg", "Tick max", "Budget", "Open"].map(t => h("th", { class: "num" }, t)));
+  const rows = o.rooms.map(r => {
+    const budget = r.tick_hz > 0 ? 1000 / r.tick_hz : 0;
+    const used = budget ? r.tick_ms_max / budget : 0;
+    const key = r.kind + "/" + r.id;
+    return h("tr", { class: "pick" + (selected === key ? " on" : ""), on: { click: () => select(r.kind, r.id) } },
+      o.cluster ? h("td", {}, r.node) : null,
+      h("td", {}, r.kind), h("td", {}, r.id),
+      h("td", { class: "num" }, r.players + " / " + r.max_players),
+      h("td", { class: "num" + (r.cpu > 50 ? " slow" : ""), title: "its share of one core" }, budget ? r.cpu.toFixed(1) + "%" : "–"),
+      h("td", { class: "num" }, budget ? r.tick_ms_avg.toFixed(2) + " ms" : "–"),
+      h("td", { class: "num" + (used > 0.5 ? " slow" : "") }, budget ? r.tick_ms_max.toFixed(2) + " ms" : "–"),
+      h("td", { class: "num" + (used > 0.5 ? " slow" : "") }, budget ? Math.round(used * 100) + "%" : "–"),
+      h("td", { class: "num" }, ago(r.uptime)));
+  });
+  $("rooms").replaceChildren(h("table", {}, h("thead", {}, head), h("tbody", {}, rows)));
+}
+
+// What is wrong, said before anything else on the page.
+function warnings(o) {
+  const all = [...(o.warnings || [])];
+  for (const name of (o.cluster && o.cluster.silent) || []) all.push("node " + name + " did not answer: its rooms and players are not shown");
+  $("warnings").hidden = !all.length;
+  $("warnings").replaceChildren(...all.map(text => h("div", {}, h("b", {}, "! "), text)));
+}
+
+// The other machines of this world. Everything else on the page is this node.
+function cluster(o) {
+  $("cluster").hidden = !o.cluster;
+  if (!o.cluster) return;
+  const nodes = o.cluster.nodes || [];
+  const head = h("tr", {}, ...["Node", "Address", "Rooms"].map(t => h("th", {}, t)),
+    ...["Players", "Connections", "CPU", "Memory", "Heard from"].map(t => h("th", { class: "num" }, t)));
+  const rows = nodes.map(n => h("tr", { class: n.node === o.cluster.node ? "on" : "" },
+    h("td", {}, n.node === o.cluster.node ? n.node + " (this one)"
+      // Its own dashboard, a click away - with the token, if they share one.
+      : h("a", { href: n.url.replace(/^ws/, "http") + "/admin#token=" + encodeURIComponent(token), target: "_blank", rel: "noopener" }, n.node)),
+    h("td", {}, n.url),
+    h("td", {}, (n.rooms || []).join(", ") || "–"),
+    h("td", { class: "num" }, n.stats.players ?? "–"), h("td", { class: "num" }, n.stats.connections ?? "–"),
+    h("td", { class: "num" }, n.stats.cpu != null ? n.stats.cpu.toFixed(0) + "%" : "–"),
+    h("td", { class: "num" }, n.stats.memory_mb != null ? num(n.stats.memory_mb) + " MB" : "–"),
+    h("td", { class: "num" }, ago(n.seen) + " ago")));
+  $("nodes").replaceChildren(nodes.length
+    ? h("table", {}, h("thead", {}, head), h("tbody", {}, rows))
+    : h("div", { class: "empty" }, "The coordinator did not answer."));
+}
+
+// Where each signed-in player connects from, from the last player list: a
+// room's own list of its players does not know.
+let addresses = {};
+
+function playerRow(p, room) {
+  return h("tr", {},
+    clustered && room === undefined ? h("td", {}, p.node || "–") : null,
+    h("td", {}, p.name || "–"), h("td", {}, p.id), h("td", {}, (p.address || addresses[p.id] || "–") + (p.rtt_ms != null ? " · " + p.rtt_ms + " ms" : "")),
+    h("td", {}, room !== undefined ? room : (p.room ? p.room.kind + "/" + p.room.id : "–")),
+    h("td", { class: "num" },
+      h("button", { on: { click: () => act("kick", { player: p.id }) } }, "Kick"), " ",
+      h("button", { class: "danger", on: { click: () => act("kick", { player: p.id, disconnect: true }) } }, "Disconnect")));
+}
+
+function players(list) {
+  addresses = Object.fromEntries(list.filter(p => p.address).map(p => [p.id, p.address]));
+  if (!list.length) return $("players").replaceChildren(h("div", { class: "empty" }, "Nobody is signed in."));
+  const head = h("tr", {}, ...(clustered ? ["Node", "Name", "Player", "Address", "Room", ""] : ["Name", "Player", "Address", "Room", ""]).map(t => h("th", {}, t)));
+  $("players").replaceChildren(h("table", {}, h("thead", {}, head),
+    h("tbody", {}, list.map(p => playerRow(p)))));
+}
+
+function events(list) {
+  const box = $("events");
+  const atEnd = box.scrollTop + box.clientHeight >= box.scrollHeight - 8;
+  box.replaceChildren(...list.map(e => h("div", {},
+    h("time", {}, new Date(e.at * 1000).toLocaleTimeString()),
+    h("span", { class: "k " + e.kind }, e.kind), h("span", {}, e.text))));
+  if (atEnd) box.scrollTop = box.scrollHeight;
+}
+
+// ---- the numbers over time -------------------------------------------------
+// Four small charts, one measure each: they are different units, so they get
+// an axis apiece rather than sharing one. A single series needs no legend -
+// the title names it - and every value is also in the table below.
+const SVG = "http://www.w3.org/2000/svg";
+function svg(tag, attrs, ...kids) {
+  const el = document.createElementNS(SVG, tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  for (const kid of kids) if (kid != null) el.append(kid);
+  return el;
+}
+const CHARTS = [
+  { key: "players", title: "Players signed in", unit: "", digits: 0 },
+  { key: "msgs", title: "Messages in", unit: "/s", digits: 1 },
+  { key: "kb", title: "Sent", unit: "KB/s", digits: 1 },
+  { key: "tick", title: "Slowest room tick", unit: "ms", digits: 2 },
+  { key: "cpu", title: "CPU, of one core", unit: "%", digits: 0 },
+  { key: "mem", title: "Memory", unit: "MB", digits: 0 },
+];
+// Counters only go up, so a rate is the difference over the time between two
+// samples - and a counter that went down is a restart, which is no traffic.
+function series(samples, period) {
+  return samples.map((s, i) => {
+    const prev = samples[i - 1];
+    const dt = prev ? s.at - prev.at : 0;
+    // A gap of more than a few periods is a stop, which is no traffic.
+    const rate = key => (dt > 0 && dt < period * 6 ? Math.max(0, s[key] - prev[key]) / dt : 0);
+    return { at: s.at, players: s.players, msgs: rate("messages_in"), kb: rate("bytes_out") / 1024, tick: s.tick_ms,
+      cpu: s.cpu || 0, mem: s.memory_mb || 0 };
+  });
+}
+// The smallest of 1, 2, 5 x 10^n that the data fits under: a top gridline
+// that is a number somebody would say.
+function niceTop(max) {
+  if (max <= 0) return 1;
+  const power = Math.pow(10, Math.floor(Math.log10(max)));
+  for (const m of [1, 2, 5, 10]) if (m * power >= max) return m * power;
+  return 10 * power;
+}
+const clock = at => new Date(at * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const fmt = (v, digits) => Number(v).toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+function drawChart(def, points) {
+  const now = points.length ? points[points.length - 1][def.key] : 0;
+  const head = h("h3", {}, def.title, h("span", { class: "grow" }),
+    h("b", {}, points.length ? fmt(now, def.digits) : "–"), def.unit);
+  if (points.length < 2) return h("div", { class: "chart" }, head, h("div", { class: "none" }, "Collecting… a sample is taken every few seconds."));
+
+  const W = 320, H = 96, L = 30, R = 6, T = 6, B = 16;
+  const t0 = points[0].at, t1 = points[points.length - 1].at;
+  const top = niceTop(Math.max(...points.map(p => p[def.key])));
+  const x = at => L + (t1 > t0 ? (at - t0) / (t1 - t0) : 0) * (W - L - R);
+  const y = v => T + (1 - v / top) * (H - T - B);
+  const path = points.map((p, i) => (i ? "L" : "M") + x(p.at).toFixed(1) + " " + y(p[def.key]).toFixed(1)).join(" ");
+  const cross = svg("line", { class: "cross", y1: T, y2: H - B, visibility: "hidden" });
+  const dot = svg("circle", { class: "dot", r: 4, visibility: "hidden" });
+  const tip = h("div", { class: "tip", hidden: true });
+  const hit = svg("rect", { x: L, y: T, width: W - L - R, height: H - T - B, fill: "transparent" });
+  const chart = svg("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": def.title },
+    ...[0, top / 2, top].map(v => svg("line", { class: "gridline", x1: L, x2: W - R, y1: y(v), y2: y(v) })),
+    ...[0, top / 2, top].map(v => {
+      const label = svg("text", { x: L - 5, y: y(v) + 3, "text-anchor": "end" });
+      label.textContent = fmt(v, v % 1 ? 1 : 0);
+      return label;
+    }),
+    (() => { const a = svg("text", { x: L, y: H - 3 }); a.textContent = clock(t0); return a; })(),
+    (() => { const b = svg("text", { x: W - R, y: H - 3, "text-anchor": "end" }); b.textContent = clock(t1); return b; })(),
+    svg("path", { class: "wash", d: path + ` L${x(t1).toFixed(1)} ${y(0)} L${x(t0).toFixed(1)} ${y(0)} Z` }),
+    svg("path", { class: "line", d: path }),
+    cross, dot, hit);
+  const card = h("div", { class: "chart" }, head, chart, tip);
+  // The crosshair finds the nearest sample; the tooltip leads with the value.
+  hit.addEventListener("pointermove", event => {
+    const box = chart.getBoundingClientRect();
+    const at = t0 + ((event.clientX - box.left) / box.width * W - L) / (W - L - R) * (t1 - t0);
+    const p = points.reduce((best, q) => Math.abs(q.at - at) < Math.abs(best.at - at) ? q : best);
+    cross.setAttribute("x1", x(p.at)); cross.setAttribute("x2", x(p.at)); cross.setAttribute("visibility", "visible");
+    dot.setAttribute("cx", x(p.at)); dot.setAttribute("cy", y(p[def.key])); dot.setAttribute("visibility", "visible");
+    tip.replaceChildren(h("b", {}, fmt(p[def.key], def.digits) + (def.unit ? " " + def.unit : "")),
+      h("span", {}, new Date(p.at * 1000).toLocaleTimeString()));
+    tip.hidden = false;
+    const cardBox = card.getBoundingClientRect();
+    tip.style.left = Math.min(Math.max(box.left - cardBox.left + x(p.at) / W * box.width, 70), cardBox.width - 70) + "px";
+    tip.style.top = (box.top - cardBox.top - 4) + "px";
+  });
+  hit.addEventListener("pointerleave", () => {
+    cross.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden"); tip.hidden = true;
+  });
+  return card;
+}
+
+let historyAt = 0, historyRange = "hours";
+async function loadHistory(force) {
+  if (!force && performance.now() - historyAt < 10000 && historyAt) return;
+  historyAt = performance.now();
+  const got = await api("history?range=" + historyRange);
+  const points = series(got.samples, got.period);
+  // Hovering redraws nothing: a chart under the pointer is left alone.
+  if (!document.querySelector(".chart:hover")) $("charts").replaceChildren(...CHARTS.map(def => drawChart(def, points)));
+  const head = h("tr", {}, h("th", {}, "Time"), ...CHARTS.map(c => h("th", { class: "num" }, c.title + (c.unit ? " (" + c.unit + ")" : ""))));
+  const rows = points.slice(-120).reverse().map(p => h("tr", {}, h("td", {}, new Date(p.at * 1000).toLocaleTimeString()),
+    ...CHARTS.map(c => h("td", { class: "num" }, fmt(p[c.key], c.digits)))));
+  $("historyNote").textContent = historyRange === "days" ? "one point an hour, thirty days"
+    : historyRange === "week" ? "one point a minute, seven days" : "one point every " + got.period + " s, six hours";
+  $("historyTable").replaceChildren(h("table", {}, h("thead", {}, head), h("tbody", {}, rows)));
+}
+
+async function select(kind, id) {
+  selected = kind + "/" + id;
+  $("cmdOut").hidden = true;
+  await detail();
+}
+
+async function detail() {
+  if (!selected) return void ($("detail").hidden = true);
+  const [kind, ...rest] = selected.split("/");
+  const id = rest.join("/");
+  try {
+    const d = await api("room/" + encodeURIComponent(kind) + "/" + encodeURIComponent(id));
+    $("detail").hidden = false;
+    $("detailTitle").textContent = selected + " — " + d.players.length + " player(s)";
+    $("detailInfo").textContent = d.info == null ? "(this room describes nothing)" : JSON.stringify(d.info, null, 2);
+    const head = h("tr", {}, ...["Name", "Player", "Address", "State", ""].map(t => h("th", {}, t)));
+    $("detailPlayers").replaceChildren(d.players.length
+      ? h("table", {}, h("thead", {}, head), h("tbody", {}, d.players.map(p => playerRow(p, JSON.stringify(p.state)))))
+      : h("div", { class: "empty" }, "Nobody is in this room."));
+  } catch (e) {
+    selected = null;
+    $("detail").hidden = true;
+  }
+}
+
+async function act(path, body) {
+  try { await api(path, "POST", body); } catch (e) { alert(e.message); }
+  refresh();
+}
+
+async function refresh() {
+  try {
+    const [o, p, e] = await Promise.all([api("overview"), api("players"), api("events")]);
+    const now = performance.now();
+    let rates = null;
+    if (last && now > lastAt) {
+      const dt = (now - lastAt) / 1000;
+      rates = { msgs: Math.max(0, o.totals.messages_in - last.totals.messages_in) / dt,
+                kb: Math.max(0, o.totals.bytes_out - last.totals.bytes_out) / dt / 1024 };
+    }
+    last = o; lastAt = now; draining = o.draining;
+    clustered = !!o.cluster;
+    warnings(o); tiles(o, rates); cluster(o); rooms(o); routes(o); players(p.players); events(e.events);
+    loadHistory().catch(() => {});
+    $("drainBadge").hidden = !draining;
+    $("drainBtn").textContent = draining ? "Stop draining" : "Drain";
+    $("status").className = "";
+    $("status").textContent = "v" + o.version + " · updated " + new Date().toLocaleTimeString();
+    await detail();
+  } catch (err) {
+    $("status").className = "bad";
+    $("status").textContent = err.message;
+  }
+}
+
+$("tokenBtn").onclick = () => { askToken(); refresh(); showLiveops(); };
+// Live ops has its own page; say so only on a server that serves it.
+function showLiveops() {
+  fetch("admin/api/liveops", { headers: { "Authorization": "Bearer " + token } })
+    .then(r => { $("liveopsLink").hidden = !r.ok; })
+    .catch(() => {});
+}
+showLiveops();
+$("historyRange").onchange = () => { historyRange = $("historyRange").value; loadHistory(true).catch(() => {}); };
+$("drainBtn").onclick = () => {
+  if (draining || confirm("Stop taking new connections? Players already here carry on."))
+    act("drain", { on: !draining });
+};
+$("hideDetail").onclick = () => { selected = null; $("detail").hidden = true; refresh(); };
+$("closeRoom").onclick = () => {
+  if (!selected || !confirm("Close " + selected + "? Everyone in it is put out, with their state saved.")) return;
+  const [kind, ...rest] = selected.split("/");
+  act("room/" + encodeURIComponent(kind) + "/" + encodeURIComponent(rest.join("/")) + "/close");
+};
+$("cmdBtn").onclick = async () => {
+  if (!selected) return;
+  const out = $("cmdOut");
+  out.hidden = false;
+  try {
+    const [kind, ...rest] = selected.split("/");
+    const body = JSON.parse($("cmd").value);
+    const answer = await api("room/" + encodeURIComponent(kind) + "/" + encodeURIComponent(rest.join("/")) + "/command", "POST", body);
+    out.textContent = JSON.stringify(answer, null, 2);
+  } catch (e) { out.textContent = "Error: " + e.message; }
+};
+$("noticeBtn").onclick = () => {
+  const text = $("notice").value.trim();
+  if (text) { act("notice", { text }); $("notice").value = ""; }
+};
+// Accounts signed in to with a name and password (PasswordAuth). A server
+// whose players are known by token alone says so.
+async function account(method, suffix, body, done) {
+  const name = $("account").value.trim();
+  const out = $("accountOut");
+  if (!name) return;
+  out.hidden = false;
+  try {
+    await api("account/" + encodeURIComponent(name) + suffix, method, body);
+    out.textContent = done(name);
+  } catch (e) { out.textContent = "Error: " + e.message; }
+  refresh();
+}
+$("resetBtn").onclick = () => {
+  const password = prompt("New password for " + $("account").value.trim());
+  if (password) account("POST", "/reset", { password }, n => n + "'s password was reset; their sessions are signed out.");
+};
+$("deleteBtn").onclick = () => {
+  if (confirm("Delete the account " + $("account").value.trim() + " and everything saved for it?")) {
+    account("DELETE", "", undefined, n => n + " was deleted.");
+  }
+};
+
+refresh();
+setInterval(refresh, 2000);
+</script>
+</body>
+</html>

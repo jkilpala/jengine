@@ -1,0 +1,27 @@
+services:
+  docs:
+    build:
+      context: ..
+      dockerfile: website/Dockerfile
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # Development mode — mounts source for hot reload
+  docs-dev:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ..:/repo:ro
+      - docs_node_modules:/app/node_modules
+    ports:
+      - "4321:4321"
+    environment:
+      - JENGINE_ROOT=/repo
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    profiles:
+      - dev
+
+volumes:
+  docs_node_modules:

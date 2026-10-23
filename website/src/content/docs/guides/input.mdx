@@ -1,0 +1,100 @@
+---
+draft: false
+title: Input System
+description: Keyboard, mouse, and action mapping in jEngine.
+---
+
+jEngine reads keyboards, mice, gamepads and touch screens, through raw keys or named **actions**.
+
+## Raw Key Input
+
+```lua
+-- Is key currently held?
+if Input.is_key_pressed("D") then
+    -- move right
+end
+
+-- Was key just pressed this frame?
+if Input.is_key_just_pressed("Space") then
+    -- jump
+end
+```
+
+Key names are canonical: uppercase letters (`"V"`), digits (`"1"`), `"Space"`, `"Up"`. The browser
+spellings (`"ArrowUp"`, `"KeyW"`) are accepted as aliases. See the
+[Scripting API](/api-reference/scripting-api/) for the full list.
+
+## Action Mapping
+
+Define named actions in **Project Settings → Input Actions**:
+
+```json
+{
+  "settings": {
+    "input_actions": [
+      { "name": "move_left", "keys": ["A", "Left", "Pad0_DPadLeft"] },
+      { "name": "move_right", "keys": ["D", "Right", "Pad0_DPadRight"] },
+      { "name": "move_up", "keys": ["W", "Up", "Pad0_LeftStickY+"] },
+      { "name": "jump", "keys": ["Space", "Pad0_A"] },
+      { "name": "fire", "keys": ["Enter", "E", "Pad0_X"] }
+    ]
+  }
+}
+```
+
+Gamepad bindings are `Pad<n>_<button>` (`Pad0_A`, `Pad0_Start`, `Pad0_LeftBumper`, `Pad0_DPadUp`) or a
+stick half (`Pad0_LeftStickY+`). Stick **up is positive** on every platform. Bindings can be changed at
+runtime (`Input.set_bindings`, `Input.add_binding`, `Input.reset_bindings`) for a rebinding menu.
+
+Use actions in scripts (recommended over raw keys):
+
+```lua
+if Input.is_action_pressed("move_right") then
+    -- move right (works with any bound key)
+end
+
+if Input.is_action_just_pressed("jump") then
+    -- just pressed this frame
+end
+
+if Input.is_action_just_released("fire") then
+    -- released this frame (e.g., release charged shot)
+end
+```
+
+## Mouse Input
+
+```lua
+local scroll = Input.get_mouse_wheel()
+if scroll ~= 0 then
+    zoom = zoom + scroll * 0.1
+end
+```
+
+```lua
+local mx, my = Input.get_mouse_position()          -- screen pixels
+local wx, wy = Input.get_mouse_world_position()    -- world units, through the camera
+if Input.is_mouse_left_just_pressed() then end
+if Input.is_mouse_right_just_pressed() then end    -- e.g. cancel
+```
+
+There is no middle mouse button.
+
+## Gamepads
+
+Actions cover most gamepad use. For more: `Input.is_gamepad_connected`, `Input.get_gamepad_axis`,
+`Input.is_gamepad_button_pressed`. **`Input.rumble(pad, strong, weak, seconds)`** shakes a pad, and
+`Input.vibrate(seconds, strength)` buzzes a phone.
+
+Menus built from `.gui` documents and entity UI can be walked with the D-pad or stick and pressed with
+**A** / Enter when their nodes are `focusable` - see the [UI guide](/guides/ui/).
+
+## Touch
+
+`Input.get_touches()` returns every finger: `{ id, x, y, start_x, start_y, wx, wy, phase, on_control }`,
+with `phase` one of `began`, `moved`, `held` or `ended` (an ended finger is reported for one frame). The
+first free finger also acts as the left mouse button, so a mouse-driven game works on a phone.
+
+A `touch_controls` component lays out on-screen sticks and buttons that **press keys** - by name, or an
+action's first keyboard key - so a keyboard game plays on a phone with no script change. They hide while
+a gamepad is in use.

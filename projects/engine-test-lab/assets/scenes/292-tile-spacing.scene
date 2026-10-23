@@ -1,0 +1,323 @@
+{
+ "name": "292 - Tileset margin and spacing",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Packed",
+   "components": {
+    "transform": {
+     "position": [
+      -404.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tilemap": {
+     "tile_size": [
+      48.0,
+      48.0
+     ],
+     "z_order": 0,
+     "tilesets": [
+      {
+       "texture_id": "sprites/filter_linear/tiles_packed.png",
+       "tile_width": 16,
+       "tile_height": 16,
+       "columns": 2,
+       "tile_count": 2,
+       "first_gid": 1,
+       "image_width": 32,
+       "image_height": 16
+      }
+     ],
+     "layers": [
+      {
+       "name": "g",
+       "tiles": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+       ],
+       "width": 6,
+       "height": 6,
+       "visible": true,
+       "collision": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spaced",
+   "components": {
+    "transform": {
+     "position": [
+      116.0,
+      104.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tilemap": {
+     "tile_size": [
+      48.0,
+      48.0
+     ],
+     "z_order": 0,
+     "tilesets": [
+      {
+       "texture_id": "sprites/filter_linear/tiles_spaced.png",
+       "tile_width": 16,
+       "tile_height": 16,
+       "columns": 2,
+       "tile_count": 2,
+       "first_gid": 1,
+       "image_width": 40,
+       "image_height": 20,
+       "margin": 2,
+       "spacing": 4
+      }
+     ],
+     "layers": [
+      {
+       "name": "g",
+       "tiles": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+       ],
+       "width": 6,
+       "height": 6,
+       "visible": true,
+       "collision": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "PackedLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "packed edge to edge: a thin line of the other tile at every seam",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1.0
+     ],
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "SpacedLabel",
+   "components": {
+    "transform": {
+     "position": [
+      260.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "margin 2, spacing 4, gutters of each tile's own edge: clean seams",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1.0
+     ],
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1250.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "292 - Tileset margin and spacing",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   both maps are linear-filtered and drawn 3x; the right one must show no magenta and no shifted tiles",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Nav",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_292_tile_spacing.lua"
+    }
+   }
+  }
+ ]
+}

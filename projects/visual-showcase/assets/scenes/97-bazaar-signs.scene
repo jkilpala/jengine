@@ -1,0 +1,2195 @@
+{
+ "name": "97 - Bazaar Signs",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.8
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.0,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.9,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1400.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shops",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/shops.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      1400.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Awning0",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/awning.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      210.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Awning1",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/awning.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      210.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Awning2",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/awning.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      210.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Awning3",
+   "components": {
+    "transform": {
+     "position": [
+      130.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/awning.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      210.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Awning4",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/awning.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      210.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Awning5",
+   "components": {
+    "transform": {
+     "position": [
+      590.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/awning.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      210.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Banner",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.26327,
+      0.01002,
+      0.01341,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      620.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hello0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      322.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0645\u0631\u062d\u0628\u0627 \u0628\u0627\u0644\u0639\u0627\u0644\u0645",
+     "font_id": "fonts/noto/NotoSansArabic-Regular-subset.ttf",
+     "font_scale": 2.4,
+     "color": [
+      1.0,
+      0.84809,
+      0.44799,
+      1.0
+     ],
+     "z_order": -19,
+     "align": "center",
+     "outline": {
+      "width": 1.5,
+      "color": [
+       0.1,
+       0.02,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Hello1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      322.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u05e9\u05dc\u05d5\u05dd \u05e2\u05d5\u05dc\u05dd",
+     "font_id": "fonts/noto/NotoSansHebrew-Regular-subset.ttf",
+     "font_scale": 2.4,
+     "color": [
+      1.0,
+      0.84809,
+      0.44799,
+      0.0
+     ],
+     "z_order": -19,
+     "align": "center",
+     "outline": {
+      "width": 1.5,
+      "color": [
+       0.1,
+       0.02,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Hello2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      322.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0928\u092e\u0938\u094d\u0924\u0947 \u0926\u0941\u0928\u093f\u092f\u093e",
+     "font_id": "fonts/noto/NotoSansDevanagari-Regular-subset.ttf",
+     "font_scale": 2.4,
+     "color": [
+      1.0,
+      0.84809,
+      0.44799,
+      0.0
+     ],
+     "z_order": -19,
+     "align": "center",
+     "outline": {
+      "width": 1.5,
+      "color": [
+       0.1,
+       0.02,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Hello3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      322.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35\u0e0a\u0e32\u0e27\u0e42\u0e25\u0e01",
+     "font_id": "fonts/noto/NotoSansThai-Regular-subset.ttf",
+     "font_scale": 2.4,
+     "color": [
+      1.0,
+      0.84809,
+      0.44799,
+      0.0
+     ],
+     "z_order": -19,
+     "align": "center",
+     "outline": {
+      "width": 1.5,
+      "color": [
+       0.1,
+       0.02,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign0",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain0",
+   "parent": "Sign0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board0",
+   "parent": "Sign0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.0331,
+      0.14732,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word0",
+   "parent": "Sign0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0633\u0648\u0642 \u0627\u0644\u062a\u0648\u0627\u0628\u0644",
+     "font_id": "fonts/noto/NotoSansArabic-Regular-subset.ttf",
+     "font_scale": 1.5,
+     "color": [
+      1.0,
+      0.82757,
+      0.31855,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign1",
+   "components": {
+    "transform": {
+     "position": [
+      -230.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain1",
+   "parent": "Sign1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plate1",
+   "parent": "Sign1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.04,
+      0.04,
+      0.06,
+      0.9
+     ],
+     "z_order": -12,
+     "size": [
+      186.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board1",
+   "parent": "Sign1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/neon.png",
+     "color": [
+      1.6,
+      0.21259,
+      0.83603,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Word1",
+   "parent": "Sign1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u091a\u093e\u092f",
+     "font_id": "fonts/noto/NotoSansDevanagari-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      1.0,
+      0.69207,
+      0.89001,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign2",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain2",
+   "parent": "Sign2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board2",
+   "parent": "Sign2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.02721,
+      0.06372,
+      0.26327,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word2",
+   "parent": "Sign2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u05e9\u05d5\u05e7",
+     "font_id": "fonts/noto/NotoSansHebrew-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      0.89001,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign3",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain3",
+   "parent": "Sign3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plate3",
+   "parent": "Sign3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.04,
+      0.04,
+      0.06,
+      0.9
+     ],
+     "z_order": -12,
+     "size": [
+      186.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board3",
+   "parent": "Sign3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/neon.png",
+     "color": [
+      0.11718,
+      1.25986,
+      1.6,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Word3",
+   "parent": "Sign3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0e15\u0e25\u0e32\u0e14",
+     "font_id": "fonts/noto/NotoSansThai-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      0.69207,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign4",
+   "components": {
+    "transform": {
+     "position": [
+      480.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain4",
+   "parent": "Sign4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board4",
+   "parent": "Sign4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.17064,
+      0.05088,
+      0.01961,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word4",
+   "parent": "Sign4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0642\u0647\u0648\u0629",
+     "font_id": "fonts/noto/NotoSansArabic-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      1.0,
+      0.74841,
+      0.44799,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign5",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain5",
+   "parent": "Sign5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board5",
+   "parent": "Sign5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.44799,
+      0.10048,
+      0.01002,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word5",
+   "parent": "Sign5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u092e\u0938\u093e\u0932\u0947",
+     "font_id": "fonts/noto/NotoSansDevanagari-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign6",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain6",
+   "parent": "Sign6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plate6",
+   "parent": "Sign6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.04,
+      0.04,
+      0.06,
+      0.9
+     ],
+     "z_order": -12,
+     "size": [
+      186.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board6",
+   "parent": "Sign6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/neon.png",
+     "color": [
+      1.6,
+      0.96613,
+      0.08141,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Word6",
+   "parent": "Sign6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u05e4\u05dc\u05d0\u05e4\u05dc",
+     "font_id": "fonts/noto/NotoSansHebrew-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      1.0,
+      0.93311,
+      0.60383,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign7",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      -5.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain7",
+   "parent": "Sign7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board7",
+   "parent": "Sign7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.26327,
+      0.0331,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word7",
+   "parent": "Sign7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0e1c\u0e25\u0e44\u0e21\u0e49",
+     "font_id": "fonts/noto/NotoSansThai-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      1.0,
+      0.78741,
+      0.69207,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign8",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain8",
+   "parent": "Sign8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plate8",
+   "parent": "Sign8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.04,
+      0.04,
+      0.06,
+      0.9
+     ],
+     "z_order": -12,
+     "size": [
+      186.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board8",
+   "parent": "Sign8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/neon.png",
+     "color": [
+      0.50968,
+      1.6,
+      0.27302,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Word8",
+   "parent": "Sign8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u062d\u0644\u0648\u064a\u0627\u062a",
+     "font_id": "fonts/noto/NotoSansArabic-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      0.82757,
+      1.0,
+      0.69207,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign9",
+   "components": {
+    "transform": {
+     "position": [
+      340.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain9",
+   "parent": "Sign9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board9",
+   "parent": "Sign9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.07324,
+      0.0331,
+      0.21404,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word9",
+   "parent": "Sign9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u092e\u093f\u0920\u093e\u0908",
+     "font_id": "fonts/noto/NotoSansDevanagari-Regular-subset.ttf",
+     "font_scale": 2.0,
+     "color": [
+      1.0,
+      0.78741,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sign10",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain10",
+   "parent": "Sign10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/chain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      4.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board10",
+   "parent": "Sign10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bazaar/board.png",
+     "color": [
+      0.01961,
+      0.01961,
+      0.02721,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      200.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word10",
+   "parent": "Sign10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0627\u0644\u0633\u0639\u0631 \u0663\u0665 \u062f\u0631\u0647\u0645",
+     "font_id": "fonts/noto/NotoSansArabic-Regular-subset.ttf",
+     "font_scale": 1.5,
+     "color": [
+      1.0,
+      0.60383,
+      0.13287,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.05,
+       0.04,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s97_bazaar_signs.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "97   Bazaar Signs",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space next greeting   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

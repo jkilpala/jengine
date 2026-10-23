@@ -1,0 +1,556 @@
+{
+ "name": "193 - Conveyors",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Top",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.45,
+      0.75,
+      0.95,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      620.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 620.0,
+       "height": 16.0
+      }
+     },
+     "friction": 0.9
+    },
+    "conveyor": {
+     "speed": 140.0
+    }
+   }
+  },
+  {
+   "name": "Lower",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.95,
+      0.6,
+      0.35,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      900.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 900.0,
+       "height": 16.0
+      }
+     },
+     "friction": 0.9
+    },
+    "conveyor": {
+     "speed": -120.0
+    }
+   }
+  },
+  {
+   "name": "Lift",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      -190.0
+     ],
+     "rotation": 2.69,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.5,
+      0.9,
+      0.55,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      300.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 300.0,
+       "height": 16.0
+      }
+     },
+     "friction": 0.9
+    },
+    "conveyor": {
+     "speed": 160.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.32,
+      0.38,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      1260.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1260.0,
+       "height": 20.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "WallL",
+   "components": {
+    "transform": {
+     "position": [
+      -630.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.32,
+      0.38,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      16.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 16.0,
+       "height": 600.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "WallR",
+   "components": {
+    "transform": {
+     "position": [
+      630.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.32,
+      0.38,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      16.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 16.0,
+       "height": 600.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Label40150",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "speed 140 ->",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label150-80",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "<- speed -120 (Space reverses)",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label-450-110",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "uphill: 160 along its +x",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "193 - Conveyors",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Space: reverse the lower belt",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: crates ride the top belt right, fall onto the lower belt and ride it left, then climb the green belt up and off -",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "carried by friction while the belts themselves never move. Space reverses the lower belt (Physics.set_conveyor_speed).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_193_conveyors.lua"
+    }
+   }
+  }
+ ]
+}

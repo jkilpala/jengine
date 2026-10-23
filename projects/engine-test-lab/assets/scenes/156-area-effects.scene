@@ -1,0 +1,981 @@
+{
+ "name": "156 - Area effects",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.15,
+      0.35,
+      0.7,
+      0.45
+     ],
+     "z_order": -1,
+     "size": [
+      440.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "area_effect": {
+     "size": [
+      440.0,
+      260.0
+     ],
+     "buoyancy": 2.0,
+     "force": [
+      0.0,
+      0.0
+     ],
+     "attract": 0.0,
+     "drag": 2.0,
+     "angular_drag": 3.0,
+     "enabled": true
+    }
+   }
+  },
+  {
+   "name": "BasinFloor",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -325.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.3,
+      0.35,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      480.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 480.0,
+       "height": 30.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "BasinLeft",
+   "components": {
+    "transform": {
+     "position": [
+      -615.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.3,
+      0.35,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      30.0,
+      280.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 30.0,
+       "height": 280.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "BasinRight",
+   "components": {
+    "transform": {
+     "position": [
+      -145.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.3,
+      0.35,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      30.0,
+      280.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 30.0,
+       "height": 280.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "Crate",
+   "components": {
+    "transform": {
+     "position": [
+      -550.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.85,
+      0.6,
+      0.3,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.05,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 40.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Hull",
+   "components": {
+    "transform": {
+     "position": [
+      -390.0,
+      170.0
+     ],
+     "rotation": 0.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.85,
+      0.3,
+      0.25,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      120.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.05,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 120.0,
+       "height": 22.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Ball",
+   "components": {
+    "transform": {
+     "position": [
+      -215.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.85,
+      0.4,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.05,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 20.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "WaterLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "water: buoyancy 2, drag",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Updraft",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.9,
+      0.7,
+      0.18
+     ],
+     "z_order": -1,
+     "size": [
+      180.0,
+      460.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "area_effect": {
+     "size": [
+      180.0,
+      460.0
+     ],
+     "buoyancy": 0.0,
+     "force": [
+      0.0,
+      1400.0
+     ],
+     "attract": 0.0,
+     "drag": 1.0,
+     "angular_drag": 0.0,
+     "enabled": true
+    }
+   }
+  },
+  {
+   "name": "UpdraftFloor",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      -265.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.3,
+      0.35,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 260.0,
+       "height": 30.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "Leaf",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.5,
+      0.85,
+      0.5,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.05,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Motes",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "__circle",
+     "emission_rate": 14.0,
+     "max_particles": 100,
+     "lifetime": [
+      2.5,
+      2.5
+     ],
+     "speed": [
+      10.0,
+      30.0
+     ],
+     "angle": [
+      1.2,
+      1.9
+     ],
+     "color_start": [
+      0.8,
+      1.0,
+      0.85,
+      0.9
+     ],
+     "color_end": [
+      0.8,
+      1.0,
+      0.85,
+      0.0
+     ],
+     "size_start": [
+      8.0,
+      8.0
+     ],
+     "size_end": [
+      4.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "UpdraftLabel",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "updraft: force up",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Pull",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.85,
+      0.5,
+      0.9,
+      0.18
+     ],
+     "z_order": -1,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "area_effect": {
+     "size": [
+      300.0,
+      300.0
+     ],
+     "buoyancy": 0.0,
+     "force": [
+      0.0,
+      0.0
+     ],
+     "attract": 2400.0,
+     "drag": 1.5,
+     "angular_drag": 0.0,
+     "enabled": true
+    }
+   }
+  },
+  {
+   "name": "PullBall",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.9,
+      0.55,
+      0.95,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.05,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 18.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "PullFloor",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -265.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.3,
+      0.3,
+      0.35,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      340.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 340.0,
+       "height": 30.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "PullLabel",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "pull: attract (the ball has no weight)",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "156 - Area effects",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Space: updraft on / off   R: again",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Left: the crate and ball float half under, the red hull rights itself and floats level. Middle: the green box and the",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "motes rise to the top of the updraft (Space drops them). Right: the weightless ball is drawn into the middle of the pull.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_156_area_effects.lua"
+    }
+   }
+  }
+ ]
+}

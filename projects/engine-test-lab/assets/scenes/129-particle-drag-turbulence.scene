@@ -1,0 +1,443 @@
+{
+ "name": "129 - Particle drag and turbulence",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "129 - Particle drag and turbulence",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -100.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "NoDrag",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/soft_disc.png",
+     "emission_rate": 0.0,
+     "max_particles": 120,
+     "lifetime": [
+      1.8,
+      1.8
+     ],
+     "speed": [
+      220.0,
+      220.0
+     ],
+     "angle": [
+      0.0,
+      6.2832
+     ],
+     "color_start": [
+      1.0,
+      0.8,
+      0.4,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.4,
+      0.1,
+      0.0
+     ],
+     "size_start": [
+      6,
+      6
+     ],
+     "size_end": [
+      3,
+      3
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0,
+      0
+     ],
+     "burst_count": 120,
+     "active": true,
+     "world_space": true,
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Drag",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/soft_disc.png",
+     "emission_rate": 0.0,
+     "max_particles": 120,
+     "lifetime": [
+      1.8,
+      1.8
+     ],
+     "speed": [
+      220.0,
+      220.0
+     ],
+     "angle": [
+      0.0,
+      6.2832
+     ],
+     "color_start": [
+      1.0,
+      0.8,
+      0.4,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.4,
+      0.1,
+      0.0
+     ],
+     "size_start": [
+      6,
+      6
+     ],
+     "size_end": [
+      3,
+      3
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0,
+      0
+     ],
+     "burst_count": 120,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "drag": 2.5
+    }
+   }
+  },
+  {
+   "name": "Smoke",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/soft_disc.png",
+     "emission_rate": 40.0,
+     "max_particles": 400,
+     "lifetime": [
+      5.0,
+      5.0
+     ],
+     "speed": [
+      40.0,
+      45.0
+     ],
+     "angle": [
+      1.5708,
+      1.5708
+     ],
+     "color_start": [
+      0.8,
+      0.85,
+      1.0,
+      0.5
+     ],
+     "color_end": [
+      0.8,
+      0.85,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      14,
+      14
+     ],
+     "size_end": [
+      30,
+      30
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0,
+      0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "turbulence": {
+      "strength": 120.0,
+      "scale": 70.0,
+      "speed": 0.35
+     }
+    }
+   }
+  },
+  {
+   "name": "LabelNoDrag",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "no drag: a ring flying out",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "LabelDrag",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "drag 2.5: out fast, then hanging",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "LabelSmoke",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "turbulence: curling smoke",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Left: every two seconds a ring of sparks flies out at constant speed and leaves the view.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Middle: the same ring slows to a stop about 90 units out. Right: a column of smoke curls into drifting eddies.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_129_particle_drag_turbulence.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,645 @@
+{
+ "name": "92 - Raycast",
+ "version": 1,
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "92 - Raycast",
+     "font_id": "",
+     "font_scale": 2.0,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      286.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "A fan of rays from the middle. Each one is drawn to whatever it hits, or to its full length if it hits nothing.",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.75,
+      0.78,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      256.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "This was the last script function missing on native, and the standing example of a different failure in the editor: bound, counted as present by every name-level check, and reading a host hook nobody installed - so it returned null in silence. BUGS #146.",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.75,
+      0.78,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1180.0
+    }
+   }
+  },
+  {
+   "name": "WallRight",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.55,
+      0.58,
+      0.7,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      40.0,
+      320.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 320.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.2,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "WallLeft",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.55,
+      0.58,
+      0.7,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      40.0,
+      260.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 260.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.2,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "WallTop",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.55,
+      0.58,
+      0.7,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      380.0,
+      34.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 380.0,
+       "height": 34.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.2,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Ramp",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      150.0
+     ],
+     "rotation": 0.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.62,
+      0.55,
+      0.72,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      260.0,
+      26.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 260.0,
+       "height": 26.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.2,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Slab",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      -190.0
+     ],
+     "rotation": -0.35,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.62,
+      0.55,
+      0.72,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      300.0,
+      30.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 300.0,
+       "height": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.2,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Boulder",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.5,
+      0.75,
+      0.6,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      150.0,
+      150.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 75.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.2,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Trigger",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.95,
+      0.85,
+      0.3,
+      0.45
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      120.0,
+      120.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 120.0,
+       "height": 120.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": true,
+     "friction": 0.4,
+     "restitution": 0.2,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Eye",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.9,
+      0.4,
+      1
+     ],
+     "z_order": 8,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      18.0,
+      18.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Readout",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -252.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      1,
+      0.85,
+      0.4,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1160.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Move the MOUSE to aim the long ray   [SPACE] sweep on/off   [H/Esc] hub   [PgUp/PgDn] prev/next",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.6,
+      0.62,
+      0.7,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Runner",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_92_raycast.lua"
+    }
+   }
+  }
+ ]
+}

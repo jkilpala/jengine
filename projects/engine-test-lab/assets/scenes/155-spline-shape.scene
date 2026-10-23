@@ -1,0 +1,718 @@
+{
+ "name": "155 - Spline shape",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Hill",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spline_shape": {
+     "points": [
+      [
+       -330.0,
+       -40.0
+      ],
+      [
+       -180.0,
+       60.0
+      ],
+      [
+       -40.0,
+       -20.0
+      ],
+      [
+       80.0,
+       30.0
+      ],
+      [
+       200.0,
+       -30.0
+      ],
+      [
+       320.0,
+       10.0
+      ]
+     ],
+     "closed": false,
+     "smooth": true,
+     "detail": 12,
+     "fill_bottom": -160.0,
+     "fill_texture": "sprites/spline_fill.png",
+     "fill_tile": 64.0,
+     "fill_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "edge_texture": "sprites/spline_edge.png",
+     "edge_width": 16.0,
+     "edge_tile": 64.0,
+     "edge_offset": 0.5,
+     "edge_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "collider": true,
+     "friction": 0.6,
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Loop",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spline_shape": {
+     "points": [
+      [
+       -110.0,
+       0.0
+      ],
+      [
+       -40.0,
+       70.0
+      ],
+      [
+       60.0,
+       60.0
+      ],
+      [
+       110.0,
+       -10.0
+      ],
+      [
+       40.0,
+       -80.0
+      ],
+      [
+       -70.0,
+       -60.0
+      ]
+     ],
+     "closed": true,
+     "smooth": true,
+     "detail": 12,
+     "fill_bottom": -160.0,
+     "fill_texture": "sprites/spline_fill.png",
+     "fill_tile": 64.0,
+     "fill_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "edge_texture": "sprites/spline_edge.png",
+     "edge_width": 16.0,
+     "edge_tile": 64.0,
+     "edge_offset": 0.5,
+     "edge_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "collider": true,
+     "friction": 0.6,
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Straight",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spline_shape": {
+     "points": [
+      [
+       -120.0,
+       0.0
+      ],
+      [
+       0.0,
+       40.0
+      ],
+      [
+       120.0,
+       0.0
+      ]
+     ],
+     "closed": false,
+     "smooth": false,
+     "detail": 12,
+     "fill_bottom": -60.0,
+     "fill_texture": "sprites/spline_fill.png",
+     "fill_tile": 64.0,
+     "fill_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "edge_texture": "sprites/spline_edge.png",
+     "edge_width": 16.0,
+     "edge_tile": 64.0,
+     "edge_offset": 0.5,
+     "edge_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "collider": true,
+     "friction": 0.6,
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Ball1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.4,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 15.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball2",
+   "components": {
+    "transform": {
+     "position": [
+      -490.0,
+      290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.47000000000000003,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 15.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball3",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.54,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 15.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball4",
+   "components": {
+    "transform": {
+     "position": [
+      -350.0,
+      290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.6100000000000001,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 15.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball5",
+   "components": {
+    "transform": {
+     "position": [
+      -280.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.68,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 15.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball6",
+   "components": {
+    "transform": {
+     "position": [
+      350.0,
+      290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.75,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 15.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Ball7",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.95,
+      0.8200000000000001,
+      0.3,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.1,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 15.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.2
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "155 - Spline shape",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   R: drop the balls again",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "A smooth hill, a closed loop and a straight-edged ridge: each filled with the checker (square tiles, unbroken across",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "triangles) and edged with a strip, yellow outside and brown in. The balls land on the surfaces drawn and roll off them.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_155_spline_shape.lua"
+    }
+   }
+  }
+ ]
+}

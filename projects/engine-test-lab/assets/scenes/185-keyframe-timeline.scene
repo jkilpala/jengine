@@ -1,0 +1,631 @@
+{
+ "name": "185 - Keyframe timeline",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Mover",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.95,
+      0.55,
+      0.3,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fader",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.4,
+      0.75,
+      1.0,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Swapper",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.9,
+      0.9,
+      0.5,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "one",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.95,
+      0.95,
+      1.0,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label0",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "fade (color.3)",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "swap (texture_id)",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label2",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "text (text)",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Rail",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.4,
+      0.42,
+      0.5,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      820.0,
+      4.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "timeline": {
+     "clips": {
+      "show": {
+       "tracks": [
+        {
+         "target": "Mover",
+         "component": "transform",
+         "field": "position",
+         "keys": [
+          [
+           0.0,
+           [
+            -400.0,
+            120.0
+           ]
+          ],
+          [
+           2.0,
+           [
+            400.0,
+            120.0
+           ]
+          ],
+          [
+           4.0,
+           [
+            -400.0,
+            120.0
+           ]
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Mover",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           0.0
+          ],
+          [
+           4.0,
+           6.2832
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Fader",
+         "component": "sprite",
+         "field": "color.3",
+         "keys": [
+          [
+           0.0,
+           1.0
+          ],
+          [
+           2.0,
+           0.1
+          ],
+          [
+           4.0,
+           1.0
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Swapper",
+         "component": "sprite",
+         "field": "texture_id",
+         "keys": [
+          [
+           0.0,
+           "__white"
+          ],
+          [
+           1.0,
+           "sprites/circle16.png"
+          ],
+          [
+           2.0,
+           "__white"
+          ],
+          [
+           3.0,
+           "sprites/circle16.png"
+          ]
+         ],
+         "ease": "linear"
+        },
+        {
+         "target": "Word",
+         "component": "text",
+         "field": "text",
+         "keys": [
+          [
+           0.0,
+           "one"
+          ],
+          [
+           1.0,
+           "two"
+          ],
+          [
+           2.0,
+           "three"
+          ],
+          [
+           3.0,
+           "four"
+          ]
+         ],
+         "ease": "linear"
+        }
+       ],
+       "events": [
+        [
+         0.0,
+         "beat"
+        ],
+        [
+         1.0,
+         "beat"
+        ],
+        [
+         2.0,
+         "beat"
+        ],
+        [
+         3.0,
+         "beat"
+        ]
+       ],
+       "duration": 4.0
+      },
+      "quick": {
+       "tracks": [
+        {
+         "target": "Mover",
+         "component": "transform",
+         "field": "position",
+         "keys": [
+          [
+           0.0,
+           [
+            -400.0,
+            120.0
+           ]
+          ],
+          [
+           1.0,
+           [
+            400.0,
+            120.0
+           ]
+          ]
+         ],
+         "ease": "step"
+        },
+        {
+         "target": "Word",
+         "component": "text",
+         "field": "text",
+         "keys": [
+          [
+           0.0,
+           "quick"
+          ],
+          [
+           1.0,
+           "done"
+          ]
+         ],
+         "ease": "linear"
+        }
+       ],
+       "events": [
+        [
+         0.5,
+         "beat"
+        ]
+       ],
+       "duration": 1.0
+      }
+     },
+     "clip": "show",
+     "playing": true,
+     "looping": false
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_185_timeline.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "185 - Keyframe timeline",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Space: pause / play   R: play 'show' again   Q: play 'quick'   L: loop",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: one `timeline` drives it all - the box glides out and back, easing, turning once; the blue square fades and returns;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the yellow one swaps square / circle each second, the word counts one to four. Beats count on its keys; the show ends after four seconds.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  }
+ ]
+}

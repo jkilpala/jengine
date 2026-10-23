@@ -1,0 +1,405 @@
+---
+draft: false
+title: Agent Guide
+description: Complete guide for AI agents to create and build jEngine games — project file, scene format, namespaced scripting, batch systems, behavior graphs, packages.
+---
+
+This guide is written for AI coding agents. It covers the jEngine project structure, the scene format,
+the scripting model, behavior graphs, packages and the build pipeline. When this page and the
+machine-readable spec disagree, trust [`/ai/api-spec.json`](/ai/api-spec.json): it is generated from the
+engine's own API document.
+
+## Project Structure
+
+```
+my-game/
+├── assets/
+│   ├── sprites/        # PNG/JPEG textures (packed into atlases by the build)
+│   ├── scripts/        # Lua (.lua) or JavaScript (.js) entity scripts
+│   ├── scripts/systems/  # Batch script systems (Tier 3, native desktop only)
+│   ├── behaviors/      # Behavior graphs (.behavior)
+│   ├── sounds/         # Audio clips (.wav, .ogg, .mp3)
+│   ├── scenes/         # Scene files (.scene)
+│   ├── prefabs/        # Prefab templates (.prefab)
+│   ├── ui/             # GUI documents (.gui)
+│   └── data/           # Data tables (.data + .dataschema)
+└── project.jengine     # Project metadata (JSON)
+```
+
+Asset files use **semantic extensions** (`.scene`, `.prefab`, `.atlas`, `.data`) containing JSON — never
+`.scene.json`. Every path a script or scene names is **relative to `assets/`**.
+
+## Step 1 — Project Configuration
+
+Start from the template rather than an empty folder:
+
+```bash
+cargo run -p jengine-builder --bin jengine -- project new projects/my-game --name "My Game"
+```
+
+That writes `project.jengine`, `assets/scenes/main.scene` (a camera, a title and a player) and
+`assets/scripts/player.lua`, from `templates/project/`. The project file it writes looks like this:
+
+```json
+{
+  "name": "My Game",
+  "default_scene": "scenes/main.scene",
+  "settings": {
+    "title": "My Game",
+    "width": 1280,
+    "height": 720,
+    "background_color": [0.1, 0.1, 0.15, 1.0],
+    "target_fps": 60,
+    "entry_scene": "scenes/main.scene",
+    "ui_scale_mode": "ScaleAndCenter",
+    "physics": {
+      "gravity_x": 0.0,
+      "gravity_y": -9.81,
+      "backend": "rapier2d",
+      "fixed_timestep": 0.016666668,
+      "length_unit": 100.0
+    },
+    "input_actions": [
+      { "name": "move_left", "keys": ["A", "Left", "Pad0_DPadLeft"] },
+      { "name": "move_right", "keys": ["D", "Right", "Pad0_DPadRight"] },
+      { "name": "jump", "keys": ["Space", "W", "Up", "Pad0_A"] },
+      { "name": "interact", "keys": ["E", "Pad0_X"] }
+    ]
+  },
+  "packages": [],
+  "component_definitions": []
+}
+```
+
+- Gravity is multiplied by `length_unit`: `-9.81` x 100 is ~981 units/s², and **one world unit is about
+  a centimetre**. Size forces, masses and torques in those units.
+- `"packages"` links Rust [packages](/packages/) into the project's builds. Leave
+  `settings.enabled_packages` out unless you mean to restrict the built-ins: once present it is an
+  allow-list.
+
+## Step 2 — Create the Scene
+
+`assets/scenes/main.scene`:
+
+```json
+{
+  "version": 2,
+  "name": "Main Level",
+  "audio_refs": ["sounds/jump.wav"],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280, "viewport_height": 720 }
+      }
+    },
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "sprites/player.png", "color": [1, 1, 1, 1], "z_order": 10, "size": [32, 48] },
+        "script": { "source_path": "scripts/player.lua", "language": "Lua" }
+      }
+    },
+    {
+      "name": "Ground",
+      "components": {
+        "transform": { "position": [0, -200], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "sprites/ground.png", "color": [1, 1, 1, 1], "z_order": 0, "size": [1000, 32] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 1000, "height": 32 } },
+          "is_sensor": false,
+          "restitution": 0.0,
+          "friction": 0.5
+        }
+      }
+    }
+  ]
+}
+```
+
+Rules that bite:
+
+- **`"version": 2`** is required for package components; a v1 scene keeps an unknown key as inert data.
+- **Every sound must be in `audio_refs`**, or it does not play.
+- **A misspelt component key is silently a custom component** (`"velocity2d"` loads and does nothing).
+  The [Components Reference](/api-reference/components/) and [`/ai/scene-schema.json`](/ai/scene-schema.json)
+  list the real keys; custom components are CapitalCase.
+- **A sprite without `size` draws at its texture's size.** Give one when it matters.
+- **Colours are linear**, not sRGB: a colour picked as sRGB `0.11` must be written as about `0.012`.
+- **A `.gui` document loads only if some entity's `gui` component names it.**
+- Children name their parent: `"parent": "Body"` beside `"name"`.
+
+## Step 3 — Scripts
+
+Lua scripts call the engine through **capitalised namespaces**: `Transform.get_position`,
+`Input.is_action_pressed`, `Physics.apply_impulse`, `Entity.spawn_prefab`, `Audio.play_sound`, ...
+`log`, `print` and `require` stay global. **JavaScript uses the flat names** (`get_position`) and runs on
+desktop builds only; prefer Lua, which runs everywhere.
+
+The Lua dialects differ: **Luau** natively, **Lua 5.3** (Fengari) in the editor and web. Stay in the
+common subset: no `math.atan2` without probing for it, and floor numbers before
+`string.format("%d", x)`, which throws on a fraction under Fengari.
+
+### Tier 1 — entity scripts
+
+```lua
+-- assets/scripts/player.lua
+script = { events = { "on_collision_enter" } }
+
+local SPEED = 200
+
+function init(entity)
+    log("Player initialized")
+end
+
+function update(entity, dt)
+    local x, y = Transform.get_position(entity)
+    if Input.is_action_pressed("move_left") then x = x - SPEED * dt end
+    if Input.is_action_pressed("move_right") then x = x + SPEED * dt end
+    Transform.set_position(entity, x, y)
+end
+
+function on_collision_enter(entity, other)
+    if Entity.get_name(other) == "Spike" then
+        Entity.destroy(entity)
+    end
+end
+```
+
+The JavaScript header is a `script` object: `const script = { events: ["on_collision_enter"] };`.
+
+Lifecycle events a header can name: `on_spawn`, `on_despawn`, `on_collision_enter`,
+`on_collision_exit`, `on_trigger`, `on_input`, `on_timer`, `on_animation_event`,
+`on_visibility_changed`, `on_health_changed`. Unknown names are dropped silently.
+
+### Tier 2 — tick-rate scripts
+
+`tick_rate` is **updates per second** (base 60), applied on the native runtime:
+
+```lua
+script = { tick_rate = 10, events = { "on_collision_enter" } }
+
+function update(entity, dt)  -- ten times a second; dt is the time since the last run
+    local player = Entity.find_by_name("Player")
+    if player then
+        local px, py = Transform.get_position(player)
+        local ex, ey = Transform.get_position(entity)
+        local dx, dy = px - ex, py - ey
+        local len = math.sqrt(dx * dx + dy * dy)
+        if len > 0 then
+            Physics.set_velocity(entity, dx / len * 100, dy / len * 100)
+        end
+    end
+end
+```
+
+### Tier 3 — batch script systems
+
+For thousands of entities with the same motion logic — **native desktop only**; the editor and web
+leave `batch_script` entities alone, so prefer native components when it must run everywhere.
+
+```json
+{ "batch_script": { "path": "scripts/systems/mover.lua", "lang": "lua" } }
+```
+
+```lua
+system = {
+    query = { read = { "Velocity2D" }, write = { "Position2D" } },
+    tick_rate = 1,
+}
+
+function update(ctx, q)
+    local dt = ctx.dt
+    local vx, vy = q.read.Velocity2D.x, q.read.Velocity2D.y
+    local px, py = q.write.Position2D.x, q.write.Position2D.y
+    for i = 1, q.count do
+        px[i] = px[i] + vx[i] * dt
+        py[i] = py[i] + vy[i] * dt
+    end
+end
+```
+
+Columns: `Position2D`, `Velocity2D`, `Acceleration2D`, `Drag2D`, `Force2D`, `Wind2D`, `Impulse2D`,
+`Torque2D`. See the [Batch Scripts guide](/guides/batch-scripts/).
+
+## Step 4 — Behavior Graphs
+
+Logic as a graph in `assets/behaviors/*.behavior`, run with no VM, in every runtime. **`edges` carry
+control; `in` carries data**:
+
+```json
+{
+  "version": 1,
+  "nodes": [
+    { "id": "tick",  "op": "OnTick" },
+    { "id": "prey",  "op": "GetNearestByTag", "params": { "tag": "player" } },
+    { "id": "there", "op": "GetEntityPosition", "in": { "entity": { "from": "prey" } } },
+    { "id": "go",    "op": "MoveToward",
+      "in": { "target_pos": { "from": "there" }, "speed": { "value": 90.0 } } }
+  ],
+  "edges": [ { "from": "tick", "to": "go" } ]
+}
+```
+
+```json
+{ "behavior_graph": { "graph_path": "behaviors/moth.behavior", "overrides": { "go": { "speed": 120 } } } }
+```
+
+There are 68 ops; the generated **Op reference** in the [Scripting API](/api-reference/scripting-api/)
+lists each one's inputs, outputs and params. A graph's `EmitEvent` reaches scripts as
+`on_<name>(entity, { value, x, y })`; a script's `Event.send` reaches a graph's `OnEvent`. See the
+[Behavior Graph guide](/guides/behavior-graph/).
+
+## Step 5 — Prefer Native Components for Continuous Motion
+
+| Goal | Use |
+|------|-----|
+| Linear velocity | `velocity` |
+| Bounce inside bounds | `bounce_area` |
+| Despawn after N seconds | `lifetime` |
+| Despawn after leaving the view | `despawn_offscreen` |
+| Gravity and collisions | `rigid_body` + `collider` |
+| Walk a level | kinematic `rigid_body` + `character_controller`, moved with `Physics.move_character` |
+| Follow another entity | `follow_target` |
+| Waypoints | `patrol_path` (+ `face_velocity`) |
+| Ride a drawn curve | `path_follow` on a `vector_path` |
+| Path around obstacles | `nav_agent` in a `nav_region` |
+| Bob, pulse, sway | `oscillator` |
+
+```json
+{ "velocity": { "x": 100, "y": -50 }, "bounce_area": { "min_x": -320, "min_y": -240, "max_x": 320, "max_y": 240, "damping": 1.0 } }
+```
+
+## Step 6 — The Script API
+
+The complete API — over 400 functions — is in three formats:
+
+| Source | Format | Usage |
+|--------|--------|-------|
+| [`/ai/api-spec.json`](/ai/api-spec.json) | JSON | Tool-calling agents, function lookup |
+| [`/ai/llm-context.md`](/ai/llm-context.md) | Markdown | System prompts, RAG retrieval |
+| [Scripting API Reference](/api-reference/scripting-api/) | HTML | Browsing, examples |
+
+Namespaces: `Entity`, `Transform`, `Sprite`, `Text`, `Input`, `Physics`, `Audio`, `Animation`,
+`Skeleton`, `Tween`, `Timer`, `Time`, `Event`, `Scene`, `Camera`, `UI`, `GUI`, `Lighting`, `Material`,
+`PostProcess`, `Particles`, `Tilemap`, `Nav`, `PathFollow`, `Line`, `Trail`, `Cloth`, `Mesh`, `Area`,
+`CanvasGroup`, `Video`, `Data`, `Save`, `Persistent`, `Locale`, `Math`, `Debug`, `Script`.
+
+Each linked package adds one more (`Platformer`, `Cards`, ...). Test that a package is linked before
+calling it: `if Platformer == nil then return end`.
+
+## Step 7 — Key Constraints & Rules
+
+### Deferred mutations
+
+**All setter calls queue commands** that apply after every script has run. Reads return snapshot values
+from frame start:
+
+```lua
+Transform.set_position(entity, 100, 50)
+local x, y = Transform.get_position(entity)  -- the OLD value, not (100, 50)
+```
+
+`Entity.spawn_prefab` returns the new entity at once, so it can be configured in the same frame.
+
+### Execution budget
+
+The native runtime can cap script time per frame (`settings.script_budget` in `project.jengine`, or
+`JENGINE_SCRIPT_MAX_MS`, `JENGINE_SCRIPT_MAX_INVOCATIONS`, `JENGINE_SCRIPT_OVERFLOW_POLICY`,
+`JENGINE_SCRIPT_DEFERRED_CAP`). Overflow policy is `warn`, `drop` or `defer`.
+
+### Coordinate system
+
+- **X** right is positive, **Y** up is positive, origin at the world centre
+- **Angles** in radians, counter-clockwise; turning the camera entity turns the view
+- **Colour** `[r, g, b, a]`, 0.0–1.0, **linear**
+- **A tilemap** hangs cell (0, 0) at its transform — the top-left corner — with rows running down
+
+## Step 8 — Run & Test
+
+```bash
+cargo run -p jengine-builder --bin jengine -- run projects/my-game        # native, release build
+cargo run -p jengine-builder --bin jengine -- web-build projects/my-game  # web build
+./run-editor.ps1                                    # the editor (Windows; ./run-editor.sh elsewhere)
+```
+
+## Step 9 — Build for Distribution
+
+- **Windows** and **Web**: from the editor's Build Settings; the Web build also from
+  `jengine web-build <project>` (output in `target/web-build/<project>/`).
+- **Linux**: `jengine linux-build <project>` (tested under WSL only). macOS and iOS builds exist but are
+  unverified - do not promise them to a user.
+- **Android**: `jengine android-build <project>` (debug APK; `--bundle --release-key` for Google Play).
+- A project with Rust packages has its own runtime crate generated per target; the editor needs
+  `jengine viewport-build <project>` (or its *Rebuild viewport* banner) to run them.
+
+## Common Patterns
+
+### Spawning projectiles
+
+```lua
+function update(entity, dt)
+    if Input.is_action_just_pressed("fire") then
+        local x, y = Transform.get_position(entity)
+        local bullet = Entity.spawn_prefab("prefabs/bullet.prefab")
+        Transform.set_position(bullet, x, y + 20)
+        Physics.set_velocity(bullet, 0, 500)
+    end
+end
+```
+
+Put `lifetime` or `despawn_offscreen` on the bullet prefab instead of a self-destruct script, and
+`"ccd": true` on its `rigid_body` if it is fast.
+
+### Destroying on collision
+
+```lua
+script = { events = { "on_collision_enter" } }
+
+function on_collision_enter(entity, other)
+    if Entity.get_name(other) == "Enemy" then
+        Entity.destroy(other)
+        Audio.play_sound("sounds/explosion.wav")   -- listed in the scene's audio_refs
+    end
+end
+```
+
+### Events between entities
+
+```lua
+-- listener
+function init(entity) Event.on("score_changed", entity) end
+function on_score_changed(entity, data) log("score " .. data.score) end
+
+-- sender
+Event.send("score_changed", entity, { score = 42 })
+```
+
+### Scene transitions
+
+```lua
+if Input.is_action_just_pressed("interact") then
+    Scene.load("scenes/level2.scene")
+end
+```
+
+A `require`d module keeps its state across scenes; reset it in the new scene's `init`.
+
+## Error Checklist
+
+Common mistakes AI agents make:
+
+1. **Calling flat names from Lua** — `get_position(e)` works, but shipped scripts use
+   `Transform.get_position(e)`; the repository's tests reject flat names in game scripts.
+2. **Forgetting deferred semantics** — a setter takes effect after the frame's scripts have run.
+3. **A sound not in `audio_refs`** — it does not play.
+4. **A v1 scene with package components** — they load as inert custom data; use `"version": 2`.
+5. **Rotation in degrees** — jEngine uses radians (`math.rad()` in Lua).
+6. **Y-axis direction** — Y increases upward.
+7. **Asset paths** — relative to `assets/`, never the project root.
+8. **sRGB colours** — colours are linear; a mid-grey is about `0.21`, not `0.5`.
+9. **`tick_rate` as a frame interval** — it is updates per second.
+10. **Dialect-only Lua** — `math.atan2`, `%d` on a float: works in one runtime, fails in the other.

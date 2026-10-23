@@ -1,0 +1,302 @@
+{
+  "name": "17 - Physics",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-320.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "17 - PHYSICS", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "WASD / Arrows  move player    SPACE  jump", "font_id": "", "font_scale": 1.2, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 215.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "1  kick balls left     2  kick balls up     3  kick balls right", "font_id": "", "font_scale": 1.2, "color": [1.0, 0.95, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "T  spawn ball at player    G  shake crates    R  reset scene", "font_id": "", "font_scale": 1.2, "color": [0.7, 1.0, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": { "position": [-580.0, 145.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "rapier2d via RigidBody2D + Collider2D. Sensor on the right detects entries.", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.8, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Floor",
+      "components": {
+        "transform": { "position": [0.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.35, 0.35, 0.42, 1.0], "z_order": 0, "size": [1240.0, 32.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 1240.0, "height": 32.0 } },
+          "friction": 0.9,
+          "restitution": 0.0
+        }
+      }
+    },
+    {
+      "name": "RampLeft",
+      "components": {
+        "transform": { "position": [-380.0, -200.0], "rotation": -0.45, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.5, 0.4, 0.35, 1.0], "z_order": 0, "size": [260.0, 20.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 260.0, "height": 20.0 } },
+          "friction": 0.6,
+          "restitution": 0.0
+        }
+      }
+    },
+    {
+      "name": "RampRight",
+      "components": {
+        "transform": { "position": [380.0, -200.0], "rotation": 0.45, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.5, 0.4, 0.35, 1.0], "z_order": 0, "size": [260.0, 20.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 260.0, "height": 20.0 } },
+          "friction": 0.6,
+          "restitution": 0.0
+        }
+      }
+    },
+
+    {
+      "name": "Crate1",
+      "components": {
+        "transform": { "position": [-60.0, -80.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.75, 0.55, 0.3, 1.0], "z_order": 1, "size": [38.0, 38.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 1.0, "linear_damping": 0.05 },
+        "collider": {
+          "shape": { "Box": { "width": 38.0, "height": 38.0 } },
+          "friction": 0.7,
+          "restitution": 0.05,
+          "density": 1.2
+        }
+      }
+    },
+    {
+      "name": "Crate2",
+      "components": {
+        "transform": { "position": [-20.0, -80.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.75, 0.55, 0.3, 1.0], "z_order": 1, "size": [38.0, 38.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 1.0, "linear_damping": 0.05 },
+        "collider": {
+          "shape": { "Box": { "width": 38.0, "height": 38.0 } },
+          "friction": 0.7,
+          "restitution": 0.05,
+          "density": 1.2
+        }
+      }
+    },
+    {
+      "name": "Crate3",
+      "components": {
+        "transform": { "position": [20.0, -80.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.75, 0.55, 0.3, 1.0], "z_order": 1, "size": [38.0, 38.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 1.0, "linear_damping": 0.05 },
+        "collider": {
+          "shape": { "Box": { "width": 38.0, "height": 38.0 } },
+          "friction": 0.7,
+          "restitution": 0.05,
+          "density": 1.2
+        }
+      }
+    },
+    {
+      "name": "Crate4",
+      "components": {
+        "transform": { "position": [60.0, -80.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.75, 0.55, 0.3, 1.0], "z_order": 1, "size": [38.0, 38.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 1.0, "linear_damping": 0.05 },
+        "collider": {
+          "shape": { "Box": { "width": 38.0, "height": 38.0 } },
+          "friction": 0.7,
+          "restitution": 0.05,
+          "density": 1.2
+        }
+      }
+    },
+    {
+      "name": "Crate5",
+      "components": {
+        "transform": { "position": [-40.0, -30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.85, 0.65, 0.35, 1.0], "z_order": 1, "size": [38.0, 38.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 1.5, "linear_damping": 0.05 },
+        "collider": {
+          "shape": { "Box": { "width": 38.0, "height": 38.0 } },
+          "friction": 0.7,
+          "restitution": 0.05,
+          "density": 1.2
+        }
+      }
+    },
+    {
+      "name": "Crate6",
+      "components": {
+        "transform": { "position": [40.0, -30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.85, 0.65, 0.35, 1.0], "z_order": 1, "size": [38.0, 38.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 1.5, "linear_damping": 0.05 },
+        "collider": {
+          "shape": { "Box": { "width": 38.0, "height": 38.0 } },
+          "friction": 0.7,
+          "restitution": 0.05,
+          "density": 1.2
+        }
+      }
+    },
+
+    {
+      "name": "Ball1",
+      "components": {
+        "transform": { "position": [-300.0, 50.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.95, 0.3, 0.35, 1.0], "z_order": 2, "size": [28.0, 28.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 0.5, "linear_damping": 0.15, "angular_damping": 0.1 },
+        "collider": {
+          "shape": { "Circle": { "radius": 14.0 } },
+          "friction": 0.3,
+          "restitution": 0.75,
+          "density": 0.8
+        }
+      }
+    },
+    {
+      "name": "Ball2",
+      "components": {
+        "transform": { "position": [-150.0, 120.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.35, 0.85, 0.45, 1.0], "z_order": 2, "size": [28.0, 28.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 0.5, "linear_damping": 0.15, "angular_damping": 0.1 },
+        "collider": {
+          "shape": { "Circle": { "radius": 14.0 } },
+          "friction": 0.3,
+          "restitution": 0.75,
+          "density": 0.8
+        }
+      }
+    },
+    {
+      "name": "Ball3",
+      "components": {
+        "transform": { "position": [150.0, 120.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.3, 0.55, 0.95, 1.0], "z_order": 2, "size": [28.0, 28.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 0.5, "linear_damping": 0.15, "angular_damping": 0.1 },
+        "collider": {
+          "shape": { "Circle": { "radius": 14.0 } },
+          "friction": 0.3,
+          "restitution": 0.75,
+          "density": 0.8
+        }
+      }
+    },
+    {
+      "name": "Ball4",
+      "components": {
+        "transform": { "position": [300.0, 50.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.95, 0.85, 0.3, 1.0], "z_order": 2, "size": [28.0, 28.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 0.5, "linear_damping": 0.15, "angular_damping": 0.1 },
+        "collider": {
+          "shape": { "Circle": { "radius": 14.0 } },
+          "friction": 0.3,
+          "restitution": 0.75,
+          "density": 0.8
+        }
+      }
+    },
+
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0.0, 100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.4, 0.8, 1.0, 1.0], "z_order": 3, "size": [28.0, 44.0], "anchor": [0.5, 0.5] },
+        "rigid_body": {
+          "body_type": "Dynamic",
+          "mass": 1.2,
+          "gravity_scale": 1.8,
+          "linear_damping": 0.05,
+          "angular_damping": 1.0,
+          "fixed_rotation": true
+        },
+        "collider": {
+          "shape": { "Capsule": { "half_height": 10.0, "radius": 12.0 } },
+          "friction": 0.4,
+          "restitution": 0.0,
+          "density": 1.0
+        }
+      }
+    },
+
+    {
+      "name": "SensorZone",
+      "components": {
+        "transform": { "position": [540.0, -260.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.4, 0.95, 0.5, 0.18], "z_order": 0, "size": [120.0, 120.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 120.0, "height": 120.0 } },
+          "is_sensor": true
+        }
+      }
+    },
+    {
+      "name": "SensorLabel",
+      "components": {
+        "transform": { "position": [490.0, -195.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "sensor", "font_id": "", "font_scale": 1.0, "color": [0.5, 1.0, 0.6, 1.0], "z_order": 11 }
+      }
+    },
+
+    {
+      "name": "Status",
+      "components": {
+        "transform": { "position": [-580.0, -260.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "player: pos (0, 0)  vel (0, 0)", "font_id": "", "font_scale": 1.2, "color": [0.95, 0.95, 0.95, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Status2",
+      "components": {
+        "transform": { "position": [-580.0, -295.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "balls spawned: 4", "font_id": "", "font_scale": 1.2, "color": [0.75, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Status3",
+      "components": {
+        "transform": { "position": [-580.0, -330.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "last kick: (none)", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.85, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_17_physics.lua" }
+      }
+    }
+  ]
+}

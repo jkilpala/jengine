@@ -1,0 +1,748 @@
+{
+ "name": "161 - Trophy Room",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Room",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/room.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cup1",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_cup.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.10048,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Star1",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_star.png",
+     "color": [
+      0.63828,
+      0.69207,
+      0.78741,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shield1",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_shield.png",
+     "color": [
+      0.60383,
+      0.26327,
+      0.08354,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Medal1",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_medal.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.10048,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Medal2",
+   "components": {
+    "transform": {
+     "position": [
+      -280.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_medal.png",
+     "color": [
+      0.63828,
+      0.69207,
+      0.78741,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Cup2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_cup.png",
+     "color": [
+      0.60383,
+      0.26327,
+      0.08354,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Star2",
+   "components": {
+    "transform": {
+     "position": [
+      280.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_star.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.10048,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Shield2",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_shield.png",
+     "color": [
+      0.63828,
+      0.69207,
+      0.78741,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Cup3",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      -70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/trophyroom/trophy_cup.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.10048,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      88.0,
+      102.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "sprite_outline": {
+     "enabled": false,
+     "color": [
+      1.0,
+      0.78741,
+      0.21404,
+      1.0
+     ],
+     "width": 2.0,
+     "glow": 8.0,
+     "pulse": 1.2,
+     "pulse_amount": 0.5
+    }
+   }
+  },
+  {
+   "name": "Achievements",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "toast_stack": {
+     "corner": "top_right",
+     "margin": [
+      24.0,
+      24.0
+     ],
+     "size": [
+      380.0,
+      88.0
+     ],
+     "gap": 10.0,
+     "max_shown": 3,
+     "seconds": 4.5,
+     "slide": 0.4,
+     "texture": "sprites/trophyroom/card_gold.png",
+     "border": 18.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "title_color": [
+      1.0,
+      0.69207,
+      0.17064,
+      1.0
+     ],
+     "text_color": [
+      0.89001,
+      0.82757,
+      0.69207,
+      1.0
+     ],
+     "title_size": 21.0,
+     "text_size": 16.0,
+     "icon_size": 56.0,
+     "padding": 16.0,
+     "z_order": 220,
+     "icons": [
+      "sprites/trophyroom/icon_cup.png",
+      "sprites/trophyroom/icon_star.png",
+      "sprites/trophyroom/icon_gem.png",
+      "sprites/trophyroom/icon_bell.png",
+      "sprites/trophyroom/icon_friend.png",
+      "sprites/trophyroom/icon_scroll.png"
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s161_trophy_room.lua"
+    }
+   }
+  },
+  {
+   "name": "Notices",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "toast_stack": {
+     "corner": "bottom_left",
+     "margin": [
+      24.0,
+      70.0
+     ],
+     "size": [
+      330.0,
+      74.0
+     ],
+     "gap": 8.0,
+     "max_shown": 3,
+     "seconds": 3.5,
+     "slide": 0.35,
+     "texture": "sprites/trophyroom/card_blue.png",
+     "border": 18.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "title_color": [
+      0.52252,
+      0.74841,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.78741,
+      0.82757,
+      0.91141,
+      1.0
+     ],
+     "title_size": 18.0,
+     "text_size": 15.0,
+     "icon_size": 44.0,
+     "padding": 14.0,
+     "z_order": 220,
+     "icons": [
+      "sprites/trophyroom/icon_cup.png",
+      "sprites/trophyroom/icon_star.png",
+      "sprites/trophyroom/icon_gem.png",
+      "sprites/trophyroom/icon_bell.png",
+      "sprites/trophyroom/icon_friend.png",
+      "sprites/trophyroom/icon_scroll.png"
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "161   Trophy Room",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click a trophy to unlock it   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

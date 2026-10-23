@@ -1,0 +1,11 @@
+{
+  "name": "CmdClock",
+  "version": 1,
+  "nodes": [
+    { "id": "timer", "op": "OnTimer", "params": { "interval_seconds": 1.0 } },
+    { "id": "turn",  "op": "SetRotation",
+      "in": { "rot": { "from": "timer", "out": "tick_index", "scale": -0.5235988 } }
+    }
+  ],
+  "edges": [ { "from": "timer", "to": "turn" } ]
+}

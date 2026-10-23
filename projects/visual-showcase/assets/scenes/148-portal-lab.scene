@@ -1,0 +1,747 @@
+{
+ "name": "148 - Portal Lab",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "BackWall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/backwall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FloorLeft",
+   "components": {
+    "transform": {
+     "position": [
+      -507.5,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      265.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 265.0,
+       "height": 160.0
+      }
+     },
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "FloorRight",
+   "components": {
+    "transform": {
+     "position": [
+      122.5,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      695.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 695.0,
+       "height": 160.0
+      }
+     },
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "WallLow",
+   "components": {
+    "transform": {
+     "position": [
+      565.0,
+      -282.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/wallslab.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      190.0,
+      175.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 190.0,
+       "height": 175.0
+      }
+     },
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "WallHigh",
+   "components": {
+    "transform": {
+     "position": [
+      565.0,
+      167.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/wallslab.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      190.0,
+      425.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 190.0,
+       "height": 425.0
+      }
+     },
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "WallLeft",
+   "components": {
+    "transform": {
+     "position": [
+      -630.0,
+      85.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/wallslab.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      60.0,
+      590.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60,
+       "height": 590.0
+      }
+     },
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "Ceiling",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/ceiling.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      1280.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1280,
+       "height": 80
+      }
+     },
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "Pit",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 170.0,
+       "height": 20.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Shaft",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 20.0,
+       "height": 170.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Blue",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "portal": {
+     "pair": "Orange",
+     "width": 150.0,
+     "depth": 150.0,
+     "z_order": 11,
+     "tint": [
+      0.85,
+      0.92,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Orange",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -120.0
+     ],
+     "rotation": 1.5707963,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "portal": {
+     "pair": "Blue",
+     "width": 150.0,
+     "depth": 150.0,
+     "z_order": 11,
+     "tint": [
+      1.0,
+      0.92,
+      0.85,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlueRim",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/rim.png",
+     "color": [
+      0.07324,
+      0.31855,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      180.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "OrangeRim",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -120.0
+     ],
+     "rotation": 1.5707963,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/rim.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.01961,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      180.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Dispenser",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/dispenser.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      90.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Launcher",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -175.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/portallab/launcher.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      120.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s148_portal_lab.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "148   Portal Lab",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space drop a crate   F fire one at the wall   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

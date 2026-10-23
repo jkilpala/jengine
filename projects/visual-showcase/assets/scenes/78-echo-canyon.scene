@@ -1,0 +1,1364 @@
+{
+ "name": "78 - Echo Canyon",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.75
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.05,
+       0.0,
+       0.05,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.8,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.35
+     ],
+     "z_order": -99,
+     "size": [
+      1320.0,
+      340.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Mesas",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -72.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/mesas.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1700.0,
+      256.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "WallLeft",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/wall_left.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      420.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "WallRight",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/wall_right.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      420.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/ground.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1360.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Cactus0",
+   "components": {
+    "transform": {
+     "position": [
+      -610.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/cactus.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      110.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cactus1",
+   "components": {
+    "transform": {
+     "position": [
+      640.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/cactus.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      88.0,
+      152.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cactus2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/cactus.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      60.50000000000001,
+      104.50000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tent",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      200.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      90.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Radio",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -138.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/radio.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -19,
+     "size": [
+      100.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/canyon_radio.wav",
+     "volume": 0.7,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "bus_id": "music",
+     "spatial": true,
+     "min_distance": 160.0,
+     "max_distance": 1100.0,
+     "pan_width": 600.0
+    }
+   }
+  },
+  {
+   "name": "RadioGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -312.0,
+      -102.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.13287,
+      0.5
+     ],
+     "z_order": -18,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "FireGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.55
+     ],
+     "z_order": -25,
+     "size": [
+      260.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Fire",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 40.0,
+     "max_particles": 120,
+     "lifetime": [
+      0.5,
+      0.9
+     ],
+     "speed": [
+      40.0,
+      90.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "color_end": [
+      0.78741,
+      0.0331,
+      0.00394,
+      0.0
+     ],
+     "size_start": [
+      26.0,
+      34.0
+     ],
+     "size_end": [
+      6.0,
+      10.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -17,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 14.0
+     }
+    },
+    "audio_source": {
+     "clip_id": "sounds/forge_fire.wav",
+     "volume": 0.4,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "bus_id": "master",
+     "spatial": true,
+     "min_distance": 80.0,
+     "max_distance": 700.0,
+     "pan_width": 500.0
+    }
+   }
+  },
+  {
+   "name": "Wind",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/canyon_wind.wav",
+     "volume": 0.25,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "bus_id": "master"
+    }
+   }
+  },
+  {
+   "name": "CanyonZone",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_zone": {
+     "size": [
+      420.0,
+      900.0
+     ],
+     "bus": "sfx",
+     "reverb": 0.2,
+     "room": 0.85,
+     "fade": 120.0,
+     "echo": 0.55,
+     "echo_time": 0.42,
+     "echo_feedback": 0.45
+    }
+   }
+  },
+  {
+   "name": "Hiker",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/hiker.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      70.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "audio_listener": {}
+   }
+  },
+  {
+   "name": "HikerCall",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/canyon/hiker_call.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 10,
+     "size": [
+      70.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 0.0,
+     "max_particles": 60,
+     "lifetime": [
+      0.5,
+      0.8
+     ],
+     "speed": [
+      15.0,
+      40.0
+     ],
+     "angle": [
+      0.3,
+      2.8
+     ],
+     "color_start": [
+      0.69207,
+      0.39312,
+      0.17064,
+      0.6
+     ],
+     "color_end": [
+      0.69207,
+      0.39312,
+      0.17064,
+      0.0
+     ],
+     "size_start": [
+      10.0,
+      16.0
+     ],
+     "size_end": [
+      26.0,
+      36.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 11
+    }
+   }
+  },
+  {
+   "name": "Call",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.6,
+     "color": [
+      1.0,
+      0.89001,
+      0.69207,
+      1.0
+     ],
+     "z_order": 20,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Ring0",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.31855,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Echo0",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      1.0,
+      0.78741,
+      0.52252,
+      0.0
+     ],
+     "z_order": 21,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Ring1",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.31855,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Echo1",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      1.0,
+      0.78741,
+      0.52252,
+      0.0
+     ],
+     "z_order": 21,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Ring2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.31855,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Echo2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      1.0,
+      0.78741,
+      0.52252,
+      0.0
+     ],
+     "z_order": 21,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Ring3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.31855,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Echo3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      1.0,
+      0.78741,
+      0.52252,
+      0.0
+     ],
+     "z_order": 21,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Ring4",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.31855,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Echo4",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      1.0,
+      0.78741,
+      0.52252,
+      0.0
+     ],
+     "z_order": 21,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s78_echo_canyon.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "78   Echo Canyon",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  call   E  echo   R  radio   V  varied steps   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ],
+ "audio_refs": [
+  "sounds/canyon_shout.wav",
+  "sounds/canyon_step.wav",
+  "sounds/canyon_radio.wav",
+  "sounds/canyon_wind.wav",
+  "sounds/forge_fire.wav"
+ ]
+}

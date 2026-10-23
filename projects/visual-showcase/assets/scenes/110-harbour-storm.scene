@@ -1,0 +1,1896 @@
+{
+ "name": "110 - Harbour Storm",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.55
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.01,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 0.9
+     },
+     "tint_color": {
+      "Vec4": [
+       0.85,
+       0.92,
+       1.0,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0012
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.8,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.23302,
+      0.60383
+     ],
+     "intensity": 0.2
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/env/st_sky.png",
+     "color": [
+      0.17064,
+      0.21404,
+      0.34239,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      2000.0,
+      1200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Clouds0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/env/st_clouds.png",
+     "color": [
+      0.08354,
+      0.09463,
+      0.14732,
+      0.85
+     ],
+     "z_order": -95,
+     "size": [
+      2600.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Clouds1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/env/st_clouds.png",
+     "color": [
+      0.08354,
+      0.09463,
+      0.14732,
+      0.7
+     ],
+     "z_order": -90,
+     "size": [
+      2600.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Headland",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_headland"
+    ],
+    "sprite": {
+     "texture_id": "sprites/storm/headland.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      700.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/storm/headland_n.png"
+    }
+   }
+  },
+  {
+   "name": "Lighthouse",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_lighthouse"
+    ],
+    "sprite": {
+     "texture_id": "sprites/storm/lighthouse.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 24,
+     "size": [
+      160.0,
+      440.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/storm/lighthouse_n.png"
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      307.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1700.0,
+       0.0
+      ]
+     ],
+     "width": 26.0,
+     "width_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       9.0
+      ]
+     ],
+     "gradient": [
+      [
+       0.0,
+       1.6,
+       1.5,
+       1.2,
+       0.32
+      ],
+      [
+       0.3,
+       1.0,
+       0.95,
+       0.75,
+       0.1
+      ],
+      [
+       1.0,
+       1.0,
+       0.95,
+       0.8,
+       0.0
+      ]
+     ],
+     "z_order": 30,
+     "blend_mode": "Additive",
+     "begin_cap": "round"
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.60383
+     ],
+     "intensity": 2.6,
+     "radius": 1800.0,
+     "angle": 0.1,
+     "direction": 0.0,
+     "falloff": 0.9,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "height": 0.3
+    }
+   }
+  },
+  {
+   "name": "Door",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      -38.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.83603,
+      0.27302,
+      0.8
+     ],
+     "z_order": 27,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.17064
+     ],
+     "intensity": 1.8,
+     "radius": 420.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "LampGlow",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      307.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      3.0,
+      2.36223,
+      1.14018,
+      0.9
+     ],
+     "z_order": 25,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.69207,
+      0.31855
+     ],
+     "intensity": 1.2,
+     "radius": 360.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Sea",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "water_surface": {
+     "width": 2000.0,
+     "depth": 420.0,
+     "spacing": 8.0,
+     "tension": 0.018,
+     "damping": 0.02,
+     "spread": 0.25,
+     "splash": 0.014,
+     "chop": 22.0,
+     "chop_strength": 1.6,
+     "swell_height": 16.0,
+     "swell_length": 520.0,
+     "swell_speed": 70.0,
+     "buoyancy": 2.4,
+     "drag": 2.6,
+     "angular_drag": 3.0,
+     "color_top": [
+      0.05497,
+      0.14732,
+      0.21404,
+      0.86
+     ],
+     "color_deep": [
+      0.00155,
+      0.00394,
+      0.00854,
+      0.97
+     ],
+     "foam_color": [
+      0.52252,
+      0.69207,
+      0.82757,
+      0.85
+     ],
+     "foam_width": 4.0,
+     "z_order": 20
+    }
+   }
+  },
+  {
+   "name": "Pier",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_planks.png",
+     "color": [
+      0.44799,
+      0.39312,
+      0.34239,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      480.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       30.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 480.0,
+       "height": 30.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "Post0",
+   "components": {
+    "transform": {
+     "position": [
+      -760.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_post.png",
+     "color": [
+      0.31855,
+      0.27384,
+      0.23302,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      22.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post1",
+   "components": {
+    "transform": {
+     "position": [
+      -620.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_post.png",
+     "color": [
+      0.31855,
+      0.27384,
+      0.23302,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      22.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post2",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_post.png",
+     "color": [
+      0.31855,
+      0.27384,
+      0.23302,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      22.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post3",
+   "components": {
+    "transform": {
+     "position": [
+      -340.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_post.png",
+     "color": [
+      0.31855,
+      0.27384,
+      0.23302,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      22.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PierLamp",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.14732
+     ],
+     "intensity": 1.3,
+     "radius": 460.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "PierLampGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.44799,
+      0.13287,
+      0.6
+     ],
+     "z_order": 13,
+     "size": [
+      130.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PierLampPost",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_post.png",
+     "color": [
+      0.05088,
+      0.04696,
+      0.05497,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      7.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "WallW",
+   "components": {
+    "transform": {
+     "position": [
+      -1040.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 1400.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "WallE",
+   "components": {
+    "transform": {
+     "position": [
+      1040.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 1400.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Rock",
+   "components": {
+    "transform": {
+     "position": [
+      620.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 460.0,
+       "height": 170.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Trawler",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_trawler.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      180.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 4.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 160.0,
+       "height": 44.0
+      }
+     },
+     "offset": [
+      0.0,
+      -29.0
+     ],
+     "friction": 0.6,
+     "restitution": 0.05
+    },
+    "joint": {
+     "target_entity": "Pier",
+     "collide_connected": false,
+     "joint_type": {
+      "Rope": {
+       "anchor_a": [
+        -80.0,
+        -10.0
+       ],
+       "anchor_b": [
+        220.0,
+        -12.0
+       ],
+       "max_distance": 150.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "TrawlerRope",
+   "components": {
+    "transform": {
+     "position": [
+      -340.0,
+      -52.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.69207,
+      0.52252,
+      0.31855,
+      1.0
+     ],
+     "z_order": 15,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 138.0,
+     "segments": 12,
+     "width": 5.0,
+     "end": "Trawler",
+     "end_offset": [
+      -80.0,
+      -10.0
+     ],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      40.0,
+      0.0
+     ],
+     "gust": 0.6,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   }
+  },
+  {
+   "name": "Tug",
+   "components": {
+    "transform": {
+     "position": [
+      160.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_tug.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      150.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 4.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 134.0,
+       "height": 40.0
+      }
+     },
+     "offset": [
+      0.0,
+      -26.0
+     ],
+     "friction": 0.6,
+     "restitution": 0.05
+    },
+    "joint": {
+     "target_entity": "Pier",
+     "collide_connected": false,
+     "joint_type": {
+      "Rope": {
+       "anchor_a": [
+        -60.0,
+        -10.0
+       ],
+       "anchor_b": [
+        220.0,
+        -12.0
+       ],
+       "max_distance": 420.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "TugRope",
+   "components": {
+    "transform": {
+     "position": [
+      -340.0,
+      -52.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.69207,
+      0.52252,
+      0.31855,
+      1.0
+     ],
+     "z_order": 15,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 386.40000000000003,
+     "segments": 12,
+     "width": 5.0,
+     "end": "Tug",
+     "end_offset": [
+      -60.0,
+      -10.0
+     ],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      40.0,
+      0.0
+     ],
+     "gust": 0.6,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   }
+  },
+  {
+   "name": "Dinghy",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hb_dinghy.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      100.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.2,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 90.0,
+       "height": 20.0
+      }
+     },
+     "offset": [
+      0.0,
+      -13.0
+     ],
+     "friction": 0.6,
+     "restitution": 0.05
+    },
+    "joint": {
+     "target_entity": "Pier",
+     "collide_connected": false,
+     "joint_type": {
+      "Rope": {
+       "anchor_a": [
+        0.0,
+        -6.0
+       ],
+       "anchor_b": [
+        80.0,
+        -12.0
+       ],
+       "max_distance": 90.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "DinghyRope",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      -52.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.69207,
+      0.52252,
+      0.31855,
+      1.0
+     ],
+     "z_order": 15,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 82.8,
+     "segments": 12,
+     "width": 5.0,
+     "end": "Dinghy",
+     "end_offset": [
+      0.0,
+      -6.0
+     ],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      40.0,
+      0.0
+     ],
+     "gust": 0.6,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   }
+  },
+  {
+   "name": "Crate0",
+   "components": {
+    "transform": {
+     "position": [
+      -700.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      38.0,
+      38.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "friction": 0.6,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Crate1",
+   "components": {
+    "transform": {
+     "position": [
+      -660.0,
+      36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      38.0,
+      38.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "friction": 0.6,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Crate2",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      38.0,
+      38.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "friction": 0.6,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Crate3",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      38.0,
+      38.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.2,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "friction": 0.6,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Rain",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      520.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/st_drop.png",
+     "emission_rate": 900.0,
+     "max_particles": 900,
+     "lifetime": [
+      0.55,
+      0.75
+     ],
+     "speed": [
+      1000.0,
+      1200.0
+     ],
+     "angle": [
+      -1.85,
+      -1.75
+     ],
+     "color_start": [
+      0.44799,
+      0.57048,
+      0.78741,
+      0.55
+     ],
+     "color_end": [
+      0.44799,
+      0.57048,
+      0.78741,
+      0.35
+     ],
+     "size_start": [
+      3.0,
+      4.0
+     ],
+     "size_end": [
+      3.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 40,
+     "stretch": 0.03,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       2600.0,
+       20.0
+      ]
+     },
+     "blend_mode": "Alpha"
+    }
+   }
+  },
+  {
+   "name": "Spray",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 240,
+     "lifetime": [
+      0.5,
+      1.1
+     ],
+     "speed": [
+      160.0,
+      460.0
+     ],
+     "angle": [
+      1.7,
+      2.7
+     ],
+     "color_start": [
+      0.69207,
+      0.82757,
+      1.0,
+      0.85
+     ],
+     "color_end": [
+      0.60383,
+      0.74841,
+      0.89001,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      11.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": 0.9,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 60,
+     "active": true,
+     "world_space": true,
+     "z_order": 27,
+     "drag": 0.8,
+     "blend_mode": "Alpha"
+    }
+   }
+  },
+  {
+   "name": "BoltGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 18.0,
+     "color": [
+      0.95565,
+      1.34397,
+      3.0,
+      0.5
+     ],
+     "z_order": -85,
+     "blend_mode": "Additive",
+     "joint": "round"
+    }
+   }
+  },
+  {
+   "name": "Bolt",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 4.0,
+     "color": [
+      7.08669,
+      7.63281,
+      9.0,
+      1.0
+     ],
+     "z_order": -84,
+     "blend_mode": "Additive",
+     "joint": "round"
+    }
+   }
+  },
+  {
+   "name": "Flash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.63828,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 2600.0,
+     "falloff": 0.7,
+     "shadow_softness": 0.0,
+     "height": 0.8,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Weather",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s110_harbour_storm.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "110   Harbour Storm",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the boats ride the sea's own surface   S calm the storm   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

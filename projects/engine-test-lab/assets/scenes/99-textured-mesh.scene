@@ -1,0 +1,1268 @@
+{
+ "name": "99 - Textured Mesh",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Header",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "99 - TEXTURED MESH: A POLYGON DRAWN IN THE SPRITE PASS",
+     "font_id": "",
+     "font_scale": 1.8,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint1",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Left: a flat quad turning with its entity. Middle: the same trapezoid with q (perspective) and without (the diagonal bends).",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint2",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Right: a mesh at z 5 UNDER a sprite at z 10 - no separate mesh pass can do that. Far right: an unlit mesh in a dark scene, and one through a .shader material.",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint3",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      236.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Every mesh here is authored in the scene; nothing is drawn by script. Compare native / editor / web: they must match pixel for pixel.",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lighting",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.9,
+      0.92,
+      1.0
+     ],
+     "intensity": 0.55
+    }
+   }
+  },
+  {
+   "name": "Spinner",
+   "components": {
+    "transform": {
+     "position": [
+      -460.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        -80,
+        80
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        80,
+        80
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        80,
+        -80
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -80,
+        -80
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "SpinnerLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "flat quad, rotated by set_rotation",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Perspective",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        -50,
+        90
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 0.4166666666666667
+      },
+      {
+       "position": [
+        50,
+        90
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 0.4166666666666667
+      },
+      {
+       "position": [
+        120,
+        -90
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -120,
+        -90
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "PerspectiveLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "q = far / near: rows stay straight",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Affine",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        -50,
+        90
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        50,
+        90
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        120,
+        -90
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -120,
+        -90
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "AffineLabel",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "q = 1: the texture bends on the diagonal",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Under",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "color": [
+      1.0,
+      0.55,
+      0.45,
+      1.0
+     ],
+     "vertices": [
+      {
+       "position": [
+        -70,
+        70
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        70,
+        70
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        70,
+        -70
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -70,
+        -70
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Over",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.5,
+      0.7,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "UnderLabel",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "red mesh z 5, blue sprite z 10",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Unlit",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        -50,
+        50
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        50,
+        50
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        50,
+        -50
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -50,
+        -50
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lit",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        -50,
+        50
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        50,
+        50
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        50,
+        -50
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -50,
+        -50
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "UnlitLabel",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "top: unlit   bottom: lit by ambient",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Graded",
+   "components": {
+    "transform": {
+     "position": [
+      -460.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        -80,
+        50
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        80,
+        50
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1,
+        1,
+        1,
+        1
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        80,
+        -50
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        0.2,
+        0.2,
+        0.3,
+        1
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -80,
+        -50
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        0.2,
+        0.2,
+        0.3,
+        1
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "GradedLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "per-vertex colour: white on top, dark below",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Fan",
+   "components": {
+    "transform": {
+     "position": [
+      -160.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        0,
+        70
+       ],
+       "uv": [
+        0.5,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        67,
+        22
+       ],
+       "uv": [
+        0.98,
+        0.35
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        41,
+        -57
+       ],
+       "uv": [
+        0.79,
+        0.9
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -41,
+        -57
+       ],
+       "uv": [
+        0.21,
+        0.9
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -67,
+        22
+       ],
+       "uv": [
+        0.02,
+        0.35
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "FanLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -230.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "five vertices, no indices: a fan",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shaded",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/checker64.png",
+     "z_order": 5,
+     "vertices": [
+      {
+       "position": [
+        -70,
+        60
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        70,
+        60
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        70,
+        -60
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -70,
+        -60
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    },
+    "material": {
+     "material_id": "shaders/pulse_emission.shader"
+    }
+   }
+  },
+  {
+   "name": "ShadedLabel",
+   "components": {
+    "transform": {
+     "position": [
+      30.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "through a .shader graph, like a sprite",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.72,
+      0.78,
+      0.88,
+      1.0
+     ],
+     "z_order": 10
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "NavScript",
+   "components": {
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_99_textured_mesh.lua"
+    }
+   }
+  }
+ ]
+}

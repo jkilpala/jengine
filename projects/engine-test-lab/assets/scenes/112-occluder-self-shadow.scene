@@ -1,0 +1,458 @@
+{
+ "name": "112 - Occluders light their own inside",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.6,
+      0.65,
+      0.8
+     ],
+     "intensity": 0.06
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "112 - Occluders light their own inside",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      292.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "The lamp follows the mouse.   [H/Esc] hub   [PgUp/PgDn] prev / next",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.55,
+      0.55,
+      0.6,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1280.0,
+      560.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FreeBlock",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      180.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/bumps128_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      180.0,
+      180.0
+     ],
+     "self_shadow": false
+    }
+   }
+  },
+  {
+   "name": "FreeLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "self_shadow: false (default)",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.95,
+      0.95,
+      1.0,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "SelfBlock",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      180.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/bumps128_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      180.0,
+      180.0
+     ],
+     "self_shadow": true
+    }
+   }
+  },
+  {
+   "name": "SelfLabel",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "self_shadow: true",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.95,
+      0.95,
+      1.0,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.85,
+      0.6
+     ],
+     "intensity": 2.2,
+     "radius": 620.0,
+     "falloff": 1.4,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "LampDot",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      1.0,
+      0.9,
+      0.6,
+      1.0
+     ],
+     "z_order": 50,
+     "size": [
+      16.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "Left: the block is lit and its normal map shades it, and it casts a shadow.",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.85,
+      0.85,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "Right: the block is black inside - its own occluder shadows it (the old behaviour).",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.85,
+      0.85,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "Both cast the same shadow behind them. Put the lamp inside a block: it is boxed in.",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.7,
+      0.7,
+      0.8,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_112_self_shadow.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,140 @@
+---
+draft: false
+title: ECS & Components
+description: Understanding jEngine's Entity-Component-System architecture.
+---
+
+jEngine uses **hecs**, a minimal Entity-Component-System (ECS) framework. Every game object is an **entity** — a lightweight ID. Behavior and data are added through **components**. **Systems** are functions that process entities with specific component combinations.
+
+## Core Concepts
+
+### Entities
+
+An entity is just a number (ID). By itself, it has no behavior or data. You give it meaning by attaching components.
+
+### Components
+
+Components are plain data structs. jEngine registers over a hundred built-in components, and
+[packages](/packages/) add more. A few of the core ones, with the key a scene file uses:
+
+| Scene key | Rust type | Purpose |
+|-----------|-----------|---------|
+| `transform` | `Transform` | Position, rotation, scale |
+| `sprite` | `SpriteComponent` | Texture or atlas region, color, z-order, size, anchor, `y_sort` |
+| `script` | `ScriptComponent` | Lua or JS script attachment |
+| `text` | `TextComponent` | World text: font, size, alignment, wrapping, rich text, outline |
+| `camera` | `Camera2DComponent` | Zoom, viewport, active state, render target, pixel size |
+| `camera_follow` | `CameraFollow` | Follows the entity it is on, with dead zone and look-ahead |
+| `rigid_body` | `RigidBody2D` | Physics body (dynamic, static, kinematic) |
+| `collider` | `Collider2D` | Collision shape (box, circle, capsule, polygon, ...) |
+| `joint` | `Joint2D` | Physics joints (revolute, fixed, prismatic, rope, spring) |
+| `character_controller` | `CharacterController2D` | A kinematic body that walks a level |
+| `audio_source` | `AudioSource` | Sound clip attached to entity, optionally spatial |
+| `tilemap` | `Tilemap` | Tile-based map: orthogonal, isometric or hexagonal |
+| `particle_emitter` | `ParticleEmitter` | CPU particle emitter |
+| `material` | `MaterialComponent` | Material: blend mode, shader graph, parameters |
+| `point_light`, `spot_light`, `directional_light` | | Lights |
+| `light_occluder` | `LightOccluder` | Casts shadows |
+| `velocity` | `Velocity2D` | Simple kinematic velocity (no physics engine) |
+| `lifetime` | `Lifetime` | Despawn after a time |
+
+The [Components Reference](/api-reference/components/) is generated from the source and lists them all.
+
+### Systems
+
+Systems are Rust functions that query the ECS world for entities with specific components:
+
+```rust
+pub fn render_sprites(world: &World, renderer: &mut Renderer, camera: &Camera) {
+    for (_, (transform, sprite)) in world.query::<(&Transform, &SpriteComponent)>().iter() {
+        renderer.draw_sprite(transform, sprite, camera);
+    }
+}
+```
+
+## Scene Format
+
+Entities and their components are stored as JSON `.scene` files:
+
+```json
+{
+  "name": "Level 1",
+  "entities": [
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "player.png", "color": [1,1,1,1], "z_order": 0 },
+        "script": { "language": "Lua", "source_path": "scripts/player.lua" }
+      }
+    }
+  ]
+}
+```
+
+## Custom Components
+
+jEngine has two ways to add custom components.
+
+### Script-Defined Fields (no Rust)
+
+For lightweight per-entity data that scripts read/write, use the `CustomComponents` component defined in **Project Settings → Component Definitions**:
+
+```json
+{
+  "component_definitions": [
+    {
+      "name": "Health",
+      "fields": [
+        { "name": "current", "field_type": "Float", "default_value": 100.0 },
+        { "name": "max", "field_type": "Float", "default_value": 100.0 }
+      ]
+    }
+  ]
+}
+```
+
+Access the fields from Lua or JS scripts:
+
+```lua
+local hp = Entity.get_custom(entity, "Health", "current")
+Entity.set_custom(entity, "Health", "current", hp - 10)
+```
+
+This approach requires no compilation — good for rapid iteration and simple data.
+
+### Native Rust Components (Packages)
+
+For performance-critical components, shared data consumed by ECS systems, or components that integrate with third-party Rust crates, create a **native Rust package**.
+
+A native component is a plain Rust struct with serde derives:
+
+```rust
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Health {
+    pub current: f32,
+    pub max: f32,
+    pub regeneration: f32,
+}
+```
+
+It is registered through the `JEnginePackage` trait and appears in the editor just like built-in components. ECS systems can query it at full native speed:
+
+```rust
+for (_, health) in world.query_mut::<&mut Health>() {
+    health.current = (health.current + health.regeneration * dt).min(health.max);
+}
+```
+
+See the **[Package System guide](/guides/packages/)** for a full walkthrough: scaffolding the crate, implementing `JEnginePackage`, registering components and systems, adding script commands every runtime can call, and getting the package into a build. A scene that uses a package component must be a v2 scene (`"version": 2`).
+
+## Adding Components in the Editor
+
+1. Select an entity in the Scene Tree
+2. In the Inspector, click **Add Component**
+3. Choose from categorized menu: Core, Visuals, Physics, Audio, Camera, UI, Custom
+4. Configure the component's properties in the Inspector
+
+See the [Components Reference](/api-reference/components/) for detailed field documentation.

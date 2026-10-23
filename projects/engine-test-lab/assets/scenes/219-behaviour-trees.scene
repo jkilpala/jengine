@@ -1,0 +1,677 @@
+{
+ "name": "219 - Behaviour trees",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "219 - Behaviour trees",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   arrows move the thief   Space makes a noise where the thief stands",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Post0",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      16.0,
+      16.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "PostLabel0",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      94.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "A",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Post1",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      16.0,
+      16.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "PostLabel1",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      94.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "B",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Post2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      16.0,
+      16.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "PostLabel2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -226.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "C",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Sight",
+   "parent": "Guard",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.4,
+      0.3,
+      0.1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      340.0,
+      340.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Guard",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.45,
+      0.35,
+      1
+     ],
+     "z_order": 5,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      36.0,
+      36.0
+     ]
+    },
+    "behavior_tree": {
+     "root": {
+      "type": "selector",
+      "reactive": true,
+      "children": [
+       {
+        "type": "sequence",
+        "label": "chase",
+        "children": [
+         {
+          "type": "near",
+          "target": "Thief",
+          "distance": 170
+         },
+         {
+          "type": "move_to",
+          "label": "chase",
+          "target": "Thief",
+          "speed": 190,
+          "arrive": 30
+         },
+         {
+          "type": "call",
+          "call": "catch"
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "investigate",
+        "children": [
+         {
+          "type": "check",
+          "key": "noise",
+          "op": "set"
+         },
+         {
+          "type": "move_to",
+          "label": "go to the noise",
+          "target": "@noise",
+          "speed": 150,
+          "arrive": 6
+         },
+         {
+          "type": "wait",
+          "label": "search",
+          "seconds": 1.2
+         },
+         {
+          "type": "set",
+          "key": "noise",
+          "value": false
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "patrol",
+        "children": [
+         {
+          "type": "move_to",
+          "label": "to post A",
+          "target": [
+           -380,
+           120
+          ],
+          "speed": 90,
+          "arrive": 4
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 0.8,
+            "jitter": 0.6
+           },
+           {
+            "type": "wait",
+            "label": "yawn",
+            "seconds": 1.5
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "to post B",
+          "target": [
+           380,
+           120
+          ],
+          "speed": 90,
+          "arrive": 4
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 0.8,
+            "jitter": 0.6
+           },
+           {
+            "type": "wait",
+            "label": "yawn",
+            "seconds": 1.5
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "to post C",
+          "target": [
+           0,
+           -200
+          ],
+          "speed": 90,
+          "arrive": 4
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 0.8,
+            "jitter": 0.6
+           },
+           {
+            "type": "wait",
+            "label": "yawn",
+            "seconds": 1.5
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_219_behaviour_trees.lua"
+    }
+   }
+  },
+  {
+   "name": "Thief",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.35,
+      0.7,
+      1.0,
+      1
+     ],
+     "z_order": 5,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      26.0,
+      26.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Noise",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      1.0,
+      0.95,
+      0.4,
+      0.5
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      40.0,
+      40.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -120.0
+     ],
+     "size": [
+      700.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Line1",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -150.0
+     ],
+     "size": [
+      700.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the guard walks A, B, C and idles at each (look around / yawn); a noise sends it there to search, then back to patrol;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the thief inside its red circle is chased at once, mid-walk; caught, the script sends the thief home. Line 1 is the tree's running leaf.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  }
+ ]
+}

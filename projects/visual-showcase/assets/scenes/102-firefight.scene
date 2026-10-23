@@ -1,0 +1,5810 @@
+{
+ "name": "102 - Firefight",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.65
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.93,
+       0.85,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   },
+   {
+    "name": "film_grain",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.05
+     },
+     "size": {
+      "Float": 1.4
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.7,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.10048,
+      0.14732,
+      0.52252
+     ],
+     "intensity": 0.16
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": -2.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      0.26327,
+      0.38006,
+      1.0
+     ],
+     "intensity": 0.32,
+     "height": 0.8,
+     "softness": 14.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_floor"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1920.0,
+      1080.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/floor_n.png"
+    },
+    "paintable": {
+     "blend": "over"
+    }
+   }
+  },
+  {
+   "name": "Cover0",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/crate_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.16,
+       "height": 57.6
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      57.6,
+      54.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover1",
+   "components": {
+    "transform": {
+     "position": [
+      -496.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/crate_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.16,
+       "height": 57.6
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      57.6,
+      54.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover2",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      -210.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_sandbags"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/sandbags.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      180.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/sandbags_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 169.2,
+       "height": 54.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      162.0,
+      51.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover3",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      40.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrier"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/barrier.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      140.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/barrier_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 131.6,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      126.0,
+      34.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      250.0
+     ],
+     "rotation": 0.15,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_car"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/car.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      200.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/car_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 188.0,
+       "height": 86.4
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      180.0,
+      81.6
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover5",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/crate_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.16,
+       "height": 57.6
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      57.6,
+      54.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover6",
+   "components": {
+    "transform": {
+     "position": [
+      24.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/crate_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.16,
+       "height": 57.6
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      57.6,
+      54.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover7",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -40.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrier"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/barrier.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      140.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/barrier_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 131.6,
+       "height": 36.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      126.0,
+      34.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover8",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/crate_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.16,
+       "height": 57.6
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      57.6,
+      54.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover9",
+   "components": {
+    "transform": {
+     "position": [
+      584.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crate"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/crate_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.16,
+       "height": 57.6
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      57.6,
+      54.4
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cover10",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      210.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_sandbags"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/sandbags.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      180.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/sandbags_n.png"
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 169.2,
+       "height": 54.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      162.0,
+      51.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Region",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -900.0,
+       -520.0
+      ],
+      [
+       900.0,
+       -520.0
+      ],
+      [
+       900.0,
+       520.0
+      ],
+      [
+       -900.0,
+       520.0
+      ]
+     ],
+     "agent_radius": 18.0
+    }
+   }
+  },
+  {
+   "name": "Barrel",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrel_red"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/barrel_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/barrel_red_n.png"
+    }
+   }
+  },
+  {
+   "name": "Barrel1",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrel_rust"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/barrel_rust.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/barrel_rust_n.png"
+    }
+   }
+  },
+  {
+   "name": "Barrel2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_barrel_rust"
+    ],
+    "sprite": {
+     "texture_id": "sprites/firefight/barrel_rust.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/firefight/barrel_rust_n.png"
+    }
+   }
+  },
+  {
+   "name": "CarFlames",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 46.0,
+     "max_particles": 90,
+     "lifetime": [
+      0.45,
+      0.95
+     ],
+     "speed": [
+      25.0,
+      75.0
+     ],
+     "angle": [
+      0.5,
+      1.5
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      38.0,
+      54.0
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 24,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 34.0,
+      "edge": false
+     },
+     "color_curve": [
+      [
+       0.0,
+       4.0,
+       2.76828,
+       0.85616,
+       0.0
+      ],
+      [
+       0.15,
+       4.0,
+       2.09008,
+       0.40192,
+       1.0
+      ],
+      [
+       0.6,
+       2.5,
+       0.2982,
+       0.01798,
+       0.7
+      ],
+      [
+       1.0,
+       0.3,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 60.0,
+      "scale": 70.0,
+      "speed": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "CarEmbers",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 9.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.5,
+      3.0
+     ],
+     "speed": [
+      40.0,
+      110.0
+     ],
+     "angle": [
+      0.4,
+      1.6
+     ],
+     "color_start": [
+      5.0,
+      1.59275,
+      0.1655,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 26,
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 70.0,
+      "scale": 120.0,
+      "speed": 0.8
+     },
+     "drag": 0.6,
+     "light": {
+      "every": 1,
+      "max": 10,
+      "radius": 60.0,
+      "intensity": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "CarSmoke",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 6.5,
+     "max_particles": 40,
+     "lifetime": [
+      4.0,
+      6.5
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      0.45,
+      1.2
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      70.0,
+      100.0
+     ],
+     "size_end": [
+      280.0,
+      360.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 38,
+     "blend_mode": "Alpha",
+     "color_curve": [
+      [
+       0.0,
+       0.31855,
+       0.07324,
+       0.01341,
+       0.0
+      ],
+      [
+       0.06,
+       0.21404,
+       0.05925,
+       0.01533,
+       0.4
+      ],
+      [
+       0.3,
+       0.02452,
+       0.02198,
+       0.02198,
+       0.32
+      ],
+      [
+       1.0,
+       0.01165,
+       0.01165,
+       0.01341,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 260.0,
+      "speed": 0.3
+     },
+     "drag": 0.3
+    }
+   }
+  },
+  {
+   "name": "CarHaze",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/heat_haze"
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.8
+     ],
+     "z_order": 37,
+     "size": [
+      190.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CarLight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.0331
+     ],
+     "intensity": 2.2,
+     "radius": 560.0,
+     "falloff": 1.4,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Barrel1Flames",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 25.3,
+     "max_particles": 54,
+     "lifetime": [
+      0.45,
+      0.95
+     ],
+     "speed": [
+      25.0,
+      75.0
+     ],
+     "angle": [
+      0.5,
+      1.5
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      24.5,
+      33.3
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 24,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 18.700000000000003,
+      "edge": false
+     },
+     "color_curve": [
+      [
+       0.0,
+       4.0,
+       2.76828,
+       0.85616,
+       0.0
+      ],
+      [
+       0.15,
+       4.0,
+       2.09008,
+       0.40192,
+       1.0
+      ],
+      [
+       0.6,
+       2.5,
+       0.2982,
+       0.01798,
+       0.7
+      ],
+      [
+       1.0,
+       0.3,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 60.0,
+      "scale": 70.0,
+      "speed": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Barrel1Embers",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 5.8500000000000005,
+     "max_particles": 30,
+     "lifetime": [
+      1.5,
+      3.0
+     ],
+     "speed": [
+      40.0,
+      110.0
+     ],
+     "angle": [
+      0.4,
+      1.6
+     ],
+     "color_start": [
+      5.0,
+      1.59275,
+      0.1655,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 26,
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 70.0,
+      "scale": 120.0,
+      "speed": 0.8
+     },
+     "drag": 0.6,
+     "light": {
+      "every": 1,
+      "max": 10,
+      "radius": 60.0,
+      "intensity": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Barrel1Smoke",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 4.25,
+     "max_particles": 40,
+     "lifetime": [
+      4.0,
+      6.5
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      0.45,
+      1.2
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      47.5,
+      64.0
+     ],
+     "size_end": [
+      181.0,
+      225.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 38,
+     "blend_mode": "Alpha",
+     "color_curve": [
+      [
+       0.0,
+       0.31855,
+       0.07324,
+       0.01341,
+       0.0
+      ],
+      [
+       0.06,
+       0.21404,
+       0.05925,
+       0.01533,
+       0.4
+      ],
+      [
+       0.3,
+       0.02452,
+       0.02198,
+       0.02198,
+       0.32
+      ],
+      [
+       1.0,
+       0.01165,
+       0.01165,
+       0.01341,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 260.0,
+      "speed": 0.3
+     },
+     "drag": 0.3
+    }
+   }
+  },
+  {
+   "name": "Barrel1Haze",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -323.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/heat_haze"
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.8
+     ],
+     "z_order": 37,
+     "size": [
+      122.5,
+      122.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel1Light",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.0331
+     ],
+     "intensity": 1.3900000000000001,
+     "radius": 371.0,
+     "falloff": 1.4,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Barrel2Flames",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 25.3,
+     "max_particles": 54,
+     "lifetime": [
+      0.45,
+      0.95
+     ],
+     "speed": [
+      25.0,
+      75.0
+     ],
+     "angle": [
+      0.5,
+      1.5
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      24.5,
+      33.3
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 24,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 18.700000000000003,
+      "edge": false
+     },
+     "color_curve": [
+      [
+       0.0,
+       4.0,
+       2.76828,
+       0.85616,
+       0.0
+      ],
+      [
+       0.15,
+       4.0,
+       2.09008,
+       0.40192,
+       1.0
+      ],
+      [
+       0.6,
+       2.5,
+       0.2982,
+       0.01798,
+       0.7
+      ],
+      [
+       1.0,
+       0.3,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 60.0,
+      "scale": 70.0,
+      "speed": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Barrel2Embers",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 5.8500000000000005,
+     "max_particles": 30,
+     "lifetime": [
+      1.5,
+      3.0
+     ],
+     "speed": [
+      40.0,
+      110.0
+     ],
+     "angle": [
+      0.4,
+      1.6
+     ],
+     "color_start": [
+      5.0,
+      1.59275,
+      0.1655,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 26,
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 70.0,
+      "scale": 120.0,
+      "speed": 0.8
+     },
+     "drag": 0.6,
+     "light": {
+      "every": 1,
+      "max": 10,
+      "radius": 60.0,
+      "intensity": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Barrel2Smoke",
+   "components": {
+    "transform": {
+     "position": [
+      310.0,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 4.25,
+     "max_particles": 40,
+     "lifetime": [
+      4.0,
+      6.5
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      0.45,
+      1.2
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      47.5,
+      64.0
+     ],
+     "size_end": [
+      181.0,
+      225.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 38,
+     "blend_mode": "Alpha",
+     "color_curve": [
+      [
+       0.0,
+       0.31855,
+       0.07324,
+       0.01341,
+       0.0
+      ],
+      [
+       0.06,
+       0.21404,
+       0.05925,
+       0.01533,
+       0.4
+      ],
+      [
+       0.3,
+       0.02452,
+       0.02198,
+       0.02198,
+       0.32
+      ],
+      [
+       1.0,
+       0.01165,
+       0.01165,
+       0.01341,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 260.0,
+      "speed": 0.3
+     },
+     "drag": 0.3
+    }
+   }
+  },
+  {
+   "name": "Barrel2Haze",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      356.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/heat_haze"
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.8
+     ],
+     "z_order": 37,
+     "size": [
+      122.5,
+      122.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel2Light",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.0331
+     ],
+     "intensity": 1.3900000000000001,
+     "radius": 371.0,
+     "falloff": 1.4,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Haze",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 1.4,
+     "max_particles": 26,
+     "lifetime": [
+      12.0,
+      16.0
+     ],
+     "speed": [
+      12.0,
+      26.0
+     ],
+     "angle": [
+      0.0,
+      0.4
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      300.0,
+      420.0
+     ],
+     "size_end": [
+      460.0,
+      620.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 39,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1800.0,
+       1040.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.5,
+       0.52,
+       0.6,
+       0.0
+      ],
+      [
+       0.3,
+       0.5,
+       0.52,
+       0.6,
+       0.07
+      ],
+      [
+       0.7,
+       0.5,
+       0.52,
+       0.6,
+       0.07
+      ],
+      [
+       1.0,
+       0.5,
+       0.52,
+       0.6,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 15.0,
+      "scale": 400.0,
+      "speed": 0.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Searchlight",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      560.0
+     ],
+     "rotation": -1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      0.69207,
+      0.78741,
+      1.0
+     ],
+     "intensity": 1.1,
+     "radius": 1150.0,
+     "angle": 0.16,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "R1",
+   "components": {
+    "transform": {
+     "position": [
+      -860.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/soldier_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 165.0,
+     "radius": 16.0
+    },
+    "point_light": {
+     "color": [
+      0.60383,
+      0.69207,
+      1.0
+     ],
+     "intensity": 0.45,
+     "radius": 95.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "R1Muzzle",
+   "parent": "R1",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/star_flare.png",
+     "color": [
+      6.0,
+      2.68794,
+      0.60288,
+      0.0
+     ],
+     "z_order": 22,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 190.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "R1Casings",
+   "components": {
+    "transform": {
+     "position": [
+      -860.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/firefight/casing.png",
+     "emission_rate": 0.0,
+     "max_particles": 24,
+     "lifetime": [
+      2.5,
+      3.5
+     ],
+     "speed": [
+      90.0,
+      160.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.0
+     ],
+     "size_start": [
+      9.0,
+      9.0
+     ],
+     "size_end": [
+      9.0,
+      9.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      -20.0,
+      20.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 19,
+     "blend_mode": "Alpha",
+     "drag": 4.0,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "R2",
+   "components": {
+    "transform": {
+     "position": [
+      -860.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/soldier_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 165.0,
+     "radius": 16.0
+    },
+    "point_light": {
+     "color": [
+      0.60383,
+      0.69207,
+      1.0
+     ],
+     "intensity": 0.45,
+     "radius": 95.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "R2Muzzle",
+   "parent": "R2",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/star_flare.png",
+     "color": [
+      6.0,
+      2.68794,
+      0.60288,
+      0.0
+     ],
+     "z_order": 22,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 190.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "R2Casings",
+   "components": {
+    "transform": {
+     "position": [
+      -860.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/firefight/casing.png",
+     "emission_rate": 0.0,
+     "max_particles": 24,
+     "lifetime": [
+      2.5,
+      3.5
+     ],
+     "speed": [
+      90.0,
+      160.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.0
+     ],
+     "size_start": [
+      9.0,
+      9.0
+     ],
+     "size_end": [
+      9.0,
+      9.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      -20.0,
+      20.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 19,
+     "blend_mode": "Alpha",
+     "drag": 4.0,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "R3",
+   "components": {
+    "transform": {
+     "position": [
+      -860.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/soldier_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 165.0,
+     "radius": 16.0
+    },
+    "point_light": {
+     "color": [
+      0.60383,
+      0.69207,
+      1.0
+     ],
+     "intensity": 0.45,
+     "radius": 95.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "R3Muzzle",
+   "parent": "R3",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/star_flare.png",
+     "color": [
+      6.0,
+      2.68794,
+      0.60288,
+      0.0
+     ],
+     "z_order": 22,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 190.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "R3Casings",
+   "components": {
+    "transform": {
+     "position": [
+      -860.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/firefight/casing.png",
+     "emission_rate": 0.0,
+     "max_particles": 24,
+     "lifetime": [
+      2.5,
+      3.5
+     ],
+     "speed": [
+      90.0,
+      160.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "color_end": [
+      1,
+      1,
+      1,
+      0.0
+     ],
+     "size_start": [
+      9.0,
+      9.0
+     ],
+     "size_end": [
+      9.0,
+      9.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      -20.0,
+      20.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 19,
+     "blend_mode": "Alpha",
+     "drag": 4.0,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "B1",
+   "components": {
+    "transform": {
+     "position": [
+      860.0,
+      -140.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/soldier_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 165.0,
+     "radius": 16.0
+    },
+    "point_light": {
+     "color": [
+      0.60383,
+      0.69207,
+      1.0
+     ],
+     "intensity": 0.45,
+     "radius": 95.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "B1Muzzle",
+   "parent": "B1",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/star_flare.png",
+     "color": [
+      1.02384,
+      4.72446,
+      6.0,
+      0.0
+     ],
+     "z_order": 22,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.17064,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 190.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "B1Glow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 16.0,
+     "color": [
+      0.08275,
+      1.3063,
+      2.5,
+      0.35
+     ],
+     "z_order": 32,
+     "blend_mode": "Additive",
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "B1Beam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 3.5,
+     "color": [
+      3.13512,
+      5.59866,
+      6.0,
+      1.0
+     ],
+     "z_order": 32,
+     "blend_mode": "Additive",
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "B1Hit",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      0.13287,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 210.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/spark.png",
+     "emission_rate": 110.0,
+     "max_particles": 60,
+     "lifetime": [
+      0.12,
+      0.4
+     ],
+     "speed": [
+      120.0,
+      420.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.68794,
+      5.34006,
+      6.0,
+      1.0
+     ],
+     "color_end": [
+      0.0662,
+      0.6371,
+      2.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive",
+     "stretch": 0.03,
+     "drag": 2.0,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.5
+     },
+     "light": {
+      "every": 4,
+      "max": 6,
+      "radius": 60.0,
+      "intensity": 1.4
+     }
+    }
+   }
+  },
+  {
+   "name": "B2",
+   "components": {
+    "transform": {
+     "position": [
+      860.0,
+      0.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/soldier_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 165.0,
+     "radius": 16.0
+    },
+    "point_light": {
+     "color": [
+      0.60383,
+      0.69207,
+      1.0
+     ],
+     "intensity": 0.45,
+     "radius": 95.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "B2Muzzle",
+   "parent": "B2",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/star_flare.png",
+     "color": [
+      1.02384,
+      4.72446,
+      6.0,
+      0.0
+     ],
+     "z_order": 22,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.17064,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 190.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "B2Glow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 16.0,
+     "color": [
+      0.08275,
+      1.3063,
+      2.5,
+      0.35
+     ],
+     "z_order": 32,
+     "blend_mode": "Additive",
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "B2Beam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 3.5,
+     "color": [
+      3.13512,
+      5.59866,
+      6.0,
+      1.0
+     ],
+     "z_order": 32,
+     "blend_mode": "Additive",
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "B2Hit",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      0.13287,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 210.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/spark.png",
+     "emission_rate": 110.0,
+     "max_particles": 60,
+     "lifetime": [
+      0.12,
+      0.4
+     ],
+     "speed": [
+      120.0,
+      420.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.68794,
+      5.34006,
+      6.0,
+      1.0
+     ],
+     "color_end": [
+      0.0662,
+      0.6371,
+      2.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive",
+     "stretch": 0.03,
+     "drag": 2.0,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.5
+     },
+     "light": {
+      "every": 4,
+      "max": 6,
+      "radius": 60.0,
+      "intensity": 1.4
+     }
+    }
+   }
+  },
+  {
+   "name": "B3",
+   "components": {
+    "transform": {
+     "position": [
+      860.0,
+      140.0
+     ],
+     "rotation": 3.14159,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/soldier_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 165.0,
+     "radius": 16.0
+    },
+    "point_light": {
+     "color": [
+      0.60383,
+      0.69207,
+      1.0
+     ],
+     "intensity": 0.45,
+     "radius": 95.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "B3Muzzle",
+   "parent": "B3",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/star_flare.png",
+     "color": [
+      1.02384,
+      4.72446,
+      6.0,
+      0.0
+     ],
+     "z_order": 22,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.17064,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 190.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "B3Glow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 16.0,
+     "color": [
+      0.08275,
+      1.3063,
+      2.5,
+      0.35
+     ],
+     "z_order": 32,
+     "blend_mode": "Additive",
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "B3Beam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "line": {
+     "points": [
+      [
+       0.0,
+       -5000.0
+      ],
+      [
+       1.0,
+       -5000.0
+      ]
+     ],
+     "width": 3.5,
+     "color": [
+      3.13512,
+      5.59866,
+      6.0,
+      1.0
+     ],
+     "z_order": 32,
+     "blend_mode": "Additive",
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "B3Hit",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      0.13287,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 210.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/spark.png",
+     "emission_rate": 110.0,
+     "max_particles": 60,
+     "lifetime": [
+      0.12,
+      0.4
+     ],
+     "speed": [
+      120.0,
+      420.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.68794,
+      5.34006,
+      6.0,
+      1.0
+     ],
+     "color_end": [
+      0.0662,
+      0.6371,
+      2.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive",
+     "stretch": 0.03,
+     "drag": 2.0,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.5
+     },
+     "light": {
+      "every": 4,
+      "max": 6,
+      "radius": 60.0,
+      "intensity": 1.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Tracer0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer12",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer14",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer15",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer16",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer17",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer18",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer19",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer20",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer21",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer22",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer23",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer24",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer25",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer26",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tracer27",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -5000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/firefight/tracer.png",
+     "color": [
+      5.0,
+      2.6126,
+      0.66435,
+      0.0
+     ],
+     "z_order": 31,
+     "size": [
+      70.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "trail": {
+     "lifetime": 0.09,
+     "width": 3.0,
+     "width_end": 0.5,
+     "color": [
+      3.0,
+      0.95565,
+      0.15264,
+      0.7
+     ],
+     "color_end": [
+      1.0,
+      0.13287,
+      0.01002,
+      0.0
+     ],
+     "min_distance": 6.0,
+     "z_order": 30,
+     "emitting": false,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.07324
+     ],
+     "intensity": 0.0,
+     "radius": 120.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s102_firefight.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "102   Firefight",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "every stain is painted into the asphalt   B blow the barrel   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,233 @@
+{
+  "name": "22 - Vector Paths",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280.0,
+          "viewport_height": 720.0
+        }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-300.0, 310.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "22 - VECTOR PATHS", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-540.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "VectorPath -> lyon tessellation -> drawn in the sprite pass, by z_order.", "font_id": "", "font_scale": 1.05, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-540.0, 222.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "MoveTo / LineTo / QuadTo / CubicTo / Close with fill + stroke colors.", "font_id": "", "font_scale": 1.05, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-540.0, 194.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Orange square (z 5) OVER the squiggle (z 1); blue (z 0) UNDER the star.", "font_id": "", "font_scale": 1.05, "color": [1.0, 0.8, 0.5, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "LabelTriangle",
+      "components": {
+        "transform": { "position": [-470.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "fill triangle", "font_id": "", "font_scale": 1.1, "color": [0.9, 0.9, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Triangle",
+      "components": {
+        "transform": { "position": [-420.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo", "x":   0.0, "y":  80.0 },
+            { "type": "LineTo", "x":  70.0, "y": -60.0 },
+            { "type": "LineTo", "x": -70.0, "y": -60.0 },
+            { "type": "Close" }
+          ],
+          "fill_color":   [0.95, 0.45, 0.30, 1.0],
+          "stroke_color": [1.00, 0.85, 0.60, 1.0],
+          "stroke_width": 4.0,
+          "closed": true,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "LabelSquare",
+      "components": {
+        "transform": { "position": [-235.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "stroke square", "font_id": "", "font_scale": 1.1, "color": [0.9, 0.9, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Square",
+      "components": {
+        "transform": { "position": [-180.0, 0.0], "rotation": 0.5235987755982988, "scale": [1.0, 1.0] },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo", "x": -70.0, "y": -70.0 },
+            { "type": "LineTo", "x":  70.0, "y": -70.0 },
+            { "type": "LineTo", "x":  70.0, "y":  70.0 },
+            { "type": "LineTo", "x": -70.0, "y":  70.0 },
+            { "type": "Close" }
+          ],
+          "stroke_color": [0.40, 0.85, 1.00, 1.0],
+          "stroke_width": 6.0,
+          "closed": true,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "LabelQuad",
+      "components": {
+        "transform": { "position": [0.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "quadratic bezier", "font_id": "", "font_scale": 1.1, "color": [0.9, 0.9, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "QuadCurve",
+      "components": {
+        "transform": { "position": [60.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo", "x": -80.0, "y": -60.0 },
+            { "type": "QuadTo", "cx": 0.0, "cy": 140.0, "x": 80.0, "y": -60.0 }
+          ],
+          "stroke_color": [1.00, 0.55, 0.90, 1.0],
+          "stroke_width": 5.0,
+          "closed": false,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "LabelHeart",
+      "components": {
+        "transform": { "position": [200.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "cubic bezier (heart)", "font_id": "", "font_scale": 1.1, "color": [0.9, 0.9, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Heart",
+      "components": {
+        "transform": { "position": [280.0, -10.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo",  "x": 0.0,   "y": -60.0 },
+            { "type": "CubicTo", "c1x": -90.0, "c1y": 30.0,  "c2x": -90.0, "c2y": 90.0,  "x":   0.0, "y": 50.0 },
+            { "type": "CubicTo", "c1x":  90.0, "c1y": 90.0,  "c2x":  90.0, "c2y": 30.0,  "x":   0.0, "y": -60.0 },
+            { "type": "Close" }
+          ],
+          "fill_color":   [0.90, 0.20, 0.35, 1.0],
+          "stroke_color": [1.00, 0.85, 0.85, 1.0],
+          "stroke_width": 3.0,
+          "closed": true,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "LabelStar",
+      "components": {
+        "transform": { "position": [440.0, 130.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "polygon star", "font_id": "", "font_scale": 1.1, "color": [0.9, 0.9, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Star",
+      "components": {
+        "transform": { "position": [490.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo", "x":   0.00, "y":   80.00 },
+            { "type": "LineTo", "x":  22.45, "y":   24.72 },
+            { "type": "LineTo", "x":  76.08, "y":   24.72 },
+            { "type": "LineTo", "x":  33.81, "y":  -9.44  },
+            { "type": "LineTo", "x":  47.02, "y":  -64.72 },
+            { "type": "LineTo", "x":   0.00, "y":  -32.00 },
+            { "type": "LineTo", "x": -47.02, "y":  -64.72 },
+            { "type": "LineTo", "x": -33.81, "y":  -9.44  },
+            { "type": "LineTo", "x": -76.08, "y":   24.72 },
+            { "type": "LineTo", "x": -22.45, "y":   24.72 },
+            { "type": "Close" }
+          ],
+          "fill_color":   [1.00, 0.85, 0.30, 1.0],
+          "stroke_color": [1.00, 0.55, 0.10, 1.0],
+          "stroke_width": 4.0,
+          "closed": true,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "LabelSquiggle",
+      "components": {
+        "transform": { "position": [-200.0, -145.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "open path: chained cubics (sine-like squiggle)", "font_id": "", "font_scale": 1.1, "color": [0.9, 0.9, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Squiggle",
+      "components": {
+        "transform": { "position": [0.0, -250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo",  "x": -480.0, "y":   0.0 },
+            { "type": "CubicTo", "c1x": -360.0, "c1y":  70.0, "c2x": -240.0, "c2y":  70.0, "x": -120.0, "y":   0.0 },
+            { "type": "CubicTo", "c1x":    0.0, "c1y": -70.0, "c2x":  120.0, "c2y": -70.0, "x":  240.0, "y":   0.0 },
+            { "type": "CubicTo", "c1x":  360.0, "c1y":  70.0, "c2x":  420.0, "c2y":  40.0, "x":  480.0, "y":   0.0 }
+          ],
+          "stroke_color": [0.55, 1.00, 0.65, 1.0],
+          "stroke_width": 6.0,
+          "closed": false,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "OverSquiggle",
+      "components": {
+        "transform": { "position": [0.0, -250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.55, 0.15, 1.0], "z_order": 5, "anchor": [0.5, 0.5], "size": [60.0, 60.0] }
+      }
+    },
+    {
+      "name": "UnderStar",
+      "components": {
+        "transform": { "position": [490.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.25, 0.45, 1.0, 1.0], "z_order": 0, "anchor": [0.5, 0.5], "size": [110.0, 110.0] }
+      }
+    },
+    {
+      "name": "NavScript",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_22_vector_paths.lua" }
+      }
+    }
+  ]
+}

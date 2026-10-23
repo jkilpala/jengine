@@ -1,0 +1,672 @@
+{
+ "name": "245 - Wave function collapse",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Map",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tilemap": {
+     "tile_size": [
+      40.0,
+      40.0
+     ],
+     "layers": [
+      {
+       "name": "ground",
+       "tiles": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 24,
+       "height": 12,
+       "visible": true
+      }
+     ],
+     "tilesets": [
+      {
+       "texture_id": "sprites/lab245_pipes.png",
+       "tile_width": 32,
+       "tile_height": 32,
+       "columns": 4,
+       "tile_count": 16,
+       "first_gid": 1,
+       "image_width": 128,
+       "image_height": 128
+      }
+     ],
+     "z_order": 0
+    },
+    "wfc": {
+     "layer": "ground",
+     "tiles": [
+      {
+       "gid": 1,
+       "edges": [
+        "x",
+        "x",
+        "x",
+        "x"
+       ],
+       "weight": 0.15
+      },
+      {
+       "gid": 2,
+       "edges": [
+        "o",
+        "x",
+        "x",
+        "x"
+       ],
+       "weight": 0.4
+      },
+      {
+       "gid": 3,
+       "edges": [
+        "x",
+        "o",
+        "x",
+        "x"
+       ],
+       "weight": 0.4
+      },
+      {
+       "gid": 4,
+       "edges": [
+        "o",
+        "o",
+        "x",
+        "x"
+       ],
+       "weight": 1.0
+      },
+      {
+       "gid": 5,
+       "edges": [
+        "x",
+        "x",
+        "o",
+        "x"
+       ],
+       "weight": 0.4
+      },
+      {
+       "gid": 6,
+       "edges": [
+        "o",
+        "x",
+        "o",
+        "x"
+       ],
+       "weight": 1.0
+      },
+      {
+       "gid": 7,
+       "edges": [
+        "x",
+        "o",
+        "o",
+        "x"
+       ],
+       "weight": 1.0
+      },
+      {
+       "gid": 8,
+       "edges": [
+        "o",
+        "o",
+        "o",
+        "x"
+       ],
+       "weight": 0.9
+      },
+      {
+       "gid": 9,
+       "edges": [
+        "x",
+        "x",
+        "x",
+        "o"
+       ],
+       "weight": 0.4
+      },
+      {
+       "gid": 10,
+       "edges": [
+        "o",
+        "x",
+        "x",
+        "o"
+       ],
+       "weight": 1.0
+      },
+      {
+       "gid": 11,
+       "edges": [
+        "x",
+        "o",
+        "x",
+        "o"
+       ],
+       "weight": 1.0
+      },
+      {
+       "gid": 12,
+       "edges": [
+        "o",
+        "o",
+        "x",
+        "o"
+       ],
+       "weight": 0.9
+      },
+      {
+       "gid": 13,
+       "edges": [
+        "x",
+        "x",
+        "o",
+        "o"
+       ],
+       "weight": 1.0
+      },
+      {
+       "gid": 14,
+       "edges": [
+        "o",
+        "x",
+        "o",
+        "o"
+       ],
+       "weight": 0.9
+      },
+      {
+       "gid": 15,
+       "edges": [
+        "x",
+        "o",
+        "o",
+        "o"
+       ],
+       "weight": 0.9
+      },
+      {
+       "gid": 16,
+       "edges": [
+        "o",
+        "o",
+        "o",
+        "o"
+       ],
+       "weight": 0.5
+      }
+     ],
+     "cells_per_second": 60.0,
+     "seed": 245,
+     "outside": "x"
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_245_wfc.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "245 - Wave function collapse",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   Space new map   1 left half   2 right half",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      900.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the map fills cell by cell, the most decided cell first, every corridor meeting its neighbour's, none opening off the edge;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space makes another map; 1 or 2 remakes only one half, and the new half joins the old one along the seam (`wfc`, `Wfc.generate`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  }
+ ]
+}

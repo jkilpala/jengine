@@ -1,0 +1,68 @@
+{
+  "name": "S100Pod",
+  "version": 1,
+  "nodes": [
+    {
+      "id": "gone",
+      "op": "OnDespawn"
+    },
+    {
+      "id": "here",
+      "op": "GetPosition"
+    },
+    {
+      "id": "mark",
+      "op": "SpawnEntity",
+      "params": {
+        "prefab_id": "S100Marker"
+      },
+      "in": {
+        "at": {
+          "from": "here"
+        }
+      }
+    },
+    {
+      "id": "tell",
+      "op": "EmitEvent",
+      "params": {
+        "name": "pod_gone"
+      },
+      "in": {
+        "value": {
+          "value": 7.0
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "gone",
+      "to": "mark"
+    },
+    {
+      "from": "mark",
+      "to": "tell"
+    }
+  ],
+  "editor": {
+    "positions": {
+      "gone": {
+        "x": 40,
+        "y": 60
+      },
+      "here": {
+        "x": 40,
+        "y": 160
+      },
+      "mark": {
+        "x": 300,
+        "y": 60
+      },
+      "tell": {
+        "x": 560,
+        "y": 60
+      }
+    }
+  }
+}

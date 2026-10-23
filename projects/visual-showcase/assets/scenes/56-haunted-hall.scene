@@ -1,0 +1,2310 @@
+{
+ "name": "56 - Haunted Hall",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.15,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.95
+     },
+     "intensity": {
+      "Float": 0.8
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.6
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 0.95
+     },
+     "tint_color": {
+      "Vec4": [
+       0.9,
+       0.9,
+       1.0,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.21404,
+      0.69207
+     ],
+     "intensity": 0.12
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/stone.png",
+     "color": [
+      0.60383,
+      0.52252,
+      0.69207,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/stone_n.png",
+     "uniforms": {},
+     "specular": 0.6,
+     "shininess": 12.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/floor.png",
+     "color": [
+      0.52252,
+      0.31855,
+      0.21404,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1360.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Skirting",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.01341,
+      0.00719,
+      0.0049,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      1360.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Portrait1",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/portrait.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      140.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Portrait2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/portrait.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      140.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Portrait3",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/portrait.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      140.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candelabra1",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/candelabra.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      120.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Flame1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -642.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -558.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "CandleLight1",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.9,
+     "radius": 420.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Candelabra2",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/candelabra.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      120.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Flame2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -242.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame2_2",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -158.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "CandleLight2",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.9,
+     "radius": 420.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Candelabra3",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/candelabra.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      120.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Flame3_1",
+   "components": {
+    "transform": {
+     "position": [
+      158.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame3_2",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame3_3",
+   "components": {
+    "transform": {
+     "position": [
+      242.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "CandleLight3",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.9,
+     "radius": 420.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Candelabra4",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/candelabra.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      120.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    }
+   }
+  },
+  {
+   "name": "Flame4_1",
+   "components": {
+    "transform": {
+     "position": [
+      558.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame4_2",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Flame4_3",
+   "components": {
+    "transform": {
+     "position": [
+      642.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 18.0,
+     "max_particles": 30,
+     "lifetime": [
+      0.25,
+      0.45
+     ],
+     "speed": [
+      18.0,
+      36.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.20096,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "CandleLight4",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.9,
+     "radius": 420.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Ghost1",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "canvas_group": {
+     "opacity": 0.6,
+     "tint": [
+      0.52252,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Ghost1Aura",
+   "parent": "Ghost1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.71678,
+      1.25986,
+      1.6,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      260.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Ghost1ArmB",
+   "parent": "Ghost1",
+   "components": {
+    "transform": {
+     "position": [
+      -34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.1199999999999999,
+      1.1199999999999999,
+      1.1199999999999999,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost1Robe",
+   "parent": "Ghost1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/robe.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.75
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost1Head",
+   "parent": "Ghost1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/head.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      70.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost1ArmF",
+   "parent": "Ghost1",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost2",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.8,
+      0.8
+     ]
+    },
+    "canvas_group": {
+     "opacity": 0.6,
+     "tint": [
+      0.69207,
+      0.60383,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Ghost2Aura",
+   "parent": "Ghost2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.71678,
+      1.25986,
+      1.6,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      260.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Ghost2ArmB",
+   "parent": "Ghost2",
+   "components": {
+    "transform": {
+     "position": [
+      -34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.1199999999999999,
+      1.1199999999999999,
+      1.1199999999999999,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost2Robe",
+   "parent": "Ghost2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/robe.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.75
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost2Head",
+   "parent": "Ghost2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/head.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      70.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost2ArmF",
+   "parent": "Ghost2",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost3",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.1,
+      1.1
+     ]
+    },
+    "canvas_group": {
+     "opacity": 0.6,
+     "tint": [
+      0.52252,
+      1.0,
+      0.78741,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Ghost3Aura",
+   "parent": "Ghost3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.71678,
+      1.25986,
+      1.6,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      260.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Ghost3ArmB",
+   "parent": "Ghost3",
+   "components": {
+    "transform": {
+     "position": [
+      -34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.1199999999999999,
+      1.1199999999999999,
+      1.1199999999999999,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost3Robe",
+   "parent": "Ghost3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/robe.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.75
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost3Head",
+   "parent": "Ghost3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/head.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      70.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost3ArmF",
+   "parent": "Ghost3",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost4",
+   "components": {
+    "transform": {
+     "position": [
+      620.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.7,
+      0.7
+     ]
+    },
+    "canvas_group": {
+     "opacity": 0.6,
+     "tint": [
+      1.0,
+      0.69207,
+      0.78741,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Ghost4Aura",
+   "parent": "Ghost4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.71678,
+      1.25986,
+      1.6,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      260.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Ghost4ArmB",
+   "parent": "Ghost4",
+   "components": {
+    "transform": {
+     "position": [
+      -34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.1199999999999999,
+      1.1199999999999999,
+      1.1199999999999999,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost4Robe",
+   "parent": "Ghost4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/robe.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.75
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost4Head",
+   "parent": "Ghost4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/head.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      70.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ghost4ArmF",
+   "parent": "Ghost4",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hall/arm.png",
+     "color": [
+      1.4,
+      1.4,
+      1.4,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "56   Haunted Hall",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  all appear   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s56_haunted_hall.lua"
+    }
+   }
+  }
+ ]
+}

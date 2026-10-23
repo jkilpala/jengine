@@ -1,0 +1,242 @@
+{
+  "name": "105-TouchControls",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "105 - Touch Controls",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            270
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "On-screen controls press keys: stick = move_* actions, A = confirm (Enter), B = key X. Mouse or fingers.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_105_touch_controls.lua"
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            220
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "held: nothing",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "Box",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -20.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.4,
+            0.4,
+            0.4,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            64.0,
+            64.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "TouchControls",
+      "components": {
+        "touch_controls": {
+          "show": "always",
+          "controls": [
+            {
+              "type": "stick",
+              "anchor": "bottom_left",
+              "offset": [
+                170,
+                170
+              ],
+              "radius": 110,
+              "up": "move_up",
+              "down": "move_down",
+              "left": "move_left",
+              "right": "move_right"
+            },
+            {
+              "type": "button",
+              "anchor": "bottom_right",
+              "offset": [
+                230,
+                110
+              ],
+              "radius": 60,
+              "press": "confirm",
+              "label": "A"
+            },
+            {
+              "type": "button",
+              "anchor": "bottom_right",
+              "offset": [
+                110,
+                220
+              ],
+              "radius": 60,
+              "press": "X",
+              "label": "B"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

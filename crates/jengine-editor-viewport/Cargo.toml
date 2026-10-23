@@ -1,0 +1,65 @@
+[package]
+name = "jengine-editor-viewport"
+description = "WASM/WebGPU viewport renderer for the jEngine editor"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+jengine-core = { path = "../jengine-core", default-features = false, features = [
+    "web",
+    "gpu-wgpu",
+    # Backends are opt-in per consumer since Sep 2026; the viewport is a
+    # browser surface, so WebGPU is the one it needs.
+    "backend-webgpu",
+    "physics",
+] }
+
+# Engine packages, so their components and systems exist in the editor too.
+# `jengine-audio` is deliberately absent: it enables jengine-core's `audio`
+# feature, which is kira, which is native-only — the viewport plays sound
+# through `web_audio` instead.
+jengine-parallax = { path = "../../packages/jengine-parallax" }
+jengine-swarm = { path = "../../packages/jengine-swarm" }
+jengine-particles = { path = "../../packages/jengine-particles" }
+jengine-physics = { path = "../../packages/jengine-physics" }
+
+wgpu = { workspace = true }
+glam = { workspace = true }
+hecs = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = "0.4"
+js-sys = { workspace = true }
+web-sys = { workspace = true, features = [
+    "Window",
+    "Document",
+    "Element",
+    "EventTarget",
+    "HtmlCanvasElement",
+    "KeyboardEvent",
+    "MouseEvent",
+    "WheelEvent",
+    "console",
+    "AudioContext",
+    "AudioContextState",
+    "AudioBuffer",
+    "AudioBufferSourceNode",
+    "AudioDestinationNode",
+    "AudioNode",
+    "AudioParam",
+    "GainNode",
+    # Video (`viewport_load_video`): the editor's bytes as a Blob URL.
+    "Blob",
+    "BlobPropertyBag",
+    "Url",
+] }
+console_error_panic_hook = "0.1"

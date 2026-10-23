@@ -1,0 +1,1752 @@
+{
+ "name": "97 - The Occluder Pool",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280,
+     "viewport_height": 720
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_97_occluder_budget.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      322.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "97 - The Occluder Pool",
+     "font_id": "default",
+     "font_scale": 1.9,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -332.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev/next   20 boxes are authored; all 20 cast",
+     "font_id": "default",
+     "font_scale": 1.4,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.9,
+      0.9,
+      0.95,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1260.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.3,
+      0.34,
+      0.48
+     ],
+     "intensity": 0.1
+    }
+   }
+  },
+  {
+   "name": "Light",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.93,
+      0.8
+     ],
+     "intensity": 3.2,
+     "radius": 900.0,
+     "falloff": 1.25,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Sum",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "OCCLUDER_POOL = 448 edges, handed out per light: each light gets only the edges in its reach.",
+     "font_id": "default",
+     "font_scale": 1.15,
+     "color": [
+      1.0,
+      0.82,
+      0.45,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box00",
+   "components": {
+    "transform": {
+     "position": [
+      -570.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N00",
+   "components": {
+    "transform": {
+     "position": [
+      -570.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "1",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box01",
+   "components": {
+    "transform": {
+     "position": [
+      -510.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N01",
+   "components": {
+    "transform": {
+     "position": [
+      -510.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "2",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box02",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N02",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "3",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box03",
+   "components": {
+    "transform": {
+     "position": [
+      -390.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N03",
+   "components": {
+    "transform": {
+     "position": [
+      -390.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "4",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box04",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N04",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "5",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box05",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N05",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "6",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box06",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N06",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "7",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box07",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N07",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "8",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box08",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N08",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "9",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box09",
+   "components": {
+    "transform": {
+     "position": [
+      -30.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N09",
+   "components": {
+    "transform": {
+     "position": [
+      -30.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "10",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box10",
+   "components": {
+    "transform": {
+     "position": [
+      30.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N10",
+   "components": {
+    "transform": {
+     "position": [
+      30.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "11",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box11",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N11",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "12",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box12",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N12",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "13",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box13",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N13",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "14",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box14",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N14",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "15",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box15",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N15",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "16",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box16",
+   "components": {
+    "transform": {
+     "position": [
+      390.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N16",
+   "components": {
+    "transform": {
+     "position": [
+      390.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "17",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box17",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N17",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "18",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box18",
+   "components": {
+    "transform": {
+     "position": [
+      510.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N18",
+   "components": {
+    "transform": {
+     "position": [
+      510.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "19",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Box19",
+   "components": {
+    "transform": {
+     "position": [
+      570.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.12,
+      0.11,
+      0.16,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      24.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      24.0,
+      90.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "N19",
+   "components": {
+    "transform": {
+     "position": [
+      570.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "20",
+     "font_id": "default",
+     "font_scale": 0.85,
+     "color": [
+      0.35,
+      0.35,
+      0.42,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Explain",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -212.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Count the shadows: all twenty pillars cast. Until Sep 2026 the pass kept the first 64\nsegments for every light - sixteen boxes - and four of these cast nothing, silently.\nEdges a light cannot reach cost it nothing now.",
+     "font_id": "default",
+     "font_scale": 1.1,
+     "color": [
+      1.0,
+      0.55,
+      0.45,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Disabled",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.3,
+      0.45,
+      0.35,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": false,
+     "size": [
+      40.0,
+      40.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "DisabledLabel",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "enabled: false\n(costs nothing)",
+     "font_id": "default",
+     "font_scale": 0.9,
+     "color": [
+      0.55,
+      0.8,
+      0.6,
+      1.0
+     ],
+     "z_order": 200,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  }
+ ]
+}

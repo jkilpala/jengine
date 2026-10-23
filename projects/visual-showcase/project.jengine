@@ -1,0 +1,55 @@
+{
+  "name": "visual-showcase",
+  "default_scene": "scenes/hub.scene",
+  "settings": {
+    "width": 1280,
+    "height": 720,
+    "background_color": [0.0, 0.0, 0.0, 1.0],
+    "target_fps": 60,
+    "title": "jEngine Visual Showcase",
+    "entry_scene": "scenes/hub.scene",
+    "ui_scale_mode": "ScaleAndCenter",
+    "texture_filter": {
+      "default": "linear",
+      "overrides": { "sprites/pixel/": "nearest", "sprites/terrain/": "nearest", "sprites/hamlet/": "nearest", "sprites/grotto/": "nearest", "sprites/depths/": "nearest" }
+    },
+    "physics": {
+      "gravity_x": 0.0,
+      "gravity_y": -9.8,
+      "backend": "rapier2d",
+      "fixed_timestep": 0.016666668,
+      "length_unit": 100.0
+    },
+    "input_actions": [
+      { "name": "move_up", "keys": ["Up", "W", "Pad0_DPadUp", "Pad0_LeftStickY+"] },
+      { "name": "move_down", "keys": ["Down", "S", "Pad0_DPadDown", "Pad0_LeftStickY-"] },
+      { "name": "move_left", "keys": ["Left", "A", "Pad0_DPadLeft", "Pad0_LeftStickX-"] },
+      { "name": "move_right", "keys": ["Right", "D", "Pad0_DPadRight", "Pad0_LeftStickX+"] },
+      { "name": "confirm", "keys": ["Enter", "Space", "Pad0_A"] },
+      { "name": "hub", "keys": ["H", "Escape", "Pad0_B"] },
+      { "name": "next_scene", "keys": ["BracketRight", "PageDown", "Pad0_RightBumper"] },
+      { "name": "prev_scene", "keys": ["BracketLeft", "PageUp", "Pad0_LeftBumper"] }
+    ],
+    "asset_pipeline": {
+      "atlas": {
+        "enabled": false,
+        "max_atlas_size": 4096,
+        "padding": 1,
+        "power_of_two": true,
+        "exclude_patterns": []
+      },
+      "compression": {
+        "enabled": false,
+        "format": "PngOptimized"
+      }
+    },
+    "enabled_packages": [
+      "jengine-physics",
+      "jengine-particles",
+      "jengine-parallax",
+      "jengine-swarm"
+    ]
+  },
+  "component_definitions": [],
+  "packages": []
+}

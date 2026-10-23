@@ -1,0 +1,256 @@
+{
+  "name": "engine-test-lab",
+  "default_scene": "scenes/hub.scene",
+  "settings": {
+    "width": 1280,
+    "height": 720,
+    "background_color": [
+      0.08,
+      0.08,
+      0.1,
+      1.0
+    ],
+    "target_fps": 60,
+    "title": "jEngine Test Lab",
+    "entry_scene": "scenes/hub.scene",
+    "texture_filter": {
+      "default": "nearest",
+      "overrides": {
+        "sprites/filter_linear/": "linear"
+      }
+    },
+    "physics": {
+      "gravity_x": 0.0,
+      "gravity_y": -9.8,
+      "backend": "rapier2d",
+      "fixed_timestep": 0.016666668,
+      "length_unit": 100.0
+    },
+    "input_actions": [
+      {
+        "name": "move_up",
+        "keys": [
+          "W",
+          "ArrowUp"
+        ]
+      },
+      {
+        "name": "move_down",
+        "keys": [
+          "S",
+          "ArrowDown"
+        ]
+      },
+      {
+        "name": "move_left",
+        "keys": [
+          "A",
+          "ArrowLeft"
+        ]
+      },
+      {
+        "name": "move_right",
+        "keys": [
+          "D",
+          "ArrowRight"
+        ]
+      },
+      {
+        "name": "confirm",
+        "keys": [
+          "Enter",
+          "Space"
+        ]
+      },
+      {
+        "name": "cancel",
+        "keys": [
+          "Escape"
+        ]
+      },
+      {
+        "name": "next_scene",
+        "keys": [
+          "PageDown",
+          "BracketRight"
+        ]
+      },
+      {
+        "name": "prev_scene",
+        "keys": [
+          "PageUp",
+          "BracketLeft"
+        ]
+      },
+      {
+        "name": "hub",
+        "keys": [
+          "H",
+          "Backspace"
+        ]
+      },
+      {
+        "name": "pad_up",
+        "keys": [
+          "Pad0_LeftStickY+",
+          "Pad0_DPadUp",
+          "I"
+        ]
+      },
+      {
+        "name": "pad_down",
+        "keys": [
+          "Pad0_LeftStickY-",
+          "Pad0_DPadDown",
+          "K"
+        ]
+      },
+      {
+        "name": "pad_left",
+        "keys": [
+          "Pad0_LeftStickX-",
+          "Pad0_DPadLeft",
+          "J"
+        ]
+      },
+      {
+        "name": "pad_right",
+        "keys": [
+          "Pad0_LeftStickX+",
+          "Pad0_DPadRight",
+          "L"
+        ]
+      },
+      {
+        "name": "pad_a",
+        "keys": [
+          "Pad0_A",
+          "Z"
+        ]
+      },
+      {
+        "name": "pad_b",
+        "keys": [
+          "Pad0_B",
+          "X"
+        ]
+      },
+      {
+        "name": "pad_x",
+        "keys": [
+          "Pad0_X",
+          "C"
+        ]
+      },
+      {
+        "name": "pad_y",
+        "keys": [
+          "Pad0_Y",
+          "V"
+        ]
+      },
+      {
+        "name": "pad_lt",
+        "keys": [
+          "Pad0_LeftTrigger+",
+          "Q"
+        ]
+      },
+      {
+        "name": "pad_rt",
+        "keys": [
+          "Pad0_RightTrigger+",
+          "E"
+        ]
+      }
+    ],
+    "asset_pipeline": {
+      "atlas": {
+        "enabled": false,
+        "max_atlas_size": 4096,
+        "padding": 1,
+        "power_of_two": true,
+        "exclude_patterns": []
+      },
+      "compression": {
+        "enabled": false,
+        "format": "PngOptimized"
+      }
+    },
+    "enabled_packages": [
+      "jengine-physics",
+      "jengine-audio",
+      "jengine-particles",
+      "jengine-parallax",
+      "jengine-swarm",
+      "testlab-spin",
+      "jengine-net",
+      "jengine-tracker"
+    ],
+    "asset_packs": {
+      "packs": [
+        {
+          "name": "lab225",
+          "include": [
+            "scenes/lab225/",
+            "sprites/lab225/",
+            "scripts/lab225/",
+            "prefabs/Lab225Spark.prefab",
+            "data/lab225_vault.data"
+          ]
+        }
+      ]
+    },
+    "liveops": {
+      "url": "http://127.0.0.1:9940",
+      "public_key": "jlo-public-d8982d3382368ba413da34e29c6c9fb20b0174a5c500669f66402cb0d64b6234",
+      "defaults": {
+        "lab226_greeting": "Hello from the game's own defaults",
+        "lab226_speed": 1.0,
+        "lab226_tint": [
+          0.9,
+          0.9,
+          0.9
+        ],
+        "lab224_text": "only the game says this",
+        "lab224_number": 7.5,
+        "lab224_table": [
+          1,
+          2,
+          3
+        ]
+      }
+    }
+  },
+  "component_definitions": [],
+  "packages": [
+    {
+      "name": "testlab-spin",
+      "source": {
+        "type": "path",
+        "path": "packages/testlab-spin"
+      }
+    },
+    {
+      "name": "jengine-net",
+      "source": {
+        "type": "path",
+        "path": "../../packages/jengine-net"
+      }
+    },
+    {
+      "name": "jengine-online",
+      "source": {
+        "type": "path",
+        "path": "../../packages/jengine-online"
+      }
+    },
+    {
+      "name": "jengine-tracker",
+      "source": {
+        "type": "path",
+        "path": "../../packages/jengine-tracker"
+      }
+    }
+  ]
+}

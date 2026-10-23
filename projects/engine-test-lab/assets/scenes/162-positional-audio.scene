@@ -1,0 +1,430 @@
+{
+ "name": "162 - Positional audio",
+ "audio_refs": [
+  "sounds/market_fountain.wav",
+  "sounds/market_chimes.wav",
+  "sounds/blip.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Fountain",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.4,
+      0.75,
+      1.0,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_fountain.wav",
+     "volume": 1.0,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 100.0,
+     "max_distance": 450.0,
+     "pan_width": 400.0
+    }
+   }
+  },
+  {
+   "name": "FountainFull",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/ring_query.png",
+     "color": [
+      0.4,
+      0.75,
+      1.0,
+      0.8
+     ],
+     "z_order": 1,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainSilent",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/ring_query.png",
+     "color": [
+      0.4,
+      0.75,
+      1.0,
+      0.3
+     ],
+     "z_order": 1,
+     "size": [
+      900.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chimes",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.8,
+      0.35,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_chimes.wav",
+     "volume": 1.0,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 100.0,
+     "max_distance": 450.0,
+     "pan_width": 400.0
+    }
+   }
+  },
+  {
+   "name": "ChimesFull",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/ring_query.png",
+     "color": [
+      1.0,
+      0.8,
+      0.35,
+      0.8
+     ],
+     "z_order": 1,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChimesSilent",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/ring_query.png",
+     "color": [
+      1.0,
+      0.8,
+      0.35,
+      0.3
+     ],
+     "z_order": 1,
+     "size": [
+      900.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Listener",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "audio_listener": {},
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.9,
+      0.95,
+      1.0,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "162 - Positional audio",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Mouse: move the listener (the white square)   Click: a blip there",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Listen: inside a bright ring its loop is full, past the faint ring silent, fading between - and heard from its side",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "(water on the left, chimes on the right). A click's blip comes from where you clicked; far off, quieter.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_162_positional_audio.lua"
+    }
+   }
+  }
+ ]
+}

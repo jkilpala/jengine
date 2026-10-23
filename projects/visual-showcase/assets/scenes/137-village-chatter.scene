@@ -1,0 +1,666 @@
+{
+ "name": "137 - Village Chatter",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.25
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Square",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/villagechatter/square.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateOpen",
+   "components": {
+    "transform": {
+     "position": [
+      515.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/villagechatter/gate_open.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -91,
+     "size": [
+      120.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gate",
+   "components": {
+    "transform": {
+     "position": [
+      515.0,
+      70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/villagechatter/gate_shut.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      120.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Village",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "DialogueVars": {
+     "gold": 2,
+     "loaves": 0,
+     "met_baker": false,
+     "riddle_done": false,
+     "gate_open": false,
+     "grumpy": false
+    }
+   }
+  },
+  {
+   "name": "Panel",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      90.0,
+      10.0
+     ],
+     "size": [
+      1100.0,
+      190.0
+     ],
+     "z_order": 50,
+     "visible": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/villagechatter/panel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Portrait",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      115.0,
+      30.0
+     ],
+     "size": [
+      150.0,
+      150.0
+     ],
+     "z_order": 60
+    },
+    "ui_image": {
+     "texture_id": "sprites/villagechatter/baker_portrait.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Speaker",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      290.0,
+      158.0
+     ],
+     "size": [
+      600.0,
+      30.0
+     ],
+     "z_order": 60
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 24.0,
+     "color": [
+      0.89001,
+      0.57048,
+      0.17064,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Line",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      290.0,
+      112.0
+     ],
+     "size": [
+      880.0,
+      34.0
+     ],
+     "z_order": 60
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 23.0,
+     "color": [
+      0.91141,
+      0.8689,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Choice1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      310.0,
+      76.0
+     ],
+     "size": [
+      840.0,
+      24.0
+     ],
+     "z_order": 60
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 19.0,
+     "color": [
+      0.57048,
+      0.67386,
+      0.89001,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Choice2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      310.0,
+      50.0
+     ],
+     "size": [
+      840.0,
+      24.0
+     ],
+     "z_order": 60
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 19.0,
+     "color": [
+      0.57048,
+      0.67386,
+      0.89001,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Choice3",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      310.0,
+      24.0
+     ],
+     "size": [
+      840.0,
+      24.0
+     ],
+     "z_order": 60
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 19.0,
+     "color": [
+      0.57048,
+      0.67386,
+      0.89001,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Bess",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/villagechatter/baker.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      170.0,
+      291.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "dialogue": {
+     "table": "dialogue/baker",
+     "vars": "Village",
+     "text": "Line",
+     "speaker": "Speaker",
+     "portrait": "Portrait",
+     "choices": [
+      "Choice1",
+      "Choice2",
+      "Choice3"
+     ],
+     "reveal_speed": 38.0
+    }
+   }
+  },
+  {
+   "name": "Wren",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/villagechatter/girl.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      170.0,
+      291.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "dialogue": {
+     "table": "dialogue/girl",
+     "vars": "Village",
+     "text": "Line",
+     "speaker": "Speaker",
+     "portrait": "Portrait",
+     "choices": [
+      "Choice1",
+      "Choice2",
+      "Choice3"
+     ],
+     "reveal_speed": 38.0
+    }
+   }
+  },
+  {
+   "name": "Holt",
+   "components": {
+    "transform": {
+     "position": [
+      370.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/villagechatter/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      170.0,
+      291.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "dialogue": {
+     "table": "dialogue/guard",
+     "vars": "Village",
+     "text": "Line",
+     "speaker": "Speaker",
+     "portrait": "Portrait",
+     "choices": [
+      "Choice1",
+      "Choice2",
+      "Choice3"
+     ],
+     "reveal_speed": 38.0
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s137_village_chatter.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "137   Village Chatter",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      66.0,
+      -96.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "click a villager   Space advance   1 2 3 choose   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -64.0,
+      -46.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

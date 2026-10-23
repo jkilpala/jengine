@@ -1,0 +1,28 @@
+{
+  "machines": {
+    "pi": {
+      "url": "https://<pi-address>:9900",
+      "token_env": "PI_FLEET_TOKEN",
+      "ca": "pi-cert.pem",
+      "console": "http://<pi-address>:9000/manage"
+    }
+  },
+  "services": {
+    "relay": {
+      "machines": ["pi"],
+      "artifacts": { "linux-aarch64": "../../../target/aarch64-unknown-linux-gnu/release/jengine-server" },
+      "args": ["127.0.0.1:{port}", "--db", "relay.db"],
+      "port": 9040,
+      "admin_token_env": "PI_ADMIN_TOKEN",
+      "drain_secs": 10
+    },
+    "liveops": {
+      "machines": ["pi"],
+      "artifacts": { "linux-aarch64": "../../../target/aarch64-unknown-linux-gnu/release/jengine-server" },
+      "args": ["127.0.0.1:{port}", "--liveops", "liveops"],
+      "port": 9044,
+      "admin_token_env": "PI_ADMIN_TOKEN",
+      "drain_secs": 5
+    }
+  }
+}

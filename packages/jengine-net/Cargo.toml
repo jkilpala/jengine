@@ -1,0 +1,57 @@
+[package]
+name = "jengine-net"
+description = "Networking transport and message bus for jEngine - WebSocket client, connection lifecycle, and a script-reachable message channel"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+jengine-core = { path = "../../crates/jengine-core", default-features = false }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+hecs = { workspace = true }
+
+# Native WebSocket client. `tungstenite` is the sync, runtime-free half of the
+# tokio-tungstenite pair: no async runtime is pulled into the engine, and the
+# blocking socket lives on its own thread behind a channel. The browser side
+# needs none of this - it has a WebSocket already.
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+tungstenite = { version = "0.24", features = ["rustls-tls-webpki-roots"] }
+# Blocking HTTP on a worker thread, matching the WebSocket arrangement. `ureq`
+# shares the rustls already pulled in above; `reqwest` is in the tree via Tauri
+# but is tokio-based, and an async runtime for one request would be a large
+# dependency for a small job.
+ureq = { version = "2", default-features = false, features = ["tls", "json", "gzip"] }
+crossbeam-channel = { workspace = true }
+
+# The browser has no raw sockets, so `web_sys::WebSocket` is not one transport
+# among several - it is the only one that exists there.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+# `jengine-core` gates its browser bindings behind `web`; without it the core
+# crate itself does not compile for wasm32. Cargo unions features across
+# target-specific declarations, so this adds to the entry above rather than
+# replacing it.
+jengine-core = { path = "../../crates/jengine-core", default-features = false, features = ["web"] }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = "0.4"
+js-sys = { workspace = true }
+web-sys = { workspace = true, features = [
+    "WebSocket",
+    "MessageEvent",
+    "CloseEvent",
+    "ErrorEvent",
+    "Event",
+    "BinaryType",
+    "Window",
+    "Request",
+    "RequestInit",
+    "Response",
+    "Headers",
+] }
+
+[dev-dependencies]
+hecs = { workspace = true }

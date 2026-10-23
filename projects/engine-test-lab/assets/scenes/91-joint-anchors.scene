@@ -1,0 +1,749 @@
+{
+ "name": "91 - Joint anchors",
+ "version": 1,
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "91 - A joint has two ends",
+     "font_id": "",
+     "font_scale": 2.0,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      272.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "The same vehicle twice. The only difference is whether the wheel joints set `anchor_b`.",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.75,
+      0.78,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "`anchor` is the point on the wheel; `anchor_b` is the mount on the chassis. Until Sep 2026 `Revolute` and `Prismatic` had only `anchor`, and the far end was hardcoded to the target's origin - so two wheels on one chassis both pinned to its middle. BUGS #145.",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.75,
+      0.78,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1180.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.4,
+      0.34,
+      0.26,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      2400.0,
+      160.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 2400.0,
+       "height": 160.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.0,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "ChassisBad",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.95,
+      0.5,
+      0.45,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      180.0,
+      44.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 200.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 6.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 180.0,
+       "height": 44.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.3,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "RearBad",
+   "components": {
+    "transform": {
+     "position": [
+      -398.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.88,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      60.0,
+      60.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 24.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "ChassisBad",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        0.0,
+        0.0
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 11.0,
+       "motor_max_torque": 3000000.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "FrontBad",
+   "components": {
+    "transform": {
+     "position": [
+      -262.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.88,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      60.0,
+      60.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 24.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "ChassisBad",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        0.0,
+        0.0
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "ChassisGood",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "region": null,
+     "color": [
+      0.5,
+      0.9,
+      0.6,
+      1
+     ],
+     "z_order": 4,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      180.0,
+      44.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 200.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 6.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 180.0,
+       "height": 44.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.3,
+     "restitution": 0.02,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "RearGood",
+   "components": {
+    "transform": {
+     "position": [
+      112.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.88,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      60.0,
+      60.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 24.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "ChassisGood",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        0.0,
+        0.0
+       ],
+       "anchor_b": [
+        -68.0,
+        -28.0
+       ],
+       "limits": null,
+       "motor_speed": 11.0,
+       "motor_max_torque": 3000000.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "FrontGood",
+   "components": {
+    "transform": {
+     "position": [
+      248.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "region": null,
+     "color": [
+      0.88,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      60.0,
+      60.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 24.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 1.6,
+     "restitution": 0.02,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "ChassisGood",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        0.0,
+        0.0
+       ],
+       "anchor_b": [
+        68.0,
+        -28.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "no anchor_b: both wheels pin to the chassis centre",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.95,
+      0.5,
+      0.45,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 420.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "anchor_b set: a wheel at each end",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.5,
+      0.9,
+      0.6,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 420.0
+    }
+   }
+  },
+  {
+   "name": "Readout",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -196.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      1,
+      0.85,
+      0.4,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 1160.0
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "[SPACE] reset   [F4] collider and joint outlines   [H/Esc] hub   [PgUp/PgDn] prev/next",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.6,
+      0.62,
+      0.7,
+      1
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Runner",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_91_joint_anchors.lua"
+    }
+   }
+  }
+ ]
+}

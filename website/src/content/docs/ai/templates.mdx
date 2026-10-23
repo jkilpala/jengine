@@ -1,0 +1,278 @@
+---
+draft: false
+title: Project Templates
+description: Ready-to-use project templates for AI agents to bootstrap new jEngine games.
+---
+
+These templates provide complete starting points for common game genres.
+AI agents can copy these files directly and modify them for specific requirements.
+
+## Empty Project
+
+`jengine project new <dir> --name "<name>"` (or the editor's **Create New Project**) writes a working
+starter project from `templates/project/`: a project file with input actions and every built-in package,
+a scene with a camera, a title and a player, and a player script. Start there. `--template empty`
+(`templates/project-empty/`) writes the project file alone, with no scene. The smallest scene by hand
+is:
+
+### `assets/scenes/main.scene`
+
+```json
+{
+  "version": 2,
+  "name": "Main",
+  "audio_refs": [],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "camera": { "zoom": 1, "is_active": true, "viewport_width": 1280, "viewport_height": 720 }
+      }
+    },
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "__white", "color": [0.35, 0.7, 1.0, 1], "z_order": 10, "size": [48, 48] },
+        "script": { "source_path": "scripts/player.lua", "language": "Lua" }
+      }
+    }
+  ]
+}
+```
+
+`__white` is the engine's built-in white texture, tinted by `color`, so the scene needs no image file.
+Put real art under `assets/sprites/` and name it in `texture_id` (`"sprites/player.png"`).
+
+### `assets/scripts/player.lua`
+
+```lua
+function init(entity)
+end
+
+function update(entity, dt)
+end
+```
+
+---
+
+## Platformer Template
+
+Full platformer setup with player, ground, platforms, coins, and HUD.
+
+### Entity Checklist
+
+| Entity | Components | Notes |
+|--------|-----------|-------|
+| Player | transform, sprite, rigid_body (Dynamic), collider, script | WASD + Space to jump |
+| Ground | transform, sprite, rigid_body (Static), collider | Bottom of level |
+| Platform_N | transform, sprite, rigid_body (Static), collider | Floating platforms |
+| Coin_N | transform, sprite, collider (sensor), animation | Spinning animation |
+| Camera | transform, camera | Follows player |
+
+### Key Script Logic
+
+```lua
+-- Player constants
+local MOVE_SPEED = 200
+local JUMP_FORCE = 400
+local GRAVITY_SCALE = 1.0
+
+function init(entity)
+    GUI.show("ui/hud.gui")
+end
+
+function update(entity, dt)
+    local vx, vy = Physics.get_velocity(entity)
+
+    -- Movement
+    if Input.is_key_pressed("D") then vx = MOVE_SPEED
+    elseif Input.is_key_pressed("A") then vx = -MOVE_SPEED
+    else vx = 0 end
+
+    -- Look at this entity's contacts only: get_contact lists every pair in the world
+    local grounded = false
+    local n = Physics.contact_count()
+    for i = 1, n do
+        local a, b, started = Physics.get_contact(i)
+        local other = (a == entity) and b or ((b == entity) and a or nil)
+        local name = other and Entity.get_name(other) or ""
+        if string.find(name, "Coin") then
+            if started then
+                Entity.destroy(other)
+                Audio.play_sound("sounds/coin.wav", 0.5)  -- listed in the scene's audio_refs
+            end
+        elseif other then
+            grounded = true   -- touching anything solid; a character_controller reports this properly
+        end
+    end
+
+    -- Jump
+    if Input.is_action_just_pressed("jump") and grounded then
+        vy = JUMP_FORCE
+    end
+
+    Physics.set_velocity(entity, vx, vy)
+end
+```
+
+---
+
+## Top-Down RPG Template
+
+### Entity Checklist
+
+| Entity | Components | Notes |
+|--------|-----------|-------|
+| Player | transform, sprite, script, animation | 4-direction walk |
+| NPC_N | transform, sprite, collider (sensor), script | Dialog on interact |
+| Wall_N | transform, sprite, rigid_body (Static), collider | Level boundaries |
+| Camera | transform, camera | Follows player |
+
+### Key Script Logic
+
+```lua
+local speed = 150
+local facing = "down"
+
+function init(entity)
+end
+
+function update(entity, dt)
+    local x, y = Transform.get_position(entity)
+    local moved = false
+
+    if Input.is_key_pressed("W") then y = y + speed * dt; facing = "up"; moved = true end
+    if Input.is_key_pressed("S") then y = y - speed * dt; facing = "down"; moved = true end
+    if Input.is_key_pressed("A") then x = x - speed * dt; facing = "left"; moved = true end
+    if Input.is_key_pressed("D") then x = x + speed * dt; facing = "right"; moved = true end
+
+    Transform.set_position(entity, x, y)
+
+    if moved then
+        Animation.play(entity)
+    else
+        Animation.stop(entity)
+    end
+
+    -- Interact with NPCs
+    if Input.is_key_pressed("E") then
+        local n = Physics.contact_count()
+        for i = 1, n do
+            local a, b, started = Physics.get_contact(i)
+            local other = (a == entity) and b or ((b == entity) and a or nil)
+            if other and string.find(Entity.get_name(other) or "", "NPC") then
+                -- trigger dialog
+                GUI.set("ui/hud.gui", "dialog_text", "text", "Hello, adventurer!")
+                GUI.set("ui/hud.gui", "dialog_panel", "visible", true)
+            end
+        end
+    end
+end
+```
+
+---
+
+## Shoot-em-up Template
+
+### Entity Checklist
+
+| Entity | Components | Notes |
+|--------|-----------|-------|
+| Player | transform, sprite, script | Ship at bottom |
+| Enemy_Spawner | transform, script | Spawns waves |
+| Camera | transform, camera | Fixed |
+
+### Key Values
+
+```lua
+-- Player
+local PLAYER_SPEED = 300
+local FIRE_RATE = 0.12   -- seconds between shots
+local BULLET_SPEED = 500
+
+-- Enemies
+local ENEMY_SPEED = 100
+local SPAWN_INTERVAL = 1.5  -- seconds between spawns
+```
+
+---
+
+## Common Component Snippets
+
+### Static Wall
+
+```json
+{
+  "name": "Wall",
+  "components": {
+    "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+    "sprite": { "texture_id": "sprites/wall.png", "color": [1,1,1,1], "z_order": 0, "size": [64, 64] },
+    "rigid_body": { "body_type": "Static" },
+    "collider": { "shape": { "Box": { "width": 64, "height": 64 } }, "is_sensor": false }
+  }
+}
+```
+
+### Trigger Zone (Sensor)
+
+```json
+{
+  "name": "TriggerZone",
+  "components": {
+    "transform": { "position": [200, 0], "rotation": 0, "scale": [1, 1] },
+    "collider": { "shape": { "Box": { "width": 100, "height": 100 } }, "is_sensor": true }
+  }
+}
+```
+
+### Background Music Entity
+
+```json
+{
+  "name": "BGM",
+  "components": {
+    "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+    "audio_source": {
+      "clip_id": "sounds/bgm.ogg",
+      "auto_play": true,
+      "looping": true,
+      "volume": 0.5
+    }
+  }
+}
+```
+
+The clip must also be in the scene's top-level `"audio_refs"`.
+
+### Animated Sprite (Coin)
+
+```json
+{
+  "name": "Coin",
+  "components": {
+    "transform": { "position": [100, 50], "rotation": 0, "scale": [1, 1] },
+    "sprite": { "texture_id": "sprites/coin_sheet.png", "color": [1,1,1,1], "z_order": 5, "size": [16, 16] },
+    "sprite_animator": {
+      "clips": {
+        "spin": {
+          "name": "spin",
+          "frame_duration": 0.1,
+          "looping": true,
+          "frames": [
+            { "uv_rect": [0.0, 0.0, 0.25, 1.0] },
+            { "uv_rect": [0.25, 0.0, 0.5, 1.0] },
+            { "uv_rect": [0.5, 0.0, 0.75, 1.0] },
+            { "uv_rect": [0.75, 0.0, 1.0, 1.0] }
+          ]
+        }
+      },
+      "current_clip": "spin",
+      "playing": true,
+      "speed": 1.0
+    },
+    "collider": { "shape": { "Circle": { "radius": 8 } }, "is_sensor": true }
+  }
+}
+```

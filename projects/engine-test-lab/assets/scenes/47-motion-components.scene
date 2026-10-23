@@ -1,0 +1,613 @@
+{
+  "name": "47-MotionComponents",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": { "align": "center",
+          "text": "47 - Motion Components & Prefab Instances",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Acceleration2D adds to Velocity2D every frame (vel += a * dt) with no script - the left ball falls and MaxSpeed caps it.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "InputActionImpulse replaces velocity on the rising edge of an action: the middle ball jumps on `confirm` (Space/Enter).",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "ClampBounds with zero_velocity_on_hit stops the jumper dead at the floor instead of accumulating downward speed.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "PrefabInstance is expanded at scene load from assets/prefabs. NOTE: only the native runtime expands it - see BUGS.md #12.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Faller",
+      "components": {
+        "transform": {
+          "position": [
+            -420.0,
+            200.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.45,
+            0.8,
+            1.0,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            40.0,
+            40.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": -520.0
+        },
+        "max_speed": {
+          "value": 420.0
+        },
+        "wrap_bounds": {
+          "min": [
+            -640.0,
+            -300.0
+          ],
+          "max": [
+            640.0,
+            300.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "FallerLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -420.0,
+            -250.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Acceleration2D (0, -520)\nMaxSpeed 420",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.6,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Jumper",
+      "components": {
+        "transform": {
+          "position": [
+            -100.0,
+            -180.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.5,
+            0.95,
+            0.55,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            46.0,
+            46.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "acceleration": {
+          "x": 0.0,
+          "y": -900.0
+        },
+        "input_action_impulse": {
+          "action": "confirm",
+          "impulse_y": 480.0
+        },
+        "clamp_bounds": {
+          "min": [
+            -140.0,
+            -180.0
+          ],
+          "max": [
+            -60.0,
+            300.0
+          ],
+          "zero_velocity_on_hit": true
+        }
+      }
+    },
+    {
+      "name": "JumperLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -100.0,
+            -250.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "InputActionImpulse\naction 'confirm' -> vel.y = 480",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.6,
+            1.0,
+            0.65,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "CoinFromPrefab",
+      "components": {
+        "transform": {
+          "position": [
+            520.0,
+            180.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "prefab_instance": {
+          "prefab_id": "Coin",
+          "overrides": {}
+        }
+      }
+    },
+    {
+      "name": "PrefabLabel",
+      "components": {
+        "transform": {
+          "position": [
+            430.0,
+            120.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "PrefabInstance \"Coin\"\n(native only)",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.9,
+            0.8,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "GravityDrifter",
+      "components": {
+        "transform": {
+          "position": [
+            120.0,
+            200.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.85,
+            0.6,
+            1.0,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            38.0,
+            38.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "gravity": {
+          "x": -140.0,
+          "y": -40.0
+        },
+        "max_speed": {
+          "value": 300.0
+        },
+        "wrap_bounds": {
+          "min": [
+            -640.0,
+            -300.0
+          ],
+          "max": [
+            640.0,
+            300.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "GravityLabel",
+      "components": {
+        "transform": {
+          "position": [
+            120.0,
+            -250.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Gravity2D (-140, -40)\na vector, unlike Velocity2D.gravity",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.7,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Ambience",
+      "components": {
+        "transform": {
+          "position": [
+            -560.0,
+            200.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.9,
+            0.7,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            26.0,
+            26.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "audio_source": {
+          "clip_id": "sounds/hum.wav",
+          "volume": 0.35,
+          "pitch": 1.0,
+          "looping": true,
+          "auto_play": true
+        }
+      }
+    },
+    {
+      "name": "AmbienceLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -560.0,
+            160.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "AudioSource auto_play\n(no script)",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.6,
+            1.0,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -290.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "motion: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_47_motion.lua"
+        }
+      }
+    }
+  ],
+  "audio_refs": [
+    "sounds/hum.wav"
+  ]
+}

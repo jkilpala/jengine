@@ -1,0 +1,1144 @@
+{
+ "name": "39 - Lantern Orchard",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.55
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.6
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       0.92,
+       0.95,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.14732,
+      0.21404,
+      0.69207
+     ],
+     "intensity": 0.22
+    }
+   }
+  },
+  {
+   "name": "Grass",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/grass.png",
+     "color": [
+      0.69207,
+      0.78741,
+      0.69207,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      120.0
+     ],
+     "rotation": 0.3,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/tree_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 3.0
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      150.0
+     ],
+     "rotation": 2.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/tree_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      280.0,
+      280.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 3.0
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -160.0
+     ],
+     "rotation": 4.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/tree_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      290.0,
+      290.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 3.0
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -190.0
+     ],
+     "rotation": 1.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/tree_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      230.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 3.0
+    }
+   }
+  },
+  {
+   "name": "Tree5",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -220.0
+     ],
+     "rotation": 5.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/tree_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 3.0
+    }
+   }
+  },
+  {
+   "name": "Fence1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      272.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.0
+    }
+   }
+  },
+  {
+   "name": "Fence2",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      272.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.0
+    }
+   }
+  },
+  {
+   "name": "Fence3",
+   "components": {
+    "transform": {
+     "position": [
+      340.0,
+      272.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.0
+    }
+   }
+  },
+  {
+   "name": "Scarecrow",
+   "components": {
+    "transform": {
+     "position": [
+      110.0,
+      -10.0
+     ],
+     "rotation": 0.25,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/scarecrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5
+    }
+   }
+  },
+  {
+   "name": "Bale1",
+   "components": {
+    "transform": {
+     "position": [
+      -230.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/bale.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0
+    }
+   }
+  },
+  {
+   "name": "Bale2",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/bale.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0
+    }
+   }
+  },
+  {
+   "name": "Bale3",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/bale.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0
+    }
+   }
+  },
+  {
+   "name": "Well",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/well.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0
+    }
+   }
+  },
+  {
+   "name": "Cart",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -60.0
+     ],
+     "rotation": -0.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/orchard/cart.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      150.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 1.0,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5
+    }
+   }
+  },
+  {
+   "name": "Lantern",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/orchard/lantern.png",
+     "color": [
+      1.4,
+      1.24601,
+      0.9689,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.11928
+     ],
+     "intensity": 2.2,
+     "radius": 720.0,
+     "falloff": 1.25,
+     "shadow_softness": 3.0,
+     "height": 0.6
+    }
+   }
+  },
+  {
+   "name": "LanternGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.38006,
+      0.07324,
+      0.35
+     ],
+     "z_order": 29,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fireflies",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 6.0,
+     "max_particles": 60,
+     "lifetime": [
+      3.0,
+      5.0
+     ],
+     "speed": [
+      6.0,
+      18.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.38414,
+      2.0,
+      0.34128,
+      0.9
+     ],
+     "color_end": [
+      0.6,
+      0.9,
+      0.3,
+      0.0
+     ],
+     "size_start": [
+      7.0,
+      9.0
+     ],
+     "size_end": [
+      4.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 40,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1200.0,
+       640.0
+      ]
+     },
+     "turbulence": {
+      "strength": 40.0,
+      "scale": 160.0,
+      "speed": 0.5
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "39   Lantern Orchard",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Mouse  carry the lantern   Click  hang it / take it   1-4 post   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s39_orchard.lua"
+    }
+   }
+  }
+ ]
+}

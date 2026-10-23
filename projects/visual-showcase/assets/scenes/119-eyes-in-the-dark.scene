@@ -1,0 +1,1839 @@
+{
+ "name": "119 - Eyes in the Dark",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.55
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       0.95,
+       0.95,
+       1.0,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.13287,
+      0.17064,
+      0.60383
+     ],
+     "intensity": 0.18
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      0.26327,
+      0.23302,
+      0.21404,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1280.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       160.0,
+       160.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "WallN",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.10048,
+      0.08898,
+      0.09463,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      1280.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       120.0,
+       120.0
+      ]
+     }
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1280.0,
+       "height": 40.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "WallS",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.10048,
+      0.08898,
+      0.09463,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      1280.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       120.0,
+       120.0
+      ]
+     }
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1280.0,
+       "height": 40.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "WallW",
+   "components": {
+    "transform": {
+     "position": [
+      -620.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.10048,
+      0.08898,
+      0.09463,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      680.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       120.0,
+       120.0
+      ]
+     }
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 680.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "WallE",
+   "components": {
+    "transform": {
+     "position": [
+      620.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.10048,
+      0.08898,
+      0.09463,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      680.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       120.0,
+       120.0
+      ]
+     }
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 680.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Case0",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_cl_block"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      150.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 150.0,
+       "height": 60.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      150.0,
+      60.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Exhibit0",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.44597,
+      0.9689,
+      1.4,
+      0.7
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Case1",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_cl_block"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      150.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 150.0,
+       "height": 60.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      150.0,
+      60.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Exhibit1",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.44597,
+      0.9689,
+      1.4,
+      0.7
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Case2",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_cl_block"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      150.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 150.0,
+       "height": 60.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      150.0,
+      60.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Exhibit2",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.44597,
+      0.9689,
+      1.4,
+      0.7
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Case3",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_cl_block"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      150.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 150.0,
+       "height": 60.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      150.0,
+      60.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Exhibit3",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.44597,
+      0.9689,
+      1.4,
+      0.7
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Case4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_cl_block"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.0,
+       "height": 120.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      60.0,
+      120.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Exhibit4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.44597,
+      0.9689,
+      1.4,
+      0.7
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Case5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_cl_block"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/cl_block.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/cl_block_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.0,
+       "height": 120.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      60.0,
+      120.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Exhibit5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.44597,
+      0.9689,
+      1.4,
+      0.7
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar0",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.17064,
+      0.14732,
+      0.13287,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_sphere_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       30.0,
+       0.0
+      ],
+      [
+       24.27,
+       17.63
+      ],
+      [
+       9.27,
+       28.53
+      ],
+      [
+       -9.27,
+       28.53
+      ],
+      [
+       -24.27,
+       17.63
+      ],
+      [
+       -30.0,
+       0.0
+      ],
+      [
+       -24.27,
+       -17.63
+      ],
+      [
+       -9.27,
+       -28.53
+      ],
+      [
+       9.27,
+       -28.53
+      ],
+      [
+       24.27,
+       -17.63
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar1",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.17064,
+      0.14732,
+      0.13287,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_sphere_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       30.0,
+       0.0
+      ],
+      [
+       24.27,
+       17.63
+      ],
+      [
+       9.27,
+       28.53
+      ],
+      [
+       -9.27,
+       28.53
+      ],
+      [
+       -24.27,
+       17.63
+      ],
+      [
+       -30.0,
+       0.0
+      ],
+      [
+       -24.27,
+       -17.63
+      ],
+      [
+       -9.27,
+       -28.53
+      ],
+      [
+       9.27,
+       -28.53
+      ],
+      [
+       24.27,
+       -17.63
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar2",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.17064,
+      0.14732,
+      0.13287,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_sphere_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       30.0,
+       0.0
+      ],
+      [
+       24.27,
+       17.63
+      ],
+      [
+       9.27,
+       28.53
+      ],
+      [
+       -9.27,
+       28.53
+      ],
+      [
+       -24.27,
+       17.63
+      ],
+      [
+       -30.0,
+       0.0
+      ],
+      [
+       -24.27,
+       -17.63
+      ],
+      [
+       -9.27,
+       -28.53
+      ],
+      [
+       9.27,
+       -28.53
+      ],
+      [
+       24.27,
+       -17.63
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar3",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.17064,
+      0.14732,
+      0.13287,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_sphere_n.png"
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       30.0,
+       0.0
+      ],
+      [
+       24.27,
+       17.63
+      ],
+      [
+       9.27,
+       28.53
+      ],
+      [
+       -9.27,
+       28.53
+      ],
+      [
+       -24.27,
+       17.63
+      ],
+      [
+       -30.0,
+       0.0
+      ],
+      [
+       -24.27,
+       -17.63
+      ],
+      [
+       -9.27,
+       -28.53
+      ],
+      [
+       9.27,
+       -28.53
+      ],
+      [
+       24.27,
+       -17.63
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Jewel",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.2,
+      0.16113,
+      0.37541,
+      0.9
+     ],
+     "z_order": 5,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.10048,
+      0.21404
+     ],
+     "intensity": 0.8,
+     "radius": 160.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Guard0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.05088,
+      0.07324,
+      0.26327,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GuardEye0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vision": {
+     "radius": 330.0,
+     "fov": 1.1,
+     "direction": 0.0,
+     "draw": true,
+     "color": [
+      1.0,
+      0.69207,
+      0.21404,
+      0.22
+     ],
+     "edge_color": [
+      1.0,
+      0.69207,
+      0.21404,
+      0.0
+     ],
+     "z_order": 6,
+     "targets": "thief",
+     "rays": 56
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.63828,
+      0.21404
+     ],
+     "intensity": 1.8,
+     "radius": 330.0,
+     "angle": 0.55,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "Guard1",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.05088,
+      0.07324,
+      0.26327,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GuardEye1",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vision": {
+     "radius": 330.0,
+     "fov": 1.1,
+     "direction": 0.0,
+     "draw": true,
+     "color": [
+      1.0,
+      0.69207,
+      0.21404,
+      0.22
+     ],
+     "edge_color": [
+      1.0,
+      0.69207,
+      0.21404,
+      0.0
+     ],
+     "z_order": 6,
+     "targets": "thief",
+     "rays": 56
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.63828,
+      0.21404
+     ],
+     "intensity": 1.8,
+     "radius": 330.0,
+     "angle": 0.55,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "Guard2",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.05088,
+      0.07324,
+      0.26327,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GuardEye2",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vision": {
+     "radius": 330.0,
+     "fov": 1.1,
+     "direction": 0.0,
+     "draw": true,
+     "color": [
+      1.0,
+      0.69207,
+      0.21404,
+      0.22
+     ],
+     "edge_color": [
+      1.0,
+      0.69207,
+      0.21404,
+      0.0
+     ],
+     "z_order": 6,
+     "targets": "thief",
+     "rays": 56
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "spot_light": {
+     "color": [
+      1.0,
+      0.63828,
+      0.21404
+     ],
+     "intensity": 1.8,
+     "radius": 330.0,
+     "angle": 0.55,
+     "direction": 0.0,
+     "falloff": 1.1,
+     "shadow_softness": 0.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "Thief",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "thief"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.26327,
+      0.05088,
+      0.31855,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ThiefMark",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      0.60383,
+      0.17064,
+      1.0,
+      0.6
+     ],
+     "z_order": 7,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Alarm",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.01961,
+      0.01002
+     ],
+     "intensity": 0.0,
+     "radius": 1400.0,
+     "falloff": 0.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Keeper",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s119_eyes_in_the_dark.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "119   Eyes in the Dark",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "what the guards can see   Space hurry   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

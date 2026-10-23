@@ -1,0 +1,1399 @@
+{
+ "name": "84 - Options Menu",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.45
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.0,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.95,
+       0.03
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 6.0,
+     "max_particles": 90,
+     "lifetime": [
+      6.0,
+      12.0
+     ],
+     "speed": [
+      0.0,
+      1.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      0.89001,
+      0.78741,
+      0.0
+     ],
+     "color_end": [
+      1.0,
+      0.89001,
+      0.78741,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      6.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -95,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       0.95,
+       0.9,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       0.95,
+       0.9,
+       0.8
+      ],
+      [
+       0.8,
+       1.0,
+       0.95,
+       0.9,
+       0.8
+      ],
+      [
+       1.0,
+       1.0,
+       0.95,
+       0.9,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1280.0,
+       240.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Sea0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/sea.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      1880.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Headland",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/headland.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      600.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -490.0,
+      32.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.26327,
+      0.6
+     ],
+     "z_order": -55,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Beam",
+   "components": {
+    "transform": {
+     "position": [
+      -490.0,
+      32.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      1.0,
+      0.71057,
+      0.31855,
+      0.35
+     ],
+     "z_order": -56,
+     "size": [
+      1300.0,
+      90.0
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Panel",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/panel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      560.0,
+      560.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      236.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "OPTIONS",
+     "font_id": "",
+     "font_scale": 1.7,
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Highlight",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/row.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      520.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label0",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "DISPLAY",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.71057,
+      0.82757,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Value0",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Arrow0L",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arrow0R",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      170.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label1",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      116.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "RESOLUTION",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.71057,
+      0.82757,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Value1",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      116.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Arrow1L",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arrow1R",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      110.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label2",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "VSYNC",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.71057,
+      0.82757,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Value2",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      56.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Arrow2L",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arrow2R",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      50.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label3",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "FRAME CAP",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.71057,
+      0.82757,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Value3",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Arrow3L",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arrow3R",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      -10.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label4",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      -64.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "CURSOR",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.71057,
+      0.82757,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Value4",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      -64.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Arrow4L",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      -70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arrow4R",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      -70.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label5",
+   "components": {
+    "transform": {
+     "position": [
+      64.0,
+      -124.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "KEEP CURSOR IN",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.71057,
+      0.82757,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Value5",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      -124.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Arrow5L",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arrow5R",
+   "components": {
+    "transform": {
+     "position": [
+      535.0,
+      -130.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/options/arrow.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.17064,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      16.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Label6",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "RESET TO DEFAULTS",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.71057,
+      0.82757,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Readout",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.75,
+     "color": [
+      0.44799,
+      0.477,
+      0.69207,
+      1.0
+     ],
+     "z_order": 13,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s84_options_menu.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "84   Options Menu",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Arrows or mouse  change   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

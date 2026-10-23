@@ -1,0 +1,1011 @@
+{
+ "name": "89 - Archer's Range",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.25
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.05,
+       0.03,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.94,
+       0.85,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Meadow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/meadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      2304.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       120.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Path",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/path.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1792.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Target0",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -212.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/target.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -66,
+     "size": [
+      80.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stuck0",
+   "parent": "Target0",
+   "components": {
+    "transform": {
+     "position": [
+      -42.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Target1",
+   "components": {
+    "transform": {
+     "position": [
+      940.0,
+      -212.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/target.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -66,
+     "size": [
+      80.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stuck1",
+   "parent": "Target1",
+   "components": {
+    "transform": {
+     "position": [
+      -42.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Target2",
+   "components": {
+    "transform": {
+     "position": [
+      1580.0,
+      -212.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/target.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -66,
+     "size": [
+      80.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stuck2",
+   "parent": "Target2",
+   "components": {
+    "transform": {
+     "position": [
+      -42.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Flight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      100.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Archer",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -154.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "archer"
+    },
+    "skeletal_player": {
+     "clip": "animations/ar_walk.skelanim",
+     "layers": [
+      {
+       "name": "upper",
+       "clip": "",
+       "mask": [
+        "torso"
+       ],
+       "weight": 0.0
+      },
+      {
+       "name": "breath",
+       "clip": "animations/ar_breathe.skelanim",
+       "mode": "additive",
+       "mask": [
+        "torso"
+       ],
+       "weight": 0.35
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -248.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.35
+     ],
+     "z_order": -1,
+     "size": [
+      130.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LegFar",
+   "parent": "Archer",
+   "components": {
+    "transform": {
+     "position": [
+      -4.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/leg.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      26.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "leg_l",
+     "length": 100.0
+    }
+   }
+  },
+  {
+   "name": "LegNear",
+   "parent": "Archer",
+   "components": {
+    "transform": {
+     "position": [
+      4.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/leg.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      26.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "leg_r",
+     "length": 100.0
+    }
+   }
+  },
+  {
+   "name": "Torso",
+   "parent": "Archer",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/torso.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      52.0,
+      98.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "bone": {
+     "name": "torso",
+     "length": 98.0
+    }
+   }
+  },
+  {
+   "name": "Head",
+   "parent": "Torso",
+   "components": {
+    "transform": {
+     "position": [
+      4.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/head.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      46.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ]
+    },
+    "bone": {
+     "name": "head",
+     "length": 48.0
+    }
+   }
+  },
+  {
+   "name": "DrawArm",
+   "parent": "Torso",
+   "components": {
+    "transform": {
+     "position": [
+      -4.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arm_upper.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      16.0,
+      42.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "arm_draw",
+     "length": 42.0
+    }
+   }
+  },
+  {
+   "name": "DrawHand",
+   "parent": "DrawArm",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arm_fore.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      14.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "forearm_draw",
+     "length": 40.0
+    }
+   }
+  },
+  {
+   "name": "BowArm",
+   "parent": "Torso",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arm_bow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      18.0,
+      74.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "arm_bow",
+     "length": 74.0
+    }
+   }
+  },
+  {
+   "name": "Bow",
+   "parent": "BowArm",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/bow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      30.0,
+      150.0
+     ],
+     "anchor": [
+      0.8,
+      0.5
+     ]
+    },
+    "bone": {
+     "name": "bow",
+     "length": 150.0
+    }
+   }
+  },
+  {
+   "name": "Nocked",
+   "parent": "Bow",
+   "components": {
+    "transform": {
+     "position": [
+      22.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/range/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      100.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Score",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "0 hits",
+     "font_id": "",
+     "font_scale": 1.6,
+     "color": [
+      0.05088,
+      0.01961,
+      0.0049,
+      1.0
+     ],
+     "z_order": 50,
+     "align": "right",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s89_archers_range.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "89   Archer's Range",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space stop / walk   F shoot when stopped   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

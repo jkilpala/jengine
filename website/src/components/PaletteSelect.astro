@@ -1,0 +1,35 @@
+---
+/*
+ * The palette picker in the docs header, beside Starlight's theme select and
+ * built on the same Select. The choice lives in localStorage (`jx-palette`)
+ * and as `data-palette` on <html>; Dusk is the default and sets no attribute.
+ * The inline script in astro.config.mjs's `head` applies it before first paint.
+ */
+import Select from '@astrojs/starlight/components/Select.astro';
+import { PALETTES } from '../palettes';
+---
+
+<jx-palette-select>
+	<Select
+		icon="star"
+		label="Palette"
+		value="dusk"
+		options={PALETTES.map((p) => ({ label: p.label, value: p.id, selected: p.id === 'dusk' }))}
+		width="6.75em"
+	/>
+</jx-palette-select>
+
+<script>
+	import { applyPalette, currentPalette } from '../palettes';
+
+	class PaletteSelect extends HTMLElement {
+		constructor() {
+			super();
+			const select = this.querySelector('select');
+			if (!select) return;
+			select.value = currentPalette();
+			select.addEventListener('change', () => applyPalette(select.value));
+		}
+	}
+	customElements.define('jx-palette-select', PaletteSelect);
+</script>

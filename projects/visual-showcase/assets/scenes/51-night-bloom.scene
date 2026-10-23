@@ -1,0 +1,7954 @@
+{
+ "name": "51 - Night Bloom",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.15,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.8
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.26327,
+      0.78741
+     ],
+     "intensity": 0.16
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "parent": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Stars",
+   "parent": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.8
+     ],
+     "z_order": -99,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "MoonGlow",
+   "parent": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.53759,
+      0.7246,
+      1.2,
+      0.35
+     ],
+     "z_order": -98,
+     "size": [
+      420.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Moon",
+   "parent": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/moon.png",
+     "color": [
+      1.0,
+      0.93311,
+      0.78741,
+      1.0
+     ],
+     "z_order": -97,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hills",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/hills.png",
+     "color": [
+      2.2,
+      2.2,
+      2.4,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      6160.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       900.0,
+       200.0
+      ]
+     }
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Grass",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/grass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      6160.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "GrassFront",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/grass.png",
+     "color": [
+      0.31855,
+      0.38006,
+      0.44799,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      6160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       200.0,
+       100.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower1",
+   "components": {
+    "transform": {
+     "position": [
+      -1755.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.9,
+      0.9
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower1Glow",
+   "parent": "Flower1",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower1Bloom",
+   "parent": "Flower1",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower1Light",
+   "parent": "Flower1",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower2",
+   "components": {
+    "transform": {
+     "position": [
+      -1642.6288436346983,
+      -212.15003341185556
+     ],
+     "rotation": 0.05781349112503158,
+     "scale": [
+      0.9062370993649935,
+      0.9062370993649935
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower2Glow",
+   "parent": "Flower2",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower2Bloom",
+   "parent": "Flower2",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower2Light",
+   "parent": "Flower2",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower3",
+   "components": {
+    "transform": {
+     "position": [
+      -1604.810730109004,
+      -234.59973983648297
+     ],
+     "rotation": 0.03093008230928785,
+     "scale": [
+      0.8875365895773755,
+      0.8875365895773755
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower3Glow",
+   "parent": "Flower3",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower3Bloom",
+   "parent": "Flower3",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower3Light",
+   "parent": "Flower3",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower4",
+   "components": {
+    "transform": {
+     "position": [
+      -1467.646807068354,
+      -246.66466428189918
+     ],
+     "rotation": -0.041265969551038444,
+     "scale": [
+      0.9186681635260593,
+      0.9186681635260593
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower4Glow",
+   "parent": "Flower4",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower4Bloom",
+   "parent": "Flower4",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower4Light",
+   "parent": "Flower4",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower5",
+   "components": {
+    "transform": {
+     "position": [
+      -1388.3133025769926,
+      -221.10595967950505
+     ],
+     "rotation": -0.05300727934320919,
+     "scale": [
+      0.8751593736827536,
+      0.8751593736827536
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower5Glow",
+   "parent": "Flower5",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower5Bloom",
+   "parent": "Flower5",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower5Light",
+   "parent": "Flower5",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower6",
+   "components": {
+    "transform": {
+     "position": [
+      -1331.263565240653,
+      -215.62723197277717
+     ],
+     "rotation": 0.012907199285268931,
+     "scale": [
+      0.9309701222906694,
+      0.9309701222906694
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower6Glow",
+   "parent": "Flower6",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower6Bloom",
+   "parent": "Flower6",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower6Light",
+   "parent": "Flower6",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower7",
+   "components": {
+    "transform": {
+     "position": [
+      -1186.6891299166768,
+      -242.59774437668375
+     ],
+     "rotation": 0.0599126007224763,
+     "scale": [
+      0.8629539507395069,
+      0.8629539507395069
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower7Glow",
+   "parent": "Flower7",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower7Bloom",
+   "parent": "Flower7",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower7Light",
+   "parent": "Flower7",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower8",
+   "components": {
+    "transform": {
+     "position": [
+      -1136.46214251552,
+      -241.1264680202666
+     ],
+     "rotation": 0.019145901740961126,
+     "scale": [
+      0.9430578976991593,
+      0.9430578976991593
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower8Glow",
+   "parent": "Flower8",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower8Bloom",
+   "parent": "Flower8",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower8Light",
+   "parent": "Flower8",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower9",
+   "components": {
+    "transform": {
+     "position": [
+      -1048.0369686621568,
+      -214.5350873325831
+     ],
+     "rotation": -0.04966958814513922,
+     "scale": [
+      0.8510047310842916,
+      0.8510047310842916
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower9Glow",
+   "parent": "Flower9",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower9Bloom",
+   "parent": "Flower9",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower9Light",
+   "parent": "Flower9",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower10",
+   "components": {
+    "transform": {
+     "position": [
+      -916.1654182649365,
+      -222.85866968364894
+     ],
+     "rotation": -0.045719015035141926,
+     "scale": [
+      0.9548478930423927,
+      0.9548478930423927
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower10Glow",
+   "parent": "Flower10",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower10Bloom",
+   "parent": "Flower10",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower10Light",
+   "parent": "Flower10",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower11",
+   "components": {
+    "transform": {
+     "position": [
+      -880.3866121252552,
+      -247.30515485383202
+     ],
+     "rotation": 0.025210022209598455,
+     "scale": [
+      0.8393943532015402,
+      0.8393943532015402
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower11Glow",
+   "parent": "Flower11",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower11Bloom",
+   "parent": "Flower11",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower11Light",
+   "parent": "Flower11",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower12",
+   "components": {
+    "transform": {
+     "position": [
+      -760.0055998938853,
+      -232.6819824646556
+     ],
+     "rotation": 0.0592063178564768,
+     "scale": [
+      0.9662585710003836,
+      0.9662585710003836
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower12Glow",
+   "parent": "Flower12",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower12Bloom",
+   "parent": "Flower12",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower12Light",
+   "parent": "Flower12",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower13",
+   "components": {
+    "transform": {
+     "position": [
+      -656.2686859375082,
+      -212.00372779743196
+     ],
+     "rotation": 0.006465219137966538,
+     "scale": [
+      0.8282031122117377,
+      0.8282031122117377
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower13Glow",
+   "parent": "Flower13",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower13Bloom",
+   "parent": "Flower13",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower13Light",
+   "parent": "Flower13",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower14",
+   "components": {
+    "transform": {
+     "position": [
+      -614.9548509199144,
+      -231.95545871763338
+     ],
+     "rotation": -0.055747440764062184,
+     "scale": [
+      0.9772110175385749,
+      0.9772110175385749
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower14Glow",
+   "parent": "Flower14",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower14Bloom",
+   "parent": "Flower14",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower14Light",
+   "parent": "Flower14",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower15",
+   "components": {
+    "transform": {
+     "position": [
+      -473.81491628459014,
+      -247.49237202338955
+     ],
+     "rotation": -0.036289969344377046,
+     "scale": [
+      0.8175084045659479,
+      0.8175084045659479
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower15Glow",
+   "parent": "Flower15",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower15Bloom",
+   "parent": "Flower15",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower15Light",
+   "parent": "Flower15",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower16",
+   "components": {
+    "transform": {
+     "position": [
+      -403.27537565685225,
+      -223.53694962760096
+     ],
+     "rotation": 0.03633239218317606,
+     "scale": [
+      0.9876294876619929,
+      0.9876294876619929
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower16Glow",
+   "parent": "Flower16",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower16Bloom",
+   "parent": "Flower16",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower16Light",
+   "parent": "Flower16",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower17",
+   "components": {
+    "transform": {
+     "position": [
+      -338.4832354065196,
+      -214.17308489028696
+     ],
+     "rotation": 0.055727714044634426,
+     "scale": [
+      0.8073841927869807,
+      0.8073841927869807
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower17Glow",
+   "parent": "Flower17",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower17Bloom",
+   "parent": "Flower17",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower17Light",
+   "parent": "Flower17",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower18",
+   "components": {
+    "transform": {
+     "position": [
+      -195.43199103628103,
+      -240.54147211953736
+     ],
+     "rotation": -0.006518195725444785,
+     "scale": [
+      0.9974419292529293,
+      0.9974419292529293
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower18Glow",
+   "parent": "Flower18",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower18Bloom",
+   "parent": "Flower18",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower18Light",
+   "parent": "Flower18",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower19",
+   "components": {
+    "transform": {
+     "position": [
+      -150.91767533250612,
+      -243.1104938209687
+     ],
+     "rotation": -0.05921493348723896,
+     "scale": [
+      0.7979004939589316,
+      0.7979004939589316
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower19Glow",
+   "parent": "Flower19",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower19Bloom",
+   "parent": "Flower19",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower19Light",
+   "parent": "Flower19",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower20",
+   "components": {
+    "transform": {
+     "position": [
+      -53.35687818658671,
+      -216.08009798780802
+     ],
+     "rotation": -0.02516165496439388,
+     "scale": [
+      1.0065804813694124,
+      1.0065804813694124
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower20Glow",
+   "parent": "Flower20",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower20Bloom",
+   "parent": "Flower20",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower20Light",
+   "parent": "Flower20",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower21",
+   "components": {
+    "transform": {
+     "position": [
+      72.05365042946428,
+      -220.47651164983958
+     ],
+     "rotation": 0.04575350702877616,
+     "scale": [
+      0.7891228955026166,
+      0.7891228955026166
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower21Glow",
+   "parent": "Flower21",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower21Bloom",
+   "parent": "Flower21",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower21Light",
+   "parent": "Flower21",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower22",
+   "components": {
+    "transform": {
+     "position": [
+      107.30648104810929,
+      -246.37400009300345
+     ],
+     "rotation": 0.04963967403572272,
+     "scale": [
+      1.0149819435583056,
+      1.0149819435583056
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower22Glow",
+   "parent": "Flower22",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower22Bloom",
+   "parent": "Flower22",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower22Light",
+   "parent": "Flower22",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower23",
+   "components": {
+    "transform": {
+     "position": [
+      234.8494048155419,
+      -235.30408882700465
+     ],
+     "rotation": -0.019196397713051885,
+     "scale": [
+      0.7811121015856993,
+      0.7811121015856993
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower23Glow",
+   "parent": "Flower23",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower23Bloom",
+   "parent": "Flower23",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower23Light",
+   "parent": "Flower23",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower24",
+   "components": {
+    "transform": {
+     "position": [
+      329.56867444694336,
+      -212.25919462176861
+     ],
+     "rotation": -0.05990970183982887,
+     "scale": [
+      1.0225882129373878,
+      1.0225882129373878
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower24Glow",
+   "parent": "Flower24",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower24Bloom",
+   "parent": "Flower24",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower24Light",
+   "parent": "Flower24",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower25",
+   "components": {
+    "transform": {
+     "position": [
+      375.73707829279704,
+      -229.26752136770244
+     ],
+     "rotation": -0.012855152417753053,
+     "scale": [
+      0.7739235133044425,
+      0.7739235133044425
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower25Glow",
+   "parent": "Flower25",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower25Bloom",
+   "parent": "Flower25",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower25Light",
+   "parent": "Flower25",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower26",
+   "components": {
+    "transform": {
+     "position": [
+      519.4256916452529,
+      -247.9295570561527
+     ],
+     "rotation": 0.05303222541274984,
+     "scale": [
+      1.0293466860235994,
+      1.0293466860235994
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower26Glow",
+   "parent": "Flower26",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower26Bloom",
+   "parent": "Flower26",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower26Light",
+   "parent": "Flower26",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower27",
+   "components": {
+    "transform": {
+     "position": [
+      581.714416414389,
+      -226.1122292086121
+     ],
+     "rotation": 0.04122726877228435,
+     "scale": [
+      0.7676068455404793,
+      0.7676068455404793
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower27Glow",
+   "parent": "Flower27",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower27Bloom",
+   "parent": "Flower27",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower27Light",
+   "parent": "Flower27",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower28",
+   "components": {
+    "transform": {
+     "position": [
+      654.9525194727534,
+      -213.07227866695388
+     ],
+     "rotation": -0.030975733204795616,
+     "scale": [
+      1.0352106225285351,
+      1.0352106225285351
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower28Glow",
+   "parent": "Flower28",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower28Bloom",
+   "parent": "Flower28",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower28Light",
+   "parent": "Flower28",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower29",
+   "components": {
+    "transform": {
+     "position": [
+      794.9998947103682,
+      -238.2498581808518
+     ],
+     "rotation": -0.05779921346842565,
+     "scale": [
+      0.7622057831423377,
+      0.7622057831423377
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower29Glow",
+   "parent": "Flower29",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower29Bloom",
+   "parent": "Flower29",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower29Light",
+   "parent": "Flower29",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower30",
+   "components": {
+    "transform": {
+     "position": [
+      835.0710595543712,
+      -244.80182372240284
+     ],
+     "rotation": 5.328940834305553e-05,
+     "scale": [
+      1.0401394686052028,
+      1.0401394686052028
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower30Glow",
+   "parent": "Flower30",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower30Bloom",
+   "parent": "Flower30",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower30Light",
+   "parent": "Flower30",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower31",
+   "components": {
+    "transform": {
+     "position": [
+      941.5564555865044,
+      -217.93587483481926
+     ],
+     "rotation": 0.057827723177045265,
+     "scale": [
+      0.757757678809508,
+      0.757757678809508
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower31Glow",
+   "parent": "Flower31",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower31Bloom",
+   "parent": "Flower31",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower31Light",
+   "parent": "Flower31",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower32",
+   "components": {
+    "transform": {
+     "position": [
+      1059.5176425874774,
+      -218.30696848964837
+     ],
+     "rotation": 0.03088440701542992,
+     "scale": [
+      1.0440991373105613,
+      1.0440991373105613
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower32Glow",
+   "parent": "Flower32",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower32Bloom",
+   "parent": "Flower32",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower32Light",
+   "parent": "Flower32",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower33",
+   "components": {
+    "transform": {
+     "position": [
+      1095.772509704805,
+      -245.0772906286465
+     ],
+     "rotation": -0.041304637778260225,
+     "scale": [
+      0.7542932947684162,
+      0.7542932947684162
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower33Glow",
+   "parent": "Flower33",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower33Bloom",
+   "parent": "Flower33",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower33Light",
+   "parent": "Flower33",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower34",
+   "components": {
+    "transform": {
+     "position": [
+      1229.4295093042765,
+      -237.8077797375623
+     ],
+     "rotation": -0.052982291460325126,
+     "scale": [
+      1.0470622443442044,
+      1.0470622443442044
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower34Glow",
+   "parent": "Flower34",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower34Bloom",
+   "parent": "Flower34",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower34Light",
+   "parent": "Flower34",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower35",
+   "components": {
+    "transform": {
+     "position": [
+      1314.9994181986476,
+      -212.91073050763939
+     ],
+     "rotation": 0.012959235971293444,
+     "scale": [
+      0.7518365900268394,
+      0.7518365900268394
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower35Glow",
+   "parent": "Flower35",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower35Bloom",
+   "parent": "Flower35",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower35Light",
+   "parent": "Flower35",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower36",
+   "components": {
+    "transform": {
+     "position": [
+      1367.2457455507074,
+      -226.59593683368396
+     ],
+     "rotation": 0.05991545234470622,
+     "scale": [
+      1.0490082974328665,
+      1.0490082974328665
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower36Glow",
+   "parent": "Flower36",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.17064,
+      0.52252,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower36Bloom",
+   "parent": "Flower36",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.01634,
+      0.04144,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower36Light",
+   "parent": "Flower36",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.17064,
+      0.52252
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower37",
+   "components": {
+    "transform": {
+     "position": [
+      1511.9845702574776,
+      -247.96645908678866
+     ],
+     "rotation": 0.01909539066614889,
+     "scale": [
+      0.7504045546780556,
+      0.7504045546780556
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower37Glow",
+   "parent": "Flower37",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.26327,
+      0.44799,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower37Bloom",
+   "parent": "Flower37",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.02323,
+      0.03631,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower37Light",
+   "parent": "Flower37",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.26327,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower38",
+   "components": {
+    "transform": {
+     "position": [
+      1566.7959102350967,
+      -228.77430449567905
+     ],
+     "rotation": -0.049699463074058724,
+     "scale": [
+      1.0499238380510119,
+      1.0499238380510119
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      6.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "color_end": [
+      2.76828,
+      4.0,
+      0.68256,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      9.0
+     ],
+     "size_end": [
+      3.0,
+      6.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 20,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       0.6,
+       1.0,
+       1.0,
+       1.0,
+       0.3
+      ],
+      [
+       0.8,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       220.0,
+       160.0
+      ]
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Flower38Glow",
+   "parent": "Flower38",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.10048,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower38Bloom",
+   "parent": "Flower38",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.07324,
+      0.04696,
+      0.01082,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower38Light",
+   "parent": "Flower38",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.10048
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower39",
+   "components": {
+    "transform": {
+     "position": [
+      1648.947806316087,
+      -212.3493891480404
+     ],
+     "rotation": -0.04568448697731245,
+     "scale": [
+      0.7500070924006552,
+      0.7500070924006552
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower39Glow",
+   "parent": "Flower39",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.52252,
+      0.21404,
+      1.0,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower39Bloom",
+   "parent": "Flower39",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.04144,
+      0.01961,
+      0.07324,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower39Light",
+   "parent": "Flower39",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.21404,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Flower40",
+   "components": {
+    "transform": {
+     "position": [
+      1784.5944732459645,
+      -235.7740635627766
+     ],
+     "rotation": 0.02525836956856627,
+     "scale": [
+      1.049802534497383,
+      1.049802534497383
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/stem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      48.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "visibility_notifier": {
+     "size": [
+      140.0,
+      270.0
+     ],
+     "offset": [
+      0.0,
+      140.0
+     ],
+     "margin": -90.0,
+     "pause_offscreen": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_flower.lua"
+    }
+   }
+  },
+  {
+   "name": "Flower40Glow",
+   "parent": "Flower40",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.21404,
+      1.0,
+      0.60383,
+      0.0
+     ],
+     "z_order": -13,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower40Bloom",
+   "parent": "Flower40",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.15,
+      0.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/bloom/flower.png",
+     "color": [
+      0.01961,
+      0.07324,
+      0.04696,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Flower40Light",
+   "parent": "Flower40",
+   "components": {
+    "transform": {
+     "position": [
+      0.7056000402993361,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      1.0,
+      0.60383
+     ],
+     "intensity": 0.0,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "51   Night Bloom",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Left / Right  walk   Space  drift on/off   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s51_night_bloom.lua"
+    }
+   }
+  }
+ ]
+}

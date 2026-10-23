@@ -1,0 +1,1464 @@
+{
+ "name": "54 - Tesla Lab",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.9
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       0.9,
+       0.95,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.31855,
+      0.69207
+     ],
+     "intensity": 0.18
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1360.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Coil1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/coil.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      120.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "CoilGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.47782,
+      0.78378,
+      1.5,
+      0.5
+     ],
+     "z_order": 5,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "CoilLight1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.31855,
+      0.52252,
+      1.0
+     ],
+     "intensity": 1.2,
+     "radius": 520.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tape1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -80,
+       0
+      ],
+      [
+       80,
+       0
+      ]
+     ],
+     "width": 12.0,
+     "texture_id": "sprites/lab/hazard.png",
+     "texture_mode": "tile",
+     "tile_length": 24.0,
+     "z_order": -80
+    }
+   }
+  },
+  {
+   "name": "Coil2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/coil.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      120.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "CoilGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.47782,
+      0.78378,
+      1.5,
+      0.5
+     ],
+     "z_order": 5,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "CoilLight2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.31855,
+      0.52252,
+      1.0
+     ],
+     "intensity": 1.2,
+     "radius": 520.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Tape2",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -80,
+       0
+      ],
+      [
+       80,
+       0
+      ]
+     ],
+     "width": 12.0,
+     "texture_id": "sprites/lab/hazard.png",
+     "texture_mode": "tile",
+     "tile_length": 24.0,
+     "z_order": -80
+    }
+   }
+  },
+  {
+   "name": "Bolt1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "width": 7.0,
+     "width_curve": [
+      [
+       0.0,
+       0.15
+      ],
+      [
+       0.5,
+       1.0
+      ],
+      [
+       1.0,
+       0.15
+      ]
+     ],
+     "gradient": [
+      [
+       0.0,
+       0.7,
+       0.85,
+       1.0,
+       1.0
+      ],
+      [
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.7,
+       0.85,
+       1.0,
+       1.0
+      ]
+     ],
+     "color": [
+      3.0,
+      3.0,
+      3.0,
+      1.0
+     ],
+     "joint": "round",
+     "z_order": 20,
+     "blend_mode": "Additive"
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "width": 5.0,
+     "width_curve": [
+      [
+       0.0,
+       0.15
+      ],
+      [
+       0.5,
+       1.0
+      ],
+      [
+       1.0,
+       0.15
+      ]
+     ],
+     "gradient": [
+      [
+       0.0,
+       0.7,
+       0.85,
+       1.0,
+       1.0
+      ],
+      [
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.7,
+       0.85,
+       1.0,
+       1.0
+      ]
+     ],
+     "color": [
+      2.3,
+      2.3,
+      2.3,
+      1.0
+     ],
+     "joint": "round",
+     "z_order": 20,
+     "blend_mode": "Additive"
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Bolt3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "width": 3.0,
+     "width_curve": [
+      [
+       0.0,
+       0.15
+      ],
+      [
+       0.5,
+       1.0
+      ],
+      [
+       1.0,
+       0.15
+      ]
+     ],
+     "gradient": [
+      [
+       0.0,
+       0.7,
+       0.85,
+       1.0,
+       1.0
+      ],
+      [
+       0.5,
+       1.0,
+       1.0,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.7,
+       0.85,
+       1.0,
+       1.0
+      ]
+     ],
+     "color": [
+      1.6,
+      1.6,
+      1.6,
+      1.0
+     ],
+     "joint": "round",
+     "z_order": 20,
+     "blend_mode": "Additive"
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Emitter",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/emitter.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      90.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mirror1",
+   "components": {
+    "transform": {
+     "position": [
+      220.0,
+      60.0
+     ],
+     "rotation": 0.7854,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/mirror.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      16.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Mirror2",
+   "components": {
+    "transform": {
+     "position": [
+      220.0,
+      -150.0
+     ],
+     "rotation": 0.7854,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/mirror.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      16.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Mirror3",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      -150.0
+     ],
+     "rotation": -0.7854,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/mirror.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      16.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Mirror4",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      230.0
+     ],
+     "rotation": 0.7854,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/mirror.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      16.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "width": 5.0,
+     "joint": "round",
+     "begin_cap": "round",
+     "end_cap": "round",
+     "color": [
+      4.0,
+      0.6,
+      0.4,
+      1.0
+     ],
+     "z_order": 15,
+     "blend_mode": "Additive"
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "BeamHalo",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ]
+     ],
+     "width": 18.0,
+     "joint": "round",
+     "begin_cap": "round",
+     "end_cap": "round",
+     "color": [
+      1.5,
+      0.15,
+      0.075,
+      0.25
+     ],
+     "z_order": 14,
+     "blend_mode": "Additive"
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HitLight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.05088,
+      0.01961
+     ],
+     "intensity": 1.6,
+     "radius": 260.0,
+     "falloff": 1.8,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "HitGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      0.1831,
+      0.08275,
+      0.8
+     ],
+     "z_order": 16,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Junction",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -244.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab/emitter.png",
+     "color": [
+      0.44799,
+      0.44799,
+      0.52252,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      70.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cable1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -470.0,
+       -236.0
+      ],
+      [
+       -450.0,
+       -245.375
+      ],
+      [
+       -430.0,
+       -253.5
+      ],
+      [
+       -410.0,
+       -260.375
+      ],
+      [
+       -390.0,
+       -266.0
+      ],
+      [
+       -370.0,
+       -270.375
+      ],
+      [
+       -350.0,
+       -273.5
+      ],
+      [
+       -330.0,
+       -275.375
+      ],
+      [
+       -310.0,
+       -276.0
+      ],
+      [
+       -290.0,
+       -275.375
+      ],
+      [
+       -270.0,
+       -273.5
+      ],
+      [
+       -250.0,
+       -270.375
+      ],
+      [
+       -230.0,
+       -266.0
+      ],
+      [
+       -210.0,
+       -260.375
+      ],
+      [
+       -190.0,
+       -253.5
+      ],
+      [
+       -170.0,
+       -245.375
+      ],
+      [
+       -150.0,
+       -236.0
+      ]
+     ],
+     "width": 9.0,
+     "joint": "round",
+     "begin_cap": "round",
+     "end_cap": "round",
+     "color": [
+      0.01341,
+      0.01341,
+      0.01739,
+      1.0
+     ],
+     "z_order": -5
+    }
+   }
+  },
+  {
+   "name": "Cable2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -150.0,
+       -240.0
+      ],
+      [
+       -138.125,
+       -249.125
+      ],
+      [
+       -126.25,
+       -257.0
+      ],
+      [
+       -114.375,
+       -263.625
+      ],
+      [
+       -102.5,
+       -269.0
+      ],
+      [
+       -90.625,
+       -273.125
+      ],
+      [
+       -78.75,
+       -276.0
+      ],
+      [
+       -66.875,
+       -277.625
+      ],
+      [
+       -55.0,
+       -278.0
+      ],
+      [
+       -43.125,
+       -277.125
+      ],
+      [
+       -31.25,
+       -275.0
+      ],
+      [
+       -19.375,
+       -271.625
+      ],
+      [
+       -7.5,
+       -267.0
+      ],
+      [
+       4.375,
+       -261.125
+      ],
+      [
+       16.25,
+       -254.0
+      ],
+      [
+       28.125,
+       -245.625
+      ],
+      [
+       40.0,
+       -236.0
+      ]
+     ],
+     "width": 9.0,
+     "joint": "round",
+     "begin_cap": "round",
+     "end_cap": "round",
+     "color": [
+      0.10048,
+      0.00719,
+      0.0049,
+      1.0
+     ],
+     "z_order": -5
+    }
+   }
+  },
+  {
+   "name": "Cable3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       80.0,
+       -236.0
+      ],
+      [
+       108.75,
+       -245.625
+      ],
+      [
+       137.5,
+       -254.0
+      ],
+      [
+       166.25,
+       -261.125
+      ],
+      [
+       195.0,
+       -267.0
+      ],
+      [
+       223.75,
+       -271.625
+      ],
+      [
+       252.5,
+       -275.0
+      ],
+      [
+       281.25,
+       -277.125
+      ],
+      [
+       310.0,
+       -278.0
+      ],
+      [
+       338.75,
+       -277.625
+      ],
+      [
+       367.5,
+       -276.0
+      ],
+      [
+       396.25,
+       -273.125
+      ],
+      [
+       425.0,
+       -269.0
+      ],
+      [
+       453.75,
+       -263.625
+      ],
+      [
+       482.5,
+       -257.0
+      ],
+      [
+       511.25,
+       -249.125
+      ],
+      [
+       540.0,
+       -240.0
+      ]
+     ],
+     "width": 9.0,
+     "joint": "round",
+     "begin_cap": "round",
+     "end_cap": "round",
+     "color": [
+      0.01002,
+      0.01341,
+      0.05088,
+      1.0
+     ],
+     "z_order": -5
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "54   Tesla Lab",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  lightning on / off   Left / Right  turn the mirrors   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s54_tesla_lab.lua"
+    }
+   }
+  }
+ ]
+}

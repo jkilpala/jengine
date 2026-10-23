@@ -1,0 +1,383 @@
+{
+  "name": "43-Profiling",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "43 - Profiling & Debug Overlay",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "F3 toggles the frame overlay (fps / frame ms / scripts / physics / render / draws), F12 the entity inspector.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "The same numbers are available to scripts: get_fps, get_frame_time, get_entity_count, get_draw_calls, log_stats.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Each runtime fills its own FrameStats - a row that is flat zero usually means that runtime does not fill it.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Press Space to spawn 100 more sprites and watch the counters move; R resets the scene. L logs stats to the console.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Fps",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            150.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "fps: -",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Frame",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "frame: -",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Entities",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            55.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "entities: -",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Draws",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            10.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "draw calls: -",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Spawned",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -35.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "spawned: 0",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            1.0,
+            0.9,
+            0.5,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "F3 = overlay, F12 = inspector",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_43_profiling.lua"
+        }
+      }
+    }
+  ]
+}

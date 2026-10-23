@@ -1,0 +1,154 @@
+{
+  "name": "12 - Materials & Normal Maps",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280.0,
+          "viewport_height": 720.0
+        }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-300.0, 310.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "12 - MATERIALS & NORMAL MAPS", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-540.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Top row: lit_sprite, flat normal fallback. The diffuse is deliberately plain", "font_id": "", "font_scale": 1.1, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-540.0, 220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Bottom row: same diffuse + bumps128_n.png (a 5x5 grid of hemispheres)", "font_id": "", "font_scale": 1.1, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-540.0, 190.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "SPACE pause orbit  R toggle lights  N toggle normal map  1/2/3 ambient (dark/default/bright)", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.85, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "RowLabelFlat",
+      "components": {
+        "transform": { "position": [-620.0, 30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "flat >>", "font_id": "", "font_scale": 1.2, "color": [0.9, 0.9, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "RowLabelBumps",
+      "components": {
+        "transform": { "position": [-620.0, -170.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "bumps >>", "font_id": "", "font_scale": 1.2, "color": [0.6, 1.0, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+
+    { "name": "FlatA", "components": {
+      "transform": { "position": [-360.0, 30.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite" }
+    }},
+    { "name": "FlatB", "components": {
+      "transform": { "position": [-180.0, 30.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite" }
+    }},
+    { "name": "FlatC", "components": {
+      "transform": { "position": [0.0, 30.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite" }
+    }},
+    { "name": "FlatD", "components": {
+      "transform": { "position": [180.0, 30.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite" }
+    }},
+    { "name": "FlatE", "components": {
+      "transform": { "position": [360.0, 30.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite" }
+    }},
+
+    { "name": "BumpA", "components": {
+      "transform": { "position": [-360.0, -170.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite", "normal_map_id": "sprites/bumps128_n.png" }
+    }},
+    { "name": "BumpB", "components": {
+      "transform": { "position": [-180.0, -170.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite", "normal_map_id": "sprites/bumps128_n.png" }
+    }},
+    { "name": "BumpC", "components": {
+      "transform": { "position": [0.0, -170.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite", "normal_map_id": "sprites/bumps128_n.png" }
+    }},
+    { "name": "BumpD", "components": {
+      "transform": { "position": [180.0, -170.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite", "normal_map_id": "sprites/bumps128_n.png" }
+    }},
+    { "name": "BumpE", "components": {
+      "transform": { "position": [360.0, -170.0], "rotation": 0.0, "scale": [2.0, 2.0] },
+      "sprite":   { "size": [64.0, 64.0], "texture_id": "sprites/bumps128.png", "color": [1.0,1.0,1.0,1.0], "z_order": 0 },
+      "material": { "material_id": "lit_sprite", "normal_map_id": "sprites/bumps128_n.png" }
+    }},
+
+    {
+      "name": "Ambient",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "ambient_light": { "color": [0.75, 0.8, 1.0], "intensity": 0.4 }
+      }
+    },
+
+    {
+      "name": "Light_R",
+      "components": {
+        "transform": { "position": [-300.0, -70.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "point_light": { "color": [1.0, 0.3, 0.25], "intensity": 2.0, "radius": 320.0, "falloff": 2.0 },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [1.0, 0.4, 0.3, 1.0], "z_order": 5 }
+      }
+    },
+    {
+      "name": "Light_G",
+      "components": {
+        "transform": { "position": [300.0, -70.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "point_light": { "color": [0.3, 1.0, 0.4], "intensity": 2.0, "radius": 320.0, "falloff": 2.0 },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [0.4, 1.0, 0.45, 1.0], "z_order": 5 }
+      }
+    },
+    {
+      "name": "Light_B",
+      "components": {
+        "transform": { "position": [0.0, -70.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "point_light": { "color": [0.35, 0.5, 1.0], "intensity": 2.0, "radius": 320.0, "falloff": 2.0 },
+        "sprite": { "size": [64.0, 64.0], "texture_id": "sprites/circle16.png", "color": [0.5, 0.6, 1.0, 1.0], "z_order": 5 }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_12_materials.lua" }
+      }
+    }
+  ]
+}

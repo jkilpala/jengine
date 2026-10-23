@@ -1,0 +1,106 @@
+---
+/*
+ * The designed pages (home, features) - outside Starlight, always on the
+ * night palette tokens (`--jx-n-*`), with the same palette choice as the docs.
+ */
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '@fontsource/dela-gothic-one/400.css';
+import '../styles/palettes.css';
+import '../styles/site.css';
+import { PALETTE_BOOT } from '../palette-boot.mjs';
+import { PALETTES } from '../palettes';
+
+interface Props {
+	title: string;
+	description: string;
+	/** Which top-nav item is this page; leaves the rest plain. */
+	current?: 'home' | 'features' | 'showcase';
+}
+const { title, description, current } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const nav = [
+	{ id: 'features', label: 'Features', href: '/#features' },
+	{ id: 'showcase', label: 'Showcase', href: '/#showcase' },
+	{ id: 'learn', label: 'Learn', href: '/getting-started/installation/' },
+	{ id: 'reference', label: 'Reference', href: '/api-reference/scripting-api/' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL('/shots/neon-rain.jpg', Astro.site)} />
+		<meta name="theme-color" content="#1b0f2e" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<script is:inline set:html={PALETTE_BOOT} />
+	</head>
+	<body>
+		<a class="skip" href="#main">Skip to content</a>
+		<header class="top">
+			<div class="top-in">
+				<a class="brand" href="/" aria-label="jEngine home"><span class="brand-sun" aria-hidden="true"></span><span>j<em>Engine</em></span></a>
+				<nav class="top-nav" aria-label="Site">
+					{nav.map((n) => <a href={n.href} aria-current={n.id === current ? 'page' : undefined}>{n.label}</a>)}
+				</nav>
+				<label class="pal-pick" data-palette-select>
+					<span class="sr-only">Palette</span>
+					<select autocomplete="off">
+						{PALETTES.map((p) => <option value={p.id}>{p.label}</option>)}
+					</select>
+				</label>
+				<a class="top-cta" href="/getting-started/installation/">Get started</a>
+			</div>
+		</header>
+		<main id="main">
+			<slot />
+		</main>
+		<footer class="foot">
+			<div class="foot-in">
+				<div class="foot-brand">
+					<a class="brand" href="/"><span class="brand-sun" aria-hidden="true"></span><span>j<em>Engine</em></span></a>
+					<p>A 2D game engine in Rust, with a Lua API, a visual editor and its own game servers.</p>
+				</div>
+				<div class="foot-cols">
+					<div>
+						<h2>Learn</h2>
+						<a href="/getting-started/installation/">Installation</a>
+						<a href="/getting-started/first-project/">Your first project</a>
+						<a href="/guides/scripting/">Scripting</a>
+						<a href="/servers/overview/">Game servers</a>
+					</div>
+					<div>
+						<h2>Reference</h2>
+						<a href="/api-reference/scripting-api/">Scripting API</a>
+						<a href="/api-reference/components/">Components</a>
+						<a href="/packages/">Packages</a>
+						<a href="/ai/overview/">For AI agents</a>
+					</div>
+					<div>
+						<h2>Elsewhere</h2>
+						<a href="https://github.com/jkilpala/jengine">Source on GitHub</a>
+						<a href="/changelog/">Changelog</a>
+						<a href="/features/overview/">Every module</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script>
+			import { applyPalette, currentPalette } from '../palettes';
+			document.querySelectorAll<HTMLSelectElement>('[data-palette-select] select').forEach((s) => {
+				s.value = currentPalette();
+				s.addEventListener('change', () => applyPalette(s.value));
+			});
+		</script>
+	</body>
+</html>

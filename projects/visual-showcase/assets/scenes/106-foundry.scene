@@ -1,0 +1,1807 @@
+{
+ "name": "106 - The Foundry",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.75
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.03,
+       0.01,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.8,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0012
+     }
+    }
+   },
+   {
+    "name": "film_grain",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.04
+     },
+     "size": {
+      "Float": 1.4
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.7,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.44799,
+      0.2957,
+      0.23302
+     ],
+     "intensity": 0.3
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_wall"
+    ],
+    "sprite": {
+     "texture_id": "sprites/foundry/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1920.0,
+      1080.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/foundry/wall_n.png"
+    }
+   }
+  },
+  {
+   "name": "WorkLamp",
+   "components": {
+    "transform": {
+     "position": [
+      -460.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.63828,
+      0.31855
+     ],
+     "intensity": 1.0,
+     "radius": 950.0,
+     "falloff": 1.2,
+     "shadow_softness": 6.0,
+     "height": 0.45
+    }
+   }
+  },
+  {
+   "name": "FurnaceFire",
+   "components": {
+    "transform": {
+     "position": [
+      690.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      3.5,
+      0.59724,
+      0.04693,
+      1.0
+     ],
+     "z_order": -52,
+     "size": [
+      300.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FurnaceFlames",
+   "components": {
+    "transform": {
+     "position": [
+      690.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 40.0,
+     "max_particles": 120,
+     "lifetime": [
+      0.5,
+      1.0
+     ],
+     "speed": [
+      30.0,
+      80.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      30.0,
+      50.0
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -51,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "line",
+      "length": 120.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       4.0,
+       2.76828,
+       0.85616,
+       0.0
+      ],
+      [
+       0.2,
+       4.0,
+       1.52024,
+       0.20352,
+       1.0
+      ],
+      [
+       1.0,
+       0.4,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 50.0,
+      "scale": 70.0,
+      "speed": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Furnace",
+   "components": {
+    "transform": {
+     "position": [
+      690.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_furnace"
+    ],
+    "sprite": {
+     "texture_id": "sprites/foundry/furnace.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      360.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/foundry/furnace_n.png"
+    }
+   }
+  },
+  {
+   "name": "FurnaceLight",
+   "components": {
+    "transform": {
+     "position": [
+      690.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.21404,
+      0.02721
+     ],
+     "intensity": 2.0,
+     "radius": 900.0,
+     "falloff": 1.3,
+     "shadow_softness": 4.0,
+     "height": 0.25
+    }
+   }
+  },
+  {
+   "name": "Chimney",
+   "components": {
+    "transform": {
+     "position": [
+      690.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 10.0,
+     "max_particles": 60,
+     "lifetime": [
+      1.5,
+      3.0
+     ],
+     "speed": [
+      60.0,
+      140.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      1.59275,
+      0.1655,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      4.0,
+      7.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -49,
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 60.0,
+      "scale": 120.0,
+      "speed": 0.8
+     }
+    }
+   }
+  },
+  {
+   "name": "Bed",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -420.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_bed"
+    ],
+    "sprite": {
+     "texture_id": "sprites/foundry/bed.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      1920.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/foundry/bed_n.png"
+    }
+   }
+  },
+  {
+   "name": "BedFloor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -456.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1920.0,
+       "height": 168.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "BedWall0",
+   "components": {
+    "transform": {
+     "position": [
+      -595.0,
+      -336.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 730.0,
+       "height": 72.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "BedWall1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -336.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 140.0,
+       "height": 72.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "BedWall2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -336.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 140.0,
+       "height": 72.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "BedWall3",
+   "components": {
+    "transform": {
+     "position": [
+      745.0,
+      -336.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 430.0,
+       "height": 72.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      470.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/foundry/rail.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1980.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Trolley",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      460.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/foundry/trolley.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -9,
+     "size": [
+      120.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChainL",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0
+      ]
+     ],
+     "width": 5.0,
+     "color": [
+      0.01341,
+      0.01165,
+      0.01165,
+      1.0
+     ],
+     "z_order": -8,
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "ChainR",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.0,
+       -1.0
+      ]
+     ],
+     "width": 5.0,
+     "color": [
+      0.01341,
+      0.01165,
+      0.01165,
+      1.0
+     ],
+     "z_order": -8,
+     "begin_cap": "round",
+     "end_cap": "round"
+    }
+   }
+  },
+  {
+   "name": "Crucible",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_crucible"
+    ],
+    "sprite": {
+     "texture_id": "sprites/foundry/crucible.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      220.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/foundry/crucible_n.png"
+    }
+   }
+  },
+  {
+   "name": "CrucibleGlow",
+   "parent": "Crucible",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/foundry/crucible_glow.png",
+     "color": [
+      4.0,
+      2.09008,
+      0.40192,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      220.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CrucibleLight",
+   "parent": "Crucible",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.31855,
+      0.05088
+     ],
+     "intensity": 1.6,
+     "radius": 420.0,
+     "falloff": 1.4,
+     "shadow_softness": 4.0,
+     "height": 0.3
+    }
+   }
+  },
+  {
+   "name": "MeltGroup",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "canvas_group": {
+     "opacity": 1.0,
+     "z_order": 6,
+     "threshold": 0.42,
+     "threshold_soft": 0.05
+    }
+   }
+  },
+  {
+   "name": "Melt",
+   "parent": "MeltGroup",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "fluid": {
+     "radius": 16.0,
+     "rest_density": 3.0,
+     "stiffness": 0.06,
+     "near_stiffness": 0.14,
+     "viscosity": 5.0,
+     "gravity": [
+      0.0,
+      -900.0
+     ],
+     "max_particles": 1100,
+     "pour_rate": 0.0,
+     "pour_at": [
+      0.0,
+      0.0
+     ],
+     "pour_angle": 0.0,
+     "pour_speed": 70.0,
+     "pour_width": 12.0,
+     "cooling": 0.042,
+     "freeze_below": 0.17,
+     "size": 36.0,
+     "texture_id": "sprites/fx/soft_dot.png",
+     "z_order": 6,
+     "gradient": [
+      [
+       0.0,
+       0.01533,
+       0.01341,
+       0.01341,
+       1.0
+      ],
+      [
+       0.17,
+       0.0331,
+       0.01961,
+       0.01533,
+       1.0
+      ],
+      [
+       0.3,
+       1.2,
+       0.03265,
+       0.00372,
+       1.0
+      ],
+      [
+       0.55,
+       3.0,
+       0.25062,
+       0.0147,
+       1.0
+      ],
+      [
+       0.8,
+       4.5,
+       1.43348,
+       0.14895,
+       1.0
+      ],
+      [
+       1.0,
+       7.0,
+       5.51187,
+       2.66042,
+       1.0
+      ]
+     ],
+     "lights": {
+      "max": 10,
+      "radius": 260.0,
+      "intensity": 2.2,
+      "color": [
+       1.0,
+       0.21404,
+       0.01961
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "SplashSparks",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/spark.png",
+     "emission_rate": 70.0,
+     "max_particles": 200,
+     "lifetime": [
+      0.4,
+      1.1
+     ],
+     "speed": [
+      120.0,
+      380.0
+     ],
+     "angle": [
+      0.3,
+      2.85
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 1.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive",
+     "color_curve": [
+      [
+       0.0,
+       6.0,
+       4.72446,
+       1.9113,
+       1.0
+      ],
+      [
+       1.0,
+       2.0,
+       0.20096,
+       0.01438,
+       0.0
+      ]
+     ],
+     "stretch": 0.03,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.35
+     },
+     "light": {
+      "every": 6,
+      "max": 6,
+      "radius": 70.0,
+      "intensity": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "LipSparks",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/spark.png",
+     "emission_rate": 25.0,
+     "max_particles": 200,
+     "lifetime": [
+      0.4,
+      1.1
+     ],
+     "speed": [
+      120.0,
+      380.0
+     ],
+     "angle": [
+      0.3,
+      2.85
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      8.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 1.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive",
+     "color_curve": [
+      [
+       0.0,
+       6.0,
+       4.72446,
+       1.9113,
+       1.0
+      ],
+      [
+       1.0,
+       2.0,
+       0.20096,
+       0.01438,
+       0.0
+      ]
+     ],
+     "stretch": 0.03,
+     "collision": {
+      "response": "bounce",
+      "bounce": 0.35
+     },
+     "light": {
+      "every": 6,
+      "max": 6,
+      "radius": 70.0,
+      "intensity": 1.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Steam0",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 10.0,
+     "max_particles": 80,
+     "lifetime": [
+      2.5,
+      4.5
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      40.0,
+      60.0
+     ],
+     "size_end": [
+      180.0,
+      260.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 35,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "line",
+      "length": 140.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.5,
+       0.42,
+       0.38,
+       0.0
+      ],
+      [
+       0.15,
+       0.45,
+       0.4,
+       0.38,
+       0.3
+      ],
+      [
+       1.0,
+       0.25,
+       0.24,
+       0.24,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 220.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Haze0",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/heat_haze"
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 34,
+     "size": [
+      240.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Steam1",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 10.0,
+     "max_particles": 80,
+     "lifetime": [
+      2.5,
+      4.5
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      40.0,
+      60.0
+     ],
+     "size_end": [
+      180.0,
+      260.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 35,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "line",
+      "length": 140.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.5,
+       0.42,
+       0.38,
+       0.0
+      ],
+      [
+       0.15,
+       0.45,
+       0.4,
+       0.38,
+       0.3
+      ],
+      [
+       1.0,
+       0.25,
+       0.24,
+       0.24,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 220.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Haze1",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/heat_haze"
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 34,
+     "size": [
+      240.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Steam2",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 10.0,
+     "max_particles": 80,
+     "lifetime": [
+      2.5,
+      4.5
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      40.0,
+      60.0
+     ],
+     "size_end": [
+      180.0,
+      260.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 35,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "line",
+      "length": 140.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.5,
+       0.42,
+       0.38,
+       0.0
+      ],
+      [
+       0.15,
+       0.45,
+       0.4,
+       0.38,
+       0.3
+      ],
+      [
+       1.0,
+       0.25,
+       0.24,
+       0.24,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 220.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Haze2",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/heat_haze"
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 34,
+     "size": [
+      240.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "KnockOut",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 0.0,
+     "max_particles": 60,
+     "lifetime": [
+      1.0,
+      2.0
+     ],
+     "speed": [
+      40.0,
+      140.0
+     ],
+     "angle": [
+      0.4,
+      2.7
+     ],
+     "color_start": [
+      0.10048,
+      0.07324,
+      0.04696,
+      0.6
+     ],
+     "color_end": [
+      0.07324,
+      0.05925,
+      0.03968,
+      0.0
+     ],
+     "size_start": [
+      30.0,
+      50.0
+     ],
+     "size_end": [
+      100.0,
+      160.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 14,
+     "active": false,
+     "world_space": true,
+     "z_order": 36,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "line",
+      "length": 150.0
+     }
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s106_foundry.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "106   The Foundry",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "molten metal is a fluid: it pours, levels and sets   Space pour now   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

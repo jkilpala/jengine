@@ -1,0 +1,9 @@
+# The toolchain jEngine builds with. `stable` rather than an exact version so
+# an existing rustup install is reused; the engine is tested on Rust 1.97
+# (`rust-version` in Cargo.toml). The wasm target is what the editor's
+# viewport and web builds compile to. Android builds add their own targets
+# (`rustup target add aarch64-linux-android x86_64-linux-android`).
+[toolchain]
+channel = "stable"
+components = ["clippy", "rustfmt"]
+targets = ["wasm32-unknown-unknown"]

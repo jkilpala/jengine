@@ -1,0 +1,63 @@
+---
+draft: false
+title: Game Servers
+description: The server side of a jEngine game - rooms on jengine-server, a client over jengine-online, and the tools that run them.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+A multiplayer jEngine game has two halves. **The game** connects with the
+`jengine-online` package (Lua: `Online.*`). **The server** is a small Rust
+program built on `jengine-server`, the engine's server framework. The server
+decides; the game shows what it is told and sends what the player does.
+
+## The pieces
+
+| Piece | What it is |
+|---|---|
+| `jengine-server` | The framework: **rooms** (sync Rust, ticked on a timer), **players** whose state outlives a room, accounts, a store (SQLite), an admin dashboard at `/admin`, and optional **live ops**. A game's server is its own small binary crate depending on it. |
+| `jengine-online` | The client package: connects, signs in, joins rooms, mirrors server state into entities, predicts the player's own movement. |
+| `jengine-relay` | The smallest server: rooms and an ordered log, for turn-based games. `jengine-server` speaks the same protocol. |
+| `jengine-fleet` | The deploy tool: an **agent** on each machine runs and restarts servers; a command line and a web page on yours deploy builds to them. |
+| `jengine-fleet host` | An agent that is also a **host**: one port for players in front of every server it runs, and a web **console** to manage them. |
+
+To start a server of your own, scaffold its crate:
+
+```bash
+cargo run -p jengine-server -- new ../my-server --template world   # or relay | match
+```
+
+`cargo run -p jengine-server --example zones` runs the framework's worked
+example: a small world of zones whose server owns a tilemap, paths monsters
+with the engine's own A*, and sends the walls to the client so the player is
+predicted against them (`crates/jengine-server/examples/zones`).
+
+## Three ways to run a server
+
+1. **On your machine, while you work.** `cargo run -p <your-server>`, or the
+   editor's **Servers** panel (build, run, watch its rooms and log, send a
+   notice). Players connect to `ws://127.0.0.1:<port>`.
+2. **On machines you own, deployed with the fleet tool.** An agent on each
+   machine; `jengine-fleet deploy` from yours. See
+   [Hosting & Deploying](/servers/hosting/).
+3. **On one machine on your LAN that hosts everything** - a Raspberry Pi is
+   enough for several games. See [Raspberry Pi Host](/servers/raspberry-pi/).
+
+## Managing what runs
+
+- **Each server's own dashboard** (`/admin`, behind its admin token): rooms,
+  players, kick, notices, drain, accounts, the game's HTTP routes, history
+  charts, and live ops if it runs them.
+- **The console** a host serves at `/manage`: every server on the host, the
+  machine's resources, recent errors, deploys - and each server's dashboard
+  inside it. See [Console & Live Ops](/servers/console/).
+- **The editor's Servers panel** stays the light, developer side: build, run
+  and deploy this project, and a **Console** button for a host.
+
+<Aside>
+The deep reference is in the repository: `crates/jengine-server/README.md`
+(the framework, deploying, clusters, live ops), `docs/making-online-games.md`
+(writing a game's room and client), and `crates/jengine-server/LIMITS.md` -
+every known limit of the stack, numbered. Read the limits before relying on a
+feature in production.
+</Aside>

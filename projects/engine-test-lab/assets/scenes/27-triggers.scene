@@ -1,0 +1,203 @@
+{
+  "name": "27 - Triggers",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-300.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "27 - TRIGGERS", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 252.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "TriggerArea2D + match_tags=[\"probe\"] - overlap state written to TriggerOverlaps each frame.", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 226.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Probe wanders via Oscillator (Lissajous). Outlines drawn with VectorPath - zones are data-only.", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 200.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Each zone script gets on_trigger_enter/exit (lines below); the probe tints white while inside.", "font_id": "", "font_scale": 0.9, "color": [0.7, 0.75, 0.85, 0.9], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Probe",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.95, 0.3, 1.0], "z_order": 5, "size": [36.0, 36.0] },
+        "tags": ["probe"],
+        "oscillator": { "amplitude": [480.0, 200.0], "frequency": [0.18, 0.27] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/trigger_probe.lua" }
+      }
+    },
+    {
+      "name": "ProbeLabel",
+      "components": {
+        "transform": { "position": [-12.0, 24.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "probe", "font_id": "", "font_scale": 0.9, "color": [1.0, 0.95, 0.3, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "ZoneAabbLabel",
+      "components": {
+        "transform": { "position": [-410.0, 100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "AABB  half=[100,80]", "font_id": "", "font_scale": 1.0, "color": [0.5, 1.0, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "ZoneAabb",
+      "components": {
+        "transform": { "position": [-340.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/trigger_zone.lua" },
+        "trigger_area": {
+          "shape": { "kind": "aabb", "half_extents": [100.0, 80.0] },
+          "match_tags": ["probe"]
+        },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo", "x": -100.0, "y": -80.0 },
+            { "type": "LineTo", "x":  100.0, "y": -80.0 },
+            { "type": "LineTo", "x":  100.0, "y":  80.0 },
+            { "type": "LineTo", "x": -100.0, "y":  80.0 },
+            { "type": "Close" }
+          ],
+          "stroke_color": [0.5, 1.0, 0.7, 1.0],
+          "stroke_width": 3.0,
+          "closed": true,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "ZoneCircleLabel",
+      "components": {
+        "transform": { "position": [-50.0, 110.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Circle  r=90", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.85, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "ZoneCircle",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/trigger_zone.lua" },
+        "trigger_area": {
+          "shape": { "kind": "circle", "radius": 90.0 },
+          "match_tags": ["probe"]
+        },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo", "x": 90.0, "y": 0.0 },
+            { "type": "LineTo", "x": 83.15, "y": 34.44 },
+            { "type": "LineTo", "x": 63.64, "y": 63.64 },
+            { "type": "LineTo", "x": 34.44, "y": 83.15 },
+            { "type": "LineTo", "x": 0.0, "y": 90.0 },
+            { "type": "LineTo", "x": -34.44, "y": 83.15 },
+            { "type": "LineTo", "x": -63.64, "y": 63.64 },
+            { "type": "LineTo", "x": -83.15, "y": 34.44 },
+            { "type": "LineTo", "x": -90.0, "y": 0.0 },
+            { "type": "LineTo", "x": -83.15, "y": -34.44 },
+            { "type": "LineTo", "x": -63.64, "y": -63.64 },
+            { "type": "LineTo", "x": -34.44, "y": -83.15 },
+            { "type": "LineTo", "x": 0.0, "y": -90.0 },
+            { "type": "LineTo", "x": 34.44, "y": -83.15 },
+            { "type": "LineTo", "x": 63.64, "y": -63.64 },
+            { "type": "LineTo", "x": 83.15, "y": -34.44 },
+            { "type": "Close" }
+          ],
+          "stroke_color": [0.7, 0.85, 1.0, 1.0],
+          "stroke_width": 3.0,
+          "closed": true,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "ZoneWideLabel",
+      "components": {
+        "transform": { "position": [240.0, 60.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "AABB  half=[140,60]", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.65, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "ZoneWide",
+      "components": {
+        "transform": { "position": [340.0, -30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/trigger_zone.lua" },
+        "trigger_area": {
+          "shape": { "kind": "aabb", "half_extents": [140.0, 60.0] },
+          "match_tags": ["probe"]
+        },
+        "vector_path": {
+          "commands": [
+            { "type": "MoveTo", "x": -140.0, "y": -60.0 },
+            { "type": "LineTo", "x":  140.0, "y": -60.0 },
+            { "type": "LineTo", "x":  140.0, "y":  60.0 },
+            { "type": "LineTo", "x": -140.0, "y":  60.0 },
+            { "type": "Close" }
+          ],
+          "stroke_color": [1.0, 0.65, 0.9, 1.0],
+          "stroke_width": 3.0,
+          "closed": true,
+          "z_order": 1
+        }
+      }
+    },
+
+    {
+      "name": "ZoneAabbStatus",
+      "components": {
+        "transform": { "position": [-580.0, -240.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "ZoneAabb: waiting for the probe", "font_id": "", "font_scale": 1.0, "color": [0.5, 1.0, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "ZoneCircleStatus",
+      "components": {
+        "transform": { "position": [-580.0, -265.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "ZoneCircle: waiting for the probe", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.85, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "ZoneWideStatus",
+      "components": {
+        "transform": { "position": [-580.0, -290.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "ZoneWide: waiting for the probe", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.65, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Footer",
+      "components": {
+        "transform": { "position": [-540.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.75, 0.85, 0.8], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "NavScript",
+      "components": {
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_27_triggers.lua" }
+      }
+    }
+  ]
+}

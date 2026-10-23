@@ -1,0 +1,90 @@
+---
+draft: false
+title: AI & Agent Integration
+description: Build games with jEngine using AI coding agents — overview and quick start.
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+jEngine provides machine-readable API specifications and documentation designed for
+AI coding agents (GitHub Copilot, Cursor, Cline, custom LLM pipelines, etc.)
+to build 2D games autonomously.
+
+## What's Available
+
+<CardGrid>
+  <Card title="API Specification" icon="document">
+    Complete JSON spec of every scripting function, core component, package, and input key.
+    [`/ai/api-spec.json`](/ai/api-spec.json)
+  </Card>
+  <Card title="Scene Schema" icon="seti:json">
+    JSON Schema for `.scene` files — validate scenes programmatically.
+    [`/ai/scene-schema.json`](/ai/scene-schema.json)
+  </Card>
+  <Card title="LLM Context" icon="open-book">
+    Single markdown file with the complete engine reference — ideal for
+    system prompts and RAG pipelines.
+    [`/ai/llm-context.md`](/ai/llm-context.md)
+  </Card>
+  <Card title="Agent Guide" icon="rocket">
+    Step-by-step instructions for agents to create, script, and build jEngine projects.
+    [Read the guide →](/ai/agent-guide/)
+  </Card>
+</CardGrid>
+
+## Engine Systems Coverage
+
+AI agents can rely on dedicated documentation for major engine systems, including renderer and shader-related features.
+
+| System | Coverage |
+|--------|----------|
+| Renderer + Shaders | [Architecture Overview](/architecture/overview/) and [Features Overview](/features/overview/) |
+| Particles | [Particles Guide](/guides/particles/) and [Features Overview](/features/overview/) |
+| Physics | [Physics Guide](/guides/physics/) and [Features Overview](/features/overview/) |
+| Audio | [Audio Guide](/guides/audio/) and [Features Overview](/features/overview/) |
+| Animation | [Animation Guide](/guides/animation/) and [Features Overview](/features/overview/) |
+| Tilemaps | [Tilemaps Guide](/guides/tilemaps/) and [Features Overview](/features/overview/) |
+| UI | [UI System Guide](/guides/ui/) and [Features Overview](/features/overview/) |
+| Scripting (Tier 1/2/3) | [Scripting Guide](/guides/scripting/) + [Batch Scripts](/guides/batch-scripts/) + [Behavior Graph](/guides/behavior-graph/) |
+| Packages | [All packages](/packages/) (one page each, generated) and the `packages` key of `api-spec.json` |
+
+For architecture and optimization decisions, see [Best Practices & Architecture](/guides/best-practices/).
+
+## Quick Start for Agents
+
+Feed the LLM context file into your agent's system prompt:
+
+```text
+You are building a 2D game with jEngine.
+Refer to the following API reference:
+
+<jengine-context>
+{contents of /ai/llm-context.md}
+</jengine-context>
+```
+
+Or use the structured JSON spec for tool-calling agents:
+
+```python
+import json, urllib.request
+
+spec = json.loads(
+    urllib.request.urlopen("https://your-docs-host/ai/api-spec.json").read()
+)
+
+# List all available scripting functions
+for fn in spec["functions"]:
+    print(f"{fn['signature']}  — {fn['description']}")
+```
+
+## Key Concepts for AI
+
+1. **Scripts** define `init(entity)` and `update(entity, dt)` — Lua (everywhere) or JavaScript (desktop).
+2. **Lua calls the engine through namespaces** — `Transform.get_position`, `Input.is_action_pressed`;
+   JavaScript uses the flat names. A package adds its own namespace (`Parallax.set`).
+3. **All mutations are deferred** — `Transform.set_position`, `Entity.spawn_prefab`, etc. queue
+   commands that apply after all scripts finish each frame.
+4. **Scenes are JSON** (`"version": 2`) — entities with named components. Every sound a scene plays is
+   listed in its `audio_refs`.
+5. **Assets** (textures, audio, scripts) are referenced by path relative to `assets/`.
+6. **Coordinates**: X-right, Y-up, origin at world center, rotation in radians; colours are linear.

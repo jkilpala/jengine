@@ -1,0 +1,534 @@
+{
+ "name": "158 - Sprite-shaped shadows",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.75,
+      0.75,
+      0.78,
+      1
+     ],
+     "z_order": -10,
+     "size": [
+      1400.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.5,
+      0.55,
+      0.7
+     ],
+     "intensity": 0.12
+    }
+   }
+  },
+  {
+   "name": "L",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/shape_l.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5
+    }
+   }
+  },
+  {
+   "name": "Crown",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/shape_crown.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5
+    }
+   }
+  },
+  {
+   "name": "Fence",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/shape_fence.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5
+    }
+   }
+  },
+  {
+   "name": "Ring",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/shape_ring.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5
+    }
+   }
+  },
+  {
+   "name": "FenceBox",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/shape_fence.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "from_sprite": true
+    }
+   }
+  },
+  {
+   "name": "RingBox",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/shape_ring.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "from_sprite": true
+    }
+   }
+  },
+  {
+   "name": "Label-420",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "the sprite's box (from_sprite)",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.9,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Label420",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "the sprite's box (from_sprite)",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.9,
+      0.9,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.85,
+      0.6
+     ],
+     "intensity": 1.6,
+     "radius": 900.0,
+     "falloff": 1.2,
+     "shadow_softness": 2.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "158 - Sprite-shaped shadows",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Mouse: move the light",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Top row: each shadow is the sprite's own shape - light into the ring's mouth, between the crown's clumps,",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "between the pickets, and into the L's notch with the light there. Bottom row: pickets and ring as boxes - solid wedges.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_158_sprite_shaped_shadows.lua"
+    }
+   }
+  }
+ ]
+}

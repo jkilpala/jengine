@@ -1,0 +1,1922 @@
+{
+ "name": "139 - Toy Town",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.2
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.65
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.02
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.12
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.9,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Grass",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/toytown/grass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -110,
+     "size": [
+      3400.0,
+      3400.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/toytown/board.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1200.0,
+      1200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Road",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 396.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": 392.6121651040289,
+       "y": 46.98942919921856
+      },
+      {
+       "type": "LineTo",
+       "x": 382.50662721047104,
+       "y": 93.17485623690746
+      },
+      {
+       "type": "LineTo",
+       "x": 365.85629487446954,
+       "y": 137.76603565143233
+      },
+      {
+       "type": "LineTo",
+       "x": 342.9460598986377,
+       "y": 179.99999999999997
+      },
+      {
+       "type": "LineTo",
+       "x": 314.16792275532913,
+       "y": 219.15411444313943
+      },
+      {
+       "type": "LineTo",
+       "x": 280.01428534987286,
+       "y": 254.55844122715712
+      },
+      {
+       "type": "LineTo",
+       "x": 241.06952588745338,
+       "y": 285.6072025048447
+      },
+      {
+       "type": "LineTo",
+       "x": 198.00000000000006,
+       "y": 311.7691453623979
+      },
+      {
+       "type": "LineTo",
+       "x": 151.54263921657557,
+       "y": 332.5966317040632
+      },
+      {
+       "type": "LineTo",
+       "x": 102.49234186059822,
+       "y": 347.7332974640646
+      },
+      {
+       "type": "LineTo",
+       "x": 51.688372119140475,
+       "y": 356.92015009457174
+      },
+      {
+       "type": "LineTo",
+       "x": 2.4248006623117594e-14,
+       "y": 360.0
+      },
+      {
+       "type": "LineTo",
+       "x": -51.68837211914035,
+       "y": 356.9201500945718
+      },
+      {
+       "type": "LineTo",
+       "x": -102.49234186059826,
+       "y": 347.7332974640646
+      },
+      {
+       "type": "LineTo",
+       "x": -151.54263921657554,
+       "y": 332.5966317040632
+      },
+      {
+       "type": "LineTo",
+       "x": -197.99999999999991,
+       "y": 311.7691453623979
+      },
+      {
+       "type": "LineTo",
+       "x": -241.06952588745338,
+       "y": 285.6072025048447
+      },
+      {
+       "type": "LineTo",
+       "x": -280.0142853498728,
+       "y": 254.55844122715712
+      },
+      {
+       "type": "LineTo",
+       "x": -314.1679227553291,
+       "y": 219.15411444313952
+      },
+      {
+       "type": "LineTo",
+       "x": -342.9460598986377,
+       "y": 179.99999999999997
+      },
+      {
+       "type": "LineTo",
+       "x": -365.85629487446954,
+       "y": 137.76603565143236
+      },
+      {
+       "type": "LineTo",
+       "x": -382.506627210471,
+       "y": 93.17485623690757
+      },
+      {
+       "type": "LineTo",
+       "x": -392.6121651040289,
+       "y": 46.98942919921856
+      },
+      {
+       "type": "LineTo",
+       "x": -396.0,
+       "y": 4.4087284769304716e-14
+      },
+      {
+       "type": "LineTo",
+       "x": -392.6121651040289,
+       "y": -46.989429199218634
+      },
+      {
+       "type": "LineTo",
+       "x": -382.5066272104711,
+       "y": -93.17485623690733
+      },
+      {
+       "type": "LineTo",
+       "x": -365.8562948744696,
+       "y": -137.76603565143228
+      },
+      {
+       "type": "LineTo",
+       "x": -342.94605989863766,
+       "y": -180.00000000000003
+      },
+      {
+       "type": "LineTo",
+       "x": -314.1679227553292,
+       "y": -219.15411444313932
+      },
+      {
+       "type": "LineTo",
+       "x": -280.01428534987286,
+       "y": -254.5584412271571
+      },
+      {
+       "type": "LineTo",
+       "x": -241.06952588745347,
+       "y": -285.60720250484457
+      },
+      {
+       "type": "LineTo",
+       "x": -198.00000000000017,
+       "y": -311.76914536239786
+      },
+      {
+       "type": "LineTo",
+       "x": -151.54263921657576,
+       "y": -332.59663170406316
+      },
+      {
+       "type": "LineTo",
+       "x": -102.49234186059817,
+       "y": -347.7332974640646
+      },
+      {
+       "type": "LineTo",
+       "x": -51.688372119140446,
+       "y": -356.92015009457174
+      },
+      {
+       "type": "LineTo",
+       "x": -7.274401986935278e-14,
+       "y": -360.0
+      },
+      {
+       "type": "LineTo",
+       "x": 51.688372119140304,
+       "y": -356.9201500945718
+      },
+      {
+       "type": "LineTo",
+       "x": 102.49234186059803,
+       "y": -347.7332974640646
+      },
+      {
+       "type": "LineTo",
+       "x": 151.54263921657565,
+       "y": -332.5966317040632
+      },
+      {
+       "type": "LineTo",
+       "x": 198.00000000000006,
+       "y": -311.7691453623979
+      },
+      {
+       "type": "LineTo",
+       "x": 241.06952588745332,
+       "y": -285.6072025048447
+      },
+      {
+       "type": "LineTo",
+       "x": 280.01428534987275,
+       "y": -254.55844122715718
+      },
+      {
+       "type": "LineTo",
+       "x": 314.167922755329,
+       "y": -219.15411444313955
+      },
+      {
+       "type": "LineTo",
+       "x": 342.9460598986376,
+       "y": -180.00000000000017
+      },
+      {
+       "type": "LineTo",
+       "x": 365.8562948744695,
+       "y": -137.76603565143253
+      },
+      {
+       "type": "LineTo",
+       "x": 382.50662721047104,
+       "y": -93.17485623690744
+      },
+      {
+       "type": "LineTo",
+       "x": 392.6121651040289,
+       "y": -46.989429199218606
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "RedHouseShadow",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      105.60000000000001,
+      105.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "RedHouse",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      120.0
+     ],
+     "rotation": 0.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/house_red.png",
+     "slices": 21,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "BlueHouseShadow",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      105.60000000000001,
+      105.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlueHouse",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      170.0
+     ],
+     "rotation": -0.3,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/house_blue.png",
+     "slices": 22,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "YellowHouseShadow",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      105.60000000000001,
+      105.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "YellowHouse",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      -140.0
+     ],
+     "rotation": 1.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/house_yellow.png",
+     "slices": 20,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "RedHouse2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      105.60000000000001,
+      105.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "RedHouse2",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      -90.0
+     ],
+     "rotation": 2.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/house_red.png",
+     "slices": 21,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "BlueHouse2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      105.60000000000001,
+      105.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlueHouse2",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      380.0
+     ],
+     "rotation": 0.9,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/house_blue.png",
+     "slices": 22,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "YellowHouse2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      105.60000000000001,
+      105.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "YellowHouse2",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -380.0
+     ],
+     "rotation": -0.8,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/house_yellow.png",
+     "slices": 20,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "WellShadow",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      52.800000000000004,
+      52.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Well",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      20.0
+     ],
+     "rotation": 0.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/well.png",
+     "slices": 16,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Tree1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      79.2,
+      79.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/tree_round.png",
+     "slices": 26,
+     "size": [
+      72.0,
+      72.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Tree2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      79.2,
+      79.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      100.0
+     ],
+     "rotation": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/tree_autumn.png",
+     "slices": 24,
+     "size": [
+      72.0,
+      72.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Tree3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      79.2,
+      79.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      -200.0
+     ],
+     "rotation": 2.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/tree_round.png",
+     "slices": 26,
+     "size": [
+      72.0,
+      72.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Tree4Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      79.2,
+      79.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -60.0
+     ],
+     "rotation": 0.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/tree_autumn.png",
+     "slices": 24,
+     "size": [
+      72.0,
+      72.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Pine1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine1",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/pine.png",
+     "slices": 30,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Pine2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine2",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/pine.png",
+     "slices": 30,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Pine3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine3",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/pine.png",
+     "slices": 30,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Pine4Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine4",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/pine.png",
+     "slices": 30,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Pine5Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      470.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      470.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/pine.png",
+     "slices": 30,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Pine6Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      -470.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine6",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      -470.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/pine.png",
+     "slices": 30,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      33.0,
+      33.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp1",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/lamp.png",
+     "slices": 26,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      33.0,
+      33.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/lamp.png",
+     "slices": 26,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lamp3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      33.0,
+      33.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp3",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/lamp.png",
+     "slices": 26,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "spacing": 3.0,
+     "fill": 3,
+     "z_order": 0,
+     "spin": 0.0
+    }
+   }
+  },
+  {
+   "name": "Cart1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/cart.png",
+     "slices": 10,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 2.5,
+     "fill": 3,
+     "z_order": 0
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": 70.0,
+     "progress": 0.0,
+     "lateral": 14.0
+    }
+   }
+  },
+  {
+   "name": "Cart1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "parent": "Cart1"
+  },
+  {
+   "name": "Cart2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_stack": {
+     "texture_id": "sprites/toytown/cart.png",
+     "slices": 10,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "spacing": 2.5,
+     "fill": 3,
+     "z_order": 0
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": -55.0,
+     "progress": 900.0,
+     "lateral": 14.0
+    }
+   }
+  },
+  {
+   "name": "Cart2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -50,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "parent": "Cart2"
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s139_toy_town.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "139   Toy Town",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Left / Right turn the town   Up / Down zoom   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,786 @@
+{
+ "name": "22 - Menus & HUD",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.2
+     },
+     "intensity": {
+      "Float": 0.3
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.01,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 0.9
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.92,
+       0.8,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_sky.png",
+     "color": [
+      0.52252,
+      0.52252,
+      0.60383,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1580.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Haze",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_haze.png",
+     "color": [
+      0.34239,
+      0.26327,
+      0.14732,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1580.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar1",
+   "components": {
+    "transform": {
+     "position": [
+      -610.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.14732,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      52.800000000000004,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar2",
+   "components": {
+    "transform": {
+     "position": [
+      -410.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.14732,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      42.24000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar3",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.14732,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      63.36,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar4",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.14732,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      47.52,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar5",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.14732,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      58.08000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar6",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.14732,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      39.6,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkMid1",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.03968,
+      0.0331,
+      0.02452,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      76.80000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkMid2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.03968,
+      0.0331,
+      0.02452,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      61.44000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkMid3",
+   "components": {
+    "transform": {
+     "position": [
+      130.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.03968,
+      0.0331,
+      0.02452,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      92.16000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkMid4",
+   "components": {
+    "transform": {
+     "position": [
+      610.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.03968,
+      0.0331,
+      0.02452,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      69.12000000000002,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Canopy",
+   "components": {
+    "transform": {
+     "position": [
+      80.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_canopy.png",
+     "color": [
+      0.00394,
+      0.0049,
+      0.0031,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      1880.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       420.0
+      ]
+     }
+    },
+    "oscillator": {
+     "amplitude": [
+      8.0,
+      3.0
+     ],
+     "frequency": [
+      0.13,
+      0.21
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_floor.png",
+     "color": [
+      0.0031,
+      0.00394,
+      0.00232,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1680.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       250.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 20.0,
+     "max_particles": 300,
+     "lifetime": [
+      8.0,
+      14.0
+     ],
+     "speed": [
+      2.0,
+      10.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -35,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       820.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       0.82757,
+       0.52252,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       0.82757,
+       0.52252,
+       0.45
+      ],
+      [
+       0.8,
+       1.0,
+       0.82757,
+       0.52252,
+       0.45
+      ],
+      [
+       1.0,
+       1.0,
+       0.82757,
+       0.52252,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 14.0,
+      "scale": 160.0,
+      "speed": 0.1
+     }
+    }
+   }
+  },
+  {
+   "name": "MenuUI",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gui": {
+     "gui_id": "ui/mh_menu.gui",
+     "visible": true
+    }
+   }
+  },
+  {
+   "name": "InventoryUI",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gui": {
+     "gui_id": "ui/mh_inventory.gui",
+     "visible": false
+    }
+   }
+  },
+  {
+   "name": "HudUI",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gui": {
+     "gui_id": "ui/mh_hud.gui",
+     "visible": false
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s22_menus.lua"
+    }
+   }
+  }
+ ]
+}

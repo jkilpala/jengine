@@ -1,0 +1,755 @@
+{
+ "name": "145 - Culling masks",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Red0",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.35,
+      0.3,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red1",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.35,
+      0.3,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red2",
+   "components": {
+    "transform": {
+     "position": [
+      110.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.35,
+      0.3,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Red3",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.95,
+      0.35,
+      0.3,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Green0",
+   "components": {
+    "transform": {
+     "position": [
+      -275.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.4,
+      0.95,
+      0.45,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 2
+    }
+   }
+  },
+  {
+   "name": "Green1",
+   "components": {
+    "transform": {
+     "position": [
+      -55.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.4,
+      0.95,
+      0.45,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 2
+    }
+   }
+  },
+  {
+   "name": "Green2",
+   "components": {
+    "transform": {
+     "position": [
+      165.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.4,
+      0.95,
+      0.45,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 2
+    }
+   }
+  },
+  {
+   "name": "Green3",
+   "components": {
+    "transform": {
+     "position": [
+      385.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.4,
+      0.95,
+      0.45,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 2
+    }
+   }
+  },
+  {
+   "name": "Blue0",
+   "components": {
+    "transform": {
+     "position": [
+      -220.0,
+      50.0
+     ],
+     "rotation": 0.785,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.55,
+      1.0,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Blue1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.785,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.55,
+      1.0,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Blue2",
+   "components": {
+    "transform": {
+     "position": [
+      220.0,
+      50.0
+     ],
+     "rotation": 0.785,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.55,
+      1.0,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Blue3",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      50.0
+     ],
+     "rotation": 0.785,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.55,
+      1.0,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "render_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "ViewA",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 400.0,
+     "target": "views/viewa",
+     "target_size": [
+      480,
+      150
+     ],
+     "cull_mask": 1
+    }
+   }
+  },
+  {
+   "name": "ViewB",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 400.0,
+     "target": "views/viewb",
+     "target_size": [
+      480,
+      150
+     ],
+     "cull_mask": 6
+    }
+   }
+  },
+  {
+   "name": "ShowA",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      40.0,
+      120.0
+     ],
+     "size": [
+      480.0,
+      150.0
+     ],
+     "z_order": 10
+    },
+    "ui_image": {
+     "texture_id": "views/viewa",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShowALabel",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      40.0,
+      280.0
+     ],
+     "size": [
+      480.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "layer 1 only",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.85,
+      0.6,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "ShowB",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -40.0,
+      120.0
+     ],
+     "size": [
+      480.0,
+      150.0
+     ],
+     "z_order": 10
+    },
+    "ui_image": {
+     "texture_id": "views/viewb",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShowBLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -40.0,
+      280.0
+     ],
+     "size": [
+      480.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "layers 2 and 3",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.85,
+      0.6,
+      1
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "145 - Culling masks",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Above: the main camera draws every layer - red squares, green circles, blue diamonds.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Below, two cameras on the same place: the left one only the red squares, the right one only the green and the blue.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_145_culling.lua"
+    }
+   }
+  }
+ ]
+}

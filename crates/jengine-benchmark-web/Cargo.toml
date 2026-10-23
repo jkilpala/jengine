@@ -1,0 +1,37 @@
+[package]
+name = "jengine-benchmark-web"
+description = "BunnyMark WASM benchmark for jEngine — runs in browser via WebGPU"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+jengine-benchmark = { path = "../jengine-benchmark", default-features = false, features = ["web"] }
+jengine-core = { path = "../jengine-core", default-features = false, features = ["web", "gpu-wgpu", "backend-webgpu"] }
+glam = { workspace = true }
+wgpu = { workspace = true }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = "0.4"
+web-sys = { workspace = true, features = [
+    "Window",
+    "Document",
+    "Element",
+    "HtmlCanvasElement",
+    "HtmlElement",
+    "Performance",
+    "Location",
+    "console",
+    "MouseEvent",
+    "KeyboardEvent",
+    "EventTarget",
+] }
+js-sys = { workspace = true }
+log = { workspace = true }
+serde_json = { workspace = true }
+console_error_panic_hook = "0.1"

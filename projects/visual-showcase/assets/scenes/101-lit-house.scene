@@ -1,0 +1,2040 @@
+{
+ "name": "101 - The Lit House",
+ "post_process": {
+  "effects": [
+   {
+    "name": "blur",
+    "enabled": false,
+    "params": {
+     "radius": {
+      "Float": 0.0
+     },
+     "focus_x": {
+      "Float": 0.0
+     },
+     "focus_y": {
+      "Float": 0.0
+     },
+     "focus_w": {
+      "Float": 400.0
+     },
+     "focus_h": {
+      "Float": 300.0
+     },
+     "falloff": {
+      "Float": 70.0
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.45
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       0.92,
+       0.95,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.002
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.13287,
+      0.19599,
+      0.69207
+     ],
+     "intensity": 0.1
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": -2.3,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      0.34239,
+      0.44799,
+      1.0
+     ],
+     "intensity": 0.42,
+     "height": 0.7,
+     "softness": 10.0,
+     "light_mask": 3
+    }
+   }
+  },
+  {
+   "name": "Grass",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_grass"
+    ],
+    "sprite": {
+     "texture_id": "sprites/lithouse/grass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      2600.0,
+      1800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/lithouse/grass_n.png"
+    }
+   }
+  },
+  {
+   "name": "Path",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/path.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      76.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_floor"
+    ],
+    "sprite": {
+     "texture_id": "sprites/lithouse/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      360.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/lithouse/floor_n.png"
+    },
+    "light_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Rug",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/rug.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      140.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Table",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      96.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Chair",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/chair.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Bed",
+   "components": {
+    "transform": {
+     "position": [
+      122.0,
+      38.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/bed.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      90.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Shelf",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      112.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/shelf.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_layers": {
+     "layers": 4
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      -70.0,
+      52.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/lithouse/lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.57048,
+      0.17064
+     ],
+     "intensity": 1.7,
+     "radius": 620.0,
+     "falloff": 1.3,
+     "shadow_softness": 5.0,
+     "light_mask": 5
+    }
+   }
+  },
+  {
+   "name": "Wall0",
+   "components": {
+    "transform": {
+     "position": [
+      -117.5,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      165.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      165.0,
+      20.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall1",
+   "components": {
+    "transform": {
+     "position": [
+      117.5,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      165.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      165.0,
+      20.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall2",
+   "components": {
+    "transform": {
+     "position": [
+      -160.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      80.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      80.0,
+      20.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      120.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      120.0,
+      20.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall4",
+   "components": {
+    "transform": {
+     "position": [
+      160.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      80.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      80.0,
+      20.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall5",
+   "components": {
+    "transform": {
+     "position": [
+      -190.0,
+      -77.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      20.0,
+      105.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      20.0,
+      105.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall6",
+   "components": {
+    "transform": {
+     "position": [
+      -190.0,
+      82.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      20.0,
+      95.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      20.0,
+      95.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall7",
+   "components": {
+    "transform": {
+     "position": [
+      190.0,
+      -77.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      20.0,
+      105.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      20.0,
+      105.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall8",
+   "components": {
+    "transform": {
+     "position": [
+      190.0,
+      82.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.34239,
+      0.23302,
+      0.17887,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      20.0,
+      95.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      20.0,
+      95.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Window0",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -31,
+     "size": [
+      60.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       16.0,
+       16.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Window1",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -31,
+     "size": [
+      60.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       16.0,
+       16.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Window2",
+   "components": {
+    "transform": {
+     "position": [
+      -190.0,
+      5.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -31,
+     "size": [
+      6.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       16.0,
+       16.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Window3",
+   "components": {
+    "transform": {
+     "position": [
+      190.0,
+      5.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -31,
+     "size": [
+      6.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       16.0,
+       16.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Bush0",
+   "components": {
+    "transform": {
+     "position": [
+      -95.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       20.0,
+       0.0
+      ],
+      [
+       10.0,
+       17.32
+      ],
+      [
+       -10.0,
+       17.32
+      ],
+      [
+       -20.0,
+       0.0
+      ],
+      [
+       -10.0,
+       -17.32
+      ],
+      [
+       10.0,
+       -17.32
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush1",
+   "components": {
+    "transform": {
+     "position": [
+      95.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       20.0,
+       0.0
+      ],
+      [
+       10.0,
+       17.32
+      ],
+      [
+       -10.0,
+       17.32
+      ],
+      [
+       -20.0,
+       0.0
+      ],
+      [
+       -10.0,
+       -17.32
+      ],
+      [
+       10.0,
+       -17.32
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush2",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       20.0,
+       0.0
+      ],
+      [
+       10.0,
+       17.32
+      ],
+      [
+       -10.0,
+       17.32
+      ],
+      [
+       -20.0,
+       0.0
+      ],
+      [
+       -10.0,
+       -17.32
+      ],
+      [
+       10.0,
+       -17.32
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush3",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       20.0,
+       0.0
+      ],
+      [
+       10.0,
+       17.32
+      ],
+      [
+       -10.0,
+       17.32
+      ],
+      [
+       -20.0,
+       0.0
+      ],
+      [
+       -10.0,
+       -17.32
+      ],
+      [
+       10.0,
+       -17.32
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree0",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      180.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       22.0,
+       0.0
+      ],
+      [
+       11.0,
+       19.05
+      ],
+      [
+       -11.0,
+       19.05
+      ],
+      [
+       -22.0,
+       0.0
+      ],
+      [
+       -11.0,
+       -19.05
+      ],
+      [
+       11.0,
+       -19.05
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      162.0,
+      162.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       19.8,
+       0.0
+      ],
+      [
+       9.9,
+       17.15
+      ],
+      [
+       -9.9,
+       17.15
+      ],
+      [
+       -19.8,
+       0.0
+      ],
+      [
+       -9.9,
+       -17.15
+      ],
+      [
+       9.9,
+       -17.15
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      144.0,
+      144.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       17.6,
+       0.0
+      ],
+      [
+       8.8,
+       15.24
+      ],
+      [
+       -8.8,
+       15.24
+      ],
+      [
+       -17.6,
+       0.0
+      ],
+      [
+       -8.8,
+       -15.24
+      ],
+      [
+       8.8,
+       -15.24
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      198.00000000000003,
+      198.00000000000003
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       24.2,
+       0.0
+      ],
+      [
+       12.1,
+       20.96
+      ],
+      [
+       -12.1,
+       20.96
+      ],
+      [
+       -24.2,
+       0.0
+      ],
+      [
+       -12.1,
+       -20.96
+      ],
+      [
+       12.1,
+       -20.96
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/tree.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      135.0,
+      135.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       16.5,
+       0.0
+      ],
+      [
+       8.25,
+       14.29
+      ],
+      [
+       -8.25,
+       14.29
+      ],
+      [
+       -16.5,
+       0.0
+      ],
+      [
+       -8.25,
+       -14.29
+      ],
+      [
+       8.25,
+       -14.29
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Walker",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/walker.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 7.0
+    },
+    "behavior_tree": {
+     "root": {
+      "type": "sequence",
+      "children": [
+       {
+        "type": "move_to",
+        "label": "to the door",
+        "target": [
+         0,
+         -250
+        ],
+        "speed": 105.0,
+        "arrive": 6
+       },
+       {
+        "type": "move_to",
+        "label": "going in",
+        "target": [
+         0,
+         -100
+        ],
+        "speed": 80.0,
+        "arrive": 6
+       },
+       {
+        "type": "move_to",
+        "label": "inside",
+        "target": [
+         -40,
+         -10
+        ],
+        "speed": 70.0,
+        "arrive": 6
+       },
+       {
+        "type": "wait",
+        "label": "looking around",
+        "seconds": 2.0,
+        "jitter": 0.8
+       },
+       {
+        "type": "move_to",
+        "label": "inside",
+        "target": [
+         90,
+         -30
+        ],
+        "speed": 70.0,
+        "arrive": 6
+       },
+       {
+        "type": "wait",
+        "label": "by the bed",
+        "seconds": 1.6
+       },
+       {
+        "type": "move_to",
+        "label": "leaving",
+        "target": [
+         0,
+         -100
+        ],
+        "speed": 80.0,
+        "arrive": 6
+       },
+       {
+        "type": "move_to",
+        "label": "out of the door",
+        "target": [
+         0,
+         -250
+        ],
+        "speed": 105.0,
+        "arrive": 6
+       },
+       {
+        "type": "move_to",
+        "label": "the rounds",
+        "target": [
+         330,
+         -300
+        ],
+        "speed": 105.0,
+        "arrive": 6
+       },
+       {
+        "type": "move_to",
+        "label": "the rounds",
+        "target": [
+         340,
+         270
+        ],
+        "speed": 105.0,
+        "arrive": 6
+       },
+       {
+        "type": "move_to",
+        "label": "the rounds",
+        "target": [
+         -330,
+         280
+        ],
+        "speed": 105.0,
+        "arrive": 6
+       },
+       {
+        "type": "move_to",
+        "label": "the rounds",
+        "target": [
+         -320,
+         -300
+        ],
+        "speed": 105.0,
+        "arrive": 6
+       }
+      ]
+     }
+    },
+    "camera_follow": {
+     "smoothing": 0.06,
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch",
+   "parent": "Walker",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      -9.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "spot_light": {
+     "color": [
+      0.82757,
+      0.89001,
+      1.0
+     ],
+     "intensity": 1.8,
+     "radius": 430.0,
+     "angle": 0.38,
+     "direction": 0.0,
+     "falloff": 1.2,
+     "shadow_softness": 4.0
+    }
+   }
+  },
+  {
+   "name": "Roof",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_layers": {
+     "layers": 2
+    },
+    "sprite": {
+     "texture_id": "sprites/lithouse/roof.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      420.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s101_lit_house.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "101   The Lit House",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the walker goes in and out by itself   L lamp on / off   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

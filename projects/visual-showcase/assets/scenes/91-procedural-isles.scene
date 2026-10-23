@@ -1,0 +1,3141 @@
+{
+ "name": "91 - Procedural Isles",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.2
+     },
+     "intensity": {
+      "Float": 0.25
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.36
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.02,
+       0.05,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sea",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/terrain/water.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1344.0,
+      784.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Map",
+   "components": {
+    "transform": {
+     "position": [
+      -672.0,
+      384.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tilemap": {
+     "tile_size": [
+      48.0,
+      48.0
+     ],
+     "layers": [
+      {
+       "name": "ground",
+       "tiles": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+       ],
+       "width": 28,
+       "height": 16,
+       "visible": true,
+       "collision": false
+      }
+     ],
+     "tilesets": [
+      {
+       "texture_id": "sprites/terrain/terrain.png",
+       "tile_width": 48,
+       "tile_height": 48,
+       "columns": 16,
+       "tile_count": 48,
+       "first_gid": 1,
+       "image_width": 768,
+       "image_height": 144
+      }
+     ],
+     "z_order": -20
+    },
+    "autotile": {
+     "layers": [
+      {
+       "layer": "ground",
+       "terrains": [
+        1,
+        17,
+        33
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gust0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust12",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust14",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust15",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust16",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust17",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust18",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust19",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust20",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust21",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust22",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust23",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust24",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust25",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust26",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust27",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust28",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust29",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust30",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust31",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust32",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust33",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust34",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust35",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust36",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust37",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust38",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Gust39",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "trail": {
+     "lifetime": 0.9,
+     "width": 4.0,
+     "width_end": 0.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.45
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "min_distance": 4.0,
+     "texture_id": "sprites/isles/streak.png",
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "Shadow0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow12",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud12",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shadow13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      0.0,
+      0.03,
+      0.08,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 8,
+     "size": [
+      320.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s91_procedural_isles.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "91   Procedural Isles",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "R  new islands   Space  gale   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

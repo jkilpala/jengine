@@ -1,0 +1,761 @@
+{
+ "name": "109 - HDR",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 1.0
+     },
+     "scatter": {
+      "Float": 0.7
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "109 - HDR, tonemapping, bloom",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "T hdr on/off   1-4 tonemap none/reinhard/aces/agx   Q/W exposure   B bloom   A/S scatter   [H/Esc] hub",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      1.0,
+      0.85,
+      0.55,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Expect",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "HDR on: the lamp falls off smoothly and lights the floor past its colour; the dots step up and ACES rolls them toward white.\nHDR off: light stops at 1.0 - the lamp is a flat disc with a coloured ring where each channel clips. The white box never blooms.",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.7,
+      0.72,
+      0.78,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.6,
+      0.65,
+      0.8
+     ],
+     "intensity": 0.25
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.18,
+      0.18,
+      0.2,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      1280.0,
+      440.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.8,
+      0.55
+     ],
+     "intensity": 3.0,
+     "radius": 420.0,
+     "falloff": 2.0,
+     "shadow_softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "LampLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "lamp, intensity 3",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "UiBox",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -40.0,
+      -150.0
+     ],
+     "size": [
+      160.0,
+      50.0
+     ],
+     "z_order": 10,
+     "visible": true
+    },
+    "ui_panel": {
+     "bg_color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot1",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.5,
+      0.425,
+      0.3,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "DotLabel1",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "x0.5",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Dot2",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      1,
+      0.85,
+      0.6,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "DotLabel2",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "x1",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Dot3",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      2,
+      1.7,
+      1.2,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "DotLabel3",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "x2",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Dot4",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      4,
+      3.4,
+      2.4,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "DotLabel4",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "x4",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Dot5",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      8,
+      6.8,
+      4.8,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "DotLabel5",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "x8",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Dot6",
+   "components": {
+    "transform": {
+     "position": [
+      510.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      16,
+      13.6,
+      9.6,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "DotLabel6",
+   "components": {
+    "transform": {
+     "position": [
+      510.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "x16",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_109_hdr.lua"
+    }
+   }
+  },
+  {
+   "name": "UiBoxLabel",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "entity UI",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.8,
+      0.8,
+      0.85,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  }
+ ]
+}

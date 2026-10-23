@@ -1,0 +1,45 @@
+---
+title: Versioning & Stability
+description: What jEngine's 0.x version number promises, and what may change between releases.
+draft: false
+---
+
+jEngine **0.1.0** is its first public release, and it is a **pre-1.0** release. It follows
+[Semantic Versioning](https://semver.org/) in the way semver describes for 0.x versions: **anything
+may change in any 0.x release**, including in ways that break existing projects.
+
+## What may change in a 0.x release
+
+These are the surfaces a game depends on, and none of them is frozen yet:
+
+| Surface | What it covers |
+|---|---|
+| **Script API** | The functions Lua and JavaScript scripts call (`Transform.set_position`, `Input.is_action_pressed`, ...), their arguments, what they return, and the callbacks the engine calls (`init`, `update`, `on_collision_enter`, ...). See the [Scripting API](/api-reference/scripting-api/). |
+| **Scene format** | Both the **v1** and the **v2** scene format (`.scene`), prefabs (`.prefab`), and the component fields inside them. See [Scene Format](/api-reference/scene-format/) and the [Components Reference](/api-reference/components/). |
+| **Project format** | `project.jengine`: its settings, input actions and package lists. |
+| **Package API** | The Rust API a package is written against: the `JEnginePackage` trait, component and system registration, script commands and resources. See [Custom Rust Components & Packages](/guides/packages/). |
+| **Save formats** | What the save system writes (`Save.*` slots, `State.save` snapshots). A save made by one 0.x release may not load in the next. |
+| **Other asset formats** | `.gui`, `.material`, `.shader`, `.atlas`, `.tilemap`, `.data` / `.dataschema` and the rest. |
+
+The editor, the `jengine` CLI's commands and flags, and the server framework (`jengine-server`) can
+change too.
+
+## How breaking changes are announced
+
+Every breaking change is listed in the [Changelog](/changelog/) (the repository's `CHANGELOG.md`)
+under the release that makes it, with what to change in a project. Read it before moving a project to
+a new release.
+
+## Practical advice
+
+- **Pin the engine version** your game is built with: clone a release tag rather than following
+  `main`, and move to a new release deliberately.
+- **Keep your project under version control**, so a format migration can be reviewed and undone.
+- **Prefer v2 scenes** for new work: package components need one, and the starter project's scene is v2.
+- **Stay in the Lua subset** that both script runtimes share (Luau natively, Lua 5.3 in the editor and
+  on the web) - see [Scripting](/guides/scripting/).
+
+## After 1.0
+
+Once jEngine reaches 1.0, semver's usual rule applies: a breaking change to the surfaces above comes
+with a new major version.

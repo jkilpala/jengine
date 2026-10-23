@@ -1,0 +1,1471 @@
+{
+ "name": "29 - Atlas of the Deep",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.5
+     },
+     "intensity": {
+      "Float": 0.1
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.1,
+       0.06,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.03
+     },
+     "saturation": {
+      "Float": 0.95
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.85,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.48,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Chart",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/ad_chart.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      2560.0,
+      1600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "OceanSalt",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      -320.0
+     ],
+     "rotation": -0.04,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_ocean"
+    ],
+    "text": {
+     "text": "T H E   S A L T   D E E P",
+     "font_id": "",
+     "font_scale": 6.0,
+     "color": [
+      0.02721,
+      0.07324,
+      0.09463,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "OceanGrey",
+   "components": {
+    "transform": {
+     "position": [
+      700.0,
+      60.0
+     ],
+     "rotation": 0.06,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_ocean"
+    ],
+    "text": {
+     "text": "G R E Y   S H A L L O W S",
+     "font_id": "",
+     "font_scale": 3.6,
+     "color": [
+      0.02721,
+      0.07324,
+      0.09463,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Isle0",
+   "components": {
+    "transform": {
+     "position": [
+      -588.0,
+      -198.6
+     ],
+     "rotation": -0.125,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_isle"
+    ],
+    "text": {
+     "text": "Wrenholm",
+     "font_id": "",
+     "font_scale": 3.0,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot1",
+   "components": {
+    "transform": {
+     "position": [
+      -1130.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town1",
+   "components": {
+    "transform": {
+     "position": [
+      -1121.0,
+      52.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Port Ashby",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot2",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town2",
+   "components": {
+    "transform": {
+     "position": [
+      -51.0,
+      -328.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Kettlewick",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Isle3",
+   "components": {
+    "transform": {
+     "position": [
+      -221.5,
+      421.9
+     ],
+     "rotation": -0.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_isle"
+    ],
+    "text": {
+     "text": "Saltmarsh",
+     "font_id": "",
+     "font_scale": 2.342857142857143,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot4",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      370.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town4",
+   "components": {
+    "transform": {
+     "position": [
+      -641.0,
+      372.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Marrow Bay",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot5",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      470.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town5",
+   "components": {
+    "transform": {
+     "position": [
+      179.0,
+      472.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Fennick",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Isle6",
+   "components": {
+    "transform": {
+     "position": [
+      896.8,
+      402.5
+     ],
+     "rotation": -0.07500000000000001,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_isle"
+    ],
+    "text": {
+     "text": "Ember Isle",
+     "font_id": "",
+     "font_scale": 1.8857142857142857,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot7",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town7",
+   "components": {
+    "transform": {
+     "position": [
+      509.0,
+      382.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Quay of Lamps",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot8",
+   "components": {
+    "transform": {
+     "position": [
+      1160.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town8",
+   "components": {
+    "transform": {
+     "position": [
+      1169.0,
+      352.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Holloway",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Isle9",
+   "components": {
+    "transform": {
+     "position": [
+      775.3,
+      -404.3
+     ],
+     "rotation": -0.05,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_isle"
+    ],
+    "text": {
+     "text": "Tarrow",
+     "font_id": "",
+     "font_scale": 1.7142857142857142,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot10",
+   "components": {
+    "transform": {
+     "position": [
+      510.0,
+      -420.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town10",
+   "components": {
+    "transform": {
+     "position": [
+      519.0,
+      -418.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Stillwater",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot11",
+   "components": {
+    "transform": {
+     "position": [
+      1110.0,
+      -390.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town11",
+   "components": {
+    "transform": {
+     "position": [
+      1119.0,
+      -388.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Gannet's Rest",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Isle12",
+   "components": {
+    "transform": {
+     "position": [
+      -817.3,
+      -596.1
+     ],
+     "rotation": -0.025,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_isle"
+    ],
+    "text": {
+     "text": "Gull Rock",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "TownDot13",
+   "components": {
+    "transform": {
+     "position": [
+      -850.0,
+      -590.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town13",
+   "components": {
+    "transform": {
+     "position": [
+      -841.0,
+      -588.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_town"
+    ],
+    "text": {
+     "text": "Tidesend",
+     "font_id": "",
+     "font_scale": 0.6,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Isle14",
+   "components": {
+    "transform": {
+     "position": [
+      838.9,
+      -197.2
+     ],
+     "rotation": -0.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_isle"
+    ],
+    "text": {
+     "text": "Lantern Cay",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Isle15",
+   "components": {
+    "transform": {
+     "position": [
+      -788.8,
+      584.1
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_isle"
+    ],
+    "text": {
+     "text": "Hollow Reef",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DetailDot0",
+   "components": {
+    "transform": {
+     "position": [
+      -94.0,
+      -348.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      3.0,
+      3.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Detail0",
+   "components": {
+    "transform": {
+     "position": [
+      -91.0,
+      -348.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_detail"
+    ],
+    "text": {
+     "text": "old pier",
+     "font_id": "",
+     "font_scale": 0.2,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DetailDot1",
+   "components": {
+    "transform": {
+     "position": [
+      -38.0,
+      -304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      3.0,
+      3.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Detail1",
+   "components": {
+    "transform": {
+     "position": [
+      -35.0,
+      -304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_detail"
+    ],
+    "text": {
+     "text": "lighthouse",
+     "font_id": "",
+     "font_scale": 0.2,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DetailDot2",
+   "components": {
+    "transform": {
+     "position": [
+      -66.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      3.0,
+      3.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Detail2",
+   "components": {
+    "transform": {
+     "position": [
+      -63.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_detail"
+    ],
+    "text": {
+     "text": "customs house",
+     "font_id": "",
+     "font_scale": 0.2,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DetailDot3",
+   "components": {
+    "transform": {
+     "position": [
+      -30.0,
+      -360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      3.0,
+      3.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Detail3",
+   "components": {
+    "transform": {
+     "position": [
+      -27.0,
+      -360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_detail"
+    ],
+    "text": {
+     "text": "fish market",
+     "font_id": "",
+     "font_scale": 0.2,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DetailDot4",
+   "components": {
+    "transform": {
+     "position": [
+      -106.0,
+      -316.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      3.0,
+      3.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Detail4",
+   "components": {
+    "transform": {
+     "position": [
+      -103.0,
+      -316.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "label_detail"
+    ],
+    "text": {
+     "text": "ropewalk",
+     "font_id": "",
+     "font_scale": 0.2,
+     "color": [
+      0.04696,
+      0.02198,
+      0.01002,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "left",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "29   Atlas of the Deep",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Wheel  zoom   Arrows  pan   Space  tour   1-4 post   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s29_atlas_of_the_deep.lua"
+    }
+   }
+  }
+ ]
+}

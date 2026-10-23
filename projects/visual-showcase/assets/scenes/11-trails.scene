@@ -1,0 +1,1878 @@
+{
+ "name": "11 - Trails",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.9
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       0.9,
+       0.95,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.001
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.21404,
+      0.78741
+     ],
+     "intensity": 0.07
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/night_sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1440.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      0.60383,
+      0.69207,
+      1.0,
+      0.8
+     ],
+     "z_order": -95,
+     "size": [
+      1440.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HorizonGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.10048,
+      0.07324,
+      0.60383,
+      0.3
+     ],
+     "z_order": -90,
+     "size": [
+      2560.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HillsFar",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_hills"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/hills.png",
+     "color": [
+      2.2,
+      2.3,
+      3.2,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      1680.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       900.0,
+       250.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/hills_n.png"
+    }
+   }
+  },
+  {
+   "name": "HillsNear",
+   "components": {
+    "transform": {
+     "position": [
+      220.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_hills"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/hills.png",
+     "color": [
+      4.0,
+      4.0,
+      4.6,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1680.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       700.0,
+       170.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/hills_n.png"
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -148.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.035,
+      0.045,
+      0.07,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      1440.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Firefly1",
+   "components": {
+    "transform": {
+     "position": [
+      -316.2871356210926,
+      -288.34288980953767
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      84.95775364289352,
+      27.831565753178367
+     ],
+     "frequency": [
+      0.17089729109460325,
+      0.5520457020096439
+     ],
+     "phase": [
+      1.17708947201307,
+      5.552934733991021
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      0.44799,
+      1.0,
+      0.13287
+     ],
+     "intensity": 0.5,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Firefly2",
+   "components": {
+    "transform": {
+     "position": [
+      -181.20097922119152,
+      -237.521593302621
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      70.70806898433686,
+      35.05644458630859
+     ],
+     "frequency": [
+      0.39032086611649863,
+      0.3885538829696981
+     ],
+     "phase": [
+      1.714584351709682,
+      0.26244412519714666
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly3",
+   "components": {
+    "transform": {
+     "position": [
+      -23.774265039271427,
+      -287.8798632993655
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      61.81472826941925,
+      21.38004382670613
+     ],
+     "frequency": [
+      0.30881160930126117,
+      0.5928329425299811
+     ],
+     "phase": [
+      6.075700934108586,
+      5.570425584865056
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly4",
+   "components": {
+    "transform": {
+     "position": [
+      -426.4227982810744,
+      -250.55190547813854
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      40.8089666160558,
+      25.87424962935883
+     ],
+     "frequency": [
+      0.3460314794172474,
+      0.7944360049552188
+     ],
+     "phase": [
+      1.5270275715569908,
+      0.21773064331675193
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly5",
+   "components": {
+    "transform": {
+     "position": [
+      -525.0835053627433,
+      -315.1885643295671
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      81.62799611176285,
+      37.10015896241481
+     ],
+     "frequency": [
+      0.39622344298206513,
+      0.7578668003312228
+     ],
+     "phase": [
+      1.0196332484572261,
+      3.8969062150162816
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      0.44799,
+      1.0,
+      0.13287
+     ],
+     "intensity": 0.5,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Firefly6",
+   "components": {
+    "transform": {
+     "position": [
+      201.08825156648663,
+      -255.65653412784948
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      56.0672744750957,
+      22.939221578386505
+     ],
+     "frequency": [
+      0.3173986518354915,
+      0.4524397624766577
+     ],
+     "phase": [
+      3.044757544602627,
+      2.8794765034573473
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly7",
+   "components": {
+    "transform": {
+     "position": [
+      -96.84718827395307,
+      -271.2526502668093
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      58.698503583250144,
+      43.579105751834305
+     ],
+     "frequency": [
+      0.3257016912895931,
+      0.3629607708644623
+     ],
+     "phase": [
+      3.819309484349013,
+      4.801927749133453
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly8",
+   "components": {
+    "transform": {
+     "position": [
+      286.95504722215173,
+      -283.14064871471595
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      82.84143751720362,
+      22.093811881227747
+     ],
+     "frequency": [
+      0.34471498421634983,
+      0.788213841450524
+     ],
+     "phase": [
+      3.9879197064271468,
+      0.5144773137457932
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly9",
+   "components": {
+    "transform": {
+     "position": [
+      30.190088140951957,
+      -250.76056639336286
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      84.70384739132601,
+      32.09004268058973
+     ],
+     "frequency": [
+      0.2563083296378307,
+      0.4587758182447256
+     ],
+     "phase": [
+      5.541914684374023,
+      3.181961819777415
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      0.44799,
+      1.0,
+      0.13287
+     ],
+     "intensity": 0.5,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Firefly10",
+   "components": {
+    "transform": {
+     "position": [
+      191.50571708951952,
+      -253.454705211576
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      46.763812623958586,
+      22.48376677460727
+     ],
+     "frequency": [
+      0.21906780093526745,
+      0.39128748715377726
+     ],
+     "phase": [
+      1.3494450018669775,
+      3.582533392214372
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly11",
+   "components": {
+    "transform": {
+     "position": [
+      227.03601194550072,
+      -309.9022847597017
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      60.16417698417399,
+      32.916705661800385
+     ],
+     "frequency": [
+      0.20941086953038288,
+      0.48523678128179093
+     ],
+     "phase": [
+      1.7762987128743108,
+      1.9888918134078892
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly12",
+   "components": {
+    "transform": {
+     "position": [
+      -368.40159963410156,
+      -295.3914249993826
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      56.73460470354537,
+      21.737187604110133
+     ],
+     "frequency": [
+      0.25929622805090713,
+      0.4398787689320198
+     ],
+     "phase": [
+      2.276942746246931,
+      2.3832182400110486
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly13",
+   "components": {
+    "transform": {
+     "position": [
+      -339.0702912605059,
+      -253.63179750424894
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      103.83237110479851,
+      39.93856132568728
+     ],
+     "frequency": [
+      0.16642617124487827,
+      0.6210307632105585
+     ],
+     "phase": [
+      1.8719061361744278,
+      3.8601653988739013
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    },
+    "point_light": {
+     "color": [
+      0.44799,
+      1.0,
+      0.13287
+     ],
+     "intensity": 0.5,
+     "radius": 90.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Firefly14",
+   "components": {
+    "transform": {
+     "position": [
+      -73.33802575950193,
+      -298.9239754536942
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      97.65054424906869,
+      24.72456741365044
+     ],
+     "frequency": [
+      0.28954604804767037,
+      0.5783728179533805
+     ],
+     "phase": [
+      5.910836026017351,
+      4.561968811358883
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly15",
+   "components": {
+    "transform": {
+     "position": [
+      -463.8738697252135,
+      -299.55591813319415
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      88.57110818237733,
+      44.29948497422264
+     ],
+     "frequency": [
+      0.3981986794177119,
+      0.4835646430776527
+     ],
+     "phase": [
+      3.4762197179857934,
+      4.073875652567231
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Firefly16",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0320103681391,
+      -269.0428077348179
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.56756,
+      3.0,
+      0.30144,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      47.39706391569543,
+      42.24434124167972
+     ],
+     "frequency": [
+      0.31657914263846565,
+      0.3221546324301729
+     ],
+     "phase": [
+      4.044884850872477,
+      5.793463371036874
+     ]
+    },
+    "trail": {
+     "lifetime": 0.7,
+     "width": 5.0,
+     "width_end": 0.0,
+     "color": [
+      1.04504,
+      2.0,
+      0.20096,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.60383,
+      0.0331,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": -31,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Wisp",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      4.0,
+      2.41532,
+      0.68256,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      34.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.21404
+     ],
+     "intensity": 1.2,
+     "radius": 340.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.35,
+     "casts_shadows": false
+    },
+    "trail": {
+     "lifetime": 1.6,
+     "width": 18.0,
+     "width_end": 0.0,
+     "color": [
+      2.6,
+      1.56996,
+      0.44366,
+      1.0
+     ],
+     "color_end": [
+      0.78741,
+      0.01002,
+      0.31855,
+      0.0
+     ],
+     "min_distance": 3.0,
+     "texture_id": "sprites/fx/ribbon_soft.png",
+     "z_order": 18,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "BladePivot",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BladeTip",
+   "parent": "BladePivot",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      0.26327,
+      0.60383,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 420.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.3,
+     "casts_shadows": false
+    },
+    "trail": {
+     "lifetime": 0.16,
+     "width": 50.0,
+     "width_end": 0.0,
+     "color": [
+      1.11492,
+      2.75594,
+      3.5,
+      1.0
+     ],
+     "color_end": [
+      0.0331,
+      0.07324,
+      1.0,
+      0.0
+     ],
+     "min_distance": 2.0,
+     "texture_id": "sprites/fx/ribbon_slash.png",
+     "z_order": 22,
+     "blend_mode": "Additive",
+     "emitting": false
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "11   Trails",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Mouse  wisp   Click / Space  slash   M  meteors   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s11_trails.lua"
+    }
+   }
+  }
+ ]
+}

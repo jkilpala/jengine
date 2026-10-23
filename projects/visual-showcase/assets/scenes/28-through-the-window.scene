@@ -1,0 +1,1389 @@
+{
+ "name": "28 - Through the Window",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.1
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       0.9,
+       0.95,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "NightSky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/night_sky.png",
+     "color": [
+      0.60383,
+      0.69207,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      0.60383,
+      0.69207,
+      1.0,
+      0.8
+     ],
+     "z_order": -99,
+     "size": [
+      1480.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      275.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/moon.png",
+     "color": [
+      1.0,
+      0.93311,
+      0.78741,
+      1.0
+     ],
+     "z_order": -98,
+     "size": [
+      86.0,
+      86.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MoonGlow",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      275.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.31855,
+      0.44799,
+      1.0,
+      0.35
+     ],
+     "z_order": -97,
+     "size": [
+      360.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hills",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/hills.png",
+     "color": [
+      0.01002,
+      0.01341,
+      0.03968,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1680.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       700.0,
+       300.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "DaySky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Arch",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cr_sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      1280.0,
+      820.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DayHillsFar",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Arch",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cr_hills_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -68,
+     "size": [
+      1680.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       600.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "DayHillsMid",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Arch",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cr_hills_mid.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -66,
+     "size": [
+      1680.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       600.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "DaySun",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Arch",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.4,
+      0.9689,
+      0.36858,
+      0.8
+     ],
+     "z_order": -69,
+     "size": [
+      420.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Pollen",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Arch",
+     "outside": false
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 10.0,
+     "max_particles": 80,
+     "lifetime": [
+      4.0,
+      7.0
+     ],
+     "speed": [
+      6.0,
+      18.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -64,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       0.95,
+       0.7,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       0.95,
+       0.7,
+       0.9
+      ],
+      [
+       1.0,
+       1.0,
+       0.95,
+       0.7,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       320.0,
+       380.0
+      ]
+     },
+     "turbulence": {
+      "strength": 14.0,
+      "scale": 80.0,
+      "speed": 0.3
+     }
+    }
+   }
+  },
+  {
+   "name": "Arch",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_mask": {
+     "shape": {
+      "Polygon": {
+       "points": [
+        [
+         -150.0,
+         -200.0
+        ],
+        [
+         150.0,
+         -200.0
+        ],
+        [
+         150.0,
+         40.0
+        ],
+        [
+         143.92,
+         82.26
+        ],
+        [
+         126.19,
+         121.1
+        ],
+        [
+         98.23,
+         153.36
+        ],
+        [
+         62.31,
+         176.44
+        ],
+        [
+         21.35,
+         188.47
+        ],
+        [
+         -21.35,
+         188.47
+        ],
+        [
+         -62.31,
+         176.44
+        ],
+        [
+         -98.23,
+         153.36
+        ],
+        [
+         -126.19,
+         121.1
+        ],
+        [
+         -143.92,
+         82.26
+        ],
+        [
+         -150.0,
+         40.0
+        ]
+       ]
+      }
+     },
+     "feather": 1.5
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Arch",
+     "outside": true
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.44799,
+      0.34239,
+      0.2957,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1480.0,
+      560.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "ColumnL",
+   "components": {
+    "transform": {
+     "position": [
+      -182.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      0.69207,
+      0.60383,
+      0.53824,
+      1.0
+     ],
+     "z_order": -15,
+     "size": [
+      52.0,
+      330.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ColumnCapL",
+   "components": {
+    "transform": {
+     "position": [
+      -182.0,
+      76.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.69207,
+      0.60383,
+      0.53824,
+      1.0
+     ],
+     "z_order": -14,
+     "size": [
+      70.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ColumnR",
+   "components": {
+    "transform": {
+     "position": [
+      182.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      0.69207,
+      0.60383,
+      0.53824,
+      1.0
+     ],
+     "z_order": -15,
+     "size": [
+      52.0,
+      330.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ColumnCapR",
+   "components": {
+    "transform": {
+     "position": [
+      182.0,
+      76.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.69207,
+      0.60383,
+      0.53824,
+      1.0
+     ],
+     "z_order": -14,
+     "size": [
+      70.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sill",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -268.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -14,
+     "size": [
+      350.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Portal",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_mask": {
+     "shape": {
+      "Texture": {
+       "texture_id": "sprites/fx/rift_mask.png",
+       "size": [
+        240.0,
+        336.0
+       ]
+      }
+     },
+     "feather": 0.0
+    }
+   }
+  },
+  {
+   "name": "PortalRim",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/rift_rim.png",
+     "color": [
+      1.14954,
+      0.37541,
+      2.2,
+      0.95
+     ],
+     "z_order": 33,
+     "size": [
+      240.0,
+      336.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "parent": "Portal"
+  },
+  {
+   "name": "PortalSparks",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 60.0,
+     "max_particles": 160,
+     "lifetime": [
+      0.5,
+      1.1
+     ],
+     "speed": [
+      20.0,
+      60.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      7.0,
+      11.0
+     ],
+     "size_end": [
+      2.0,
+      3.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 34,
+     "color_curve": [
+      [
+       0.0,
+       1.81149,
+       0.95565,
+       3.0,
+       0.0
+      ],
+      [
+       0.2,
+       1.81149,
+       0.95565,
+       3.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.26574,
+       1.20766,
+       2.0,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 120.0,
+      "edge": true
+     },
+     "blend_mode": "Additive"
+    }
+   },
+   "parent": "Portal"
+  },
+  {
+   "name": "NebulaDark",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Portal",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00155,
+      0.00077,
+      0.0049,
+      1.0
+     ],
+     "z_order": 28,
+     "size": [
+      1880.0,
+      1320.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "NebulaStars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Portal",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_near.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "z_order": 29,
+     "size": [
+      1880.0,
+      1120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "NebulaVeil",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Portal",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/nebula_veil.png",
+     "color": [
+      0.44597,
+      0.10254,
+      1.10237,
+      0.85
+     ],
+     "z_order": 30,
+     "size": [
+      900.0,
+      700.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "NebulaVeil2",
+   "components": {
+    "transform": {
+     "position": [
+      320.0,
+      -80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Portal",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/nebula_veil.png",
+     "color": [
+      0.04303,
+      0.41412,
+      1.02363,
+      0.75
+     ],
+     "z_order": 30,
+     "size": [
+      800.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "NebulaKnot",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Portal",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/nebula_knot.png",
+     "color": [
+      1.6,
+      0.50968,
+      0.96613,
+      0.9
+     ],
+     "z_order": 31,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "NebulaFlare",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "masked": {
+     "by": "Portal",
+     "outside": false
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/star_flare.png",
+     "color": [
+      3.0,
+      2.67003,
+      2.36223,
+      1.0
+     ],
+     "z_order": 32,
+     "size": [
+      140.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "28   Through the Window",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Mouse  move the portal   Up / Down  its size   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s28_through_the_window.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,2107 @@
+{
+ "name": "74 - Baggage Claim",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.2
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       0.95,
+       0.97,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   },
+   {
+    "name": "fxaa",
+    "enabled": true,
+    "params": {
+     "span": {
+      "Float": 8.0
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Window",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      900.0,
+      194.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1360.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       80.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1480.0,
+       "height": 80.0
+      }
+     },
+     "friction": 0.8
+    }
+   }
+  },
+  {
+   "name": "WallL",
+   "components": {
+    "transform": {
+     "position": [
+      -660.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 1400.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "WallR",
+   "components": {
+    "transform": {
+     "position": [
+      660.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 1400.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Feed",
+   "components": {
+    "transform": {
+     "position": [
+      405.0,
+      90.0
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 332.41540277189324,
+       "height": 16.0
+      }
+     },
+     "friction": 0.9
+    },
+    "conveyor": {
+     "speed": 170.0
+    }
+   }
+  },
+  {
+   "name": "FeedFrame",
+   "components": {
+    "transform": {
+     "position": [
+      400.66807076930746,
+      101.19081717928907
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/frame.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      352.41540277189324,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       22.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "FeedSlat0",
+   "components": {
+    "transform": {
+     "position": [
+      541.3469882051154,
+      140.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FeedSlat1",
+   "components": {
+    "transform": {
+     "position": [
+      502.59698820511545,
+      125.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FeedSlat2",
+   "components": {
+    "transform": {
+     "position": [
+      463.84698820511545,
+      110.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FeedSlat3",
+   "components": {
+    "transform": {
+     "position": [
+      425.09698820511545,
+      95.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FeedSlat4",
+   "components": {
+    "transform": {
+     "position": [
+      386.34698820511545,
+      80.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FeedSlat5",
+   "components": {
+    "transform": {
+     "position": [
+      347.59698820511545,
+      65.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FeedSlat6",
+   "components": {
+    "transform": {
+     "position": [
+      308.84698820511545,
+      50.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "FeedSlat7",
+   "components": {
+    "transform": {
+     "position": [
+      270.09698820511545,
+      35.63486380345182
+     ],
+     "rotation": -2.7722589959161676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -158.537,
+     "y": -61.369,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      249.5,
+      29.5
+     ],
+     "max": [
+      560.5,
+      150.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Main",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      -70.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 820.0,
+       "height": 16.0
+      }
+     },
+     "friction": 0.9
+    },
+    "conveyor": {
+     "speed": 150.0
+    }
+   }
+  },
+  {
+   "name": "MainFrame",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      -58.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/frame.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      840.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       22.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "MainSlat0",
+   "components": {
+    "transform": {
+     "position": [
+      309.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat1",
+   "components": {
+    "transform": {
+     "position": [
+      268.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat2",
+   "components": {
+    "transform": {
+     "position": [
+      227.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat3",
+   "components": {
+    "transform": {
+     "position": [
+      186.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat4",
+   "components": {
+    "transform": {
+     "position": [
+      145.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat5",
+   "components": {
+    "transform": {
+     "position": [
+      104.49999999999997,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat6",
+   "components": {
+    "transform": {
+     "position": [
+      63.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat7",
+   "components": {
+    "transform": {
+     "position": [
+      22.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat8",
+   "components": {
+    "transform": {
+     "position": [
+      -18.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat9",
+   "components": {
+    "transform": {
+     "position": [
+      -59.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat10",
+   "components": {
+    "transform": {
+     "position": [
+      -100.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat11",
+   "components": {
+    "transform": {
+     "position": [
+      -141.49999999999994,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat12",
+   "components": {
+    "transform": {
+     "position": [
+      -182.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat13",
+   "components": {
+    "transform": {
+     "position": [
+      -223.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat14",
+   "components": {
+    "transform": {
+     "position": [
+      -264.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat15",
+   "components": {
+    "transform": {
+     "position": [
+      -305.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat16",
+   "components": {
+    "transform": {
+     "position": [
+      -346.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat17",
+   "components": {
+    "transform": {
+     "position": [
+      -387.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat18",
+   "components": {
+    "transform": {
+     "position": [
+      -428.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MainSlat19",
+   "components": {
+    "transform": {
+     "position": [
+      -469.5,
+      -72.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/slat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": -150.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -490.5,
+      -70.5
+     ],
+     "max": [
+      330.5,
+      -69.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hatch",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.00155,
+      0.00155,
+      0.00232,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      150.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Flaps",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      214.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/flaps.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.92
+     ],
+     "z_order": 12,
+     "size": [
+      140.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/baggage/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      300.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "SignText",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      316.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "BAGGAGE CLAIM  3",
+     "font_id": "",
+     "font_scale": 1.6,
+     "color": [
+      0.00719,
+      0.0049,
+      0.00155,
+      1.0
+     ],
+     "z_order": -79,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "SignFlight",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "AY 1234   HELSINKI   ON BELT",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.01341,
+      0.00854,
+      0.00232,
+      1.0
+     ],
+     "z_order": -79,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s74_baggage_claim.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "74   Baggage Claim",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "F4 colliders   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,321 @@
+{
+  "name": "85 - Despawn offscreen",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280.0,
+          "viewport_height": 720.0
+        }
+      }
+    },
+    {
+      "name": "Title", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "85 - Despawn offscreen",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 100,
+          "align": "center",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "Hint0", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "`despawn_offscreen` drops an entity once the view has passed it. `Lifetime` is the other half:",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "left",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "Hint1", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "one goes away after a while, the other goes away when nobody can see it.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "left",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "Hint2", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "The camera pans right and markers are spawned ahead of it. Blue ones have the component;",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "left",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "Hint3", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "amber ones do not, and pile up for ever - which is what every scrolling game here did by hand.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "left",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "Hint4", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            164.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[Space] pan / stop   [1] spawn a hundred more   [2] behind-only on/off   [R] clear",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "left",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "NavHint", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100,
+          "align": "center",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "Readout", "parent": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -180.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            1.0,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 60,
+          "align": "center",
+          "wrap_width": 0.0
+        }
+      }
+    },
+    {
+      "name": "Marker",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -250.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "size": [
+            1200.0,
+            6.0
+          ],
+          "color": [
+            0.3,
+            0.35,
+            0.45,
+            1.0
+          ],
+          "z_order": 1,
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        }
+      }
+    },
+    {
+      "name": "Runner",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_85_despawn.lua"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,4777 @@
+{
+ "name": "44 - Garden Party",
+ "post_process": {
+  "effects": [
+   {
+    "name": "tilt_shift",
+    "enabled": true,
+    "params": {
+     "focus_y": {
+      "Float": 0.0
+     },
+     "band": {
+      "Float": 170.0
+     },
+     "falloff": {
+      "Float": 260.0
+     },
+     "max_blur": {
+      "Float": 4.0
+     },
+     "min_blur": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.1
+     },
+     "intensity": {
+      "Float": 0.25
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.42
+     },
+     "smoothness": {
+      "Float": 0.65
+     },
+     "color": {
+      "Vec4": [
+       0.05,
+       0.02,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.03
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.12
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.75,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      1.0,
+      0.71057,
+      0.477
+     ],
+     "intensity": 0.55
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.2957
+     ],
+     "intensity": 0.75,
+     "direction": -0.75,
+     "height": 0.55,
+     "softness": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lawn",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/lawn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1400.0,
+      840.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -620.0,
+       -340.0
+      ],
+      [
+       620.0,
+       -340.0
+      ],
+      [
+       620.0,
+       340.0
+      ],
+      [
+       -620.0,
+       340.0
+      ]
+     ],
+     "agent_radius": 13.0
+    }
+   }
+  },
+  {
+   "name": "WalkWest",
+   "components": {
+    "transform": {
+     "position": [
+      -205.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/gravel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      210.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "WalkEast",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      55.0
+     ],
+     "rotation": 0.35,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/gravel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      260.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "WalkRoses",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/gravel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      230.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "WalkGate",
+   "components": {
+    "transform": {
+     "position": [
+      -460.0,
+      265.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/gravel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      60.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "BorderTop",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      362.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_long.png",
+     "color": [
+      0.8,
+      0.85,
+      0.8,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1440.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BorderBottom",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -362.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_long.png",
+     "color": [
+      0.8,
+      0.85,
+      0.8,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1440.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HedgeRoseTopL",
+   "components": {
+    "transform": {
+     "position": [
+      -555.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_short.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      130.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 130.0,
+       "height": 44.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      130.0,
+      44.0
+     ],
+     "shadow_length": 30.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "HedgeRoseTopR",
+   "components": {
+    "transform": {
+     "position": [
+      -365.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_short.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      130.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 130.0,
+       "height": 44.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      130.0,
+      44.0
+     ],
+     "shadow_length": 30.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "HedgeRoseBottom",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_long.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 300.0,
+       "height": 44.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "shadow_length": 30.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "HedgeRoseSideUp",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      125.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_side.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      44.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 170.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      44.0,
+      170.0
+     ],
+     "shadow_length": 30.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "HedgeRoseSideDown",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      -125.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_side.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      44.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 170.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      44.0,
+      170.0
+     ],
+     "shadow_length": 30.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "HedgeEast",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      235.0
+     ],
+     "rotation": -0.35,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_curve.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      240.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 240.0,
+       "height": 44.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      240.0,
+      44.0
+     ],
+     "shadow_length": 30.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "HedgeSouth",
+   "components": {
+    "transform": {
+     "position": [
+      -20.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/hedge_long.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 300.0,
+       "height": 44.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "shadow_length": 30.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Gate",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/gate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      60.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 60.0,
+       "height": 16.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Topiary1",
+   "components": {
+    "transform": {
+     "position": [
+      -175.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/topiary.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       28.0,
+       0.0
+      ],
+      [
+       19.8,
+       19.8
+      ],
+      [
+       0.0,
+       28.0
+      ],
+      [
+       -19.8,
+       19.8
+      ],
+      [
+       -28.0,
+       0.0
+      ],
+      [
+       -19.8,
+       -19.8
+      ],
+      [
+       -0.0,
+       -28.0
+      ],
+      [
+       19.8,
+       -19.8
+      ]
+     ],
+     "shadow_length": 36.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Topiary2",
+   "components": {
+    "transform": {
+     "position": [
+      175.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/topiary.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       28.0,
+       0.0
+      ],
+      [
+       19.8,
+       19.8
+      ],
+      [
+       0.0,
+       28.0
+      ],
+      [
+       -19.8,
+       19.8
+      ],
+      [
+       -28.0,
+       0.0
+      ],
+      [
+       -19.8,
+       -19.8
+      ],
+      [
+       -0.0,
+       -28.0
+      ],
+      [
+       19.8,
+       -19.8
+      ]
+     ],
+     "shadow_length": 36.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Topiary3",
+   "components": {
+    "transform": {
+     "position": [
+      -175.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/topiary.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       28.0,
+       0.0
+      ],
+      [
+       19.8,
+       19.8
+      ],
+      [
+       0.0,
+       28.0
+      ],
+      [
+       -19.8,
+       19.8
+      ],
+      [
+       -28.0,
+       0.0
+      ],
+      [
+       -19.8,
+       -19.8
+      ],
+      [
+       -0.0,
+       -28.0
+      ],
+      [
+       19.8,
+       -19.8
+      ]
+     ],
+     "shadow_length": 36.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Topiary4",
+   "components": {
+    "transform": {
+     "position": [
+      175.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/topiary.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       28.0,
+       0.0
+      ],
+      [
+       19.8,
+       19.8
+      ],
+      [
+       0.0,
+       28.0
+      ],
+      [
+       -19.8,
+       19.8
+      ],
+      [
+       -28.0,
+       0.0
+      ],
+      [
+       -19.8,
+       -19.8
+      ],
+      [
+       -0.0,
+       -28.0
+      ],
+      [
+       19.8,
+       -19.8
+      ]
+     ],
+     "shadow_length": 36.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Topiary5",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/topiary.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       28.0,
+       0.0
+      ],
+      [
+       19.8,
+       19.8
+      ],
+      [
+       0.0,
+       28.0
+      ],
+      [
+       -19.8,
+       19.8
+      ],
+      [
+       -28.0,
+       0.0
+      ],
+      [
+       -19.8,
+       -19.8
+      ],
+      [
+       -0.0,
+       -28.0
+      ],
+      [
+       19.8,
+       -19.8
+      ]
+     ],
+     "shadow_length": 36.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "RoseBed1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/rosebed.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      180.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         88.0,
+         0.0
+        ],
+        [
+         71.19,
+         31.15
+        ],
+        [
+         27.19,
+         50.41
+        ],
+        [
+         -27.19,
+         50.41
+        ],
+        [
+         -71.19,
+         31.15
+        ],
+        [
+         -88.0,
+         0.0
+        ],
+        [
+         -71.19,
+         -31.15
+        ],
+        [
+         -27.19,
+         -50.41
+        ],
+        [
+         27.19,
+         -50.41
+        ],
+        [
+         71.19,
+         -31.15
+        ]
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "RoseBed2",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/rosebed.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      180.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         88.0,
+         0.0
+        ],
+        [
+         71.19,
+         31.15
+        ],
+        [
+         27.19,
+         50.41
+        ],
+        [
+         -27.19,
+         50.41
+        ],
+        [
+         -71.19,
+         31.15
+        ],
+        [
+         -88.0,
+         0.0
+        ],
+        [
+         -71.19,
+         -31.15
+        ],
+        [
+         -27.19,
+         -50.41
+        ],
+        [
+         27.19,
+         -50.41
+        ],
+        [
+         71.19,
+         -31.15
+        ]
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Bench1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/bench.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      110.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 110.0,
+       "height": 36.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Bench2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/bench.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      110.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 110.0,
+       "height": 36.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Bench3",
+   "components": {
+    "transform": {
+     "position": [
+      -585.0,
+      0.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/bench.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      110.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 110.0,
+       "height": 36.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Table1",
+   "components": {
+    "transform": {
+     "position": [
+      255.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      88.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 44.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Table2",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      88.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 44.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Table3",
+   "components": {
+    "transform": {
+     "position": [
+      545.0,
+      -70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      88.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 44.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Fountain",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/fountain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      260.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 108.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "FountainSpray",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 40.0,
+     "max_particles": 160,
+     "lifetime": [
+      0.6,
+      1.0
+     ],
+     "speed": [
+      30.0,
+      70.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      0.85,
+      0.95,
+      1.0,
+      0.7
+     ],
+     "color_end": [
+      0.7,
+      0.85,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      6.0,
+      9.0
+     ],
+     "size_end": [
+      2.0,
+      3.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 3,
+     "drag": 1.5
+    }
+   }
+  },
+  {
+   "name": "Gazebo",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      140.0
+     ],
+     "rotation": 0.39269908169872414,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/gazebo.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         104.0,
+         0.0
+        ],
+        [
+         73.54,
+         73.54
+        ],
+        [
+         0.0,
+         104.0
+        ],
+        [
+         -73.54,
+         73.54
+        ],
+        [
+         -104.0,
+         0.0
+        ],
+        [
+         -73.54,
+         -73.54
+        ],
+        [
+         -0.0,
+         -104.0
+        ],
+        [
+         73.54,
+         -73.54
+        ]
+       ]
+      }
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       100.0,
+       0.0
+      ],
+      [
+       70.71,
+       70.71
+      ],
+      [
+       0.0,
+       100.0
+      ],
+      [
+       -70.71,
+       70.71
+      ],
+      [
+       -100.0,
+       0.0
+      ],
+      [
+       -70.71,
+       -70.71
+      ],
+      [
+       -0.0,
+       -100.0
+      ],
+      [
+       70.71,
+       -70.71
+      ]
+     ],
+     "shadow_length": 70.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Guest1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest2",
+   "components": {
+    "transform": {
+     "position": [
+      -245.39999999999998,
+      -120.6
+     ],
+     "rotation": 2.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest3",
+   "components": {
+    "transform": {
+     "position": [
+      541.1000000000001,
+      -272.1
+     ],
+     "rotation": 4.8,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest4",
+   "components": {
+    "transform": {
+     "position": [
+      -264.29999999999995,
+      -92.69999999999993
+     ],
+     "rotation": 0.9169999999999989,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest5",
+   "components": {
+    "transform": {
+     "position": [
+      364.9000000000001,
+      266.10000000000014
+     ],
+     "rotation": 3.3169999999999993,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest6",
+   "components": {
+    "transform": {
+     "position": [
+      522.2000000000003,
+      -244.20000000000005
+     ],
+     "rotation": 5.717,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_6.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest7",
+   "components": {
+    "transform": {
+     "position": [
+      -125.89999999999964,
+      24.90000000000009
+     ],
+     "rotation": 1.8339999999999979,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest8",
+   "components": {
+    "transform": {
+     "position": [
+      346.0,
+      294.0
+     ],
+     "rotation": 4.234,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest9",
+   "components": {
+    "transform": {
+     "position": [
+      503.3000000000002,
+      -216.29999999999995
+     ],
+     "rotation": 0.3509999999999982,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest10",
+   "components": {
+    "transform": {
+     "position": [
+      -144.79999999999973,
+      52.80000000000018
+     ],
+     "rotation": 2.750999999999997,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest11",
+   "components": {
+    "transform": {
+     "position": [
+      12.500000000000455,
+      142.5
+     ],
+     "rotation": 5.150999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest12",
+   "components": {
+    "transform": {
+     "position": [
+      327.10000000000036,
+      -278.0999999999999
+     ],
+     "rotation": 1.2679999999999971,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_6.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest13",
+   "components": {
+    "transform": {
+     "position": [
+      484.40000000000055,
+      -188.4000000000001
+     ],
+     "rotation": 3.6679999999999957,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest14",
+   "components": {
+    "transform": {
+     "position": [
+      -321.0,
+      -9.0
+     ],
+     "rotation": 6.067999999999998,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest15",
+   "components": {
+    "transform": {
+     "position": [
+      -163.69999999999982,
+      80.70000000000027
+     ],
+     "rotation": 2.1849999999999996,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest16",
+   "components": {
+    "transform": {
+     "position": [
+      308.2000000000007,
+      -250.19999999999982
+     ],
+     "rotation": 4.584999999999998,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest17",
+   "components": {
+    "transform": {
+     "position": [
+      465.5,
+      -160.5
+     ],
+     "rotation": 0.7019999999999964,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest18",
+   "components": {
+    "transform": {
+     "position": [
+      -339.89999999999964,
+      18.90000000000009
+     ],
+     "rotation": 3.101999999999995,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_6.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest19",
+   "components": {
+    "transform": {
+     "position": [
+      289.3000000000002,
+      -222.29999999999973
+     ],
+     "rotation": 5.501999999999994,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest20",
+   "components": {
+    "transform": {
+     "position": [
+      446.60000000000036,
+      -132.5999999999999
+     ],
+     "rotation": 1.6189999999999989,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest21",
+   "components": {
+    "transform": {
+     "position": [
+      -358.7999999999993,
+      46.80000000000018
+     ],
+     "rotation": 4.0189999999999975,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest22",
+   "components": {
+    "transform": {
+     "position": [
+      -44.19999999999982,
+      226.19999999999982
+     ],
+     "rotation": 0.13599999999999568,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest23",
+   "components": {
+    "transform": {
+     "position": [
+      427.7000000000007,
+      -104.69999999999982
+     ],
+     "rotation": 2.5359999999999943,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest24",
+   "components": {
+    "transform": {
+     "position": [
+      -534.9999999999991,
+      -15.0
+     ],
+     "rotation": 4.935999999999993,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_6.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest25",
+   "components": {
+    "transform": {
+     "position": [
+      -63.099999999998545,
+      254.10000000000036
+     ],
+     "rotation": 1.052999999999991,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest26",
+   "components": {
+    "transform": {
+     "position": [
+      94.20000000000073,
+      -256.1999999999998
+     ],
+     "rotation": 3.4529999999999967,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest27",
+   "components": {
+    "transform": {
+     "position": [
+      408.8000000000011,
+      -76.80000000000018
+     ],
+     "rotation": 5.852999999999995,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest28",
+   "components": {
+    "transform": {
+     "position": [
+      -239.29999999999927,
+      192.30000000000018
+     ],
+     "rotation": 1.9699999999999935,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest29",
+   "components": {
+    "transform": {
+     "position": [
+      -82.0,
+      282.0
+     ],
+     "rotation": 4.369999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest30",
+   "components": {
+    "transform": {
+     "position": [
+      75.30000000000109,
+      -228.30000000000018
+     ],
+     "rotation": 0.48699999999999033,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_6.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest31",
+   "components": {
+    "transform": {
+     "position": [
+      389.90000000000146,
+      -48.899999999999636
+     ],
+     "rotation": 2.886999999999996,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest32",
+   "components": {
+    "transform": {
+     "position": [
+      547.2000000000007,
+      40.80000000000018
+     ],
+     "rotation": 5.2869999999999875,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest33",
+   "components": {
+    "transform": {
+     "position": [
+      -258.1999999999989,
+      220.19999999999982
+     ],
+     "rotation": 1.4039999999999928,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest34",
+   "components": {
+    "transform": {
+     "position": [
+      371.0,
+      -21.0
+     ],
+     "rotation": 3.8039999999999985,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest35",
+   "components": {
+    "transform": {
+     "position": [
+      -277.09999999999854,
+      248.10000000000036
+     ],
+     "rotation": 6.20399999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest36",
+   "components": {
+    "transform": {
+     "position": [
+      194.8000000000011,
+      -82.80000000000018
+     ],
+     "rotation": 2.3209999999999953,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_6.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest37",
+   "components": {
+    "transform": {
+     "position": [
+      352.10000000000036,
+      6.900000000000546
+     ],
+     "rotation": 4.720999999999987,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest38",
+   "components": {
+    "transform": {
+     "position": [
+      -453.2999999999993,
+      186.30000000000018
+     ],
+     "rotation": 0.8379999999999921,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest39",
+   "components": {
+    "transform": {
+     "position": [
+      -296.0,
+      276.0
+     ],
+     "rotation": 3.2379999999999978,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "Guest40",
+   "components": {
+    "transform": {
+     "position": [
+      -138.6999999999989,
+      -234.30000000000018
+     ],
+     "rotation": 5.637999999999989,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/garden/guest_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 70.0,
+     "radius": 12.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 0.001,
+     "turn_rate": 6.0
+    }
+   }
+  },
+  {
+   "name": "HostRing",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.4,
+      0.84536,
+      0.14067,
+      1.0
+     ],
+     "z_order": 19,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal12",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal14",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal15",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal16",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal17",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal18",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal19",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal20",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal21",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal22",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal23",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal24",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal25",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal26",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal27",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Petal28",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.17064,
+      0.85
+     ],
+     "z_order": 18,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gathering",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/ring.png",
+     "color": [
+      1.2,
+      0.94489,
+      0.38226,
+      1.0
+     ],
+     "z_order": 17,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "44   Garden Party",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click  gather for a toast   Right-click  mingle   G  garden gate   F4  navmesh   1-4 post   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s44_garden.lua"
+    }
+   }
+  }
+ ]
+}

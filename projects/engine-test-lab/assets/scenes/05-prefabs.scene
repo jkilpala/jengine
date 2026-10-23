@@ -1,0 +1,101 @@
+{
+  "name": "05 - Prefabs",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280.0,
+          "viewport_height": 720.0
+        }
+      }
+    },
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [0.0, 300.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": {
+          "text": "05 - Prefabs",
+          "font_id": "",
+          "font_scale": 3.0,
+          "color": [1.0, 1.0, 1.0, 1.0],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [0.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": {
+          "text": "1 = Coin (rises, damps)   2 = Block (heavy)   3 = Spark (never slows)",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [0.85, 0.9, 1.0, 1.0],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-336.0, 220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": {
+          "text": "Left click = spawn last type at cursor.  C = clear all.  [H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [0.7, 0.75, 0.85, 1.0],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "PrefabIndicator_Coin",
+      "components": {
+        "transform": { "position": [-220.0, -300.0], "rotation": 0.0, "scale": [1.5, 1.5] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/circle16.png",
+          "color": [1.0, 0.85, 0.2, 1.0],
+          "z_order": 5
+        }
+      }
+    },
+    {
+      "name": "PrefabIndicator_Block",
+      "components": {
+        "transform": { "position": [0.0, -300.0], "rotation": 0.0, "scale": [0.75, 0.75] },
+        "sprite": {
+          "texture_id": "sprites/checker64.png",
+          "color": [0.6, 0.85, 1.0, 1.0],
+          "z_order": 5
+        }
+      }
+    },
+    {
+      "name": "PrefabIndicator_Spark",
+      "components": {
+        "transform": { "position": [220.0, -300.0], "rotation": 0.0, "scale": [0.6, 0.6] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/white32.png",
+          "color": [1.0, 0.4, 0.9, 1.0],
+          "z_order": 5
+        }
+      }
+    },
+    {
+      "name": "PrefabController",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_05_prefabs.lua"
+        }
+      }
+    }
+  ]
+}

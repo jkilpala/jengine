@@ -1,0 +1,1242 @@
+{
+ "name": "96 - Photo Mode",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.8
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.05,
+       0.02,
+       0.05,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.9,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1600.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Range0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/range_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1600.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Range1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/range_mid.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -85,
+     "size": [
+      1600.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Range2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/range_near.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      1600.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lake",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/lake.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      1600.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine1",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      -142.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.8,
+      0.8
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine2",
+   "components": {
+    "transform": {
+     "position": [
+      -360.0,
+      -156.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.15,
+      1.15
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine3",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -146.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.9,
+      0.9
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine4",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -158.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.2,
+      1.2
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine5",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -144.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.85,
+      0.85
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -65,
+     "size": [
+      80.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud0",
+   "components": {
+    "transform": {
+     "position": [
+      -700.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.52252,
+      0.75
+     ],
+     "z_order": -95,
+     "size": [
+      300.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud1",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.52252,
+      0.75
+     ],
+     "z_order": -95,
+     "size": [
+      300.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud2",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.52252,
+      0.75
+     ],
+     "z_order": -95,
+     "size": [
+      300.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud3",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.52252,
+      0.75
+     ],
+     "z_order": -95,
+     "size": [
+      300.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud4",
+   "components": {
+    "transform": {
+     "position": [
+      620.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/isles/cloud.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.52252,
+      0.75
+     ],
+     "z_order": -95,
+     "size": [
+      300.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bird0",
+   "components": {
+    "transform": {
+     "position": [
+      -800.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/bird.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      30.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bird1",
+   "components": {
+    "transform": {
+     "position": [
+      -960.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/bird.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      30.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bird2",
+   "components": {
+    "transform": {
+     "position": [
+      -1120.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/bird.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      30.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bird3",
+   "components": {
+    "transform": {
+     "position": [
+      -1280.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/bird.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      30.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bird4",
+   "components": {
+    "transform": {
+     "position": [
+      -1440.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/bird.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      30.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bird5",
+   "components": {
+    "transform": {
+     "position": [
+      -1600.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/bird.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      30.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ledge",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/overlook/ledge.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1600.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Viewfinder",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "size": [
+      1080.0,
+      608.0
+     ],
+     "z_order": 20
+    },
+    "ui_image": {
+     "texture_id": "sprites/overlook/viewfinder.png",
+     "color": [
+      1,
+      1,
+      1,
+      0.85
+     ]
+    }
+   }
+  },
+  {
+   "name": "PhotoHint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      24.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 21
+    },
+    "ui_text": {
+     "text": "PHOTO MODE   arrows frame   - / = zoom   Space take the photo   P back",
+     "font_size": 16.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.69207,
+      1.0
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Polaroid0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -36.0,
+      -40.0
+     ],
+     "size": [
+      196.0,
+      124.0
+     ],
+     "z_order": 30
+    },
+    "ui_panel": {
+     "bg_color": [
+      0.91141,
+      0.89001,
+      0.78741,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Photo0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -44.0,
+      -48.0
+     ],
+     "size": [
+      180.0,
+      101.0
+     ],
+     "z_order": 31
+    },
+    "ui_image": {
+     "texture_id": "photos/overlook_0",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "Polaroid1",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -36.0,
+      -172.0
+     ],
+     "size": [
+      196.0,
+      124.0
+     ],
+     "z_order": 30
+    },
+    "ui_panel": {
+     "bg_color": [
+      0.91141,
+      0.89001,
+      0.78741,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Photo1",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -44.0,
+      -180.0
+     ],
+     "size": [
+      180.0,
+      101.0
+     ],
+     "z_order": 31
+    },
+    "ui_image": {
+     "texture_id": "photos/overlook_1",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "Polaroid2",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -36.0,
+      -304.0
+     ],
+     "size": [
+      196.0,
+      124.0
+     ],
+     "z_order": 30
+    },
+    "ui_panel": {
+     "bg_color": [
+      0.91141,
+      0.89001,
+      0.78741,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Photo2",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -44.0,
+      -312.0
+     ],
+     "size": [
+      180.0,
+      101.0
+     ],
+     "z_order": 31
+    },
+    "ui_image": {
+     "texture_id": "photos/overlook_2",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "Polaroid3",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -36.0,
+      -436.0
+     ],
+     "size": [
+      196.0,
+      124.0
+     ],
+     "z_order": 30
+    },
+    "ui_panel": {
+     "bg_color": [
+      0.91141,
+      0.89001,
+      0.78741,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Photo3",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -44.0,
+      -444.0
+     ],
+     "size": [
+      180.0,
+      101.0
+     ],
+     "z_order": 31
+    },
+    "ui_image": {
+     "texture_id": "photos/overlook_3",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s96_photo_mode.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "96   Photo Mode",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "P photo mode   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

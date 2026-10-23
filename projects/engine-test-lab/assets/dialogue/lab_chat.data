@@ -1,0 +1,52 @@
+{
+  "schema": "Dialogue",
+  "version": 1,
+  "rows": [
+    {
+      "id": "start",
+      "speaker": "Lab",
+      "text": "This line types itself out. Space finishes it, then Space goes on.",
+      "next": "ask"
+    },
+    {
+      "id": "ask",
+      "speaker": "Lab",
+      "text": "Pick a colour. Picks so far: {picks}.",
+      "choices": [
+        {
+          "text": "Red",
+          "set": {
+            "colour": "red",
+            "picks": "+1"
+          },
+          "next": "said"
+        },
+        {
+          "text": "Blue",
+          "set": {
+            "colour": "blue",
+            "picks": "+1"
+          },
+          "next": "said"
+        },
+        {
+          "text": "Finish (shown after two picks)",
+          "if": "picks >= 2",
+          "next": "done"
+        }
+      ]
+    },
+    {
+      "id": "said",
+      "speaker": "Lab",
+      "text": "You said [b]{colour}[/b].",
+      "next": "ask"
+    },
+    {
+      "id": "done",
+      "speaker": "Lab",
+      "text": "That choice appeared once the condition held. The end.",
+      "event": "finished"
+    }
+  ]
+}

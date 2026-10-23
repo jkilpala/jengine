@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Runtime (Native)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/jengine-runtime",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "cargo-build-runtime",
+            "env": {
+                "RUST_LOG": "info"
+            }
+        },
+        {
+            "name": "Debug Editor (Tauri)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/editor/src-tauri/target/debug/jengine-editor",
+            "args": [],
+            "cwd": "${workspaceFolder}/editor",
+            "preLaunchTask": "tauri-dev-build",
+            "env": {
+                "RUST_LOG": "info"
+            }
+        }
+    ]
+}

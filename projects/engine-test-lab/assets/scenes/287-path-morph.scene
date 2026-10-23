@@ -1,0 +1,824 @@
+{
+ "name": "287 - Path Morph",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Shape",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -120.0,
+       "y": -120.0
+      },
+      {
+       "type": "LineTo",
+       "x": 120.0,
+       "y": -120.0
+      },
+      {
+       "type": "LineTo",
+       "x": 120.0,
+       "y": 120.0
+      },
+      {
+       "type": "LineTo",
+       "x": -120.0,
+       "y": 120.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.9,
+      0.4,
+      0.3,
+      1
+     ],
+     "stroke_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "stroke_width": 3.0,
+     "z_order": 2
+    },
+    "path_morph": {
+     "target": "",
+     "duration": 1.0,
+     "points": 96,
+     "ease": "in_out"
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_287_path_morph.lua"
+    }
+   }
+  },
+  {
+   "name": "Square",
+   "components": {
+    "transform": {
+     "position": [
+      -360.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.3,
+      0.3
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -120.0,
+       "y": -120.0
+      },
+      {
+       "type": "LineTo",
+       "x": 120.0,
+       "y": -120.0
+      },
+      {
+       "type": "LineTo",
+       "x": 120.0,
+       "y": 120.0
+      },
+      {
+       "type": "LineTo",
+       "x": -120.0,
+       "y": 120.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.9,
+      0.4,
+      0.3,
+      1
+     ],
+     "stroke_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "stroke_width": 3.0,
+     "z_order": 2
+    }
+   }
+  },
+  {
+   "name": "Key0",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      -360.0,
+      70.0
+     ],
+     "size": [
+      200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "1  Square",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Triangle",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.3,
+      0.3
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": 150.0
+      },
+      {
+       "type": "LineTo",
+       "x": -140.0,
+       "y": -100.0
+      },
+      {
+       "type": "LineTo",
+       "x": 140.0,
+       "y": -100.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.3,
+      0.8,
+      0.4,
+      1
+     ],
+     "stroke_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "stroke_width": 3.0,
+     "z_order": 2
+    }
+   }
+  },
+  {
+   "name": "Key1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      -120.0,
+      70.0
+     ],
+     "size": [
+      200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "2  Triangle",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Circle",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.3,
+      0.3
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 130.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": 128.88783197859536,
+       "y": 16.968404988606704
+      },
+      {
+       "type": "LineTo",
+       "x": 125.57035741757888,
+       "y": 33.646475863327694
+      },
+      {
+       "type": "LineTo",
+       "x": 120.10433922646727,
+       "y": 49.748846207461675
+      },
+      {
+       "type": "LineTo",
+       "x": 112.58330249197704,
+       "y": 64.99999999999999
+      },
+      {
+       "type": "LineTo",
+       "x": 103.13593423786057,
+       "y": 79.13898577113369
+      },
+      {
+       "type": "LineTo",
+       "x": 91.92388155425118,
+       "y": 91.92388155425118
+      },
+      {
+       "type": "LineTo",
+       "x": 79.13898577113369,
+       "y": 103.13593423786057
+      },
+      {
+       "type": "LineTo",
+       "x": 65.00000000000001,
+       "y": 112.58330249197702
+      },
+      {
+       "type": "LineTo",
+       "x": 49.74884620746168,
+       "y": 120.10433922646727
+      },
+      {
+       "type": "LineTo",
+       "x": 33.646475863327694,
+       "y": 125.57035741757888
+      },
+      {
+       "type": "LineTo",
+       "x": 16.96840498860672,
+       "y": 128.88783197859536
+      },
+      {
+       "type": "LineTo",
+       "x": 7.960204194457796e-15,
+       "y": 130.0
+      },
+      {
+       "type": "LineTo",
+       "x": -16.968404988606707,
+       "y": 128.88783197859536
+      },
+      {
+       "type": "LineTo",
+       "x": -33.64647586332768,
+       "y": 125.57035741757888
+      },
+      {
+       "type": "LineTo",
+       "x": -49.74884620746163,
+       "y": 120.10433922646729
+      },
+      {
+       "type": "LineTo",
+       "x": -64.99999999999997,
+       "y": 112.58330249197704
+      },
+      {
+       "type": "LineTo",
+       "x": -79.13898577113369,
+       "y": 103.13593423786057
+      },
+      {
+       "type": "LineTo",
+       "x": -91.92388155425117,
+       "y": 91.92388155425118
+      },
+      {
+       "type": "LineTo",
+       "x": -103.13593423786055,
+       "y": 79.13898577113372
+      },
+      {
+       "type": "LineTo",
+       "x": -112.58330249197704,
+       "y": 64.99999999999999
+      },
+      {
+       "type": "LineTo",
+       "x": -120.10433922646727,
+       "y": 49.74884620746169
+      },
+      {
+       "type": "LineTo",
+       "x": -125.57035741757886,
+       "y": 33.64647586332773
+      },
+      {
+       "type": "LineTo",
+       "x": -128.88783197859536,
+       "y": 16.968404988606757
+      },
+      {
+       "type": "LineTo",
+       "x": -130.0,
+       "y": 1.592040838891559e-14
+      },
+      {
+       "type": "LineTo",
+       "x": -128.88783197859536,
+       "y": -16.96840498860673
+      },
+      {
+       "type": "LineTo",
+       "x": -125.57035741757888,
+       "y": -33.6464758633277
+      },
+      {
+       "type": "LineTo",
+       "x": -120.10433922646729,
+       "y": -49.74884620746166
+      },
+      {
+       "type": "LineTo",
+       "x": -112.58330249197705,
+       "y": -64.99999999999996
+      },
+      {
+       "type": "LineTo",
+       "x": -103.13593423786057,
+       "y": -79.13898577113369
+      },
+      {
+       "type": "LineTo",
+       "x": -91.92388155425122,
+       "y": -91.92388155425112
+      },
+      {
+       "type": "LineTo",
+       "x": -79.13898577113372,
+       "y": -103.13593423786054
+      },
+      {
+       "type": "LineTo",
+       "x": -65.00000000000006,
+       "y": -112.58330249197701
+      },
+      {
+       "type": "LineTo",
+       "x": -49.74884620746163,
+       "y": -120.10433922646729
+      },
+      {
+       "type": "LineTo",
+       "x": -33.64647586332768,
+       "y": -125.57035741757888
+      },
+      {
+       "type": "LineTo",
+       "x": -16.96840498860671,
+       "y": -128.88783197859536
+      },
+      {
+       "type": "LineTo",
+       "x": -2.3880612583373385e-14,
+       "y": -130.0
+      },
+      {
+       "type": "LineTo",
+       "x": 16.968404988606665,
+       "y": -128.88783197859536
+      },
+      {
+       "type": "LineTo",
+       "x": 33.64647586332764,
+       "y": -125.57035741757889
+      },
+      {
+       "type": "LineTo",
+       "x": 49.74884620746159,
+       "y": -120.1043392264673
+      },
+      {
+       "type": "LineTo",
+       "x": 65.00000000000001,
+       "y": -112.58330249197702
+      },
+      {
+       "type": "LineTo",
+       "x": 79.13898577113359,
+       "y": -103.13593423786064
+      },
+      {
+       "type": "LineTo",
+       "x": 91.92388155425115,
+       "y": -91.9238815542512
+      },
+      {
+       "type": "LineTo",
+       "x": 103.13593423786054,
+       "y": -79.13898577113373
+      },
+      {
+       "type": "LineTo",
+       "x": 112.583302491977,
+       "y": -65.00000000000006
+      },
+      {
+       "type": "LineTo",
+       "x": 120.10433922646729,
+       "y": -49.74884620746164
+      },
+      {
+       "type": "LineTo",
+       "x": 125.57035741757885,
+       "y": -33.6464758633278
+      },
+      {
+       "type": "LineTo",
+       "x": 128.88783197859536,
+       "y": -16.968404988606718
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.3,
+      0.5,
+      1.0,
+      1
+     ],
+     "stroke_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "stroke_width": 3.0,
+     "z_order": 2
+    }
+   }
+  },
+  {
+   "name": "Key2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      120.0,
+      70.0
+     ],
+     "size": [
+      200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "3  Circle",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Star",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.3,
+      0.3
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 9.184850993605149e-15,
+       "y": 150.0
+      },
+      {
+       "type": "LineTo",
+       "x": -35.26711513754838,
+       "y": 48.54101966249685
+      },
+      {
+       "type": "LineTo",
+       "x": -142.65847744427302,
+       "y": 46.35254915624213
+      },
+      {
+       "type": "LineTo",
+       "x": -57.06339097770922,
+       "y": -18.541019662496836
+      },
+      {
+       "type": "LineTo",
+       "x": -88.16778784387098,
+       "y": -121.3525491562421
+      },
+      {
+       "type": "LineTo",
+       "x": -1.1021821192326178e-14,
+       "y": -60.0
+      },
+      {
+       "type": "LineTo",
+       "x": 88.16778784387094,
+       "y": -121.35254915624213
+      },
+      {
+       "type": "LineTo",
+       "x": 57.06339097770921,
+       "y": -18.54101966249686
+      },
+      {
+       "type": "LineTo",
+       "x": 142.65847744427305,
+       "y": 46.35254915624208
+      },
+      {
+       "type": "LineTo",
+       "x": 35.2671151375484,
+       "y": 48.541019662496836
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      1.0,
+      0.85,
+      0.3,
+      1
+     ],
+     "stroke_color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "stroke_width": 3.0,
+     "z_order": 2
+    }
+   }
+  },
+  {
+   "name": "Key3",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      360.0,
+      70.0
+     ],
+     "size": [
+      200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "4  Star",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "287 - Path Morph",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   1-4 morph into a shape   E ease   Up/Down duration",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the big shape eases into the one chosen - outline and colour - without turning inside out or twisting; back",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "overshoots and settles; the small shapes stay as they are; the line shows the progress (`path_morph`, `on_morph_end`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  }
+ ]
+}

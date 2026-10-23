@@ -1,0 +1,370 @@
+{
+ "name": "201 - GPU particles meet the world",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Disc",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.35,
+      0.4,
+      0.5,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      140.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 70.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Slab",
+   "components": {
+    "transform": {
+     "position": [
+      240.0,
+      -80.0
+     ],
+     "rotation": 0.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.35,
+      0.4,
+      0.5,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      80.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 220.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Pointer",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      1.0,
+      0.8,
+      0.3,
+      1
+     ],
+     "z_order": 6,
+     "size": [
+      18.0,
+      18.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stream",
+   "components": {
+    "transform": {
+     "position": [
+      -620.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gpu_particles": {
+     "count": 30000,
+     "lifetime": [
+      3.0,
+      4.0
+     ],
+     "speed": [
+      240.0,
+      320.0
+     ],
+     "angle": [
+      -0.12,
+      0.12
+     ],
+     "radius": 220.0,
+     "size": [
+      3.0,
+      2.0
+     ],
+     "color_start": [
+      0.6,
+      0.85,
+      1.0,
+      0.0
+     ],
+     "color_mid": [
+      0.6,
+      0.85,
+      1.0,
+      0.9
+     ],
+     "color_end": [
+      0.6,
+      0.85,
+      1.0,
+      0.0
+     ],
+     "blend_mode": "Additive",
+     "z_order": 4,
+     "seed": 201,
+     "collide": true,
+     "attractors": [
+      {
+       "follow": "Pointer",
+       "strength": 0.0,
+       "swirl": 0.0,
+       "radius": 120.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "201 - GPU particles meet the world",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   C collide   A attract to the pointer (the mouse)",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: a stream of 30,000 GPU particles parting round the disc and sliding along the turned slab - none inside",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "either; C lets them through. A: the stream near the mouse is drawn into a spinning knot that follows it.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_201_gpu_particles_world.lua"
+    }
+   }
+  }
+ ]
+}

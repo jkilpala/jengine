@@ -1,0 +1,561 @@
+{
+  "name": "56-PhysicsForces",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "56 - Physics Forces & Contacts",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Scene 17 sets bodies up and lets them fall; this one pushes them from script and reads the contacts back.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "apply_force(e, fx, fy) pushes a dynamic body for this frame; set_angular_velocity / get_angular_velocity spin it.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "contact_count() plus get_contact(i) walk this frame's contact list - get_contact returns (a, b, started),",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "where `started` marks the first frame of a touch. Arrows push the ball, Space launches, S/X spin, R reloads.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Floor",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -250.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.3,
+            0.32,
+            0.4,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            1160.0,
+            32.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Static"
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 1160.0,
+              "height": 32.0
+            }
+          },
+          "friction": 0.7,
+          "restitution": 0.2
+        }
+      }
+    },
+    {
+      "name": "WallLeft",
+      "components": {
+        "transform": {
+          "position": [
+            -580.0,
+            -60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.3,
+            0.32,
+            0.4,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            32.0,
+            360.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Static"
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 32.0,
+              "height": 360.0
+            }
+          },
+          "friction": 0.5,
+          "restitution": 0.4
+        }
+      }
+    },
+    {
+      "name": "WallRight",
+      "components": {
+        "transform": {
+          "position": [
+            580.0,
+            -60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.3,
+            0.32,
+            0.4,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            32.0,
+            360.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Static"
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 32.0,
+              "height": 360.0
+            }
+          },
+          "friction": 0.5,
+          "restitution": 0.4
+        }
+      }
+    },
+    {
+      "name": "Ball",
+      "components": {
+        "transform": {
+          "position": [
+            -200.0,
+            60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.8,
+            0.3,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            56.0,
+            56.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "rigid_body": { "ccd": true,
+          "body_type": "Dynamic"
+        },
+        "collider": {
+          "shape": {
+            "Circle": {
+              "radius": 28.0
+            }
+          },
+          "friction": 0.4,
+          "restitution": 0.6
+        }
+      }
+    },
+    {
+      "name": "Crate",
+      "components": {
+        "transform": {
+          "position": [
+            180.0,
+            60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.55,
+            0.85,
+            0.6,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            64.0,
+            64.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Dynamic"
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 64.0,
+              "height": 64.0
+            }
+          },
+          "friction": 0.8,
+          "restitution": 0.1
+        }
+      }
+    },
+    {
+      "name": "SpinLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            150.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "angular velocity: -",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            1.0,
+            0.9,
+            0.5,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "ContactLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            105.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "contacts: -",
+          "font_id": "",
+          "font_scale": 1.4,
+          "color": [
+            0.8,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "StartedLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "new this frame: -",
+          "font_id": "",
+          "font_scale": 1.3,
+          "color": [
+            0.85,
+            0.8,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "-",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_56_physics_forces.lua"
+        }
+      }
+    }
+  ]
+}

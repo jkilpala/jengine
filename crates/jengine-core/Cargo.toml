@@ -1,0 +1,207 @@
+[package]
+name = "jengine-core"
+description = "Core library for jEngine 2D game engine — renderer, ECS, scripting, scenes"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["native", "physics", "audio"]
+# `rquickjs` comes with `js-adapter-host`, not here: it has no prebuilt
+# bindings for Android or iOS, and a mobile build runs Lua only.
+native = ["dep:mlua"]
+web = ["dep:wasm-bindgen", "dep:web-sys", "dep:js-sys", "dep:wasm-bindgen-futures"]
+physics = ["dep:rapier2d"]
+audio = ["dep:kira"]
+# Phase 7.6: script bridge is always compiled. The Luau adapter is bundled with `native`,
+# the JS (browser) adapter is bundled with `web`. These features no longer exist.
+# `js-adapter-host` remains opt-in: it adds a host-side rquickjs execution path used by
+# the native↔web parity tests (`bridge::adapters::js::parity`) and by JS scripts on native.
+js-adapter-host = ["dep:rquickjs"]
+
+# --- Phase 8 GPU backend (wgpu) ---
+# `gpu-wgpu` is the only GPU backend after the Phase 8 glow cut. It targets
+# Vulkan / Metal / DX12 / WebGPU. The feature stays opt-in so headless test /
+# CI builds can compile jengine-core without dragging in wgpu's full graph.
+gpu-wgpu = ["dep:wgpu", "dep:naga", "dep:bytemuck", "dep:pollster", "dep:winit"]
+
+# --- Graphics backends ---
+#
+# wgpu compiles one code path per graphics API, and a build should only carry
+# the ones its target can use: DX12 and Vulkan are dead weight in an iOS
+# build, Metal is dead weight on Windows, and a WebGPU-only web build has no
+# use for any of them. wgpu `cfg`s out backends that cannot apply to the
+# target, so enabling an extra one is harmless-but-pointless rather than
+# broken; these features let the builder be explicit per platform.
+#
+# `wgpu?/x` only applies when `gpu-wgpu` brought wgpu in - a headless build
+# stays free of the whole graph. The native backends additionally need
+# `wgc` (wgpu-core); WebGPU talks to the browser API directly and does not.
+# wgpu's own backend features gate on `wgc?/...`, so wgpu-core has to be
+# asked for by name alongside them - enabling `dx12` alone compiles nothing.
+backend-dx12 = ["wgpu?/wgc", "wgpu?/dx12"]
+backend-metal = ["wgpu?/wgc", "wgpu?/metal"]
+# wgpu has no plain `vulkan` feature: Vulkan is on by default only for
+# unix-not-Apple targets (Linux, Android) through wgpu-core's own target
+# table. `vulkan-portability` is the switch that turns wgpu-core's Vulkan
+# backend on everywhere else, despite the MoltenVK-flavoured name.
+backend-vulkan = ["wgpu?/wgc", "wgpu?/vulkan-portability"]
+# WebGL2 - the fallback for browsers without WebGPU (Firefox stable,
+# Safari < 18). Pulls wgpu-core in on its own.
+backend-webgl = ["wgpu?/webgl"]
+backend-webgpu = ["wgpu?/webgpu"]
+
+[dependencies]
+glam = { workspace = true }
+image = { workspace = true }
+
+# GPU backend — opt-in via the `gpu-wgpu` feature.
+wgpu     = { workspace = true, optional = true }
+naga     = { workspace = true, optional = true }
+bytemuck = { workspace = true, optional = true }
+pollster = { workspace = true, optional = true }
+# `winit` is needed by the wgpu backend so `WgpuRenderer::new` can take a
+# `winit::window::Window` and create a `wgpu::Surface` from it. Native-only;
+# the web path uses `web_sys::HtmlCanvasElement` directly (Phase 5).
+winit    = { workspace = true, optional = true }
+
+# ECS
+hecs = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = { workspace = true }
+
+# Logging & Errors
+log = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Vector path tessellation
+lyon = { workspace = true }
+
+# Default font rasterization (Noto Sans baked at startup into the built-in atlas)
+fontdue = { workspace = true }
+# Text shaping and bidirectional order for font files (`renderer::dynamic_font`).
+rustybuzz = "0.20"
+unicode-bidi = "0.3"
+# Asset packs are checked against their SHA-256 (`asset::packs`).
+sha2 = "0.10"
+# Live ops: the content manifest a game shares with the service, and the
+# Ed25519 check a snapshot has to pass before the game believes it.
+jengine-liveops = { path = "../jengine-liveops" }
+
+# Scripting — native only
+mlua = { workspace = true, optional = true }
+rquickjs = { workspace = true, optional = true }
+
+# WASM — web only
+wasm-bindgen = { workspace = true, optional = true }
+web-sys = { workspace = true, optional = true, features = [
+    "console",
+    "Window",
+    # Screenshots offered as a download (`renderer::screenshot`).
+    "Blob",
+    "BlobPropertyBag",
+    "Url",
+    "HtmlAnchorElement",
+    "Performance",
+    "HtmlCanvasElement",
+    "Element",
+    "Document",
+    "Storage",
+    # Gamepad API (input::gamepad_web) — poll-only, shared by both hosts.
+    "Navigator",
+    "Gamepad",
+    "GamepadButton",
+    # Touch input (web runtime) — mapped onto the left mouse button.
+    "TouchEvent",
+    "Touch",
+    "TouchList",
+    # Web Audio backend (audio::web_audio) — shared by the viewport + web runtime.
+    "AudioContext",
+    "AudioContextState",
+    "BaseAudioContext",
+    "AudioBuffer",
+    "AudioBufferSourceNode",
+    # The spectrum (`audio::analysis`): an analyser on the master gain.
+    "AnalyserNode",
+    "AudioNode",
+    "AudioParam",
+    "AudioDestinationNode",
+    "GainNode",
+    "StereoPannerNode",
+    # Bus effects (`audio::mixer::BusEffects`): EQ, distortion, a low-pass,
+    # a compressor, an echo and a reverb.
+    "BiquadFilterNode",
+    "BiquadFilterType",
+    "ConvolverNode",
+    "WaveShaperNode",
+    "OverSampleType",
+    "DynamicsCompressorNode",
+    "DelayNode",
+    # Video (`video::web`): a <video> element drawn onto a canvas.
+    "HtmlVideoElement",
+    "HtmlMediaElement",
+    "CanvasRenderingContext2d",
+    "ImageData",
+    # Display and cursor settings (`display::web`): the canvas's cursor
+    # style, the Fullscreen API, the screen's size.
+    "HtmlElement",
+    "CssStyleDeclaration",
+    "Screen",
+    # Text entry (`input::text_entry::web`): a hidden textarea at the caret.
+    "HtmlTextAreaElement",
+    "DomRect",
+    "Event",
+    "EventTarget",
+] }
+js-sys = { workspace = true, optional = true }
+# Async decode in the Web Audio backend (audio::web_audio).
+wasm-bindgen-futures = { version = "0.4", optional = true }
+
+# Physics — optional
+rapier2d = { workspace = true, optional = true }
+
+# Audio — optional (native only)
+kira = { workspace = true, optional = true }
+
+
+# Parallel iteration over hot ECS chunks (native only — rayon breaks single-threaded WASM).
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+rayon = { workspace = true }
+crossbeam-channel = { workspace = true }
+notify = { workspace = true }
+
+[dev-dependencies]
+# Parallax used as a real-package conformance fixture for Slice A integration test
+# (script handler -> BridgeCommand::SetComponentField -> ComponentRegistry applier
+# -> ParallaxLayer field mutated). Dev-only — no production cycle.
+jengine-parallax = { path = "../../packages/jengine-parallax" }
+# ... and its online modes' two network packages (the hub's guards load
+# `scenes/<id>_online.scene`, whose `online` components are `jengine-online`'s).
+jengine-net = { path = "../../packages/jengine-net" }
+jengine-online = { path = "../../packages/jengine-online" }
+
+# Phase 2 of the wgpu migration: standalone PoC binary (`examples/wgpu_sprite.rs`)
+# that opens a winit window and draws a single textured quad through wgpu. Only
+# referenced by that example, which gates itself with `required-features = ["gpu-wgpu", "backend-dx12"]`.
+winit = { workspace = true }
+env_logger = "0.11"
+
+[[example]]
+name = "wgpu_sprite"
+path = "examples/wgpu_sprite.rs"
+required-features = ["gpu-wgpu"]
+
+# The transpiler lives in `adapters::js`, which only exists with this feature.
+# Without the declaration a plain `cargo test -p jengine-core` (which builds
+# every example) failed to compile instead of skipping it.
+[[example]]
+name = "transpile_lua"
+path = "examples/transpile_lua.rs"
+required-features = ["js-adapter-host"]

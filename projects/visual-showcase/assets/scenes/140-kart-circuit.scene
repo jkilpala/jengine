@@ -1,0 +1,2233 @@
+{
+ "name": "140 - Kart Circuit",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.2
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.02
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky0",
+   "components": {
+    "transform": {
+     "position": [
+      -2560.0,
+      176.00000000000006
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      2560.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sky1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      176.00000000000006
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      2560.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sky2",
+   "components": {
+    "transform": {
+     "position": [
+      2560.0,
+      176.00000000000006
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      2560.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Track",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mode7": {
+     "texture_id": "sprites/kartcircuit/track.png",
+     "ground_size": [
+      2048.0,
+      2048.0
+     ],
+     "height": 34.0,
+     "fov": 1.25,
+     "horizon": 0.55,
+     "far": 1800.0,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "near_color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "far_color": [
+      0.71057,
+      0.78741,
+      1.0,
+      1.0
+     ],
+     "follow": "Player",
+     "follow_distance": 115.0,
+     "z_order": -50
+    }
+   }
+  },
+  {
+   "name": "Side0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -550.0287311087321,
+     "y": -147.06427059437607
+    }
+   }
+  },
+  {
+   "name": "Side9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -803.5755625888435,
+     "y": -261.56360772947346
+    }
+   }
+  },
+  {
+   "name": "Side18",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -544.634196422313,
+     "y": -341.86224736151087
+    }
+   }
+  },
+  {
+   "name": "Side27",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -789.045738835876,
+     "y": -482.182764748115
+    }
+   }
+  },
+  {
+   "name": "Side36",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -520.033385075367,
+     "y": -429.9555037577263
+    }
+   }
+  },
+  {
+   "name": "Side45",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -645.7591314684241,
+     "y": -665.29268648486
+    }
+   }
+  },
+  {
+   "name": "Side54",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -431.73130115954336,
+     "y": -503.00714555714274
+    }
+   }
+  },
+  {
+   "name": "Side63",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -441.1449492352288,
+     "y": -788.3715686846974
+    }
+   }
+  },
+  {
+   "name": "Side72",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -279.93030202583356,
+     "y": -551.3487059483647
+    }
+   }
+  },
+  {
+   "name": "Side81",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -173.06079257001082,
+     "y": -812.8883630381047
+    }
+   }
+  },
+  {
+   "name": "Side90",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -43.563871090341244,
+     "y": -551.3582949940987
+    }
+   }
+  },
+  {
+   "name": "Side99",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 139.69854124445501,
+     "y": -796.5580051478173
+    }
+   }
+  },
+  {
+   "name": "Side108",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 206.96415899210095,
+     "y": -506.3061713616662
+    }
+   }
+  },
+  {
+   "name": "Side117",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 407.32574270968064,
+     "y": -707.0800248852023
+    }
+   }
+  },
+  {
+   "name": "Side126",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 407.515038125908,
+     "y": -426.80123862334955
+    }
+   }
+  },
+  {
+   "name": "Side135",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 651.4647607228984,
+     "y": -586.3854844022538
+    }
+   }
+  },
+  {
+   "name": "Side144",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 526.6867598925379,
+     "y": -334.59599064329944
+    }
+   }
+  },
+  {
+   "name": "Side153",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 796.0833727901886,
+     "y": -359.4698910739443
+    }
+   }
+  },
+  {
+   "name": "Side162",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 571.0561811414833,
+     "y": -201.60595883731037
+    }
+   }
+  },
+  {
+   "name": "Side171",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 844.3957375565379,
+     "y": -105.06556114555823
+    }
+   }
+  },
+  {
+   "name": "Side180",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 571.0835138719622,
+     "y": -17.99667078317282
+    }
+   }
+  },
+  {
+   "name": "Side189",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 802.4257146704908,
+     "y": 130.06978578133075
+    }
+   }
+  },
+  {
+   "name": "Side198",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 528.269419914406,
+     "y": 150.15461510168439
+    }
+   }
+  },
+  {
+   "name": "Side207",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 719.4671873448899,
+     "y": 365.4318846446329
+    }
+   }
+  },
+  {
+   "name": "Side216",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 455.5938598890268,
+     "y": 272.29968473988646
+    }
+   }
+  },
+  {
+   "name": "Side225",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 537.221654370586,
+     "y": 529.601330117718
+    }
+   }
+  },
+  {
+   "name": "Side234",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 337.1348233387605,
+     "y": 345.2495281519027
+    }
+   }
+  },
+  {
+   "name": "Side243",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 311.9465489301097,
+     "y": 630.1085314472867
+    }
+   }
+  },
+  {
+   "name": "Side252",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 217.1817973050152,
+     "y": 370.9872963758815
+    }
+   }
+  },
+  {
+   "name": "Side261",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 56.91344644736018,
+     "y": 573.7427300184413
+    }
+   }
+  },
+  {
+   "name": "Side270",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": 131.8359068289022,
+     "y": 308.3886357021165
+    }
+   }
+  },
+  {
+   "name": "Side279",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -109.06282614457845,
+     "y": 457.71214472462134
+    }
+   }
+  },
+  {
+   "name": "Side288",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -127.58950064258815,
+     "y": 180.19212477310765
+    }
+   }
+  },
+  {
+   "name": "Side297",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -122.95032080253122,
+     "y": 439.8723124721589
+    }
+   }
+  },
+  {
+   "name": "Side306",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -363.80771972108516,
+     "y": 320.0735627626718
+    }
+   }
+  },
+  {
+   "name": "Side315",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -238.94620946373578,
+     "y": 575.611581241142
+    }
+   }
+  },
+  {
+   "name": "Side324",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -397.58221013012303,
+     "y": 371.03401097250355
+    }
+   }
+  },
+  {
+   "name": "Side333",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -463.36258601487907,
+     "y": 626.4761006774451
+    }
+   }
+  },
+  {
+   "name": "Side342",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -483.6386961953709,
+     "y": 364.8680448890306
+    }
+   }
+  },
+  {
+   "name": "Side351",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -682.2828148943141,
+     "y": 557.8700553271875
+    }
+   }
+  },
+  {
+   "name": "Side360",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -522.865988498672,
+     "y": 339.21955174931975
+    }
+   }
+  },
+  {
+   "name": "Side369",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/tyres.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      30.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -793.2571839817525,
+     "y": 302.69322192700145
+    }
+   }
+  },
+  {
+   "name": "Side378",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -551.3275438438105,
+     "y": 135.8024342829311
+    }
+   }
+  },
+  {
+   "name": "Side387",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      36.0,
+      45.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -820.646324520773,
+     "y": -16.608587212024382
+    }
+   }
+  },
+  {
+   "name": "Player",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/kart_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      22.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.25
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -684.590210532723,
+     "y": -119.69260175181321,
+     "angle": -1.5512235477466834,
+     "frames": 8
+    }
+   }
+  },
+  {
+   "name": "Blue",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/kart_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      22.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.25
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -716.5840812295266,
+     "y": -120.31889069167966,
+     "angle": -1.5512235477466834,
+     "frames": 8
+    }
+   }
+  },
+  {
+   "name": "Green",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/kart_green.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      22.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.25
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -685.255642531331,
+     "y": -85.69911413645917,
+     "angle": -1.5512235477466834,
+     "frames": 8
+    }
+   }
+  },
+  {
+   "name": "Yellow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kartcircuit/kart_yellow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      22.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.25
+     ],
+     "y_sort": true
+    },
+    "mode7_sprite": {
+     "x": -717.2495132281347,
+     "y": -86.32540307632561,
+     "angle": -1.5512235477466834,
+     "frames": 8
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s140_kart_circuit.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "140   Kart Circuit",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Up drive   Left / Right steer   Down brake   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

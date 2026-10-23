@@ -1,0 +1,87 @@
+{
+  "schema": "Dialogue",
+  "version": 1,
+  "rows": [
+    {
+      "id": "start",
+      "if": "riddle_done",
+      "else": "hello",
+      "next": "after"
+    },
+    {
+      "id": "hello",
+      "speaker": "Wren",
+      "portrait": "sprites/villagechatter/girl_portrait.png",
+      "text": "Hello! I know a riddle. Want to hear it?",
+      "choices": [
+        {
+          "text": "Go on, then.",
+          "next": "riddle"
+        },
+        {
+          "text": "Not now.",
+          "next": "later"
+        }
+      ]
+    },
+    {
+      "id": "riddle",
+      "speaker": "Wren",
+      "portrait": "sprites/villagechatter/girl_portrait.png",
+      "text": "What has [b]keys[/b] but can't open a single lock?",
+      "choices": [
+        {
+          "text": "The guard.",
+          "next": "wrong"
+        },
+        {
+          "text": "A piano.",
+          "next": "right"
+        },
+        {
+          "text": "A map.",
+          "next": "wrong"
+        }
+      ]
+    },
+    {
+      "id": "right",
+      "speaker": "Wren",
+      "portrait": "sprites/villagechatter/girl_portrait.png",
+      "text": "[rainbow]Yes![/rainbow] Here - I found these by the well.",
+      "set": {
+        "gold": "+2",
+        "riddle_done": true
+      },
+      "event": "coins"
+    },
+    {
+      "id": "wrong",
+      "speaker": "Wren",
+      "portrait": "sprites/villagechatter/girl_portrait.png",
+      "text": "Nope! [shake]Hee hee.[/shake] Again?",
+      "choices": [
+        {
+          "text": "Again.",
+          "next": "riddle"
+        },
+        {
+          "text": "Later.",
+          "next": "later"
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "speaker": "Wren",
+      "portrait": "sprites/villagechatter/girl_portrait.png",
+      "text": "Okay! I'll be right here."
+    },
+    {
+      "id": "after",
+      "speaker": "Wren",
+      "portrait": "sprites/villagechatter/girl_portrait.png",
+      "text": "Did you get bread? The guard is [shake]always[/shake] hungry."
+    }
+  ]
+}

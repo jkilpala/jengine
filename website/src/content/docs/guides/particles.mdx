@@ -1,0 +1,71 @@
+---
+draft: false
+title: Particles
+description: Particle systems in jEngine.
+---
+
+jEngine has two particle systems: **CPU emitters** (`particle_emitter`), which can collide and spawn
+sub-emitters, and **GPU particles** (`gpu_particles`) for clouds of hundreds of thousands. Both are
+simulated by one shared step, so they behave the same in every runtime.
+
+## Presets
+
+The editor provides presets: **Fire**, **Smoke**, **Explosion**, **Sparkle**, **Rain**, **Snow**.
+
+## ParticleEmitter Properties
+
+| Property | Description |
+|----------|-------------|
+| `emission_rate` | Particles per second |
+| `max_particles` | Maximum alive particles |
+| `lifetime` | Particle lifetime range (seconds) |
+| `speed` | Initial speed range |
+| `angle` | Emission angle range |
+| `color_start` / `color_end` | Color gradient over lifetime |
+| `size_start` / `size_end` | Size gradient over lifetime |
+| `gravity_modifier` | Scales gravity on the particles |
+| `angular_velocity` | Spin speed |
+| `burst_count` | Particles per burst |
+| `active` | Enable/disable emission |
+| `world_space` | Emit in world or local space |
+| `emit_shape` | Point, circle, box, ... |
+| `blend_mode` | Alpha, additive, ... |
+| `color_curve` / `size_curve` | Colour and size over lifetime, as curves |
+| `stretch` | Stretch along the velocity |
+| `drag` | Slows each particle by `e^(-drag t)`, frame-rate independent |
+| `turbulence` | `strength`, `scale`, `speed`: swirls along the curl of world-anchored noise |
+| `collision` | Hit every non-sensor `collider` - kill or bounce |
+| `sub_emitters` | Burst another emitter, found by entity **name**, where a particle dies or hits |
+
+An emitter can name a shared definition instead of carrying every field:
+
+```json
+"particle_emitter": { "particle_source": "particles/fire.particle", "z_order": 10 }
+```
+
+## GPU particles
+
+`gpu_particles` is a stateless cloud: each particle is a closed form of its index and the time,
+evaluated on the GPU, so the CPU cost is one uniform and one draw per emitter whatever the count. It
+sorts with sprites by `z_order` like everything else. Use it for snow, dust, star fields and spell
+storms; use `particle_emitter` when particles must collide or trigger sub-emitters.
+
+## Scripting API
+
+```lua
+-- Emit a burst of particles
+Particles.emit_burst(entity, 20)
+
+-- Enable/disable continuous emission
+Particles.set_active(entity, true)
+Particles.set_active(entity, false)
+
+-- Change emission rate
+Particles.set_rate(entity, 50)
+
+-- Any emitter field, by name
+Particles.set(entity, "drag", 1.5)
+
+-- Get total alive particle count
+local count = Particles.get_count()
+```

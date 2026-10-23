@@ -1,0 +1,1875 @@
+{
+ "name": "162 - Instant Replay",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.8
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Cabinet",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/cabinet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Playfield",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/playfield.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      520.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rail0",
+   "components": {
+    "transform": {
+     "position": [
+      -245.0,
+      75.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 460.0,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail1",
+   "components": {
+    "transform": {
+     "position": [
+      -222.5,
+      322.5
+     ],
+     "rotation": 0.7853981633974483,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 73.63961030678928,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail2",
+   "components": {
+    "transform": {
+     "position": [
+      -5.0,
+      345.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 400.0,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail3",
+   "components": {
+    "transform": {
+     "position": [
+      220.0,
+      315.0
+     ],
+     "rotation": -0.7853981633974483,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 94.8528137423857,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail4",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -37.5
+     ],
+     "rotation": -1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 655.0,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail5",
+   "components": {
+    "transform": {
+     "position": [
+      203.0,
+      -110.0
+     ],
+     "rotation": -1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 510.0,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail6",
+   "components": {
+    "transform": {
+     "position": [
+      -190.0,
+      -195.0
+     ],
+     "rotation": -0.6857295109062863,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 152.12670403551894,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Rail7",
+   "components": {
+    "transform": {
+     "position": [
+      146.5,
+      -195.0
+     ],
+     "rotation": -2.423450411768946,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 146.7808466123821,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "LaneFloor",
+   "components": {
+    "transform": {
+     "position": [
+      227.0,
+      -352.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 46.0,
+       "height": 12.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Post0",
+   "components": {
+    "transform": {
+     "position": [
+      -165.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 7.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.5,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Post1",
+   "components": {
+    "transform": {
+     "position": [
+      -95.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 7.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.5,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Post2",
+   "components": {
+    "transform": {
+     "position": [
+      -25.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 7.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.5,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Post3",
+   "components": {
+    "transform": {
+     "position": [
+      45.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 7.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.5,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Lane0",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/light.png",
+     "color": [
+      0.10048,
+      0.05088,
+      0.01002,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lane1",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/light.png",
+     "color": [
+      0.10048,
+      0.05088,
+      0.01002,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lane2",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      285.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/light.png",
+     "color": [
+      0.10048,
+      0.05088,
+      0.01002,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      28.0,
+      28.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bumper0",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/bumper.png",
+     "color": [
+      1.0,
+      0.10048,
+      0.44799,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.6,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Bumper1",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/bumper.png",
+     "color": [
+      1.0,
+      0.10048,
+      0.44799,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.6,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Bumper2",
+   "components": {
+    "transform": {
+     "position": [
+      -20.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/bumper.png",
+     "color": [
+      1.0,
+      0.10048,
+      0.44799,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 30.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.6,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "SlingL",
+   "components": {
+    "transform": {
+     "position": [
+      -177.5,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/sling_l.png",
+     "color": [
+      0.07324,
+      0.69207,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      67.0,
+      132.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -27.5,
+         60.0
+        ],
+        [
+         -27.5,
+         -25.0
+        ],
+        [
+         27.5,
+         -60.0
+        ]
+       ]
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.5,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "SlingR",
+   "components": {
+    "transform": {
+     "position": [
+      137.5,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/sling_r.png",
+     "color": [
+      0.07324,
+      0.69207,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      67.0,
+      132.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         27.5,
+         60.0
+        ],
+        [
+         27.5,
+         -25.0
+        ],
+        [
+         -27.5,
+         -60.0
+        ]
+       ]
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.2,
+     "restitution": 0.5,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "FlipperLPivot",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      -245.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    }
+   }
+  },
+  {
+   "name": "FlipperL",
+   "components": {
+    "transform": {
+     "position": [
+      -90.50878471493323,
+      -266.57414923718915
+     ],
+     "rotation": -0.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/flipper.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      110.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 100.0,
+       "height": 16.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "FlipperLPivot",
+     "collide_connected": false,
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -45.0,
+        0.0
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "limits": [
+        -0.5,
+        0.5
+       ],
+       "motor_speed": 0.01,
+       "motor_max_torque": 60000000.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "FlipperRPivot",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      -245.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 0.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    }
+   }
+  },
+  {
+   "name": "FlipperR",
+   "components": {
+    "transform": {
+     "position": [
+      50.50878471493323,
+      -266.57414923718915
+     ],
+     "rotation": 0.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/flipper_r.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      110.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 100.0,
+       "height": 16.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.4,
+     "restitution": 0.1,
+     "density": 1.0
+    },
+    "joint": {
+     "target_entity": "FlipperRPivot",
+     "collide_connected": false,
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        45.0,
+        0.0
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "limits": [
+        -0.5,
+        0.5
+       ],
+       "motor_speed": 0.01,
+       "motor_max_torque": 60000000.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Plunger",
+   "components": {
+    "transform": {
+     "position": [
+      227.0,
+      -372.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/bar.png",
+     "color": [
+      0.60383,
+      0.63828,
+      0.78741,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      26.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball",
+   "components": {
+    "transform": {
+     "position": [
+      227.0,
+      -334.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/ball.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 11.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.1,
+     "restitution": 0.3,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "ScoreLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -455.0,
+      185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "SCORE",
+     "font_id": "",
+     "font_scale": 1.4,
+     "color": [
+      0.52252,
+      0.31855,
+      1.0,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Score",
+   "components": {
+    "transform": {
+     "position": [
+      -455.0,
+      135.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "0",
+     "font_id": "",
+     "font_scale": 3.0,
+     "color": [
+      1.0,
+      0.63828,
+      0.13287,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "BallLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -455.0,
+      55.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "BALL 1 OF 3",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.74841,
+      0.74841,
+      0.89001,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Message",
+   "components": {
+    "transform": {
+     "position": [
+      -455.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.3,
+     "color": [
+      1.0,
+      0.63828,
+      0.13287,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 250.0
+    }
+   }
+  },
+  {
+   "name": "HelpL",
+   "components": {
+    "transform": {
+     "position": [
+      -455.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Left / Right   flippers\nSpace   hold to pull the plunger",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.74841,
+      0.74841,
+      0.89001,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 260.0
+    }
+   }
+  },
+  {
+   "name": "ReplayLabel",
+   "components": {
+    "transform": {
+     "position": [
+      455.0,
+      185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "INSTANT REPLAY",
+     "font_id": "",
+     "font_scale": 1.4,
+     "color": [
+      0.52252,
+      0.31855,
+      1.0,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "RecLamp",
+   "components": {
+    "transform": {
+     "position": [
+      385.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/light.png",
+     "color": [
+      0.07324,
+      0.00394,
+      0.00394,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ReplayState",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "READY",
+     "font_id": "",
+     "font_scale": 1.6,
+     "color": [
+      0.74841,
+      0.74841,
+      0.89001,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "BarFrame",
+   "components": {
+    "transform": {
+     "position": [
+      455.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/bar_frame.png",
+     "color": [
+      0.52252,
+      0.31855,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      268.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bar",
+   "components": {
+    "transform": {
+     "position": [
+      455.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pinball/bar.png",
+     "color": [
+      1.0,
+      0.63828,
+      0.13287,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      260.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "bar",
+      "amount": 0.0,
+      "from": "left"
+     }
+    }
+   }
+  },
+  {
+   "name": "ReplayInfo",
+   "components": {
+    "transform": {
+     "position": [
+      455.0,
+      25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.74841,
+      0.74841,
+      0.89001,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 260.0
+    }
+   }
+  },
+  {
+   "name": "HelpR",
+   "components": {
+    "transform": {
+     "position": [
+      455.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "R   record a run from a fresh table\nP   play it back - P again takes over",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.74841,
+      0.74841,
+      0.89001,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "center",
+     "wrap_width": 260.0
+    }
+   }
+  },
+  {
+   "name": "Table",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s162_instant_replay.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "162   Instant Replay",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Left / Right flippers   Space plunger   R record   P play back   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

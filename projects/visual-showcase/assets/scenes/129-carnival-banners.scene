@@ -1,0 +1,2442 @@
+{
+ "name": "129 - Carnival Banners",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.65
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.44799,
+      0.34239,
+      0.89001
+     ],
+     "intensity": 0.55
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1500.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/ground.png",
+     "color": [
+      1.6,
+      1.8,
+      1.4,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1500.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tent",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      250.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      34.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post1",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      34.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arch",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -520.0,
+       "y": -130.0
+      },
+      {
+       "type": "LineTo",
+       "x": -510.5,
+       "y": -119.80031755538016
+      },
+      {
+       "type": "LineTo",
+       "x": -501.0,
+       "y": -109.66351954476998
+      },
+      {
+       "type": "LineTo",
+       "x": -491.5,
+       "y": -99.6521026987323
+      },
+      {
+       "type": "LineTo",
+       "x": -482.0,
+       "y": -89.82779073125684
+      },
+      {
+       "type": "LineTo",
+       "x": -472.5,
+       "y": -80.25115379253833
+      },
+      {
+       "type": "LineTo",
+       "x": -463.0,
+       "y": -70.98123503385892
+      },
+      {
+       "type": "LineTo",
+       "x": -453.5,
+       "y": -62.07518658692666
+      },
+      {
+       "type": "LineTo",
+       "x": -444.0,
+       "y": -53.5879172019785
+      },
+      {
+       "type": "LineTo",
+       "x": -434.5,
+       "y": -45.57175371707612
+      },
+      {
+       "type": "LineTo",
+       "x": -425.0,
+       "y": -38.07611844574882
+      },
+      {
+       "type": "LineTo",
+       "x": -415.5,
+       "y": -31.147224471995997
+      },
+      {
+       "type": "LineTo",
+       "x": -406.0,
+       "y": -24.827790731256826
+      },
+      {
+       "type": "LineTo",
+       "x": -396.5,
+       "y": -19.156778633968017
+      },
+      {
+       "type": "LineTo",
+       "x": -387.0,
+       "y": -14.169151855512183
+      },
+      {
+       "type": "LineTo",
+       "x": -377.5,
+       "y": -9.895660773532725
+      },
+      {
+       "type": "LineTo",
+       "x": -368.0,
+       "y": -6.362652881630041
+      },
+      {
+       "type": "LineTo",
+       "x": -358.5,
+       "y": -3.5919103483020507
+      },
+      {
+       "type": "LineTo",
+       "x": -349.0,
+       "y": -1.6005157226320819
+      },
+      {
+       "type": "LineTo",
+       "x": -339.5,
+       "y": -0.4007466146933609
+      },
+      {
+       "type": "LineTo",
+       "x": -330.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": -320.5,
+       "y": -0.4007466146933609
+      },
+      {
+       "type": "LineTo",
+       "x": -311.0,
+       "y": -1.6005157226320819
+      },
+      {
+       "type": "LineTo",
+       "x": -301.5,
+       "y": -3.5919103483020365
+      },
+      {
+       "type": "LineTo",
+       "x": -292.0,
+       "y": -6.3626528816300265
+      },
+      {
+       "type": "LineTo",
+       "x": -282.5,
+       "y": -9.895660773532725
+      },
+      {
+       "type": "LineTo",
+       "x": -273.0,
+       "y": -14.169151855512169
+      },
+      {
+       "type": "LineTo",
+       "x": -263.5,
+       "y": -19.156778633968003
+      },
+      {
+       "type": "LineTo",
+       "x": -254.0,
+       "y": -24.827790731256826
+      },
+      {
+       "type": "LineTo",
+       "x": -244.5,
+       "y": -31.147224471995983
+      },
+      {
+       "type": "LineTo",
+       "x": -235.0,
+       "y": -38.07611844574882
+      },
+      {
+       "type": "LineTo",
+       "x": -225.5,
+       "y": -45.571753717076106
+      },
+      {
+       "type": "LineTo",
+       "x": -216.0,
+       "y": -53.587917201978485
+      },
+      {
+       "type": "LineTo",
+       "x": -206.5,
+       "y": -62.07518658692665
+      },
+      {
+       "type": "LineTo",
+       "x": -197.0,
+       "y": -70.98123503385891
+      },
+      {
+       "type": "LineTo",
+       "x": -187.5,
+       "y": -80.2511537925383
+      },
+      {
+       "type": "LineTo",
+       "x": -178.0,
+       "y": -89.82779073125683
+      },
+      {
+       "type": "LineTo",
+       "x": -168.5,
+       "y": -99.65210269873228
+      },
+      {
+       "type": "LineTo",
+       "x": -159.0,
+       "y": -109.66351954476997
+      },
+      {
+       "type": "LineTo",
+       "x": -149.5,
+       "y": -119.80031755538015
+      },
+      {
+       "type": "LineTo",
+       "x": -140.0,
+       "y": -129.99999999999997
+      }
+     ],
+     "stroke_color": [
+      0.26327,
+      0.01961,
+      0.05088,
+      1.0
+     ],
+     "stroke_width": 54.0,
+     "z_order": -9
+    }
+   }
+  },
+  {
+   "name": "ArchTrim",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -520.0,
+       -103.0
+      ],
+      [
+       -510.5,
+       -92.80031755538016
+      ],
+      [
+       -501.0,
+       -82.66351954476998
+      ],
+      [
+       -491.5,
+       -72.6521026987323
+      ],
+      [
+       -482.0,
+       -62.82779073125684
+      ],
+      [
+       -472.5,
+       -53.25115379253833
+      ],
+      [
+       -463.0,
+       -43.98123503385892
+      ],
+      [
+       -453.5,
+       -35.07518658692666
+      ],
+      [
+       -444.0,
+       -26.5879172019785
+      ],
+      [
+       -434.5,
+       -18.57175371707612
+      ],
+      [
+       -425.0,
+       -11.076118445748818
+      ],
+      [
+       -415.5,
+       -4.147224471995997
+      ],
+      [
+       -406.0,
+       2.172209268743174
+      ],
+      [
+       -396.5,
+       7.843221366031983
+      ],
+      [
+       -387.0,
+       12.830848144487817
+      ],
+      [
+       -377.5,
+       17.104339226467275
+      ],
+      [
+       -368.0,
+       20.63734711836996
+      ],
+      [
+       -358.5,
+       23.40808965169795
+      ],
+      [
+       -349.0,
+       25.399484277367918
+      ],
+      [
+       -339.5,
+       26.59925338530664
+      ],
+      [
+       -330.0,
+       27.0
+      ],
+      [
+       -320.5,
+       26.59925338530664
+      ],
+      [
+       -311.0,
+       25.399484277367918
+      ],
+      [
+       -301.5,
+       23.408089651697964
+      ],
+      [
+       -292.0,
+       20.637347118369973
+      ],
+      [
+       -282.5,
+       17.104339226467275
+      ],
+      [
+       -273.0,
+       12.830848144487831
+      ],
+      [
+       -263.5,
+       7.843221366031997
+      ],
+      [
+       -254.0,
+       2.172209268743174
+      ],
+      [
+       -244.5,
+       -4.147224471995983
+      ],
+      [
+       -235.0,
+       -11.076118445748818
+      ],
+      [
+       -225.5,
+       -18.571753717076106
+      ],
+      [
+       -216.0,
+       -26.587917201978485
+      ],
+      [
+       -206.5,
+       -35.07518658692665
+      ],
+      [
+       -197.0,
+       -43.98123503385891
+      ],
+      [
+       -187.5,
+       -53.251153792538304
+      ],
+      [
+       -178.0,
+       -62.827790731256826
+      ],
+      [
+       -168.5,
+       -72.65210269873228
+      ],
+      [
+       -159.0,
+       -82.66351954476997
+      ],
+      [
+       -149.5,
+       -92.80031755538015
+      ],
+      [
+       -140.0,
+       -102.99999999999997
+      ]
+     ],
+     "width": 5.0,
+     "color": [
+      0.89001,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": -8
+    }
+   }
+  },
+  {
+   "name": "ArchName",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "WONDERLAND",
+     "font_id": "fonts/tabletop.font",
+     "font_scale": 0.55,
+     "color": [
+      1.6,
+      1.25986,
+      0.34246,
+      1.0
+     ],
+     "z_order": -7,
+     "align": "center"
+    },
+    "text_path": {
+     "path": "Arch",
+     "offset": 236.55426203673403,
+     "side": 0.0,
+     "spacing": 6.0
+    }
+   }
+  },
+  {
+   "name": "Bulb0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -98.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb1",
+   "components": {
+    "transform": {
+     "position": [
+      -491.5,
+      -67.6521026987323
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb2",
+   "components": {
+    "transform": {
+     "position": [
+      -463.0,
+      -38.98123503385892
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb3",
+   "components": {
+    "transform": {
+     "position": [
+      -434.5,
+      -13.57175371707612
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb4",
+   "components": {
+    "transform": {
+     "position": [
+      -406.0,
+      7.172209268743174
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb5",
+   "components": {
+    "transform": {
+     "position": [
+      -377.5,
+      22.104339226467275
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb6",
+   "components": {
+    "transform": {
+     "position": [
+      -349.0,
+      30.399484277367918
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb7",
+   "components": {
+    "transform": {
+     "position": [
+      -320.5,
+      31.59925338530664
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb8",
+   "components": {
+    "transform": {
+     "position": [
+      -292.0,
+      25.637347118369973
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb9",
+   "components": {
+    "transform": {
+     "position": [
+      -263.5,
+      12.843221366031997
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb10",
+   "components": {
+    "transform": {
+     "position": [
+      -235.0,
+      -6.076118445748818
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb11",
+   "components": {
+    "transform": {
+     "position": [
+      -206.5,
+      -30.075186586926648
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb12",
+   "components": {
+    "transform": {
+     "position": [
+      -178.0,
+      -57.827790731256826
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bulb13",
+   "components": {
+    "transform": {
+     "position": [
+      -149.5,
+      -87.80031755538015
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.73018,
+      0.5351,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "String0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -640.0,
+       245.0
+      ],
+      [
+       -615.8333333333334,
+       240.21518087565107
+      ],
+      [
+       -591.6666666666666,
+       235.52862868215576
+      ],
+      [
+       -567.5,
+       231.03692897593606
+      ],
+      [
+       -543.3333333333334,
+       226.83333333333334
+      ],
+      [
+       -519.1666666666666,
+       223.00616379028295
+      ],
+      [
+       -495.0,
+       219.6373016277919
+      ],
+      [
+       -470.83333333333337,
+       216.800786360519
+      ],
+      [
+       -446.66666666666663,
+       214.56154890015137
+      ],
+      [
+       -422.5,
+       212.97430056950338
+      ],
+      [
+       -398.33333333333337,
+       212.08259697661435
+      ],
+      [
+       -374.1666666666667,
+       211.918092766219
+      ],
+      [
+       -350.0,
+       212.5
+      ],
+      [
+       -325.8333333333333,
+       213.83475943288565
+      ],
+      [
+       -301.6666666666667,
+       215.91593030994767
+      ],
+      [
+       -277.5,
+       218.72430056950338
+      ],
+      [
+       -253.33333333333331,
+       222.228215566818
+      ],
+      [
+       -229.16666666666669,
+       226.38411969385234
+      ],
+      [
+       -205.0,
+       231.1373016277919
+      ],
+      [
+       -180.83333333333331,
+       236.4228304569496
+      ],
+      [
+       -156.66666666666669,
+       242.16666666666669
+      ],
+      [
+       -132.5,
+       248.28692897593604
+      ],
+      [
+       -108.33333333333337,
+       254.69529534882238
+      ],
+      [
+       -84.16666666666663,
+       261.2985142089844
+      ],
+      [
+       -60.0,
+       268.0
+      ]
+     ],
+     "width": 34.0,
+     "texture_id": "sprites/carnival/pennants.png",
+     "texture_mode": "tile",
+     "tile_length": 130.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "StringWords0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "RIDES  *  GAMES  *  TREATS",
+     "font_id": "fonts/tabletop.font",
+     "font_scale": 0.36,
+     "color": [
+      1.2,
+      1.06801,
+      0.83048,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    },
+    "text_path": {
+     "path": "String0",
+     "offset": 290.0,
+     "side": -34.0,
+     "spacing": 2.0
+    }
+   }
+  },
+  {
+   "name": "String1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       40.0,
+       330.0
+      ],
+      [
+       65.0,
+       321.96263800455733
+      ],
+      [
+       90.0,
+       314.04140965466894
+      ],
+      [
+       115.0,
+       306.35046151701533
+      ],
+      [
+       140.0,
+       299.0
+      ],
+      [
+       165.0,
+       292.0944056915465
+      ],
+      [
+       190.0,
+       285.7304473782995
+      ],
+      [
+       215.0,
+       279.99562630485576
+      ],
+      [
+       240.0,
+       274.9666790032092
+      ],
+      [
+       265.0,
+       270.7082643094131
+      ],
+      [
+       290.0,
+       267.27185703296846
+      ],
+      [
+       315.0,
+       264.69486720856185
+      ],
+      [
+       340.0,
+       263.0
+      ],
+      [
+       365.0,
+       262.19486720856185
+      ],
+      [
+       390.0,
+       262.27185703296846
+      ],
+      [
+       415.0,
+       263.2082643094131
+      ],
+      [
+       440.0,
+       264.9666790032092
+      ],
+      [
+       465.0,
+       267.49562630485576
+      ],
+      [
+       490.0,
+       270.7304473782995
+      ],
+      [
+       515.0,
+       274.5944056915465
+      ],
+      [
+       540.0,
+       279.0
+      ],
+      [
+       565.0,
+       283.85046151701533
+      ],
+      [
+       590.0,
+       289.0414096546689
+      ],
+      [
+       615.0,
+       294.4626380045573
+      ],
+      [
+       640.0,
+       300.0
+      ]
+     ],
+     "width": 34.0,
+     "texture_id": "sprites/carnival/pennants.png",
+     "texture_mode": "tile",
+     "tile_length": 130.0,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4
+    }
+   }
+  },
+  {
+   "name": "StringWords1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "PRIZES  *  CANDY  *  MUSIC",
+     "font_id": "fonts/tabletop.font",
+     "font_scale": 0.36,
+     "color": [
+      1.2,
+      1.06801,
+      0.83048,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    },
+    "text_path": {
+     "path": "String1",
+     "offset": 290.0,
+     "side": -34.0,
+     "spacing": 2.0
+    }
+   }
+  },
+  {
+   "name": "Platform",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/platform.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      440.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pole0",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.78741,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": -3,
+     "size": [
+      6.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Horse0",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/horse.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -2,
+     "size": [
+      104.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pole1",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.78741,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": -3,
+     "size": [
+      6.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Horse1",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      -1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/horse.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -2,
+     "size": [
+      104.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pole2",
+   "components": {
+    "transform": {
+     "position": [
+      350.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.78741,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": -3,
+     "size": [
+      6.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Horse2",
+   "components": {
+    "transform": {
+     "position": [
+      350.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/horse.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -2,
+     "size": [
+      104.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pole3",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.78741,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": -3,
+     "size": [
+      6.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Horse3",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      -1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/horse.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -2,
+     "size": [
+      104.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Canopy",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/carnival/canopy.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      440.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rim",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 100.0,
+       "y": 35.0
+      },
+      {
+       "type": "LineTo",
+       "x": 100.6165332533744,
+       "y": 33.27389989398741
+      },
+      {
+       "type": "LineTo",
+       "x": 102.46233188097244,
+       "y": 31.55844176911492
+      },
+      {
+       "type": "LineTo",
+       "x": 105.52601592046469,
+       "y": 29.86420199517008
+      },
+      {
+       "type": "LineTo",
+       "x": 109.7886967409693,
+       "y": 28.201626123751158
+      },
+      {
+       "type": "LineTo",
+       "x": 115.22409349774264,
+       "y": 26.580964487968025
+      },
+      {
+       "type": "LineTo",
+       "x": 121.79869516232642,
+       "y": 25.01220900572997
+      },
+      {
+       "type": "LineTo",
+       "x": 129.47196712918154,
+       "y": 23.505031576249127
+      },
+      {
+       "type": "LineTo",
+       "x": 138.19660112501052,
+       "y": 22.068724449565593
+      },
+      {
+       "type": "LineTo",
+       "x": 147.9188068799938,
+       "y": 20.712142936735958
+      },
+      {
+       "type": "LineTo",
+       "x": 158.5786437626905,
+       "y": 19.443650813895953
+      },
+      {
+       "type": "LineTo",
+       "x": 170.11039033396324,
+       "y": 18.271068756799323
+      },
+      {
+       "type": "LineTo",
+       "x": 182.44294954150536,
+       "y": 17.201626123751154
+      },
+      {
+       "type": "LineTo",
+       "x": 195.50028705681024,
+       "y": 16.241916384209972
+      },
+      {
+       "type": "LineTo",
+       "x": 209.20190005209065,
+       "y": 15.39785646785591
+      },
+      {
+       "type": "LineTo",
+       "x": 223.46331352698203,
+       "y": 14.674650284751692
+      },
+      {
+       "type": "LineTo",
+       "x": 238.19660112501052,
+       "y": 14.076756641506623
+      },
+      {
+       "type": "LineTo",
+       "x": 253.3109272288189,
+       "y": 13.607861751251114
+      },
+      {
+       "type": "LineTo",
+       "x": 268.7131069919538,
+       "y": 13.27085650690697
+      },
+      {
+       "type": "LineTo",
+       "x": 284.308180854431,
+       "y": 13.067818657871186
+      },
+      {
+       "type": "LineTo",
+       "x": 300.0,
+       "y": 13.0
+      },
+      {
+       "type": "LineTo",
+       "x": 315.69181914556896,
+       "y": 13.067818657871186
+      },
+      {
+       "type": "LineTo",
+       "x": 331.2868930080461,
+       "y": 13.27085650690697
+      },
+      {
+       "type": "LineTo",
+       "x": 346.6890727711811,
+       "y": 13.607861751251114
+      },
+      {
+       "type": "LineTo",
+       "x": 361.80339887498945,
+       "y": 14.07675664150662
+      },
+      {
+       "type": "LineTo",
+       "x": 376.53668647301794,
+       "y": 14.674650284751692
+      },
+      {
+       "type": "LineTo",
+       "x": 390.79809994790935,
+       "y": 15.397856467855906
+      },
+      {
+       "type": "LineTo",
+       "x": 404.49971294318976,
+       "y": 16.24191638420997
+      },
+      {
+       "type": "LineTo",
+       "x": 417.5570504584946,
+       "y": 17.201626123751154
+      },
+      {
+       "type": "LineTo",
+       "x": 429.8896096660367,
+       "y": 18.27106875679932
+      },
+      {
+       "type": "LineTo",
+       "x": 441.4213562373095,
+       "y": 19.443650813895953
+      },
+      {
+       "type": "LineTo",
+       "x": 452.0811931200062,
+       "y": 20.712142936735958
+      },
+      {
+       "type": "LineTo",
+       "x": 461.80339887498945,
+       "y": 22.068724449565586
+      },
+      {
+       "type": "LineTo",
+       "x": 470.52803287081844,
+       "y": 23.505031576249124
+      },
+      {
+       "type": "LineTo",
+       "x": 478.20130483767355,
+       "y": 25.01220900572997
+      },
+      {
+       "type": "LineTo",
+       "x": 484.7759065022574,
+       "y": 26.580964487968025
+      },
+      {
+       "type": "LineTo",
+       "x": 490.21130325903073,
+       "y": 28.201626123751154
+      },
+      {
+       "type": "LineTo",
+       "x": 494.4739840795353,
+       "y": 29.864201995170077
+      },
+      {
+       "type": "LineTo",
+       "x": 497.53766811902756,
+       "y": 31.558441769114918
+      },
+      {
+       "type": "LineTo",
+       "x": 499.3834667466256,
+       "y": 33.273899893987405
+      },
+      {
+       "type": "LineTo",
+       "x": 500.0,
+       "y": 35.0
+      }
+     ],
+     "stroke_width": 1.0,
+     "z_order": 2
+    }
+   }
+  },
+  {
+   "name": "Marquee",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "THE GRAND CAROUSEL  *  RIDE 5c  *  ",
+     "font_id": "fonts/tabletop.font",
+     "font_scale": 0.3,
+     "color": [
+      2.0,
+      1.38414,
+      0.20096,
+      1.0
+     ],
+     "z_order": 3
+    },
+    "text_path": {
+     "path": "Rim",
+     "offset": 0.0,
+     "side": 2.0,
+     "scroll": 55.0,
+     "repeat": true
+    }
+   }
+  },
+  {
+   "name": "Light0",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 0.9,
+     "radius": 520.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Light1",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 0.9,
+     "radius": 520.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Light2",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.17064
+     ],
+     "intensity": 0.9,
+     "radius": 520.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s129_carnival_banners.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "129   Carnival Banners",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space calm the wind   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

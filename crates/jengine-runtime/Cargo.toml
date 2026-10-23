@@ -1,0 +1,103 @@
+[package]
+name = "jengine-runtime"
+description = "Native runtime for jEngine — opens a window and runs the game loop on wgpu"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+# Phase 8.1 (2026-05-06): glow/glutin path removed. The `gpu-wgpu`
+# Cargo feature was deleted (wgpu is now unconditional). `wgpu` and
+# `pollster` are required deps; `glow`, `glutin`, `glutin-winit` and
+# `raw-window-handle` are gone.
+
+# Both a library and a binary: the library is what a generated per-project
+# runtime crate depends on, the binary is the stock runtime.
+[lib]
+name = "jengine_runtime"
+path = "src/lib.rs"
+
+[[bin]]
+name = "jengine-runtime"
+path = "src/main.rs"
+
+[dependencies]
+jengine-core = { path = "../jengine-core", features = ["native", "physics", "audio", "gpu-wgpu"] }
+
+jengine-physics = { path = "../../packages/jengine-physics" }
+jengine-audio = { path = "../../packages/jengine-audio" }
+jengine-particles = { path = "../../packages/jengine-particles" }
+jengine-parallax = { path = "../../packages/jengine-parallax" }
+jengine-swarm = { path = "../../packages/jengine-swarm" }
+glam = { workspace = true }
+winit = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+clap = { workspace = true }
+hecs = { workspace = true }
+wgpu = { workspace = true }
+pollster = { workspace = true }
+gilrs = "0.11.2"
+# Asset packs download over HTTP (`install_pack_http`); the same ureq +
+# rustls that `jengine-net` already brings in.
+ureq = { version = "2", default-features = false, features = ["tls"] }
+
+# JS scripts (and the batch-script pool, built on the same QuickJS) on the
+# desktop only: `rquickjs` ships no bindings for Android or iOS, so a mobile
+# build runs Lua. Cargo unions features across target-specific entries, so
+# this adds to the `jengine-core` line above rather than replacing it.
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+jengine-core = { path = "../jengine-core", features = ["js-adapter-host"] }
+# The system clipboard for text fields (`text_native`).
+arboard = { version = "3", default-features = false }
+# The UI as a screen reader sees it (`a11y_native`, `ui::accessibility`).
+accesskit_winit = "0.34"
+accesskit = "0.25"
+
+# winit on Android needs to be told which Java activity hosts it. NativeActivity
+# ships with the OS, so the APK needs no Java code and no AndroidX dependency.
+# GameActivity handles the soft keyboard better; worth switching to when text
+# input on mobile is taken on (docs/mobile-platforms-proposal.md, Phase 3).
+# Video (`video_mf`): Windows' own decoders through Media Foundation.
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+    "Win32_Media_MediaFoundation",
+    "Win32_System_Com",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_System_Variant",
+] }
+
+[target.'cfg(target_os = "android")'.dependencies]
+winit = { workspace = true, features = ["android-native-activity"] }
+# Stderr goes nowhere on Android; this sends `log` to logcat.
+android_logger = "0.14"
+# Asking the activity's window for its display cut-out (the notch).
+jni = "0.21"
+
+# Graphics backends for the native runtime, selected per project by the
+
+# builder from `settings.graphics_backends.<platform>`. The default covers
+
+# every desktop target from one binary: wgpu picks whichever applies at
+
+# runtime and `cfg`s out the rest at compile time, so Metal costs a Windows
+
+# build nothing. A project that wants a leaner binary can narrow this.
+
+[features]
+
+default = ["backend-dx12", "backend-vulkan", "backend-metal"]
+
+backend-dx12 = ["jengine-core/backend-dx12"]
+
+backend-vulkan = ["jengine-core/backend-vulkan"]
+
+backend-metal = ["jengine-core/backend-metal"]
+
+backend-webgl = ["jengine-core/backend-webgl"]

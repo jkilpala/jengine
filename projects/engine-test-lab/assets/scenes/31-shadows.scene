@@ -1,0 +1,107 @@
+{
+  "name": "31-Shadows",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280, "viewport_height": 720 }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": { "position": [0.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "31 - Shadows (skew + coverage multiply)", "font_id": "default", "font_scale": 2.0, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 100 }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": { "position": [0.0, -330.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "[H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "default", "font_scale": 1.6, "color": [0.7, 0.75, 0.85, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "Backdrop",
+      "components": {
+        "transform": { "position": [0.0, 30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.88, 0.4, 1.0], "z_order": -10, "size": [1180.0, 460.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    { "name": "BackdropLabel",
+      "components": {
+        "transform": { "position": [0.0, 245.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "shadows darken this yellow backdrop via dst * (1 - shadow_alpha)", "font_id": "default", "font_scale": 1.05, "color": [0.15, 0.15, 0.2, 1.0], "z_order": 50 }
+      }
+    },
+
+    { "name": "LabelBaseline",
+      "components": {
+        "transform": { "position": [-380.0, 180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "Baseline", "font_id": "default", "font_scale": 1.4, "color": [0.25, 0.17, 0.08, 1.0], "z_order": 100 }
+      }
+    },
+    { "name": "BaselineCaster",
+      "components": {
+        "transform": { "position": [-380.0, 30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/bumps128.png", "color": [1,1,1,1], "z_order": 1, "size": [180.0, 180.0], "anchor": [0.5, 0.5] },
+        "shadow_caster": { "enabled": true, "color": [0.0, 0.0, 0.0, 0.45], "offset": [2.0, -2.0], "height": 6.0, "scale": [1.0, 1.0], "skew": 0.0 }
+      }
+    },
+    { "name": "BaselineCaption",
+      "components": {
+        "transform": { "position": [-380.0, -110.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "default offset/height\nskew = 0", "font_id": "default", "font_scale": 1.0, "color": [0.2, 0.2, 0.25, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "LabelSkew",
+      "components": {
+        "transform": { "position": [0.0, 180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "Skewed (low sun)", "font_id": "default", "font_scale": 1.4, "color": [0.25, 0.17, 0.08, 1.0], "z_order": 100 }
+      }
+    },
+    { "name": "SkewCaster",
+      "components": {
+        "transform": { "position": [0.0, 30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/bumps128.png", "color": [1,1,1,1], "z_order": 1, "size": [180.0, 180.0], "anchor": [0.5, 0.5] },
+        "shadow_caster": { "enabled": true, "color": [0.0, 0.0, 0.0, 0.5], "offset": [0.0, -3.0], "height": 5.0, "scale": [1.0, 1.0], "skew": 0.6 }
+      }
+    },
+    { "name": "SkewCaption",
+      "components": {
+        "transform": { "position": [0.0, -110.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "skew = 0.6\n(top leans right)", "font_id": "default", "font_scale": 1.0, "color": [0.2, 0.2, 0.25, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "LabelStretched",
+      "components": {
+        "transform": { "position": [380.0, 180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "Stretched + dark", "font_id": "default", "font_scale": 1.4, "color": [0.25, 0.17, 0.08, 1.0], "z_order": 100 }
+      }
+    },
+    { "name": "StretchedCaster",
+      "components": {
+        "transform": { "position": [380.0, 30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/bumps128.png", "color": [1,1,1,1], "z_order": 1, "size": [180.0, 180.0], "anchor": [0.5, 0.5] },
+        "shadow_caster": { "enabled": true, "color": [0.0, 0.0, 0.0, 0.75], "offset": [1.0, -2.0], "height": 4.0, "scale": [1.4, 0.5], "skew": 0.4 }
+      }
+    },
+    { "name": "StretchedCaption",
+      "components": {
+        "transform": { "position": [380.0, -110.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "alpha = 0.75, skew = 0.4\nscale = [1.4, 0.5]", "font_id": "default", "font_scale": 1.0, "color": [0.2, 0.2, 0.25, 1.0], "z_order": 100 }
+      }
+    },
+
+    {
+      "name": "Controller",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_31_shadows.lua" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+---
+draft: false
+title: Physics
+description: Using the rapier2d physics engine in jEngine.
+---
+
+jEngine uses **rapier2d** for 2D physics simulation. Add `rigid_body` and `collider` components to make entities participate in physics. One world unit is about a centimetre: `length_unit` (100 in every shipped project) tunes the solver and scales gravity, not positions.
+
+## Body Types
+
+| Type | Description |
+|------|-------------|
+| `Dynamic` | Affected by gravity and forces (players, projectiles) |
+| `Static` | Immovable (floors, walls) |
+| `Kinematic` | Moved by code only, not by forces (moving platforms) |
+
+## Collider Shapes
+
+- **Box** — `{ "Box": { "width": 32, "height": 32 } }`
+- **Circle** — `{ "Circle": { "radius": 16 } }`
+- **Capsule** — `{ "Capsule": { "half_height": 16, "radius": 8 } }`
+- **Segment**, **Triangle**, **ConvexPolygon**, **Polyline**, **HeightField**, **ConvexDecomposition**
+
+## Scripting Physics
+
+```lua
+-- Apply an impulse (instant velocity change)
+Physics.apply_impulse(entity, 0, 300)  -- jump
+
+-- Apply continuous force
+Physics.apply_force(entity, 100, 0)  -- push right
+
+-- Set velocity directly
+Physics.set_velocity(entity, 200, 0)
+
+-- Read velocity
+local vx, vy = Physics.get_velocity(entity)
+
+-- Change body type at runtime
+Physics.set_body_type(entity, "kinematic")
+
+-- Adjust gravity
+Physics.set_gravity(0, -500)
+```
+
+## Fast bodies
+
+Rapier moves a body and *then* looks for overlaps, so anything crossing more than its own thickness in a
+step is past the wall before a contact exists - no contact, nothing logged. Set `"ccd": true` on the
+`rigid_body` of a bullet, a pinball or a thrown weapon. Thin ground (`HeightField`, `Polyline`) has no
+thickness and does not stop a fast body even with CCD; give it depth.
+
+## Characters
+
+A character that walks a level is a **kinematic** body with a `character_controller`: slopes, steps,
+one-way platforms, moving platforms, and ground / wall / ceiling reports. It applies no gravity - the
+game does:
+
+```lua
+Physics.move_character(entity, vx, vy, drop_through)
+local c = Physics.get_character(entity)   -- grounded, wall, ceiling, ...
+```
+
+Coyote time, jump buffering and variable jump height are the game's to add on top, in a script or a
+package of its own.
+
+## Collision Detection
+
+```lua
+local n = Physics.contact_count()
+for i = 1, n do
+    local a, b, started = Physics.get_contact(i)
+    if started then
+        log("Contact started: " .. a .. " <-> " .. b)
+    end
+end
+```
+
+`Physics.get_contacts()` returns every row with two more fields: the `impulse` (how hard) and the
+contact point. A pair is reported on its second step, when the solver has written its impulse. Put a
+threshold under any damage - a resting stack is a column of live contacts. `on_collision_enter` gives a
+script the same.
+
+A `breakable` component breaks on a sudden change in velocity (a jolt) rather than on an impulse, so the
+block at the foot of a tower is not broken by the tower's weight; it comes apart into pieces of its own
+sprite and collider.
+
+## Raycasting
+
+```lua
+local hit = Physics.raycast(0, 0, 1, 0, 500)
+if hit then
+    log("Hit entity " .. hit.entity_id .. " at distance " .. hit.distance)
+    -- also hit.x / hit.y (where) and hit.normal_x / hit.normal_y (which way
+    -- the surface faces there)
+end
+```
+
+`nil` means nothing was hit within `max_dist`. The direction does not have
+to be normalised — it is normalised for you, so `max_dist` and
+`hit.distance` are both in world units. Sensors are hit, deliberately: a
+script asking what lies along a line wants to know about a trigger volume.
+
+## Shape queries
+
+```lua
+local hits = Physics.overlap_circle(x, y, radius)
+local hits = Physics.overlap_box(x, y, width, height, rotation)
+local hits = Physics.overlap_point(x, y)
+local hit  = Physics.circle_cast(ox, oy, dx, dy, radius, max_dist)
+```
+
+## Area effects
+
+An `area_effect` box pushes what is in it: buoyancy (the box's top is the surface), a steady `force`
+(particles feel it too), `attract`, and `drag`.
+
+## Joints
+
+Five joint types: **Revolute**, **Fixed**, **Prismatic**, **Rope**, **Spring**.
+
+Every joint has **two** anchors. `anchor` is the point on the jointed
+entity's own body — usually `[0, 0]`, because the thing that turns turns
+about its own centre. `anchor_b` is the mount point on the target: the
+back of a chassis, the top of a post.
+
+```lua
+Physics.add_joint("RearWheel", "Chassis", '{"target_entity":"Chassis","joint_type":{"Revolute":{"anchor":[0,0],"anchor_b":[-70,-30],"limits":null,"motor_speed":0,"motor_max_torque":3000000}},"collide_connected":false}')
+Physics.set_motor_speed("RearWheel", 36.0)
+```
+
+`anchor_b` defaults to `[0, 0]`, the target's origin, so a pendulum
+hanging from a peg can leave it out. Set it for anything mounting two
+things to one body in different places — a pair of wheels, say. Without
+it both pin to the same point.
+
+Two things that are easy to get wrong:
+
+- **A motor only exists if the joint was built with a non-zero
+  `motor_speed` or `motor_max_torque`.** `set_motor_speed` changes an
+  existing motor's target velocity; it cannot add one to a joint that
+  has none. Give the joint its max torque at creation.
+- **The motor drives the *second* body relative to the first.** For a
+  wheel jointed to a chassis, a positive speed rolls the vehicle
+  forwards, which is the opposite of what reasoning about the wheel's
+  own rotation suggests.
+
+Torque is in the world's own units, and those are not metres.
+`PhysicsWorld` does not scale positions — `length_unit` only tunes the
+solver and multiplies gravity — so a project with `length_unit = 100`
+runs at 981 units/s² and one unit is about a centimetre. A 200 kg
+vehicle on 32-unit wheels needs a torque in the millions, not the
+hundreds.
+
+## Step Rate
+
+The simulation runs at a fixed step, independent of the frame rate, and
+the frame blends bodies between their last two steps so a 165 Hz display
+sees smooth motion from a 60 Hz simulation. The step is
+`physics.fixed_timestep` in `project.jengine` (Project Settings → Physics →
+Fixed Timestep), in seconds: `0.016666` is 60 Hz, `0.008333` is 120 Hz.
+It is clamped to 10..=1000 Hz. A finer step costs solver time every
+frame and buys accuracy for fast bodies and stiff joints; `ccd` on the
+fast body is usually the cheaper fix.
+
+## Collision Layers
+
+Use `collision_membership` and `collision_filter` bitmasks (u16) to control which colliders interact.
+
+See the [Components Reference](/api-reference/components/) for full field documentation.

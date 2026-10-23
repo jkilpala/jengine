@@ -1,0 +1,2496 @@
+{
+ "name": "99 - Night Watch",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.45
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.3
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       0.92,
+       0.95,
+       1.0,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.11928,
+      0.17064,
+      0.69207
+     ],
+     "intensity": 0.13
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1400.0,
+      840.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       120.0,
+       120.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "Wall0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1300.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1300.0,
+       "height": 40.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      1300.0,
+      40.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -340.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1300.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1300.0,
+       "height": 40.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      1300.0,
+      40.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall2",
+   "components": {
+    "transform": {
+     "position": [
+      -630.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 720.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      40.0,
+      720.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall3",
+   "components": {
+    "transform": {
+     "position": [
+      630.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 720.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      40.0,
+      720.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      230.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 230.0,
+       "height": 140.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      230.0,
+      140.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall5",
+   "components": {
+    "transform": {
+     "position": [
+      -360.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 250.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      40.0,
+      250.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall6",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      40.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 250.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      40.0,
+      250.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall7",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      220.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 220.0,
+       "height": 40.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      220.0,
+      40.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall8",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.21404,
+      0.19599,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      220.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 0.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true,
+     "ccd": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 220.0,
+       "height": 40.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      220.0,
+      40.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Region",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -610.0,
+       -320.0
+      ],
+      [
+       610.0,
+       -320.0
+      ],
+      [
+       610.0,
+       320.0
+      ],
+      [
+       -610.0,
+       320.0
+      ]
+     ],
+     "agent_radius": 20.0
+    }
+   }
+  },
+  {
+   "name": "Torch0",
+   "components": {
+    "transform": {
+     "position": [
+      -596.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      16.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.3,
+     "radius": 230.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Torch1",
+   "components": {
+    "transform": {
+     "position": [
+      596.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      16.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.3,
+     "radius": 230.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Torch2",
+   "components": {
+    "transform": {
+     "position": [
+      -596.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      16.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.3,
+     "radius": 230.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Torch3",
+   "components": {
+    "transform": {
+     "position": [
+      596.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      16.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.3,
+     "radius": 230.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Torch4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      96.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      16.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.3,
+     "radius": 230.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Chest0",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_shut.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChestOpen0",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_open.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chest1",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_shut.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChestOpen1",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_open.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chest2",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_shut.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChestOpen2",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_open.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chest3",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_shut.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChestOpen3",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/chest_open.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 3,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Guard0",
+   "components": {
+    "transform": {
+     "position": [
+      -510.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "guard"
+    ],
+    "sprite": {
+     "texture_id": "sprites/watch/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 75.0,
+     "radius": 18.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 8.0
+    },
+    "behavior_tree": {
+     "root": {
+      "type": "selector",
+      "reactive": true,
+      "children": [
+       {
+        "type": "sequence",
+        "label": "chase",
+        "children": [
+         {
+          "type": "near",
+          "target": "Thief",
+          "distance": 180
+         },
+         {
+          "type": "move_to",
+          "label": "chase!",
+          "target": "Thief",
+          "speed": 150,
+          "arrive": 46
+         },
+         {
+          "type": "call",
+          "call": "catch"
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "investigate",
+        "children": [
+         {
+          "type": "check",
+          "key": "noise",
+          "op": "set"
+         },
+         {
+          "type": "move_to",
+          "label": "investigate",
+          "target": "@noise",
+          "speed": 120,
+          "arrive": 40
+         },
+         {
+          "type": "wait",
+          "label": "search",
+          "seconds": 2.2
+         },
+         {
+          "type": "set",
+          "key": "noise",
+          "value": false
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "patrol",
+        "children": [
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           -480,
+           40
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           -180,
+           240
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           120,
+           120
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s99_guard.lua"
+    }
+   }
+  },
+  {
+   "name": "Lantern0",
+   "parent": "Guard0",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      14.0,
+      17.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.11928
+     ],
+     "intensity": 1.35,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "GuardLabel0",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      86.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      1.0,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": 60,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Guard1",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "guard"
+    ],
+    "sprite": {
+     "texture_id": "sprites/watch/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 75.0,
+     "radius": 18.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 8.0
+    },
+    "behavior_tree": {
+     "root": {
+      "type": "selector",
+      "reactive": true,
+      "children": [
+       {
+        "type": "sequence",
+        "label": "chase",
+        "children": [
+         {
+          "type": "near",
+          "target": "Thief",
+          "distance": 180
+         },
+         {
+          "type": "move_to",
+          "label": "chase!",
+          "target": "Thief",
+          "speed": 150,
+          "arrive": 46
+         },
+         {
+          "type": "call",
+          "call": "catch"
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "investigate",
+        "children": [
+         {
+          "type": "check",
+          "key": "noise",
+          "op": "set"
+         },
+         {
+          "type": "move_to",
+          "label": "investigate",
+          "target": "@noise",
+          "speed": 120,
+          "arrive": 40
+         },
+         {
+          "type": "wait",
+          "label": "search",
+          "seconds": 2.2
+         },
+         {
+          "type": "set",
+          "key": "noise",
+          "value": false
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "patrol",
+        "children": [
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           480,
+           -40
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           180,
+           -250
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           -120,
+           -120
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s99_guard.lua"
+    }
+   }
+  },
+  {
+   "name": "Lantern1",
+   "parent": "Guard1",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      14.0,
+      17.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.11928
+     ],
+     "intensity": 1.35,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "GuardLabel1",
+   "components": {
+    "transform": {
+     "position": [
+      480.0,
+      6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      1.0,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": 60,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Guard2",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "guard"
+    ],
+    "sprite": {
+     "texture_id": "sprites/watch/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 75.0,
+     "radius": 18.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 8.0
+    },
+    "behavior_tree": {
+     "root": {
+      "type": "selector",
+      "reactive": true,
+      "children": [
+       {
+        "type": "sequence",
+        "label": "chase",
+        "children": [
+         {
+          "type": "near",
+          "target": "Thief",
+          "distance": 180
+         },
+         {
+          "type": "move_to",
+          "label": "chase!",
+          "target": "Thief",
+          "speed": 150,
+          "arrive": 46
+         },
+         {
+          "type": "call",
+          "call": "catch"
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "investigate",
+        "children": [
+         {
+          "type": "check",
+          "key": "noise",
+          "op": "set"
+         },
+         {
+          "type": "move_to",
+          "label": "investigate",
+          "target": "@noise",
+          "speed": 120,
+          "arrive": 40
+         },
+         {
+          "type": "wait",
+          "label": "search",
+          "seconds": 2.2
+         },
+         {
+          "type": "set",
+          "key": "noise",
+          "value": false
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "patrol",
+        "children": [
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           -260,
+           -110
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           260,
+           110
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           470,
+           220
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         },
+         {
+          "type": "move_to",
+          "label": "patrol",
+          "target": [
+           -470,
+           -230
+          ],
+          "speed": 75,
+          "arrive": 10
+         },
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "wait",
+            "label": "look around",
+            "seconds": 1.0,
+            "jitter": 1.2
+           },
+           {
+            "type": "wait",
+            "label": "stifle a yawn",
+            "seconds": 2.0
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s99_guard.lua"
+    }
+   }
+  },
+  {
+   "name": "Lantern2",
+   "parent": "Guard2",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/watch/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      14.0,
+      17.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.11928
+     ],
+     "intensity": 1.35,
+     "radius": 260.0,
+     "falloff": 1.6,
+     "shadow_softness": 8.0
+    }
+   }
+  },
+  {
+   "name": "GuardLabel2",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -64.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      1.0,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": 60,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Thief",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/watch/thief.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 95.0,
+     "radius": 16.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 10.0
+    },
+    "behavior_tree": {
+     "root": {
+      "type": "selector",
+      "reactive": true,
+      "children": [
+       {
+        "type": "sequence",
+        "label": "flee",
+        "children": [
+         {
+          "type": "near",
+          "target": "tag:guard",
+          "distance": 200
+         },
+         {
+          "type": "move_to",
+          "label": "flee!",
+          "target": "tag:guard",
+          "away": true,
+          "speed": 170,
+          "arrive": 300
+         }
+        ]
+       },
+       {
+        "type": "sequence",
+        "label": "rob",
+        "children": [
+         {
+          "type": "random",
+          "children": [
+           {
+            "type": "move_to",
+            "label": "sneak",
+            "target": "Chest0",
+            "speed": 95,
+            "arrive": 34
+           },
+           {
+            "type": "move_to",
+            "label": "sneak",
+            "target": "Chest1",
+            "speed": 95,
+            "arrive": 34
+           },
+           {
+            "type": "move_to",
+            "label": "sneak",
+            "target": "Chest2",
+            "speed": 95,
+            "arrive": 34
+           },
+           {
+            "type": "move_to",
+            "label": "sneak",
+            "target": "Chest3",
+            "speed": 95,
+            "arrive": 34
+           }
+          ]
+         },
+         {
+          "type": "call",
+          "call": "steal"
+         },
+         {
+          "type": "wait",
+          "label": "lie low",
+          "seconds": 1.5,
+          "jitter": 1.5
+         }
+        ]
+       }
+      ]
+     }
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s99_thief.lua"
+    }
+   }
+  },
+  {
+   "name": "ThiefEyes",
+   "parent": "Thief",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      0.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/watch/eyes.png",
+     "color": [
+      0.52252,
+      1.0,
+      0.26327,
+      0.9
+     ],
+     "z_order": 12,
+     "size": [
+      12.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "ThiefLabel",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.44799,
+      0.89001,
+      0.31855,
+      1.0
+     ],
+     "z_order": 60,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s99_night_watch.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "99   Night Watch",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "nobody here is scripted: each guard and the thief is a behaviour tree   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

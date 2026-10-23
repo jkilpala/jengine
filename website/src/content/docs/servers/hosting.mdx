@@ -1,0 +1,125 @@
+---
+draft: false
+title: Hosting & Deploying
+description: Putting game servers on machines with jengine-fleet - agents, fleet.json, safe deploys, and a host with one port and a console.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+`jengine-fleet` puts servers on machines. An **agent** runs on each machine,
+keeps the builds it is given, runs each server as a child process and starts
+it again if it dies. The **command line** (or `jengine-fleet ui`, the same in
+a browser) on your machine reads a `fleet.json` and tells the agents what to
+run.
+
+## The words
+
+- **Release** - one build, named by the hash of its bytes. The same build is
+  the same release everywhere; uploading it twice is a no-op.
+- **Service** - a release running on a machine with its settings: arguments,
+  port, admin token, how long to drain. Its working folder (and so its
+  database) belongs to the service, not the release, so it survives a deploy.
+- **Deploy** - replace what a service runs, safely (below).
+
+## fleet.json
+
+```json
+{
+  "machines": {
+    "box": { "url": "https://gamebox.local:9900", "token_env": "BOX_TOKEN", "ca": "box-cert.pem",
+             "console": "http://gamebox.local:9000/manage" }
+  },
+  "services": {
+    "my-game": {
+      "machines": ["box"],
+      "artifacts": { "linux-aarch64": "../target/aarch64-unknown-linux-gnu/release/my-game-server" },
+      "args": ["127.0.0.1:{port}", "my-game.db"],
+      "port": 9041,
+      "admin_token_env": "MYGAME_ADMIN_TOKEN",
+      "drain_secs": 10
+    }
+  }
+}
+```
+
+- Tokens are named by environment variable (`token_env`,
+  `admin_token_env`) so the file can be committed.
+- `artifacts` is a build per platform (`windows-x86_64`, `linux-x86_64`,
+  `linux-aarch64`). The deploy picks the machine's, and refuses a build for
+  the wrong OS **or the wrong processor** rather than sending it.
+- `ca` pins the agent's own certificate (`jengine-fleet cert` makes one):
+  nothing else is trusted as that machine.
+- `console` is where the machine's console is, if it is a host - what the
+  editor's **Console** button opens.
+
+## Commands
+
+```powershell
+jengine-fleet deploy my-game              # every machine the service lists, one at a time
+jengine-fleet status                       # version, players, uptime, restarts per service
+jengine-fleet logs my-game --machine box
+jengine-fleet restart|stop|start|rollback|remove my-game [--machine box]
+jengine-fleet ui                           # the same in a browser, on your machine
+```
+
+Add `--fleet <path>` for a fleet file that is not `./fleet.json`.
+
+## What a deploy does
+
+1. **Uploads** the build, unless the machine already has it.
+2. **Drains** the running server: no new players, up to `drain_secs` for the
+   current ones to leave.
+3. **Stops** it through its admin API, which saves every player.
+4. **Starts** the new build and waits for its health check.
+5. If that never answers, **puts the old build back**, and the rollout stops
+   there - a bad build costs one machine a moment, not all of them.
+
+So deploying with players online is safe: they are disconnected for a few
+seconds, reconnect with their token, and are where they were.
+
+## A host: one port and a console
+
+`jengine-fleet host` is an agent with two more things:
+
+- **A gateway** on one port (9000 by default) routing by the first part of
+  the path: `ws://<host>:9000/my-game` reaches the `my-game` service on its
+  own port, with the rest of the path passed on unchanged - `/ws`,
+  `/healthz`, the game's `/api/..`, its `/admin`. Servers listen on
+  `127.0.0.1` only; the gateway is the way in. `http://<host>:9000/` lists
+  what runs there and the address to type (as JSON to anything not asking
+  for HTML, so a game can find its server with one request).
+- **The console** at `/manage`: the fleet's web page served by the host
+  itself, for anyone on the network who has its token. See
+  [Console & Live Ops](/servers/console/).
+
+```bash
+JENGINE_FLEET_TOKEN=<secret> jengine-fleet host \
+    --listen 0.0.0.0:9900 --gateway 0.0.0.0:9000 --data ./fleet-data \
+    --tls-cert cert.pem --tls-key key.pem
+```
+
+The console's token is `--console-token` or `JENGINE_CONSOLE_TOKEN`, else the
+agent's. `jengine-fleet service --gateway 0.0.0.0:9000` prints a systemd unit
+(or Windows Task Scheduler commands) so the host comes back after a reboot.
+
+<Aside type="caution">
+**The agent's token is the keys to the machine**: whoever has it can upload a
+program and have it run. Give the agent a certificate (`--tls-cert`,
+`--tls-key`) so the token never crosses the network readable, and keep the
+token out of committed files. The gateway and console themselves speak plain
+HTTP - fine on a home LAN, not across the internet.
+</Aside>
+
+## Building for another machine
+
+A Linux machine needs a Linux build. From Windows, cross-compile with
+cargo-zigbuild (no WSL needed) - `crates/jengine-server/tools/build-pi.ps1`
+(or `build-pi.sh` elsewhere) does it for 64-bit ARM, installing
+cargo-zigbuild and zig the first time. It builds `jengine-fleet`, the stock
+`jengine-server`, and the workspace packages named by the `linux-aarch64`
+artifacts in `crates/jengine-server/pi/fleet.json` (or the file
+`JENGINE_FLEET_FILE` names); `-Servers my-game-server` builds just those.
+
+For the whole setup on one LAN machine, scripted end to end - starting from
+`crates/jengine-server/pi/fleet.example.json` - see
+[Raspberry Pi Host](/servers/raspberry-pi/).

@@ -1,0 +1,1138 @@
+{
+ "name": "19 - God Rays",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 0.95,
+  "effects": [
+   {
+    "name": "light_shafts",
+    "enabled": true,
+    "params": {
+     "source_x": {
+      "Float": 380.0
+     },
+     "source_y": {
+      "Float": 250.0
+     },
+     "length": {
+      "Float": 1.6
+     },
+     "intensity": {
+      "Float": 2.6
+     },
+     "decay": {
+      "Float": 0.99
+     },
+     "threshold": {
+      "Float": 1.4
+     },
+     "color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.7,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.2
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.05,
+       0.03,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.92,
+       0.8,
+       0.08
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_sky.png",
+     "color": [
+      1.15,
+      1.15,
+      1.15,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1580.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Haze",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_haze.png",
+     "color": [
+      0.74841,
+      0.60383,
+      0.36725,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1580.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "SunGlow",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      1.10731,
+      0.42123,
+      0.8
+     ],
+     "z_order": -86,
+     "size": [
+      760.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      7.0,
+      6.23007,
+      4.22681,
+      1.0
+     ],
+     "z_order": -85,
+     "size": [
+      170.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar1",
+   "components": {
+    "transform": {
+     "position": [
+      -610.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.60383,
+      0.477,
+      0.2957,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      52.800000000000004,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar2",
+   "components": {
+    "transform": {
+     "position": [
+      -410.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.60383,
+      0.477,
+      0.2957,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      42.24000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar3",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.60383,
+      0.477,
+      0.2957,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      63.36,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar4",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.60383,
+      0.477,
+      0.2957,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      47.52,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar5",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.60383,
+      0.477,
+      0.2957,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      58.08000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkFar6",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.60383,
+      0.477,
+      0.2957,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      39.6,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "CanopyBack",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      390.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_canopy.png",
+     "color": [
+      0.26327,
+      0.23302,
+      0.13287,
+      1.0
+     ],
+     "z_order": -75,
+     "size": [
+      1880.0,
+      380.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       900.0,
+       380.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "TrunkMid1",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.07324,
+      0.05925,
+      0.03968,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      76.80000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkMid2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.07324,
+      0.05925,
+      0.03968,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      61.44000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkMid3",
+   "components": {
+    "transform": {
+     "position": [
+      130.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.07324,
+      0.05925,
+      0.03968,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      92.16000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkMid4",
+   "components": {
+    "transform": {
+     "position": [
+      610.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.07324,
+      0.05925,
+      0.03968,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      69.12000000000002,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkNear1",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.00394,
+      0.0035,
+      0.0031,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      96.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TrunkNear2",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_trunk.png",
+     "color": [
+      0.00394,
+      0.0035,
+      0.0031,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      76.80000000000001,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Canopy",
+   "components": {
+    "transform": {
+     "position": [
+      80.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_canopy.png",
+     "color": [
+      0.0049,
+      0.00719,
+      0.00394,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      1880.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       420.0
+      ]
+     }
+    },
+    "oscillator": {
+     "amplitude": [
+      8.0,
+      3.0
+     ],
+     "frequency": [
+      0.13,
+      0.21
+     ],
+     "phase": [
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/gr_floor.png",
+     "color": [
+      0.00394,
+      0.0049,
+      0.0031,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1680.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       250.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 30.0,
+     "max_particles": 400,
+     "lifetime": [
+      8.0,
+      14.0
+     ],
+     "speed": [
+      2.0,
+      10.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -35,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       820.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       0.82757,
+       0.52252,
+       0.0
+      ],
+      [
+       0.2,
+       1.0,
+       0.82757,
+       0.52252,
+       0.5
+      ],
+      [
+       0.8,
+       1.0,
+       0.82757,
+       0.52252,
+       0.5
+      ],
+      [
+       1.0,
+       1.0,
+       0.82757,
+       0.52252,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 14.0,
+      "scale": 160.0,
+      "speed": 0.1
+     }
+    }
+   }
+  },
+  {
+   "name": "Leaves",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/gr_leaf.png",
+     "emission_rate": 4.0,
+     "max_particles": 120,
+     "lifetime": [
+      9.0,
+      14.0
+     ],
+     "speed": [
+      10.0,
+      30.0
+     ],
+     "angle": [
+      4.2,
+      5.2
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      18.0
+     ],
+     "size_end": [
+      12.0,
+      18.0
+     ],
+     "gravity_modifier": 0.08,
+     "angular_velocity": [
+      -2.5,
+      2.5
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -25,
+     "emit_shape": {
+      "kind": "line",
+      "length": 1480.0
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.01341,
+       0.01739,
+       0.0049,
+       0.0
+      ],
+      [
+       0.1,
+       0.01341,
+       0.01739,
+       0.0049,
+       1.0
+      ],
+      [
+       0.9,
+       0.02198,
+       0.01739,
+       0.0049,
+       1.0
+      ],
+      [
+       1.0,
+       0.02198,
+       0.01739,
+       0.0049,
+       0.0
+      ]
+     ],
+     "drag": 0.6,
+     "turbulence": {
+      "strength": 45.0,
+      "scale": 180.0,
+      "speed": 0.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "19   God Rays",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Mouse  the sun   G  light shafts   Space  a gust   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s19_god_rays.lua"
+    }
+   }
+  }
+ ]
+}

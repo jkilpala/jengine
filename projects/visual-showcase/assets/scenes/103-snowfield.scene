@@ -1,0 +1,3796 @@
+{
+ "name": "103 - Snowfield",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.01,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 0.95
+     },
+     "tint_color": {
+      "Vec4": [
+       0.85,
+       0.92,
+       1.0,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0012
+     }
+    }
+   },
+   {
+    "name": "film_grain",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.035
+     },
+     "size": {
+      "Float": 1.3
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.7,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.26327,
+      0.78741
+     ],
+     "intensity": 0.16
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": -2.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      0.44799,
+      0.60383,
+      1.0
+     ],
+     "intensity": 0.6,
+     "height": 0.28,
+     "softness": 10.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Snow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_snow"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/snow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1920.0,
+      1080.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/snow_n.png",
+     "specular": 1.0,
+     "shininess": 90.0
+    },
+    "paintable": {
+     "blend": "multiply"
+    }
+   }
+  },
+  {
+   "name": "Pond",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_ice"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/ice.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -58,
+     "size": [
+      520.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/ice_n.png",
+     "specular": 0.9,
+     "shininess": 40.0
+    }
+   }
+  },
+  {
+   "name": "WolfTrail",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 680.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 680.0,
+       "c1y": 165.69,
+       "c2x": 375.564,
+       "c2y": 300.0,
+       "x": 0.0,
+       "y": 300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -375.564,
+       "c1y": 300.0,
+       "c2x": -680.0,
+       "c2y": 165.69,
+       "x": -680.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -680.0,
+       "c1y": -165.69,
+       "c2x": -375.564,
+       "c2y": -300.0,
+       "x": 0.0,
+       "y": -300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 375.564,
+       "c1y": -300.0,
+       "c2x": 680.0,
+       "c2y": -165.69,
+       "x": 680.0,
+       "y": 0.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -50,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "SledRun",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 420.0,
+       "y": -60.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 420.0,
+       "c1y": 67.029,
+       "c2x": 187.19600000000003,
+       "c2y": 170.0,
+       "x": -100.0,
+       "y": 170.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -387.196,
+       "c1y": 170.0,
+       "c2x": -620.0,
+       "c2y": 67.029,
+       "x": -620.0,
+       "y": -60.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -620.0,
+       "c1y": -187.029,
+       "c2x": -387.196,
+       "c2y": -290.0,
+       "x": -100.0,
+       "y": -290.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 187.19600000000003,
+       "c1y": -290.0,
+       "c2x": 420.0,
+       "c2y": -187.029,
+       "x": 420.0,
+       "y": -60.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -50,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Walk",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -640.0,
+       "y": 165.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -420.0,
+       "c1y": 300.0,
+       "c2x": -150.0,
+       "c2y": 330.0,
+       "x": 60.0,
+       "y": 200.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 220.0,
+       "c1y": 100.0,
+       "c2x": 290.0,
+       "c2y": 20.0,
+       "x": 330.0,
+       "y": -70.0
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -50,
+     "closed": false
+    }
+   }
+  },
+  {
+   "name": "Cabin",
+   "components": {
+    "transform": {
+     "position": [
+      -650.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_cabin"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/cabin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      200.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/cabin_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      194.0,
+      144.0
+     ],
+     "shadow_length": 150.0
+    }
+   }
+  },
+  {
+   "name": "CabinShadow",
+   "components": {
+    "transform": {
+     "position": [
+      -676.0,
+      243.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/cabin.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      200.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DoorLight",
+   "components": {
+    "transform": {
+     "position": [
+      -640.0,
+      167.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.07324
+     ],
+     "intensity": 1.5,
+     "radius": 300.0,
+     "falloff": 1.5,
+     "shadow_softness": 5.0,
+     "height": 0.18
+    }
+   }
+  },
+  {
+   "name": "Window0",
+   "components": {
+    "transform": {
+     "position": [
+      -765.0,
+      272.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.08354
+     ],
+     "intensity": 0.7,
+     "radius": 160.0,
+     "falloff": 1.6,
+     "shadow_softness": 4.0,
+     "height": 0.15
+    }
+   }
+  },
+  {
+   "name": "Window1",
+   "components": {
+    "transform": {
+     "position": [
+      -535.0,
+      242.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.08354
+     ],
+     "intensity": 0.7,
+     "radius": 160.0,
+     "falloff": 1.6,
+     "shadow_softness": 4.0,
+     "height": 0.15
+    }
+   }
+  },
+  {
+   "name": "Chimney",
+   "components": {
+    "transform": {
+     "position": [
+      -602.0,
+      294.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 6.0,
+     "max_particles": 60,
+     "lifetime": [
+      4.0,
+      6.0
+     ],
+     "speed": [
+      18.0,
+      34.0
+     ],
+     "angle": [
+      -0.25,
+      0.35
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      26.0
+     ],
+     "size_end": [
+      90.0,
+      140.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Alpha",
+     "color_curve": [
+      [
+       0.0,
+       0.42,
+       0.42,
+       0.46,
+       0.0
+      ],
+      [
+       0.1,
+       0.4,
+       0.4,
+       0.45,
+       0.45
+      ],
+      [
+       1.0,
+       0.3,
+       0.32,
+       0.38,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 14.0,
+      "scale": 160.0,
+      "speed": 0.25
+     },
+     "drag": 0.2
+    }
+   }
+  },
+  {
+   "name": "Pine0",
+   "components": {
+    "transform": {
+     "position": [
+      -850.0,
+      440.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 137.5
+    }
+   }
+  },
+  {
+   "name": "Pine0Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -900.0,
+      405.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine1",
+   "components": {
+    "transform": {
+     "position": [
+      -740.0,
+      480.0
+     ],
+     "rotation": 1.3,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      144.0,
+      144.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 99.0
+    }
+   }
+  },
+  {
+   "name": "Pine1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -776.0,
+      454.8
+     ],
+     "rotation": 1.3,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      144.0,
+      144.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine2",
+   "components": {
+    "transform": {
+     "position": [
+      -880.0,
+      -420.0
+     ],
+     "rotation": 2.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      184.0,
+      184.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 126.49999999999999
+    }
+   }
+  },
+  {
+   "name": "Pine2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -926.0,
+      -452.2
+     ],
+     "rotation": 2.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      184.0,
+      184.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine3",
+   "components": {
+    "transform": {
+     "position": [
+      -770.0,
+      -480.0
+     ],
+     "rotation": 3.9000000000000004,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      136.0,
+      136.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 93.5
+    }
+   }
+  },
+  {
+   "name": "Pine3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -804.0,
+      -503.8
+     ],
+     "rotation": 3.9000000000000004,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      136.0,
+      136.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine4",
+   "components": {
+    "transform": {
+     "position": [
+      860.0,
+      430.0
+     ],
+     "rotation": 5.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      192.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 132.0
+    }
+   }
+  },
+  {
+   "name": "Pine4Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      812.0,
+      396.4
+     ],
+     "rotation": 5.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      192.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine5",
+   "components": {
+    "transform": {
+     "position": [
+      770.0,
+      490.0
+     ],
+     "rotation": 0.21999999999999975,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      144.0,
+      144.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 99.0
+    }
+   }
+  },
+  {
+   "name": "Pine5Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      734.0,
+      464.8
+     ],
+     "rotation": 0.21999999999999975,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      144.0,
+      144.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine6",
+   "components": {
+    "transform": {
+     "position": [
+      880.0,
+      -420.0
+     ],
+     "rotation": 1.5200000000000005,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      192.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 132.0
+    }
+   }
+  },
+  {
+   "name": "Pine6Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      832.0,
+      -453.6
+     ],
+     "rotation": 1.5200000000000005,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      192.0,
+      192.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine7",
+   "components": {
+    "transform": {
+     "position": [
+      790.0,
+      -480.0
+     ],
+     "rotation": 2.8199999999999994,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      152.0,
+      152.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 104.5
+    }
+   }
+  },
+  {
+   "name": "Pine7Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      752.0,
+      -506.6
+     ],
+     "rotation": 2.8199999999999994,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      152.0,
+      152.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine8",
+   "components": {
+    "transform": {
+     "position": [
+      -890.0,
+      40.0
+     ],
+     "rotation": 4.12,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 110.0
+    }
+   }
+  },
+  {
+   "name": "Pine8Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -930.0,
+      12.0
+     ],
+     "rotation": 4.12,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine9",
+   "components": {
+    "transform": {
+     "position": [
+      890.0,
+      60.0
+     ],
+     "rotation": 5.420000000000001,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      168.0,
+      168.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 115.5
+    }
+   }
+  },
+  {
+   "name": "Pine9Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      848.0,
+      30.6
+     ],
+     "rotation": 5.420000000000001,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      168.0,
+      168.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine10",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      470.0
+     ],
+     "rotation": 0.4399999999999995,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      176.0,
+      176.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 121.00000000000001
+    }
+   }
+  },
+  {
+   "name": "Pine10Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -34.0,
+      439.2
+     ],
+     "rotation": 0.4399999999999995,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      176.0,
+      176.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine11",
+   "components": {
+    "transform": {
+     "position": [
+      130.0,
+      490.0
+     ],
+     "rotation": 1.7400000000000002,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 88.0
+    }
+   }
+  },
+  {
+   "name": "Pine11Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      98.0,
+      467.6
+     ],
+     "rotation": 1.7400000000000002,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      128.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine12",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -40.0
+     ],
+     "rotation": 3.040000000000001,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      184.0,
+      184.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 126.49999999999999
+    }
+   }
+  },
+  {
+   "name": "Pine12Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -186.0,
+      -72.19999999999999
+     ],
+     "rotation": 3.040000000000001,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      184.0,
+      184.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine13",
+   "components": {
+    "transform": {
+     "position": [
+      -50.0,
+      -120.0
+     ],
+     "rotation": 4.340000000000002,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      136.0,
+      136.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 93.5
+    }
+   }
+  },
+  {
+   "name": "Pine13Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -84.0,
+      -143.8
+     ],
+     "rotation": 4.340000000000002,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      136.0,
+      136.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine14",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -130.0
+     ],
+     "rotation": 5.639999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 82.5
+    }
+   }
+  },
+  {
+   "name": "Pine14Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -230.0,
+      -151.0
+     ],
+     "rotation": 5.639999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pine15",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      470.0
+     ],
+     "rotation": 0.6599999999999993,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pine"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      144.0,
+      144.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/pine_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 99.0
+    }
+   }
+  },
+  {
+   "name": "Pine15Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -366.0,
+      444.8
+     ],
+     "rotation": 0.6599999999999993,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/pine.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      144.0,
+      144.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock0",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      40.0
+     ],
+     "rotation": 0.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      90.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/rock_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5,
+     "shadow_length": 45.0
+    }
+   }
+  },
+  {
+   "name": "Rock0Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      508.0,
+      31.6
+     ],
+     "rotation": 0.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      90.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock1",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      -330.0
+     ],
+     "rotation": 2.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      84.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/rock_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5,
+     "shadow_length": 54.0
+    }
+   }
+  },
+  {
+   "name": "Rock1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -444.4,
+      -340.08
+     ],
+     "rotation": 2.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      108.0,
+      84.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock2",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      -470.0
+     ],
+     "rotation": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      81.0,
+      63.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/rock_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5,
+     "shadow_length": 40.5
+    }
+   }
+  },
+  {
+   "name": "Rock2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      639.2,
+      -477.56
+     ],
+     "rotation": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      81.0,
+      63.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock3",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -470.0
+     ],
+     "rotation": 2.8,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      99.00000000000001,
+      77.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/rock_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5,
+     "shadow_length": 49.50000000000001
+    }
+   }
+  },
+  {
+   "name": "Rock3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -573.2,
+      -479.24
+     ],
+     "rotation": 2.8,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      99.00000000000001,
+      77.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock4",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      300.0
+     ],
+     "rotation": 0.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_rock"
+    ],
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      72.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/snowfield/rock_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 1.5,
+     "shadow_length": 36.0
+    }
+   }
+  },
+  {
+   "name": "Rock4Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      290.4,
+      293.28
+     ],
+     "rotation": 0.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/rock.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      72.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wolf0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/wolf.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      58.0,
+      29.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "WolfTrail",
+     "speed": 118.0,
+     "progress": 0.0,
+     "lateral": -12.0,
+     "rotate": true,
+     "mode": "loop"
+    }
+   }
+  },
+  {
+   "name": "Wolf1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/wolf.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      58.0,
+      29.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "WolfTrail",
+     "speed": 118.0,
+     "progress": 64.0,
+     "lateral": 4.0,
+     "rotate": true,
+     "mode": "loop"
+    }
+   }
+  },
+  {
+   "name": "Wolf2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/wolf.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      58.0,
+      29.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "WolfTrail",
+     "speed": 118.0,
+     "progress": 128.0,
+     "lateral": 18.0,
+     "rotate": true,
+     "mode": "loop"
+    }
+   }
+  },
+  {
+   "name": "Sled",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/sled.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      80.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "SledRun",
+     "speed": 150.0,
+     "progress": 900.0,
+     "lateral": 0.0,
+     "rotate": true,
+     "mode": "loop"
+    }
+   }
+  },
+  {
+   "name": "Dog0",
+   "parent": "Sled",
+   "components": {
+    "transform": {
+     "position": [
+      66.0,
+      11.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/wolf.png",
+     "color": [
+      0.89001,
+      0.52252,
+      0.26327,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dog1",
+   "parent": "Sled",
+   "components": {
+    "transform": {
+     "position": [
+      66.0,
+      -11.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/wolf.png",
+     "color": [
+      0.89001,
+      0.52252,
+      0.26327,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dog2",
+   "parent": "Sled",
+   "components": {
+    "transform": {
+     "position": [
+      104.0,
+      11.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/wolf.png",
+     "color": [
+      0.89001,
+      0.52252,
+      0.26327,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dog3",
+   "parent": "Sled",
+   "components": {
+    "transform": {
+     "position": [
+      104.0,
+      -11.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/wolf.png",
+     "color": [
+      0.89001,
+      0.52252,
+      0.26327,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Walker",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/snowfield/walker.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Walk",
+     "speed": 58.0,
+     "progress": 0.0,
+     "lateral": 0.0,
+     "rotate": true,
+     "mode": "ping_pong"
+    }
+   }
+  },
+  {
+   "name": "Wolf0Contact",
+   "parent": "Wolf0",
+   "components": {
+    "transform": {
+     "position": [
+      -6.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.21404,
+      0.27384,
+      0.50708,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      60.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wolf1Contact",
+   "parent": "Wolf1",
+   "components": {
+    "transform": {
+     "position": [
+      -6.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.21404,
+      0.27384,
+      0.50708,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      60.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wolf2Contact",
+   "parent": "Wolf2",
+   "components": {
+    "transform": {
+     "position": [
+      -6.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.21404,
+      0.27384,
+      0.50708,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      60.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "SledContact",
+   "parent": "Sled",
+   "components": {
+    "transform": {
+     "position": [
+      -6.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.21404,
+      0.27384,
+      0.50708,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      96.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "WalkerContact",
+   "parent": "Walker",
+   "components": {
+    "transform": {
+     "position": [
+      -6.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.21404,
+      0.27384,
+      0.50708,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      34.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern",
+   "parent": "Walker",
+   "components": {
+    "transform": {
+     "position": [
+      13.0,
+      -9.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      4.0,
+      2.09008,
+      0.53148,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.11928
+     ],
+     "intensity": 1.3,
+     "radius": 330.0,
+     "falloff": 1.4,
+     "shadow_softness": 4.0,
+     "height": 0.12
+    }
+   }
+  },
+  {
+   "name": "FlakesFar",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 160.0,
+     "max_particles": 960,
+     "lifetime": [
+      3.0,
+      5.0
+     ],
+     "speed": [
+      40.0,
+      70.0
+     ],
+     "angle": [
+      -0.75,
+      -0.35
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.5,
+      4.0
+     ],
+     "size_end": [
+      1.25,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 35,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       2100.0,
+       1200.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.9,
+       0.93,
+       1.0,
+       0.0
+      ],
+      [
+       0.15,
+       0.9,
+       0.93,
+       1.0,
+       0.55
+      ],
+      [
+       0.85,
+       0.9,
+       0.93,
+       1.0,
+       0.55
+      ],
+      [
+       1.0,
+       0.9,
+       0.93,
+       1.0,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 220.0,
+      "speed": 0.5
+     }
+    }
+   }
+  },
+  {
+   "name": "FlakesNear",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 45.0,
+     "max_particles": 270,
+     "lifetime": [
+      3.0,
+      5.0
+     ],
+     "speed": [
+      90.0,
+      140.0
+     ],
+     "angle": [
+      -0.75,
+      -0.35
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      6.0,
+      10.0
+     ],
+     "size_end": [
+      3.0,
+      5.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 42,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       2100.0,
+       1200.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.9,
+       0.93,
+       1.0,
+       0.0
+      ],
+      [
+       0.15,
+       0.9,
+       0.93,
+       1.0,
+       0.8
+      ],
+      [
+       0.85,
+       0.9,
+       0.93,
+       1.0,
+       0.8
+      ],
+      [
+       1.0,
+       0.9,
+       0.93,
+       1.0,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 220.0,
+      "speed": 0.5
+     }
+    }
+   }
+  },
+  {
+   "name": "Spindrift",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 5.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      5.0
+     ],
+     "speed": [
+      120.0,
+      200.0
+     ],
+     "angle": [
+      -0.15,
+      0.05
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      40.0,
+      70.0
+     ],
+     "size_end": [
+      120.0,
+      200.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 33,
+     "blend_mode": "Alpha",
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       2000.0,
+       1100.0
+      ]
+     },
+     "stretch": 0.012,
+     "color_curve": [
+      [
+       0.0,
+       0.85,
+       0.9,
+       1.0,
+       0.0
+      ],
+      [
+       0.3,
+       0.85,
+       0.9,
+       1.0,
+       0.08
+      ],
+      [
+       1.0,
+       0.85,
+       0.9,
+       1.0,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 300.0,
+      "speed": 0.3
+     }
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s103_snowfield.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "103   Snowfield",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "every print is pressed into the snow's normal map   L lantern   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

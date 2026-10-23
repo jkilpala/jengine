@@ -1,0 +1,466 @@
+{
+ "name": "Manor - The Library",
+ "entities": [
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_library"
+    ],
+    "sprite": {
+     "texture_id": "sprites/manor/library.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/manor/library_n.png"
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_floor"
+    ],
+    "sprite": {
+     "texture_id": "sprites/manor/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1280.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       70.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/manor/floor_n.png",
+     "specular": 0.5,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Name",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "THE LIBRARY",
+     "font_id": "",
+     "font_scale": 0.95,
+     "color": [
+      0.69207,
+      0.477,
+      0.17064,
+      1.0
+     ],
+     "z_order": -30,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Look",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "post_volume": {
+     "size": [
+      980.0,
+      1000.0
+     ],
+     "blend": 300.0,
+     "weight": 1.0,
+     "priority": 0,
+     "effects": [
+      {
+       "name": "color_grade",
+       "params": {
+        "brightness": {
+         "Float": 0.95
+        },
+        "contrast": {
+         "Float": 1.1
+        },
+        "saturation": {
+         "Float": 0.75
+        },
+        "tint_color": {
+         "Vec4": [
+          0.7,
+          0.85,
+          0.5,
+          0.14
+         ]
+        }
+       }
+      },
+      {
+       "name": "vignette",
+       "params": {
+        "intensity": {
+         "Float": 0.6
+        }
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "point_light": {
+     "color": [
+      0.44799,
+      1.0,
+      0.26327
+     ],
+     "intensity": 1.68,
+     "radius": 576.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 30.0,
+     "max_particles": 40,
+     "lifetime": [
+      0.25,
+      0.5
+     ],
+     "speed": [
+      15.0,
+      35.0
+     ],
+     "angle": [
+      1.4,
+      1.75
+     ],
+     "color_start": [
+      3.0,
+      1.56756,
+      0.30144,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.07324,
+      0.01002,
+      0.0
+     ],
+     "size_start": [
+      12.0,
+      16.8
+     ],
+     "size_end": [
+      2.0,
+      3.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -28,
+     "blend_mode": "Additive"
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s86_torch.lua"
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 12.0,
+     "max_particles": 120,
+     "lifetime": [
+      6.0,
+      9.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      0.9,
+      0.85,
+      0.6,
+      0.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -25,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1280.0,
+       600.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       0.9,
+       0.85,
+       0.6,
+       0.0
+      ],
+      [
+       0.5,
+       0.9,
+       0.85,
+       0.6,
+       0.5
+      ],
+      [
+       1.0,
+       0.9,
+       0.85,
+       0.6,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 200.0,
+      "speed": 0.2
+     },
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Ghost0",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/manor/ghost.png",
+     "color": [
+      0.85,
+      0.95,
+      1.1,
+      0.55
+     ],
+     "z_order": -20,
+     "size": [
+      108.0,
+      198.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "intensity": 0.9,
+     "radius": 300.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "subtract": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s112_ghost.lua"
+    }
+   }
+  },
+  {
+   "name": "Ghost1",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/manor/ghost.png",
+     "color": [
+      0.85,
+      0.95,
+      1.1,
+      0.55
+     ],
+     "z_order": -20,
+     "size": [
+      120.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "intensity": 0.9,
+     "radius": 300.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "casts_shadows": false,
+     "subtract": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s112_ghost.lua"
+    }
+   }
+  }
+ ]
+}

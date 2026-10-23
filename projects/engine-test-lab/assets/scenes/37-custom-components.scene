@@ -1,0 +1,538 @@
+{
+  "name": "37-CustomComponents",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": { "align": "center",
+          "text": "37 - Custom Components (script state without Rust)",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "get_custom(e, \"Comp\", \"field\") / set_custom(...) store arbitrary key->value bags on any entity.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "No Rust struct, no registration, no scene-format field - the scene below authors them as plain JSON.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "This is the recommended home for script-only state; a real ECS component is only needed for engine systems.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Each box carries its own Stats bag. Space damages a random box, R resets, and values persist across frames.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Box1",
+      "components": {
+        "transform": {
+          "position": [
+            -360.0,
+            60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.95,
+            0.5,
+            0.4,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            86.0,
+            86.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tags": [
+          "box"
+        ],
+        "Stats": {
+          "hp": 100,
+          "element": "fire",
+          "level": 1
+        },
+        "Loot": {
+          "gold": 25,
+          "rare": false
+        }
+      }
+    },
+    {
+      "name": "BoxLabel1",
+      "components": {
+        "transform": {
+          "position": [
+            -360.0,
+            -40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "-",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Box2",
+      "components": {
+        "transform": {
+          "position": [
+            -120.0,
+            60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.4,
+            0.75,
+            0.95,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            86.0,
+            86.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tags": [
+          "box"
+        ],
+        "Stats": {
+          "hp": 100,
+          "element": "ice",
+          "level": 2
+        },
+        "Loot": {
+          "gold": 50,
+          "rare": false
+        }
+      }
+    },
+    {
+      "name": "BoxLabel2",
+      "components": {
+        "transform": {
+          "position": [
+            -120.0,
+            -40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "-",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Box3",
+      "components": {
+        "transform": {
+          "position": [
+            120.0,
+            60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.6,
+            0.9,
+            0.45,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            86.0,
+            86.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tags": [
+          "box"
+        ],
+        "Stats": {
+          "hp": 100,
+          "element": "leaf",
+          "level": 3
+        },
+        "Loot": {
+          "gold": 75,
+          "rare": false
+        }
+      }
+    },
+    {
+      "name": "BoxLabel3",
+      "components": {
+        "transform": {
+          "position": [
+            120.0,
+            -40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "-",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Box4",
+      "components": {
+        "transform": {
+          "position": [
+            360.0,
+            60.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.85,
+            0.6,
+            0.95,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            86.0,
+            86.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tags": [
+          "box"
+        ],
+        "Stats": {
+          "hp": 100,
+          "element": "arcane",
+          "level": 4
+        },
+        "Loot": {
+          "gold": 100,
+          "rare": true
+        }
+      }
+    },
+    {
+      "name": "BoxLabel4",
+      "components": {
+        "transform": {
+          "position": [
+            360.0,
+            -40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "-",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "last: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_37_custom.lua"
+        }
+      }
+    }
+  ]
+}

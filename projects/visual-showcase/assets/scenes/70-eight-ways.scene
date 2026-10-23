@@ -1,0 +1,2165 @@
+{
+ "name": "70 - Eight Ways",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.15
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.02,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.98,
+       0.9,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Grass",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/grass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Clearing",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/clearing.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -95,
+     "size": [
+      1000.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow0",
+   "components": {
+    "transform": {
+     "position": [
+      -574.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      273.0,
+      247.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree0",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      260.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow1",
+   "components": {
+    "transform": {
+     "position": [
+      -304.0,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      231.0,
+      209.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      390.0
+     ],
+     "rotation": 1.3,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 41,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow2",
+   "components": {
+    "transform": {
+     "position": [
+      66.0,
+      370.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      252.0,
+      228.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      400.0
+     ],
+     "rotation": 2.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 42,
+     "size": [
+      240.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow3",
+   "components": {
+    "transform": {
+     "position": [
+      406.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      241.5,
+      218.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      380.0
+     ],
+     "rotation": 3.9000000000000004,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      230.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow4",
+   "components": {
+    "transform": {
+     "position": [
+      666.0,
+      270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      283.5,
+      256.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "transform": {
+     "position": [
+      640.0,
+      300.0
+     ],
+     "rotation": 5.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 41,
+     "size": [
+      270.0,
+      270.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow5",
+   "components": {
+    "transform": {
+     "position": [
+      -634.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      241.5,
+      218.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree5",
+   "components": {
+    "transform": {
+     "position": [
+      -660.0,
+      40.0
+     ],
+     "rotation": 6.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 42,
+     "size": [
+      230.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow6",
+   "components": {
+    "transform": {
+     "position": [
+      706.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      252.0,
+      228.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree6",
+   "components": {
+    "transform": {
+     "position": [
+      680.0,
+      20.0
+     ],
+     "rotation": 7.800000000000001,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      240.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow7",
+   "components": {
+    "transform": {
+     "position": [
+      -594.0,
+      -350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      273.0,
+      247.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree7",
+   "components": {
+    "transform": {
+     "position": [
+      -620.0,
+      -320.0
+     ],
+     "rotation": 9.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 41,
+     "size": [
+      260.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow8",
+   "components": {
+    "transform": {
+     "position": [
+      -224.0,
+      -440.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      241.5,
+      218.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree8",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -410.0
+     ],
+     "rotation": 10.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 42,
+     "size": [
+      230.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow9",
+   "components": {
+    "transform": {
+     "position": [
+      176.0,
+      -430.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      231.0,
+      209.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree9",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -400.0
+     ],
+     "rotation": 11.700000000000001,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow10",
+   "components": {
+    "transform": {
+     "position": [
+      626.0,
+      -360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.55
+     ],
+     "z_order": -60,
+     "size": [
+      273.0,
+      247.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree10",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      -330.0
+     ],
+     "rotation": 13.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/canopy1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 41,
+     "size": [
+      260.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock0",
+   "components": {
+    "transform": {
+     "position": [
+      -220.0,
+      120.0
+     ],
+     "rotation": 0.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      46.0,
+      36.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock1",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -60.0
+     ],
+     "rotation": 1.9,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      40.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock2",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -250.0
+     ],
+     "rotation": 2.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      52.0,
+      41.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rock3",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      230.0
+     ],
+     "rotation": 0.9,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      38.0,
+      30.400000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stump",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/stump.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Target1",
+   "components": {
+    "transform": {
+     "position": [
+      -430.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/bale.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Target2",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/bale.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Target3",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/bale.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Target4",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/bale.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ranger",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      2.0,
+      2.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "ranger"
+    },
+    "skeletal_player": {
+     "clip": "",
+     "blend_space": {
+      "points": [
+       {
+        "clip": "animations/rg_idle.skelanim",
+        "at": [
+         0.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/rg_walk_fwd.skelanim",
+        "at": [
+         1.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/rg_walk_back.skelanim",
+        "at": [
+         -1.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/rg_walk_left.skelanim",
+        "at": [
+         0.0,
+         1.0
+        ]
+       },
+       {
+        "clip": "animations/rg_walk_right.skelanim",
+        "at": [
+         0.0,
+         -1.0
+        ]
+       },
+       {
+        "clip": "animations/rg_run_fwd.skelanim",
+        "at": [
+         2.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/rg_run_back.skelanim",
+        "at": [
+         -2.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/rg_run_left.skelanim",
+        "at": [
+         0.0,
+         2.0
+        ]
+       },
+       {
+        "clip": "animations/rg_run_right.skelanim",
+        "at": [
+         0.0,
+         -2.0
+        ]
+       }
+      ],
+      "position": [
+       0.0,
+       0.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "RangerShadow",
+   "parent": "Ranger",
+   "components": {
+    "transform": {
+     "position": [
+      -3.0,
+      -4.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "z_order": -5,
+     "size": [
+      44.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Foot_l",
+   "parent": "Ranger",
+   "components": {
+    "transform": {
+     "position": [
+      -2.0,
+      14.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "foot_l",
+     "length": 8.0
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/boot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      22.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Foot_r",
+   "parent": "Ranger",
+   "components": {
+    "transform": {
+     "position": [
+      -2.0,
+      -14.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "foot_r",
+     "length": 8.0
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/boot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      22.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chest",
+   "parent": "Ranger",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "chest",
+     "length": 10.0
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/cloak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      22.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Quiver",
+   "parent": "Chest",
+   "components": {
+    "transform": {
+     "position": [
+      -8.0,
+      -10.0
+     ],
+     "rotation": 0.5,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/quiver.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      20.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bow",
+   "parent": "Chest",
+   "components": {
+    "transform": {
+     "position": [
+      17.0,
+      6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/bow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      10.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Nocked",
+   "parent": "Chest",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      28.0,
+      4.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Head",
+   "parent": "Chest",
+   "components": {
+    "transform": {
+     "position": [
+      2.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/hood.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      22.0,
+      22.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Arrow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/ranger/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 30,
+     "size": [
+      40.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "InsetBack",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.00155,
+      0.00232,
+      0.00155,
+      0.6
+     ],
+     "z_order": 80,
+     "size": [
+      176.0,
+      176.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt0",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.69207,
+      0.69207,
+      0.69207,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt1",
+   "components": {
+    "transform": {
+     "position": [
+      554.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.31855,
+      0.78741,
+      0.31855,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt2",
+   "components": {
+    "transform": {
+     "position": [
+      486.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.31855,
+      0.78741,
+      0.31855,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt3",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -201.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.31855,
+      0.78741,
+      0.31855,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt4",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -269.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.31855,
+      0.78741,
+      0.31855,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt5",
+   "components": {
+    "transform": {
+     "position": [
+      588.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.89001,
+      0.31855,
+      0.07324,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt6",
+   "components": {
+    "transform": {
+     "position": [
+      452.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.89001,
+      0.31855,
+      0.07324,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt7",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -167.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.89001,
+      0.31855,
+      0.07324,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendPt8",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -303.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.89001,
+      0.31855,
+      0.07324,
+      1.0
+     ],
+     "z_order": 81,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BlendDot",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.21404,
+      1.0
+     ],
+     "z_order": 82,
+     "size": [
+      16.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "InsetLabel",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -337.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "blend space: ahead is right",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.69207,
+      0.78741,
+      0.60383,
+      1.0
+     ],
+     "z_order": 83,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s70_eight_ways.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "70   Eight Ways",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

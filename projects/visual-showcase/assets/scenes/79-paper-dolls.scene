@@ -1,0 +1,1252 @@
+{
+ "name": "79 - Paper Dolls",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.35
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.05,
+       0.0,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.85,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Backcloth",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/backcloth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Spot",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      0.4
+     ],
+     "z_order": -60,
+     "size": [
+      760.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Boards",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/boards.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1320.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       140.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "CurtainL",
+   "components": {
+    "transform": {
+     "position": [
+      -570.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/curtain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      200.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CurtainR",
+   "components": {
+    "transform": {
+     "position": [
+      570.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/curtain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      200.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Valance",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/curtain.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 41,
+     "size": [
+      1320.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       90.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Doll",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite_library": {
+     "categories": {
+      "hat": {
+       "summer": {
+        "texture_id": "sprites/dolls/hat_summer.png"
+       },
+       "rain": {
+        "texture_id": "sprites/dolls/hat_rain.png"
+       },
+       "winter": {
+        "texture_id": "sprites/dolls/hat_winter.png"
+       },
+       "party": {
+        "texture_id": "sprites/dolls/hat_party.png"
+       }
+      },
+      "coat": {
+       "summer": {
+        "texture_id": "sprites/dolls/coat_summer.png"
+       },
+       "rain": {
+        "texture_id": "sprites/dolls/coat_rain.png"
+       },
+       "winter": {
+        "texture_id": "sprites/dolls/coat_winter.png"
+       },
+       "party": {
+        "texture_id": "sprites/dolls/coat_party.png"
+       }
+      },
+      "sleeve": {
+       "summer": {
+        "texture_id": "sprites/dolls/sleeve_summer.png"
+       },
+       "rain": {
+        "texture_id": "sprites/dolls/sleeve_rain.png"
+       },
+       "winter": {
+        "texture_id": "sprites/dolls/sleeve_winter.png"
+       },
+       "party": {
+        "texture_id": "sprites/dolls/sleeve_party.png"
+       }
+      },
+      "boot": {
+       "summer": {
+        "texture_id": "sprites/dolls/boot_summer.png"
+       },
+       "rain": {
+        "texture_id": "sprites/dolls/boot_rain.png"
+       },
+       "winter": {
+        "texture_id": "sprites/dolls/boot_winter.png"
+       },
+       "party": {
+        "texture_id": "sprites/dolls/boot_party.png"
+       }
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Hips",
+   "parent": "Doll",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LegL",
+   "components": {
+    "transform": {
+     "position": [
+      -22.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/leg.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      67.2,
+      193.20000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.9347826086956522
+     ]
+    }
+   },
+   "parent": "Hips"
+  },
+  {
+   "name": "BootL",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -163.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      -1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/boot_summer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      92.4,
+      92.4
+     ],
+     "anchor": [
+      0.4772727272727273,
+      0.20454545454545456
+     ]
+    },
+    "sprite_resolver": {
+     "category": "boot",
+     "label": "summer"
+    }
+   },
+   "parent": "LegL"
+  },
+  {
+   "name": "LegR",
+   "components": {
+    "transform": {
+     "position": [
+      22.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/leg.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      67.2,
+      193.20000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.9347826086956522
+     ]
+    }
+   },
+   "parent": "Hips"
+  },
+  {
+   "name": "BootR",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -163.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/boot_summer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      92.4,
+      92.4
+     ],
+     "anchor": [
+      0.4772727272727273,
+      0.20454545454545456
+     ]
+    },
+    "sprite_resolver": {
+     "category": "boot",
+     "label": "summer"
+    }
+   },
+   "parent": "LegR"
+  },
+  {
+   "name": "Coat",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -14.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/coat_summer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      193.20000000000002,
+      205.8
+     ],
+     "anchor": [
+      0.5,
+      0.061224489795918366
+     ]
+    },
+    "sprite_resolver": {
+     "category": "coat",
+     "label": "summer"
+    }
+   },
+   "parent": "Hips"
+  },
+  {
+   "name": "Head",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      165.9
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/head.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      140.70000000000002,
+      142.8
+     ],
+     "anchor": [
+      0.5,
+      0.10294117647058823
+     ]
+    }
+   },
+   "parent": "Coat"
+  },
+  {
+   "name": "Hat",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      90.3
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/hat_summer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      172.20000000000002,
+      113.4
+     ],
+     "anchor": [
+      0.5,
+      0.16666666666666666
+     ]
+    },
+    "sprite_resolver": {
+     "category": "hat",
+     "label": "summer"
+    }
+   },
+   "parent": "Head"
+  },
+  {
+   "name": "ArmL",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      157.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/arm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      63.0,
+      161.70000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.8831168831168831
+     ]
+    }
+   },
+   "parent": "Coat"
+  },
+  {
+   "name": "SleeveL",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/sleeve_summer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      71.4,
+      172.20000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.8902439024390244
+     ]
+    },
+    "sprite_resolver": {
+     "category": "sleeve",
+     "label": "summer"
+    }
+   },
+   "parent": "ArmL"
+  },
+  {
+   "name": "ArmR",
+   "components": {
+    "transform": {
+     "position": [
+      80.0,
+      157.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/arm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      63.0,
+      161.70000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.8831168831168831
+     ]
+    }
+   },
+   "parent": "Coat"
+  },
+  {
+   "name": "SleeveR",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/sleeve_summer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      71.4,
+      172.20000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.8902439024390244
+     ]
+    },
+    "sprite_resolver": {
+     "category": "sleeve",
+     "label": "summer"
+    }
+   },
+   "parent": "ArmR"
+  },
+  {
+   "name": "Confetti",
+   "components": {
+    "transform": {
+     "position": [
+      -130.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/shard.png",
+     "emission_rate": 0.0,
+     "max_particles": 120,
+     "lifetime": [
+      1.0,
+      1.8
+     ],
+     "speed": [
+      180.0,
+      360.0
+     ],
+     "angle": [
+      0.6,
+      2.5
+     ],
+     "color_start": [
+      1.0,
+      0.69207,
+      0.13287,
+      1.0
+     ],
+     "color_end": [
+      0.78741,
+      0.13287,
+      0.31855,
+      0.0
+     ],
+     "size_start": [
+      10.0,
+      16.0
+     ],
+     "size_end": [
+      8.0,
+      12.0
+     ],
+     "gravity_modifier": 1.4,
+     "angular_velocity": [
+      -8.0,
+      8.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30
+    }
+   }
+  },
+  {
+   "name": "Tag0",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/tag.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      190.0,
+      68.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TagText0",
+   "components": {
+    "transform": {
+     "position": [
+      415.0,
+      164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "SUMMER",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.07324,
+      0.0331,
+      0.01341,
+      1.0
+     ],
+     "z_order": 11,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Tag1",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/tag.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      190.0,
+      68.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TagText1",
+   "components": {
+    "transform": {
+     "position": [
+      415.0,
+      74.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "RAIN",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.07324,
+      0.0331,
+      0.01341,
+      1.0
+     ],
+     "z_order": 11,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Tag2",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/tag.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      190.0,
+      68.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TagText2",
+   "components": {
+    "transform": {
+     "position": [
+      415.0,
+      -16.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "WINTER",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.07324,
+      0.0331,
+      0.01341,
+      1.0
+     ],
+     "z_order": 11,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Tag3",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/dolls/tag.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      190.0,
+      68.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TagText3",
+   "components": {
+    "transform": {
+     "position": [
+      415.0,
+      -106.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "PARTY",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.07324,
+      0.0331,
+      0.01341,
+      1.0
+     ],
+     "z_order": 11,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s79_paper_dolls.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "79   Paper Dolls",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "O  next outfit   1  hat   2  coat   3  boots   A  auto   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

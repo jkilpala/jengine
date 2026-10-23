@@ -1,0 +1,19 @@
+{
+  "name": "CollisionPing",
+  "version": 1,
+  "nodes": [
+    { "id": "hit",  "op": "OnCollision" },
+    { "id": "emit", "op": "EmitEvent",
+      "params": { "name": "scene18_ping" },
+      "in": { "value": { "value": 1.0 } }
+    },
+    { "id": "log",  "op": "Log",
+      "params": { "label": "scene18 ping" },
+      "in": { "value": { "value": 1.0 } }
+    }
+  ],
+  "edges": [
+    { "from": "hit",  "to": "emit" },
+    { "from": "emit", "to": "log" }
+  ]
+}

@@ -1,0 +1,147 @@
+---
+draft: false
+title: Behavior Graphs
+description: Declarative node-graph logic for jEngine — no VM, designer-friendly, sharing the event bus with scripts.
+---
+
+A **behavior graph** is logic as a graph of predefined ops in a `.behavior` JSON file. It compiles to a
+flat instruction list and runs with no script VM, no FFI crossing and no allocation on the hot path —
+on every entity that carries it, in every runtime. The editor has a node-graph editor for it.
+
+## When to use a behavior graph
+
+| Behavior graphs excel at | Use scripts instead when |
+|--------------------------|--------------------------|
+| Data-driven logic designers tweak in a file: move with input, chase the nearest player, bounce, despawn after time, play a sound on collision | Complex control flow or dynamic data structures |
+| Logic that runs on many entities at native speed | Behaviour unique to one entity with bespoke state |
+| Self-contained "prefab behaviours" with per-instance overrides | Logic that needs the full script API |
+
+A `behavior_graph` and a `script` can sit on the same entity; scripts win write conflicts. The Engine
+Test Lab's graph scenes (scene 100 and the graphs in `projects/engine-test-lab/assets/behaviors/`) are
+small worked examples, including graphs and scripts talking over the shared event bus.
+
+## Scene component
+
+```json
+{
+  "name": "Enemy",
+  "components": {
+    "transform": { "position": [100, 50], "rotation": 0, "scale": [1, 1] },
+    "velocity": { "x": 0, "y": 0 },
+    "behavior_graph": {
+      "graph_path": "behaviors/enemy_basic.behavior",
+      "overrides": { "go": { "speed": 180.0 } }
+    }
+  }
+}
+```
+
+`overrides` is a map of **node id → parameter patch**, applied per instance without editing the shared
+file. It is omitted when empty.
+
+## The `.behavior` format
+
+Graphs live in `assets/behaviors/`:
+
+```json
+{
+  "name": "Moth",
+  "version": 1,
+  "nodes": [
+    { "id": "tick",  "op": "OnTick" },
+    { "id": "prey",  "op": "GetNearestByTag", "params": { "tag": "player" } },
+    { "id": "there", "op": "GetEntityPosition", "in": { "entity": { "from": "prey" } } },
+    { "id": "go",    "op": "MoveToward",
+      "in": { "target_pos": { "from": "there" }, "speed": { "value": 90.0 } } }
+  ],
+  "edges": [
+    { "from": "tick", "to": "go" }
+  ]
+}
+```
+
+Two kinds of wiring, and they are easy to confuse:
+
+- **`edges` carry control.** An edge says "when this runs, run that next". It goes from a trigger (or a
+  gate, or an `If`'s `then` / `else` — name the port with `"out"`) to an op that *does* something.
+- **`in` carries data.** Each input pin is a literal `{ "value": ... }` or a reference to another node's
+  output, `{ "from": "node", "out": "pin" }`. Without `out` it is the node's primary output. A reference
+  may add `"scale"` and `"offset"`. An `out` that names nothing is a compile error.
+- **Reads and pure maths are never on an edge**: they run when something that runs needs them —
+  `GetNearestByTag` above runs once a tick because `go` does.
+
+`params` are values baked in at authoring time: a tag, an event name, a prefab id.
+
+## Ops
+
+68 ops in eight groups: **triggers** (`OnTick`, `OnSpawn`, `OnDespawn`, `OnCollision`, `OnTrigger`,
+`OnTimer`, `OnKey`, `OnMouseClick`, `OnEvent`, ...), **reads**, **pure** maths and logic, **gates**
+(`If`, `Cooldown`, `Once`), **direct writes** (`SetVelocity`, `MoveToward`, ...), **setup components**
+(wire them from a one-shot trigger, never `OnTick`), **structural commands** (`SpawnEntity`, `Despawn`)
+and **side effects** (`PlaySound`, `EmitEvent`, ...). Health and hitboxes are ops too.
+
+The full reference — every op's inputs, outputs and params — is generated from the engine's op catalog,
+the same one the editor's node palette reads: see **Behavior Graph → Op reference** in the
+[Scripting API](/api-reference/scripting-api/).
+
+## Graphs and scripts share one event bus
+
+- A script's `Event.send(name, sender, data)` reaches every graph's `OnEvent` with that name. `OnEvent`'s
+  payload is a float: a number is itself, a numeric string that number, a table with a numeric `value`
+  that, anything else `0`.
+- A graph's `EmitEvent` reaches scripts' `on_<name>(entity, data)` as well as other graphs, with
+  `data = { value, x, y }` — `x, y` being where the emitting entity was. It arrives a frame late, since
+  graphs run after scripts.
+
+**`OnDespawn` runs after the entity has gone**: its position, rotation and scale read as last seen, so a
+death burst lands where the thing died, but anything else on it reads zero. Put what a death handler
+needs into the graph as a literal.
+
+## Example: a pickup that despawns on contact
+
+```json
+{
+  "version": 1,
+  "nodes": [
+    { "id": "hit",    "op": "OnCollision" },
+    { "id": "sound",  "op": "PlaySound",
+      "params": { "sound_id": "sounds/pickup.wav" },
+      "in": { "volume": { "value": 0.8 } } },
+    { "id": "tell",   "op": "EmitEvent", "params": { "name": "picked_up" } },
+    { "id": "remove", "op": "Despawn" }
+  ],
+  "edges": [
+    { "from": "hit",   "to": "sound"  },
+    { "from": "sound", "to": "tell"   },
+    { "from": "tell",  "to": "remove" }
+  ]
+}
+```
+
+A score script hears it with `Event.on("picked_up", entity)` and `function on_picked_up(entity, data)`.
+The sound must be in the scene's `audio_refs`.
+
+## A graph that does not compile
+
+…is an entity that silently stands still. `cargo test -p jengine-core --test every_shipped_graph_compiles`
+loads every shipped graph; Engine Test Lab scenes 18, 68 and 100 exercise triggers, structural commands
+and the event bus.
+
+## Telemetry
+
+`ScriptSystem::take_frame_metrics()` reports, per frame:
+
+| Counter | Meaning |
+|---------|---------|
+| `behavior_commands_emitted` | Structural commands (spawn/despawn/sound) queued this frame |
+| `behavior_overbudget_ms` | Cumulative ms over the soft per-frame budget |
+| `behavior_critical_overbudget_ms` | Cumulative ms over the hard budget |
+
+## Editor integration
+
+- `.behavior` files open in the node-graph editor from the Asset Browser
+- Entities with a `behavior_graph` show an **Edit Behavior** button in the Inspector
+- The Inspector lists each node's params as editable fields
+
+The full runtime architecture — frame phases, conflict priority, compiled format, pin types — is in
+`docs/step7-behavior-graph-spec.md` in the repository.

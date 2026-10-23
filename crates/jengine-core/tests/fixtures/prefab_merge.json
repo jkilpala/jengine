@@ -1,0 +1,78 @@
+{
+  "_doc": "How a prefab instance resolves: the template's components, the entity's own over them, then the dotted-path overrides. Read by the Rust merge's test (prefab_merge_matches_the_editor) and the editor's (editor/src/lib/prefabInstance.test.ts), so the two merges cannot drift apart.",
+  "template": {
+    "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+    "sprite": { "texture_id": "hero.png", "color": [1, 1, 1, 1], "z_order": 2, "size": [32, 32] },
+    "point_light": { "radius": 120, "intensity": 1.5, "color": [1, 0.8, 0.6], "falloff": 2 }
+  },
+  "cases": [
+    {
+      "name": "the entity's own transform wins",
+      "entity": {
+        "transform": { "position": [40, 10], "rotation": 0.5, "scale": [2, 2] },
+        "prefab_instance": { "prefab_id": "Hero" }
+      },
+      "expected": {
+        "transform": { "position": [40, 10], "rotation": 0.5, "scale": [2, 2] },
+        "sprite": { "texture_id": "hero.png", "color": [1, 1, 1, 1], "z_order": 2, "size": [32, 32] },
+        "point_light": { "radius": 120, "intensity": 1.5, "color": [1, 0.8, 0.6], "falloff": 2 }
+      }
+    },
+    {
+      "name": "a field override",
+      "entity": {
+        "prefab_instance": { "prefab_id": "Hero", "overrides": { "sprite.color": [1, 0, 0, 1], "point_light.radius": 64 } }
+      },
+      "expected": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "hero.png", "color": [1, 0, 0, 1], "z_order": 2, "size": [32, 32] },
+        "point_light": { "radius": 64, "intensity": 1.5, "color": [1, 0.8, 0.6], "falloff": 2 }
+      }
+    },
+    {
+      "name": "an array element override",
+      "entity": {
+        "prefab_instance": { "prefab_id": "Hero", "overrides": { "sprite.size.1": 48 } }
+      },
+      "expected": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "hero.png", "color": [1, 1, 1, 1], "z_order": 2, "size": [32, 48] },
+        "point_light": { "radius": 120, "intensity": 1.5, "color": [1, 0.8, 0.6], "falloff": 2 }
+      }
+    },
+    {
+      "name": "a component overridden to null is removed",
+      "entity": {
+        "prefab_instance": { "prefab_id": "Hero", "overrides": { "point_light": null } }
+      },
+      "expected": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "hero.png", "color": [1, 1, 1, 1], "z_order": 2, "size": [32, 32] }
+      }
+    },
+    {
+      "name": "a whole component override replaces it",
+      "entity": {
+        "prefab_instance": { "prefab_id": "Hero", "overrides": { "sprite": { "texture_id": "ghost.png", "color": [1, 1, 1, 0.5], "z_order": 3, "size": [16, 16] } } }
+      },
+      "expected": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "ghost.png", "color": [1, 1, 1, 0.5], "z_order": 3, "size": [16, 16] },
+        "point_light": { "radius": 120, "intensity": 1.5, "color": [1, 0.8, 0.6], "falloff": 2 }
+      }
+    },
+    {
+      "name": "a component the entity adds",
+      "entity": {
+        "prefab_instance": { "prefab_id": "Hero" },
+        "tags": ["enemy"]
+      },
+      "expected": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "hero.png", "color": [1, 1, 1, 1], "z_order": 2, "size": [32, 32] },
+        "point_light": { "radius": 120, "intensity": 1.5, "color": [1, 0.8, 0.6], "falloff": 2 },
+        "tags": ["enemy"]
+      }
+    }
+  ]
+}

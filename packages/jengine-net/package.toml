@@ -1,0 +1,11 @@
+[package]
+name = "jengine-net"
+version = "0.1.0"
+description = "WebSocket transport, connection lifecycle and a script-reachable message bus"
+engine_version = "0.1.0"
+package_type = "full"
+# The guess would produce `jengine_net::NetPackage`, which happens to be
+# right — but it is one rename away from being wrong, and a wrong guess shows
+# up as a compile error inside a *generated* crate, which is a poor place to
+# debug from. Declared explicitly.
+entry_point = "jengine_net::NetPackage"

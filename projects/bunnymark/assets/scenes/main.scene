@@ -1,0 +1,112 @@
+{
+  "name": "BunnyMark",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280.0,
+          "viewport_height": 720.0
+        }
+      }
+    },
+    {
+      "name": "Spawner",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "JavaScript",
+          "source_path": "scripts/spawner.js"
+        },
+        "BunnySpawner": {
+          "auto_spawn": false,
+          "spawn_count": 100,
+          "total_spawned": 0
+        }
+      }
+    },
+    {
+      "name": "HUD",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Click or press SPACE to spawn bunnies",
+          "font_id": "",
+          "font_scale": 20.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Counter",
+      "components": {
+        "transform": {
+          "position": [
+            400.0,
+            330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/counter.lua"
+        },
+        "text": {
+          "text": "Bunnies: 0",
+          "font_id": "",
+          "font_scale": 20.0,
+          "color": [
+            0.54,
+            0.7,
+            0.98,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    }
+  ]
+}

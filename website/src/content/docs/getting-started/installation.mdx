@@ -1,0 +1,200 @@
+---
+title: Installation
+description: How to install jEngine and set up your development environment.
+draft: false
+---
+
+jEngine is built from source: you clone the repository, and the editor and the `jengine` command-line
+tool compile your game's runtime from that checkout. jEngine is a **0.x** release, so formats and APIs
+may still change between releases - see [Versioning & Stability](/getting-started/versioning/).
+
+## Platforms
+
+Development is **Windows-first**: the editor, every build script and most testing happen on Windows.
+What runs where:
+
+| Platform | Status |
+|---|---|
+| **Windows** | Native runtime and the editor. The main development platform. |
+| **Web** | WebGPU, with a WebGL2 fallback. Built with `jengine web-build`. |
+| **Android** | APKs and Play bundles from `jengine android-build`. Lua scripts only (no JavaScript). |
+| **Linux** | Builds and runs, but has only been tested under WSL. |
+| **macOS** | Type-checked only. No macOS build has been linked or run: **unverified**. |
+| **iOS** | Experimental. A build exists, but it has **never run**. |
+
+[Cross-Platform](/architecture/cross-platform/) has the details.
+
+## Prerequisites
+
+### Everyone
+
+- **Rust** through [rustup](https://rustup.rs/). The engine needs Rust **1.97 or later** (`rust-version` in
+  `Cargo.toml`). `rust-toolchain.toml` asks for stable with the wasm target and clippy, so rustup
+  adds those by itself the first time you run `cargo` in the checkout. In the editor,
+  **Help > Check Build Tools** lists anything a build still needs.
+- **Node.js 20+** - [nodejs.org](https://nodejs.org/). The editor's frontend and this site are built with it.
+- **Git** - [git-scm.com](https://git-scm.com/).
+
+### For the editor
+
+- **wasm-pack** and the **`wasm32-unknown-unknown`** target: the editor runs your game through a
+  WebAssembly build of the engine.
+- **Tauri CLI 2**: `cargo install tauri-cli --version "^2"`.
+- **Windows**: the Visual Studio Build Tools with the *Desktop development with C++* workload, and
+  **WebView2** (already part of Windows 10 and 11; otherwise install the Evergreen runtime from Microsoft).
+
+On Windows, `setup-dev.ps1` installs wasm-pack, the Tauri CLI, the wasm target and the editor's npm
+packages for you (see below).
+
+### For Android builds
+
+- The **Android SDK** (`ANDROID_HOME`) with the **NDK** (`ANDROID_NDK_HOME`), and a JDK.
+- **cargo-ndk**: `cargo install cargo-ndk`, plus the Rust Android targets, e.g.
+  `rustup target add aarch64-linux-android x86_64-linux-android`.
+
+### macOS and Linux
+
+Every PowerShell script at the repository root has a `.sh` twin - `./setup-dev.sh`,
+`./run-editor.sh`, `./build-viewport.sh` and so on - that does the same thing. Keep in mind that
+macOS itself is unverified and Linux has only been run under WSL.
+
+## Clone the repository
+
+```bash
+git clone https://github.com/jkilpala/jengine.git
+cd jengine
+```
+
+## Set up and start the editor
+
+The editor is a Tauri 2 + Svelte application. Install its tools once from the repository root:
+
+```powershell
+.\setup-dev.ps1        # wasm-pack, tauri-cli, the wasm32 target, editor npm packages (-DryRun to preview)
+```
+
+```bash
+./setup-dev.sh         # the same on macOS / Linux
+```
+
+Then start it:
+
+```powershell
+.\run-editor.ps1       # builds the viewport WASM (release), then runs `cargo tauri dev`
+```
+
+`run-editor.ps1` rebuilds the editor's viewport module on each start so it matches the Rust code, and
+keeps it built for whichever project last needed its own packages. `-DevWasm` builds it unoptimised
+(faster to compile, not representative frame rates); `-Clean` fixes stale-library link errors. The
+first start compiles the whole engine and takes several minutes.
+
+From the editor you create scenes, add entities, attach scripts, and build your game.
+
+## The `jengine` command-line tool
+
+Everything the editor's Build panel does is also a command of the `jengine` CLI, which lives in the
+`jengine-builder` crate. Run it from the checkout with Cargo:
+
+```bash
+cargo run -p jengine-builder --bin jengine -- help
+```
+
+or install it once and call it as `jengine`:
+
+```bash
+cargo install --path crates/jengine-builder --bin jengine
+jengine help
+```
+
+A build compiles your game's runtime from the engine's source, so the CLI needs to find the engine
+checkout. It uses the **`JENGINE_HOME`** environment variable when that is set, and otherwise walks up
+from the current directory to the nearest checkout - so an installed `jengine` works anywhere once
+`JENGINE_HOME` points at your clone, and works without it inside the clone.
+
+The examples below use the `cargo run` form; with the CLI installed, replace
+`cargo run -p jengine-builder --bin jengine --` with `jengine`.
+
+### Run a project natively
+
+```bash
+cargo run -p jengine-builder --bin jengine -- run projects/engine-test-lab
+```
+
+This builds the native game in release mode and starts it from the project folder - here the Engine
+Test Lab, a menu of small scenes, one per engine feature. `--instances 2` starts two copies side by
+side, each with its own saves, which is how you test a multiplayer game on one machine.
+
+### Make a new project
+
+```bash
+cargo run -p jengine-builder --bin jengine -- project new projects/my-game
+```
+
+This writes the starter project (a scene, a player script and input actions) that the editor's
+*New Project* writes too. `--template empty` gives only the settings.
+
+### Build for the web
+
+```bash
+cargo run -p jengine-builder --bin jengine -- web-build projects/engine-test-lab
+```
+
+The output goes to `target/web-build/<project>/`; serve that folder over HTTP to play it. Add
+`--platform poki` (or `jcabinet`, `crazygames`, `youtube`) to build for a game portal - see
+[Web Portals](/guides/web-portals/).
+
+### Build for Android
+
+```bash
+cargo run -p jengine-builder --bin jengine -- android-build projects/engine-test-lab --abi x86_64 --run
+```
+
+This makes a debug-signed APK without Gradle and starts it on a connected device or emulator.
+`--bundle --release-key` makes the bundle Google Play takes. Android builds run Lua scripts only.
+
+### Linux, macOS and iOS
+
+`jengine linux-build`, `jengine macos-build` and `jengine ios-build` exist. On Windows a Linux build is
+made inside WSL. The macOS and iOS builds need a Mac, and neither has been verified - see the
+platform table above.
+
+## Checking your changes
+
+If you work on the engine itself:
+
+```bash
+cargo check --workspace
+cargo test --workspace -j 4    # -j 4: at full parallelism the linker can run out of memory
+npm test --prefix editor       # the editor's TypeScript tests
+```
+
+## Project Structure
+
+```
+jengine/
+├── crates/
+│   ├── jengine-core/             # Engine library (renderer, ECS, scripting, physics, audio...)
+│   ├── jengine-runtime/          # Native runtime (Windows, Linux, Android)
+│   ├── jengine-web/              # WASM runtime for browsers
+│   ├── jengine-editor-viewport/  # WASM module that runs the game inside the editor
+│   ├── jengine-builder/          # Build pipeline and the `jengine` CLI
+│   ├── jengine-server/           # Game server framework, its dashboard, and the jengine-fleet deploy tool
+│   ├── jengine-relay/            # The smallest server: an ordered move log for turn-based games
+│   ├── jengine-netcode/          # Client-side prediction shared by server and client
+│   ├── jengine-liveops/          # Live ops types (config, experiments, content releases) and signing
+│   └── jengine-benchmark*/       # Performance harnesses
+├── packages/                     # Engine packages (Rust crates) - see /packages/
+├── templates/                    # Scaffolds for new projects and packages
+├── editor/                       # Visual editor (Tauri 2 + Svelte)
+├── projects/                     # engine-test-lab (a scene per feature) and visual-showcase
+├── docs/                         # Design notes and contracts
+└── website/                      # This documentation site
+```
+
+## Next Steps
+
+- [Your First Project](/getting-started/first-project/) — Create a simple game
+- [Editor Overview](/getting-started/editor-overview/) — Learn the editor interface
+- [Versioning & Stability](/getting-started/versioning/) — What may change before 1.0
+- [Scripting API](/api-reference/scripting-api/) — Full API reference
+- [Packages](/packages/) — What ships with the engine, and how to add your own

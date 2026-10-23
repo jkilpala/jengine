@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "name": "Main",
+  "audio_refs": [],
+  "atlas_refs": [],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "camera": { "zoom": 1, "is_active": true, "viewport_width": 1280, "viewport_height": 720 }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": { "position": [0, 220], "rotation": 0, "scale": [1, 1] },
+        "text": { "text": "{{PROJECT_NAME}}", "font_id": "", "font_scale": 2, "color": [0.9, 0.92, 1.0, 1], "z_order": 100, "align": "center" }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": { "position": [0, -240], "rotation": 0, "scale": [1, 1] },
+        "text": { "text": "Arrows / WASD / stick to move - edit assets/scripts/player.lua", "font_id": "", "font_scale": 1, "color": [0.55, 0.6, 0.7, 1], "z_order": 100, "align": "center" }
+      }
+    },
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "__white", "color": [0.35, 0.7, 1.0, 1], "z_order": 10, "size": [48, 48], "anchor": [0.5, 0.5] },
+        "script": { "language": "Lua", "source_path": "scripts/player.lua" }
+      }
+    }
+  ]
+}

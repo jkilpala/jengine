@@ -1,0 +1,472 @@
+{
+ "name": "274 - Slice",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      1100.0,
+      20.0
+     ],
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1.0
+     ],
+     "z_order": -5
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1100.0,
+       "height": 20.0
+      }
+     },
+     "friction": 0.8
+    }
+   }
+  },
+  {
+   "name": "Box",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab274_face.png",
+     "size": [
+      160.0,
+      160.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 1
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 160.0,
+       "height": 160.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.1
+    },
+    "sliceable": {
+     "inside_texture": "sprites/lab274_inside.png",
+     "separation": 90.0,
+     "min_area": 150.0,
+     "generations": 2
+    }
+   }
+  },
+  {
+   "name": "BoxLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -330.0,
+      -10.0
+     ],
+     "size": [
+      200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "box",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Disc",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab274_face.png",
+     "size": [
+      160.0,
+      160.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 1
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 80.0
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.1
+    },
+    "sliceable": {
+     "inside_texture": "sprites/lab274_inside.png",
+     "separation": 90.0,
+     "min_area": 150.0,
+     "generations": 2
+    }
+   }
+  },
+  {
+   "name": "DiscLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      0.0,
+      -10.0
+     ],
+     "size": [
+      200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "disc",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Wedge",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab274_wedge.png",
+     "size": [
+      180.0,
+      160.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 1
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Triangle": {
+       "a": [
+        -90.0,
+        -70.0
+       ],
+       "b": [
+        90.0,
+        -70.0
+       ],
+       "c": [
+        0.0,
+        90.0
+       ]
+      }
+     },
+     "friction": 0.6,
+     "restitution": 0.1
+    },
+    "sliceable": {
+     "inside_texture": "sprites/lab274_inside.png",
+     "separation": 90.0,
+     "min_area": 150.0,
+     "generations": 2
+    }
+   }
+  },
+  {
+   "name": "WedgeLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      330.0,
+      -10.0
+     ],
+     "size": [
+      200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "wedge",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "274 - Slice",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   drag the mouse across a shape to cut it   R reset   (still: an automatic cut)",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: a cut makes two bodies that part along it and fall; the halves are drawn with the orange rings inside,",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "lined up across the cut. A half cuts twice more; a graze at an edge cuts nothing (`sliceable`, `Physics.slice`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_274_slice.lua"
+    }
+   }
+  }
+ ]
+}

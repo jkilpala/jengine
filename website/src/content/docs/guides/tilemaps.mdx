@@ -1,0 +1,93 @@
+---
+draft: false
+title: Tilemaps
+description: Working with tilemaps in jEngine.
+---
+
+jEngine draws tile maps - orthogonal, isometric or hexagonal - and imports them from Tiled JSON (`.tmj`).
+
+## Tilemap Component
+
+A `tilemap` entity renders a grid of tiles from tileset images, in layers.
+
+- **Cell (0, 0) hangs from the entity's transform** - its top-left corner - and rows run **down**. A
+  game that thinks of its grid as centred must move the transform to the corner itself.
+- **Tile id `0` is empty**, not a tile, everywhere: drawing, colliders and `get_tile`.
+- `orientation: "isometric"` lays diamonds; hexagonal maps take `hex_side`, `stagger_axis` and
+  `stagger_index` as Tiled has them. Ask the map for positions (`Tilemap.tile_to_world`) rather than
+  multiplying by the tile size, and code works on any shape.
+- A layer with `y_sort` is drawn in the sprite pass, sorted with characters walking among its tiles;
+  other layers draw before every sprite.
+- A tileset's `animations` play tiles as frames, while the cell keeps naming the tile.
+
+## Collision
+
+A `tilemap_collider` names the layers that are solid and those that are one-way; the tiles are merged
+into as few boxes as possible and rebuilt per 32x32 chunk when they change. A layer flagged
+`collision` (Tiled's convention) is solid on its own. `Tilemap.set_tile` is the edit that rebuilds the
+colliders - cheap enough to be a game's main verb.
+
+### Tile shapes
+
+A tile is solid over its whole cell unless its tileset gives it a **shape**: a convex `collision`
+outline (a slope, a plank, a ledge) in the tile's pixels, `(0, 0)` top-left and y down, or an empty one
+for a tile that is walked through. Tiled's tile collision objects import as these, and the tilemap
+editor's palette has the common shapes under **Shape**.
+
+```json
+"shapes": [
+  { "tile": 4, "collision": [[0, 32], [32, 32], [32, 0]] },
+  { "tile": 6, "collision": [] }
+]
+```
+
+## Shadows
+
+Tiles cast shadows when a `tilemap_occluder` names their layers:
+
+```json
+"tilemap_occluder": { "layers": ["rock"] }
+```
+
+The cells are merged into a few long outlines (a wall of a hundred tiles is the four edges round it) and
+rebuilt when the tiles change, so `Tilemap.set_tile` reaches the shadows as it reaches the colliders. A
+tile's `occluder` shape defaults to its collision outline; an empty one casts nothing (glass, a crystal
+vein). The shadow settings are a `light_occluder`'s (`shadow_tint`, `self_shadow`, `shadow_length`, ...).
+
+## Autotiling
+
+An `autotile` component paints a layer in **terrains**: the layer's cells become terrain numbers, and the
+art is drawn on a dual grid with a tile on every cell corner, chosen from the four cells around it. A
+tileset made for it has sixteen tiles a terrain. Collision still reads the cells.
+
+## Scripting API
+
+```lua
+-- Get tile at grid position
+local gid = Tilemap.get_tile(entity, "Ground", 5, 3)
+
+-- Set a tile
+Tilemap.set_tile(entity, "Ground", 5, 3, 42)
+
+-- Clear a tile (nil, 0 or a negative id all mean empty)
+Tilemap.set_tile(entity, "Ground", 5, 3, nil)
+
+-- Get tile at world position
+local gid = Tilemap.get_tile_at_world(entity, "Ground", player_x, player_y)
+
+-- Convert between coordinate systems
+local tx, ty = Tilemap.world_to_tile(entity, world_x, world_y)
+local wx, wy = Tilemap.tile_to_world(entity, 5, 3)
+
+-- A* over a layer's walkable cells (graph A* on a hex map)
+local path = Tilemap.find_path(entity, "Ground", 1, 1, 12, 8, mode)
+local cells = Tilemap.neighbors(entity, 5, 3)
+local steps = Tilemap.distance(entity, 1, 1, 12, 8)
+```
+
+## Tiled Editor Integration
+
+1. Create your map in [Tiled](https://www.mapeditor.org/)
+2. Export as JSON (`.tmj`)
+3. Import the file into your jEngine project assets
+4. Add a Tilemap component to an entity and reference the tileset

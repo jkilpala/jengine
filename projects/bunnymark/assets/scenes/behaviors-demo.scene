@@ -1,0 +1,129 @@
+{
+  "name": "BehaviorsDemo",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "camera": {
+          "zoom": 1,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Hero",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/bunny.png",
+          "color": [1, 1, 1, 1],
+          "z_order": 5
+        }
+      }
+    },
+    {
+      "name": "OscillatingSign",
+      "components": {
+        "transform": { "position": [0, 200], "rotation": 0, "scale": [1, 1] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/bunny.png",
+          "color": [1, 0.85, 0.4, 1],
+          "z_order": 1
+        },
+        "oscillator": {
+          "amplitude": [120, 0],
+          "frequency": [0.5, 0],
+          "phase": [0, 0],
+          "elapsed": 0
+        }
+      }
+    },
+    {
+      "name": "PulsingBunny",
+      "components": {
+        "transform": { "position": [-300, -150], "rotation": 0, "scale": [1, 1] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/bunny.png",
+          "color": [1, 0.4, 0.4, 1],
+          "z_order": 2
+        },
+        "tween": {
+          "target": "Opacity",
+          "from": 0.2,
+          "to": 1.0,
+          "duration": 1.5,
+          "elapsed": 0,
+          "ease": "EaseInOutQuad",
+          "on_complete": "PingPong"
+        }
+      }
+    },
+    {
+      "name": "FollowerBunny",
+      "components": {
+        "transform": { "position": [400, -200], "rotation": 0, "scale": [1, 1] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/bunny.png",
+          "color": [0.4, 0.8, 1, 1],
+          "z_order": 3
+        },
+        "follow_target": {
+          "target": { "kind": "Named", "value": "Hero" },
+          "offset": [40, 0],
+          "max_speed": 220,
+          "stop_distance": 8
+        }
+      }
+    },
+    {
+      "name": "BouncingCrate",
+      "components": {
+        "transform": { "position": [-200, 250], "rotation": 0, "scale": [1, 1] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/bunny.png",
+          "color": [0.6, 1, 0.6, 1],
+          "z_order": 4
+        },
+        "velocity": { "x": 80, "y": 0, "gravity": 600 },
+        "max_speed": { "value": 800 },
+        "bounce_area": {
+          "min_x": -600,
+          "min_y": -340,
+          "max_x": 600,
+          "max_y": 340,
+          "damping": 0.85
+        }
+      }
+    },
+    {
+      "name": "ThrustedShip",
+      "components": {
+        "transform": { "position": [200, 100], "rotation": 0, "scale": [1, 1] },
+        "sprite": {
+          "size": [64.0, 64.0],
+          "texture_id": "sprites/bunny.png",
+          "color": [0.9, 0.6, 1, 1],
+          "z_order": 4
+        },
+        "velocity": { "x": 0, "y": 0, "gravity": 0 },
+        "acceleration": { "x": 60, "y": 0 },
+        "max_speed": { "value": 400 },
+        "bounce_area": {
+          "min_x": -600,
+          "min_y": -340,
+          "max_x": 600,
+          "max_y": 340,
+          "damping": 1.0
+        }
+      }
+    }
+  ]
+}

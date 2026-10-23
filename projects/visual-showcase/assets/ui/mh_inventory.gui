@@ -1,0 +1,2286 @@
+{
+ "name": "Inventory",
+ "anchor": "TopLeft",
+ "root": {
+  "id": "root",
+  "node_type": {
+   "type": "Panel"
+  },
+  "style": {
+   "width": {
+    "type": "Percent",
+    "value": 100.0
+   },
+   "height": {
+    "type": "Percent",
+    "value": 100.0
+   },
+   "flex": {
+    "direction": "Column",
+    "gap": 0.0,
+    "align_items": "Center",
+    "justify_content": "Center"
+   }
+  },
+  "children": [
+   {
+    "id": "card",
+    "node_type": {
+     "type": "Panel"
+    },
+    "style": {
+     "width": {
+      "type": "Fixed",
+      "value": 900.0
+     },
+     "height": {
+      "type": "Fixed",
+      "value": 520.0
+     },
+     "bg_color": [
+      0.00598,
+      0.00719,
+      0.01165,
+      0.94
+     ],
+     "corner_radius": 24.0,
+     "shadow": {
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.55
+      ],
+      "offset": [
+       0.0,
+       10.0
+      ],
+      "blur": 22.0
+     },
+     "padding": {
+      "top": 24.0,
+      "right": 24.0,
+      "bottom": 24.0,
+      "left": 24.0
+     },
+     "flex": {
+      "direction": "Row",
+      "gap": 22.0,
+      "align_items": "Start",
+      "justify_content": "Start"
+     }
+    },
+    "children": [
+     {
+      "id": "left",
+      "node_type": {
+       "type": "Panel"
+      },
+      "style": {
+       "width": {
+        "type": "Fixed",
+        "value": 470.0
+       },
+       "height": {
+        "type": "Fixed",
+        "value": 472.0
+       },
+       "flex": {
+        "direction": "Column",
+        "gap": 16.0,
+        "align_items": "Start",
+        "justify_content": "Start"
+       }
+      },
+      "children": [
+       {
+        "id": "inv_head",
+        "node_type": {
+         "type": "Panel"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 470.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 56.0
+         },
+         "flex": {
+          "direction": "Row",
+          "gap": 0.0,
+          "align_items": "Center",
+          "justify_content": "SpaceBetween"
+         }
+        },
+        "children": [
+         {
+          "id": "inv_title",
+          "node_type": {
+           "type": "Text",
+           "text": "INVENTORY",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 40.0,
+           "color": [
+            1.0,
+            0.34239,
+            0.05088,
+            1.0
+           ],
+           "alignment": "Left"
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 260.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 50.0
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "gold",
+          "node_type": {
+           "type": "Panel"
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 160.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 40.0
+           },
+           "flex": {
+            "direction": "Row",
+            "gap": 6.0,
+            "align_items": "Center",
+            "justify_content": "End"
+           }
+          },
+          "children": [
+           {
+            "id": "gold_icon",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.875,
+              0.0,
+              1.0,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 30.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 30.0
+             }
+            },
+            "children": []
+           },
+           {
+            "id": "gold_text",
+            "node_type": {
+             "type": "Text",
+             "text": "1 240",
+             "font_id": "fonts/tabletop.font",
+             "font_size": 24.0,
+             "color": [
+              1.0,
+              0.69207,
+              0.10048,
+              1.0
+             ],
+             "alignment": "Left"
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 110.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 30.0
+             }
+            },
+            "children": []
+           }
+          ]
+         }
+        ]
+       },
+       {
+        "id": "grid",
+        "node_type": {
+         "type": "Panel"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 470.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 380.0
+         },
+         "layout": {
+          "mode": "Grid",
+          "columns": [
+           {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           {
+            "type": "Fixed",
+            "value": 80.0
+           }
+          ],
+          "rows": [
+           {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           {
+            "type": "Fixed",
+            "value": 80.0
+           }
+          ],
+          "column_gap": 16.0,
+          "row_gap": 16.0
+         }
+        },
+        "children": [
+         {
+          "id": "slot_0",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_0",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.0,
+              0.0,
+              0.125,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_1",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_1",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.125,
+              0.0,
+              0.25,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_2",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_2",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.25,
+              0.0,
+              0.375,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_3",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_3",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.375,
+              0.0,
+              0.5,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_4",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_4",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.5,
+              0.0,
+              0.625,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_5",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_5",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.625,
+              0.0,
+              0.75,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_6",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_6",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.75,
+              0.0,
+              0.875,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_7",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": [
+           {
+            "id": "slot_icon_7",
+            "node_type": {
+             "type": "Image",
+             "texture_id": "sprites/env/mh_icons.png",
+             "tint": [
+              1,
+              1,
+              1,
+              1
+             ],
+             "uv_rect": [
+              0.875,
+              0.0,
+              1.0,
+              1.0
+             ]
+            },
+            "style": {
+             "width": {
+              "type": "Fixed",
+              "value": 58.0
+             },
+             "height": {
+              "type": "Fixed",
+              "value": 58.0
+             }
+            },
+            "children": []
+           }
+          ]
+         },
+         {
+          "id": "slot_8",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_9",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_10",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_11",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_12",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_13",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_14",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_15",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_16",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_17",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_18",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "slot_19",
+          "node_type": {
+           "type": "Button",
+           "label": "",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 12.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.01533,
+            0.01739,
+            0.03007,
+            1.0
+           ],
+           "hover_color": [
+            0.07324,
+            0.05088,
+            0.0331,
+            1.0
+           ],
+           "pressed_color": [
+            0.17064,
+            0.07324,
+            0.01961,
+            1.0
+           ],
+           "hover_scale": 1.08
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 80.0
+           },
+           "corner_radius": 14.0,
+           "border_color": [
+            0,
+            0,
+            0,
+            0
+           ],
+           "border_width": 3.0,
+           "flex": {
+            "direction": "Column",
+            "gap": 0.0,
+            "align_items": "Center",
+            "justify_content": "Center"
+           }
+          },
+          "children": []
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "id": "details",
+      "node_type": {
+       "type": "Panel"
+      },
+      "style": {
+       "width": {
+        "type": "Fixed",
+        "value": 340.0
+       },
+       "height": {
+        "type": "Fixed",
+        "value": 472.0
+       },
+       "bg_color": [
+        0.01002,
+        0.01165,
+        0.01961,
+        0.9
+       ],
+       "corner_radius": 18.0,
+       "padding": {
+        "top": 18.0,
+        "right": 18.0,
+        "bottom": 18.0,
+        "left": 18.0
+       },
+       "flex": {
+        "direction": "Column",
+        "gap": 10.0,
+        "align_items": "Center",
+        "justify_content": "Start"
+       }
+      },
+      "children": [
+       {
+        "id": "item_frame",
+        "node_type": {
+         "type": "Panel"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 128.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 128.0
+         },
+         "bg_color": [
+          0.01533,
+          0.01739,
+          0.03007,
+          1.0
+         ],
+         "corner_radius": 22.0,
+         "shadow": {
+          "color": [
+           0,
+           0,
+           0,
+           0.4
+          ],
+          "offset": [
+           0,
+           6
+          ],
+          "blur": 14
+         },
+         "flex": {
+          "direction": "Column",
+          "gap": 0.0,
+          "align_items": "Center",
+          "justify_content": "Center"
+         }
+        },
+        "children": [
+         {
+          "id": "item_icon",
+          "node_type": {
+           "type": "Image",
+           "texture_id": "sprites/env/mh_icons.png",
+           "tint": [
+            1,
+            1,
+            1,
+            1
+           ],
+           "uv_rect": [
+            0.0,
+            0.0,
+            0.125,
+            1.0
+           ]
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 96.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 96.0
+           }
+          },
+          "children": []
+         }
+        ]
+       },
+       {
+        "id": "item_name",
+        "node_type": {
+         "type": "Text",
+         "text": "Ember Blade",
+         "font_id": "fonts/tabletop.font",
+         "font_size": 30.0,
+         "color": [
+          0.89001,
+          0.84809,
+          0.74841,
+          1.0
+         ],
+         "alignment": "Center"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 300.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 40.0
+         }
+        },
+        "children": []
+       },
+       {
+        "id": "item_desc",
+        "node_type": {
+         "type": "Text",
+         "text": "Forged in the last kiln.",
+         "font_id": "fonts/tabletop.font",
+         "font_size": 18.0,
+         "color": [
+          0.39312,
+          0.39312,
+          0.477,
+          1.0
+         ],
+         "alignment": "Center"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 300.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 26.0
+         }
+        },
+        "children": []
+       },
+       {
+        "id": "row_atk",
+        "node_type": {
+         "type": "Panel"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 300.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 28.0
+         },
+         "flex": {
+          "direction": "Row",
+          "gap": 10.0,
+          "align_items": "Center",
+          "justify_content": "Start"
+         }
+        },
+        "children": [
+         {
+          "id": "label_atk",
+          "node_type": {
+           "type": "Text",
+           "text": "Attack",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 20.0,
+           "color": [
+            0.39312,
+            0.39312,
+            0.477,
+            1.0
+           ],
+           "alignment": "Left"
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 100.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 26.0
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "bar_atk",
+          "node_type": {
+           "type": "ProgressBar",
+           "value": 0.5,
+           "min": 0.0,
+           "max": 1.0,
+           "fg_color": [
+            0.89001,
+            0.13287,
+            0.05088,
+            1.0
+           ],
+           "bg_color": [
+            0.02198,
+            0.02452,
+            0.03968,
+            1.0
+           ]
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 190.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 14.0
+           },
+           "corner_radius": 7.0
+          },
+          "children": []
+         }
+        ]
+       },
+       {
+        "id": "row_def",
+        "node_type": {
+         "type": "Panel"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 300.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 28.0
+         },
+         "flex": {
+          "direction": "Row",
+          "gap": 10.0,
+          "align_items": "Center",
+          "justify_content": "Start"
+         }
+        },
+        "children": [
+         {
+          "id": "label_def",
+          "node_type": {
+           "type": "Text",
+           "text": "Defence",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 20.0,
+           "color": [
+            0.39312,
+            0.39312,
+            0.477,
+            1.0
+           ],
+           "alignment": "Left"
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 100.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 26.0
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "bar_def",
+          "node_type": {
+           "type": "ProgressBar",
+           "value": 0.5,
+           "min": 0.0,
+           "max": 1.0,
+           "fg_color": [
+            0.10048,
+            0.31855,
+            0.89001,
+            1.0
+           ],
+           "bg_color": [
+            0.02198,
+            0.02452,
+            0.03968,
+            1.0
+           ]
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 190.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 14.0
+           },
+           "corner_radius": 7.0
+          },
+          "children": []
+         }
+        ]
+       },
+       {
+        "id": "row_wgt",
+        "node_type": {
+         "type": "Panel"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 300.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 28.0
+         },
+         "flex": {
+          "direction": "Row",
+          "gap": 10.0,
+          "align_items": "Center",
+          "justify_content": "Start"
+         }
+        },
+        "children": [
+         {
+          "id": "label_wgt",
+          "node_type": {
+           "type": "Text",
+           "text": "Weight",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 20.0,
+           "color": [
+            0.39312,
+            0.39312,
+            0.477,
+            1.0
+           ],
+           "alignment": "Left"
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 100.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 26.0
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "bar_wgt",
+          "node_type": {
+           "type": "ProgressBar",
+           "value": 0.5,
+           "min": 0.0,
+           "max": 1.0,
+           "fg_color": [
+            0.60383,
+            0.52252,
+            0.17064,
+            1.0
+           ],
+           "bg_color": [
+            0.02198,
+            0.02452,
+            0.03968,
+            1.0
+           ]
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 190.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 14.0
+           },
+           "corner_radius": 7.0
+          },
+          "children": []
+         }
+        ]
+       },
+       {
+        "id": "buttons",
+        "node_type": {
+         "type": "Panel"
+        },
+        "style": {
+         "width": {
+          "type": "Fixed",
+          "value": 300.0
+         },
+         "height": {
+          "type": "Fixed",
+          "value": 56.0
+         },
+         "flex": {
+          "direction": "Row",
+          "gap": 16.0,
+          "align_items": "Center",
+          "justify_content": "Center"
+         }
+        },
+        "children": [
+         {
+          "id": "btn_equip",
+          "node_type": {
+           "type": "Button",
+           "label": "Equip",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 22.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.02452,
+            0.03007,
+            0.05497,
+            1.0
+           ],
+           "hover_color": [
+            1.0,
+            0.34239,
+            0.05088,
+            1.0
+           ],
+           "pressed_color": [
+            0.52252,
+            0.13287,
+            0.01341,
+            1.0
+           ],
+           "alignment": "Center",
+           "hover_scale": 1.06
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 140.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 46.0
+           },
+           "corner_radius": 23.0,
+           "shadow": {
+            "color": [
+             0.0,
+             0.0,
+             0.0,
+             0.45
+            ],
+            "offset": [
+             0.0,
+             5.0
+            ],
+            "blur": 10.0
+           }
+          },
+          "children": []
+         },
+         {
+          "id": "btn_back",
+          "node_type": {
+           "type": "Button",
+           "label": "Back",
+           "font_id": "fonts/tabletop.font",
+           "font_size": 22.0,
+           "text_color": [
+            0.89001,
+            0.84809,
+            0.74841,
+            1.0
+           ],
+           "normal_color": [
+            0.03968,
+            0.01739,
+            0.01739,
+            1.0
+           ],
+           "hover_color": [
+            1.0,
+            0.34239,
+            0.05088,
+            1.0
+           ],
+           "pressed_color": [
+            0.52252,
+            0.13287,
+            0.01341,
+            1.0
+           ],
+           "alignment": "Center",
+           "hover_scale": 1.06
+          },
+          "style": {
+           "width": {
+            "type": "Fixed",
+            "value": 140.0
+           },
+           "height": {
+            "type": "Fixed",
+            "value": 46.0
+           },
+           "corner_radius": 23.0,
+           "shadow": {
+            "color": [
+             0.0,
+             0.0,
+             0.0,
+             0.45
+            ],
+            "offset": [
+             0.0,
+             5.0
+            ],
+            "blur": 10.0
+           }
+          },
+          "children": []
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

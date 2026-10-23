@@ -1,0 +1,1116 @@
+{
+ "name": "85 - Guest Book",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.35
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.03,
+       0.01,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.92,
+       0.8,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Desk",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/guestbook/desk.png",
+     "color": [
+      0.60383,
+      0.60383,
+      0.60383,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Book",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/guestbook/book.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1100.0,
+      640.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CandleGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -605.0,
+      215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.44799,
+      0.10048,
+      0.28
+     ],
+     "z_order": -40,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Candle",
+   "components": {
+    "transform": {
+     "position": [
+      -605.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/guestbook/candle.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      60.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Inkwell",
+   "components": {
+    "transform": {
+     "position": [
+      590.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/guestbook/inkwell.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LeftTitle",
+   "components": {
+    "transform": {
+     "position": [
+      -280.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Guests of the Pale Moon",
+     "font_id": "",
+     "font_scale": 1.35,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "RightTitle",
+   "components": {
+    "transform": {
+     "position": [
+      280.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Sign the book",
+     "font_id": "",
+     "font_scale": 1.35,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Entry0Who",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Entry0Said",
+   "components": {
+    "transform": {
+     "position": [
+      -502.0,
+      164.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.08354,
+      0.04696,
+      0.0331,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left",
+     "wrap_width": 470.0
+    }
+   }
+  },
+  {
+   "name": "Entry1Who",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      112.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Entry1Said",
+   "components": {
+    "transform": {
+     "position": [
+      -502.0,
+      86.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.08354,
+      0.04696,
+      0.0331,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left",
+     "wrap_width": 470.0
+    }
+   }
+  },
+  {
+   "name": "Entry2Who",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      34.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Entry2Said",
+   "components": {
+    "transform": {
+     "position": [
+      -502.0,
+      8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.08354,
+      0.04696,
+      0.0331,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left",
+     "wrap_width": 470.0
+    }
+   }
+  },
+  {
+   "name": "Entry3Who",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -44.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Entry3Said",
+   "components": {
+    "transform": {
+     "position": [
+      -502.0,
+      -70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.08354,
+      0.04696,
+      0.0331,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left",
+     "wrap_width": 470.0
+    }
+   }
+  },
+  {
+   "name": "Entry4Who",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -122.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "Entry4Said",
+   "components": {
+    "transform": {
+     "position": [
+      -502.0,
+      -148.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.85,
+     "color": [
+      0.08354,
+      0.04696,
+      0.0331,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left",
+     "wrap_width": 470.0
+    }
+   }
+  },
+  {
+   "name": "GbNameLabel",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      162.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Name",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.14732,
+      0.08354,
+      0.05497,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "GbNameLine",
+   "components": {
+    "transform": {
+     "position": [
+      280.0,
+      102.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      0.6
+     ],
+     "z_order": 4,
+     "size": [
+      430.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GbName",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      280.0,
+      120.0
+     ],
+     "size": [
+      440.0,
+      40.0
+     ],
+     "z_order": 20
+    },
+    "ui_text_input": {
+     "text": "",
+     "placeholder": "your name",
+     "font_size": 22.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "bg_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "max_length": 28
+    }
+   }
+  },
+  {
+   "name": "GbFromLabel",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      82.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Come from",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.14732,
+      0.08354,
+      0.05497,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "GbFromLine",
+   "components": {
+    "transform": {
+     "position": [
+      280.0,
+      22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      0.6
+     ],
+     "z_order": 4,
+     "size": [
+      430.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GbFrom",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      280.0,
+      40.0
+     ],
+     "size": [
+      440.0,
+      40.0
+     ],
+     "z_order": 20
+    },
+    "ui_text_input": {
+     "text": "",
+     "placeholder": "where from",
+     "font_size": 22.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "bg_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "max_length": 28
+    }
+   }
+  },
+  {
+   "name": "GbWordLabel",
+   "components": {
+    "transform": {
+     "position": [
+      70.0,
+      2.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "A word for the house",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.14732,
+      0.08354,
+      0.05497,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "left"
+    }
+   }
+  },
+  {
+   "name": "GbWordLine",
+   "components": {
+    "transform": {
+     "position": [
+      280.0,
+      -58.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      0.6
+     ],
+     "z_order": 4,
+     "size": [
+      430.0,
+      2.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "GbWord",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      280.0,
+      -40.0
+     ],
+     "size": [
+      440.0,
+      40.0
+     ],
+     "z_order": 20
+    },
+    "ui_text_input": {
+     "text": "",
+     "placeholder": "what will you tell them?",
+     "font_size": 22.0,
+     "color": [
+      0.01533,
+      0.00854,
+      0.00598,
+      1.0
+     ],
+     "bg_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "max_length": 72
+    }
+   }
+  },
+  {
+   "name": "GbSign",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      280.0,
+      -150.0
+     ],
+     "size": [
+      220.0,
+      50.0
+     ],
+     "z_order": 20
+    },
+    "ui_panel": {
+     "bg_color": [
+      0.10654,
+      0.01341,
+      0.00719,
+      0.9
+     ]
+    },
+    "ui_button": {
+     "normal_color": [
+      0.10654,
+      0.01341,
+      0.00719,
+      0.92
+     ],
+     "hover_color": [
+      0.19599,
+      0.02721,
+      0.01165,
+      0.95
+     ],
+     "pressed_color": [
+      0.05497,
+      0.00719,
+      0.00394,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "SIGN",
+     "font_size": 24.0,
+     "color": [
+      0.9551,
+      0.78741,
+      0.44799,
+      1.0
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "GbNote",
+   "components": {
+    "transform": {
+     "position": [
+      280.0,
+      -225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.14732,
+      0.08354,
+      0.05497,
+      1.0
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s85_guest_book.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "85   Guest Book",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click a line and write   Enter  next / sign   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

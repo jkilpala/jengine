@@ -1,0 +1,570 @@
+{
+ "name": "243 - Wall occlusion",
+ "audio_refs": [
+  "sounds/market_chimes.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "RoomTop",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      520,
+      24
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 520,
+       "height": 24
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "RoomBottom",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      520,
+      24
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 520,
+       "height": 24
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "RoomRight",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      24,
+      400
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 24,
+       "height": 400
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "RoomLeftTop",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      24,
+      180
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 24,
+       "height": 180
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "RoomLeftBottom",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.5,
+      0.55,
+      0.65,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      24,
+      180
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 24,
+       "height": 180
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Door",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.8,
+      0.55,
+      0.3,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      20,
+      40
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 20,
+       "height": 40
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Extra",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.8,
+      0.4,
+      0.4,
+      1
+     ],
+     "z_order": 1,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      24,
+      400
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 24,
+       "height": 400
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Chimes",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      1.0,
+      0.85,
+      0.4,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      30.0,
+      30.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/market_chimes.wav",
+     "volume": 1.0,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "spatial": true,
+     "min_distance": 120.0,
+     "max_distance": 1400.0,
+     "pan_width": 600.0,
+     "occlusion": 0.5,
+     "muffle": 700.0
+    }
+   }
+  },
+  {
+   "name": "Ear",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.4,
+      0.8,
+      1.0,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      26.0,
+      26.0
+     ]
+    },
+    "audio_listener": {
+     "room_reverb": "sfx",
+     "room_reach": 900.0,
+     "room_mix": 0.6
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "243 - Wall occlusion",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   D door   W extra wall   Space pause",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      900.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect (listen): the blue ear walks into the room and out; inside, the chimes are clear and ring with the room's reverb; outside with the",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "door shut they are quieter and dull, through the red wall too duller still; D opens the door - clear again (`occlusion`, `muffle`, `room_reverb`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_243_wall_occlusion.lua"
+    }
+   }
+  }
+ ]
+}

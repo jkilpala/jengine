@@ -1,0 +1,55 @@
+# A release is a tag: `git tag v0.1.0 && git push origin v0.1.0`.
+#
+# jEngine is released as source - building a game compiles the engine, so
+# the editor and the CLI work from a checkout - so a release is the tagged
+# source with its notes. This checks the tag is the version the workspace
+# says, takes that version's section of CHANGELOG.md as the notes, and
+# publishes the GitHub release. CI (ci.yml) runs on the same commit.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: The tag is the workspace version
+        shell: bash
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          version="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)"
+          if [ "$tag" != "$version" ]; then
+            echo "::error::tag v$tag does not match the workspace version $version (Cargo.toml)"
+            exit 1
+          fi
+
+      - name: Notes from CHANGELOG.md
+        shell: bash
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          # The section from "## [<version>]" up to the next "## [".
+          awk -v head="## [$tag]" '
+            index($0, head) == 1 { on = 1; next }
+            on && index($0, "## [") == 1 { exit }
+            on { print }
+          ' CHANGELOG.md > notes.md
+          if [ ! -s notes.md ]; then
+            echo "::error::CHANGELOG.md has no section for $tag"
+            exit 1
+          fi
+          if grep -q "^## \[$tag\] - Unreleased" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md still calls $tag Unreleased - give it the release date"
+            exit 1
+          fi
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --title "jEngine ${GITHUB_REF_NAME#v}" --notes-file notes.md --verify-tag

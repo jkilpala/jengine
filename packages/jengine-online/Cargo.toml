@@ -1,0 +1,33 @@
+[package]
+name = "jengine-online"
+description = "A game's side of jengine-server: sign in, join rooms, and show the server's synced entities in the scene"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+jengine-core = { path = "../../crates/jengine-core", default-features = false }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+hecs = { workspace = true }
+glam = { workspace = true }
+# Prediction: the same step function the server runs, linked rather than copied.
+jengine-netcode = { path = "../../crates/jengine-netcode" }
+
+# `jengine-core`'s browser bindings are behind `web`, and it does not compile
+# for wasm32 without them. A viewport build turns it on anyway; declaring it
+# here is what lets this crate be checked for wasm32 on its own.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+jengine-core = { path = "../../crates/jengine-core", default-features = false, features = ["web"] }
+
+[dev-dependencies]
+# Only the tests link these: one pins the `Net` channel's field names against
+# `jengine-net`'s own, and one puts two hosted clients in a real server's
+# zone. At runtime the network package is *present* (listed by the project),
+# never linked - see the crate docs.
+jengine-net = { path = "../jengine-net" }
+jengine-server = { path = "../../crates/jengine-server", default-features = false }

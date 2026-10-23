@@ -1,0 +1,561 @@
+---
+draft: false
+title: Best Practices & Architecture
+description: Game architecture patterns, performance budgeting, component selection, and cross-platform optimization for jEngine.
+---
+
+This guide covers proven patterns for architecting jEngine games, choosing between native components and scripts, optimizing performance, and managing assets effectively.
+
+## Game Architecture
+
+### Scene Organization
+
+**Recommended structure:**
+
+```
+assets/scenes/
+├── levels/
+│   ├── level_1.scene
+│   ├── level_2.scene
+│   └── boss_arena.scene
+├── ui/
+│   ├── main_menu.scene
+│   ├── pause_menu.scene
+│   └── game_over.scene
+└── shared/
+    └── player_death.scene    # transitional scene (no rendering)
+```
+
+**Scene stack pattern** — use `Scene.push` for overlays, `Scene.load` for full transitions. Scene paths are relative to `assets/`:
+
+```lua
+-- In pause menu script
+function on_pause_pressed()
+    Scene.push("scenes/ui/pause_menu.scene")
+end
+
+function on_resume()
+    Scene.pop()
+end
+
+-- In main menu
+function on_start_game()
+    Scene.load("scenes/levels/level_1.scene")
+end
+```
+
+### Prefab Strategy
+
+Create reusable entity templates in `assets/prefabs/`:
+
+```
+assets/prefabs/
+├── enemies/
+│   ├── zombie.prefab
+│   ├── flying_enemy.prefab
+│   └── boss.prefab
+├── items/
+│   ├── coin.prefab
+│   ├── health_potion.prefab
+│   └── ammo_box.prefab
+├── projectiles/
+│   ├── bullet.prefab
+│   ├── fireball.prefab
+│   └── arrow.prefab
+└── environmental/
+    ├── spikes.prefab
+    ├── moving_platform.prefab
+    └── torch.prefab
+```
+
+**Prefab composition:**
+
+```json
+{
+  "name": "Zombie",
+  "components": {
+    "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+    "sprite": { "texture_id": "sprites/zombie.png", "color": [1,1,1,1], "z_order": 5 },
+    "rigid_body": { "body_type": "Dynamic" },
+    "collider": { "shape": { "Circle": { "radius": 16 } } },
+    "velocity": { "x": 0, "y": 0 },
+    "script": { "source_path": "scripts/enemies/zombie_ai.lua", "language": "Lua" }
+  }
+}
+```
+
+Spawn at runtime with `Entity.spawn_prefab("prefabs/enemies/zombie.prefab")`, which returns the new entity. A prefab's textures are preloaded with the scene.
+
+---
+
+## Component Selection Guide
+
+**Decision tree:**
+
+```
+Is the motion continuous every frame (movement, falling, bouncing)?
+├─ YES: Native component or batch script
+│  ├─ Simple velocity? → velocity
+│  ├─ Bouncing off walls? → bounce_area
+│  ├─ Gravity + physics? → rigid_body + collider
+│  ├─ Scripted steering (10–100 entities)? → Tier 2 tick_rate script
+│  └─ Crowd motion (1000+ entities)? → Tier 3 batch script
+│
+└─ NO: Is it unique, stateful, or decision-driven?
+   ├─ Unique boss, door, NPC (1–20 per scene)? → Tier 1 script
+   ├─ Recurring logic (100s of entities, same AI)? → Tier 2 tick_rate script
+   ├─ Simple data-driven logic? → Behavior graph
+   └─ Frequently toggled (on/off every frame)? → Behavior graph with gates
+```
+
+### Native Components (Fastest)
+
+| Scene key | Use For | Example |
+|-----------|---------|---------|
+| `velocity` | Constant velocity motion | Projectiles, particle streams |
+| `bounce_area` | Bounce + constrain position | Play area bounds |
+| `follow_target` | Track another entity | Orbiting objects, companions |
+| `patrol_path` | Repeating waypoint path (add `face_velocity` to turn with it) | Guard patrols, NPCs on rails |
+| `lifetime` | Despawn after N seconds | Temporary effects, projectiles |
+| `despawn_offscreen` | Despawn once it leaves the view | Bullets, scrolling hazards |
+| `oscillator` | Sine wave motion | Floating, pulsing, torches |
+| `path_follow` | Ride a drawn `vector_path` at an even speed | Trains, conveyor items |
+| `nav_agent` | Walk to a point around obstacles | Crowds, NPCs |
+| `rigid_body` + `collider` | Full 2D physics | Complex interactions |
+
+These are ticked by the engine's shared motion step in every runtime, with no script cost.
+
+**Always prefer native for continuous motion.**
+
+### Tier 1 Scripts (Per-Entity)
+
+Use when:
+- Logic is **unique** to one or few entities
+- Decision-making is **complex** (if-heavy, state-dependent)
+- Entity needs to interact with **many subsystems**
+
+```lua
+-- Unique boss with health, attack pattern, phase transitions
+function update(entity, dt)
+    local hp = Entity.get_custom(entity, "Boss", "hp")
+    local phase = Entity.get_custom(entity, "Boss", "phase")
+
+    if hp < 100 and phase == 1 then
+        -- Phase 2: change attack pattern
+        Entity.set_custom(entity, "Boss", "phase", 2)
+        Animation.play(entity, "phase_change")
+    end
+
+    -- target player, consider distance, health, player position
+    -- attack pattern based on phase
+end
+```
+
+**Performance**: 1–2 ms per 100 active scripts (depends on complexity).
+
+### Tier 2 Scripts (Throttled, Event-Driven)
+
+Use when:
+- Same **AI logic** for 100–1000 similar entities
+- Can **afford to re-evaluate every N frames** (not every frame)
+- Want **immediate reactions** to events
+
+```lua
+-- NPC guard with infrequent patrolling + immediate contact response
+script = {
+    tick_rate = 10,           -- update ten times a second
+    events = { "on_collision_enter" }
+}
+
+function update(entity, dt)
+    -- runs 10 times a second, not 60 (natively; browsers run it every frame)
+    local player = Entity.find_by_name("Player")
+    if player then
+        -- chase if in range
+    end
+end
+
+function on_collision_enter(entity, other)
+    -- fires as soon as the contact begins, whatever the tick rate
+    if Entity.get_name(other) == "Player" then
+        Audio.play_sound("sounds/alert.wav")
+    end
+end
+```
+
+**Performance**: `tick_rate` is in updates per second against a 60 Hz base, so the cost per frame is about `entity_count * (tick_rate / 60) * avg_script_time`. Example: 1000 entities at `tick_rate = 10` and 0.05 ms a script is ~8 ms a frame - too much; lower the rate, or move the work to Tier 3. The throttle applies on the native runtime; the editor and web call `update` every frame.
+
+### Tier 3 Batch Scripts (Data-Oriented)
+
+Use when:
+- **1000+ entities** with the **same motion logic**
+- Logic is **simple transforms** (no branching, no state)
+- Performance is **critical** (frame budget tight)
+
+```javascript
+// 30k zombie crowd
+const system = {
+    query: {
+        read: ["Velocity2D"],
+        write: ["Position2D"],
+        read_optional: [],
+    },
+    tick_rate: 1,
+};
+
+function update(ctx, q) {
+    const dt = ctx.dt;
+    const vx = q.read.Velocity2D.x;
+    const vy = q.read.Velocity2D.y;
+    const px = q.write.Position2D.x;
+    const py = q.write.Position2D.y;
+
+    for (let i = 0; i < q.count; i++) {
+        px[i] += vx[i] * dt;
+        py[i] += vy[i] * dt;
+    }
+}
+```
+
+**Performance**: about 1.1 ms for 30k entities in Lua table mode; at 20k entities a batch system replaced per-entity scripts at 91 ms with 4 ms (~21×). See the [Batch Scripts guide](/guides/batch-scripts/).
+
+### Behavior Graphs (Declarative)
+
+Use when:
+- Logic is a **simple graph** of predefined ops
+- You want **no VM overhead** and **designer tweaks** without recompiling
+- Goal is **temporal behavior** (wait X seconds, then move, then play sound)
+
+```json
+{
+  "version": 1,
+  "nodes": [
+    { "id": "tick", "op": "OnTick" },
+    { "id": "cooldown", "op": "Cooldown", "params": { "seconds": 2.0 } },
+    { "id": "move", "op": "AddVelocity", "params": { "scale": 100.0 } },
+    { "id": "on_hit", "op": "OnCollision" },
+    { "id": "despawn", "op": "Despawn" }
+  ],
+  "edges": [
+    { "from": "tick", "to": "cooldown" },
+    { "from": "cooldown", "to": "move" },
+    { "from": "on_hit.enter", "to": "despawn" }
+  ]
+}
+```
+
+**Performance**: Negligible. Graph is compiled to flat instruction list — no VM, no allocation.
+
+---
+
+## Performance Budgeting
+
+### Frame Time Budget (60 FPS)
+
+At 60 FPS, you have **16.67 ms per frame**. Typical allocation:
+
+| System | Budget | Typical Load |
+|--------|--------|--------------|
+| **Input** | 0.5 ms | Keyboard, mouse polling |
+| **Script (Tier 1)** | 2–4 ms | UI, bosses, cutscenes |
+| **Script (Tier 2/3)** | 1–2 ms | NPC AI, batch motion |
+| **Physics** | 2–5 ms | Rigid bodies, raycast, contacts |
+| **Animation** | 0.5 ms | Tweens, sprite sheets |
+| **Render** | 6–8 ms | Draw calls, batching |
+| **Overhead** | 1–2 ms | ECS queries, system dispatch |
+| **Headroom** | 2–3 ms | Emergency buffer |
+
+**Total: ~16 ms** (no margin leaves you at 60 FPS, but one spike drops to 30 FPS).
+
+### Script Budget Configuration
+
+The native runtime reads an optional budget from `settings` in `project.jengine`:
+
+```jsonc
+// project.jengine → "settings"
+"script_budget": {
+    "max_script_ms_per_frame": 4.0,       // hard cap on VM time
+    "max_invocations_per_frame": 2000,    // max function calls
+    "overflow_policy": "drop",            // "drop" | "warn" | "defer"
+    "deferred_cap": 256                   // max deferred commands
+}
+```
+
+**Monitor with the overlay**: `F3` in-game shows frame time and the per-system rows (`F4` draws
+collider and joint outlines, `F12` opens the entity inspector); the editor's profiler panel shows the
+same numbers. Build Settings → Debug Overlay decides whether a build ships them.
+
+If Script % > 70%, consider:
+1. Move logic to batch scripts (if 1000+ entities)
+2. Lower `tick_rate` on Tier 2 scripts
+3. Move to native components
+4. Profile to find expensive functions
+
+---
+
+## Asset Management
+
+### Naming Conventions
+
+**Textures:**
+```
+sprites/
+├── characters/
+│   ├── player_idle.png
+│   ├── player_walk.png
+│   ├── zombie_walk.png
+│   └── zombie_attack.png
+├── items/
+│   ├── coin_gold.png
+│   ├── health_potion.png
+│   └── key_rusty.png
+└── ui/
+    ├── button_idle.png
+    ├── button_hover.png
+    └── button_click.png
+```
+
+**Batching is per texture, not per name**: sprites drawn one after another from the same texture
+(and material) share a draw call. Pack sprites that are drawn together into one atlas -
+`assets/sprites/` is packed by the asset pipeline, or name a ready-made sheet in a scene's
+`atlas_refs`.
+
+**Scripts:**
+```
+scripts/
+├── player/
+│   ├── movement.lua
+│   ├── combat.lua
+│   └── health.lua
+├── enemies/
+│   ├── zombie_ai.lua
+│   ├── boss_ai.lua
+│   └── turret_ai.lua
+└── systems/
+    ├── crowd_mover.js
+    └── particle_updater.js
+```
+
+**Scenes & Prefabs:**
+```
+scenes/
+├── levels/level_01_forest.scene
+└── levels/level_02_cave.scene
+prefabs/
+├── zombie.prefab
+├── coin.prefab
+└── spike_trap.prefab
+```
+
+### Asset Loading
+
+Assets are loaded with the scene, not by scripts: textures named by its entities and by the prefabs
+it can spawn, sounds listed in the scene's top-level `"audio_refs"`, atlases in `"atlas_refs"`, fonts
+and `.gui` documents named by its components. A script names an asset by path and never loads one, so
+there is no per-frame lookup cost to avoid - but a sound missing from `audio_refs` does not play.
+
+```json
+{
+  "audio_refs": ["sounds/jump.wav", "sounds/coin.wav"],
+  "atlas_refs": ["atlases/characters.atlas"],
+  "entities": []
+}
+```
+
+### Memory Footprint
+
+**Estimate entity count:**
+- Small scene: 100–500 entities (mobile: 50–200)
+- Medium scene: 500–3000 entities
+- Large scene: 3000–10k entities (batch scripts required)
+- Crowd scene: 10k–100k entities (batch-only, no Tier 1 scripts)
+
+**Typical per-entity overhead:**
+- Transform + Sprite: ~200 bytes
+- RigidBody2D + Collider: +400 bytes
+- Script reference: +20 bytes
+- Total @ 10k entities: ~6.2 MB (negligible)
+
+**Avoid:**
+- Spawning 1000 entities per frame
+- Loading 50 MB textures into VRAM at once
+- Allocating strings in `update()` loops
+
+---
+
+## Cross-Platform Considerations
+
+### Native vs Web vs Android
+
+The same scene runs on every target, but not on the same machine:
+
+- **Web** builds run single-threaded WebAssembly. **Batch scripts do not run there at all** (nor in the
+  editor, nor on Android) - a crowd that must move everywhere wants native motion components. Measure a
+  crowd scene in a web build before promising its size.
+- **The editor viewport is a web build** of the engine. Judge frame rate on a release viewport (the
+  default), never on one built with `-DevWasm`.
+- **Android** builds run Lua only - no JavaScript and no batch scripts.
+- **Lua dialects differ**: Luau natively, Lua 5.3 (Fengari) in the editor and on the web. Keep to the
+  common subset, standard library included (`math.atan2` exists only in Luau), and floor a number before
+  `string.format("%d", ...)`, which throws on a fraction under Fengari.
+
+There is no script function that reports the platform: keep one set of assets, and use the project's
+texture filter rules and graphics backend settings (Project Settings → Graphics) for per-target choices.
+
+### Shader Compatibility
+
+Shaders are **WGSL** and the same source runs on every backend — wgpu
+translates it. There are no per-target shader variants to maintain.
+
+What does differ per target is which backends a build carries (Project
+Settings → Graphics): a web build wants WebGPU, a Windows build DX12 or
+Vulkan, iOS Metal. Shipping backends a target cannot use is dead weight,
+and shipping none fails at adapter request when the game launches.
+
+---
+
+## Common Anti-Patterns
+
+### ❌ Spawning Entities in a Loop
+
+```lua
+-- WRONG: 1000 spawn calls per frame
+function update(entity, dt)
+    for i = 1, 1000 do
+        Entity.spawn_prefab("prefabs/bullet.prefab")
+    end
+end
+```
+
+**Fix:** Use `Particles.emit_burst` for particle-like spawning, `gpu_particles` for very many, or pool
+entities and re-use them.
+
+### ❌ High-Volume String Allocation
+
+```lua
+-- WRONG: allocates string every frame
+function update(entity, dt)
+    local x, y = Transform.get_position(entity)
+    log("Entity: " .. Entity.get_name(entity) .. " at " .. x .. ", " .. y)
+end
+```
+
+**Fix:** Cache values, use conditional logging:
+
+```lua
+function update(entity, dt)
+    if DEBUG then
+        local x, y = Transform.get_position(entity)
+        log("Position: " .. x .. ", " .. y)
+    end
+end
+```
+
+### ❌ Tier 1 Script for Crowd Motion
+
+```lua
+-- WRONG: 10k zombie entities with per-entity scripts
+function update(entity, dt)
+    local vx, vy = Physics.get_velocity(entity)
+    local x, y = Transform.get_position(entity)
+    Transform.set_position(entity, x + vx*dt, y + vy*dt)
+end
+```
+
+**Fix:** Use a Tier 3 batch script, or a native `velocity` component.
+
+### ❌ Unbounded Deferred Commands
+
+```lua
+-- WRONG: spawning 1000 entities in one update loop
+for i = 1, 1000 do
+    local e = Entity.spawn_prefab("prefabs/particle.prefab")
+    -- ...
+end
+```
+
+**Fix:** Use `deferred_cap` in budget, respect the cap:
+
+```lua
+local MAX_SPAWN_PER_FRAME = 256
+for i = 1, math.min(1000, MAX_SPAWN_PER_FRAME) do
+    Entity.spawn_prefab("prefabs/particle.prefab")
+end
+```
+
+### ❌ Physics Bodies for Static Decorations
+
+```json
+{
+  "name": "Tree",
+  "components": {
+    "transform": {},
+    "sprite": {},
+    "rigid_body": { "body_type": "Static" },
+    "collider": {}
+  }
+}
+```
+
+**Fix:** Use `rigid_body` only where physics interaction is needed. Sprites don't collide.
+
+---
+
+## Profiling & Debugging
+
+### Built-in Profiler
+
+Press `F3` in-game to toggle the debug overlay: frame time, script, physics and render rows, draw
+calls and memory. On the web, `mem` is reserved WASM memory, which never shrinks - watch `heap` when
+chasing a leak. A row that is flat zero on one runtime usually means that runtime does not fill it.
+
+`JENGINE_DT_LOG=1` logs every native frame's raw and paced delta time, the only readout that shows
+frame pacing. And a measurement taken while nobody touches the machine is measuring a display about to
+sleep: keep the display awake, or compare accumulated `dt` against `Time.get_unix()`.
+
+### Manual Profiling
+
+```lua
+-- dt (delta-time in seconds) is passed as the second argument to update()
+function update(entity, dt)
+    -- heavy computation
+end
+```
+
+**Better:** Use built-in `ScriptSystem::take_frame_metrics()` (Rust side):
+
+```rust
+let (script_timings, frame_counters) = script_system.take_frame_metrics();
+log::info!("{script_timings:?} {frame_counters:?}");
+```
+
+### Common Bottlenecks
+
+**1. Too many Tier 1 scripts**
+- Symptom: Script % > 70% of budget
+- Fix: Move to Tier 2 or Tier 3, or use native components
+
+**2. Over-batching with different materials**
+- Symptom: Draw calls > 500
+- Fix: Combine textures into atlases, use the same material
+
+**3. Physics simulation overload**
+- Symptom: Physics % > 30%
+- Fix: Reduce body count, use kinematic instead of dynamic, disable gravity on static objects
+
+**4. Web WASM memory overflow**
+- Symptom: Game freezes, browser unresponsive
+- Fix: Reduce entity count, use shorter texture atlases, profile with Chrome DevTools
+
+---
+
+## Iterative Development Workflow
+
+1. **Start with Tier 1 scripts** — rapid iteration, easy debugging
+2. **Profile @ 1000 entities** — identify bottlenecks
+3. **Convert hot paths to Tier 2** (if 100–1000 entities) or **Tier 3** (if 1000+)
+4. **Replace simple motion with native components** (`velocity`, `bounce_area`, `follow_target`, ...)
+5. **Use behavior graphs** for simple state machines (instead of script if-logic)
+6. **Target:** 60 FPS on native (no script), 30 FPS on Web @ 10k entities
+
+**Performance should be 90% architecture (choosing right tier), 10% micro-optimization.**

@@ -1,0 +1,172 @@
+---
+import Site from '../../layouts/Site.astro';
+
+const sections = [
+	{
+		id: 'lights',
+		tag: 'Lights and shadows',
+		title: 'Every light casts a shadow',
+		text: 'Lights are components: point, spot, a directional sun, or any polygon. Occluders throw soft shadows from each of them, cut per light from a shared pool, and the CPU answers the same lighting question the shader does, so gameplay can ask how lit a spot is.',
+		shots: [
+			{ img: 'firelight', name: 'Firelight', what: 'A brazier and moonlight, flickering soft shadows' },
+			{ img: 'lit-house', name: 'The Lit House', what: 'Lamplight escaping through windows and a door' },
+		],
+		specs: [
+			['Four kinds of light', 'Point, spot, `directional_light` and `freeform_light` polygons, each with its own height.'],
+			['Shadows that end', '`shadow_length` fades a shadow out, so a low sun does not shadow the whole room.'],
+			['Shadows from pixels', '`from_alpha` traces an occluder from the sprite’s own silhouette.'],
+			['Light layers and cookies', 'A light lights only the layers it shares, and can shine through a texture.'],
+		],
+	},
+	{
+		id: 'surfaces',
+		tag: 'Surfaces',
+		title: 'Flat art, shaded as if it had depth',
+		text: 'Normal maps are deferred: a normal-mapped sprite sorts with everything else and every light shades it. Surfaces can shine, ambient light gathers in corners, and flat art can be given a rounded normal map worked out from its outline.',
+		shots: [
+			{ img: 'crypt', name: 'Crypt', what: 'Bricks, columns and barrels, all normal-mapped' },
+			{ img: 'clay', name: 'Clay', what: 'Shape from light alone, with ambient occlusion' },
+		],
+		specs: [
+			['Deferred normal maps', 'Drawn in z order with the sprites; a scene without them is lit exactly as before.'],
+			['Specular highlights', '`specular` and `shininess` on a material, masked by the normal map’s alpha.'],
+			['Ambient occlusion', 'Darkens the ambient light where occluders meet, never a lamp’s.'],
+			['Normals from silhouettes', '`auto_normal` bevels a sprite from its alpha: round, linear or pillow.'],
+		],
+	},
+	{
+		id: 'travel',
+		tag: 'Light that travels',
+		title: 'Light bounces, colours and lingers',
+		text: 'Light does not stop where it lands. Radiance cascades bounce it off what it hits, tinted panes colour it on the way through, fog catches it in the air, and on a tilemap it floods through open cells and dies in the rock.',
+		shots: [
+			{ img: 'stained-glass', name: 'Stained Glass', what: 'The sun’s own light, coloured by each pane' },
+			{ img: 'moor-at-midnight', name: 'Moor at Midnight', what: 'A lantern’s light lying in the fog' },
+			{ img: 'torchlit-depths', name: 'Torchlit Depths', what: 'Eighty torches flooding a tile cave in one pass' },
+			{ img: 'a-day-on-the-island', name: 'A Day on the Island', what: 'A whole day in a minute: sky, sun and shadows' },
+		],
+		specs: [
+			['Global illumination', 'Radiance cascades from the occluders’ outlines, added to the light buffer.'],
+			['Coloured shadows', '`shadow_tint` on an occluder turns glass into a filter, not a wall.'],
+			['Fog', 'Billowing, drifting fog that scatters the scene’s own light.'],
+			['Tile light and day cycles', 'Terraria-style light through cells; a `day_cycle` that turns the sky and the sun.'],
+		],
+	},
+	{
+		id: 'post',
+		tag: 'HDR and post',
+		title: 'A float frame and a full post stack',
+		text: 'The world is drawn into a 16-bit float target, so a neon tube can be brighter than white and bloom like glass. The post stack then grades and finishes it, and the UI is drawn after, so it stays sharp.',
+		shots: [
+			{ img: 'neon-rain', name: 'Neon Rain', what: 'Tubes past white, blooming over wet asphalt' },
+			{ img: 'night-pursuit', name: 'Night Pursuit', what: 'Per-object motion blur; the car stays sharp' },
+			{ img: 'orbital-station', name: 'Orbital Station', what: 'Lens flares from anything past the threshold' },
+			{ img: 'nebula', name: 'Nebula', what: 'Additive clouds and a planet with a night side' },
+		],
+		specs: [
+			['HDR and bloom', 'Opt-in per scene, with exposure, tonemapping and a 13-tap mip-chain bloom.'],
+			['Camera effects', 'Motion blur, depth of field by layer, lens flares, light shafts, tilt-shift.'],
+			['Grading', 'LUT strips, film grain, FXAA, and per-place grades with `post_volume`.'],
+			['Looks', 'Pixelate, CRT, palettes, halftone, painterly Kuwahara and line boil.'],
+		],
+	},
+	{
+		id: 'graphs',
+		tag: 'Shader graphs',
+		title: 'Materials made of nodes',
+		text: 'A material can be a graph compiled to WGSL. It can read the game’s own parameters, read what is already drawn behind it, move its vertices, and even be drawn as light.',
+		shots: [
+			{ img: 'still-water', name: 'Still Water', what: 'One sprite and one graph mirroring the scene' },
+			{ img: 'underwater', name: 'Underwater', what: 'Voronoi caustics drawn into the light buffer' },
+		],
+		specs: [
+			['Scene Color', 'Read the frame behind a sprite: reflections, refraction, heat haze.'],
+			['Vertex offset', 'Move a sprite’s or a mesh’s vertices from the same graph.'],
+			['Noise and Voronoi', 'Built-in nodes, hashed on integers so they show no seams.'],
+			['Graph lightmaps', 'A lightmap drawn by a graph is animated, procedural light.'],
+		],
+	},
+	{
+		id: 'particles',
+		tag: 'Particles and scale',
+		title: 'Hundreds of thousands of sparks',
+		text: 'CPU particles meet the world: they hit colliders, burst sub-emitters, leave trails and give off light. GPU particles go further, a closed form per particle or a compute pass that keeps their state.',
+		shots: [
+			{ img: 'ember-storm', name: 'Ember Storm', what: 'Sparks that bounce, settle and are swept aside' },
+			{ img: 'ten-thousand-lights', name: 'Ten Thousand Lights', what: '10,000 lanterns, 300 of them real lights' },
+		],
+		specs: [
+			['Particles with air', '`drag` and curl-noise `turbulence`, the same at any frame rate.'],
+			['Particles in the world', 'Collisions, sub-emitters, trails, flipbooks and their own lights.'],
+			['GPU particles', 'Up to 400,000 in one draw call, attracted and collided in closed form.'],
+			['Stateful GPU particles', 'A compute pass steps position and velocity, with a fallback for WebGL2.'],
+		],
+	},
+];
+
+const code = (s: string) =>
+	s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/`([^`]+)`/g, '<code>$1</code>');
+---
+
+<Site
+	title="Rendering & light — jEngine"
+	description="jEngine's renderer: lights that cast soft shadows, deferred normal maps, global illumination, fog, HDR with a full post stack, shader graphs and GPU particles."
+	current="features"
+>
+	<section class="fhero">
+		<div class="wrap fhero-in">
+			<span class="crumbs"><a href="/">jEngine</a> / <a href="/#features">Features</a> / Rendering &amp; light</span>
+			<span class="kana" lang="ja">ひかりとかげ</span>
+			<h1 class="h-display">Rendering <span class="glow">&amp; light</span></h1>
+			<p class="lede">A wgpu renderer built around light. <b>Lights cast shadows, bounce and fill the fog</b>, surfaces take normal maps, and the frame goes through the post stack you would expect from a 3D engine. Native, in the editor and on the web.</p>
+			<nav class="jump" aria-label="On this page">
+				{sections.map((s) => <a href={`#${s.id}`}>{s.tag}</a>)}
+			</nav>
+			<div class="lead-shot">
+				<figure class="shot">
+					<img src="/shots/spellcraft.jpg" alt="Spellcraft: a mage casting fireballs in a dark courtyard" width="1440" height="810" />
+					<figcaption><b>Spellcraft</b><span>Every light is a spell: fireballs carry their own light and swing the posts' shadows</span></figcaption>
+				</figure>
+			</div>
+		</div>
+	</section>
+
+	{sections.map((s, i) => (
+		<section class:list={['band', { alt: i % 2 === 1 }]} id={s.id}>
+			<div class="wrap fsec">
+				<div class="band-head" style="margin-bottom:0">
+					<span class="eyebrow">{s.tag}</span>
+					<h2 class="h-section">{s.title}</h2>
+					<p>{s.text}</p>
+				</div>
+				<div class="pair">
+					{s.shots.map((sh) => (
+						<figure class="shot">
+							<img src={`/shots/${sh.img}.jpg`} alt={`${sh.name}: ${sh.what}`} loading="lazy" width="1440" height="810" />
+							<figcaption><b>{sh.name}</b><span>{sh.what}</span></figcaption>
+						</figure>
+					))}
+				</div>
+				<ul class="specs">
+					{s.specs.map(([b, t]) => (
+						<li><b>{b}</b><span set:html={code(t)} /></li>
+					))}
+				</ul>
+			</div>
+		</section>
+	))}
+
+	<section class="band cta-band">
+		<div class="wrap">
+			<div class="cta-box">
+				<span class="eyebrow">Checked on a GPU</span>
+				<h2 class="h-section">Tested by its pixels</h2>
+				<p>Every rendering feature has a scene in the Engine Test Lab, run side by side natively, in the editor and on the web, and a pixel test that draws it through the real pipeline on a GPU and compares it with a reference image. The CPU light model is pinned to the shader by its own test.</p>
+				<div class="btns">
+					<a class="btn pri" href="/api-reference/components/">Lighting components</a>
+					<a class="btn sec" href="/guides/particles/">Particles guide</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Site>

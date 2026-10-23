@@ -1,0 +1,2679 @@
+{
+ "name": "65 - Two Views of the Railway",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.2
+     },
+     "intensity": {
+      "Float": 0.2
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.02
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 1.15
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.97,
+       0.9,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      40000.0,
+      40000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "TrainCam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.7,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0,
+     "screen_rect": [
+      0.0,
+      0.0,
+      0.497,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "CarCam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.7,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0,
+     "screen_rect": [
+      0.503,
+      0.0,
+      0.497,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MapCam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.17,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0,
+     "screen_rect": [
+      0.38,
+      0.68,
+      0.24,
+      0.28
+     ]
+    }
+   }
+  },
+  {
+   "name": "Table",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.0331,
+      0.01341,
+      0.00598,
+      1.0
+     ],
+     "z_order": -110,
+     "size": [
+      4200.0,
+      3400.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Board",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/railway/board.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1700.0,
+      1000.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Pond",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/railway/pond.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      380.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Road",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -380.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -380.0,
+       "c1y": 180.0,
+       "c2x": -150.0,
+       "c2y": 200.0,
+       "x": 0.0,
+       "y": 190.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 200.0,
+       "c1y": 180.0,
+       "c2x": 380.0,
+       "c2y": 150.0,
+       "x": 380.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 380.0,
+       "c1y": -150.0,
+       "c2x": 200.0,
+       "c2y": -190.0,
+       "x": 0.0,
+       "y": -190.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -200.0,
+       "c1y": -190.0,
+       "c2x": -380.0,
+       "c2y": -150.0,
+       "x": -380.0,
+       "y": 0.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.03968,
+      0.03968,
+      0.04696,
+      1.0
+     ],
+     "stroke_width": 44.0,
+     "z_order": -80,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "RoadLine",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -380.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -380.0,
+       "c1y": 180.0,
+       "c2x": -150.0,
+       "c2y": 200.0,
+       "x": 0.0,
+       "y": 190.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 200.0,
+       "c1y": 180.0,
+       "c2x": 380.0,
+       "c2y": 150.0,
+       "x": 380.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 380.0,
+       "c1y": -150.0,
+       "c2x": 200.0,
+       "c2y": -190.0,
+       "x": 0.0,
+       "y": -190.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -200.0,
+       "c1y": -190.0,
+       "c2x": -380.0,
+       "c2y": -150.0,
+       "x": -380.0,
+       "y": 0.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.78741,
+      0.69207,
+      0.31855,
+      1.0
+     ],
+     "stroke_width": 2.0,
+     "z_order": -79,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Railway",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -600.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -600.0,
+       "c1y": 260.0,
+       "c2x": -350.0,
+       "c2y": 330.0,
+       "x": -100.0,
+       "y": 300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 150.0,
+       "c1y": 270.0,
+       "c2x": 250.0,
+       "c2y": 340.0,
+       "x": 450.0,
+       "y": 320.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 650.0,
+       "c1y": 300.0,
+       "c2x": 680.0,
+       "c2y": 100.0,
+       "x": 620.0,
+       "y": -60.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 560.0,
+       "c1y": -220.0,
+       "c2x": 400.0,
+       "c2y": -330.0,
+       "x": 150.0,
+       "y": -310.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -100.0,
+       "c1y": -290.0,
+       "c2x": -250.0,
+       "c2y": -360.0,
+       "x": -450.0,
+       "y": -300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -600.0,
+       "c1y": -250.0,
+       "c2x": -600.0,
+       "c2y": -150.0,
+       "x": -600.0,
+       "y": 0.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.26327,
+      0.23302,
+      0.19599,
+      1.0
+     ],
+     "stroke_width": 34.0,
+     "z_order": -80,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Rails",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -600.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -600.0,
+       "c1y": 260.0,
+       "c2x": -350.0,
+       "c2y": 330.0,
+       "x": -100.0,
+       "y": 300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 150.0,
+       "c1y": 270.0,
+       "c2x": 250.0,
+       "c2y": 340.0,
+       "x": 450.0,
+       "y": 320.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 650.0,
+       "c1y": 300.0,
+       "c2x": 680.0,
+       "c2y": 100.0,
+       "x": 620.0,
+       "y": -60.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 560.0,
+       "c1y": -220.0,
+       "c2x": 400.0,
+       "c2y": -330.0,
+       "x": 150.0,
+       "y": -310.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -100.0,
+       "c1y": -290.0,
+       "c2x": -250.0,
+       "c2y": -360.0,
+       "x": -450.0,
+       "y": -300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -600.0,
+       "c1y": -250.0,
+       "c2x": -600.0,
+       "c2y": -150.0,
+       "x": -600.0,
+       "y": 0.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.60383,
+      0.60383,
+      0.63828,
+      1.0
+     ],
+     "stroke_width": 16.0,
+     "z_order": -79,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Sleepers",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -600.0,
+       "y": 0.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -600.0,
+       "c1y": 260.0,
+       "c2x": -350.0,
+       "c2y": 330.0,
+       "x": -100.0,
+       "y": 300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 150.0,
+       "c1y": 270.0,
+       "c2x": 250.0,
+       "c2y": 340.0,
+       "x": 450.0,
+       "y": 320.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 650.0,
+       "c1y": 300.0,
+       "c2x": 680.0,
+       "c2y": 100.0,
+       "x": 620.0,
+       "y": -60.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 560.0,
+       "c1y": -220.0,
+       "c2x": 400.0,
+       "c2y": -330.0,
+       "x": 150.0,
+       "y": -310.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -100.0,
+       "c1y": -290.0,
+       "c2x": -250.0,
+       "c2y": -360.0,
+       "x": -450.0,
+       "y": -300.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -600.0,
+       "c1y": -250.0,
+       "c2x": -600.0,
+       "c2y": -150.0,
+       "x": -600.0,
+       "y": 0.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.10654,
+      0.05088,
+      0.02198,
+      1.0
+     ],
+     "stroke_width": 11.0,
+     "z_order": -78,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Ferry",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -130.0,
+       "y": -10.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": -60.0,
+       "c1y": 60.0,
+       "c2x": 60.0,
+       "c2y": -60.0,
+       "x": 130.0,
+       "y": 10.0
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.31855,
+      0.52252,
+      0.69207,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -89,
+     "closed": false
+    }
+   }
+  },
+  {
+   "name": "HouseShadow1",
+   "components": {
+    "transform": {
+     "position": [
+      -463.0,
+      183.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_block.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -60,
+     "size": [
+      78.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "House1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_roof_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      70.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseShadow2",
+   "components": {
+    "transform": {
+     "position": [
+      477.0,
+      193.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_block.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -60,
+     "size": [
+      88.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "House2",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_roof_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      80.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseShadow3",
+   "components": {
+    "transform": {
+     "position": [
+      437.0,
+      -172.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_block.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -60,
+     "size": [
+      74.0,
+      58.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "House3",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_roof_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      66.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseShadow4",
+   "components": {
+    "transform": {
+     "position": [
+      -463.0,
+      -207.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_block.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -60,
+     "size": [
+      84.0,
+      62.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "House4",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_roof_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      76.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseShadow5",
+   "components": {
+    "transform": {
+     "position": [
+      -3.0,
+      243.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_block.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -60,
+     "size": [
+      98.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "House5",
+   "components": {
+    "transform": {
+     "position": [
+      -10.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_roof_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      90.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseShadow6",
+   "components": {
+    "transform": {
+     "position": [
+      37.0,
+      -257.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_block.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.38
+     ],
+     "z_order": -60,
+     "size": [
+      92.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "House6",
+   "components": {
+    "transform": {
+     "position": [
+      30.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_roof_5.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      84.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow1",
+   "components": {
+    "transform": {
+     "position": [
+      -684.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      88.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "transform": {
+     "position": [
+      -690.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow2",
+   "components": {
+    "transform": {
+     "position": [
+      -694.0,
+      -336.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      101.2,
+      101.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "transform": {
+     "position": [
+      -700.0,
+      -330.0
+     ],
+     "rotation": 1.7,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow3",
+   "components": {
+    "transform": {
+     "position": [
+      696.0,
+      354.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      96.80000000000001,
+      96.80000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "transform": {
+     "position": [
+      690.0,
+      360.0
+     ],
+     "rotation": 3.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      88.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow4",
+   "components": {
+    "transform": {
+     "position": [
+      711.0,
+      -346.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      88.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "transform": {
+     "position": [
+      705.0,
+      -340.0
+     ],
+     "rotation": 5.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow5",
+   "components": {
+    "transform": {
+     "position": [
+      -694.0,
+      124.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      79.2,
+      79.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree5",
+   "components": {
+    "transform": {
+     "position": [
+      -700.0,
+      130.0
+     ],
+     "rotation": 0.5199999999999996,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      72.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow6",
+   "components": {
+    "transform": {
+     "position": [
+      716.0,
+      114.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      83.60000000000001,
+      83.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree6",
+   "components": {
+    "transform": {
+     "position": [
+      710.0,
+      120.0
+     ],
+     "rotation": 2.2199999999999998,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      76.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow7",
+   "components": {
+    "transform": {
+     "position": [
+      -254.0,
+      34.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree7",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      40.0
+     ],
+     "rotation": 3.919999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow8",
+   "components": {
+    "transform": {
+     "position": [
+      261.0,
+      -66.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      70.4,
+      70.4
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree8",
+   "components": {
+    "transform": {
+     "position": [
+      255.0,
+      -60.0
+     ],
+     "rotation": 5.62,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow9",
+   "components": {
+    "transform": {
+     "position": [
+      256.0,
+      89.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      57.2,
+      57.2
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree9",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      95.0
+     ],
+     "rotation": 1.0399999999999991,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow10",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      -96.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      61.60000000000001,
+      61.60000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree10",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      -90.0
+     ],
+     "rotation": 2.7399999999999984,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow11",
+   "components": {
+    "transform": {
+     "position": [
+      -634.0,
+      254.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree11",
+   "components": {
+    "transform": {
+     "position": [
+      -640.0,
+      260.0
+     ],
+     "rotation": 4.4399999999999995,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "TreeShadow12",
+   "components": {
+    "transform": {
+     "position": [
+      656.0,
+      -236.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.42
+     ],
+     "z_order": -45,
+     "size": [
+      74.80000000000001,
+      74.80000000000001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree12",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      -230.0
+     ],
+     "rotation": 6.139999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_tree_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      68.0,
+      68.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Engine",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/railway/engine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      72.0,
+      27.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Railway",
+     "speed": 120.0,
+     "progress": 900.0
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 14.0,
+     "max_particles": 120,
+     "lifetime": [
+      1.6,
+      2.6
+     ],
+     "speed": [
+      8.0,
+      20.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      7.0,
+      10.0
+     ],
+     "size_end": [
+      22.0,
+      32.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -20,
+     "color_curve": [
+      [
+       0.0,
+       0.95,
+       0.95,
+       0.95,
+       0.0
+      ],
+      [
+       0.1,
+       0.95,
+       0.95,
+       0.95,
+       0.7
+      ],
+      [
+       1.0,
+       0.9,
+       0.9,
+       0.9,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 70.0,
+      "speed": 0.3
+     }
+    }
+   }
+  },
+  {
+   "name": "Carriage1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/railway/carriage.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      64.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Railway",
+     "speed": 120.0,
+     "progress": 820.0
+    }
+   }
+  },
+  {
+   "name": "Carriage2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/railway/carriage.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      64.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Railway",
+     "speed": 120.0,
+     "progress": 740.0
+    }
+   }
+  },
+  {
+   "name": "Carriage3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/railway/carriage.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      64.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Railway",
+     "speed": 120.0,
+     "progress": 660.0
+    }
+   }
+  },
+  {
+   "name": "Carriage4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/railway/carriage.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      64.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Railway",
+     "speed": 120.0,
+     "progress": 580.0
+    }
+   }
+  },
+  {
+   "name": "Car1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_car_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      30.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": 85.0,
+     "progress": 0.0,
+     "lateral": 11.0
+    }
+   }
+  },
+  {
+   "name": "Car2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_car_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      30.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": 85.0,
+     "progress": 230.0,
+     "lateral": 11.0
+    }
+   }
+  },
+  {
+   "name": "Car3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_car_2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      30.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": 85.0,
+     "progress": 460.0,
+     "lateral": 11.0
+    }
+   }
+  },
+  {
+   "name": "Car4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_car_3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      30.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": 85.0,
+     "progress": 690.0,
+     "lateral": 11.0
+    }
+   }
+  },
+  {
+   "name": "Car5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_car_4.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      30.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": -70.0,
+     "progress": 920.0,
+     "lateral": 11.0
+    }
+   }
+  },
+  {
+   "name": "Car6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_car_0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      30.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": -70.0,
+     "progress": 1150.0,
+     "lateral": 11.0
+    }
+   }
+  },
+  {
+   "name": "Car7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_car_1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      30.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Road",
+     "speed": -70.0,
+     "progress": 1380.0,
+     "lateral": 11.0
+    }
+   }
+  },
+  {
+   "name": "Boat",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/td_boat.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -85,
+     "size": [
+      34.0,
+      15.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Ferry",
+     "speed": 26.0,
+     "mode": "once"
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s52_ferry.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "65   Two Views of the Railway",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "1  side by side   2  top / bottom   Space  turn with them / north up   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s65_two_views.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,1008 @@
+{
+  "name": "Scene 10 - GUI Showcase",
+  "anchor": "Center",
+  "root": {
+    "id": "root",
+    "node_type": {
+      "type": "Panel"
+    },
+    "style": {
+      "width": {
+        "type": "Fixed",
+        "value": 820.0
+      },
+      "height": {
+        "type": "Fixed",
+        "value": 560.0
+      },
+      "bg_color": [
+        0.08,
+        0.1,
+        0.14,
+        0.92
+      ],
+      "border_color": [
+        0.4,
+        0.55,
+        0.85,
+        1.0
+      ],
+      "border_width": 2.0,
+      "padding": {
+        "top": 16.0,
+        "right": 18.0,
+        "bottom": 16.0,
+        "left": 18.0
+      },
+      "flex": {
+        "direction": "Column",
+        "gap": 12.0,
+        "align_items": "Stretch",
+        "justify_content": "Start"
+      }
+    },
+    "children": [
+      {
+        "id": "header",
+        "node_type": {
+          "type": "Text",
+          "text": "10 - GUI Document Showcase",
+          "font_id": "",
+          "font_size": 26.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": "Center"
+        },
+        "style": {
+          "width": {
+            "type": "Percent",
+            "value": 100.0
+          },
+          "height": {
+            "type": "Fixed",
+            "value": 32.0
+          }
+        },
+        "children": []
+      },
+      {
+        "id": "subtitle",
+        "node_type": {
+          "type": "Text",
+          "text": "Every widget type, wired by Lua via gui_set / gui_get / gui_on_click",
+          "font_id": "",
+          "font_size": 14.0,
+          "color": [
+            0.75,
+            0.8,
+            0.92,
+            0.85
+          ],
+          "alignment": "Center"
+        },
+        "style": {
+          "width": {
+            "type": "Percent",
+            "value": 100.0
+          },
+          "height": {
+            "type": "Fixed",
+            "value": 20.0
+          }
+        },
+        "children": []
+      },
+      {
+        "id": "two_col",
+        "node_type": {
+          "type": "Panel"
+        },
+        "style": {
+          "width": {
+            "type": "Percent",
+            "value": 100.0
+          },
+          "height": {
+            "type": "Fixed",
+            "value": 372.0
+          },
+          "bg_color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "flex": {
+            "direction": "Row",
+            "gap": 14.0,
+            "align_items": "Stretch",
+            "justify_content": "Start"
+          }
+        },
+        "children": [
+          {
+            "id": "left_col",
+            "node_type": {
+              "type": "Panel"
+            },
+            "style": {
+              "width": {
+                "type": "Fixed",
+                "value": 410.0
+              },
+              "height": {
+                "type": "Percent",
+                "value": 100.0
+              },
+              "bg_color": [
+                0.12,
+                0.14,
+                0.18,
+                1.0
+              ],
+              "border_color": [
+                0.25,
+                0.3,
+                0.4,
+                1.0
+              ],
+              "border_width": 1.0,
+              "padding": {
+                "top": 12.0,
+                "right": 14.0,
+                "bottom": 12.0,
+                "left": 14.0
+              },
+              "flex": {
+                "direction": "Column",
+                "gap": 10.0,
+                "align_items": "Stretch",
+                "justify_content": "Start"
+              }
+            },
+            "children": [
+              {
+                "id": "lbl_progress",
+                "node_type": {
+                  "type": "Text",
+                  "text": "Auto-animated ProgressBar",
+                  "font_id": "",
+                  "font_size": 14.0,
+                  "color": [
+                    0.8,
+                    0.85,
+                    0.95,
+                    1.0
+                  ],
+                  "alignment": "Left"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 18.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "loading_bar",
+                "node_type": {
+                  "type": "ProgressBar",
+                  "value": 0.0,
+                  "min": 0.0,
+                  "max": 1.0,
+                  "fg_color": [
+                    0.3,
+                    0.75,
+                    0.45,
+                    1.0
+                  ],
+                  "bg_color": [
+                    0.1,
+                    0.1,
+                    0.12,
+                    1.0
+                  ],
+                  "border_color": [
+                    0.4,
+                    0.55,
+                    0.85,
+                    1.0
+                  ]
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 22.0
+                  },
+                  "border_width": 1.0
+                },
+                "children": []
+              },
+              {
+                "id": "lbl_slider",
+                "node_type": {
+                  "type": "Text",
+                  "text": "Slider - click to step, tints the swatch",
+                  "font_id": "",
+                  "font_size": 14.0,
+                  "color": [
+                    0.8,
+                    0.85,
+                    0.95,
+                    1.0
+                  ],
+                  "alignment": "Left"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 18.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "brightness_slider",
+                "node_type": {
+                  "type": "Slider",
+                  "value": 0.5,
+                  "min": 0.0,
+                  "max": 1.0,
+                  "track_color": [
+                    0.2,
+                    0.22,
+                    0.28,
+                    1.0
+                  ],
+                  "thumb_color": [
+                    0.85,
+                    0.9,
+                    1.0,
+                    1.0
+                  ],
+                  "thumb_size": 18.0
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 24.0
+                  },
+                  "focusable": true,
+                  "tab_order": 0
+                },
+                "children": []
+              },
+              {
+                "id": "row_toggle",
+                "node_type": {
+                  "type": "Panel"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 28.0
+                  },
+                  "bg_color": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "flex": {
+                    "direction": "Row",
+                    "gap": 10.0,
+                    "align_items": "Center",
+                    "justify_content": "Start"
+                  }
+                },
+                "children": [
+                  {
+                    "id": "lbl_toggle",
+                    "node_type": {
+                      "type": "Text",
+                      "text": "Decoration enabled:",
+                      "font_id": "",
+                      "font_size": 14.0,
+                      "color": [
+                        0.8,
+                        0.85,
+                        0.95,
+                        1.0
+                      ],
+                      "alignment": "Left"
+                    },
+                    "style": {
+                      "width": {
+                        "type": "Fixed",
+                        "value": 170.0
+                      },
+                      "height": {
+                        "type": "Fixed",
+                        "value": 20.0
+                      }
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "deco_toggle",
+                    "node_type": {
+                      "type": "Toggle",
+                      "checked": true,
+                      "on_color": [
+                        0.2,
+                        0.7,
+                        0.35,
+                        1.0
+                      ],
+                      "off_color": [
+                        0.35,
+                        0.35,
+                        0.4,
+                        1.0
+                      ],
+                      "thumb_color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ]
+                    },
+                    "style": {
+                      "width": {
+                        "type": "Fixed",
+                        "value": 56.0
+                      },
+                      "height": {
+                        "type": "Fixed",
+                        "value": 24.0
+                      },
+                      "focusable": true,
+                      "tab_order": 1
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "id": "lbl_input",
+                "node_type": {
+                  "type": "Text",
+                  "text": "Player name (TextInput - click a field, then type)",
+                  "font_id": "",
+                  "font_size": 14.0,
+                  "color": [
+                    0.8,
+                    0.85,
+                    0.95,
+                    1.0
+                  ],
+                  "alignment": "Left"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 18.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "name_input",
+                "node_type": {
+                  "type": "TextInput",
+                  "text": "Player1",
+                  "placeholder": "enter a name...",
+                  "font_id": "",
+                  "font_size": 16.0,
+                  "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ],
+                  "bg_color": [
+                    0.1,
+                    0.11,
+                    0.14,
+                    1.0
+                  ]
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 28.0
+                  },
+                  "border_color": [
+                    0.4,
+                    0.55,
+                    0.85,
+                    1.0
+                  ],
+                  "border_width": 1.0,
+                  "focusable": true,
+                  "tab_order": 2
+                },
+                "children": []
+              },
+              {
+                "id": "row_buttons",
+                "node_type": {
+                  "type": "Panel"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 40.0
+                  },
+                  "bg_color": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "flex": {
+                    "direction": "Row",
+                    "gap": 10.0,
+                    "align_items": "Center",
+                    "justify_content": "Start"
+                  }
+                },
+                "children": [
+                  {
+                    "id": "btn_randomize",
+                    "node_type": {
+                      "type": "Button",
+                      "label": "Randomize",
+                      "font_id": "",
+                      "font_size": 14.0,
+                      "text_color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ],
+                      "normal_color": [
+                        0.3,
+                        0.55,
+                        0.85,
+                        1.0
+                      ],
+                      "hover_color": [
+                        0.4,
+                        0.65,
+                        0.95,
+                        1.0
+                      ],
+                      "pressed_color": [
+                        0.22,
+                        0.45,
+                        0.7,
+                        1.0
+                      ]
+                    },
+                    "style": {
+                      "width": {
+                        "type": "Fixed",
+                        "value": 110.0
+                      },
+                      "height": {
+                        "type": "Fixed",
+                        "value": 36.0
+                      },
+                      "border_color": [
+                        0.45,
+                        0.6,
+                        0.95,
+                        1.0
+                      ],
+                      "border_width": 1.0,
+                      "focusable": true,
+                      "tab_order": 3
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "btn_reset",
+                    "node_type": {
+                      "type": "Button",
+                      "label": "Reset",
+                      "font_id": "",
+                      "font_size": 14.0,
+                      "text_color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ],
+                      "normal_color": [
+                        0.55,
+                        0.3,
+                        0.3,
+                        1.0
+                      ],
+                      "hover_color": [
+                        0.7,
+                        0.4,
+                        0.4,
+                        1.0
+                      ],
+                      "pressed_color": [
+                        0.45,
+                        0.22,
+                        0.22,
+                        1.0
+                      ]
+                    },
+                    "style": {
+                      "width": {
+                        "type": "Fixed",
+                        "value": 110.0
+                      },
+                      "height": {
+                        "type": "Fixed",
+                        "value": 36.0
+                      },
+                      "border_color": [
+                        0.85,
+                        0.45,
+                        0.45,
+                        1.0
+                      ],
+                      "border_width": 1.0,
+                      "focusable": true,
+                      "tab_order": 4
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "btn_toggle_preview",
+                    "node_type": {
+                      "type": "Button",
+                      "label": "Toggle Preview",
+                      "font_id": "",
+                      "font_size": 13.0,
+                      "text_color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                      ],
+                      "normal_color": [
+                        0.3,
+                        0.5,
+                        0.45,
+                        1.0
+                      ],
+                      "hover_color": [
+                        0.4,
+                        0.65,
+                        0.55,
+                        1.0
+                      ],
+                      "pressed_color": [
+                        0.22,
+                        0.4,
+                        0.35,
+                        1.0
+                      ]
+                    },
+                    "style": {
+                      "width": {
+                        "type": "Fixed",
+                        "value": 140.0
+                      },
+                      "height": {
+                        "type": "Fixed",
+                        "value": 36.0
+                      },
+                      "border_color": [
+                        0.45,
+                        0.8,
+                        0.7,
+                        1.0
+                      ],
+                      "border_width": 1.0,
+                      "focusable": true,
+                      "tab_order": 5
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "right_col",
+            "node_type": {
+              "type": "Panel"
+            },
+            "style": {
+              "width": {
+                "type": "Fixed",
+                "value": 360.0
+              },
+              "height": {
+                "type": "Percent",
+                "value": 100.0
+              },
+              "bg_color": [
+                0.12,
+                0.14,
+                0.18,
+                1.0
+              ],
+              "border_color": [
+                0.25,
+                0.3,
+                0.4,
+                1.0
+              ],
+              "border_width": 1.0,
+              "padding": {
+                "top": 12.0,
+                "right": 14.0,
+                "bottom": 12.0,
+                "left": 14.0
+              },
+              "flex": {
+                "direction": "Column",
+                "gap": 10.0,
+                "align_items": "Stretch",
+                "justify_content": "Start"
+              }
+            },
+            "children": [
+              {
+                "id": "lbl_preview",
+                "node_type": {
+                  "type": "Text",
+                  "text": "Live preview - swatch below is tinted by the slider",
+                  "font_id": "",
+                  "font_size": 14.0,
+                  "color": [
+                    0.8,
+                    0.85,
+                    0.95,
+                    1.0
+                  ],
+                  "alignment": "Center"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 20.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "preview_panel",
+                "node_type": {
+                  "type": "Panel"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 90.0
+                  },
+                  "bg_color": [
+                    0.5,
+                    0.5,
+                    0.5,
+                    1.0
+                  ],
+                  "border_color": [
+                    0.45,
+                    0.55,
+                    0.75,
+                    1.0
+                  ],
+                  "border_width": 1.0
+                },
+                "children": []
+              },
+              {
+                "id": "row_shapes",
+                "node_type": {
+                  "type": "Panel"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 84.0
+                  },
+                  "bg_color": [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "flex": {
+                    "direction": "Row",
+                    "gap": 12.0,
+                    "align_items": "Center",
+                    "justify_content": "Center"
+                  }
+                },
+                "children": [
+                  {
+                    "id": "demo_image",
+                    "node_type": {
+                      "type": "Image",
+                      "texture_id": "sprites/white32.png",
+                      "tint": [
+                        0.85,
+                        0.9,
+                        1.0,
+                        1.0
+                      ]
+                    },
+                    "style": {
+                      "width": {
+                        "type": "Fixed",
+                        "value": 72.0
+                      },
+                      "height": {
+                        "type": "Fixed",
+                        "value": 72.0
+                      },
+                      "border_color": [
+                        0.45,
+                        0.55,
+                        0.75,
+                        1.0
+                      ],
+                      "border_width": 1.0
+                    },
+                    "children": []
+                  },
+                  {
+                    "id": "demo_circle",
+                    "node_type": {
+                      "type": "Circle",
+                      "fill_color": [
+                        0.85,
+                        0.55,
+                        0.3,
+                        1.0
+                      ],
+                      "stroke_color": [
+                        1.0,
+                        0.85,
+                        0.45,
+                        1.0
+                      ],
+                      "stroke_width": 3.0
+                    },
+                    "style": {
+                      "width": {
+                        "type": "Fixed",
+                        "value": 72.0
+                      },
+                      "height": {
+                        "type": "Fixed",
+                        "value": 72.0
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "id": "lbl_shapes",
+                "node_type": {
+                  "type": "Text",
+                  "text": "left: Image node (white32, tinted)   right: Circle node",
+                  "font_id": "",
+                  "font_size": 13.0,
+                  "color": [
+                    0.72,
+                    0.78,
+                    0.9,
+                    1.0
+                  ],
+                  "alignment": "Center"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 18.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "lbl_shapes_note",
+                "node_type": {
+                  "type": "Text",
+                  "text": "(Circle node - drawn with the built-in disc)",
+                  "font_id": "",
+                  "font_size": 12.0,
+                  "color": [
+                    0.65,
+                    0.6,
+                    0.5,
+                    1.0
+                  ],
+                  "alignment": "Center"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 18.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "echo_label",
+                "node_type": {
+                  "type": "Text",
+                  "text": "Hello, Player1!",
+                  "font_id": "",
+                  "font_size": 18.0,
+                  "color": [
+                    1.0,
+                    1.0,
+                    0.85,
+                    1.0
+                  ],
+                  "alignment": "Center"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 26.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "stats_label",
+                "node_type": {
+                  "type": "Text",
+                  "text": "brightness 0.50  decoration ON",
+                  "font_id": "",
+                  "font_size": 14.0,
+                  "color": [
+                    0.75,
+                    0.8,
+                    0.92,
+                    0.95
+                  ],
+                  "alignment": "Center"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 20.0
+                  }
+                },
+                "children": []
+              },
+              {
+                "id": "click_log",
+                "node_type": {
+                  "type": "Text",
+                  "text": "(click Randomize / Reset)",
+                  "font_id": "",
+                  "font_size": 13.0,
+                  "color": [
+                    0.6,
+                    0.65,
+                    0.78,
+                    0.9
+                  ],
+                  "alignment": "Center"
+                },
+                "style": {
+                  "width": {
+                    "type": "Percent",
+                    "value": 100.0
+                  },
+                  "height": {
+                    "type": "Fixed",
+                    "value": 18.0
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "footer",
+        "node_type": {
+          "type": "Text",
+          "text": "click slider | click toggle | type in the name field | Randomize / Reset | H = hub  [ / ] = prev / next",
+          "font_id": "",
+          "font_size": 12.0,
+          "color": [
+            0.6,
+            0.65,
+            0.78,
+            0.85
+          ],
+          "alignment": "Center"
+        },
+        "style": {
+          "width": {
+            "type": "Percent",
+            "value": 100.0
+          },
+          "height": {
+            "type": "Fixed",
+            "value": 18.0
+          }
+        },
+        "children": []
+      }
+    ]
+  }
+}

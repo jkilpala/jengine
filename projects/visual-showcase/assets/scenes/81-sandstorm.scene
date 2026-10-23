@@ -1,0 +1,613 @@
+{
+ "name": "81 - Sandstorm",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.3
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.1,
+       0.05,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.88,
+       0.7,
+       0.08
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sand/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      240.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.69207,
+      0.26327,
+      0.55
+     ],
+     "z_order": -95,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "DunesFar",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sand/dunes_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      1500.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DunesNear",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sand/dunes_near.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1500.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -370.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.60383,
+      0.2957,
+      0.09463,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      1500.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "RockA",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sand/rock_a.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      230.0,
+      178.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 86.0
+      }
+     },
+     "friction": 0.5
+    }
+   }
+  },
+  {
+   "name": "RockB",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      -172.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sand/rock_b.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      170.0,
+      148.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 66.0
+      }
+     },
+     "friction": 0.5
+    }
+   }
+  },
+  {
+   "name": "RockC",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -184.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sand/rock_c.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      126.0,
+      116.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 50.0
+      }
+     },
+     "friction": 0.5
+    }
+   }
+  },
+  {
+   "name": "Twister",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sand/funnel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "z_order": 8,
+     "size": [
+      250.0,
+      460.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Storm",
+   "components": {
+    "transform": {
+     "position": [
+      -820.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gpu_particles": {
+     "count": 200000,
+     "lifetime": [
+      3.6,
+      5.6
+     ],
+     "speed": [
+      260.0,
+      430.0
+     ],
+     "angle": [
+      -0.18,
+      0.22
+     ],
+     "radius": 330.0,
+     "gravity": [
+      0.0,
+      -24.0
+     ],
+     "drag": 0.08,
+     "noise": 22.0,
+     "noise_speed": 1.6,
+     "size": [
+      3.2,
+      2.2
+     ],
+     "stretch": 1.6,
+     "color_start": [
+      0.89001,
+      0.57048,
+      0.23302,
+      0.0
+     ],
+     "color_mid": [
+      0.82757,
+      0.50708,
+      0.19599,
+      0.55
+     ],
+     "color_end": [
+      0.69207,
+      0.38006,
+      0.14732,
+      0.0
+     ],
+     "texture_id": "sprites/sand/grain.png",
+     "blend_mode": "Alpha",
+     "z_order": 5,
+     "seed": 81,
+     "collide": true,
+     "pile": 16.0,
+     "attractors": [
+      {
+       "follow": "Twister",
+       "strength": 0.9,
+       "swirl": 4.5,
+       "radius": 190.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s81_sandstorm.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "81   Sandstorm",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "C  rocks stop sand   W  whirlwind   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

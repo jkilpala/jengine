@@ -1,0 +1,364 @@
+{
+  "name": "103-ScriptInheritance",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "103 - Script Inheritance",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "script = { extends = \"...\" } and super. Every box spins and pulses once a second; none has its own spin code.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_103_inheritance.lua"
+        }
+      }
+    },
+    {
+      "name": "Plain",
+      "components": {
+        "transform": {
+          "position": [
+            -380.0,
+            20.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.75,
+            0.8,
+            0.9,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            90.0,
+            90.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_103_plain.lua"
+        }
+      }
+    },
+    {
+      "name": "Override",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            20.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.75,
+            0.8,
+            0.9,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            90.0,
+            90.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_103_override.lua"
+        }
+      }
+    },
+    {
+      "name": "TwoLevels",
+      "components": {
+        "transform": {
+          "position": [
+            380.0,
+            20.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.75,
+            0.8,
+            0.9,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            90.0,
+            90.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_103_two_levels.lua"
+        }
+      }
+    },
+    {
+      "name": "PlainLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -380.0,
+            -120.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "extends spinner\nno code of its own\n= spins, pulses, grey",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "OverrideLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -120.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "extends spinner\nown update calls super.update\n= spins, pulses AND bobs",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "TwoLevelsLabel",
+      "components": {
+        "transform": {
+          "position": [
+            380.0,
+            -120.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "extends tinted extends spinner\nno code of its own\n= orange, spins, pulses",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "Broken",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -230.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Standing still and grey: extends ignored.  Spinning, no pulse: handlers not inherited.",
+          "font_id": "",
+          "font_scale": 0.9,
+          "color": [
+            0.95,
+            0.75,
+            0.5,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+---
+draft: false
+title: Console & Live Ops
+description: The host's web console - overview, server dashboards, deploys - and using live ops (remote config, experiments, events, content) from a game.
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+A host (`jengine-fleet host`) serves a **console** at `http://<host>:9000/manage`.
+It works in any browser on the network, phones included, and asks for the
+console token. On a [Raspberry Pi host](/servers/raspberry-pi/),
+`pi.ps1 console` opens it already signed in, and `pi.ps1 tokens` prints the
+token for another device.
+
+## What is on it
+
+**Overview** - for the last hour or 24 hours:
+
+- **Totals:** players online, servers running, machines answering, errors
+  and warnings from the servers' logs, game data sent and received.
+- **Each machine:** CPU and load, memory, disk, temperature (a Raspberry
+  Pi's SoC: a warning from 70 °C, critical from 80), network now and since
+  boot, uptime.
+- **Charts:** CPU and memory, network, players per server, game traffic per
+  server, temperature, memory per server. Hover a chart for the values at a
+  moment.
+- **Recent problems:** the latest `ERROR` and `WARN` lines and panics from the
+  servers' logs. Click one to open that server's log.
+
+The console samples every machine every five seconds whether or not the page
+is open, keeping an hour at that grain and a day at one sample a minute.
+
+**Server dashboards** - pick a server (or press **Dashboard** on its row) and
+its own dashboard opens inside the console:
+
+- rooms (look inside, send a room command, close) and players (state, kick)
+- notices to everyone, and **Drain** before maintenance
+- **Accounts:** reset a password (it signs the player out everywhere) or
+  delete an account
+- every one of the game's HTTP routes, with requests, failures and timings
+- the server's own history charts and event log
+- **Live ops**, for a server that runs it (below)
+
+The console signs these in with its own token; the agent on the machine adds
+the server's admin token, so the browser never holds it.
+
+**Services and machines** - Deploy, **Upload build** (deploy from a browser,
+with no build tree on the host), restart, stop, roll back, logs, and the job
+history of every deploy, kept across restarts.
+
+## Live ops
+
+Live ops lets a shipped game change without a new build: **remote config**
+(parameters with rules - platform, version, a percentage rollout, a time
+window), **A/B experiments**, **live events** with a start and an end, and
+**content releases** (asset packs). Each comes in three channels - `dev`,
+`staging`, `live` - and **Promote** copies from one to the next.
+
+Every answer is **signed**. A game believes only what was signed by the key
+it was built with, so no address, proxy or person on the network can change
+what it runs.
+
+### Using it from a game
+
+<Steps>
+
+1. **Run a live ops service.** On a Raspberry Pi host it is the `liveops`
+   service in your `fleet.json` (copied from `fleet.example.json`, which has
+   it), deployed like the others, at `http://<pi-address>:9000/liveops`. Anywhere else:
+   `jengine-server <addr> --admin-token <t> --liveops <folder>`.
+
+2. **Build the game with its address and key.** `pi.ps1 liveops` prints the
+   line for `project.jengine`'s settings:
+
+   ```json
+   "liveops": { "url": "http://gamebox.local:9000/liveops", "public_key": "jlo-public-..." }
+   ```
+
+   The editor's Play asks the `dev` channel; a built game asks `live` unless
+   `channel` says otherwise.
+
+3. **Read values in scripts** with `LiveOps.*` - each with the game's own
+   default, so it works before the first answer and offline:
+
+   ```lua
+   local coins = LiveOps.get("daily_coins", 50)
+   ```
+
+4. **Edit in the console:** Server dashboards, then `host / liveops`, then
+   **Live ops**. Add parameters, rules, experiments and events on `dev`;
+   **Preview a player** to see what a given install would be told; Save;
+   then Promote to `staging` and `live`.
+
+5. **Ship content** - a build's asset packs as a release on a channel:
+
+   ```powershell
+   ./crates/jengine-server/pi/pi.ps1 publish <game build folder> -Channel dev
+   ```
+
+   A rollback publishes an older release again, as a new one.
+
+</Steps>
+
+<Aside type="caution" title="Back up the signing key">
+The service makes its signing key the first time it starts (`signing.key` in
+its folder; on a Pi, `~jengine/jengine/data/services/liveops/liveops/signing.key`).
+Every game you build trusts that key and no other: **lose it and every game
+has to be rebuilt** with a new one. On a Pi, `pi.ps1 backup` copies it (with
+your tokens) to a private folder - do it after the first deploy, and keep a
+copy off your machine. The key is a secret: whoever has it can sign what
+your games believe.
+</Aside>
+
+## From the editor
+
+The editor's **Servers** panel is the light side - build, run and deploy the
+open project's server. A machine whose fleet entry has a `console` address
+gets a **Console** button that opens this page.

@@ -1,0 +1,421 @@
+{
+ "name": "286 - Nav Links",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "West",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      540.0,
+      360.0
+     ],
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1
+     ],
+     "z_order": 0
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -270.0,
+       -180.0
+      ],
+      [
+       270.0,
+       -180.0
+      ],
+      [
+       270.0,
+       180.0
+      ],
+      [
+       -270.0,
+       180.0
+      ]
+     ],
+     "agent_radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "East",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      540.0,
+      360.0
+     ],
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1
+     ],
+     "z_order": 0
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -270.0,
+       -180.0
+      ],
+      [
+       270.0,
+       -180.0
+      ],
+      [
+       270.0,
+       180.0
+      ],
+      [
+       -270.0,
+       180.0
+      ]
+     ],
+     "agent_radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "Jump",
+   "components": {
+    "transform": {
+     "position": [
+      -72.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_link": {
+     "from": [
+      0.0,
+      0.0
+     ],
+     "to": [
+      72.0,
+      60.0
+     ],
+     "kind": "jump",
+     "duration": 0.5,
+     "one_way": false,
+     "cost": 1.0,
+     "enabled": true
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      144.0,
+      6.0
+     ],
+     "color": [
+      0.95,
+      0.8,
+      0.3,
+      1
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ],
+     "z_order": 1
+    }
+   }
+  },
+  {
+   "name": "Chute",
+   "components": {
+    "transform": {
+     "position": [
+      -72.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_link": {
+     "from": [
+      0.0,
+      0.0
+     ],
+     "to": [
+      72.0,
+      -140.0
+     ],
+     "kind": "chute",
+     "duration": 0.3,
+     "one_way": true,
+     "cost": 1.0,
+     "enabled": true
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      144.0,
+      6.0
+     ],
+     "color": [
+      0.4,
+      0.85,
+      1.0,
+      1
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ],
+     "z_order": 1
+    }
+   }
+  },
+  {
+   "name": "Runner",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "size": [
+      28.0,
+      28.0
+     ],
+     "color": [
+      1.0,
+      0.5,
+      0.4,
+      1
+     ],
+     "z_order": 3
+    },
+    "nav_agent": {
+     "speed": 170.0,
+     "radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "286 - Nav Links",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   click: send the runner   J jump link on/off   C chute on/off",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: sent across, the runner crosses the gap only by a link - the yellow jump either way, the blue chute only west to",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "east - growing while it jumps; with both off it waits at its own edge; the line says what it is crossing (`nav_link`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_286_nav_links.lua"
+    }
+   }
+  }
+ ]
+}

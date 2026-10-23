@@ -1,0 +1,6903 @@
+{
+ "name": "55 - Dragon's Hoard",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.2,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.9
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.6
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.85,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.21404,
+      0.60383
+     ],
+     "intensity": 0.07
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/stone_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 10.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/stone.png",
+     "color": [
+      0.31855,
+      0.26327,
+      0.21404,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1360.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       200.0,
+       120.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/stone_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 10.0
+    }
+   }
+  },
+  {
+   "name": "Shield",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/shield.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      190.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/shield_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 50.0
+    }
+   }
+  },
+  {
+   "name": "Shield2",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      170.0
+     ],
+     "rotation": 0.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/shield.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/shield_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 50.0
+    }
+   }
+  },
+  {
+   "name": "Coin0",
+   "components": {
+    "transform": {
+     "position": [
+      -306.5545623316904,
+      -227.09731788584372
+     ],
+     "rotation": 0.19149629654102363,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      31.199768423967882
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin1",
+   "components": {
+    "transform": {
+     "position": [
+      -279.04580877020726,
+      -229.82432516251967
+     ],
+     "rotation": 0.1774900908609226,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      32.812991494892955
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin2",
+   "components": {
+    "transform": {
+     "position": [
+      -266.4486023735307,
+      -224.50547283442089
+     ],
+     "rotation": -0.14541124868931848,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      34.02802374397157
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin3",
+   "components": {
+    "transform": {
+     "position": [
+      -241.16779487917464,
+      -210.39876721515415
+     ],
+     "rotation": -0.19420288180693507,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      30.324538149387756
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin4",
+   "components": {
+    "transform": {
+     "position": [
+      -231.79265574148187,
+      -221.58693550153578
+     ],
+     "rotation": -0.2210108932704551,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      33.7161635063831
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin5",
+   "components": {
+    "transform": {
+     "position": [
+      -219.29232238667223,
+      -209.68070856299724
+     ],
+     "rotation": -0.24392872913693245,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      35.9759467499385
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin6",
+   "components": {
+    "transform": {
+     "position": [
+      -199.43359551786295,
+      -208.59458592344126
+     ],
+     "rotation": -0.314297242010255,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      36.63563311149569
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin7",
+   "components": {
+    "transform": {
+     "position": [
+      -184.03160735073342,
+      -204.29407225623962
+     ],
+     "rotation": -0.025610940604339216,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      31.624619617490435
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin8",
+   "components": {
+    "transform": {
+     "position": [
+      -168.46293135773263,
+      -197.79409398862646
+     ],
+     "rotation": -0.15860874273582004,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      33.52179129179472
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin9",
+   "components": {
+    "transform": {
+     "position": [
+      -141.76349691177774,
+      -190.23307966524814
+     ],
+     "rotation": 0.06868691803621463,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      36.605566291194
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin10",
+   "components": {
+    "transform": {
+     "position": [
+      -136.28857083327838,
+      -187.60019173551854
+     ],
+     "rotation": -0.19655334320030138,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      37.12662274115448
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin11",
+   "components": {
+    "transform": {
+     "position": [
+      -109.81853374711801,
+      -193.33154710057292
+     ],
+     "rotation": -0.3328729712978266,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      32.15876425060618
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin12",
+   "components": {
+    "transform": {
+     "position": [
+      -91.3540021835335,
+      -187.69445040304174
+     ],
+     "rotation": -0.19026345283590695,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      30.54858413228574
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin13",
+   "components": {
+    "transform": {
+     "position": [
+      -85.0033306740285,
+      -191.971829570061
+     ],
+     "rotation": -0.022085245906192985,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      34.4731711401391
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin14",
+   "components": {
+    "transform": {
+     "position": [
+      -59.83048137703042,
+      -192.9605388504835
+     ],
+     "rotation": 0.10951321558311311,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      31.905286002100343
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin15",
+   "components": {
+    "transform": {
+     "position": [
+      -39.66597325580163,
+      -187.06090593957228
+     ],
+     "rotation": 0.32134706759735676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      32.82627866040449
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin16",
+   "components": {
+    "transform": {
+     "position": [
+      -35.43122394621163,
+      -179.87103507908546
+     ],
+     "rotation": -0.13803112227436548,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      31.600384204918864
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin17",
+   "components": {
+    "transform": {
+     "position": [
+      -14.33680713782429,
+      -182.5872505984598
+     ],
+     "rotation": -0.007917629429062045,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      32.14162699259051
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin18",
+   "components": {
+    "transform": {
+     "position": [
+      13.032056314832655,
+      -187.63527506781764
+     ],
+     "rotation": 0.1445915221673164,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      34.3267694836087
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin19",
+   "components": {
+    "transform": {
+     "position": [
+      20.537196093254593,
+      -181.77834507782663
+     ],
+     "rotation": 0.16218053093690743,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      33.90941464962021
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin20",
+   "components": {
+    "transform": {
+     "position": [
+      40.93362749796819,
+      -182.2189207724291
+     ],
+     "rotation": -0.015925739936503702,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      32.035065542571296
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin21",
+   "components": {
+    "transform": {
+     "position": [
+      59.701149155194145,
+      -176.86897246012148
+     ],
+     "rotation": -0.17451003269114151,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      33.38137145020967
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin22",
+   "components": {
+    "transform": {
+     "position": [
+      78.70494574478158,
+      -194.9354648223498
+     ],
+     "rotation": -0.024050052119742815,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      35.00195808537327
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin23",
+   "components": {
+    "transform": {
+     "position": [
+      90.61377806821861,
+      -179.5142672692573
+     ],
+     "rotation": -0.0597242890232666,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      31.63851212167545
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin24",
+   "components": {
+    "transform": {
+     "position": [
+      107.0156184760435,
+      -196.68367916323086
+     ],
+     "rotation": 0.03930390712210263,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      32.83683588666239
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin25",
+   "components": {
+    "transform": {
+     "position": [
+      118.22101522162346,
+      -184.68073650768687
+     ],
+     "rotation": -0.2821604250366947,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      31.090986158523286
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin26",
+   "components": {
+    "transform": {
+     "position": [
+      146.07413942049118,
+      -190.78663045819548
+     ],
+     "rotation": 0.2557936055287334,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      35.239708113130824
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin27",
+   "components": {
+    "transform": {
+     "position": [
+      162.87533710485158,
+      -194.09511502956735
+     ],
+     "rotation": 0.11639807223417198,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      30.390410176456534
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin28",
+   "components": {
+    "transform": {
+     "position": [
+      176.86740578049518,
+      -201.7865585367186
+     ],
+     "rotation": 0.17556332958744103,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      35.879069163921784
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin29",
+   "components": {
+    "transform": {
+     "position": [
+      192.13785398976307,
+      -211.84053342969952
+     ],
+     "rotation": 0.25432906159109303,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      33.42931626322756
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin30",
+   "components": {
+    "transform": {
+     "position": [
+      210.04028855758176,
+      -202.3795592475601
+     ],
+     "rotation": -0.2804325393687093,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      31.795746163155705
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin31",
+   "components": {
+    "transform": {
+     "position": [
+      231.015940620321,
+      -209.0457470285841
+     ],
+     "rotation": 0.13838710183955805,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      34.31485644077274
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin32",
+   "components": {
+    "transform": {
+     "position": [
+      246.40181222765358,
+      -215.9669090735739
+     ],
+     "rotation": -0.020525458150461584,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      30.500290059885884
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin33",
+   "components": {
+    "transform": {
+     "position": [
+      258.0935533003565,
+      -226.81896294668144
+     ],
+     "rotation": -0.3153882403332984,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1,
+     "size": [
+      40.0,
+      37.90575847631561
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin34",
+   "components": {
+    "transform": {
+     "position": [
+      270.6446197788853,
+      -217.90813982426695
+     ],
+     "rotation": -0.34244503239452906,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      35.590814191214974
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin35",
+   "components": {
+    "transform": {
+     "position": [
+      -254.14348916395858,
+      -185.5747668240005
+     ],
+     "rotation": 0.3325537902716884,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      30.740560739112844
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin36",
+   "components": {
+    "transform": {
+     "position": [
+      -246.93213963178786,
+      -200.2095029573217
+     ],
+     "rotation": -0.3498576713057775,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      35.41240962634209
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin37",
+   "components": {
+    "transform": {
+     "position": [
+      -231.71760883264375,
+      -189.32778146262362
+     ],
+     "rotation": 0.24156392465288468,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      30.27228083209151
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin38",
+   "components": {
+    "transform": {
+     "position": [
+      -215.17483293150053,
+      -193.38532892403478
+     ],
+     "rotation": 0.2548550044585427,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      34.514977968138844
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin39",
+   "components": {
+    "transform": {
+     "position": [
+      -198.3344653281361,
+      -185.66684040359252
+     ],
+     "rotation": -0.16656848064939356,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      36.53695516209699
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin40",
+   "components": {
+    "transform": {
+     "position": [
+      -176.67284313101297,
+      -186.67869052816732
+     ],
+     "rotation": 0.38361938200386614,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      31.494881638345213
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin41",
+   "components": {
+    "transform": {
+     "position": [
+      -154.25728161954925,
+      -174.96323178405382
+     ],
+     "rotation": 0.37968759694356924,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      36.154709287443076
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin42",
+   "components": {
+    "transform": {
+     "position": [
+      -141.44766895890825,
+      -172.19695734078593
+     ],
+     "rotation": 0.13797836958436682,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      32.66506015819163
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin43",
+   "components": {
+    "transform": {
+     "position": [
+      -131.24109130309793,
+      -166.11930938957968
+     ],
+     "rotation": 0.12679581604336998,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      36.823155064891125
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin44",
+   "components": {
+    "transform": {
+     "position": [
+      -110.18820103798242,
+      -167.33305371134588
+     ],
+     "rotation": -0.017404431187849734,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      32.11279390484732
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin45",
+   "components": {
+    "transform": {
+     "position": [
+      -87.43283041110175,
+      -160.33343088071433
+     ],
+     "rotation": 0.1773488200649822,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      31.844704515589175
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin46",
+   "components": {
+    "transform": {
+     "position": [
+      -78.85357042229052,
+      -174.88347297978478
+     ],
+     "rotation": 0.04435849185855245,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      33.05858609219329
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin47",
+   "components": {
+    "transform": {
+     "position": [
+      -53.9206038228479,
+      -171.47789179995837
+     ],
+     "rotation": 0.2077851310749934,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      36.3821592215098
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin48",
+   "components": {
+    "transform": {
+     "position": [
+      -38.717371317193155,
+      -160.75721558575225
+     ],
+     "rotation": -0.10050631163832308,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      30.44028011891213
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin49",
+   "components": {
+    "transform": {
+     "position": [
+      -20.566239746032455,
+      -163.7009374055725
+     ],
+     "rotation": -0.20805811738615276,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      32.62712771925716
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin50",
+   "components": {
+    "transform": {
+     "position": [
+      -9.791032628203359,
+      -163.53719115025183
+     ],
+     "rotation": -0.1372746020154641,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      37.95097974021669
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin51",
+   "components": {
+    "transform": {
+     "position": [
+      12.847280504403832,
+      -165.65758454639473
+     ],
+     "rotation": 0.008129608553833934,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      37.723431908724706
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin52",
+   "components": {
+    "transform": {
+     "position": [
+      24.98319840518559,
+      -154.7810989942648
+     ],
+     "rotation": 0.3820101815311029,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      32.49910731908802
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin53",
+   "components": {
+    "transform": {
+     "position": [
+      44.40452924677622,
+      -171.35080682613895
+     ],
+     "rotation": 0.06857032554106812,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      34.966555578124755
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin54",
+   "components": {
+    "transform": {
+     "position": [
+      67.25347842490754,
+      -169.03745490699316
+     ],
+     "rotation": -0.16449668814260293,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      37.65825327304364
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin55",
+   "components": {
+    "transform": {
+     "position": [
+      73.19986919040713,
+      -174.22196935793
+     ],
+     "rotation": -0.2934106624685761,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      33.59078708410432
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin56",
+   "components": {
+    "transform": {
+     "position": [
+      102.19239958972847,
+      -174.67569509919227
+     ],
+     "rotation": -0.16297314629256512,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      32.83126166137316
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin57",
+   "components": {
+    "transform": {
+     "position": [
+      116.03829727979458,
+      -171.61761378835928
+     ],
+     "rotation": 0.21240542448576039,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      37.877831388037684
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin58",
+   "components": {
+    "transform": {
+     "position": [
+      127.33428233513126,
+      -166.07636027180826
+     ],
+     "rotation": -0.19684642907320837,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      33.38567191591046
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin59",
+   "components": {
+    "transform": {
+     "position": [
+      153.67853552245387,
+      -166.78854001530246
+     ],
+     "rotation": 0.3661469167237291,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      32.38802374933064
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin60",
+   "components": {
+    "transform": {
+     "position": [
+      166.39713648903418,
+      -175.96114208088153
+     ],
+     "rotation": 0.2930883514642356,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      35.77955677212867
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin61",
+   "components": {
+    "transform": {
+     "position": [
+      184.68633651414467,
+      -176.75401400870496
+     ],
+     "rotation": -0.1257320032439978,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      32.3751454796482
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin62",
+   "components": {
+    "transform": {
+     "position": [
+      203.16244331733452,
+      -185.74106282362789
+     ],
+     "rotation": 0.3043500277285246,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      34.18765861194973
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin63",
+   "components": {
+    "transform": {
+     "position": [
+      220.14864465688842,
+      -179.0666827214024
+     ],
+     "rotation": -0.19938516326746036,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      40.0,
+      33.283665128567286
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin64",
+   "components": {
+    "transform": {
+     "position": [
+      236.42712155247756,
+      -193.35210697507327
+     ],
+     "rotation": -0.06308252930700514,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      40.0,
+      34.73469322289693
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin65",
+   "components": {
+    "transform": {
+     "position": [
+      -222.3123177523335,
+      -164.94367786807126
+     ],
+     "rotation": -0.09898870101540924,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      34.80175651845718
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin66",
+   "components": {
+    "transform": {
+     "position": [
+      -199.34916940421465,
+      -162.88643098122463
+     ],
+     "rotation": -0.2266011451624589,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      35.44732800263931
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin67",
+   "components": {
+    "transform": {
+     "position": [
+      -193.35072631160713,
+      -152.37834899725883
+     ],
+     "rotation": -0.0165286148034145,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      33.6236407556183
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin68",
+   "components": {
+    "transform": {
+     "position": [
+      -176.19778029663388,
+      -160.75220359357954
+     ],
+     "rotation": 0.36733880697500354,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      32.947334122589524
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin69",
+   "components": {
+    "transform": {
+     "position": [
+      -149.79140352275425,
+      -158.2932043270598
+     ],
+     "rotation": 0.23263833652966115,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      35.555936812268364
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin70",
+   "components": {
+    "transform": {
+     "position": [
+      -131.06465840552474,
+      -153.19247818944345
+     ],
+     "rotation": -0.2941643918868586,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      35.50919959178574
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin71",
+   "components": {
+    "transform": {
+     "position": [
+      -114.0037775612301,
+      -142.07471315373294
+     ],
+     "rotation": -0.23420510432808586,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      35.279941362262576
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin72",
+   "components": {
+    "transform": {
+     "position": [
+      -103.46070166717038,
+      -154.6724387935404
+     ],
+     "rotation": -0.20164770879988048,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      34.68766499627585
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin73",
+   "components": {
+    "transform": {
+     "position": [
+      -82.98623980568398,
+      -149.1490852714172
+     ],
+     "rotation": 0.22153203238548858,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      31.932987150763484
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin74",
+   "components": {
+    "transform": {
+     "position": [
+      -63.398273566880526,
+      -149.2202764754866
+     ],
+     "rotation": 0.039828217109689756,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      35.001851345591014
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin75",
+   "components": {
+    "transform": {
+     "position": [
+      -45.3039257959064,
+      -146.63814417191008
+     ],
+     "rotation": 0.1111738668791028,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      36.54577399383429
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin76",
+   "components": {
+    "transform": {
+     "position": [
+      -36.56291396825079,
+      -136.54155313139734
+     ],
+     "rotation": 0.3092927554370889,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      32.21522087978123
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin77",
+   "components": {
+    "transform": {
+     "position": [
+      -17.72576197293756,
+      -134.92982845160105
+     ],
+     "rotation": -0.3131478227929166,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      35.528551012618706
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin78",
+   "components": {
+    "transform": {
+     "position": [
+      2.7320555863636518,
+      -143.13715843479727
+     ],
+     "rotation": -0.1679987165529676,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      30.258792589728344
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin79",
+   "components": {
+    "transform": {
+     "position": [
+      16.2397019495887,
+      -142.53562538137479
+     ],
+     "rotation": -0.09813106538054167,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      30.65291092089488
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin80",
+   "components": {
+    "transform": {
+     "position": [
+      32.18507392768488,
+      -136.32471396065512
+     ],
+     "rotation": -0.19400719413168563,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      36.64939112272523
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin81",
+   "components": {
+    "transform": {
+     "position": [
+      46.81093235062573,
+      -142.71542260636292
+     ],
+     "rotation": -0.1786548219094395,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      31.237775935524205
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin82",
+   "components": {
+    "transform": {
+     "position": [
+      62.84097693805637,
+      -146.56443936859213
+     ],
+     "rotation": 0.15439014457782152,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      31.705804354355667
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin83",
+   "components": {
+    "transform": {
+     "position": [
+      87.58956836623902,
+      -150.83566415326672
+     ],
+     "rotation": 0.087647150611875,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      36.190513648261735
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin84",
+   "components": {
+    "transform": {
+     "position": [
+      95.68230893336134,
+      -150.785587564346
+     ],
+     "rotation": 0.08237434021979667,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      34.653112696901246
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin85",
+   "components": {
+    "transform": {
+     "position": [
+      119.61135444248296,
+      -149.5763832560144
+     ],
+     "rotation": -0.31213679770523833,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      33.91195206463449
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin86",
+   "components": {
+    "transform": {
+     "position": [
+      136.022652279499,
+      -144.9504781287056
+     ],
+     "rotation": 0.26312262515769536,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      33.97319497770777
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin87",
+   "components": {
+    "transform": {
+     "position": [
+      161.3083976605485,
+      -148.6993860931872
+     ],
+     "rotation": -0.38014273839282925,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      37.72528232167681
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin88",
+   "components": {
+    "transform": {
+     "position": [
+      172.41436720522282,
+      -154.2263771949605
+     ],
+     "rotation": -0.1806614241992291,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      37.33311295432715
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin89",
+   "components": {
+    "transform": {
+     "position": [
+      191.34684572028652,
+      -163.638434050546
+     ],
+     "rotation": -0.3284059196659131,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      36.741064388114566
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin90",
+   "components": {
+    "transform": {
+     "position": [
+      -178.3708846703946,
+      -139.76393811945582
+     ],
+     "rotation": -0.12079183660414838,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      37.839761999629395
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin91",
+   "components": {
+    "transform": {
+     "position": [
+      -163.29761490884306,
+      -135.75053686057214
+     ],
+     "rotation": -0.056246381197519124,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      36.44613414733427
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin92",
+   "components": {
+    "transform": {
+     "position": [
+      -151.48974854817416,
+      -139.20285675973338
+     ],
+     "rotation": 0.38363633802183694,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      36.02719174097665
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin93",
+   "components": {
+    "transform": {
+     "position": [
+      -124.62226882341906,
+      -127.65179990184731
+     ],
+     "rotation": 0.03561773706953364,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      32.32518817361388
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin94",
+   "components": {
+    "transform": {
+     "position": [
+      -106.91366288506575,
+      -120.90639266974779
+     ],
+     "rotation": -0.0530955308517978,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      37.196351007309325
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin95",
+   "components": {
+    "transform": {
+     "position": [
+      -96.94440908919006,
+      -122.9075886297775
+     ],
+     "rotation": -0.0050368665150082315,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      30.671191571111187
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin96",
+   "components": {
+    "transform": {
+     "position": [
+      -78.9931062049179,
+      -132.30774646627708
+     ],
+     "rotation": 0.27872081659100156,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      36.27715588939232
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin97",
+   "components": {
+    "transform": {
+     "position": [
+      -57.75621809776773,
+      -117.79126512778086
+     ],
+     "rotation": 0.1645727213824909,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      33.03230212433934
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin98",
+   "components": {
+    "transform": {
+     "position": [
+      -40.02156816755311,
+      -119.87669294354225
+     ],
+     "rotation": 0.32165396350610476,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      31.117307983619014
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin99",
+   "components": {
+    "transform": {
+     "position": [
+      -29.3422573147458,
+      -122.70342684534427
+     ],
+     "rotation": -0.2404633245727773,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      35.72111385547859
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin100",
+   "components": {
+    "transform": {
+     "position": [
+      -15.398082946443227,
+      -124.3921962520026
+     ],
+     "rotation": -0.13758467373573124,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      32.599943596540825
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin101",
+   "components": {
+    "transform": {
+     "position": [
+      13.266204851614072,
+      -118.74023966053124
+     ],
+     "rotation": -0.39721532783685576,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      31.61569828154225
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin102",
+   "components": {
+    "transform": {
+     "position": [
+      16.87241755436734,
+      -121.69823158823502
+     ],
+     "rotation": 0.265171200067316,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      32.77125504438513
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin103",
+   "components": {
+    "transform": {
+     "position": [
+      41.093238657716995,
+      -117.35903487273858
+     ],
+     "rotation": -0.20485722828402492,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      32.058316182769346
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin104",
+   "components": {
+    "transform": {
+     "position": [
+      55.991422007383704,
+      -132.7307819226408
+     ],
+     "rotation": 0.20429805791493738,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      36.11140644181655
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin105",
+   "components": {
+    "transform": {
+     "position": [
+      81.59023766666476,
+      -124.32965079346033
+     ],
+     "rotation": 0.2894543509851889,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      32.892076840671706
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin106",
+   "components": {
+    "transform": {
+     "position": [
+      90.33484330587936,
+      -121.93973485212464
+     ],
+     "rotation": -0.3775652318221302,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      33.67799798944781
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin107",
+   "components": {
+    "transform": {
+     "position": [
+      113.9670112418866,
+      -120.05013410722329
+     ],
+     "rotation": 0.34831836504024816,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      30.492540821951028
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin108",
+   "components": {
+    "transform": {
+     "position": [
+      121.2111507164796,
+      -131.01278110896604
+     ],
+     "rotation": 0.1813903601468383,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      33.44478307357348
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin109",
+   "components": {
+    "transform": {
+     "position": [
+      136.70935615225193,
+      -123.43630572058193
+     ],
+     "rotation": 0.22555948527425462,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      40.0,
+      32.59244300840083
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin110",
+   "components": {
+    "transform": {
+     "position": [
+      161.18591815735076,
+      -126.98354163327883
+     ],
+     "rotation": 0.17594262249492254,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      40.0,
+      35.45216177220734
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin111",
+   "components": {
+    "transform": {
+     "position": [
+      -145.5372239440831,
+      -106.26909901417405
+     ],
+     "rotation": -0.020190448587154353,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      31.52353077432152
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin112",
+   "components": {
+    "transform": {
+     "position": [
+      -115.85228694925173,
+      -98.22066813627778
+     ],
+     "rotation": 0.3243074849828972,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      35.39396365994908
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin113",
+   "components": {
+    "transform": {
+     "position": [
+      -102.20806043495749,
+      -99.23645762263672
+     ],
+     "rotation": 0.3355903701564982,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      37.086191740914316
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin114",
+   "components": {
+    "transform": {
+     "position": [
+      -86.6093922243481,
+      -105.05012611370466
+     ],
+     "rotation": 0.12448768220155637,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      31.256479042676922
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin115",
+   "components": {
+    "transform": {
+     "position": [
+      -64.62906460839142,
+      -109.67530336044172
+     ],
+     "rotation": 0.23387785560508678,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      32.08632388468391
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin116",
+   "components": {
+    "transform": {
+     "position": [
+      -53.45436129894914,
+      -96.9346635317601
+     ],
+     "rotation": 0.15151216855795913,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      35.6082896409422
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin117",
+   "components": {
+    "transform": {
+     "position": [
+      -43.86913852025439,
+      -105.65823900821448
+     ],
+     "rotation": 0.02733488107971549,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      30.852961487871056
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin118",
+   "components": {
+    "transform": {
+     "position": [
+      -25.904054575837392,
+      -96.80111705808285
+     ],
+     "rotation": 0.3246833278020457,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      33.435388868736005
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin119",
+   "components": {
+    "transform": {
+     "position": [
+      3.3315749593742634,
+      -108.15953321132594
+     ],
+     "rotation": -0.10068128007723481,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      31.804539898775744
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin120",
+   "components": {
+    "transform": {
+     "position": [
+      9.014539216736257,
+      -104.09964608428976
+     ],
+     "rotation": -0.3322954392650185,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      34.81340360278426
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin121",
+   "components": {
+    "transform": {
+     "position": [
+      23.122938741071692,
+      -108.23585148360323
+     ],
+     "rotation": -0.23540938788809884,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      32.44525681877706
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin122",
+   "components": {
+    "transform": {
+     "position": [
+      50.6952626180884,
+      -103.94142686660145
+     ],
+     "rotation": 0.26397860180873645,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      34.07136050574963
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin123",
+   "components": {
+    "transform": {
+     "position": [
+      65.20369204288176,
+      -109.22991341890675
+     ],
+     "rotation": 0.359852047338309,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      37.26052092949576
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin124",
+   "components": {
+    "transform": {
+     "position": [
+      87.37250940895763,
+      -98.02724938526327
+     ],
+     "rotation": -0.10680488196335364,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      30.367437632292166
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin125",
+   "components": {
+    "transform": {
+     "position": [
+      91.18213273090694,
+      -103.80024026478122
+     ],
+     "rotation": -0.09298156629971349,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      40.0,
+      35.760624263720885
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin126",
+   "components": {
+    "transform": {
+     "position": [
+      109.22719287142291,
+      -114.26925786700224
+     ],
+     "rotation": -0.12014415402481537,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      40.0,
+      32.69688065803925
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin127",
+   "components": {
+    "transform": {
+     "position": [
+      -96.53906647900487,
+      -79.14145310870397
+     ],
+     "rotation": -0.006309645122731744,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      40.0,
+      34.618304615335674
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin128",
+   "components": {
+    "transform": {
+     "position": [
+      -76.03734145215863,
+      -78.2137541303626
+     ],
+     "rotation": 0.3805009866708191,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      40.0,
+      35.05301695275105
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin129",
+   "components": {
+    "transform": {
+     "position": [
+      -70.59731262626507,
+      -79.00104295481194
+     ],
+     "rotation": -0.20705115565342347,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      40.0,
+      31.88707889233858
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin130",
+   "components": {
+    "transform": {
+     "position": [
+      -43.82007420831458,
+      -89.19776867533461
+     ],
+     "rotation": -0.34546958792775195,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      40.0,
+      33.289083763078835
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin131",
+   "components": {
+    "transform": {
+     "position": [
+      -34.20731136857353,
+      -74.40501029706624
+     ],
+     "rotation": 0.03778982902771294,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      40.0,
+      37.86637793149511
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin132",
+   "components": {
+    "transform": {
+     "position": [
+      -10.397250718284857,
+      -76.35089908733683
+     ],
+     "rotation": 0.3589307145315598,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      40.0,
+      34.837735904710954
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin133",
+   "components": {
+    "transform": {
+     "position": [
+      -4.006227896218499,
+      -86.99891239796378
+     ],
+     "rotation": -0.3571966423975697,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      40.0,
+      37.7643700549001
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin134",
+   "components": {
+    "transform": {
+     "position": [
+      19.824902702625494,
+      -84.42136647893943
+     ],
+     "rotation": -0.004840402469825755,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      40.0,
+      34.73020407788552
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin135",
+   "components": {
+    "transform": {
+     "position": [
+      38.218519429893924,
+      -76.29922339080693
+     ],
+     "rotation": -0.36131362553116225,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      40.0,
+      32.05883612826775
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin136",
+   "components": {
+    "transform": {
+     "position": [
+      46.832536563757145,
+      -78.94782212253261
+     ],
+     "rotation": -0.07161081060088559,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      40.0,
+      37.29555789569843
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 60.0
+    }
+   }
+  },
+  {
+   "name": "Coin137",
+   "components": {
+    "transform": {
+     "position": [
+      69.96741633751317,
+      -90.7807883437218
+     ],
+     "rotation": -0.05760888746147197,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      40.0,
+      31.85523161542316
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin138",
+   "components": {
+    "transform": {
+     "position": [
+      -60.70012965186627,
+      -63.89218600153467
+     ],
+     "rotation": 0.3970834744746766,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      40.0,
+      30.757011642567086
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin139",
+   "components": {
+    "transform": {
+     "position": [
+      -38.54217176343352,
+      -57.219324361638364
+     ],
+     "rotation": -0.3531885534719836,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      40.0,
+      31.11869657343692
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin140",
+   "components": {
+    "transform": {
+     "position": [
+      -18.879028950597046,
+      -64.18533082559675
+     ],
+     "rotation": -0.35391440756365644,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      40.0,
+      34.196752481473894
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin141",
+   "components": {
+    "transform": {
+     "position": [
+      -2.798041267040409,
+      -69.77870998005872
+     ],
+     "rotation": 0.23975877573642113,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      40.0,
+      31.69178562912385
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin142",
+   "components": {
+    "transform": {
+     "position": [
+      1.1555447428066348,
+      -54.80420300387968
+     ],
+     "rotation": 0.3870295819098567,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      40.0,
+      36.33766958123297
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Coin143",
+   "components": {
+    "transform": {
+     "position": [
+      24.65709976092917,
+      -63.2173704905791
+     ],
+     "rotation": -0.2147837124965938,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      40.0,
+      31.156920442557446
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 45.0
+    }
+   }
+  },
+  {
+   "name": "Coin144",
+   "components": {
+    "transform": {
+     "position": [
+      43.19991427401299,
+      -67.40349869364645
+     ],
+     "rotation": -0.10858258828848805,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/coin.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      40.0,
+      35.52703521296924
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/coin_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 30.0
+    }
+   }
+  },
+  {
+   "name": "Sword",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -70.0
+     ],
+     "rotation": -0.18,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/sword.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      300.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/sword_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 80.0
+    }
+   }
+  },
+  {
+   "name": "Goblet",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/goblet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      88.0,
+      132.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/goblet_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 40.0
+    }
+   }
+  },
+  {
+   "name": "Gem1",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -88.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/gem.png",
+     "color": [
+      1.0,
+      0.05088,
+      0.07324,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/gem_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 110.0
+    }
+   }
+  },
+  {
+   "name": "Gem2",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -102.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/gem.png",
+     "color": [
+      0.07324,
+      1.0,
+      0.17064,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/gem_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 110.0
+    }
+   }
+  },
+  {
+   "name": "Gem3",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/gem.png",
+     "color": [
+      0.10048,
+      0.26327,
+      1.0,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/gem_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 110.0
+    }
+   }
+  },
+  {
+   "name": "Gem4",
+   "components": {
+    "transform": {
+     "position": [
+      -250.0,
+      -124.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/gem.png",
+     "color": [
+      0.78741,
+      0.07324,
+      1.0,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/gem_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 110.0
+    }
+   }
+  },
+  {
+   "name": "Gem5",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      -54.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hoard/gem.png",
+     "color": [
+      1.0,
+      0.60383,
+      0.07324,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      36.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hoard/gem_n.png",
+     "uniforms": {},
+     "specular": 1.0,
+     "shininess": 110.0
+    }
+   }
+  },
+  {
+   "name": "Lantern",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.63828,
+      0.26327
+     ],
+     "intensity": 1.7,
+     "radius": 560.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "height": 0.35,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "LanternGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.0,
+      1.20766,
+      0.42808,
+      0.7
+     ],
+     "z_order": 40,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Torch",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.05088
+     ],
+     "intensity": 0.9,
+     "radius": 520.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "TorchFlame",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 30.0,
+     "max_particles": 60,
+     "lifetime": [
+      0.35,
+      0.6
+     ],
+     "speed": [
+      30.0,
+      60.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      3.0,
+      1.34397,
+      0.21972,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.02004,
+      0.0
+     ],
+     "size_start": [
+      22.0,
+      30.0
+     ],
+     "size_end": [
+      6.0,
+      10.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.21404,
+      0.38006,
+      1.0
+     ],
+     "intensity": 0.5,
+     "radius": 700.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 14.0,
+     "max_particles": 180,
+     "lifetime": [
+      6.0,
+      10.0
+     ],
+     "speed": [
+      3.0,
+      10.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      0.89001,
+      0.69207,
+      0.5
+     ],
+     "color_end": [
+      1.0,
+      0.89001,
+      0.69207,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 35,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       720
+      ]
+     },
+     "turbulence": {
+      "strength": 6.0,
+      "scale": 200.0,
+      "speed": 0.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "55   Dragon's Hoard",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Mouse  carry the lantern   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s55_dragons_hoard.lua"
+    }
+   }
+  }
+ ]
+}

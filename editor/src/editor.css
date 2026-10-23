@@ -1,0 +1,98 @@
+/* Colour tokens and palettes: theme.css. */
+:root {
+  font-family: var(--ed-sans);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ed-text);
+  background-color: var(--ed-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  background: var(--ed-base);
+}
+
+#app {
+  height: 100%;
+}
+
+::selection {
+  background: var(--ed-accent-low);
+  color: var(--ed-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ed-a2);
+  outline-offset: 1px;
+}
+
+/* The design kit's controls, for every component that does not say
+   otherwise: native checkboxes, radios, sliders and progress in the accent,
+   and a field in focus ringed in the accent's low tint. `:where` keeps these
+   at no specificity, so a component's own rule still wins. */
+:root {
+  accent-color: var(--ed-accent);
+}
+
+/* A control is in the editor's font (a browser draws one in its own), and a
+   value - a number, a file path, code - in mono, as the kit sets values.
+   Search, name and label fields stay in the sans. */
+:where(input, select, textarea, button) {
+  font-family: inherit;
+}
+
+:where(
+    input[type="number"],
+    textarea,
+    input[placeholder*=".png"],
+    input[placeholder*=".lua"],
+    input[placeholder*=".js"],
+    input[placeholder*=".ogg"],
+    input[placeholder*=".wav"],
+    input[placeholder*=".gui"],
+    input[placeholder*=".behavior"],
+    input[placeholder*=".prefab"],
+    input[placeholder*=".material"],
+    input[placeholder*=".font"]
+  ) {
+  font-family: var(--ed-mono);
+}
+
+:where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), select, textarea):focus {
+  outline: none;
+  border-color: var(--ed-accent);
+  box-shadow: 0 0 0 2px var(--ed-accent-low);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ed-mantle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ed-line);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ed-line-strong);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--ed-mantle);
+}

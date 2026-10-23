@@ -1,0 +1,181 @@
+---
+draft: false
+title: Your First Project
+description: Create your first jEngine game project step by step.
+---
+
+## Create a New Project
+
+1. Launch the editor: `./run-editor.ps1` from the repo root (see [Installation](/getting-started/installation/))
+2. On the Start Screen, click **New project** and pick a template:
+   - **Starter** - a scene with a camera, a title, and a square you can move with the arrows, WASD or a
+     gamepad stick, its script and input actions. Press **Play** to try it.
+   - **Empty** - the project settings and empty asset folders, nothing else. The editor opens an untitled
+     scene; save it and set it as the entry scene in Project Settings.
+3. Choose a folder; the project takes its name
+
+Without the editor, the same projects come from the command line (`--template` defaults to `starter`):
+
+```bash
+cargo run -p jengine-builder --bin jengine -- project new projects/my-game --name "My Game"
+cargo run -p jengine-builder --bin jengine -- project new projects/blank --template empty
+```
+
+Both write the files in `templates/project/` (starter) or `templates/project-empty/` (empty).
+
+## Project File Structure
+
+```
+my-game/
+├── project.jengine        # Project settings (JSON)
+├── assets/
+│   ├── scenes/main.scene  # The starter scene
+│   ├── scripts/player.lua # The starter player script
+│   │                      # Folders you add as the game grows:
+│   ├── sprites/           # Images (.png, .jpg)
+│   ├── sounds/            # Audio clips (.ogg, .wav, .mp3)
+│   ├── prefabs/           # Entity templates (.prefab)
+│   └── ui/                # GUI documents (.gui)
+```
+
+### project.jengine Format
+
+This is the starter template's `project.jengine` (`templates/project/project.jengine`):
+
+```json
+{
+  "name": "My Game",
+  "default_scene": "scenes/main.scene",
+  "settings": {
+    "width": 1280,
+    "height": 720,
+    "background_color": [0.02, 0.025, 0.04, 1.0],
+    "target_fps": 60,
+    "title": "My Game",
+    "entry_scene": "scenes/main.scene",
+    "ui_scale_mode": "ScaleWithScreen",
+    "physics": {
+      "gravity_x": 0.0,
+      "gravity_y": -9.81,
+      "backend": "rapier2d",
+      "fixed_timestep": 0.016666668,
+      "length_unit": 100.0
+    },
+    "input_actions": [
+      { "name": "move_left", "keys": ["A", "Left", "Pad0_DPadLeft", "Pad0_LeftStickX-"] },
+      { "name": "move_right", "keys": ["D", "Right", "Pad0_DPadRight", "Pad0_LeftStickX+"] },
+      { "name": "move_up", "keys": ["W", "Up", "Pad0_DPadUp", "Pad0_LeftStickY+"] },
+      { "name": "move_down", "keys": ["S", "Down", "Pad0_DPadDown", "Pad0_LeftStickY-"] },
+      { "name": "confirm", "keys": ["Space", "Enter", "Pad0_A"] },
+      { "name": "cancel", "keys": ["Escape", "Pad0_B"] }
+    ],
+    "enabled_packages": [
+      "jengine-physics",
+      "jengine-audio",
+      "jengine-particles",
+      "jengine-parallax",
+      "jengine-swarm"
+    ]
+  }
+}
+```
+
+Scene paths are relative to `assets/`. `gravity_y` is multiplied by `length_unit`, so `-9.81` with a
+length unit of 100 is about 981 units per second squared - one world unit is roughly a centimetre.
+`enabled_packages` switches the built-in [packages](/packages/) on; once the list exists it is an
+allow-list. A project that links Rust packages of its own adds a top-level `"packages"` array naming
+them. Most settings have a field in **Project Settings** in the editor, which is the easier way to
+change them.
+
+## Add an Entity
+
+1. In the **Scene Tree** panel, right-click and select **Add Entity**
+2. Name it "Player"
+3. In the **Inspector**, click **Add Component** and add:
+   - **Transform** — set position to `(0, 0)`
+   - **Sprite** — select a texture from assets
+   - **Script** — create a new Lua or JS script
+
+## Write a Script
+
+Create `assets/scripts/player.lua`:
+
+```lua
+local speed = 200
+
+function init(entity)
+    log("Player initialized!")
+end
+
+function update(entity, dt)
+    local x, y = Transform.get_position(entity)
+
+    if Input.is_key_pressed("D") then
+        x = x + speed * dt
+    end
+    if Input.is_key_pressed("A") then
+        x = x - speed * dt
+    end
+
+    Transform.set_position(entity, x, y)
+end
+```
+
+Lua scripts call the engine through capitalised namespaces - `Transform`, `Input`, `Physics`,
+`Sprite` and so on; see the [Scripting API](/api-reference/scripting-api/).
+
+Or in JavaScript (`assets/scripts/player.js`), which keeps the flat function names and runs on desktop builds only:
+
+```javascript
+var speed = 200;
+
+function init(entity) {
+    log("Player initialized!");
+}
+
+function update(entity, dt) {
+    var pos = get_position(entity);
+    var x = pos[0], y = pos[1];
+
+    if (is_key_pressed("D")) {
+        x += speed * dt;
+    }
+    if (is_key_pressed("A")) {
+        x -= speed * dt;
+    }
+
+    set_position(entity, x, y);
+}
+```
+
+## Save and Run
+
+1. Press **Ctrl+S** to save the scene
+2. Click the **Play** button in the toolbar
+3. The game runs in the viewport — test your controls!
+
+## Build for Distribution
+
+Open **Build Settings** and pick a target. Each build streams its compiler output into the **Build**
+panel at the bottom of the editor.
+
+- **Windows** — a standalone `.exe` with its assets.
+- **Web** — an HTML + WASM + JS bundle for any static web server.
+- **Android** — an APK (debug-signed) or a Google Play bundle, identity from Project Settings → Mobile
+  App. Lua scripts only.
+
+A project with Rust packages gets its own runtime crate generated for each target, so its packages are
+linked in. The same builds run from the command line: `jengine web-build projects/<name>`,
+`jengine android-build projects/<name>`.
+
+To keep a build small, name **asset packs** in Project Settings → Asset Pipeline → Asset Packs:
+each takes asset paths (a later world's scenes, sprites and music, say), and a build moves them out
+of the game into `packs/<name>-<hash>.jpak`. Upload that folder, set its URL, and fetch a pack from a
+script when it is needed with `Packs.download("name")` - see
+[Asset packs](/api-reference/scripting-api/#asset-packs) in the scripting API.
+
+## Next Steps
+
+- [Editor Overview](/getting-started/editor-overview/) — Learn the full editor interface
+- [Scripting Guide](/guides/scripting/) — Deep dive into Lua and JS scripting
+- [ECS & Components](/guides/ecs/) — Understand the entity-component system

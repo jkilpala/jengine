@@ -1,0 +1,246 @@
+{
+  "name": "28 - Spotlights & Lightmap",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-560.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "28 - SPOTLIGHTS & LIGHTMAP", "font_id": "", "font_scale": 2.4, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 },
+        "unlit": {}
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 254.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Three SpotLight2D cones (R/G/B) point straight down - angle=0.5 rad, radius=320.", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 },
+        "unlit": {}
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 228.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "AmbientLight intensity 0.18 + a wandering PointLight2D (Oscillator) for accent.", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 },
+        "unlit": {}
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 202.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "LightmapComponent adds a baked texture into the light buffer: the warm glow between red and green.", "font_id": "", "font_scale": 0.95, "color": [0.7, 0.75, 0.85, 0.9], "z_order": 10 },
+        "unlit": {}
+      }
+    },
+
+    {
+      "name": "Lighting",
+      "components": {
+        "ambient_light": { "color": [0.4, 0.5, 0.7], "intensity": 0.18 }
+      }
+    },
+
+    {
+      "name": "BgRow1Col1",
+      "components": {
+        "transform": { "position": [-512.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col2",
+      "components": {
+        "transform": { "position": [-384.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col3",
+      "components": {
+        "transform": { "position": [-256.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col4",
+      "components": {
+        "transform": { "position": [-128.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col5",
+      "components": {
+        "transform": { "position": [0.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col6",
+      "components": {
+        "transform": { "position": [128.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col7",
+      "components": {
+        "transform": { "position": [256.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col8",
+      "components": {
+        "transform": { "position": [384.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow1Col9",
+      "components": {
+        "transform": { "position": [512.0, -64.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col1",
+      "components": {
+        "transform": { "position": [-512.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col2",
+      "components": {
+        "transform": { "position": [-384.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col3",
+      "components": {
+        "transform": { "position": [-256.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col4",
+      "components": {
+        "transform": { "position": [-128.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col5",
+      "components": {
+        "transform": { "position": [0.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col6",
+      "components": {
+        "transform": { "position": [128.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col7",
+      "components": {
+        "transform": { "position": [256.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col8",
+      "components": {
+        "transform": { "position": [384.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+    {
+      "name": "BgRow2Col9",
+      "components": {
+        "transform": { "position": [512.0, -192.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/checker64.png", "color": [0.85, 0.85, 0.9, 1.0], "z_order": 0, "size": [128.0, 128.0], "anchor": [0.5, 0.5] }
+      }
+    },
+
+    {
+      "name": "SpotRed",
+      "components": {
+        "transform": { "position": [-340.0, 140.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.4, 0.4, 1.0], "z_order": 3, "size": [22.0, 22.0] },
+        "spot_light": { "color": [1.0, 0.35, 0.3], "intensity": 2.2, "radius": 360.0, "angle": 0.5, "direction": -1.5707963, "falloff": 2.0 }
+      }
+    },
+    {
+      "name": "SpotGreen",
+      "components": {
+        "transform": { "position": [0.0, 140.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.4, 1.0, 0.4, 1.0], "z_order": 3, "size": [22.0, 22.0] },
+        "spot_light": { "color": [0.3, 1.0, 0.35], "intensity": 2.2, "radius": 360.0, "angle": 0.5, "direction": -1.5707963, "falloff": 2.0 }
+      }
+    },
+    {
+      "name": "SpotBlue",
+      "components": {
+        "transform": { "position": [340.0, 140.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.45, 0.6, 1.0, 1.0], "z_order": 3, "size": [22.0, 22.0] },
+        "spot_light": { "color": [0.35, 0.5, 1.0], "intensity": 2.2, "radius": 360.0, "angle": 0.5, "direction": -1.5707963, "falloff": 2.0 }
+      }
+    },
+
+    {
+      "name": "WanderLight",
+      "components": {
+        "transform": { "position": [0.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.95, 0.7, 1.0], "z_order": 3, "size": [20.0, 20.0] },
+        "point_light": { "color": [1.0, 0.92, 0.7], "intensity": 1.6, "radius": 220.0, "falloff": 2.0 },
+        "oscillator": { "amplitude": [420.0, 80.0], "frequency": [0.25, 0.37], "phase": [0.0, 1.57] }
+      }
+    },
+
+    {
+      "name": "BakedGlow",
+      "components": {
+        "transform": { "position": [-170.0, -150.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "lightmap": { "texture_id": "lightmaps/warm_glow.png", "uv_rect": [0.0, 0.0, 1.0, 1.0], "intensity": 1.0, "size": [240.0, 240.0] }
+      }
+    },
+    {
+      "name": "BakedGlowLabel",
+      "components": {
+        "transform": { "position": [-270.0, -270.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "baked lightmap (LightmapComponent)", "font_id": "", "font_scale": 0.9, "color": [0.7, 0.75, 0.85, 0.8], "z_order": 10 },
+        "unlit": {}
+      }
+    },
+
+    {
+      "name": "Footer",
+      "components": {
+        "transform": { "position": [-540.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.75, 0.85, 0.8], "z_order": 10 },
+        "unlit": {}
+      }
+    },
+
+    {
+      "name": "NavScript",
+      "components": {
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_28_spotlights.lua" }
+      }
+    }
+  ]
+}

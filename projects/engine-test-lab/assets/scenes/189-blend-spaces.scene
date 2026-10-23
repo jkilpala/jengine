@@ -1,0 +1,936 @@
+{
+ "name": "189 - Blend spaces",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Pad",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.17,
+      0.21,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      336.0,
+      336.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pt_still",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      0.6,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PtLabel_still",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "still",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Pt_east",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      0.6,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PtLabel_east",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      -36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "east",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Pt_west",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      0.6,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PtLabel_west",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "west",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Pt_north",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      0.6,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PtLabel_north",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "north",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Pt_south",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.6,
+      0.85,
+      0.6,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      12.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PtLabel_south",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -156.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "south",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Cursor",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      1,
+      0.85,
+      0.35,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      14.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stage",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.17,
+      0.21,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      336.0,
+      336.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Home_still",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.45,
+      0.5,
+      0.6,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      8.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Home_east",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.45,
+      0.5,
+      0.6,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      8.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Home_west",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.45,
+      0.5,
+      0.6,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      8.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Home_north",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.45,
+      0.5,
+      0.6,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      8.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Home_south",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.45,
+      0.5,
+      0.6,
+      1
+     ],
+     "z_order": 1,
+     "size": [
+      8.0,
+      8.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rig",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "rig"
+    },
+    "skeletal_player": {
+     "clip": "",
+     "blend_space": {
+      "points": [
+       {
+        "clip": "animations/lab189_still.skelanim",
+        "at": [
+         0.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/lab189_east.skelanim",
+        "at": [
+         1.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/lab189_west.skelanim",
+        "at": [
+         -1.0,
+         0.0
+        ]
+       },
+       {
+        "clip": "animations/lab189_north.skelanim",
+        "at": [
+         0.0,
+         1.0
+        ]
+       },
+       {
+        "clip": "animations/lab189_south.skelanim",
+        "at": [
+         0.0,
+         -1.0
+        ]
+       }
+      ],
+      "position": [
+       0.0,
+       0.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Hand",
+   "parent": "Rig",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "hand",
+     "length": 10.0
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.95,
+      0.55,
+      0.3,
+      1
+     ],
+     "z_order": 3,
+     "size": [
+      26.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PadLabel",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -208.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "the blend space (the mouse moves the position)",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "StageLabel",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -208.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "the rig: one bone, its clips mixed",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "z_order": 5,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "189 - Blend spaces",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Space: crossfade to a spin clip / back to the space",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -110.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.8,
+      0.55,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: on a point the orange hand does that clip alone, at its home dot and its pace; between points it mixes",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "both where it is and how fast it cycles, with no jump anywhere - outside the points too. Space fades to a spin and back.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_189_blend_spaces.lua"
+    }
+   }
+  }
+ ]
+}

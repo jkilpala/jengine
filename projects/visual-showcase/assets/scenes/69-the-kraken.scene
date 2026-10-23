@@ -1,0 +1,2534 @@
+{
+ "name": "69 - The Kraken",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.6
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 0.95
+     },
+     "tint_color": {
+      "Vec4": [
+       0.85,
+       0.95,
+       1.0,
+       0.08
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/kraken/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1400.0,
+      880.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Clouds",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      60.0,
+      0.0
+     ],
+     "frequency": [
+      0.02,
+      0.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/clouds.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -95,
+     "size": [
+      1680.0,
+      330.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "WavesBack",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      40.0,
+      6.0
+     ],
+     "frequency": [
+      0.07,
+      0.25
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/waves.png",
+     "color": [
+      0.60383,
+      0.69207,
+      0.78741,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      1580.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       200.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Ship",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/kraken/ship.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      360.0,
+      330.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tentacle0",
+   "components": {
+    "transform": {
+     "position": [
+      -330.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "t0"
+    }
+   }
+  },
+  {
+   "name": "T0Seg0",
+   "parent": "Tentacle0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg0",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      67.6,
+      46.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg1",
+   "parent": "T0Seg0",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg1",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      65.67999999999999,
+      42.8
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg2",
+   "parent": "T0Seg1",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg2",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      63.760000000000005,
+      39.6
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg3",
+   "parent": "T0Seg2",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg3",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      61.84,
+      36.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg4",
+   "parent": "T0Seg3",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg4",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      59.92,
+      33.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg5",
+   "parent": "T0Seg4",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg5",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      58.0,
+      30.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg6",
+   "parent": "T0Seg5",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg6",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      56.08,
+      26.799999999999997
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg7",
+   "parent": "T0Seg6",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg7",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      54.16,
+      23.599999999999998
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg8",
+   "parent": "T0Seg7",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg8",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      52.239999999999995,
+      20.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg9",
+   "parent": "T0Seg8",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg9",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      50.32,
+      17.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T0Seg10",
+   "parent": "T0Seg9",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T0Seg10",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      48.4,
+      14.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    },
+    "ik_chain": {
+     "target": [
+      -330.0,
+      -20.0
+     ],
+     "bones": 11,
+     "iterations": 14,
+     "tolerance": 0.5,
+     "max_bend": 0.45,
+     "weight": 1.0
+    }
+   }
+  },
+  {
+   "name": "Tentacle1",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -335.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "t1"
+    }
+   }
+  },
+  {
+   "name": "T1Seg0",
+   "parent": "Tentacle1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg0",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      67.6,
+      46.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg1",
+   "parent": "T1Seg0",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg1",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      65.67999999999999,
+      42.8
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg2",
+   "parent": "T1Seg1",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg2",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      63.760000000000005,
+      39.6
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg3",
+   "parent": "T1Seg2",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg3",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      61.84,
+      36.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg4",
+   "parent": "T1Seg3",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg4",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      59.92,
+      33.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg5",
+   "parent": "T1Seg4",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg5",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      58.0,
+      30.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg6",
+   "parent": "T1Seg5",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg6",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      56.08,
+      26.799999999999997
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg7",
+   "parent": "T1Seg6",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg7",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      54.16,
+      23.599999999999998
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg8",
+   "parent": "T1Seg7",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg8",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      52.239999999999995,
+      20.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg9",
+   "parent": "T1Seg8",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg9",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      50.32,
+      17.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T1Seg10",
+   "parent": "T1Seg9",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": -0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T1Seg10",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      48.4,
+      14.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    },
+    "ik_chain": {
+     "target": [
+      -150.0,
+      -35.0
+     ],
+     "bones": 11,
+     "iterations": 14,
+     "tolerance": 0.5,
+     "max_bend": 0.45,
+     "weight": 1.0
+    }
+   }
+  },
+  {
+   "name": "Tentacle2",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -335.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "t2"
+    }
+   }
+  },
+  {
+   "name": "T2Seg0",
+   "parent": "Tentacle2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg0",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      67.6,
+      46.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg1",
+   "parent": "T2Seg0",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg1",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      65.67999999999999,
+      42.8
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg2",
+   "parent": "T2Seg1",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg2",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      63.760000000000005,
+      39.6
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg3",
+   "parent": "T2Seg2",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg3",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      61.84,
+      36.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg4",
+   "parent": "T2Seg3",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg4",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      59.92,
+      33.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg5",
+   "parent": "T2Seg4",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg5",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      58.0,
+      30.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg6",
+   "parent": "T2Seg5",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg6",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      56.08,
+      26.799999999999997
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg7",
+   "parent": "T2Seg6",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg7",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      54.16,
+      23.599999999999998
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg8",
+   "parent": "T2Seg7",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg8",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      52.239999999999995,
+      20.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg9",
+   "parent": "T2Seg8",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg9",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      50.32,
+      17.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T2Seg10",
+   "parent": "T2Seg9",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T2Seg10",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      48.4,
+      14.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    },
+    "ik_chain": {
+     "target": [
+      170.0,
+      -35.0
+     ],
+     "bones": 11,
+     "iterations": 14,
+     "tolerance": 0.5,
+     "max_bend": 0.45,
+     "weight": 1.0
+    }
+   }
+  },
+  {
+   "name": "Tentacle3",
+   "components": {
+    "transform": {
+     "position": [
+      350.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "skeleton_root": {
+     "name": "t3"
+    }
+   }
+  },
+  {
+   "name": "T3Seg0",
+   "parent": "Tentacle3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 1.5708,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg0",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      67.6,
+      46.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg1",
+   "parent": "T3Seg0",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg1",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      65.67999999999999,
+      42.8
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg2",
+   "parent": "T3Seg1",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg2",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      63.760000000000005,
+      39.6
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg3",
+   "parent": "T3Seg2",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg3",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      61.84,
+      36.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg4",
+   "parent": "T3Seg3",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg4",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      59.92,
+      33.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg5",
+   "parent": "T3Seg4",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg5",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      58.0,
+      30.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg6",
+   "parent": "T3Seg5",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg6",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      56.08,
+      26.799999999999997
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg7",
+   "parent": "T3Seg6",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg7",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      54.16,
+      23.599999999999998
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg8",
+   "parent": "T3Seg7",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg8",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      52.239999999999995,
+      20.4
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg9",
+   "parent": "T3Seg8",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg9",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      50.32,
+      17.2
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "T3Seg10",
+   "parent": "T3Seg9",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      0.0
+     ],
+     "rotation": 0.16,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "bone": {
+     "name": "T3Seg10",
+     "length": 40.0
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/segment.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      48.4,
+      14.0
+     ],
+     "anchor": [
+      0.12,
+      0.5
+     ]
+    },
+    "ik_chain": {
+     "target": [
+      350.0,
+      -20.0
+     ],
+     "bones": 11,
+     "iterations": 14,
+     "tolerance": 0.5,
+     "max_bend": 0.45,
+     "weight": 1.0
+    }
+   }
+  },
+  {
+   "name": "WavesFront",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "oscillator": {
+     "amplitude": [
+      -55.0,
+      8.0
+     ],
+     "frequency": [
+      0.09,
+      0.3
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/kraken/waves.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      1580.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       230.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Rain",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "__white",
+     "emission_rate": 260.0,
+     "max_particles": 900,
+     "lifetime": [
+      0.9,
+      1.3
+     ],
+     "speed": [
+      700.0,
+      900.0
+     ],
+     "angle": [
+      4.35,
+      4.45
+     ],
+     "color_start": [
+      0.44799,
+      0.52252,
+      0.69207,
+      0.35
+     ],
+     "color_end": [
+      0.44799,
+      0.52252,
+      0.69207,
+      0.2
+     ],
+     "size_start": [
+      1.5,
+      2.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "stretch": 0.03,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1700.0,
+       10.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Flash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.52252,
+      0.60383,
+      1.0,
+      0.0
+     ],
+     "z_order": 40,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Storm",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "timeline": {
+     "clips": {
+      "storm": {
+       "duration": 6.0,
+       "tracks": [
+        {
+         "target": "Ship",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           0.0
+          ],
+          [
+           0.75,
+           0.07
+          ],
+          [
+           1.5,
+           0.0
+          ],
+          [
+           2.25,
+           -0.06
+          ],
+          [
+           3.0,
+           0.0
+          ],
+          [
+           3.75,
+           0.08
+          ],
+          [
+           4.5,
+           0.0
+          ],
+          [
+           5.25,
+           -0.05
+          ],
+          [
+           6.0,
+           0.0
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Ship",
+         "component": "transform",
+         "field": "position",
+         "keys": [
+          [
+           0.0,
+           [
+            0.0,
+            -64.0
+           ]
+          ],
+          [
+           0.75,
+           [
+            0.0,
+            -52.0
+           ]
+          ],
+          [
+           1.5,
+           [
+            0.0,
+            -64.0
+           ]
+          ],
+          [
+           2.25,
+           [
+            0.0,
+            -52.0
+           ]
+          ],
+          [
+           3.0,
+           [
+            0.0,
+            -64.0
+           ]
+          ],
+          [
+           3.75,
+           [
+            0.0,
+            -52.0
+           ]
+          ],
+          [
+           4.5,
+           [
+            0.0,
+            -64.0
+           ]
+          ],
+          [
+           5.25,
+           [
+            0.0,
+            -52.0
+           ]
+          ],
+          [
+           6.0,
+           [
+            0.0,
+            -64.0
+           ]
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Flash",
+         "component": "sprite",
+         "field": "color.3",
+         "keys": [
+          [
+           0.0,
+           0.0
+          ],
+          [
+           2.2,
+           0.0
+          ],
+          [
+           2.25,
+           0.55
+          ],
+          [
+           2.5,
+           0.05
+          ],
+          [
+           2.6,
+           0.4
+          ],
+          [
+           2.9,
+           0.0
+          ],
+          [
+           6.0,
+           0.0
+          ]
+         ]
+        }
+       ],
+       "events": [
+        [
+         2.25,
+         "thunder"
+        ]
+       ]
+      }
+     },
+     "looping": true
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s69_kraken.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "69   The Kraken",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  the kraken lets go / takes hold   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

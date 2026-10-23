@@ -1,0 +1,259 @@
+---
+draft: false
+title: Example Projects
+description: Complete example games and scripts for AI agents to learn from.
+---
+
+These examples demonstrate common game patterns. Each one is self-contained —
+copy the scene JSON and script files to get a working game.
+
+## Platformer
+
+A simple platformer with player movement, jumping, and ground collision.
+
+### Scene — `assets/scenes/platformer.scene`
+
+```json
+{
+  "name": "Platformer",
+  "entities": [
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0, 100], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "sprites/player.png", "color": [1,1,1,1], "z_order": 10, "size": [32, 32] },
+        "rigid_body": { "body_type": "Dynamic" },
+        "collider": { "shape": { "Box": { "width": 32, "height": 32 } }, "is_sensor": false, "friction": 0.3 },
+        "script": { "source_path": "scripts/platformer_player.lua", "language": "Lua" }
+      }
+    },
+    {
+      "name": "Ground",
+      "components": {
+        "transform": { "position": [0, -200], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "sprites/ground.png", "color": [0.4, 0.8, 0.3, 1], "z_order": 0, "size": [800, 32] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": { "shape": { "Box": { "width": 800, "height": 32 } }, "is_sensor": false, "friction": 0.5 }
+      }
+    },
+    {
+      "name": "Platform1",
+      "components": {
+        "transform": { "position": [-150, -50], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "sprites/ground.png", "color": [0.6, 0.6, 0.6, 1], "z_order": 0, "size": [200, 16] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": { "shape": { "Box": { "width": 200, "height": 16 } }, "is_sensor": false }
+      }
+    },
+    {
+      "name": "Platform2",
+      "components": {
+        "transform": { "position": [150, 50], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "sprites/ground.png", "color": [0.6, 0.6, 0.6, 1], "z_order": 0, "size": [200, 16] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": { "shape": { "Box": { "width": 200, "height": 16 } }, "is_sensor": false }
+      }
+    }
+  ]
+}
+```
+
+### Script — `assets/scripts/platformer_player.lua`
+
+```lua
+local move_speed = 200
+local jump_force = 400
+local on_ground = false
+
+function init(entity)
+    -- nothing to initialize
+end
+
+function update(entity, dt)
+    local vx, vy = Physics.get_velocity(entity)
+
+    -- Horizontal movement
+    if Input.is_key_pressed("D") then
+        vx = move_speed
+    elseif Input.is_key_pressed("A") then
+        vx = -move_speed
+    else
+        vx = 0
+    end
+
+    -- Ground check via collisions
+    on_ground = false
+    local n = Physics.contact_count()
+    for i = 1, n do
+        local a, b, started = Physics.get_contact(i)
+        if a == entity or b == entity then
+            local other = (a == entity) and b or a
+            local name = Entity.get_name(other) or ""
+            if name == "Ground" or string.find(name, "Platform") then
+                on_ground = true
+            end
+        end
+    end
+
+    -- Jump
+    if Input.is_key_pressed("Space") and on_ground then
+        vy = jump_force
+    end
+
+    Physics.set_velocity(entity, vx, vy)
+end
+```
+
+For a platformer that should *feel* right — slopes, coyote time, one-way platforms — use a kinematic body
+with a `character_controller` and `Physics.move_character` rather than a dynamic body - see
+[Physics](/guides/physics/).
+
+---
+
+## Top-Down Shooter
+
+A twin-stick style shooter with WASD movement and mouse aiming.
+
+### Scene — `assets/scenes/shooter.scene`
+
+```json
+{
+  "name": "Shooter",
+  "entities": [
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "sprites/ship.png", "color": [1,1,1,1], "z_order": 10, "size": [32, 32] },
+        "script": { "source_path": "scripts/shooter_player.lua", "language": "Lua" }
+      }
+    }
+  ]
+}
+```
+
+### Script — `assets/scripts/shooter_player.lua`
+
+```lua
+local speed = 250
+local fire_cooldown = 0
+
+function init(entity)
+end
+
+function update(entity, dt)
+    local x, y = Transform.get_position(entity)
+
+    -- WASD movement
+    if Input.is_key_pressed("W") then y = y + speed * dt end
+    if Input.is_key_pressed("S") then y = y - speed * dt end
+    if Input.is_key_pressed("A") then x = x - speed * dt end
+    if Input.is_key_pressed("D") then x = x + speed * dt end
+    Transform.set_position(entity, x, y)
+
+    -- Aim toward the mouse, in world units (get_mouse_position is screen pixels)
+    local mx, my = Input.get_mouse_world_position()
+    local dx = mx - x
+    local dy = my - y
+    -- Luau has math.atan2; Fengari (editor, web) has only the 2-argument math.atan
+    local angle = math.atan2 and math.atan2(dy, dx) or math.atan(dy, dx)
+    Transform.set_rotation(entity, angle)
+
+    -- Fire bullets
+    fire_cooldown = fire_cooldown - dt
+    if Input.is_mouse_left_just_pressed() and fire_cooldown <= 0 then
+        fire_cooldown = 0.15
+        -- the prefab carries a dynamic rigid_body with "ccd": true, and a lifetime
+        local bullet = Entity.spawn_prefab("prefabs/bullet.prefab")
+        Transform.set_position(bullet, x, y)
+        Transform.set_rotation(bullet, angle)
+        local bvx = math.cos(angle) * 600
+        local bvy = math.sin(angle) * 600
+        Physics.set_velocity(bullet, bvx, bvy)
+    end
+end
+```
+
+---
+
+## Coin Collector
+
+A simple game with coins that disappear on contact and a score counter.
+
+### Script — `assets/scripts/coin_collector.lua`
+
+```lua
+local score = 0
+local speed = 200
+
+-- ui/hud.gui must be named by some entity's `gui` component, or it is never loaded
+function init(entity)
+    GUI.show("ui/hud.gui")
+    GUI.set("ui/hud.gui", "score_label", "text", "Score: 0")
+end
+
+function update(entity, dt)
+    local x, y = Transform.get_position(entity)
+
+    if Input.is_key_pressed("D") then x = x + speed * dt end
+    if Input.is_key_pressed("A") then x = x - speed * dt end
+    if Input.is_key_pressed("W") then y = y + speed * dt end
+    if Input.is_key_pressed("S") then y = y - speed * dt end
+    Transform.set_position(entity, x, y)
+
+    -- Check collisions
+    local n = Physics.contact_count()
+    for i = 1, n do
+        local a, b, started = Physics.get_contact(i)
+        local other = (a == entity) and b or ((b == entity) and a or nil)
+        local name = other and Entity.get_name(other) or ""
+        if started and string.find(name, "Coin") then
+            Entity.destroy(other)
+            score = score + 1
+            GUI.set("ui/hud.gui", "score_label", "text", "Score: " .. tostring(score))
+            Audio.play_sound("sounds/coin.wav", 0.5)  -- listed in the scene's audio_refs
+        end
+    end
+end
+```
+
+---
+
+## Animation Example
+
+Sprite sheet animation with walk cycle.
+
+```lua
+-- Clips are defined on the entity's `sprite_animator` component.
+-- Animation.play(entity, clip_name) starts a named clip.
+function update(entity, dt)
+    local vx, vy = Physics.get_velocity(entity)
+    local moving = math.abs(vx) > 0.1
+
+    if moving then
+        Animation.play(entity, "walk")
+    else
+        Animation.stop(entity)
+    end
+end
+```
+
+---
+
+## Particle Effects
+
+```lua
+function init(entity)
+    -- Particle emitter preset and base rate are set in the scene JSON component.
+    -- Activate it here and optionally override the emission rate.
+    Particles.set_active(entity, true)
+    Particles.set_rate(entity, 50)
+end
+
+function update(entity, dt)
+    if Input.is_key_pressed("E") then
+        -- Burst of sparks on keypress
+        Particles.emit_burst(entity, 20)
+    end
+end
+```

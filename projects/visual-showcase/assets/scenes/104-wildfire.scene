@@ -1,0 +1,2531 @@
+{
+ "name": "104 - Wildfire",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.15,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.04,
+       0.01,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.82,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0012
+     }
+    }
+   },
+   {
+    "name": "film_grain",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.04
+     },
+     "size": {
+      "Float": 1.4
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.7,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.31855,
+      0.21404,
+      0.44799
+     ],
+     "intensity": 0.55
+    }
+   }
+  },
+  {
+   "name": "Dusk",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.25,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      1.0,
+      0.34239,
+      0.14732
+     ],
+     "intensity": 0.8,
+     "height": 0.3,
+     "softness": 8.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Meadow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_meadow"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/meadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1920.0,
+      1080.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/meadow_n.png",
+     "specular": 0.7,
+     "shininess": 30.0
+    },
+    "paintable": {
+     "blend": "over"
+    }
+   }
+  },
+  {
+   "name": "Oak0",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      127.5,
+      127.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 51.0
+    }
+   }
+  },
+  {
+   "name": "Oak0Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -585.5,
+      362.15
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      127.5,
+      127.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak1",
+   "components": {
+    "transform": {
+     "position": [
+      -470.0,
+      430.0
+     ],
+     "rotation": 1.7,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      164.25,
+      164.25
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 65.7
+    }
+   }
+  },
+  {
+   "name": "Oak1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -502.85,
+      407.005
+     ],
+     "rotation": 1.7,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      164.25,
+      164.25
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak2",
+   "components": {
+    "transform": {
+     "position": [
+      -640.0,
+      -330.0
+     ],
+     "rotation": 3.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      148.5,
+      148.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 59.4
+    }
+   }
+  },
+  {
+   "name": "Oak2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -669.7,
+      -350.79
+     ],
+     "rotation": 3.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      148.5,
+      148.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak3",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      300.0
+     ],
+     "rotation": 5.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      132.75,
+      132.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 53.1
+    }
+   }
+  },
+  {
+   "name": "Oak3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -146.55,
+      281.415
+     ],
+     "rotation": 5.1,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      132.75,
+      132.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak4",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      380.0
+     ],
+     "rotation": 0.5199999999999996,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      169.49999999999997,
+      169.49999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 67.8
+    }
+   }
+  },
+  {
+   "name": "Oak4Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -93.9,
+      356.27
+     ],
+     "rotation": 0.5199999999999996,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      169.49999999999997,
+      169.49999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak5",
+   "components": {
+    "transform": {
+     "position": [
+      -30.0,
+      -360.0
+     ],
+     "rotation": 2.2199999999999998,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      153.75,
+      153.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 61.49999999999999
+    }
+   }
+  },
+  {
+   "name": "Oak5Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -60.75,
+      -381.525
+     ],
+     "rotation": 2.2199999999999998,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      153.75,
+      153.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak6",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -280.0
+     ],
+     "rotation": 3.919999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      138.0,
+      138.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 55.199999999999996
+    }
+   }
+  },
+  {
+   "name": "Oak6Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      32.400000000000006,
+      -299.32
+     ],
+     "rotation": 3.919999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      138.0,
+      138.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak7",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -20.0
+     ],
+     "rotation": 5.62,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      174.75,
+      174.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 69.9
+    }
+   }
+  },
+  {
+   "name": "Oak7Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -434.95,
+      -44.465
+     ],
+     "rotation": 5.62,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      174.75,
+      174.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak8",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      60.0
+     ],
+     "rotation": 1.0399999999999991,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      159.0,
+      159.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 63.6
+    }
+   }
+  },
+  {
+   "name": "Oak8Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      88.2,
+      37.74
+     ],
+     "rotation": 1.0399999999999991,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      159.0,
+      159.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak9",
+   "components": {
+    "transform": {
+     "position": [
+      700.0,
+      300.0
+     ],
+     "rotation": 2.7399999999999984,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      143.25,
+      143.25
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 57.3
+    }
+   }
+  },
+  {
+   "name": "Oak9Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      671.35,
+      279.945
+     ],
+     "rotation": 2.7399999999999984,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      143.25,
+      143.25
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak10",
+   "components": {
+    "transform": {
+     "position": [
+      760.0,
+      -200.0
+     ],
+     "rotation": 4.4399999999999995,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      127.5,
+      127.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 51.0
+    }
+   }
+  },
+  {
+   "name": "Oak10Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      734.5,
+      -217.85
+     ],
+     "rotation": 4.4399999999999995,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      127.5,
+      127.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak11",
+   "components": {
+    "transform": {
+     "position": [
+      820.0,
+      120.0
+     ],
+     "rotation": 6.139999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      164.25,
+      164.25
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 65.7
+    }
+   }
+  },
+  {
+   "name": "Oak11Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      787.15,
+      97.005
+     ],
+     "rotation": 6.139999999999999,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      164.25,
+      164.25
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak12",
+   "components": {
+    "transform": {
+     "position": [
+      -820.0,
+      -60.0
+     ],
+     "rotation": 1.5599999999999978,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      148.5,
+      148.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 59.4
+    }
+   }
+  },
+  {
+   "name": "Oak12Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -849.7,
+      -80.78999999999999
+     ],
+     "rotation": 1.5599999999999978,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      148.5,
+      148.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Oak13",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -120.0
+     ],
+     "rotation": 3.259999999999997,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_oak"
+    ],
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      132.75,
+      132.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/wildfire/oak_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "from_sprite": false,
+     "shadow_tint": [
+      0.0,
+      0.0,
+      0.0
+     ],
+     "shadow_opacity": 0.85,
+     "from_alpha": true,
+     "alpha_cutoff": 0.5,
+     "alpha_tolerance": 2.0,
+     "shadow_length": 53.1
+    }
+   }
+  },
+  {
+   "name": "Oak13Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -166.55,
+      -138.585
+     ],
+     "rotation": 3.259999999999997,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/oak.png",
+     "color": [
+      0.14732,
+      0.19599,
+      0.39312,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      132.75,
+      132.75
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Heat",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/canvas.png",
+     "color": [
+      3.0,
+      0.51192,
+      0.05217,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1920.0,
+      1080.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "paintable": {
+     "blend": "over",
+     "alpha_cutoff": 0.0
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 320.0,
+     "max_particles": 900,
+     "lifetime": [
+      0.35,
+      0.8
+     ],
+     "speed": [
+      25.0,
+      70.0
+     ],
+     "angle": [
+      -0.35,
+      0.35
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      16.0,
+      30.0
+     ],
+     "size_end": [
+      5.0,
+      9.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "emit_shape": {
+      "kind": "sprite",
+      "edge": false,
+      "cutoff": 0.5
+     },
+     "blend_mode": "Additive",
+     "color_curve": [
+      [
+       0.0,
+       4.0,
+       2.76828,
+       0.85616,
+       0.0
+      ],
+      [
+       0.15,
+       4.0,
+       1.79196,
+       0.29296,
+       1.0
+      ],
+      [
+       0.6,
+       2.5,
+       0.2512,
+       0.01798,
+       0.7
+      ],
+      [
+       1.0,
+       0.3,
+       0.05,
+       0.02,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 60.0,
+      "scale": 80.0,
+      "speed": 1.4
+     }
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Embers",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/canvas.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -39,
+     "size": [
+      1920.0,
+      1080.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "paintable": {
+     "blend": "over",
+     "alpha_cutoff": 0.0
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/ember.png",
+     "emission_rate": 70.0,
+     "max_particles": 240,
+     "lifetime": [
+      1.2,
+      2.6
+     ],
+     "speed": [
+      50.0,
+      140.0
+     ],
+     "angle": [
+      -0.5,
+      0.5
+     ],
+     "color_start": [
+      5.0,
+      1.59275,
+      0.1655,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.14648,
+      0.00788,
+      0.0
+     ],
+     "size_start": [
+      4.0,
+      7.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 32,
+     "emit_shape": {
+      "kind": "sprite",
+      "edge": false,
+      "cutoff": 0.5
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 80.0,
+      "scale": 120.0,
+      "speed": 0.9
+     },
+     "drag": 0.5,
+     "light": {
+      "every": 3,
+      "max": 36,
+      "radius": 80.0,
+      "intensity": 1.5
+     }
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Smoke",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/canvas.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -38,
+     "size": [
+      1920.0,
+      1080.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "paintable": {
+     "blend": "over",
+     "alpha_cutoff": 0.0
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 36.0,
+     "max_particles": 260,
+     "lifetime": [
+      4.5,
+      7.5
+     ],
+     "speed": [
+      40.0,
+      95.0
+     ],
+     "angle": [
+      -0.3,
+      0.3
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      50.0,
+      80.0
+     ],
+     "size_end": [
+      220.0,
+      320.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 40,
+     "emit_shape": {
+      "kind": "sprite",
+      "edge": false,
+      "cutoff": 0.5
+     },
+     "blend_mode": "Alpha",
+     "color_curve": [
+      [
+       0.0,
+       0.55,
+       0.28,
+       0.12,
+       0.0
+      ],
+      [
+       0.08,
+       0.42,
+       0.24,
+       0.14,
+       0.42
+      ],
+      [
+       0.45,
+       0.24,
+       0.22,
+       0.22,
+       0.34
+      ],
+      [
+       1.0,
+       0.2,
+       0.2,
+       0.21,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 35.0,
+      "scale": 280.0,
+      "speed": 0.35
+     },
+     "drag": 0.25
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "FireLight0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "FireLight1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "FireLight2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "FireLight3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "FireLight4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "FireLight5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "FireLight6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "FireLight7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.03968
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.3,
+     "shadow_softness": 6.0,
+     "height": 0.2
+    }
+   }
+  },
+  {
+   "name": "Strike",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.52252,
+      0.60383,
+      1.0
+     ],
+     "intensity": 0.0,
+     "radius": 900.0,
+     "falloff": 1.0,
+     "shadow_softness": 4.0,
+     "height": 0.4
+    }
+   }
+  },
+  {
+   "name": "Bomber",
+   "components": {
+    "transform": {
+     "position": [
+      -1400.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/bomber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 55,
+     "size": [
+      160.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BomberShadow",
+   "parent": "Bomber",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      -55.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Multiply",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/wildfire/bomber.png",
+     "color": [
+      0.17064,
+      0.14732,
+      0.21404,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      160.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Drop",
+   "parent": "Bomber",
+   "components": {
+    "transform": {
+     "position": [
+      -10.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 260.0,
+     "max_particles": 500,
+     "lifetime": [
+      0.6,
+      1.1
+     ],
+     "speed": [
+      40.0,
+      160.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      0.52252,
+      0.69207,
+      0.89001,
+      0.55
+     ],
+     "color_end": [
+      0.60383,
+      0.74841,
+      0.89001,
+      0.0
+     ],
+     "size_start": [
+      10.0,
+      18.0
+     ],
+     "size_end": [
+      40.0,
+      70.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": 50,
+     "blend_mode": "Alpha",
+     "drag": 2.0
+    }
+   }
+  },
+  {
+   "name": "Steam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 0.0,
+     "max_particles": 200,
+     "lifetime": [
+      1.5,
+      3.0
+     ],
+     "speed": [
+      20.0,
+      60.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      40.0,
+      60.0
+     ],
+     "size_end": [
+      120.0,
+      180.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 8,
+     "active": false,
+     "world_space": true,
+     "z_order": 45,
+     "blend_mode": "Alpha",
+     "color_curve": [
+      [
+       0.0,
+       0.8,
+       0.82,
+       0.86,
+       0.0
+      ],
+      [
+       0.15,
+       0.8,
+       0.82,
+       0.86,
+       0.45
+      ],
+      [
+       1.0,
+       0.7,
+       0.72,
+       0.76,
+       0.0
+      ]
+     ],
+     "turbulence": {
+      "strength": 25.0,
+      "scale": 200.0,
+      "speed": 0.4
+     }
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s104_wildfire.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "104   Wildfire",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the fire is painted into canvases its flames start from   W turn the wind   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

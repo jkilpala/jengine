@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live ops</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d2126; --dim: #6b7280; --line: #e2e0d8;
+    --accent: #2f6f5e; --warn: #b4541a; --bad: #b3261e; --mono: ui-monospace, Consolas, monospace;
+    --series: #2a78d6; --grid: #ecebe6; --soon: #8a6fd1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171a; --panel: #1c2024; --ink: #e6e3dc; --dim: #8f97a3; --line: #2c3238;
+            --accent: #6cc0a6; --warn: #e39a5c; --bad: #f08a80; --series: #3987e5; --grid: #272c31; --soon: #a993e8; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, sans-serif; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 16px; margin: 0; }
+  .grow { flex: 1; }
+  #status { color: var(--dim); font-size: 12px; }
+  #status.bad { color: var(--bad); }
+  #status.ok { color: var(--accent); }
+  /* An element styled with a display of its own still hides when told to. */
+  [hidden] { display: none !important; }
+  main { padding: 16px; display: grid; gap: 16px; max-width: 1280px; margin: 0 auto; }
+  nav.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  nav.tabs button.on { border-color: var(--accent); color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+  section > h2 { font-size: 13px; margin: 0; padding: 10px 12px; border-bottom: 1px solid var(--line); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .body { padding: 10px 12px; display: grid; gap: 10px; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px; align-items: start; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--dim); font-weight: 500; font-size: 12px; }
+  .scroll { overflow: auto; }
+  .empty { color: var(--dim); padding: 6px 0; }
+  .hint { color: var(--dim); font-size: 12px; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 3px 9px; cursor: pointer; }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  button.danger:hover { border-color: var(--bad); color: var(--bad); }
+  button.primary { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  button:disabled { opacity: 0.45; cursor: default; }
+  input[type=text], input[type=number], input[type=datetime-local], select, textarea {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; min-width: 0; }
+  textarea { font: 12px/1.4 var(--mono); width: 100%; resize: vertical; }
+  input.mono, td.mono, .mono { font-family: var(--mono); font-size: 12px; }
+  input.bad, textarea.bad { border-color: var(--bad); }
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 10px; display: grid; gap: 8px; }
+  .card.on { border-color: var(--accent); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .row > label { display: flex; gap: 6px; align-items: center; }
+  .row input[type=text] { flex: 1; min-width: 120px; }
+  .cond { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 6px 10px; font-size: 12px; }
+  .cond label { display: grid; gap: 2px; color: var(--dim); }
+  .cond input { width: 100%; color: var(--ink); }
+  .pill { font-size: 11px; padding: 1px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--dim); white-space: nowrap; }
+  .pill.on { border-color: var(--accent); color: var(--accent); }
+  .pill.soon { border-color: var(--soon); color: var(--soon); }
+  .pill.warn { border-color: var(--warn); color: var(--warn); }
+  .timeline svg { display: block; width: 100%; height: auto; }
+  .timeline .axis { stroke: var(--grid); }
+  .timeline .now { stroke: var(--bad); stroke-width: 1.5; }
+  .timeline text { fill: var(--dim); font: 10px system-ui, sans-serif; }
+  .timeline .bar { fill: var(--series); opacity: 0.85; }
+  .timeline .bar.on { fill: var(--accent); }
+  .timeline .label { fill: var(--ink); font-size: 11px; }
+  .banner { border: 1px solid var(--warn); border-radius: 8px; padding: 8px 12px; color: var(--warn); }
+  .banner.bad { border-color: var(--bad); color: var(--bad); }
+  details summary { cursor: pointer; color: var(--dim); font-size: 12px; }
+  a { color: var(--accent); }
+  pre { margin: 0; font: 12px/1.4 var(--mono); white-space: pre-wrap; word-break: break-word; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Live ops</h1>
+  <nav class="tabs" id="tabs"></nav>
+  <span class="grow"></span>
+  <span id="status">connecting…</span>
+  <a href="../admin">Server</a>
+  <button id="tokenBtn">Token</button>
+</header>
+<main>
+  <div id="banner" class="banner" hidden></div>
+  <section>
+    <h2>This channel <span class="grow"></span>
+      <span id="revision" class="hint"></span>
+      <button id="reloadBtn">Reload</button>
+      <button id="saveBtn" class="primary" disabled>Save</button>
+    </h2>
+    <div class="body">
+      <div class="row hint" id="keyRow"></div>
+      <div class="row">
+        <span>Promote this channel's</span>
+        <label><input type="checkbox" id="pConfig" checked> config</label>
+        <label><input type="checkbox" id="pExperiments"> experiments</label>
+        <label><input type="checkbox" id="pEvents"> events</label>
+        <label><input type="checkbox" id="pContent"> content</label>
+        <span>to</span> <select id="promoteTo"></select>
+        <button id="promoteBtn">Promote</button>
+      </div>
+      <details><summary>Earlier revisions of its config, experiments and events</summary><div class="scroll" id="history"></div></details>
+    </div>
+  </section>
+
+  <section>
+    <h2>Remote config <span class="grow"></span><button id="addParam">+ Parameter</button></h2>
+    <div class="body">
+      <div class="hint">A value is the parameter's, unless its first matching rule says else - then an experiment variant's, then a live event's on top. Values are JSON: <span class="mono">10</span>, <span class="mono">true</span>, <span class="mono">"text"</span>, <span class="mono">[1, 2]</span>; anything that is not JSON is taken as text.</div>
+      <div id="params"></div>
+    </div>
+  </section>
+
+  <div class="cols">
+    <section>
+      <h2>Experiments <span class="grow"></span><button id="addExperiment">+ Experiment</button></h2>
+      <div class="body">
+        <div class="hint">An install is put in a variant by a hash of its id, and stays there. Only a running experiment assigns anybody.</div>
+        <div id="experiments"></div>
+      </div>
+    </section>
+    <section>
+      <h2>Live events <span class="grow"></span><button id="addEvent">+ Event</button></h2>
+      <div class="body">
+        <div class="timeline" id="timeline"></div>
+        <div class="hint">Times are this browser's local time. A pack an event names is in the release only while the event is on.</div>
+        <div id="events"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="cols">
+    <section>
+      <h2>Content <span class="grow"></span><span id="releaseNow" class="hint"></span></h2>
+      <div class="body">
+        <div class="hint">Publish a build's packs with <span class="mono">jengine liveops publish &lt;build&gt; --server <span id="serverUrl"></span> --channel <span id="chanName"></span></span>. A rollback publishes an older release's packs as a new release, so every game takes it.</div>
+        <div class="scroll" id="releases"></div>
+        <details><summary>Archives the service holds</summary><div class="scroll" id="blobs"></div></details>
+      </div>
+    </section>
+    <section>
+      <h2>Preview a player</h2>
+      <div class="body">
+        <div class="row">
+          <input type="text" id="pvInstall" placeholder="install id" value="preview">
+          <input type="text" id="pvPlayer" placeholder="player id (optional)">
+        </div>
+        <div class="row">
+          <select id="pvPlatform"><option>windows</option><option>linux</option><option>macos</option><option>android</option><option>ios</option><option>web</option><option>editor</option></select>
+          <input type="text" id="pvVersion" placeholder="app version, e.g. 1.4.0" value="1.0.0">
+          <input type="datetime-local" id="pvAt" title="When (empty: now)">
+          <button id="pvBtn">Preview</button>
+        </div>
+        <div class="hint">What this player would be told, worked out from what is <b>saved</b> - save first to preview an edit.</div>
+        <div id="pvOut"></div>
+      </div>
+    </section>
+  </div>
+</main>
+<script>
+"use strict";
+// Everything shown came from operators or the store: nothing is set as HTML.
+const $ = id => document.getElementById(id);
+function h(tag, props, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) {
+    if (k === "on") for (const [ev, fn] of Object.entries(v)) el.addEventListener(ev, fn);
+    else if (k === "class") el.className = v;
+    else el[k] = v;
+  }
+  for (const kid of kids.flat()) if (kid != null) el.append(kid);
+  return el;
+}
+
+let token = sessionStorage.getItem("jengine-admin-token") || "";
+if (location.hash.startsWith("#token=")) {
+  token = decodeURIComponent(location.hash.slice(7));
+  history.replaceState(null, "", location.pathname);
+}
+function askToken() {
+  const given = prompt("Admin token", token);
+  if (given != null) token = given.trim();
+  sessionStorage.setItem("jengine-admin-token", token);
+}
+if (!token) askToken(); else sessionStorage.setItem("jengine-admin-token", token);
+
+async function api(path, method = "GET", body, headers = {}) {
+  const res = await fetch("api/liveops" + path, {
+    method,
+    headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json", ...headers },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) { const e = new Error(data.error || res.status + " " + res.statusText); e.status = res.status; throw e; }
+  return data;
+}
+
+function say(text, bad) {
+  const s = $("status");
+  s.textContent = text;
+  s.className = bad ? "bad" : "ok";
+}
+function banner(text, bad) {
+  const b = $("banner");
+  b.hidden = !text;
+  b.textContent = text || "";
+  b.className = "banner" + (bad ? " bad" : "");
+}
+
+// A value box: JSON when it reads as JSON, else text - as a person typing
+// `10` or `Hello` means.
+const valueText = v => typeof v === "string" ? v : JSON.stringify(v);
+function parseValue(text) {
+  const t = text.trim();
+  if (t === "") return "";
+  try { return JSON.parse(t); } catch { return text; }
+}
+function parseObject(text, box) {
+  const t = text.trim();
+  if (t === "") { box.classList.remove("bad"); return {}; }
+  try {
+    const v = JSON.parse(t);
+    if (v && typeof v === "object" && !Array.isArray(v)) { box.classList.remove("bad"); return v; }
+  } catch {}
+  box.classList.add("bad");
+  return null;
+}
+const list = text => text.split(",").map(s => s.trim()).filter(Boolean);
+const toLocal = t => {
+  if (!t) return "";
+  const d = new Date(t * 1000);
+  const p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
+};
+const fromLocal = s => s ? Math.round(new Date(s).getTime() / 1000) : undefined;
+const when = t => t ? new Date(t * 1000).toLocaleString() : "";
+function span(s) {
+  const a = Math.abs(s);
+  const u = a < 5400 ? [60, "min"] : a < 172800 ? [3600, "h"] : [86400, "d"];
+  return Math.round(a / u[0]) + " " + u[1];
+}
+
+let overview = null, channel = "", doc = null, releases = [], history = [], dirty = false, serverNow = 0, readOnly = false;
+
+function markDirty() {
+  dirty = true;
+  $("saveBtn").disabled = readOnly;
+  say("unsaved changes", false);
+  drawTimeline();
+}
+
+// --- The condition editor, shared by rules and experiment audiences. ------
+function conditionEditor(cond, onChange) {
+  const field = (label, value, set, attrs = {}) => h("label", {}, label,
+    h("input", { type: attrs.type || "text", value: value ?? "", placeholder: attrs.placeholder || "", ...attrs.extra,
+      on: { change: e => { set(e.target.value); onChange(); } } }));
+  return h("div", { class: "cond" },
+    field("platforms", (cond.platforms || []).join(", "), v => { const l = list(v); if (l.length) cond.platforms = l; else delete cond.platforms; }, { placeholder: "android, ios" }),
+    field("min version", cond.min_version, v => { if (v.trim()) cond.min_version = v.trim(); else delete cond.min_version; }, { placeholder: "1.4" }),
+    field("max version", cond.max_version, v => { if (v.trim()) cond.max_version = v.trim(); else delete cond.max_version; }),
+    field("players or installs", (cond.players || []).join(", "), v => { const l = list(v); if (l.length) cond.players = l; else delete cond.players; }, { placeholder: "tester-1, i-ab12…" }),
+    field("rollout %", cond.rollout, v => { if (v === "") delete cond.rollout; else cond.rollout = Math.max(0, Math.min(100, Number(v))); }, { type: "number", extra: { min: 0, max: 100, step: 1 } }),
+    field("after", toLocal(cond.after), v => { const t = fromLocal(v); if (t) cond.after = t; else delete cond.after; }, { type: "datetime-local" }),
+    field("before", toLocal(cond.before), v => { const t = fromLocal(v); if (t) cond.before = t; else delete cond.before; }, { type: "datetime-local" }),
+  );
+}
+const condSummary = c => {
+  const parts = [];
+  if (c.platforms) parts.push(c.platforms.join("/"));
+  if (c.min_version) parts.push("≥ " + c.min_version);
+  if (c.max_version) parts.push("≤ " + c.max_version);
+  if (c.players) parts.push(c.players.length + " player(s)");
+  if (c.rollout != null) parts.push(c.rollout + "%");
+  if (c.after) parts.push("from " + when(c.after));
+  if (c.before) parts.push("until " + when(c.before));
+  return parts.length ? parts.join(" · ") : "everyone";
+};
+
+// --- Parameters. ----------------------------------------------------------
+function drawParams() {
+  const box = $("params");
+  box.replaceChildren();
+  const keys = Object.keys(doc.params).sort();
+  if (!keys.length) { box.append(h("div", { class: "empty" }, "No parameters yet - a game reads its shipped defaults.")); return; }
+  const rows = keys.map(key => {
+    const p = doc.params[key];
+    p.rules = p.rules || [];
+    const rules = h("div", { class: "body" });
+    const drawRules = () => {
+      rules.replaceChildren(...p.rules.map((r, i) => h("div", { class: "card" },
+        h("div", { class: "row" },
+          h("b", {}, "Rule " + (i + 1)),
+          h("input", { type: "text", value: r.name || "", placeholder: "name (e.g. phones)", on: { change: e => { r.name = e.target.value; markDirty(); } } }),
+          h("span", {}, "gives"),
+          h("input", { type: "text", class: "mono", value: valueText(r.value), on: { change: e => { r.value = parseValue(e.target.value); markDirty(); } } }),
+          h("button", { disabled: i === 0, title: "Checked earlier", on: { click: () => { [p.rules[i - 1], p.rules[i]] = [p.rules[i], p.rules[i - 1]]; markDirty(); drawRules(); } } }, "↑"),
+          h("button", { class: "danger", on: { click: () => { p.rules.splice(i, 1); markDirty(); drawRules(); summary.textContent = ruleCount(); } } }, "×")),
+        conditionEditor(r.when = r.when || {}, () => { markDirty(); summary.textContent = ruleCount(); }),
+      )));
+      rules.append(h("div", {}, h("button", { on: { click: () => { p.rules.push({ name: "", when: {}, value: p.value }); markDirty(); drawRules(); summary.textContent = ruleCount(); } } }, "+ Rule")));
+    };
+    const ruleCount = () => p.rules.length ? p.rules.length + " rule(s): " + p.rules.map(r => (r.name || "unnamed") + " (" + condSummary(r.when || {}) + ")").join("; ") : "no rules";
+    const summary = h("summary", {}, ruleCount());
+    drawRules();
+    return h("tr", {},
+      h("td", { class: "mono" }, key),
+      h("td", {}, h("input", { type: "text", class: "mono", value: valueText(p.value), style: "width: 100%",
+        on: { change: e => { p.value = parseValue(e.target.value); markDirty(); } } })),
+      h("td", {}, h("input", { type: "text", value: p.description || "", placeholder: "what it is for", style: "width: 100%",
+        on: { change: e => { p.description = e.target.value; markDirty(); } } }),
+        h("details", {}, summary, rules)),
+      h("td", {}, h("button", { class: "danger", title: "Delete the parameter", on: { click: () => {
+        if (!confirm("Delete " + key + "? Games fall back to their shipped default.")) return;
+        delete doc.params[key]; markDirty(); drawParams(); } } }, "×")));
+  });
+  box.append(h("div", { class: "scroll" }, h("table", {},
+    h("thead", {}, h("tr", {}, h("th", {}, "Key"), h("th", { style: "width: 28%" }, "Value"), h("th", {}, "Description and rules"), h("th", {}, ""))),
+    h("tbody", {}, rows))));
+}
+
+// --- Experiments. ---------------------------------------------------------
+function drawExperiments() {
+  const box = $("experiments");
+  box.replaceChildren();
+  if (!doc.experiments.length) { box.append(h("div", { class: "empty" }, "No experiments.")); return; }
+  doc.experiments.forEach((x, xi) => {
+    const total = () => x.variants.reduce((s, v) => s + (Number(v.weight) || 0), 0) || 1;
+    const variants = h("div", { class: "body" });
+    const drawVariants = () => {
+      variants.replaceChildren(...x.variants.map((v, vi) => {
+        const values = h("textarea", { rows: 2, value: JSON.stringify(v.values || {}, null, 0), placeholder: '{"shop_layout": "list"}' });
+        values.addEventListener("change", () => { const o = parseObject(values.value, values); if (o) { v.values = o; markDirty(); } });
+        return h("div", { class: "row" },
+          h("input", { type: "text", value: v.name, placeholder: "variant", style: "max-width: 140px", on: { change: e => { v.name = e.target.value.trim(); markDirty(); } } }),
+          h("label", {}, "weight", h("input", { type: "number", min: 0, step: 1, value: v.weight, style: "width: 70px",
+            on: { change: e => { v.weight = Number(e.target.value); markDirty(); drawVariants(); } } })),
+          h("span", { class: "pill" }, Math.round(100 * (Number(v.weight) || 0) / total()) + "%"),
+          h("div", { style: "flex: 1; min-width: 200px" }, values),
+          h("button", { class: "danger", disabled: x.variants.length < 2, on: { click: () => { x.variants.splice(vi, 1); markDirty(); drawVariants(); } } }, "×"));
+      }));
+      variants.append(h("div", {}, h("button", { on: { click: () => { x.variants.push({ name: "variant_" + (x.variants.length + 1), weight: 1, values: {} }); markDirty(); drawVariants(); } } }, "+ Variant")));
+    };
+    drawVariants();
+    const status = h("select", { on: { change: e => { x.status = e.target.value; markDirty(); card.className = "card" + (x.status === "running" ? " on" : ""); } } },
+      ...["draft", "running", "stopped"].map(s => h("option", { value: s, selected: (x.status || "draft") === s }, s)));
+    const card = h("div", { class: "card" + (x.status === "running" ? " on" : "") },
+      h("div", { class: "row" },
+        h("input", { type: "text", class: "mono", value: x.id, style: "max-width: 180px", on: { change: e => { x.id = e.target.value.trim(); markDirty(); } } }),
+        status,
+        h("input", { type: "text", value: x.description || "", placeholder: "what it tests", on: { change: e => { x.description = e.target.value; markDirty(); } } }),
+        h("button", { class: "danger", on: { click: () => { if (confirm("Delete experiment " + x.id + "?")) { doc.experiments.splice(xi, 1); markDirty(); drawExperiments(); } } } }, "×")),
+      h("details", {}, h("summary", {}, "Audience: " + condSummary(x.audience || {})), conditionEditor(x.audience = x.audience || {}, markDirty)),
+      variants);
+    box.append(card);
+  });
+}
+
+// --- Live events. ---------------------------------------------------------
+// The occurrence of a repeating event that is on at `now`, or the next one -
+// the same arithmetic as the service's `LiveEvent::on_at` / `next_after`.
+function occurrence(e, now) {
+  const every = e.every || 0;
+  const occ = k => (k > 0 && !every) || (e.until && e.start + k * every >= e.until) ? null : [e.start + k * every, e.end + k * every];
+  if (now < e.start) return occ(0);
+  const k = every ? Math.floor((now - e.start) / every) : 0;
+  const cur = occ(k);
+  if (cur && now < cur[1]) return cur;
+  const last = e.until && every ? occ(Math.ceil((e.until - e.start) / every) - 1) : null;
+  return occ(k + 1) || cur || last || [e.start, e.end];
+}
+function eventState(e, now) {
+  const [start, end] = occurrence(e, now);
+  const again = e.every ? " · every " + span(e.every) : "";
+  if (now >= end) return ["over", "pill"];
+  if (now >= start) return ["on · ends in " + span(end - now) + again, "pill on"];
+  return ["in " + span(start - now) + again, "pill soon"];
+}
+function drawEvents() {
+  const box = $("events");
+  box.replaceChildren();
+  if (!doc.events.length) { box.append(h("div", { class: "empty" }, "No live events.")); drawTimeline(); return; }
+  const now = Date.now() / 1000;
+  [...doc.events].sort((a, b) => a.start - b.start).forEach(e => {
+    const [state, cls] = eventState(e, now);
+    const values = h("textarea", { rows: 2, value: JSON.stringify(e.values || {}), placeholder: '{"coins_per_win": 20}' });
+    values.addEventListener("change", () => { const o = parseObject(values.value, values); if (o) { e.values = o; markDirty(); } });
+    box.append(h("div", { class: "card" + (cls.includes(" on") ? " on" : "") },
+      h("div", { class: "row" },
+        h("input", { type: "text", class: "mono", value: e.id, style: "max-width: 160px", on: { change: ev => { e.id = ev.target.value.trim(); markDirty(); } } }),
+        h("input", { type: "text", value: e.name || "", placeholder: "name players see", on: { change: ev => { e.name = ev.target.value; markDirty(); } } }),
+        h("span", { class: cls }, state),
+        h("button", { class: "danger", on: { click: () => { if (confirm("Delete event " + e.id + "?")) { doc.events.splice(doc.events.indexOf(e), 1); markDirty(); drawEvents(); } } } }, "×")),
+      h("div", { class: "row" },
+        h("label", {}, "from", h("input", { type: "datetime-local", value: toLocal(e.start), on: { change: ev => { e.start = fromLocal(ev.target.value) || e.start; markDirty(); drawEvents(); } } })),
+        h("label", {}, "until", h("input", { type: "datetime-local", value: toLocal(e.end), on: { change: ev => { e.end = fromLocal(ev.target.value) || e.end; markDirty(); drawEvents(); } } }))),
+      h("div", { class: "row" },
+        h("label", {}, "again every", h("input", { type: "number", min: 0, step: 1, style: "width: 5em", value: e.every ? e.every / 86400 : "", placeholder: "—",
+          on: { change: ev => { const d = Number(ev.target.value); if (d > 0) e.every = Math.round(d * 86400); else delete e.every; markDirty(); drawEvents(); } } }), "days"),
+        h("label", {}, "last one before", h("input", { type: "datetime-local", value: e.until ? toLocal(e.until) : "",
+          on: { change: ev => { const t = fromLocal(ev.target.value); if (t) e.until = t; else delete e.until; markDirty(); drawEvents(); } } }))),
+      h("div", { class: "row" }, h("span", { class: "hint" }, "values"), h("div", { style: "flex: 1" }, values)),
+      h("div", { class: "row" }, h("span", { class: "hint" }, "packs"),
+        h("input", { type: "text", class: "mono", value: (e.packs || []).join(", "), placeholder: "packs only there while it is on, e.g. halloween",
+          on: { change: ev => { const l = list(ev.target.value); if (l.length) e.packs = l; else delete e.packs; markDirty(); } } }))));
+  });
+  drawTimeline();
+}
+function drawTimeline() {
+  const box = $("timeline");
+  box.replaceChildren();
+  if (!doc || !doc.events.length) return;
+  const now = Date.now() / 1000, day = 86400;
+  const from = Math.min(now - day, ...doc.events.map(e => e.start)), to = Math.max(now + 7 * day, ...doc.events.map(e => e.end));
+  const W = 600, row = 18, H = 22 + doc.events.length * row;
+  const x = t => 8 + (W - 16) * (t - from) / (to - from);
+  const ns = "http://www.w3.org/2000/svg";
+  const s = (tag, attrs, text) => { const el = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v); if (text != null) el.textContent = text; return el; };
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}` });
+  svg.append(s("line", { x1: 8, x2: W - 8, y1: 14, y2: 14, class: "axis" }));
+  const step = (to - from) > 20 * day ? 7 * day : day;
+  for (let t = Math.ceil(from / step) * step; t <= to; t += step) {
+    svg.append(s("line", { x1: x(t), x2: x(t), y1: 10, y2: H, class: "axis" }));
+    svg.append(s("text", { x: x(t) + 2, y: 9 }, new Date(t * 1000).toLocaleDateString(undefined, { month: "short", day: "numeric" })));
+  }
+  [...doc.events].sort((a, b) => a.start - b.start).forEach((e, i) => {
+    const y = 20 + i * row, on = now >= e.start && now < e.end;
+    svg.append(s("rect", { x: x(e.start), y, width: Math.max(2, x(e.end) - x(e.start)), height: row - 6, rx: 3, class: "bar" + (on ? " on" : "") }));
+    svg.append(s("text", { x: x(e.start) + 4, y: y + row - 9, class: "label" }, e.name || e.id));
+  });
+  svg.append(s("line", { x1: x(now), x2: x(now), y1: 10, y2: H, class: "now" }));
+  box.append(svg);
+}
+
+// --- Content. -------------------------------------------------------------
+function drawContent() {
+  const cur = doc.release;
+  $("releaseNow").textContent = cur ? "release " + cur.number + " · " + cur.manifest.packs.length + " pack(s)" : "no release";
+  const box = $("releases");
+  box.replaceChildren();
+  if (!releases.length) { box.append(h("div", { class: "empty" }, "Nothing published on this channel yet.")); }
+  else box.append(h("table", {},
+    h("thead", {}, h("tr", {}, h("th", {}, "#"), h("th", {}, "Packs"), h("th", {}, "Notes"), h("th", {}, "Published"), h("th", {}, ""))),
+    h("tbody", {}, [...releases].reverse().map(r => h("tr", {},
+      h("td", {}, String(r.number), cur && cur.number === r.number ? h("span", { class: "pill on", style: "margin-left: 6px" }, "current") : null),
+      h("td", { class: "mono" }, r.manifest.packs.map(p => p.name + " " + (p.size / 1048576).toFixed(1) + " MB").join(", ") || "none"),
+      h("td", {}, r.notes || ""),
+      h("td", {}, when(r.published_at) + (r.published_by ? " · " + r.published_by : "")),
+      h("td", {}, cur && cur.number === r.number ? null : h("button", { disabled: readOnly, on: { click: () => rollback(r.number) } }, "Roll back to this")))))));
+  const blobs = $("blobs");
+  blobs.replaceChildren(h("table", {},
+    h("thead", {}, h("tr", {}, h("th", {}, "Archive"), h("th", {}, "Size"), h("th", {}, "SHA-256"))),
+    h("tbody", {}, (overview.blobs || []).map(b => h("tr", {}, h("td", { class: "mono" }, b.file), h("td", {}, (b.size / 1048576).toFixed(2) + " MB"), h("td", { class: "mono" }, b.sha256.slice(0, 16) + "…"))))));
+}
+
+function drawHistory() {
+  const box = $("history");
+  box.replaceChildren();
+  if (!history.length) return box.append(h("div", { class: "empty" }, "Nothing saved over yet."));
+  box.append(h("table", {},
+    h("thead", {}, h("tr", {}, h("th", {}, "Revision"), h("th", {}, "Saved"), h("th", {}, "Held"), h("th", {}, ""))),
+    h("tbody", {}, [...history].reverse().map(r => h("tr", {},
+      h("td", {}, String(r.revision)),
+      h("td", {}, when(r.updated_at) + (r.updated_by ? " · " + r.updated_by : "")),
+      h("td", {}, Object.keys(r.params || {}).length + " parameter(s), " + (r.experiments || []).length + " experiment(s), " + (r.events || []).length + " event(s)"),
+      h("td", {}, h("button", { disabled: readOnly, on: { click: () => restore(r.revision) } }, "Put back")))))));
+}
+
+async function restore(revision) {
+  if (dirty && !confirm("Throw away what you have not saved?")) return;
+  if (!confirm("Put " + channel + "'s config, experiments and events back as they were at revision " + revision + "? It is saved as a new revision.")) return;
+  try { const r = await api("/channel/" + channel + "/restore", "POST", { revision }); say("now revision " + r.channel.revision); await load(); }
+  catch (e) { say(e.message, true); }
+}
+
+async function rollback(number) {
+  if (!confirm("Publish release " + number + "'s packs again on " + channel + "? Games take it at their next ask.")) return;
+  try { const r = await api("/channel/" + channel + "/rollback", "POST", { release: number }); say("now release " + r.release.number); await load(); }
+  catch (e) { say(e.message, true); }
+}
+
+// --- Loading and saving. --------------------------------------------------
+function drawTabs() {
+  $("tabs").replaceChildren(...overview.channels.map(c => h("button", { class: c.name === channel ? "on" : "", title: "revision " + c.revision,
+    on: { click: () => { if (dirty && !confirm("Leave " + channel + " without saving?")) return; channel = c.name; load(); } } },
+    c.name, c.release ? h("span", { class: "pill", style: "margin-left: 6px" }, "r" + c.release) : null)));
+  $("promoteTo").replaceChildren(...overview.channels.filter(c => c.name !== channel).map(c => h("option", { value: c.name }, c.name)));
+}
+
+async function load() {
+  try {
+    overview = await api("");
+    if (!channel) channel = (overview.channels.find(c => c.name === "dev") || overview.channels[0]).name;
+    const got = await api("/channel/" + channel);
+    doc = { revision: got.channel.revision || 0, params: got.channel.params || {}, experiments: got.channel.experiments || [], events: got.channel.events || [], release: got.channel.release };
+    releases = got.releases || [];
+    history = got.history || [];
+    serverNow = got.now;
+    dirty = false;
+    $("saveBtn").disabled = true;
+    drawTabs();
+    $("revision").textContent = "revision " + doc.revision + (got.channel.updated_by ? " · last saved by " + got.channel.updated_by + " " + when(got.channel.updated_at) : "");
+    $("keyRow").replaceChildren("Games are built with ", h("span", { class: "mono" }, overview.public_key), " ",
+      h("button", { on: { click: () => navigator.clipboard.writeText(overview.public_key).then(() => say("key copied")) } }, "Copy"),
+      " · asked again every " + overview.refresh_secs + " s · packs from ", h("span", { class: "mono" }, overview.packs_url));
+    $("serverUrl").textContent = overview.base_url || location.origin;
+    $("chanName").textContent = channel;
+    const skew = Math.round(Date.now() / 1000 - serverNow);
+    banner(Math.abs(skew) > 120 ? "This browser's clock is " + span(skew) + (skew > 0 ? " ahead of" : " behind") + " the service's - event times shown here are this browser's." : "", false);
+    drawParams(); drawExperiments(); drawEvents(); drawContent(); drawHistory();
+    say("loaded " + channel);
+  } catch (e) {
+    say(e.message, true);
+    if (e.status === 401) banner("The admin token is missing or wrong - press Token.", true);
+  }
+}
+
+async function save() {
+  try {
+    const r = await api("/channel/" + channel, "PUT", { revision: doc.revision, params: doc.params, experiments: doc.experiments, events: doc.events });
+    say("saved - revision " + r.channel.revision);
+    await load();
+  } catch (e) {
+    if (e.status === 409) banner(e.message, true);
+    if (e.status === 403) { readOnly = true; banner(e.message, true); }
+    say(e.message, true);
+  }
+}
+
+$("saveBtn").onclick = save;
+$("reloadBtn").onclick = () => { if (!dirty || confirm("Throw away unsaved changes?")) load(); };
+$("tokenBtn").onclick = () => { askToken(); load(); };
+$("addParam").onclick = () => {
+  const key = prompt("Parameter name (letters, digits, _ - .)");
+  if (!key) return;
+  if (!/^[A-Za-z0-9_.-]{1,64}$/.test(key)) { say("not a parameter name", true); return; }
+  if (doc.params[key]) { say(key + " is already there", true); return; }
+  doc.params[key] = { value: 0, rules: [] }; markDirty(); drawParams();
+};
+$("addExperiment").onclick = () => {
+  doc.experiments.push({ id: "experiment_" + (doc.experiments.length + 1), status: "draft", audience: {},
+    variants: [{ name: "control", weight: 1, values: {} }, { name: "test", weight: 1, values: {} }] });
+  markDirty(); drawExperiments();
+};
+$("addEvent").onclick = () => {
+  const start = Math.ceil(Date.now() / 1000 / 3600) * 3600;
+  doc.events.push({ id: "event_" + (doc.events.length + 1), name: "", start, end: start + 2 * 86400, values: {} });
+  markDirty(); drawEvents();
+};
+$("promoteBtn").onclick = async () => {
+  const parts = [["pConfig", "config"], ["pExperiments", "experiments"], ["pEvents", "events"], ["pContent", "content"]].filter(([id]) => $(id).checked).map(([, p]) => p);
+  const to = $("promoteTo").value;
+  if (!parts.length || !to) return;
+  if (dirty) { say("save first - promoting copies what is saved", true); return; }
+  if (!confirm("Copy " + channel + "'s " + parts.join(", ") + " over " + to + "'s?")) return;
+  try { await api("/promote", "POST", { from: channel, to, parts }); say("promoted to " + to); await load(); }
+  catch (e) { say(e.message, true); }
+};
+$("pvBtn").onclick = async () => {
+  const q = new URLSearchParams({ install: $("pvInstall").value, player: $("pvPlayer").value, platform: $("pvPlatform").value, version: $("pvVersion").value });
+  const at = fromLocal($("pvAt").value);
+  try {
+    const s = await api("/channel/" + channel + "/preview?" + q, "GET", undefined, at ? { "x-liveops-at": String(at) } : {});
+    const out = $("pvOut");
+    out.replaceChildren(
+      h("table", {}, h("tbody", {}, Object.entries(s.config).map(([k, v]) => h("tr", {}, h("td", { class: "mono" }, k), h("td", { class: "mono" }, valueText(v)))))),
+      h("div", { class: "row" }, "Variants: ", ...(Object.entries(s.experiments).map(([x, v]) => h("span", { class: "pill on" }, x + " = " + v))), Object.keys(s.experiments).length ? null : h("span", { class: "hint" }, "none")),
+      h("div", { class: "row" }, "Events on: ", ...(s.events.map(e => h("span", { class: "pill on" }, e.name || e.id))), s.events.length ? null : h("span", { class: "hint" }, "none")),
+      h("div", { class: "hint" }, (s.content ? "Release " + s.content.release + ": " + (s.content.manifest.packs.map(p => p.name).join(", ") || "no packs") : "No release") + (s.next_change ? " · next change " + when(s.next_change) : "")));
+  } catch (e) { say(e.message, true); }
+};
+window.addEventListener("beforeunload", e => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+setInterval(() => { if (doc) { drawTimeline(); } }, 30000);
+load();
+</script>
+</body>
+</html>

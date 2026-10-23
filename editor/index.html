@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jEngine Editor</title>
+    <style>html,body{background:#1b0f2e;margin:0;height:100%}#app{height:100%}</style>
+    <script>
+      // The palette before the first paint (src/lib/stores/themeStore.ts keeps it after).
+      try {
+        var p = localStorage.getItem('jx-palette') || 'dusk';
+        var t = localStorage.getItem('jx-theme') === 'light' ? 'light' : 'dark';
+        var bases = { dusk: ['#1b0f2e', '#fff6ef'], sabers: ['#0c0a1f', '#f6f4ff'], genom: ['#070b12', '#f2f5f9'] };
+        var b = bases[p] || bases.dusk;
+        document.documentElement.dataset.palette = p;
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.background = b[t === 'light' ? 1 : 0];
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

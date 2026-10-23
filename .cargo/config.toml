@@ -1,0 +1,31 @@
+# Cargo configuration for jEngine
+
+# ── Thread-budget safety (added 2026-04-28) ──────────────────────────────
+# Three host freezes during cargo workflows (two during 100k benches, one
+# during `cargo test`) all correlated with uncapped thread fan-out. Defence
+# in depth: cap every layer that can spawn workers.
+#
+#   * RAYON_NUM_THREADS=2  — caps rayon's GLOBAL pool used by `image`,
+#                            `lyon`, our optional ECS parallel path, etc.
+#                            (Our ECS rayon path is currently hard-disabled
+#                            in code as well; this is belt-and-braces.)
+#   * RUST_TEST_THREADS=2  — caps the parallelism INSIDE each test binary
+#                            (libtest's default is num_cpus).
+#
+# Override per-invocation with e.g. `$env:RAYON_NUM_THREADS=4` if you
+# really need more. To cap parallel test-binary launches AND build jobs,
+# pass `cargo test --jobs 2 --test-threads=2` (cargo has no config key for
+# `--jobs`, only the `CARGO_BUILD_JOBS` env var below).
+[env]
+RAYON_NUM_THREADS = "2"
+RUST_TEST_THREADS = "2"
+CARGO_BUILD_JOBS  = "4"
+
+# WASM build settings
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "target-feature=+simd128"]
+
+# Native build — use LLD linker for faster link times on Windows (optional)
+# [target.x86_64-pc-windows-msvc]
+# linker = "lld-link"
+# rustflags = ["-C", "link-arg=-fuse-ld=lld"]

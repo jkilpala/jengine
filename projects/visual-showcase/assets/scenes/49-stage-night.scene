@@ -1,0 +1,1406 @@
+{
+ "name": "49 - Stage Night",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.2,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.7
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 1.15
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "audio_refs": [
+  "sounds/stage_beat.wav"
+ ],
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.44799,
+      0.52252,
+      1.0
+     ],
+     "intensity": 0.06
+    }
+   }
+  },
+  {
+   "name": "Curtain",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/curtain.png",
+     "color": [
+      0.55,
+      0.55,
+      0.55,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1400.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1400.0,
+      210.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Lip",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.00394,
+      0.0031,
+      0.0031,
+      1.0
+     ],
+     "z_order": -49,
+     "size": [
+      1400.0,
+      6.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Drums",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -152.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/drums.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      300.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Singer",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -152.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/singer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      120.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Guitarist",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -152.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/guitarist.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      200.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bassist",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -152.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      -1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/stage/guitarist.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      200.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Haze",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 10.0,
+     "max_particles": 160,
+     "lifetime": [
+      8.0,
+      12.0
+     ],
+     "speed": [
+      6.0,
+      18.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      160.0,
+      260.0
+     ],
+     "size_end": [
+      220.0,
+      320.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -10,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.3,
+       1.0,
+       1.0,
+       1.0,
+       0.2
+      ],
+      [
+       0.7,
+       1.0,
+       1.0,
+       1.0,
+       0.2
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1300.0,
+       500.0
+      ]
+     },
+     "turbulence": {
+      "strength": 12.0,
+      "scale": 300.0,
+      "speed": 0.15
+     }
+    }
+   }
+  },
+  {
+   "name": "Beam1",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -6.0,
+       0.0
+      ],
+      [
+       6.0,
+       0.0
+      ],
+      [
+       80.0,
+       -600.0
+      ],
+      [
+       -80.0,
+       -600.0
+      ]
+     ],
+     "color": [
+      1.0,
+      0.7,
+      0.3
+     ],
+     "intensity": 1.6,
+     "falloff": 28.0
+    }
+   }
+  },
+  {
+   "name": "Lamp1",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/stage/fixture.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      44.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.5,
+      0.90575,
+      0.32106,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -6.0,
+       0.0
+      ],
+      [
+       6.0,
+       0.0
+      ],
+      [
+       80.0,
+       -600.0
+      ],
+      [
+       -80.0,
+       -600.0
+      ]
+     ],
+     "color": [
+      1.0,
+      0.7,
+      0.3
+     ],
+     "intensity": 1.6,
+     "falloff": 28.0
+    }
+   }
+  },
+  {
+   "name": "Lamp2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/stage/fixture.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      44.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.5,
+      0.90575,
+      0.32106,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam3",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -6.0,
+       0.0
+      ],
+      [
+       6.0,
+       0.0
+      ],
+      [
+       80.0,
+       -600.0
+      ],
+      [
+       -80.0,
+       -600.0
+      ]
+     ],
+     "color": [
+      1.0,
+      0.7,
+      0.3
+     ],
+     "intensity": 1.6,
+     "falloff": 28.0
+    }
+   }
+  },
+  {
+   "name": "Lamp3",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/stage/fixture.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      44.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow3",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.5,
+      0.90575,
+      0.32106,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam4",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -6.0,
+       0.0
+      ],
+      [
+       6.0,
+       0.0
+      ],
+      [
+       80.0,
+       -600.0
+      ],
+      [
+       -80.0,
+       -600.0
+      ]
+     ],
+     "color": [
+      1.0,
+      0.7,
+      0.3
+     ],
+     "intensity": 1.6,
+     "falloff": 28.0
+    }
+   }
+  },
+  {
+   "name": "Lamp4",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/stage/fixture.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      44.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow4",
+   "components": {
+    "transform": {
+     "position": [
+      100.0,
+      264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.5,
+      0.90575,
+      0.32106,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam5",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -6.0,
+       0.0
+      ],
+      [
+       6.0,
+       0.0
+      ],
+      [
+       80.0,
+       -600.0
+      ],
+      [
+       -80.0,
+       -600.0
+      ]
+     ],
+     "color": [
+      1.0,
+      0.7,
+      0.3
+     ],
+     "intensity": 1.6,
+     "falloff": 28.0
+    }
+   }
+  },
+  {
+   "name": "Lamp5",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/stage/fixture.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      44.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow5",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.5,
+      0.90575,
+      0.32106,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beam6",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -6.0,
+       0.0
+      ],
+      [
+       6.0,
+       0.0
+      ],
+      [
+       80.0,
+       -600.0
+      ],
+      [
+       -80.0,
+       -600.0
+      ]
+     ],
+     "color": [
+      1.0,
+      0.7,
+      0.3
+     ],
+     "intensity": 1.6,
+     "falloff": 28.0
+    }
+   }
+  },
+  {
+   "name": "Lamp6",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      288.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/stage/fixture.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      44.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow6",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.5,
+      0.90575,
+      0.32106,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Truss",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/stage/truss.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      1400.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       40.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Wash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "freeform_light": {
+     "points": [
+      [
+       -700.0,
+       -380.0
+      ],
+      [
+       700.0,
+       -380.0
+      ],
+      [
+       700.0,
+       380.0
+      ],
+      [
+       -700.0,
+       380.0
+      ]
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "intensity": 0.0,
+     "falloff": 0.0
+    }
+   }
+  },
+  {
+   "name": "Band",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "audio_source": {
+     "clip_id": "sounds/stage_beat.wav",
+     "volume": 0.7,
+     "pitch": 1.0,
+     "looping": true,
+     "auto_play": true,
+     "bus_id": "music"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "49   Stage Night",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "1 warm   2 cool   3 rainbow   4 chase   Space strobe   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s49_stage.lua"
+    }
+   }
+  }
+ ]
+}

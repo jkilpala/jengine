@@ -1,0 +1,15 @@
+# Paths `cargo tauri dev` must not restart the editor for.
+#
+# The dev watcher watches every workspace crate the editor depends on, and
+# restarts the editor - killing whatever it was doing - when a file in one
+# changes. Read from the common ancestor of those crates, which is this root.
+
+# A web build regenerates the Lua runtime bundle when `lua-runtime.ts` is newer
+# (`jengine_builder::web::lua_runtime_source`). It lives in `jengine-builder`,
+# so a web build started from the editor restarted the editor halfway through.
+# The build reads the bundle from disk, so the copy compiled into the running
+# editor going stale changes nothing.
+crates/jengine-builder/assets/lua-runtime.js
+
+# Staged by build-editor-release.ps1 for an installer; a dev editor never reads it.
+editor/src-tauri/release-resources/

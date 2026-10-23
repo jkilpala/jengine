@@ -1,0 +1,139 @@
+# Checks that have caught real breakage in this repo.
+# Each job here corresponds to something that actually shipped broken:
+#
+#  * `cargo check -p jengine-core` alone does NOT compile the renderer
+#    (`ecs/wgpu_systems.rs` is behind `gpu-wgpu`), which once shipped a broken
+#    viewport build — hence the explicit wasm target checks.
+#  * The workspace test suite would not compile for weeks because an
+#    integration test lagged a struct field; `--lib` alone did not notice.
+#  * `unused import` warnings only appear when jengine-core is built without
+#    default features, i.e. for the wasm crates.
+#  * The docs site is generated; nobody had run its build in months.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  # Fewer, larger codegen units cost time here for no benefit: CI never runs
+  # the binaries it builds.
+  CARGO_INCREMENTAL: 0
+  # Full debug info makes every test binary hundreds of megabytes; a hosted
+  # runner has neither the disk nor the memory to link them all (locally
+  # that is LNK1102 at default parallelism - see CONTRIBUTING.md).
+  CARGO_PROFILE_DEV_DEBUG: line-tables-only
+  CARGO_PROFILE_TEST_DEBUG: line-tables-only
+
+jobs:
+  rust:
+    name: Rust — check, clippy, test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+
+      # Warnings are the point of this step, not a side effect: the five
+      # `unused import` warnings that lived here for weeks were only visible
+      # on a no-default-features build.
+      - name: cargo check (workspace)
+        run: cargo check --workspace --all-targets
+
+      # The target the editor actually runs. Compiles the renderer, which a
+      # plain `-p jengine-core` check skips entirely.
+      - name: cargo check (editor viewport, wasm)
+        run: cargo check -p jengine-editor-viewport --target wasm32-unknown-unknown
+
+      - name: cargo check (web runtime, wasm)
+        run: cargo check -p jengine-web --target wasm32-unknown-unknown
+
+      # `--workspace`, not `--lib`: the integration tests are where breakage
+      # hides. Includes the script-global parity ratchet and the preamble
+      # command-tag guard.
+      - name: cargo test (workspace)
+        run: cargo test --workspace -j 2
+
+      # The overlay and renderer only exist under this feature.
+      - name: cargo test (gpu-wgpu)
+        run: cargo test -p jengine-core --lib --features gpu-wgpu
+
+      # The API index in docs/scripting-api.md is generated from the
+      # registration sites; `cargo test --workspace` already runs the same
+      # check, but this step names it so a failure is obvious in the log.
+      - name: docs API index is current
+        run: cargo run -p jengine-core --example script_api_index -- --check
+
+      - name: cargo clippy
+        run: cargo clippy -p jengine-core -p jengine-runtime -p jengine-builder
+
+  editor:
+    name: Editor frontend — tests, notices, svelte-check
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            editor/package-lock.json
+            website/package-lock.json
+      - run: npm ci
+        working-directory: editor
+      # The editor's script API table is generated with the website's
+      # readers, which resolve through website/'s packages.
+      - run: npm ci
+        working-directory: website
+      # The editor's logic tests, including the guards that its script
+      # completions name only functions some runtime installs.
+      - name: vitest
+        run: npm test
+        working-directory: editor
+      # Every game build ships THIRD-PARTY-NOTICES.md; a dependency added
+      # without regenerating it ships a stale one.
+      - name: third-party notices are current
+        run: node tools/release/third_party_notices.mjs --check
+      # Note the config: `tsconfig.json` exits in ~1ms without checking
+      # anything. `tsconfig.app.json` is the one that reads the source.
+      # This repo has a standing error count; the step reports rather than
+      # gates until that is worked down.
+      - name: svelte-check
+        run: npx svelte-check --tsconfig ./tsconfig.app.json
+        working-directory: editor
+        continue-on-error: true
+
+  docs:
+    name: Docs site — sync + build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - run: npm ci
+        working-directory: website
+      # `sync` regenerates the API reference, component reference and AI spec
+      # from Rust source; `build` fails on a broken link or bad frontmatter.
+      - name: Sync generated pages and build
+        run: npm run build
+        working-directory: website
+      # A diff here means the checked-in pages no longer match what the source
+      # generates — the drift that left the site describing a renderer that
+      # had been deleted.
+      - name: Check generated docs are up to date
+        shell: bash
+        run: |
+          if ! git diff --quiet -- website/src/content website/public; then
+            echo "::error::Generated docs are stale. Run 'npm run sync' in website/ and commit the result."
+            git diff --stat -- website/src/content website/public
+            exit 1
+          fi

@@ -1,0 +1,723 @@
+{
+ "name": "142 - Behind the Walls",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.6,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.3
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.34239,
+      0.89001
+     ],
+     "intensity": 0.8
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/behindthewalls/ground.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Roofs",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/behindthewalls/roofs.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "silhouette_occluder": {
+     "alpha_cutoff": 0.5
+    }
+   }
+  },
+  {
+   "name": "ThiefRound",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -40.0,
+       "y": -20.0
+      },
+      {
+       "type": "LineTo",
+       "x": -260.0,
+       "y": 60.0
+      },
+      {
+       "type": "LineTo",
+       "x": -340.0,
+       "y": 190.0
+      },
+      {
+       "type": "LineTo",
+       "x": -490.0,
+       "y": 210.0
+      },
+      {
+       "type": "LineTo",
+       "x": -490.0,
+       "y": -40.0
+      },
+      {
+       "type": "LineTo",
+       "x": -310.0,
+       "y": -90.0
+      },
+      {
+       "type": "LineTo",
+       "x": -140.0,
+       "y": -200.0
+      },
+      {
+       "type": "LineTo",
+       "x": 60.0,
+       "y": -200.0
+      },
+      {
+       "type": "LineTo",
+       "x": 180.0,
+       "y": -70.0
+      },
+      {
+       "type": "LineTo",
+       "x": 260.0,
+       "y": 60.0
+      },
+      {
+       "type": "LineTo",
+       "x": 460.0,
+       "y": 160.0
+      },
+      {
+       "type": "LineTo",
+       "x": 460.0,
+       "y": -140.0
+      },
+      {
+       "type": "LineTo",
+       "x": 260.0,
+       "y": -240.0
+      },
+      {
+       "type": "LineTo",
+       "x": 120.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": 200.0
+      },
+      {
+       "type": "LineTo",
+       "x": -80.0,
+       "y": 30.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Thief",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/behindthewalls/thief.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "ThiefRound",
+     "speed": 70.0
+    },
+    "silhouette": {
+     "color": [
+      0.17064,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "outline": 3.0,
+     "fill": 0.22
+    }
+   }
+  },
+  {
+   "name": "GuardRound0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -340.0,
+       "y": 60.0
+      },
+      {
+       "type": "LineTo",
+       "x": 60.0,
+       "y": 60.0
+      },
+      {
+       "type": "LineTo",
+       "x": 60.0,
+       "y": -60.0
+      },
+      {
+       "type": "LineTo",
+       "x": -340.0,
+       "y": -60.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Guard0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/behindthewalls/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "GuardRound0",
+     "speed": 48.0,
+     "progress": 0.0
+    },
+    "silhouette": {
+     "color": [
+      1.0,
+      0.26327,
+      0.07324,
+      1.0
+     ],
+     "outline": 3.0,
+     "fill": 0.15
+    }
+   }
+  },
+  {
+   "name": "Guard0Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      14.0,
+      6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.21404
+     ],
+     "intensity": 1.4,
+     "radius": 230.0,
+     "falloff": 1.4,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   },
+   "parent": "Guard0"
+  },
+  {
+   "name": "GuardRound1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 220.0,
+       "y": 220.0
+      },
+      {
+       "type": "LineTo",
+       "x": 540.0,
+       "y": 220.0
+      },
+      {
+       "type": "LineTo",
+       "x": 540.0,
+       "y": -240.0
+      },
+      {
+       "type": "LineTo",
+       "x": 220.0,
+       "y": -240.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Guard1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/behindthewalls/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "GuardRound1",
+     "speed": 56.0,
+     "progress": 200.0
+    },
+    "silhouette": {
+     "color": [
+      1.0,
+      0.26327,
+      0.07324,
+      1.0
+     ],
+     "outline": 3.0,
+     "fill": 0.15
+    }
+   }
+  },
+  {
+   "name": "Guard1Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      14.0,
+      6.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.60383,
+      0.21404
+     ],
+     "intensity": 1.4,
+     "radius": 230.0,
+     "falloff": 1.4,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   },
+   "parent": "Guard1"
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s142_behind_the_walls.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "142   Behind the Walls",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

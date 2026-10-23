@@ -1,0 +1,171 @@
+---
+title: Features Overview
+draft: false
+description: Complete feature list of jEngine 2D game engine.
+sidebar:
+  badge:
+    text: Auto-synced
+    variant: tip
+---
+
+{/* Auto-generated from crates/jengine-core/src by website/scripts/extract-features.ts */}
+{/* Do not edit manually — changes will be overwritten on next build */}
+
+<p class="auto-generated">
+  Auto-generated from the engine's module structure (<code>crates/jengine-core/src</code>)
+</p>
+
+## Engine Systems
+
+| Module | Status | Description |
+|--------|--------|-------------|
+| **renderer** | ✅ stable | wgpu renderer (WebGPU with a WebGL2 fallback on the web; DX12, Vulkan or Metal natively; WGSL shaders): sprites, meshes, text, tilemaps and vector paths sorted in one pass, 2D lighting and shadows, post effects, shader-graph materials and cameras |
+| **ecs** | ✅ stable | Entity-Component-System on hecs: the built-in components (see the Components Reference) and the systems that run them |
+| **scripting** | ✅ stable | Luau natively, Lua 5.3 through Fengari in the editor and on the web, and JavaScript on the desktop, over a deferred command bridge |
+| **scene** | ✅ stable | JSON scene format (v1 and v2) with save/load, a scene stack, prefabs, prefab variants and streamed scene chunks |
+| **input** | ✅ stable | Keyboard, mouse, gamepads and touch; input actions with rebinding, hold / tap interactions and gestures |
+| **asset** | ✅ stable | Asset loading for textures, atlases, fonts, audio, scripts and GUI documents, plus downloadable asset packs |
+| **physics** | ✅ stable | 2D physics via rapier2d: rigid bodies, colliders, joints, character controllers, raycasts and shape queries, collision contacts |
+| **audio** | ✅ stable | Audio via kira natively and Web Audio in the browser: sound effects, music with crossfades and layers, mixer buses with effects, spatial sound |
+| **animation** | ✅ stable | Sprite sheet animations, skeletal animation with blending and IK, and property tweens |
+| **tilemap** | ✅ stable | Tilemaps: Tiled JSON import; square, isometric and hexagonal grids; autotiling, animated tiles and tile colliders |
+| **particles** | ✅ stable | CPU particle emitters with presets, collisions and sub-emitters, plus GPU particles |
+| **ui** | ✅ stable | Entity UI for HUDs and menus, and JSON GUI documents (.gui) with constraint layout, controller navigation and screen-reader support |
+| **behavior** | ✅ stable | Behaviour graphs: node graphs that drive entities without a script |
+| **data** | ✅ stable | Data tables (.data) and their schemas (.dataschema), read by scripts and packages |
+| **save** | ✅ stable | Save game slots: schema-versioned key/value storage |
+| **profiling** | ✅ stable | Frame profiler with timing spans, draw-call counters, captures and the F3 debug overlay |
+| **video** | ⚡ beta | Video playback into a texture (Windows natively, and in the browser) |
+| **liveops** | ⚡ beta | Live ops in the game: signed remote config, experiments, live events and content releases from a jengine-server live ops service |
+
+**Legend:** ✅ Stable — ⚡ Beta — 🔮 Planned. jEngine is pre-1.0, so even a stable module's API may change in a 0.x release; see [Versioning & Stability](/getting-started/versioning/).
+
+---
+
+## Module Details
+
+### renderer
+
+wgpu renderer (WebGPU with a WebGL2 fallback on the web; DX12, Vulkan or Metal natively; WGSL shaders): sprites, meshes, text, tilemaps and vector paths sorted in one pass, 2D lighting and shadows, post effects, shader-graph materials and cameras
+
+**Public exports:** `spline_shape`, `line2d`, `lut`, `palette`, `screenshot`, `atlas`, `atlas_asset`, `backend`, `camera`, `frame_view`, `pixel_perfect`, `mask`, `font_asset`, `dynamic_font`, `graph_pipeline_cache`, `freeform_light`, `lighting`, `material`, `transition`, `material_params`, `text_layout`, `vector_path`, `postprocess`, `shader_codegen`, `shader_graph`, `text`, `gpu_preference`, `rich_text`, `texture_filter`
+
+### ecs
+
+Entity-Component-System on hecs: the built-in components (see the Components Reference) and the systems that run them
+
+**Public exports:** `behaviors`, `components`, `fracture`, `cloth`, `views`, `camera_rig`, `sprite_library`, `hierarchy`, `outlines`, `path`, `skeleton`, `spatial`, `systems`, `topology`, `alpha_shape`, `area_effect`, `carve`, `paint`, `fluid`, `trails`, `callbacks`, `canvas_group`, `mirror`, `mode7`, `water`, `sprite_fill`, `post_volume`, `pixel_sim`, `smoke`, `rewind`, `fog`, `wfc`, `vision`, `day_cycle`, `floating_origin`, `time_scale`, `cast_shadow`, `auto_normal`, `tile_light`, `trajectory`, `beat_clock`, `dialogue`, `displacement`, `fog_of_war`, `silhouette`, `flow`, `lightning`, `nav_links`, `path_morph`, `snow`, `sprite_outline`, `sprite_tilt`, `afterimage`, `slice`, `portal`, `jelly`, `offscreen_marker`, `smooth_terrain`, `sprite_stack`, `save_state`, `text_path`, `sorting_group`, `path_follow`, `ragdoll`, `timeline`, `behavior_tree`, `visibility`, `parallel`, `wgpu_systems`, `frame_draw`, `components`, `hecs`
+
+### scripting
+
+Luau natively, Lua 5.3 through Fengari in the editor and on the web, and JavaScript on the desktop, over a deferred command bridge
+
+**Public exports:** `api`, `bridge`, `host_commands`, `intern`, `namespaces`, `persistent`, `spawn_aliases`, `spawn_map`, `timers`, `batch`, `batch_lua`, `worker_pool`, `prng`, `ScriptId`
+
+### scene
+
+JSON scene format (v1 and v2) with save/load, a scene stack, prefabs, prefab variants and streamed scene chunks
+
+**Public exports:** `format`, `manager`, `prefab`, `sources`, `streaming`, `format`, `manager`, `prefab`, `set_current_name`, `current_name`, `name_of`
+
+### input
+
+Keyboard, mouse, gamepads and touch; input actions with rebinding, hold / tap interactions and gestures
+
+**Public exports:** `gamepad`, `gestures`, `haptics`, `interactions`, `prompts`, `replay`, `clipboard`, `text_entry`, `gamepad_web`, `asset`, `asset`, `touch_controls`, `KeyCode`, `name`, `from_browser_code`, `from_name`, `InputAction`, `TouchStage`, `name`, `Touch`, `InputState`, `new`, `load_actions`, `set_bindings`, `add_binding`, `remove_binding`, `clear_bindings`, `reset_bindings`, `get_bindings`, `set_dead_zone`, `get_dead_zone`, `begin_frame`, `set_middle_mouse_button`, `set_mouse_button`, `key_down`, `is_typed`, `ctrl_held`, `paste`, `pasted`, `consume_typing`, `key_up`, `release_all`, `consume_key`, `type_char`, `type_str`, `typed_chars`, `mouse_motion`, `mouse_wheel`, `is_pressed`, `is_just_pressed`, `is_just_released`, `just_pressed_bindings`, `is_action_pressed`, `pad_state`, `is_pad_connected`, `pad_count`, `pad_axis`, `is_pad_button_pressed`, `is_pad_button_just_pressed`, `action_axis_value`, `update_gamepad`, `set_gamepad_info`, `retain_gamepads`, `disconnect_gamepad`, `has_gamepad`, `gamepad_in_use`, `is_action_just_pressed`, `is_action_just_released`, `get_mouse_wheel`, `get_actions`, `just_pressed_iter`, `just_released_iter`, `pressed_iter`, `apply_input_remap`, `BrowserKeyMods`, `browser_keeps_default`
+
+### asset
+
+Asset loading for textures, atlases, fonts, audio, scripts and GUI documents, plus downloadable asset packs
+
+**Public exports:** `atlas_def`, `sort_layers`, `asset_id`, `asset_id`, `watcher`, `packs`, `find_in_roots`, `resolve_texture_id`, `RawTextureData`, `from_bytes`, `from_file`, `AssetManager`, `new`, `insert_texture_bytes`, `texture_revision`, `get_texture_bytes`, `texture_bytes_mut`, `mark_texture_dirty`, `dirty_rects`, `has_texture_bytes`, `texture_ids`, `load_texture_bytes`, `reload_texture_bytes`, `set_texture_filters`, `texture_filters`, `mark_sdf`, `ensure_render_texture`, `remove_wgpu_texture`, `ensure_wgpu_texture`, `ensure_wgpu_normal_texture`, `get_wgpu_normal_texture`, `get_wgpu_texture`, `destroy_wgpu_textures`, `insert_atlas_data`, `register_atlas`, `get_atlas_data`, `has_atlas_data`, `atlas_ids`, `insert_font_data`, `get_font_data`, `get_font_shared`, `has_font_data`, `font_ids`, `register_atlas_mapping`, `atlas_mappings`, `atlas_lookup_entry`, `get_sprite_region`, `build_animation_clips_from_atlas`, `any_sprite_points`, `get_animation_frame_points`, `insert_audio`, `get_audio_data`, `has_audio`, `insert_gui`, `get_gui`, `get_gui_mut`, `has_gui`, `insert_material`, `get_material`, `has_material`, `material_ids`, `insert_skeletal_clip`, `get_skeletal_clip`, `has_skeletal_clip`, `skeletal_clips`, `skeletal_clip_ids`, `load_skeletal_clips_from_dir`, `load_skeleton_rigs_from_dir`, `load_skeletal_clip`, `insert_skeleton_rig`, `get_skeleton_rig`, `has_skeleton_rig`, `skeleton_rig_ids`, `load_skeleton_rig`, `load_spine_skeleton`, `import_spine_skeleton`, `load_material`, `load_material_from_str`, `insert_sort_layers`, `load_sort_layers_from_str`, `load_sort_layers`, `get_sort_layers`, `sort_layer_set_ids`, `set_active_sort_layers`, `active_sort_layers_id`, `active_sort_layers`, `textures_to_request`
+
+### physics
+
+2D physics via rapier2d: rigid bodies, colliders, joints, character controllers, raycasts and shape queries, collision contacts
+
+**Public exports:** `query`, `ray`, `crate`, `ContactEvent`, `simple`, `ContactType`, `RayHit`, `merge_tiles`, `PhysicsWorld`, `new`, `step_hz`, `set_step_hz`, `set_fixed_timestep`, `sync_conveyors`, `sync_body_settings`, `has_collider`, `remove_collider`, `sprite_shape_key`, `set_sprite_shape_key`, `has_body`, `add_body`, `add_body_for_entity`, `remove_stale_bodies`, `add_collider`, `add_joint`, `add_target_joint`, `target_follows`, `sync_joint_targets`, `joint_load`, `remove_joint`, `has_joint`, `joint_count`, `set_motor_speed`, `remove_body`, `step`, `begin_frame`, `flush_forces`, `step_once`, `fixed_dt`, `end_frame`, `sync_transforms_to_ecs`, `sync_ragdolls`, `ragdoll_part_count`, `apply_pending`, `blend_transforms_for_render`, `restore_stepped_poses`, `follow_origin`, `sync_kinematic_from_ecs`, `owner_of`, `sync_tilemap_colliders`, `tilemap_box_count`, `tilemap_chunk_rebuilds`, `sync_carved_colliders`, `sync_area_effects`, `sync_smooth_terrain`, `sync_spline_colliders`, `move_characters`, `apply_force`, `apply_impulse`, `predict`, `body_state`, `restore_body`, `mass_of`, `set_velocity`, `get_velocity`, `get_position`, `get_rotation`, `set_angular_velocity`, `get_angular_velocity`, `set_gravity`, `get_gravity`, `body_type_of`, `set_body_type`, `raycast`, `overlap`, `circle_cast`, `PhysicsWorld`, `new`, `step`, `begin_frame`, `step_once`, `flush_forces`, `end_frame`, `fixed_dt`, `sync_carved_colliders`, `sync_spline_colliders`, `sync_smooth_terrain`, `sync_area_effects`, `sync_ragdolls`, `apply_pending`, `set_gravity`, `apply_force`, `apply_impulse`, `set_velocity`, `mass_of`, `body_state`, `restore_body`, `body_type_of`, `predict`, `set_angular_velocity`, `get_position`, `get_rotation`, `get_velocity`, `get_angular_velocity`, `remove_body`, `remove_collider`, `sync_conveyors`, `sync_body_settings`, `sprite_shape_key`, `set_sprite_shape_key`, `set_body_type`, `owner_of`, `raycast`, `add_joint`, `remove_joint`, `add_target_joint`, `sync_joint_targets`, `target_follows`, `set_motor_speed`, `move_characters`, `sync_tilemap_colliders`, `blend_transforms_for_render`, `restore_stepped_poses`, `step_hz`, `set_step_hz`, `set_fixed_timestep`
+
+### audio
+
+Audio via kira natively and Web Audio in the browser: sound effects, music with crossfades and layers, mixer buses with effects, spatial sound
+
+**Public exports:** `kira_backend`, `audio_asset`, `web_audio`, `mixer`, `spatial`, `zones`, `mixer`, `variation`, `music`, `analysis`, `transcode`, `ClipHandle`, `SoundHandle`, `PlaySettings`, `AudioBackend`, `publish_music_position`, `music_position`, `NullAudioBackend`, `sync_mixer`
+
+### animation
+
+Sprite sheet animations, skeletal animation with blending and IK, and property tweens
+
+**Public exports:** `easing`, `tween`, `asset`, `skeletal`, `rig`, `skinned_mesh`, `ik`, `jiggle`, `FrameTrigger`, `AnimationFrame`, `TriggeredEvent`, `split_triggers`, `AnimTickResult`, `AnimatableProperty`, `Keyframe`, `PropertyTrack`, `sample`, `PropertyAnimResult`, `sample_property_tracks`, `AnimationClip`, `SpriteAnimator`, `play`, `stop`, `tick`, `current_uv`, `current_frame_result`, `resolve_frame_regions`, `apply_random_start`, `is_playing`, `AnimParam`, `TransitionCondition`, `StateTransition`, `AnimationState`, `AnimStateMachine`, `start`, `tick`, `set_bool`, `set_float`, `set_trigger`, `current_clip_name`, `is_playing`, `state_name`
+
+### tilemap
+
+Tilemaps: Tiled JSON import; square, isometric and hexagonal grids; autotiling, animated tiles and tile colliders
+
+**Public exports:** `asset`, `autotile`, `pathfinding`, `scene_tiles`, `shapes`, `tiled`, `pathfinding`, `shapes`, `world_origin`, `TilesetDef`, `TileRandom`, `TileSpawn`, `TileAnimation`, `TileFrame`, `drawn`, `variant_at`, `data_of`, `frame_at`, `tile_uv`, `LayerRevisions`, `id`, `total`, `chunk`, `TilemapLayer`, `TileOrientation`, `StaggerAxis`, `StaggerIndex`, `get_tile`, `set_tile`, `tiles_mut`, `touch_all`, `chunk_cols`, `chunk_rows`, `chunk_count`, `chunk_rect`, `script_tile_id`, `Tilemap`, `tick_tile_animations`, `revision_key`, `tile_data`, `resolve_gid`, `find_layer`, `find_layer_mut`, `grid_to_local`, `local_to_grid`, `world_to_tile`, `tile_to_world`, `is_hex`, `cell_centre`, `cell_outline`, `cell_at`, `neighbours`, `size_in_cells`, `neighbours_on_map`, `cell_distance`, `cell_quad`, `overhang`, `cells_in_box`, `serialize`, `deserialize`
+
+### particles
+
+CPU particle emitters with presets, collisions and sub-emitters, plus GPU particles
+
+**Public exports:** `asset`, `crate`, `gpu`, `gpu_state`, `FlipbookMode`, `ParticleFlipbook`, `frame_count`, `frame`, `uv`, `ParticleTrail`, `ParticleLights`, `ParticleLight`, `ParticleEmitter`, `ParticleCollision`, `CollisionResponse`, `SubEmitter`, `SubEmitterEvent`, `Turbulence`, `flow`, `EmitShape`, `EmitGeometry`, `polyline`, `SpritePixels`, `collect_emit_pixels`, `is_point`, `ParticleSystem`, `new`, `shift`, `set_gravity`, `alive_count`, `update`, `step`, `burst`, `draw_data`, `draw_data_masked`, `ParticleGroup`, `TrailDrawData`, `ribbon`, `ParticleDrawData`, `set_emitter_field`, `tick_particles`, `lights_for`, `emitter_position`
+
+### ui
+
+Entity UI for HUDs and menus, and JSON GUI documents (.gui) with constraint layout, controller navigation and screen-reader support
+
+**Public exports:** `gui_document`, `accessibility`, `drag_drop`, `radial_menu`, `speech_bubble`, `toast`, `layout`, `navigation`, `scaling`, `scroll`, `text_edit`, `shapes`, `UIAnchor`, `origin`, `from_name`, `alignment_fraction`, `TextAlign`, `offset`, `read_ui_prop`, `apply_ui_prop`, `UIElement`, `screen_center`, `screen_rect`, `UIText`, `UIImage`, `UiNineSlice`, `UIPanel`, `UIButton`, `UIProgressBar`, `UISlider`, `UIToggle`, `UITextInput`
+
+### behavior
+
+Behaviour graphs: node graphs that drive entities without a script
+
+**Public exports:** `cache`, `catalog`, `command`, `compile`, `event`, `format`, `instances`, `interpreter`, `pin`, `state`, `system`, `cache`, `catalog`, `command`, `compile`, `event`, `format`, `instances`, `interpreter`, `pin`, `state`, `system`
+
+### data
+
+Data tables (.data) and their schemas (.dataschema), read by scripts and packages
+
+**Public exports:** `registry`, `schema`, `table`, `registry`, `schema`, `table`
+
+### save
+
+Save game slots: schema-versioned key/value storage
+
+**Public exports:** `SaveSystem`, `new`, `set_base_dir`, `get`, `set`, `clear`, `commit`, `is_dirty`, `slot_data`, `snapshot_all`, `ensure_discovered`, `ensure_loaded`
+
+### profiling
+
+Frame profiler with timing spans, draw-call counters, captures and the F3 debug overlay
+
+**Public exports:** `memory`, `trace`, `FrameStats`, `ScriptTimings`, `total_ms`, `FrameTimings`, `cpu_sim_ms`, `FrameCounters`, `FrameProfiler`, `BenchHistory`, `new`, `enable_history`, `take_history`, `set_script_timings`, `set_counters`, `last_timings`, `last_counters`, `begin_frame`, `begin_section`, `end_section`, `set_counter`, `add_counter`, `end_frame`, `last_stats`, `frame_time_history`, `now_ms`, `unix_time`, `unix_time`, `now_ms`
+
+### video
+
+Video playback into a texture (Windows natively, and in the browser)
+
+**Public exports:** `web`, `VideoPlayer`, `target`, `VideoFrame`, `PlayState`, `VideoDecoder`, `DecoderFactory`, `VideoSystem`, `new`, `unsupported`, `clear`, `tick`, `present`, `video_texture_ids`, `set_video_field`
+
+### liveops
+
+Live ops in the game: signed remote config, experiments, live events and content releases from a jengine-server live ops service
+
+**Public exports:** `jengine_liveops`, `native`, `web`, `LiveOpsSettings`, `from_settings`, `game_channel`, `editor_channel`, `Source`, `name`, `Exposure`, `attribute_text`, `number_text`, `region_of`, `LiveOps`, `configure`, `set_locale`, `follow_locale`, `language`, `region`, `attributes`, `set_attribute`, `snapshot_request`, `expose`, `take_exposures`, `is_on`, `poll`, `deliver`, `load_cached`, `fetch`, `set_player`, `get`, `keys`, `source`, `error`, `fetching`, `variant`, `server_time`, `events`, `event_active`, `event_ends_in`, `event_starts_in`, `event_name`, `revision`, `release`, `generation`, `channel`, `install`, `with`, `app_version`, `native_platform`, `ScriptAnswer`, `script_op`, `script_call`
+
+
+---
+
+## Build Targets
+
+`jengine` is the engine's CLI (`cargo run -p jengine-builder --bin jengine --`); see [Installation](/getting-started/installation/).
+
+| Target | How | Status |
+|--------|-----|--------|
+| Windows | `jengine run <project>`, or the editor's Build panel | Native runtime and editor |
+| Web | `jengine web-build <project>` | WebGPU, with a WebGL2 fallback |
+| Android | `jengine android-build <project>` | APK / app bundle; Lua scripts only |
+| Linux | `jengine linux-build <project>` | Builds and runs; tested under WSL only |
+| macOS | `jengine macos-build <project>` | Type-checked only, never linked or run: unverified |
+| iOS | `jengine ios-build <project>` | Experimental: has never run |
+
+See [Cross-Platform](/architecture/cross-platform/) for what each platform can do.

@@ -1,0 +1,14 @@
+[package]
+name = "jengine-netcode"
+description = "Prediction-ready netcode shared by a server and its clients: a fixed-step motion model, input queues, reconciliation, and lag compensation"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+# No dependencies, on purpose: this is linked by the server (tokio, SQLite)
+# and by a client package that has to build for wasm32, and it is the one
+# piece of code the two must have in common.
+[dependencies]

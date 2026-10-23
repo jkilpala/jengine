@@ -1,0 +1,907 @@
+{
+ "name": "143 - Card Table",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.25
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Table",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "River1Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      -222.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "River1",
+   "components": {
+    "transform": {
+     "position": [
+      -230.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/queen_diamonds.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 7.0,
+     "yaw": 3.14159265
+    }
+   }
+  },
+  {
+   "name": "River2Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      8.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "River2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/ace_spades.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 7.0,
+     "yaw": 3.14159265
+    }
+   }
+  },
+  {
+   "name": "River3Shadow",
+   "components": {
+    "transform": {
+     "position": [
+      238.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "River3",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/king_hearts.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 7.0,
+     "yaw": 3.14159265
+    }
+   }
+  },
+  {
+   "name": "CoinShadow",
+   "components": {
+    "transform": {
+     "position": [
+      488.0,
+      174.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.5
+     ],
+     "z_order": 4,
+     "size": [
+      130.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Coin",
+   "components": {
+    "transform": {
+     "position": [
+      480.0,
+      180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/coin_heads.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 400.0,
+     "back_texture": "sprites/cardtable/coin_tails.png",
+     "shine": 0.45
+    }
+   }
+  },
+  {
+   "name": "AceShadow",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      -176.0
+     ],
+     "rotation": 0.14,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ace",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -162.0
+     ],
+     "rotation": 0.14,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/ace_spades.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 11,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 11.0
+    }
+   }
+  },
+  {
+   "name": "KingShadow",
+   "components": {
+    "transform": {
+     "position": [
+      -140.0,
+      -152.0
+     ],
+     "rotation": 0.07,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 12,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "King",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -138.0
+     ],
+     "rotation": 0.07,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/king_hearts.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 13,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 11.0
+    }
+   }
+  },
+  {
+   "name": "QueenShadow",
+   "components": {
+    "transform": {
+     "position": [
+      10.0,
+      -144.0
+     ],
+     "rotation": -0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 14,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Queen",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -130.0
+     ],
+     "rotation": -0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/queen_diamonds.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 15,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 11.0
+    }
+   }
+  },
+  {
+   "name": "JackShadow",
+   "components": {
+    "transform": {
+     "position": [
+      160.0,
+      -152.0
+     ],
+     "rotation": -0.07,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 16,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Jack",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      -138.0
+     ],
+     "rotation": -0.07,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/jack_clubs.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 17,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 11.0
+    }
+   }
+  },
+  {
+   "name": "TenShadow",
+   "components": {
+    "transform": {
+     "position": [
+      310.0,
+      -176.0
+     ],
+     "rotation": -0.14,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/card_shadow.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ],
+     "z_order": 18,
+     "size": [
+      192.0,
+      257.59999999999997
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ten",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -162.0
+     ],
+     "rotation": -0.14,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/cardtable/ten_hearts.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 19,
+     "size": [
+      160.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sprite_tilt": {
+     "distance": 650.0,
+     "back_texture": "sprites/cardtable/card_back.png",
+     "shine": 0.22,
+     "speed": 11.0
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s143_card_table.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "143   Card Table",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Point at a card to tilt it   Click to turn it over   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

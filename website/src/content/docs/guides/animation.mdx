@@ -1,0 +1,94 @@
+---
+draft: false
+title: Animation
+description: Sprite sheet animations and property tweens in jEngine.
+---
+
+jEngine animates in three ways: **sprite sheet animations**, **property tweens** and **skeletons**.
+
+## Sprite Sheet Animations
+
+Attach a `SpriteAnimator` component with named clips. Each clip defines a sequence of UV rectangles and timing.
+
+### Scripting API
+
+```lua
+Animation.play(entity, "walk")
+Animation.stop(entity)
+Animation.set_speed(entity, 0.5)  -- half speed
+
+if Animation.is_playing(entity) then
+    log("Still animating")
+end
+```
+
+### Events on frames
+
+A frame of a clip can carry triggers, and they fire in every runtime: a `PlaySound` plays its clip, and
+an `EmitEvent` reaches the entity's script as `on_animation_event(entity, { name, data })` - and, through
+the event bus, any script listening for it. Use them for frame data, such as a hitbox live on exactly
+the frames the clip says, rather than a timer kept beside the animation.
+
+### State machines
+
+A clip set can be driven by parameters instead of direct calls:
+
+```lua
+Animation.start_state_machine(entity, "idle")
+Animation.set_float(entity, "speed", vx)
+Animation.set_bool(entity, "grounded", on_ground)
+Animation.set_trigger(entity, "attack")
+log(Animation.get_state(entity))
+```
+
+## Property Tweens
+
+Smoothly interpolate transform and color properties with easing functions.
+
+### Available Easing Functions
+
+`Linear`, `EaseInQuad`, `EaseOutQuad`, `EaseInOutQuad`, `EaseInCubic`, `EaseOutCubic`, `EaseInOutCubic`, `EaseInSine`, `EaseOutSine`, `EaseInOutSine`
+
+### Scripting API
+
+```lua
+-- Tween position over 1.5 seconds
+Tween.position(entity, 100, 200, 1.5, "EaseOutQuad")
+
+-- Tween rotation
+Tween.rotation(entity, 3.14, 2.0, "EaseInOutSine")
+
+-- Tween scale
+Tween.scale(entity, 2.0, 2.0, 0.5, "EaseOutCubic")
+
+-- Tween sprite color (fade to red)
+Tween.color(entity, 1, 0, 0, 1, 1.0, "EaseInQuad")
+
+-- Cancel tweens
+local id = Tween.position(entity, 0, 0, 2.0, "Linear")
+Tween.cancel(id)
+Tween.cancel_all(entity)
+```
+
+`Tween.color` fades world text as well as sprites.
+
+## Skeletons
+
+A skeletal rig is bones as entities in a hierarchy, a `skeletal_player` playing clips on them and an
+optional `skinned_mesh` drawn over them (sorted with sprites by `z_order`). `Animation.play`, `stop` and
+`set_speed` reach a skeletal player as they do a sprite animator, and it can do more:
+
+```lua
+Animation.crossfade(entity, "run", 0.25)    -- fade the old pose out while it keeps playing
+Animation.set_blend(entity, "run", 0.6)     -- mix a second clip in at the same phase
+```
+
+- **Two-bone IK** (`ik_two_bone`) bends a joint toward a target, and with `ground` plants an animated
+  foot on the collider under it.
+- **Jiggle bones** (`jiggle`) swing a chain after its pose - hair, tails, tentacles - with a
+  `max_angle` per link that keeps a soft chain from folding.
+- **Cloth and rope** (`cloth`, `rope`) are point grids the engine moves each frame and writes into the
+  entity's mesh; pins follow world transforms, so a flag on a swinging pole flies.
+
+A v2 scene holds a rig (`"parent"` beside an entity's `"name"`). See the
+[Scripting API](/api-reference/scripting-api/) for every animation function.

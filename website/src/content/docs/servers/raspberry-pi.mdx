@@ -1,0 +1,196 @@
+---
+draft: false
+title: Raspberry Pi Host
+description: Turn a Raspberry Pi on your network into a host for your game servers - install, deploy, run, back up.
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+A Raspberry Pi 4 or 5 with 4 GB runs several game servers comfortably. The
+scripts in `crates/jengine-server/pi/` do everything from a Windows machine:
+build for the Pi, install the host, deploy the servers, and operate them.
+Commands below are PowerShell, run from the repository root.
+
+**What you get:** every game server behind one address,
+`ws://<pi-address>:9000/<game>`, a list of them at
+`http://<pi-address>:9000/`, and a management console at
+`http://<pi-address>:9000/manage`. The kit's own README,
+`crates/jengine-server/pi/README.md`, says the same at more length.
+
+## Before you start
+
+- A Raspberry Pi with a **64-bit** OS that uses systemd (Raspberry Pi OS or
+  Ubuntu), on your network, with SSH enabled.
+- Your SSH key accepted by your account there (`ssh you@<pi-address>` works
+  without a password).
+- Give the Pi a **fixed address** in your router. Ubuntu Server does not
+  announce `<name>.local` (Raspberry Pi OS does - `gamebox.local` for a Pi
+  named `gamebox`), so the scripts use whatever address your fleet file names.
+- **Make your fleet file** from the example. It names the Pi and the services
+  to run on it; `fleet.json` is gitignored, because it is yours:
+
+  ```powershell
+  Copy-Item crates/jengine-server/pi/fleet.example.json crates/jengine-server/pi/fleet.json
+  ```
+
+  Put the Pi's address in it (the `pi` machine's `url` and `console`, where
+  the example says `<pi-address>`), or let `setup-pi.ps1 -Address` write it
+  in. To keep the file somewhere else - outside the repository, say - set
+  `JENGINE_FLEET_FILE` to its path; every script reads that one instead.
+
+## Install
+
+<Steps>
+
+1. **Make the account the servers run as** - once, on the Pi, with your sudo
+   password:
+
+   ```powershell
+   scp crates/jengine-server/pi/prepare-pi.sh you@<pi-address>:
+   ssh -t you@<pi-address> "sudo bash ~/prepare-pi.sh"
+   ```
+
+   This creates the user `jengine` (no password, no sudo), lets your SSH keys
+   sign in as it, and turns on *linger* so its services start at boot. The
+   host tool runs whatever builds are uploaded to it, so a separate account
+   with no sudo is all a leaked token could reach. Everything after this is
+   done as `jengine`, without sudo.
+
+2. **Install the host:**
+
+   ```powershell
+   ./crates/jengine-server/pi/setup-pi.ps1 -Address 203.0.113.10   # your Pi's address; later runs need no -Address
+   ```
+
+   It builds `jengine-fleet` for the Pi (`crates/jengine-server/tools/build-pi.ps1`,
+   cross-compiled with cargo-zigbuild), makes the tokens
+   (`crates/jengine-server/pi/secrets.json` - gitignored, on your machine
+   only), installs the systemd user service `jengine-host`, makes the Pi's
+   certificate and fetches it into `pi-cert.pem`, and checks the Pi answers.
+   Run it again any time to **upgrade** the host tool.
+
+   If a TLS proxy sits in front of the gateway - an nginx serving `wss://`
+   for web builds, which cannot open a plain `ws://` socket from an `https`
+   page - add `-TrustProxy <its address>` (or set `JENGINE_TRUST_PROXY`, or a
+   `"trust_proxy"` on the `pi` machine in your fleet file), so the servers
+   see each player's own address rather than the proxy's. Nothing is trusted
+   by default; an upgrade keeps what was set before, and `-TrustProxy none`
+   clears it.
+
+3. **Deploy the game servers:**
+
+   ```powershell
+   ./crates/jengine-server/pi/deploy-pi.ps1                      # every service in fleet.json
+   ./crates/jengine-server/pi/deploy-pi.ps1 -Services my-game   # just one
+   ```
+
+   The example's two services are both the stock `jengine-server`: `relay`
+   (rooms and one ordered log, for turn-based games) and `liveops` (see
+   [Console & Live Ops](/servers/console/)). Add your own server as another
+   entry (below).
+
+4. **Connect a game.** In its server field, type
+   `ws://<pi-address>:9000/<service>` - for example
+   `ws://gamebox.local:9000/my-game`.
+
+</Steps>
+
+## Day to day
+
+| What | Command (`./crates/jengine-server/pi/pi.ps1 ...`) |
+|---|---|
+| Every server's version, players, uptime | `status` |
+| Open the console, signed in | `console` |
+| A server's log | `logs my-game` |
+| Restart, stop, start, roll back | `restart my-game` (or `stop`, `start`, `rollback`) |
+| The host tool's own log | `host-log` |
+| The list players see | `open` |
+| A shell on the Pi as `jengine` | `ssh` |
+| The console token, to sign in from a phone | `tokens` |
+| Live ops settings for a game | `liveops` |
+| Publish a game build's packs to live ops | `publish <build folder> -Channel dev` |
+| **Back up the key and tokens** | `backup` |
+
+A deploy is safe with players online: the old server drains, saves everyone
+and stops, the new one starts, and if it never answers the old one is put back.
+
+**A new server** is one more entry in `fleet.json`: a free port, its build's
+path, and `"args": ["127.0.0.1:{port}", ...]` so only the gateway reaches it.
+Its name is its path. The build is a package in the workspace (one made with
+`cargo run -p jengine-server -- new`, say), and the artifact's file name is
+the package `build-pi` builds for it:
+
+```json
+"my-game": {
+  "machines": ["pi"],
+  "artifacts": { "linux-aarch64": "../../../target/aarch64-unknown-linux-gnu/release/my-game-server" },
+  "args": ["127.0.0.1:{port}", "my-game.db"],
+  "port": 9041,
+  "admin_token_env": "PI_ADMIN_TOKEN",
+  "drain_secs": 10
+}
+```
+
+## Back up the live ops key
+
+<Aside type="caution" title="Do this now">
+The live ops service on the Pi signs everything games receive with a key
+games are **built** to trust. If it is lost, every game has to be rebuilt
+with a new key. Back it up:
+
+```powershell
+./crates/jengine-server/pi/pi.ps1 backup                      # to ~/jengine-pi-backup
+./crates/jengine-server/pi/pi.ps1 backup D:\somewhere-private
+```
+
+That copies the signing key, `secrets.json` (your tokens) and the Pi's
+certificate as a dated set. Keep the folder **private** - the key signs what
+every game believes, and the tokens deploy programs to the Pi - and keep a
+copy off your machine: `secrets.json` exists nowhere else.
+</Aside>
+
+**To restore the key on a new Pi:** deploy `liveops` once, copy the
+backed-up key over the new one, and restart it:
+
+```powershell
+scp liveops-signing-<date>.key jengine@<pi-address>:jengine/data/services/liveops/liveops/signing.key
+./crates/jengine-server/pi/pi.ps1 restart liveops
+```
+
+If `secrets.json` is lost, run `setup-pi.ps1` again: it makes new tokens and
+installs them on the Pi.
+
+## When the Pi's address changes
+
+```powershell
+./crates/jengine-server/pi/setup-pi.ps1 -Address <pi-address>
+```
+
+`fleet.json` follows, and the Pi's certificate is made again for the new
+address. Games need the new address in their server field (and in their live
+ops settings, which means a rebuild - another reason for a fixed address).
+
+## What is where on the Pi
+
+```text
+~jengine/jengine/jengine-fleet       the host tool
+~jengine/jengine/host.env            its tokens (readable by jengine only)
+~jengine/jengine/tls/                its certificate and key
+~jengine/jengine/data/               builds, and each service's folder (its database, its log)
+~jengine/jengine/data/console/       the console's fleet file, jobs, history, uploaded builds
+~jengine/jengine/data/services/liveops/liveops/signing.key   the live ops key - back it up
+~jengine/.config/systemd/user/jengine-host.service
+```
+
+## Worth knowing
+
+- **Plain HTTP on the LAN.** The agent's port (9900) is HTTPS; the gateway
+  and console (9000) are not, so the console token - and the admin token,
+  when publishing to live ops - can be read by someone watching your network.
+  What games receive from live ops is signed, so it cannot be changed.
+- **Nothing alerts you.** A dead server or a full disk shows on the console
+  when somebody looks.
+- **Every known limit** is listed in `crates/jengine-server/LIMITS.md`; the
+  host's rows are H1 to H9.
+- **What the scripts were checked on:** one Pi with 4 GB running Ubuntu,
+  end to end. On another OS or board, watch the first `setup-pi.ps1` run.

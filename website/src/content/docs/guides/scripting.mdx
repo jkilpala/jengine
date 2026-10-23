@@ -1,0 +1,289 @@
+---
+draft: false
+title: Scripting (Lua & JS)
+description: Writing game logic with Lua and JavaScript in jEngine — namespaces, lifecycle, events, and the three-tier scripting model.
+---
+
+jEngine scripts are **Lua** (every platform) or **JavaScript** (desktop builds). The engine picks the
+runtime from the file extension.
+
+The Lua dialect differs by target: the native runtime uses **Luau** (Lua 5.1 plus Luau extensions) via
+`mlua`, while the editor and web builds run **Fengari**, a real Lua 5.3 VM, from one shared bundle — so
+what you verify in the editor is what ships to the web. Stick to the common subset, **standard library
+included**:
+
+- Luau has `math.atan2` and a one-argument `math.atan`; Fengari has no `atan2` and a two-argument
+  `math.atan(y, x)`. Probe for `math.atan2` and fall back.
+- `string.format("%d", x)` with a fractional `x` truncates under Luau and **throws** under Fengari.
+  Every number read from a component arrives as a float, so floor first: `math.floor(v + 0.5)`.
+
+## Namespaces
+
+Lua scripts call the engine through capitalised namespaces:
+
+```lua
+local x, y = Transform.get_position(entity)
+Sprite.set_color(entity, 1, 0.5, 0.5, 1)
+Physics.apply_impulse(entity, 0, 400)
+Audio.play_sound("sounds/jump.wav")
+```
+
+`Entity`, `Transform`, `Sprite`, `Input`, `Physics`, `Audio`, `Scene`, `Event`, `Timer`, `Tween`,
+`Animation`, `Text`, `UI`, `GUI`, `Camera`, `Lighting`, `Particles`, `Tilemap`, `Data`, `Save`, `Locale`,
+`Nav` and more — see the [Scripting API](/api-reference/scripting-api/). They are capitalised because
+`entity`, `text`, `camera` and `timer` are names scripts give their own variables. `log`, `print` and
+`require` stay global.
+
+Each [package](/packages/) a project links adds its own namespace (`Parallax.set(...)`, `Online.join(...)`).
+Test for one before using it: `if Online == nil then return end`.
+
+**JavaScript keeps the flat names** (`get_position(e)`, `set_sprite_color(e, ...)`), and returns
+multiple values as an array:
+
+| Lua | JavaScript |
+|-----|-----------|
+| `local x, y = Transform.get_position(e)` | `let [x, y] = get_position(e)` |
+| `local r, g, b, a = Sprite.get_color(e)` | `let [r, g, b, a] = get_sprite_color(e)` |
+| Tables: `{1, 2, 3}` | Arrays: `[1, 2, 3]` |
+| `nil` | `null` / `undefined` |
+
+## Lifecycle
+
+```lua
+function init(entity)
+    -- once, when the entity spawns or the scene loads
+end
+
+function update(entity, dt)
+    -- every frame: entity is your entity's id, dt the seconds since the last update
+end
+```
+
+Create a script from the Inspector (**Add Component → Script → New Script**), or write a `.lua` / `.js`
+file under `assets/scripts/` and name it in the entity's `script` component:
+
+```json
+"script": { "language": "Lua", "source_path": "scripts/player.lua" }
+```
+
+A `require`d module is cached for the whole session, **not** per scene: a module-level variable keeps
+its value into the next scene. Reset a module's state from whatever the scene calls in `init`.
+
+## Deferred mutations
+
+All setters (`Transform.set_position`, `Entity.destroy`, `Entity.spawn_prefab`, ...) are **deferred** —
+they queue commands that apply after every script in the frame has run. So:
+
+- Reads return values from a **snapshot** taken at frame start
+- Every script sees the same world state during a frame
+- A `Transform.get_position` right after `Transform.set_position` returns the **previous** value
+
+`Entity.spawn_prefab` returns the new entity's handle at once, so you can configure it in the same frame.
+
+## The three-tier model
+
+Pick the lowest-cost tier that solves your problem.
+
+| Tier | Component | Cost | Best for |
+|------|-----------|------|----------|
+| **1 — Entity scripts** | `script` | One VM call per entity per update | Bosses, doors, cutscenes, quests, unique objects |
+| **2 — Tick-rate scripts** | `script` + a `tick_rate` header | Bounded by the rate, not the frame rate | NPC AI, pickups, spawners |
+| **3 — Batch script systems** | `batch_script` | ~1–8 ms for 30k entities | Custom movers, steering, crowds |
+
+> **Rule of thumb:** the engine owns continuous simulation; scripts orchestrate. For movement, bouncing
+> and lifetimes prefer native components — `velocity`, `bounce_area`, `lifetime`, `oscillator`,
+> `follow_target`, `patrol_path`, `path_follow`, `nav_agent`, `input_axis`. See the
+> [Components Reference](/api-reference/components/).
+
+### Tier 1 — entity scripts
+
+```lua
+-- assets/scripts/door.lua
+function update(entity, dt)
+    if Input.is_action_just_pressed("interact") then
+        Animation.play(entity, "open")
+        Scene.load("scenes/dungeon.scene")
+    end
+end
+```
+
+### Opt-in lifecycle events
+
+Declare the engine events a script wants in a `script` header at the top of the file:
+
+```lua
+script = { events = { "on_spawn", "on_collision_enter" } }
+
+function on_spawn(entity) end
+
+function on_collision_enter(entity, other)
+    log("Hit entity " .. other)
+    Entity.destroy(entity)
+end
+```
+
+```javascript
+const script = { events: ["on_spawn", "on_collision_enter"] };
+
+function on_spawn(entity) {}
+function on_collision_enter(entity, other) {
+    destroy_entity(entity);
+}
+```
+
+Recognised names: `on_spawn`, `on_despawn`, `on_collision_enter`, `on_collision_exit`, `on_trigger`,
+`on_input`, `on_timer`, `on_animation_event`, `on_visibility_changed`, `on_health_changed`. An unknown
+name (a typo) is dropped silently. A collision also reports how hard it was (`impulse`) and where (`x`, `y`), as
+`Physics.get_contacts` rows do — put a threshold under any damage, since a resting stack is a column of live contacts.
+
+Other callbacks arrive without a header: `on_<event>(entity, data)` for events the entity subscribed to
+with `Event.on`, `on_ui_click(entity, { button = id })` for entity-UI buttons, `on_screen_entered` /
+`on_screen_exited` from a `visibility_notifier`, and `on_path_end` from a `path_follow`.
+
+### Tier 2 — tick-rate scripts
+
+`tick_rate` is how many times a **second** `update` runs (the base rate is 60). `update` is handed the
+time since it last ran, so `dt` stays honest.
+
+```lua
+-- NPC AI re-evaluated ten times a second
+script = {
+    tick_rate = 10,
+    events = { "on_collision_enter" },
+}
+
+function update(entity, dt)
+    local player = Entity.find_by_name("Player")
+    if player then
+        local px, py = Transform.get_position(player)
+        local ex, ey = Transform.get_position(entity)
+        -- steer toward the player...
+    end
+end
+
+function on_collision_enter(entity, other)
+    -- still fires as soon as a contact begins
+end
+```
+
+In JavaScript the header key is `tickHz`: `const script = { tickHz: 10 };`. The throttle applies on the
+native runtime; the editor and web builds call `update` every frame.
+
+### Tier 3 — batch script systems
+
+A batch system processes *all* matching entities in one VM call over typed-array views of component
+columns. **Native desktop only**: the editor and web builds leave a `batch_script` entity alone. See the
+[Batch Scripts guide](/guides/batch-scripts/).
+
+```javascript
+// assets/scripts/systems/mover.js
+const system = {
+    query: { read: ["Velocity2D"], write: ["Position2D"] },
+    tick_rate: 1,
+};
+
+function update(ctx, q) {
+    const dt = ctx.dt;
+    const vx = q.read.Velocity2D.x, vy = q.read.Velocity2D.y;
+    const px = q.write.Position2D.x, py = q.write.Position2D.y;
+    for (let i = 0; i < q.count; i++) {
+        px[i] += vx[i] * dt;
+        py[i] += vy[i] * dt;
+    }
+}
+```
+
+For batch systems, Lua table mode is ~8× faster than JS at 30k entities (1.05 ms vs 8.35 ms).
+
+### Behavior graphs
+
+For logic that fits a graph of predefined ops (move with input, bounce, despawn after N seconds, play a
+sound on collision), a **Behavior Graph** runs with no VM at all. It shares the event bus with scripts.
+See the [Behavior Graph guide](/guides/behavior-graph/).
+
+## Common patterns
+
+### Finding other entities
+
+```lua
+function update(entity, dt)
+    local target = Entity.find_by_name("Enemy")
+    if target then
+        local tx, ty = Transform.get_position(target)
+        local x, y = Transform.get_position(entity)
+        if Math.distance(x, y, tx, ty) < 50 then
+            log("Close to enemy!")
+        end
+    end
+end
+```
+
+### Events between entities
+
+```lua
+-- sender.lua
+function update(entity, dt)
+    if Input.is_action_just_pressed("fire") then
+        Event.send("bullet_fired", entity, { damage = 25 })
+    end
+end
+
+-- receiver.lua
+function init(entity)
+    Event.on("bullet_fired", entity)
+end
+
+function on_bullet_fired(entity, data)
+    log("Took " .. data.damage .. " damage")
+end
+```
+
+The payload arrives as the value it was sent as — a table as a table — in every runtime. A script may
+instead define one `on_event(entity, name, sender, data)` for every event it subscribed to;
+`on_<name>` wins when both exist.
+
+### Spawning
+
+```lua
+function update(entity, dt)
+    if Input.is_action_just_pressed("fire") then
+        local bullet = Entity.spawn_prefab("prefabs/bullet.prefab")
+        local x, y = Transform.get_position(entity)
+        Transform.set_position(bullet, x + 20, y)
+    end
+end
+```
+
+Give short-lived spawns a `lifetime` or `despawn_offscreen` component in the prefab rather than a
+self-destruct script.
+
+### Custom data
+
+Per-entity data needs no Rust: a custom component is a bag of fields.
+
+```lua
+local hp = Entity.get_custom(entity, "Health", "current")
+Entity.set_custom(entity, "Health", "current", hp - 10)
+```
+
+## Execution budget
+
+The native runtime can cap script time per frame. Add a block to `settings` in `project.jengine`:
+
+```jsonc
+// project.jengine → "settings"
+"script_budget": {
+    "max_script_ms_per_frame": 4.0,
+    "max_invocations_per_frame": 2000,
+    "overflow_policy": "drop",      // "warn" | "drop" | "defer"
+    "deferred_cap": 256
+}
+```
+
+Or with environment variables: `JENGINE_SCRIPT_MAX_MS`, `JENGINE_SCRIPT_MAX_INVOCATIONS`,
+`JENGINE_SCRIPT_OVERFLOW_POLICY`, `JENGINE_SCRIPT_DEFERRED_CAP`.
+
+## Full API reference
+
+See the [Scripting API Reference](/api-reference/scripting-api/) for every function, its namespace,
+flat name and arguments.

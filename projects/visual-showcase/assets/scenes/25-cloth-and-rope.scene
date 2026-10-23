@@ -1,0 +1,4014 @@
+{
+ "name": "25 - Cloth & Rope",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.1
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.08,
+       0.04,
+       0.06,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.9,
+       0.8,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.3,
+      0.78498,
+      0.34225,
+      0.6
+     ],
+     "z_order": -99,
+     "size": [
+      620.0,
+      620.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "PeaksFar",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_peaks_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -95,
+     "size": [
+      1480.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       520.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "PeaksNear",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_peaks_near.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1680.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       520.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "GorgeFloor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.0331,
+      0.0331,
+      0.07324,
+      1.0
+     ],
+     "z_order": -89,
+     "size": [
+      1480.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mist",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -380.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/smoke.png",
+     "emission_rate": 5.0,
+     "max_particles": 80,
+     "lifetime": [
+      7.0,
+      11.0
+     ],
+     "speed": [
+      8.0,
+      22.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      260.0,
+      380.0
+     ],
+     "size_end": [
+      420.0,
+      620.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -50,
+     "color_curve": [
+      [
+       0.0,
+       0.89001,
+       0.74841,
+       0.71057,
+       0.0
+      ],
+      [
+       0.3,
+       0.89001,
+       0.74841,
+       0.71057,
+       0.2
+      ],
+      [
+       1.0,
+       0.78741,
+       0.67386,
+       0.71057,
+       0.0
+      ]
+     ],
+     "emit_shape": {
+      "kind": "line",
+      "length": 700.0
+     },
+     "turbulence": {
+      "strength": 12.0,
+      "scale": 300.0,
+      "speed": 0.1
+     }
+    }
+   }
+  },
+  {
+   "name": "CliffL",
+   "components": {
+    "transform": {
+     "position": [
+      -602.0,
+      -36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_cliff.png",
+     "color": [
+      0.71057,
+      0.60383,
+      0.53824,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      400.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       300.0,
+       300.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 400.0,
+       "height": 420.0
+      }
+     },
+     "offset": [
+      0.0,
+      -210.0
+     ],
+     "friction": 0.9,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "GrassL",
+   "components": {
+    "transform": {
+     "position": [
+      -602.0,
+      -36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_grass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      400.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.38
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       32.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "PostL",
+   "components": {
+    "transform": {
+     "position": [
+      -390.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_post.png",
+     "color": [
+      0.69207,
+      0.60383,
+      0.52252,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      16.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.3
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    }
+   }
+  },
+  {
+   "name": "CliffR",
+   "components": {
+    "transform": {
+     "position": [
+      602.0,
+      -36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_cliff.png",
+     "color": [
+      0.71057,
+      0.60383,
+      0.53824,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      400.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       300.0,
+       300.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 400.0,
+       "height": 420.0
+      }
+     },
+     "offset": [
+      0.0,
+      -210.0
+     ],
+     "friction": 0.9,
+     "restitution": 0.0
+    }
+   }
+  },
+  {
+   "name": "GrassR",
+   "components": {
+    "transform": {
+     "position": [
+      602.0,
+      -36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_grass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      400.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.38
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       32.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "PostR",
+   "components": {
+    "transform": {
+     "position": [
+      390.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_post.png",
+     "color": [
+      0.69207,
+      0.60383,
+      0.52252,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      16.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.3
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "joint": {
+     "target_entity": "Plank20",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        0.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank0",
+   "components": {
+    "transform": {
+     "position": [
+      -373.40181721403326,
+      -51.15544839545412
+     ],
+     "rotation": -0.5917468194281029,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "PostL",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank1",
+   "components": {
+    "transform": {
+     "position": [
+      -339.7422525392943,
+      -72.74365775273307
+     ],
+     "rotation": -0.5488208079171145,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank0",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank2",
+   "components": {
+    "transform": {
+     "position": [
+      -305.15271877121,
+      -92.803728340467
+     ],
+     "rotation": -0.5022659946605831,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank1",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank3",
+   "components": {
+    "transform": {
+     "position": [
+      -269.63380040065454,
+      -111.16262158132827
+     ],
+     "rotation": -0.4518485035630441,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank2",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank4",
+   "components": {
+    "transform": {
+     "position": [
+      -233.20413060658763,
+      -127.63376058031184
+     ],
+     "rotation": -0.3974074239929846,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank3",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank5",
+   "components": {
+    "transform": {
+     "position": [
+      -195.90633262956612,
+      -142.0231551446533
+     ],
+     "rotation": -0.33899829571651424,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank4",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank6",
+   "components": {
+    "transform": {
+     "position": [
+      -157.81185138780296,
+      -154.13699445250654
+     ],
+     "rotation": -0.2767666427686855,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank5",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank7",
+   "components": {
+    "transform": {
+     "position": [
+      -119.02370419782521,
+      -163.78987103023576
+     ],
+     "rotation": -0.21104648918313623,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank6",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank8",
+   "components": {
+    "transform": {
+     "position": [
+      -79.67767268715949,
+      -170.8170526755005
+     ],
+     "rotation": -0.14242512657971929,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank7",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank9",
+   "components": {
+    "transform": {
+     "position": [
+      -39.93993620415519,
+      -175.08914776921068
+     ],
+     "rotation": -0.07176636864102257,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank8",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank10",
+   "components": {
+    "transform": {
+     "position": [
+      4.796163466380676e-14,
+      -176.5229376678422
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank9",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank11",
+   "components": {
+    "transform": {
+     "position": [
+      39.93993620415527,
+      -175.08914776921068
+     ],
+     "rotation": 0.07176636864102258,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank10",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank12",
+   "components": {
+    "transform": {
+     "position": [
+      79.67767268715957,
+      -170.8170526755005
+     ],
+     "rotation": 0.14242512657971934,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank11",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank13",
+   "components": {
+    "transform": {
+     "position": [
+      119.02370419782523,
+      -163.7898710302358
+     ],
+     "rotation": 0.2110464891831362,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank12",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank14",
+   "components": {
+    "transform": {
+     "position": [
+      157.811851387803,
+      -154.13699445250654
+     ],
+     "rotation": 0.2767666427686857,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank13",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank15",
+   "components": {
+    "transform": {
+     "position": [
+      195.90633262956615,
+      -142.0231551446533
+     ],
+     "rotation": 0.3389982957165139,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank14",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank16",
+   "components": {
+    "transform": {
+     "position": [
+      233.20413060658754,
+      -127.63376058031189
+     ],
+     "rotation": 0.39740742399298495,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank15",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank17",
+   "components": {
+    "transform": {
+     "position": [
+      269.63380040065437,
+      -111.16262158132837
+     ],
+     "rotation": 0.45184850356304346,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank16",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank18",
+   "components": {
+    "transform": {
+     "position": [
+      305.1527187712099,
+      -92.80372834046707
+     ],
+     "rotation": 0.5022659946605834,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank17",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank19",
+   "components": {
+    "transform": {
+     "position": [
+      339.7422525392943,
+      -72.74365775273307
+     ],
+     "rotation": 0.5488208079171145,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank18",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "Plank20",
+   "components": {
+    "transform": {
+     "position": [
+      373.40181721403326,
+      -51.15544839545412
+     ],
+     "rotation": 0.5917468194281029,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_plank.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.4,
+     "angular_damping": 0.8,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 36.0,
+       "height": 9.0
+      }
+     },
+     "friction": 0.9,
+     "restitution": 0.0
+    },
+    "joint": {
+     "target_entity": "Plank19",
+     "joint_type": {
+      "Revolute": {
+       "anchor": [
+        -20.0,
+        0.0
+       ],
+       "anchor_b": [
+        20.0,
+        0.0
+       ],
+       "limits": null,
+       "motor_speed": 0.0,
+       "motor_max_torque": 0.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "DeckRope",
+   "components": {
+    "transform": {
+     "position": [
+      -390.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.60383,
+      0.477,
+      0.34239,
+      1.0
+     ],
+     "z_order": 3,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 846.0,
+     "segments": 63,
+     "width": 5.0,
+     "start_offset": [
+      0.0,
+      -4.0
+     ],
+     "end": "PostR",
+     "end_offset": [
+      0.0,
+      -4.0
+     ],
+     "pins": [
+      {
+       "at": 0.023809523809523808,
+       "entity": "Plank0",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.07142857142857142,
+       "entity": "Plank1",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.11904761904761904,
+       "entity": "Plank2",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.16666666666666666,
+       "entity": "Plank3",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.21428571428571427,
+       "entity": "Plank4",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.2619047619047619,
+       "entity": "Plank5",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.30952380952380953,
+       "entity": "Plank6",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.35714285714285715,
+       "entity": "Plank7",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.40476190476190477,
+       "entity": "Plank8",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.4523809523809524,
+       "entity": "Plank9",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.5,
+       "entity": "Plank10",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.5476190476190477,
+       "entity": "Plank11",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.5952380952380952,
+       "entity": "Plank12",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.6428571428571429,
+       "entity": "Plank13",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.6904761904761905,
+       "entity": "Plank14",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.7380952380952381,
+       "entity": "Plank15",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.7857142857142857,
+       "entity": "Plank16",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.8333333333333334,
+       "entity": "Plank17",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.8809523809523809,
+       "entity": "Plank18",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.9285714285714286,
+       "entity": "Plank19",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      },
+      {
+       "at": 0.9761904761904762,
+       "entity": "Plank20",
+       "offset": [
+        0.0,
+        -4.0
+       ]
+      }
+     ],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   }
+  },
+  {
+   "name": "Rail",
+   "components": {
+    "transform": {
+     "position": [
+      -390.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.69207,
+      0.53824,
+      0.36725,
+      1.0
+     ],
+     "z_order": 8,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 756.0,
+     "segments": 63,
+     "width": 5.0,
+     "start_offset": [
+      0.0,
+      60.0
+     ],
+     "end": "PostR",
+     "end_offset": [
+      0.0,
+      60.0
+     ],
+     "pins": [
+      {
+       "at": 0.07142857142857142,
+       "entity": "Plank1",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.16666666666666666,
+       "entity": "Plank3",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.2619047619047619,
+       "entity": "Plank5",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.35714285714285715,
+       "entity": "Plank7",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.4523809523809524,
+       "entity": "Plank9",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.5476190476190477,
+       "entity": "Plank11",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.6428571428571429,
+       "entity": "Plank13",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.7380952380952381,
+       "entity": "Plank15",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.8333333333333334,
+       "entity": "Plank17",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      },
+      {
+       "at": 0.9285714285714286,
+       "entity": "Plank19",
+       "offset": [
+        0.0,
+        58.0
+       ]
+      }
+     ],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   }
+  },
+  {
+   "name": "Tie1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank1",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank1"
+  },
+  {
+   "name": "Tie3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank3",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank3"
+  },
+  {
+   "name": "Tie5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank5",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank5"
+  },
+  {
+   "name": "Tie7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank7",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank7"
+  },
+  {
+   "name": "Tie9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank9",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank9"
+  },
+  {
+   "name": "Tie11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank11",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank11"
+  },
+  {
+   "name": "Tie13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank13",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank13"
+  },
+  {
+   "name": "Tie15",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank15",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank15"
+  },
+  {
+   "name": "Tie17",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank17",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank17"
+  },
+  {
+   "name": "Tie19",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.52252,
+      0.42003,
+      0.2957,
+      1.0
+     ],
+     "z_order": 7,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 58.0,
+     "segments": 4,
+     "width": 3.0,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "Plank19",
+     "end_offset": [
+      0.0,
+      58.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   },
+   "parent": "Plank19"
+  },
+  {
+   "name": "Walker",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_walker.png",
+     "color": [
+      1.0,
+      0.89001,
+      0.78741,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      42.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.36
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Kinematic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    },
+    "collider": {
+     "shape": {
+      "Capsule": {
+       "half_height": 14.0,
+       "radius": 10.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.0
+    },
+    "character_controller": {
+     "max_slope_deg": 60.0,
+     "step_height": 16.0,
+     "snap_to_ground": 14.0,
+     "push_mass": 40.0
+    }
+   }
+  },
+  {
+   "name": "FlagLPole",
+   "components": {
+    "transform": {
+     "position": [
+      -620.0,
+      -50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_post.png",
+     "color": [
+      0.44799,
+      0.34239,
+      0.26327,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      10.0,
+      290.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FlagL",
+   "components": {
+    "transform": {
+     "position": [
+      -616.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_flag.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "vertices": [],
+     "indices": []
+    },
+    "cloth": {
+     "size": [
+      190,
+      88
+     ],
+     "cols": 20,
+     "rows": 10,
+     "anchor": [
+      0.0,
+      1.0
+     ],
+     "pin": "Left",
+     "gravity": [
+      0.0,
+      -450.0
+     ],
+     "wind": [
+      900.0,
+      60.0
+     ],
+     "gust": 0.35,
+     "flutter": 300.0,
+     "flutter_scale": 70.0,
+     "wave": 1600.0,
+     "wave_length": 150.0,
+     "wave_speed": 1.3,
+     "damping": 1.2,
+     "stiffness": 1.0,
+     "iterations": 8,
+     "bend": 0.25,
+     "shade": 0.5
+    }
+   }
+  },
+  {
+   "name": "FlagRPole",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_post.png",
+     "color": [
+      0.44799,
+      0.34239,
+      0.26327,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      10.0,
+      290.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FlagR",
+   "components": {
+    "transform": {
+     "position": [
+      524.0,
+      230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_flag.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "vertices": [],
+     "indices": []
+    },
+    "cloth": {
+     "size": [
+      190,
+      88
+     ],
+     "cols": 20,
+     "rows": 10,
+     "anchor": [
+      0.0,
+      1.0
+     ],
+     "pin": "Left",
+     "gravity": [
+      0.0,
+      -450.0
+     ],
+     "wind": [
+      900.0,
+      60.0
+     ],
+     "gust": 0.35,
+     "flutter": 300.0,
+     "flutter_scale": 70.0,
+     "wave": 1600.0,
+     "wave_length": 150.0,
+     "wave_speed": 1.3,
+     "damping": 1.2,
+     "stiffness": 1.0,
+     "iterations": 8,
+     "bend": 0.25,
+     "shade": 0.5
+    }
+   }
+  },
+  {
+   "name": "BannerLArm",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      64.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_post.png",
+     "color": [
+      0.44799,
+      0.34239,
+      0.26327,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      86.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BannerL",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_banner.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "vertices": [],
+     "indices": []
+    },
+    "cloth": {
+     "size": [
+      62,
+      150
+     ],
+     "cols": 7,
+     "rows": 14,
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "pin": "Top",
+     "gravity": [
+      0.0,
+      -450.0
+     ],
+     "wind": [
+      315.0,
+      0.0
+     ],
+     "gust": 0.35,
+     "flutter": 150.0,
+     "flutter_scale": 70.0,
+     "wave": 260.0,
+     "wave_length": 150.0,
+     "wave_speed": 1.3,
+     "damping": 1.2,
+     "stiffness": 1.0,
+     "iterations": 8,
+     "bend": 0.25,
+     "shade": 0.5
+    }
+   }
+  },
+  {
+   "name": "BannerRArm",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      64.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/cb_post.png",
+     "color": [
+      0.44799,
+      0.34239,
+      0.26327,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      86.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BannerR",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_banner.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "vertices": [],
+     "indices": []
+    },
+    "cloth": {
+     "size": [
+      62,
+      150
+     ],
+     "cols": 7,
+     "rows": 14,
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "pin": "Top",
+     "gravity": [
+      0.0,
+      -450.0
+     ],
+     "wind": [
+      315.0,
+      0.0
+     ],
+     "gust": 0.35,
+     "flutter": 150.0,
+     "flutter_scale": 70.0,
+     "wave": 260.0,
+     "wave_length": 150.0,
+     "wave_speed": 1.3,
+     "damping": 1.2,
+     "stiffness": 1.0,
+     "iterations": 8,
+     "bend": 0.25,
+     "shade": 0.5
+    }
+   }
+  },
+  {
+   "name": "LanternLHook",
+   "components": {
+    "transform": {
+     "position": [
+      -478.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    }
+   }
+  },
+  {
+   "name": "LanternL",
+   "components": {
+    "transform": {
+     "position": [
+      -478.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      22.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.2,
+     "angular_damping": 1.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 26.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1,
+     "is_sensor": true
+    },
+    "joint": {
+     "target_entity": "LanternLHook",
+     "joint_type": {
+      "Rope": {
+       "anchor_a": [
+        0.0,
+        13.0
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "max_distance": 48.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "LanternLGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.71678,
+      0.16077,
+      0.8
+     ],
+     "z_order": 7,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   },
+   "parent": "LanternL"
+  },
+  {
+   "name": "LanternLRope",
+   "components": {
+    "transform": {
+     "position": [
+      -478.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.13287,
+      0.10048,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 48.0,
+     "segments": 8,
+     "width": 2.5,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "LanternL",
+     "end_offset": [
+      0.0,
+      13.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   }
+  },
+  {
+   "name": "LanternRHook",
+   "components": {
+    "transform": {
+     "position": [
+      478.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.0,
+     "fixed_rotation": true
+    }
+   }
+  },
+  {
+   "name": "LanternR",
+   "components": {
+    "transform": {
+     "position": [
+      478.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      22.0,
+      30.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.2,
+     "angular_damping": 1.0,
+     "fixed_rotation": false
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 18.0,
+       "height": 26.0
+      }
+     },
+     "friction": 0.5,
+     "restitution": 0.1,
+     "is_sensor": true
+    },
+    "joint": {
+     "target_entity": "LanternRHook",
+     "joint_type": {
+      "Rope": {
+       "anchor_a": [
+        0.0,
+        13.0
+       ],
+       "anchor_b": [
+        0.0,
+        0.0
+       ],
+       "max_distance": 48.0
+      }
+     },
+     "collide_connected": false
+    }
+   }
+  },
+  {
+   "name": "LanternRGlow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.71678,
+      0.16077,
+      0.8
+     ],
+     "z_order": 7,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   },
+   "parent": "LanternR"
+  },
+  {
+   "name": "LanternRRope",
+   "components": {
+    "transform": {
+     "position": [
+      478.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/env/cb_rope.png",
+     "color": [
+      0.13287,
+      0.10048,
+      0.07324,
+      1.0
+     ],
+     "z_order": 5,
+     "vertices": [],
+     "indices": []
+    },
+    "rope": {
+     "length": 48.0,
+     "segments": 8,
+     "width": 2.5,
+     "start_offset": [
+      0.0,
+      0.0
+     ],
+     "end": "LanternR",
+     "end_offset": [
+      0.0,
+      13.0
+     ],
+     "pins": [],
+     "gravity": [
+      0.0,
+      -700.0
+     ],
+     "wind": [
+      0.0,
+      0.0
+     ],
+     "gust": 0.5,
+     "damping": 2.0,
+     "iterations": 16
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "25   Cloth & Rope",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "W  wind   Space  hurry   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s25_cloth_rope.lua"
+    }
+   }
+  }
+ ]
+}

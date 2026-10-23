@@ -1,0 +1,2383 @@
+{
+ "name": "160 - Shape Shifter",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.7
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Stage",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/shapeshifter/stage.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Glow",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.13287,
+      0.31855,
+      1.0,
+      0.35
+     ],
+     "z_order": 5,
+     "size": [
+      620.0,
+      620.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Shifter",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 170.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": 169.18,
+       "y": 16.66
+      },
+      {
+       "type": "LineTo",
+       "x": 166.73,
+       "y": 33.17
+      },
+      {
+       "type": "LineTo",
+       "x": 162.68,
+       "y": 49.35
+      },
+      {
+       "type": "LineTo",
+       "x": 157.06,
+       "y": 65.06
+      },
+      {
+       "type": "LineTo",
+       "x": 149.93,
+       "y": 80.14
+      },
+      {
+       "type": "LineTo",
+       "x": 141.35,
+       "y": 94.45
+      },
+      {
+       "type": "LineTo",
+       "x": 131.41,
+       "y": 107.85
+      },
+      {
+       "type": "LineTo",
+       "x": 120.21,
+       "y": 120.21
+      },
+      {
+       "type": "LineTo",
+       "x": 107.85,
+       "y": 131.41
+      },
+      {
+       "type": "LineTo",
+       "x": 94.45,
+       "y": 141.35
+      },
+      {
+       "type": "LineTo",
+       "x": 80.14,
+       "y": 149.93
+      },
+      {
+       "type": "LineTo",
+       "x": 65.06,
+       "y": 157.06
+      },
+      {
+       "type": "LineTo",
+       "x": 49.35,
+       "y": 162.68
+      },
+      {
+       "type": "LineTo",
+       "x": 33.17,
+       "y": 166.73
+      },
+      {
+       "type": "LineTo",
+       "x": 16.66,
+       "y": 169.18
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": 170.0
+      },
+      {
+       "type": "LineTo",
+       "x": -16.66,
+       "y": 169.18
+      },
+      {
+       "type": "LineTo",
+       "x": -33.17,
+       "y": 166.73
+      },
+      {
+       "type": "LineTo",
+       "x": -49.35,
+       "y": 162.68
+      },
+      {
+       "type": "LineTo",
+       "x": -65.06,
+       "y": 157.06
+      },
+      {
+       "type": "LineTo",
+       "x": -80.14,
+       "y": 149.93
+      },
+      {
+       "type": "LineTo",
+       "x": -94.45,
+       "y": 141.35
+      },
+      {
+       "type": "LineTo",
+       "x": -107.85,
+       "y": 131.41
+      },
+      {
+       "type": "LineTo",
+       "x": -120.21,
+       "y": 120.21
+      },
+      {
+       "type": "LineTo",
+       "x": -131.41,
+       "y": 107.85
+      },
+      {
+       "type": "LineTo",
+       "x": -141.35,
+       "y": 94.45
+      },
+      {
+       "type": "LineTo",
+       "x": -149.93,
+       "y": 80.14
+      },
+      {
+       "type": "LineTo",
+       "x": -157.06,
+       "y": 65.06
+      },
+      {
+       "type": "LineTo",
+       "x": -162.68,
+       "y": 49.35
+      },
+      {
+       "type": "LineTo",
+       "x": -166.73,
+       "y": 33.17
+      },
+      {
+       "type": "LineTo",
+       "x": -169.18,
+       "y": 16.66
+      },
+      {
+       "type": "LineTo",
+       "x": -170.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": -169.18,
+       "y": -16.66
+      },
+      {
+       "type": "LineTo",
+       "x": -166.73,
+       "y": -33.17
+      },
+      {
+       "type": "LineTo",
+       "x": -162.68,
+       "y": -49.35
+      },
+      {
+       "type": "LineTo",
+       "x": -157.06,
+       "y": -65.06
+      },
+      {
+       "type": "LineTo",
+       "x": -149.93,
+       "y": -80.14
+      },
+      {
+       "type": "LineTo",
+       "x": -141.35,
+       "y": -94.45
+      },
+      {
+       "type": "LineTo",
+       "x": -131.41,
+       "y": -107.85
+      },
+      {
+       "type": "LineTo",
+       "x": -120.21,
+       "y": -120.21
+      },
+      {
+       "type": "LineTo",
+       "x": -107.85,
+       "y": -131.41
+      },
+      {
+       "type": "LineTo",
+       "x": -94.45,
+       "y": -141.35
+      },
+      {
+       "type": "LineTo",
+       "x": -80.14,
+       "y": -149.93
+      },
+      {
+       "type": "LineTo",
+       "x": -65.06,
+       "y": -157.06
+      },
+      {
+       "type": "LineTo",
+       "x": -49.35,
+       "y": -162.68
+      },
+      {
+       "type": "LineTo",
+       "x": -33.17,
+       "y": -166.73
+      },
+      {
+       "type": "LineTo",
+       "x": -16.66,
+       "y": -169.18
+      },
+      {
+       "type": "LineTo",
+       "x": -0.0,
+       "y": -170.0
+      },
+      {
+       "type": "LineTo",
+       "x": 16.66,
+       "y": -169.18
+      },
+      {
+       "type": "LineTo",
+       "x": 33.17,
+       "y": -166.73
+      },
+      {
+       "type": "LineTo",
+       "x": 49.35,
+       "y": -162.68
+      },
+      {
+       "type": "LineTo",
+       "x": 65.06,
+       "y": -157.06
+      },
+      {
+       "type": "LineTo",
+       "x": 80.14,
+       "y": -149.93
+      },
+      {
+       "type": "LineTo",
+       "x": 94.45,
+       "y": -141.35
+      },
+      {
+       "type": "LineTo",
+       "x": 107.85,
+       "y": -131.41
+      },
+      {
+       "type": "LineTo",
+       "x": 120.21,
+       "y": -120.21
+      },
+      {
+       "type": "LineTo",
+       "x": 131.41,
+       "y": -107.85
+      },
+      {
+       "type": "LineTo",
+       "x": 141.35,
+       "y": -94.45
+      },
+      {
+       "type": "LineTo",
+       "x": 149.93,
+       "y": -80.14
+      },
+      {
+       "type": "LineTo",
+       "x": 157.06,
+       "y": -65.06
+      },
+      {
+       "type": "LineTo",
+       "x": 162.68,
+       "y": -49.35
+      },
+      {
+       "type": "LineTo",
+       "x": 166.73,
+       "y": -33.17
+      },
+      {
+       "type": "LineTo",
+       "x": 169.18,
+       "y": -16.66
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.10048,
+      0.44799,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.9
+     ],
+     "stroke_width": 4.0
+    },
+    "path_morph": {
+     "target": "",
+     "duration": 1.1,
+     "points": 160,
+     "ease": "back"
+    }
+   }
+  },
+  {
+   "name": "Circle",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.26,
+      0.26
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 170.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": 169.18,
+       "y": 16.66
+      },
+      {
+       "type": "LineTo",
+       "x": 166.73,
+       "y": 33.17
+      },
+      {
+       "type": "LineTo",
+       "x": 162.68,
+       "y": 49.35
+      },
+      {
+       "type": "LineTo",
+       "x": 157.06,
+       "y": 65.06
+      },
+      {
+       "type": "LineTo",
+       "x": 149.93,
+       "y": 80.14
+      },
+      {
+       "type": "LineTo",
+       "x": 141.35,
+       "y": 94.45
+      },
+      {
+       "type": "LineTo",
+       "x": 131.41,
+       "y": 107.85
+      },
+      {
+       "type": "LineTo",
+       "x": 120.21,
+       "y": 120.21
+      },
+      {
+       "type": "LineTo",
+       "x": 107.85,
+       "y": 131.41
+      },
+      {
+       "type": "LineTo",
+       "x": 94.45,
+       "y": 141.35
+      },
+      {
+       "type": "LineTo",
+       "x": 80.14,
+       "y": 149.93
+      },
+      {
+       "type": "LineTo",
+       "x": 65.06,
+       "y": 157.06
+      },
+      {
+       "type": "LineTo",
+       "x": 49.35,
+       "y": 162.68
+      },
+      {
+       "type": "LineTo",
+       "x": 33.17,
+       "y": 166.73
+      },
+      {
+       "type": "LineTo",
+       "x": 16.66,
+       "y": 169.18
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": 170.0
+      },
+      {
+       "type": "LineTo",
+       "x": -16.66,
+       "y": 169.18
+      },
+      {
+       "type": "LineTo",
+       "x": -33.17,
+       "y": 166.73
+      },
+      {
+       "type": "LineTo",
+       "x": -49.35,
+       "y": 162.68
+      },
+      {
+       "type": "LineTo",
+       "x": -65.06,
+       "y": 157.06
+      },
+      {
+       "type": "LineTo",
+       "x": -80.14,
+       "y": 149.93
+      },
+      {
+       "type": "LineTo",
+       "x": -94.45,
+       "y": 141.35
+      },
+      {
+       "type": "LineTo",
+       "x": -107.85,
+       "y": 131.41
+      },
+      {
+       "type": "LineTo",
+       "x": -120.21,
+       "y": 120.21
+      },
+      {
+       "type": "LineTo",
+       "x": -131.41,
+       "y": 107.85
+      },
+      {
+       "type": "LineTo",
+       "x": -141.35,
+       "y": 94.45
+      },
+      {
+       "type": "LineTo",
+       "x": -149.93,
+       "y": 80.14
+      },
+      {
+       "type": "LineTo",
+       "x": -157.06,
+       "y": 65.06
+      },
+      {
+       "type": "LineTo",
+       "x": -162.68,
+       "y": 49.35
+      },
+      {
+       "type": "LineTo",
+       "x": -166.73,
+       "y": 33.17
+      },
+      {
+       "type": "LineTo",
+       "x": -169.18,
+       "y": 16.66
+      },
+      {
+       "type": "LineTo",
+       "x": -170.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": -169.18,
+       "y": -16.66
+      },
+      {
+       "type": "LineTo",
+       "x": -166.73,
+       "y": -33.17
+      },
+      {
+       "type": "LineTo",
+       "x": -162.68,
+       "y": -49.35
+      },
+      {
+       "type": "LineTo",
+       "x": -157.06,
+       "y": -65.06
+      },
+      {
+       "type": "LineTo",
+       "x": -149.93,
+       "y": -80.14
+      },
+      {
+       "type": "LineTo",
+       "x": -141.35,
+       "y": -94.45
+      },
+      {
+       "type": "LineTo",
+       "x": -131.41,
+       "y": -107.85
+      },
+      {
+       "type": "LineTo",
+       "x": -120.21,
+       "y": -120.21
+      },
+      {
+       "type": "LineTo",
+       "x": -107.85,
+       "y": -131.41
+      },
+      {
+       "type": "LineTo",
+       "x": -94.45,
+       "y": -141.35
+      },
+      {
+       "type": "LineTo",
+       "x": -80.14,
+       "y": -149.93
+      },
+      {
+       "type": "LineTo",
+       "x": -65.06,
+       "y": -157.06
+      },
+      {
+       "type": "LineTo",
+       "x": -49.35,
+       "y": -162.68
+      },
+      {
+       "type": "LineTo",
+       "x": -33.17,
+       "y": -166.73
+      },
+      {
+       "type": "LineTo",
+       "x": -16.66,
+       "y": -169.18
+      },
+      {
+       "type": "LineTo",
+       "x": -0.0,
+       "y": -170.0
+      },
+      {
+       "type": "LineTo",
+       "x": 16.66,
+       "y": -169.18
+      },
+      {
+       "type": "LineTo",
+       "x": 33.17,
+       "y": -166.73
+      },
+      {
+       "type": "LineTo",
+       "x": 49.35,
+       "y": -162.68
+      },
+      {
+       "type": "LineTo",
+       "x": 65.06,
+       "y": -157.06
+      },
+      {
+       "type": "LineTo",
+       "x": 80.14,
+       "y": -149.93
+      },
+      {
+       "type": "LineTo",
+       "x": 94.45,
+       "y": -141.35
+      },
+      {
+       "type": "LineTo",
+       "x": 107.85,
+       "y": -131.41
+      },
+      {
+       "type": "LineTo",
+       "x": 120.21,
+       "y": -120.21
+      },
+      {
+       "type": "LineTo",
+       "x": 131.41,
+       "y": -107.85
+      },
+      {
+       "type": "LineTo",
+       "x": 141.35,
+       "y": -94.45
+      },
+      {
+       "type": "LineTo",
+       "x": 149.93,
+       "y": -80.14
+      },
+      {
+       "type": "LineTo",
+       "x": 157.06,
+       "y": -65.06
+      },
+      {
+       "type": "LineTo",
+       "x": 162.68,
+       "y": -49.35
+      },
+      {
+       "type": "LineTo",
+       "x": 166.73,
+       "y": -33.17
+      },
+      {
+       "type": "LineTo",
+       "x": 169.18,
+       "y": -16.66
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.10048,
+      0.44799,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "stroke_width": 6.0
+    }
+   }
+  },
+  {
+   "name": "Star",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.26,
+      0.26
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": 190.0
+      },
+      {
+       "type": "LineTo",
+       "x": -45.85,
+       "y": 63.1
+      },
+      {
+       "type": "LineTo",
+       "x": -180.7,
+       "y": 58.71
+      },
+      {
+       "type": "LineTo",
+       "x": -74.18,
+       "y": -24.1
+      },
+      {
+       "type": "LineTo",
+       "x": -111.68,
+       "y": -153.71
+      },
+      {
+       "type": "LineTo",
+       "x": -0.0,
+       "y": -78.0
+      },
+      {
+       "type": "LineTo",
+       "x": 111.68,
+       "y": -153.71
+      },
+      {
+       "type": "LineTo",
+       "x": 74.18,
+       "y": -24.1
+      },
+      {
+       "type": "LineTo",
+       "x": 180.7,
+       "y": 58.71
+      },
+      {
+       "type": "LineTo",
+       "x": 45.85,
+       "y": 63.1
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      1.0,
+      0.63828,
+      0.05088,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "stroke_width": 6.0
+    }
+   }
+  },
+  {
+   "name": "Heart",
+   "components": {
+    "transform": {
+     "position": [
+      -160.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.26,
+      0.26
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": 72.5
+      },
+      {
+       "type": "LineTo",
+       "x": 0.16,
+       "y": 74.56
+      },
+      {
+       "type": "LineTo",
+       "x": 1.25,
+       "y": 80.49
+      },
+      {
+       "type": "LineTo",
+       "x": 4.11,
+       "y": 89.63
+      },
+      {
+       "type": "LineTo",
+       "x": 9.42,
+       "y": 100.95
+      },
+      {
+       "type": "LineTo",
+       "x": 17.6,
+       "y": 113.17
+      },
+      {
+       "type": "LineTo",
+       "x": 28.81,
+       "y": 124.93
+      },
+      {
+       "type": "LineTo",
+       "x": 42.89,
+       "y": 134.87
+      },
+      {
+       "type": "LineTo",
+       "x": 59.4,
+       "y": 141.87
+      },
+      {
+       "type": "LineTo",
+       "x": 77.6,
+       "y": 145.06
+      },
+      {
+       "type": "LineTo",
+       "x": 96.57,
+       "y": 143.95
+      },
+      {
+       "type": "LineTo",
+       "x": 115.24,
+       "y": 138.43
+      },
+      {
+       "type": "LineTo",
+       "x": 132.48,
+       "y": 128.76
+      },
+      {
+       "type": "LineTo",
+       "x": 147.22,
+       "y": 115.49
+      },
+      {
+       "type": "LineTo",
+       "x": 158.5,
+       "y": 99.38
+      },
+      {
+       "type": "LineTo",
+       "x": 165.58,
+       "y": 81.27
+      },
+      {
+       "type": "LineTo",
+       "x": 168.0,
+       "y": 62.0
+      },
+      {
+       "type": "LineTo",
+       "x": 165.58,
+       "y": 42.32
+      },
+      {
+       "type": "LineTo",
+       "x": 158.5,
+       "y": 22.78
+      },
+      {
+       "type": "LineTo",
+       "x": 147.22,
+       "y": 3.78
+      },
+      {
+       "type": "LineTo",
+       "x": 132.48,
+       "y": -14.51
+      },
+      {
+       "type": "LineTo",
+       "x": 115.24,
+       "y": -32.06
+      },
+      {
+       "type": "LineTo",
+       "x": 96.57,
+       "y": -48.92
+      },
+      {
+       "type": "LineTo",
+       "x": 77.6,
+       "y": -65.17
+      },
+      {
+       "type": "LineTo",
+       "x": 59.4,
+       "y": -80.87
+      },
+      {
+       "type": "LineTo",
+       "x": 42.89,
+       "y": -95.96
+      },
+      {
+       "type": "LineTo",
+       "x": 28.81,
+       "y": -110.26
+      },
+      {
+       "type": "LineTo",
+       "x": 17.6,
+       "y": -123.47
+      },
+      {
+       "type": "LineTo",
+       "x": 9.42,
+       "y": -135.2
+      },
+      {
+       "type": "LineTo",
+       "x": 4.11,
+       "y": -144.97
+      },
+      {
+       "type": "LineTo",
+       "x": 1.25,
+       "y": -152.34
+      },
+      {
+       "type": "LineTo",
+       "x": 0.16,
+       "y": -156.94
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": -158.5
+      },
+      {
+       "type": "LineTo",
+       "x": -0.16,
+       "y": -156.94
+      },
+      {
+       "type": "LineTo",
+       "x": -1.25,
+       "y": -152.34
+      },
+      {
+       "type": "LineTo",
+       "x": -4.11,
+       "y": -144.97
+      },
+      {
+       "type": "LineTo",
+       "x": -9.42,
+       "y": -135.2
+      },
+      {
+       "type": "LineTo",
+       "x": -17.6,
+       "y": -123.47
+      },
+      {
+       "type": "LineTo",
+       "x": -28.81,
+       "y": -110.26
+      },
+      {
+       "type": "LineTo",
+       "x": -42.89,
+       "y": -95.96
+      },
+      {
+       "type": "LineTo",
+       "x": -59.4,
+       "y": -80.87
+      },
+      {
+       "type": "LineTo",
+       "x": -77.6,
+       "y": -65.17
+      },
+      {
+       "type": "LineTo",
+       "x": -96.57,
+       "y": -48.92
+      },
+      {
+       "type": "LineTo",
+       "x": -115.24,
+       "y": -32.06
+      },
+      {
+       "type": "LineTo",
+       "x": -132.48,
+       "y": -14.51
+      },
+      {
+       "type": "LineTo",
+       "x": -147.22,
+       "y": 3.78
+      },
+      {
+       "type": "LineTo",
+       "x": -158.5,
+       "y": 22.78
+      },
+      {
+       "type": "LineTo",
+       "x": -165.58,
+       "y": 42.32
+      },
+      {
+       "type": "LineTo",
+       "x": -168.0,
+       "y": 62.0
+      },
+      {
+       "type": "LineTo",
+       "x": -165.58,
+       "y": 81.27
+      },
+      {
+       "type": "LineTo",
+       "x": -158.5,
+       "y": 99.38
+      },
+      {
+       "type": "LineTo",
+       "x": -147.22,
+       "y": 115.49
+      },
+      {
+       "type": "LineTo",
+       "x": -132.48,
+       "y": 128.76
+      },
+      {
+       "type": "LineTo",
+       "x": -115.24,
+       "y": 138.43
+      },
+      {
+       "type": "LineTo",
+       "x": -96.57,
+       "y": 143.95
+      },
+      {
+       "type": "LineTo",
+       "x": -77.6,
+       "y": 145.06
+      },
+      {
+       "type": "LineTo",
+       "x": -59.4,
+       "y": 141.87
+      },
+      {
+       "type": "LineTo",
+       "x": -42.89,
+       "y": 134.87
+      },
+      {
+       "type": "LineTo",
+       "x": -28.81,
+       "y": 124.93
+      },
+      {
+       "type": "LineTo",
+       "x": -17.6,
+       "y": 113.17
+      },
+      {
+       "type": "LineTo",
+       "x": -9.42,
+       "y": 100.95
+      },
+      {
+       "type": "LineTo",
+       "x": -4.11,
+       "y": 89.63
+      },
+      {
+       "type": "LineTo",
+       "x": -1.25,
+       "y": 80.49
+      },
+      {
+       "type": "LineTo",
+       "x": -0.16,
+       "y": 74.56
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      1.0,
+      0.07324,
+      0.14732,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "stroke_width": 6.0
+    }
+   }
+  },
+  {
+   "name": "Bird",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.26,
+      0.26
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -200,
+       "y": 40
+      },
+      {
+       "type": "LineTo",
+       "x": -120,
+       "y": 70
+      },
+      {
+       "type": "LineTo",
+       "x": -40,
+       "y": 30
+      },
+      {
+       "type": "LineTo",
+       "x": 0,
+       "y": 0
+      },
+      {
+       "type": "LineTo",
+       "x": 40,
+       "y": 30
+      },
+      {
+       "type": "LineTo",
+       "x": 120,
+       "y": 70
+      },
+      {
+       "type": "LineTo",
+       "x": 200,
+       "y": 40
+      },
+      {
+       "type": "LineTo",
+       "x": 140,
+       "y": 60
+      },
+      {
+       "type": "LineTo",
+       "x": 60,
+       "y": 10
+      },
+      {
+       "type": "LineTo",
+       "x": 20,
+       "y": -30
+      },
+      {
+       "type": "LineTo",
+       "x": 0,
+       "y": -60
+      },
+      {
+       "type": "LineTo",
+       "x": -20,
+       "y": -30
+      },
+      {
+       "type": "LineTo",
+       "x": -60,
+       "y": 10
+      },
+      {
+       "type": "LineTo",
+       "x": -140,
+       "y": 60
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.78741,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "stroke_width": 6.0
+    }
+   }
+  },
+  {
+   "name": "Crescent",
+   "components": {
+    "transform": {
+     "position": [
+      160.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.26,
+      0.26
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 80.0,
+       "y": 150.0
+      },
+      {
+       "type": "LineTo",
+       "x": 64.15,
+       "y": 157.43
+      },
+      {
+       "type": "LineTo",
+       "x": 47.61,
+       "y": 163.2
+      },
+      {
+       "type": "LineTo",
+       "x": 30.58,
+       "y": 167.23
+      },
+      {
+       "type": "LineTo",
+       "x": 13.21,
+       "y": 169.49
+      },
+      {
+       "type": "LineTo",
+       "x": -4.29,
+       "y": 169.95
+      },
+      {
+       "type": "LineTo",
+       "x": -21.75,
+       "y": 168.6
+      },
+      {
+       "type": "LineTo",
+       "x": -38.97,
+       "y": 165.47
+      },
+      {
+       "type": "LineTo",
+       "x": -55.79,
+       "y": 160.59
+      },
+      {
+       "type": "LineTo",
+       "x": -72.01,
+       "y": 154.0
+      },
+      {
+       "type": "LineTo",
+       "x": -87.46,
+       "y": 145.77
+      },
+      {
+       "type": "LineTo",
+       "x": -101.99,
+       "y": 136.0
+      },
+      {
+       "type": "LineTo",
+       "x": -115.44,
+       "y": 124.79
+      },
+      {
+       "type": "LineTo",
+       "x": -127.67,
+       "y": 112.26
+      },
+      {
+       "type": "LineTo",
+       "x": -138.53,
+       "y": 98.53
+      },
+      {
+       "type": "LineTo",
+       "x": -147.93,
+       "y": 83.76
+      },
+      {
+       "type": "LineTo",
+       "x": -155.76,
+       "y": 68.1
+      },
+      {
+       "type": "LineTo",
+       "x": -161.94,
+       "y": 51.72
+      },
+      {
+       "type": "LineTo",
+       "x": -166.4,
+       "y": 34.79
+      },
+      {
+       "type": "LineTo",
+       "x": -169.1,
+       "y": 17.49
+      },
+      {
+       "type": "LineTo",
+       "x": -170.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": -169.1,
+       "y": -17.49
+      },
+      {
+       "type": "LineTo",
+       "x": -166.4,
+       "y": -34.79
+      },
+      {
+       "type": "LineTo",
+       "x": -161.94,
+       "y": -51.72
+      },
+      {
+       "type": "LineTo",
+       "x": -155.76,
+       "y": -68.1
+      },
+      {
+       "type": "LineTo",
+       "x": -147.93,
+       "y": -83.76
+      },
+      {
+       "type": "LineTo",
+       "x": -138.53,
+       "y": -98.53
+      },
+      {
+       "type": "LineTo",
+       "x": -127.67,
+       "y": -112.26
+      },
+      {
+       "type": "LineTo",
+       "x": -115.44,
+       "y": -124.79
+      },
+      {
+       "type": "LineTo",
+       "x": -101.99,
+       "y": -136.0
+      },
+      {
+       "type": "LineTo",
+       "x": -87.46,
+       "y": -145.77
+      },
+      {
+       "type": "LineTo",
+       "x": -72.01,
+       "y": -154.0
+      },
+      {
+       "type": "LineTo",
+       "x": -55.79,
+       "y": -160.59
+      },
+      {
+       "type": "LineTo",
+       "x": -38.97,
+       "y": -165.47
+      },
+      {
+       "type": "LineTo",
+       "x": -21.75,
+       "y": -168.6
+      },
+      {
+       "type": "LineTo",
+       "x": -4.29,
+       "y": -169.95
+      },
+      {
+       "type": "LineTo",
+       "x": 13.21,
+       "y": -169.49
+      },
+      {
+       "type": "LineTo",
+       "x": 30.58,
+       "y": -167.23
+      },
+      {
+       "type": "LineTo",
+       "x": 47.61,
+       "y": -163.2
+      },
+      {
+       "type": "LineTo",
+       "x": 64.15,
+       "y": -157.43
+      },
+      {
+       "type": "LineTo",
+       "x": 80.0,
+       "y": -150.0
+      },
+      {
+       "type": "LineTo",
+       "x": 64.32,
+       "y": -149.18
+      },
+      {
+       "type": "LineTo",
+       "x": 48.81,
+       "y": -146.72
+      },
+      {
+       "type": "LineTo",
+       "x": 33.65,
+       "y": -142.66
+      },
+      {
+       "type": "LineTo",
+       "x": 18.99,
+       "y": -137.03
+      },
+      {
+       "type": "LineTo",
+       "x": 5.0,
+       "y": -129.9
+      },
+      {
+       "type": "LineTo",
+       "x": -8.17,
+       "y": -121.35
+      },
+      {
+       "type": "LineTo",
+       "x": -20.37,
+       "y": -111.47
+      },
+      {
+       "type": "LineTo",
+       "x": -31.47,
+       "y": -100.37
+      },
+      {
+       "type": "LineTo",
+       "x": -41.35,
+       "y": -88.17
+      },
+      {
+       "type": "LineTo",
+       "x": -49.9,
+       "y": -75.0
+      },
+      {
+       "type": "LineTo",
+       "x": -57.03,
+       "y": -61.01
+      },
+      {
+       "type": "LineTo",
+       "x": -62.66,
+       "y": -46.35
+      },
+      {
+       "type": "LineTo",
+       "x": -66.72,
+       "y": -31.19
+      },
+      {
+       "type": "LineTo",
+       "x": -69.18,
+       "y": -15.68
+      },
+      {
+       "type": "LineTo",
+       "x": -70.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": -69.18,
+       "y": 15.68
+      },
+      {
+       "type": "LineTo",
+       "x": -66.72,
+       "y": 31.19
+      },
+      {
+       "type": "LineTo",
+       "x": -62.66,
+       "y": 46.35
+      },
+      {
+       "type": "LineTo",
+       "x": -57.03,
+       "y": 61.01
+      },
+      {
+       "type": "LineTo",
+       "x": -49.9,
+       "y": 75.0
+      },
+      {
+       "type": "LineTo",
+       "x": -41.35,
+       "y": 88.17
+      },
+      {
+       "type": "LineTo",
+       "x": -31.47,
+       "y": 100.37
+      },
+      {
+       "type": "LineTo",
+       "x": -20.37,
+       "y": 111.47
+      },
+      {
+       "type": "LineTo",
+       "x": -8.17,
+       "y": 121.35
+      },
+      {
+       "type": "LineTo",
+       "x": 5.0,
+       "y": 129.9
+      },
+      {
+       "type": "LineTo",
+       "x": 18.99,
+       "y": 137.03
+      },
+      {
+       "type": "LineTo",
+       "x": 33.65,
+       "y": 142.66
+      },
+      {
+       "type": "LineTo",
+       "x": 48.81,
+       "y": 146.72
+      },
+      {
+       "type": "LineTo",
+       "x": 64.32,
+       "y": 149.18
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.52252,
+      0.44799,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "stroke_width": 6.0
+    }
+   }
+  },
+  {
+   "name": "Drop",
+   "components": {
+    "transform": {
+     "position": [
+      320.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.26,
+      0.26
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": -124.0
+      },
+      {
+       "type": "LineTo",
+       "x": 0.04,
+       "y": -123.31
+      },
+      {
+       "type": "LineTo",
+       "x": 0.34,
+       "y": -121.23
+      },
+      {
+       "type": "LineTo",
+       "x": 1.12,
+       "y": -117.8
+      },
+      {
+       "type": "LineTo",
+       "x": 2.62,
+       "y": -113.04
+      },
+      {
+       "type": "LineTo",
+       "x": 5.01,
+       "y": -107.0
+      },
+      {
+       "type": "LineTo",
+       "x": 8.43,
+       "y": -99.73
+      },
+      {
+       "type": "LineTo",
+       "x": 12.96,
+       "y": -91.31
+      },
+      {
+       "type": "LineTo",
+       "x": 18.64,
+       "y": -81.82
+      },
+      {
+       "type": "LineTo",
+       "x": 25.44,
+       "y": -71.35
+      },
+      {
+       "type": "LineTo",
+       "x": 33.26,
+       "y": -60.0
+      },
+      {
+       "type": "LineTo",
+       "x": 41.96,
+       "y": -47.88
+      },
+      {
+       "type": "LineTo",
+       "x": 51.33,
+       "y": -35.11
+      },
+      {
+       "type": "LineTo",
+       "x": 61.12,
+       "y": -21.8
+      },
+      {
+       "type": "LineTo",
+       "x": 71.05,
+       "y": -8.09
+      },
+      {
+       "type": "LineTo",
+       "x": 80.79,
+       "y": 5.89
+      },
+      {
+       "type": "LineTo",
+       "x": 90.0,
+       "y": 20.0
+      },
+      {
+       "type": "LineTo",
+       "x": 98.35,
+       "y": 34.11
+      },
+      {
+       "type": "LineTo",
+       "x": 105.49,
+       "y": 48.09
+      },
+      {
+       "type": "LineTo",
+       "x": 111.13,
+       "y": 61.8
+      },
+      {
+       "type": "LineTo",
+       "x": 114.97,
+       "y": 75.11
+      },
+      {
+       "type": "LineTo",
+       "x": 116.79,
+       "y": 87.88
+      },
+      {
+       "type": "LineTo",
+       "x": 116.41,
+       "y": 100.0
+      },
+      {
+       "type": "LineTo",
+       "x": 113.71,
+       "y": 111.35
+      },
+      {
+       "type": "LineTo",
+       "x": 108.64,
+       "y": 121.82
+      },
+      {
+       "type": "LineTo",
+       "x": 101.23,
+       "y": 131.31
+      },
+      {
+       "type": "LineTo",
+       "x": 91.58,
+       "y": 139.73
+      },
+      {
+       "type": "LineTo",
+       "x": 79.84,
+       "y": 147.0
+      },
+      {
+       "type": "LineTo",
+       "x": 66.26,
+       "y": 153.04
+      },
+      {
+       "type": "LineTo",
+       "x": 51.13,
+       "y": 157.8
+      },
+      {
+       "type": "LineTo",
+       "x": 34.78,
+       "y": 161.23
+      },
+      {
+       "type": "LineTo",
+       "x": 17.6,
+       "y": 163.31
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": 164.0
+      },
+      {
+       "type": "LineTo",
+       "x": -17.6,
+       "y": 163.31
+      },
+      {
+       "type": "LineTo",
+       "x": -34.78,
+       "y": 161.23
+      },
+      {
+       "type": "LineTo",
+       "x": -51.13,
+       "y": 157.8
+      },
+      {
+       "type": "LineTo",
+       "x": -66.26,
+       "y": 153.04
+      },
+      {
+       "type": "LineTo",
+       "x": -79.84,
+       "y": 147.0
+      },
+      {
+       "type": "LineTo",
+       "x": -91.58,
+       "y": 139.73
+      },
+      {
+       "type": "LineTo",
+       "x": -101.23,
+       "y": 131.31
+      },
+      {
+       "type": "LineTo",
+       "x": -108.64,
+       "y": 121.82
+      },
+      {
+       "type": "LineTo",
+       "x": -113.71,
+       "y": 111.35
+      },
+      {
+       "type": "LineTo",
+       "x": -116.41,
+       "y": 100.0
+      },
+      {
+       "type": "LineTo",
+       "x": -116.79,
+       "y": 87.88
+      },
+      {
+       "type": "LineTo",
+       "x": -114.97,
+       "y": 75.11
+      },
+      {
+       "type": "LineTo",
+       "x": -111.13,
+       "y": 61.8
+      },
+      {
+       "type": "LineTo",
+       "x": -105.49,
+       "y": 48.09
+      },
+      {
+       "type": "LineTo",
+       "x": -98.35,
+       "y": 34.11
+      },
+      {
+       "type": "LineTo",
+       "x": -90.0,
+       "y": 20.0
+      },
+      {
+       "type": "LineTo",
+       "x": -80.79,
+       "y": 5.89
+      },
+      {
+       "type": "LineTo",
+       "x": -71.05,
+       "y": -8.09
+      },
+      {
+       "type": "LineTo",
+       "x": -61.12,
+       "y": -21.8
+      },
+      {
+       "type": "LineTo",
+       "x": -51.33,
+       "y": -35.11
+      },
+      {
+       "type": "LineTo",
+       "x": -41.96,
+       "y": -47.88
+      },
+      {
+       "type": "LineTo",
+       "x": -33.26,
+       "y": -60.0
+      },
+      {
+       "type": "LineTo",
+       "x": -25.44,
+       "y": -71.35
+      },
+      {
+       "type": "LineTo",
+       "x": -18.64,
+       "y": -81.82
+      },
+      {
+       "type": "LineTo",
+       "x": -12.96,
+       "y": -91.31
+      },
+      {
+       "type": "LineTo",
+       "x": -8.43,
+       "y": -99.73
+      },
+      {
+       "type": "LineTo",
+       "x": -5.01,
+       "y": -107.0
+      },
+      {
+       "type": "LineTo",
+       "x": -2.62,
+       "y": -113.04
+      },
+      {
+       "type": "LineTo",
+       "x": -1.12,
+       "y": -117.8
+      },
+      {
+       "type": "LineTo",
+       "x": -0.34,
+       "y": -121.23
+      },
+      {
+       "type": "LineTo",
+       "x": -0.04,
+       "y": -123.31
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.07324,
+      0.69207,
+      0.69207,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "stroke_width": 6.0
+    }
+   }
+  },
+  {
+   "name": "Hexagon",
+   "components": {
+    "transform": {
+     "position": [
+      480.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      0.26,
+      0.26
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 151.55,
+       "y": 87.5
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": 175.0
+      },
+      {
+       "type": "LineTo",
+       "x": -151.55,
+       "y": 87.5
+      },
+      {
+       "type": "LineTo",
+       "x": -151.55,
+       "y": -87.5
+      },
+      {
+       "type": "LineTo",
+       "x": -0.0,
+       "y": -175.0
+      },
+      {
+       "type": "LineTo",
+       "x": 151.55,
+       "y": -87.5
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "closed": true,
+     "fill_color": [
+      0.26327,
+      0.89001,
+      0.17064,
+      1.0
+     ],
+     "z_order": 10,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "stroke_width": 6.0
+    }
+   }
+  },
+  {
+   "name": "Pick",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      -270.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.25
+     ],
+     "z_order": 4,
+     "size": [
+      130.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s160_shape_shifter.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "160   Shape Shifter",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click a shape to become it   Space pause   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

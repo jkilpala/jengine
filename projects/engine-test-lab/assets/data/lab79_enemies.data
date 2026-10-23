@@ -1,0 +1,79 @@
+{
+  "schema": "Enemy",
+  "version": 1,
+  "rows": [
+    {
+      "id": "slime",
+      "name": "Slime",
+      "hp_min": 18,
+      "hp_max": 22,
+      "art": "",
+      "pattern": "cycle",
+      "first_move": "",
+      "starts_with": [],
+      "moves": [
+        {
+          "id": "hit",
+          "name": "Tackle",
+          "intent": "attack",
+          "weight": 1,
+          "effects": [
+            {
+              "op": "damage",
+              "amount": 6
+            }
+          ]
+        },
+        {
+          "id": "grow",
+          "name": "Grow",
+          "intent": "buff",
+          "weight": 1,
+          "effects": [
+            {
+              "op": "apply",
+              "amount": 2,
+              "status": "strength"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "golem",
+      "name": "Golem",
+      "hp_min": 60,
+      "hp_max": 60,
+      "art": "",
+      "pattern": "cycle",
+      "first_move": "",
+      "starts_with": [],
+      "moves": [
+        {
+          "id": "slam",
+          "name": "Slam",
+          "intent": "attack",
+          "weight": 1,
+          "effects": [
+            {
+              "op": "damage",
+              "amount": 12
+            }
+          ]
+        },
+        {
+          "id": "guard",
+          "name": "Guard",
+          "intent": "defend",
+          "weight": 1,
+          "effects": [
+            {
+              "op": "block",
+              "amount": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

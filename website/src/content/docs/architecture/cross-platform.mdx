@@ -1,0 +1,81 @@
+---
+draft: false
+title: Cross-Platform
+description: How jEngine targets Windows, the web, Android and more from one codebase, and how far each platform is verified.
+---
+
+## Platform status
+
+| Platform | Status |
+|---|---|
+| **Windows** | Native runtime and the editor. The main development platform; most testing happens here. |
+| **Web** | WebGPU, with a WebGL2 fallback. Runs the same Lua VM as the editor. |
+| **Android** | APKs and Play bundles, built without Gradle; checked scene by scene on an emulator. Lua scripts only. |
+| **Linux** | Builds and runs, but has only been tested under WSL (WSLg, Vulkan through lavapipe). Not tried on a real Linux desktop. |
+| **macOS** | **Type-checked only.** The runtime compiles for `aarch64-apple-darwin`, but no macOS build has been linked or run: unverified. |
+| **iOS** | **Experimental.** `jengine ios-build` makes a signed `.app`, but nothing has ever run on iOS. |
+
+## Platform Strategy
+
+Every target is built from the same `jengine-core` crate:
+
+| Target | Runtime | Rendering | Audio | Scripting |
+|--------|---------|-----------|-------|-----------|
+| **Windows** | `jengine-runtime` (winit + wgpu) | DX12 / Vulkan | kira (cpal) | Luau (`mlua`) + JavaScript (`rquickjs`) |
+| **Android** | `jengine-runtime` as a NativeActivity APK | Vulkan, GLES fallback | kira | Luau only |
+| **Linux** | `jengine-runtime` | Vulkan | kira | Luau + JavaScript |
+| **macOS / iOS** | `jengine-runtime` (type-checked, never run) | Metal | kira | Luau |
+| **Web** | `jengine-web` (wasm-bindgen) | WebGPU, WebGL2 fallback | Web Audio API | Fengari (Lua 5.3) |
+| **Editor** | `jengine-editor-viewport` inside Tauri | WebGPU in WebView2 | Web Audio API | Fengari — the same bundle as web builds |
+
+So **what you verify in the editor is what a web build runs**, while native runs Luau. Keep scripts to
+the common subset of the two Lua dialects, standard library included.
+
+A web build can be made for a game portal - jCabinet, Poki, CrazyGames or YouTube Playables - see
+[Web Portals](/guides/web-portals/).
+
+A project with its own Rust [packages](/packages/) gets a generated crate per target —
+`<project>/.jengine/runtime/`, `/web/` and `/viewport/` — that links them in.
+
+## Feature Gating
+
+Platform-specific code uses `cfg` attributes (`#[cfg(target_arch = "wasm32")]`,
+`#[cfg(target_os = "android")]`) and Cargo features. `jengine-core`'s features:
+
+| Feature | Brings |
+|---------|--------|
+| `native` (default) | `mlua` (Luau) |
+| `physics` (default) | `rapier2d` |
+| `audio` (default) | `kira` |
+| `js-adapter-host` | `rquickjs`, for JavaScript and batch scripts on the desktop |
+| `web` | `wasm-bindgen`, `web-sys`, `js-sys` |
+| `gpu-wgpu` | the wgpu renderer |
+| `backend-dx12`, `backend-vulkan`, `backend-metal`, `backend-webgpu`, `backend-webgl` | one wgpu backend each |
+
+`cargo check -p jengine-core` without `gpu-wgpu` does **not** compile the renderer; check renderer
+changes with `--features gpu-wgpu`, or against the editor's real target with
+`cargo check -p jengine-editor-viewport --target wasm32-unknown-unknown`. Android-only code is checked
+with `cargo ndk -t arm64-v8a check -p jengine-runtime`.
+
+## Shaders
+
+Shaders are **WGSL**, one source for every backend. They live in
+`crates/jengine-core/assets/shaders/wgsl/` and are embedded at compile time with `include_str!()`;
+wgpu translates them to whatever the chosen backend speaks. Shader graphs generate WGSL too.
+
+Avoid WGSL's bit functions (`firstTrailingBit` and kin) in a shader the lights or sprites use: naga
+writes them as GLSL ES 3.10 calls that WebGL2 cannot compile.
+
+Which backends a build carries is a **project setting** (Project Settings → Graphics). A crate that
+enables `jengine-core/gpu-wgpu` must name at least one backend feature or it compiles with no backend and
+fails at adapter request *at runtime*.
+
+## Key Gotchas
+
+- **`image` crate**: must use `default-features = false` on WASM (rayon breaks single-threaded WASM)
+- **WebGPU canvases offer no sRGB format**: the browser hosts draw through an sRGB *view* of the canvas,
+  so colours match native
+- **`winit` 0.30**: windows are created inside the event loop (the `Resumed` handler), not before
+- **`glam` SIMD**: enabled on WASM via `.cargo/config.toml` with `-C target-feature=+simd128`
+- **Batch scripts** run on the native desktop runtime only
+- **A web page served over `https`** cannot open a plain `ws://` socket to the online relay

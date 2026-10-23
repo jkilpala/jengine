@@ -1,0 +1,112 @@
+---
+draft: false
+title: Editor Overview
+description: A tour of the jEngine visual editor interface.
+---
+
+The jEngine editor is built with **Tauri 2.x** and **Svelte**, providing a native desktop experience with web UI flexibility.
+
+## Layout
+
+The editor uses a dockable panel system with four zones:
+
+```
+┌──────────┬─────────────────────┬──────────┐
+│ Left     │     Center          │  Right   │
+│ Zone     │    (Viewport)       │  Zone    │
+│          │                     │          │
+│ Scene    │   Game Canvas       │Inspector │
+│  Tree    │   (WASM render)     │          │
+│          │                     │          │
+│ Assets   ├─────────────────────┤          │
+│ Browser  │  Bottom Zone        │          │
+│          │  (Console, Build)   │          │
+└──────────┴─────────────────────┴──────────┘
+```
+
+All panels can be dragged between zones. Layout is persisted to local storage.
+
+## Panels
+
+### Scene Tree
+
+- Shows all entities in the current scene as a hierarchical list
+- Search/filter by entity name
+- Right-click context menu: Save as Prefab, Instantiate Prefab, Delete
+- Entity icons show component types (🖌 sprite, 📜 script, 🔊 audio)
+
+### Inspector
+
+When an entity is selected, the Inspector shows all its components:
+
+- **Transform**: Position (X, Y), rotation, scale
+- **Sprite**: Texture picker, color (RGBA + hex), z-order, size
+- **Script**: Path picker, language (Lua/JS), "New Script" button
+- **Physics**: RigidBody type/mass/damping, Collider shape/friction/restitution
+- **Audio**: Clip picker, volume, pitch, looping, auto-play
+- **Particles**: Preset dropdown, emission rate, lifetime, colors, sizes
+- **Tags**: Add/remove string tags
+- **Custom Components**: User-defined fields (Float, Int, String, Vec2, Bool, Color)
+
+Click **Add Component** for a categorized menu of all available component types.
+
+### Asset Browser
+
+- File/folder tree navigator for all project assets
+- Right-click: New Folder, New Script, New Prefab, Import, Rename, Delete
+- Double-click `.scene` to load, `.lua`/`.js` to open in code editor
+- Refresh button to rescan assets
+
+### Console
+
+- Log output from scripts and engine
+- Color-coded: blue (info), yellow (warn), pink (error)
+- Timestamp + level badge on each entry
+- Clear button
+
+### Build
+
+- Live output of a build - each `cargo` / `wasm-pack` line as it happens, and the builder's own steps
+- Progress bars redraw in place instead of scrolling
+
+### Viewport
+
+- Real-time game preview rendered by the engine (WASM)
+- **Camera controls**: Middle-mouse pan, scroll wheel zoom
+- **Gizmo tools**: Move, Rotate, Scale modes
+- **Overlays**: Collider wireframes, debug draw, stats bar
+- **Device preview**: a phone's shape and cut-out, with its safe area handed to the engine
+- **Entity picking**: Click to select entities in the viewport
+
+## Toolbar
+
+| Menu | Actions |
+|------|---------|
+| **File** | New Scene, Open Scene, Save Scene, Close Project |
+| **Edit** | Undo (Ctrl+Z), Redo (Ctrl+Y), Duplicate (Ctrl+D) |
+| **Build** | Windows (.exe), Web (WASM+HTML), Android (APK / Play bundle) |
+| **Project Settings** | Title, dimensions, FPS, physics, input actions |
+| **Manage Components** | Define custom component types |
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+S` | Save scene |
+| `Ctrl+Z` | Undo |
+| `Ctrl+Shift+Z` / `Ctrl+Y` | Redo |
+| `Ctrl+D` | Duplicate selected entity |
+
+## Play Mode
+
+Click **Play** to run the game in the viewport. During play mode:
+
+- Inspector shows runtime entity data (changes are temporary)
+- Scripts execute with the full scripting API
+- Physics simulation runs
+- Stopping returns to the saved scene state
+
+The viewport is a WASM build of the engine. A project with its own Rust [packages](/packages/) needs a
+viewport built with them: on opening such a project the editor compares the viewport's stamp with the
+project's package list and offers **Rebuild viewport** when they differ. Reload the editor after the
+rebuild.

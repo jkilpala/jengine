@@ -1,0 +1,2275 @@
+{
+ "name": "163 - Navigation",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.025,
+      0.03,
+      0.045,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      1120.0,
+      500.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -560.0,
+       -250.0
+      ],
+      [
+       560.0,
+       -250.0
+      ],
+      [
+       560.0,
+       250.0
+      ],
+      [
+       -560.0,
+       250.0
+      ]
+     ],
+     "agent_radius": 16.0
+    }
+   }
+  },
+  {
+   "name": "WallA",
+   "components": {
+    "transform": {
+     "position": [
+      -230.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.18,
+      0.24,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      40,
+      360
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40,
+       "height": 360
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "WallB",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.18,
+      0.24,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      40,
+      340
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40,
+       "height": 340
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Turned",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      100.0
+     ],
+     "rotation": 0.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.18,
+      0.24,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      200,
+      40
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 200,
+       "height": 40
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Crate",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      130.0
+     ],
+     "rotation": 0.4,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.18,
+      0.24,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      70,
+      70
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 70,
+       "height": 70
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Pillar",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.16,
+      0.18,
+      0.24,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 55.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Post",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.18,
+      0.24,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      36.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Capsule": {
+       "half_height": 57.0,
+       "radius": 18.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Gate",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      880.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.16,
+      0.18,
+      0.24,
+      1
+     ],
+     "z_order": 2,
+     "size": [
+      40,
+      170
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40,
+       "height": 170
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Sensor",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.9,
+      0.8,
+      0.2,
+      0.25
+     ],
+     "z_order": 1,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 120.0,
+       "height": 90.0
+      }
+     },
+     "is_sensor": true
+    }
+   }
+  },
+  {
+   "name": "Agent1",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.35,
+      0.85,
+      0.75,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 170.0,
+     "radius": 16.0
+    }
+   }
+  },
+  {
+   "name": "Agent2",
+   "components": {
+    "transform": {
+     "position": [
+      -436.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.35,
+      0.85,
+      0.75,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 170.0,
+     "radius": 16.0
+    }
+   }
+  },
+  {
+   "name": "Agent3",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.35,
+      0.85,
+      0.75,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 170.0,
+     "radius": 16.0
+    }
+   }
+  },
+  {
+   "name": "Agent4",
+   "components": {
+    "transform": {
+     "position": [
+      -436.0,
+      36.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.35,
+      0.85,
+      0.75,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 170.0,
+     "radius": 16.0
+    }
+   }
+  },
+  {
+   "name": "Agent5",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.35,
+      0.85,
+      0.75,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 170.0,
+     "radius": 16.0
+    }
+   }
+  },
+  {
+   "name": "Agent6",
+   "components": {
+    "transform": {
+     "position": [
+      -436.0,
+      -8.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      0.35,
+      0.85,
+      0.75,
+      1
+     ],
+     "z_order": 5,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 170.0,
+     "radius": 16.0
+    }
+   }
+  },
+  {
+   "name": "Probe",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      1
+     ],
+     "z_order": 6,
+     "size": [
+      18.0,
+      18.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot11",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot12",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot13",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot14",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot15",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot16",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot17",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot18",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot19",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot20",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot21",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot22",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot23",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot24",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot25",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot26",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot27",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot28",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot29",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot30",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot31",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot32",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot33",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot34",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot35",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot36",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot37",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot38",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot39",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dot40",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "__circle",
+     "color": [
+      1.0,
+      0.45,
+      0.85,
+      0.85
+     ],
+     "z_order": 7,
+     "size": [
+      7.0,
+      7.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Target",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/ring_query.png",
+     "color": [
+      0.35,
+      0.85,
+      0.75,
+      0.9
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "163 - Navigation",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1200.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   Click: send the agents   G: slide the gate   F4: the navmesh",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Readout",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -108.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 15.0,
+     "color": [
+      1.0,
+      0.6,
+      0.9,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the pink dots are the shortest way from the pink start to the mouse, round every shape and never",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "touching one; agents walk there without overlapping, through the yellow sensor; the gate closes a way and they replan.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_163_navigation.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,1273 @@
+{
+  "name": "58 - Batch Scripts",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            330
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "58 - Batch Scripts (tier 3)",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            292
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Tier 3 of the scripting model: ONE update(ctx, q) call moves every entity in the batch.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            266
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Columns are Float32Array views over mirror buffers - a few host crossings per frame, not per entity.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            240
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "NATIVE ONLY. The pool is threads + a QuickJS runtime; neither exists on wasm.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            214
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "In the editor and on web these 24 drifters sit still - that is the expected difference, not a bug.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            1.0,
+            0.85,
+            0.6,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            -330
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            -300
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "batch: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Drifter0",
+      "components": {
+        "transform": {
+          "position": [
+            -380.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.35,
+            0.55,
+            0.95,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 11.357549418490798,
+          "y": 26.789126337097542
+        },
+        "velocity": {
+          "x": 11.306003090753933,
+          "y": -29.427600101891993,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter1",
+      "components": {
+        "transform": {
+          "position": [
+            -275.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.375,
+            0.55,
+            0.9291666666666666,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -11.724355850584793,
+          "y": -12.72483595963843
+        },
+        "velocity": {
+          "x": -64.23109481530317,
+          "y": -5.0600384135547,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter2",
+      "components": {
+        "transform": {
+          "position": [
+            -170.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.39999999999999997,
+            0.55,
+            0.9083333333333333,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 24.311573872168367,
+          "y": -4.858163915309756
+        },
+        "velocity": {
+          "x": 52.76942295164787,
+          "y": 46.6730948165597,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter3",
+      "components": {
+        "transform": {
+          "position": [
+            -65.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.425,
+            0.55,
+            0.8875,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -0.828168860982089,
+          "y": -1.8023712542601018
+        },
+        "velocity": {
+          "x": 52.057214686281924,
+          "y": -39.539068928041,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter4",
+      "components": {
+        "transform": {
+          "position": [
+            40.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.44999999999999996,
+            0.55,
+            0.8666666666666666,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -9.868029558700204,
+          "y": -7.9300367555711375
+        },
+        "velocity": {
+          "x": -59.7182638695642,
+          "y": 5.353118970793737,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter5",
+      "components": {
+        "transform": {
+          "position": [
+            145.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.475,
+            0.55,
+            0.8458333333333333,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -29.22466558106004,
+          "y": -27.920734054847244
+        },
+        "velocity": {
+          "x": -55.83937593061577,
+          "y": 16.74398763307849,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter6",
+      "components": {
+        "transform": {
+          "position": [
+            250.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.5,
+            0.55,
+            0.825,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 8.958971265070382,
+          "y": 13.553291220787322
+        },
+        "velocity": {
+          "x": 51.5360064886476,
+          "y": -18.972428014719934,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter7",
+      "components": {
+        "transform": {
+          "position": [
+            355.0,
+            100.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.525,
+            0.55,
+            0.8041666666666666,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -27.301456212152175,
+          "y": -3.1014149821245276
+        },
+        "velocity": {
+          "x": 36.57322805507053,
+          "y": 41.34059255989857,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter8",
+      "components": {
+        "transform": {
+          "position": [
+            -380.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.5499999999999999,
+            0.55,
+            0.7833333333333333,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -21.80865226360094,
+          "y": -14.19337801791725
+        },
+        "velocity": {
+          "x": -51.78754926942534,
+          "y": 21.89824572199737,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter9",
+      "components": {
+        "transform": {
+          "position": [
+            -275.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.575,
+            0.55,
+            0.7625,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -1.714819967205294,
+          "y": 19.78258282105738
+        },
+        "velocity": {
+          "x": -34.919613196537725,
+          "y": 21.88266448638258,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter10",
+      "components": {
+        "transform": {
+          "position": [
+            -170.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.6,
+            0.55,
+            0.7416666666666666,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 13.642592414079203,
+          "y": -10.020804144117577
+        },
+        "velocity": {
+          "x": 12.515933645421597,
+          "y": 8.698758443663259,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter11",
+      "components": {
+        "transform": {
+          "position": [
+            -65.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.625,
+            0.55,
+            0.7208333333333333,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -23.60085877023905,
+          "y": 24.23340359271961
+        },
+        "velocity": {
+          "x": -14.009641275123492,
+          "y": -21.455215471040123,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter12",
+      "components": {
+        "transform": {
+          "position": [
+            40.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.6499999999999999,
+            0.55,
+            0.7,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 9.595183188873605,
+          "y": -19.373192969506853
+        },
+        "velocity": {
+          "x": 15.378766148433854,
+          "y": -4.562187475492806,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter13",
+      "components": {
+        "transform": {
+          "position": [
+            145.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.6749999999999999,
+            0.55,
+            0.6791666666666667,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -16.138481306612213,
+          "y": 11.693131974483208
+        },
+        "velocity": {
+          "x": 53.198200108775666,
+          "y": -0.743811785240375,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter14",
+      "components": {
+        "transform": {
+          "position": [
+            250.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.7,
+            0.55,
+            0.6583333333333332,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -29.867680801839384,
+          "y": 27.331767840107894
+        },
+        "velocity": {
+          "x": -1.935540319130908,
+          "y": 20.428584135196644,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter15",
+      "components": {
+        "transform": {
+          "position": [
+            355.0,
+            5.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.725,
+            0.55,
+            0.6375,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 1.4306862556291264,
+          "y": -27.951497605376915
+        },
+        "velocity": {
+          "x": 53.454951411600874,
+          "y": -37.1772326197914,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter16",
+      "components": {
+        "transform": {
+          "position": [
+            -380.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.75,
+            0.55,
+            0.6166666666666667,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -34.47970084900448,
+          "y": 27.253509632420673
+        },
+        "velocity": {
+          "x": -61.78683426024292,
+          "y": -29.321471173042944,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter17",
+      "components": {
+        "transform": {
+          "position": [
+            -275.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.7749999999999999,
+            0.55,
+            0.5958333333333332,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 17.408417971506367,
+          "y": -13.23459252776836
+        },
+        "velocity": {
+          "x": -1.3432132624272128,
+          "y": 5.308536391615583,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter18",
+      "components": {
+        "transform": {
+          "position": [
+            -170.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.7999999999999999,
+            0.55,
+            0.575,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 7.902847726158356,
+          "y": -11.088824491571248
+        },
+        "velocity": {
+          "x": -2.106701017541141,
+          "y": 20.33577336772899,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter19",
+      "components": {
+        "transform": {
+          "position": [
+            -65.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.825,
+            0.55,
+            0.5541666666666667,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 38.87794498868476,
+          "y": 28.845515016931557
+        },
+        "velocity": {
+          "x": -61.59305501104035,
+          "y": 39.36670075639395,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter20",
+      "components": {
+        "transform": {
+          "position": [
+            40.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.85,
+            0.55,
+            0.5333333333333332,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": -23.608775339278793,
+          "y": 20.209732073292606
+        },
+        "velocity": {
+          "x": -51.77958741357318,
+          "y": -29.670824363317838,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter21",
+      "components": {
+        "transform": {
+          "position": [
+            145.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.875,
+            0.55,
+            0.5125,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 20.81467327497012,
+          "y": -0.7715968112675533
+        },
+        "velocity": {
+          "x": -12.201845836012907,
+          "y": 24.40044874508699,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter22",
+      "components": {
+        "transform": {
+          "position": [
+            250.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.8999999999999999,
+            0.55,
+            0.49166666666666664,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 5.790245065812741,
+          "y": 15.493691426155259
+        },
+        "velocity": {
+          "x": -41.556144747022856,
+          "y": 49.4901737032648,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "Drifter23",
+      "components": {
+        "transform": {
+          "position": [
+            355.0,
+            -90.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.9249999999999999,
+            0.55,
+            0.47083333333333327,
+            1.0
+          ],
+          "z_order": 10
+        },
+        "drag2d": {
+          "x": 0.004,
+          "y": 0.004
+        },
+        "batch_script": {
+          "path": "scripts/batch/drift_batch.js",
+          "lang": "js"
+        },
+        "acceleration": {
+          "x": 21.7333573439505,
+          "y": -8.434875102212057
+        },
+        "velocity": {
+          "x": -63.84215593197116,
+          "y": 7.112666876916137,
+          "gravity": 0.0
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_58_batch_scripts.lua"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,511 @@
+{
+ "name": "233 - Fluid",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      760.0,
+      20.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 760.0,
+       "height": 20.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "WallL",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      20.0,
+      260.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 20.0,
+       "height": 260.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "WallR",
+   "components": {
+    "transform": {
+     "position": [
+      370.0,
+      -110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      20.0,
+      260.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 20.0,
+       "height": 260.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Step",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      140.0,
+      60.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 140.0,
+       "height": 60.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Ramp",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      60.0
+     ],
+     "rotation": -0.35,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.35,
+      0.37,
+      0.42,
+      1
+     ],
+     "z_order": 2,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      360.0,
+      16.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 360.0,
+       "height": 16.0
+      }
+     },
+     "offset": [
+      0.0,
+      0.0
+     ],
+     "is_sensor": false,
+     "friction": 0.5,
+     "restitution": 0.0,
+     "density": 1.0
+    }
+   }
+  },
+  {
+   "name": "Group",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "canvas_group": {
+     "opacity": 1.0,
+     "z_order": 3,
+     "threshold": 0.45,
+     "threshold_soft": 0.04
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "parent": "Group",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "fluid": {
+     "radius": 14.0,
+     "rest_density": 3.0,
+     "stiffness": 0.06,
+     "near_stiffness": 0.14,
+     "viscosity": 3.0,
+     "gravity": [
+      0.0,
+      -900.0
+     ],
+     "max_particles": 700,
+     "pour_rate": 90.0,
+     "pour_angle": -0.6,
+     "pour_speed": 90.0,
+     "pour_width": 10.0,
+     "size": 30.0,
+     "texture_id": "sprites/soft_disc.png",
+     "z_order": 3,
+     "gradient": [
+      [
+       0.0,
+       0.2,
+       0.5,
+       1.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.35,
+       0.75,
+       1.0,
+       1.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "233 - Fluid",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   T threshold on / off   C empty   P pour on / off",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      700.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: a stream pours onto the ramp, runs down it and fills the tank, flowing round the step and levelling out - one blue surface with a",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "hard edge (the canvas group's threshold); T shows the soft dots it is made of; C empties it; P stops and starts the pour.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_233_fluid.lua"
+    }
+   }
+  }
+ ]
+}

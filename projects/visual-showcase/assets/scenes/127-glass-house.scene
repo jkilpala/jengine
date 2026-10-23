@@ -1,0 +1,3944 @@
+{
+ "name": "127 - The Glass House",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.95
+     },
+     "intensity": {
+      "Float": 0.55
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.31855,
+      0.89001
+     ],
+     "intensity": 0.45
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1500.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lawn",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/lawn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      1500.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       64.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1500.0,
+       "height": 90.0
+      }
+     },
+     "offset": [
+      0.0,
+      -10.0
+     ],
+     "friction": 0.8,
+     "collision_membership": 4,
+     "collision_filter": 65535
+    }
+   }
+  },
+  {
+   "name": "BackWall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/wall.png",
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "vertices": [
+      {
+       "position": [
+        -480.0,
+        -170.0
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        480.0,
+        -170.0
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        480.0,
+        130.0
+       ],
+       "uv": [
+        1.0,
+        0.3877551020408163
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        0.0,
+        320.0
+       ],
+       "uv": [
+        0.5,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -480.0,
+        130.0
+       ],
+       "uv": [
+        0.0,
+        0.3877551020408163
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plant0",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/palm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      210.0,
+      294.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plant1",
+   "components": {
+    "transform": {
+     "position": [
+      -110.0,
+      -176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/fern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      160.0,
+      124.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plant2",
+   "components": {
+    "transform": {
+     "position": [
+      230.0,
+      -176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/palm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      240.0,
+      336.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plant3",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/fern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      170.0,
+      131.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plant4",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/fern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      140.0,
+      108.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -24,
+     "size": [
+      34.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlow",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      225.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.5,
+      1.50957,
+      0.5351,
+      1.0
+     ],
+     "z_order": -23,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.63828,
+      0.26327
+     ],
+     "intensity": 1.7,
+     "radius": 820.0,
+     "falloff": 1.2,
+     "height": 0.45,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Base",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/brick.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      990.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       128.0
+      ]
+     }
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 990.0,
+       "height": 100.0
+      }
+     },
+     "friction": 0.8,
+     "collision_membership": 4,
+     "collision_filter": 65535
+    }
+   }
+  },
+  {
+   "name": "Pane0_0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane0_1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane0_2",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane0_3",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane0_4",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane0_5",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane0_6",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane0_7",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_4",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_5",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_6",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane1_7",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_2",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_4",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_5",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_6",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Pane2_7",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8,
+     "size": [
+      108.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 108.0,
+       "height": 88.0
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      141.875
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -5.875
+       ],
+       "uv": [
+        0.0,
+        0.7748538011695907
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -5.875
+       ],
+       "uv": [
+        1.0,
+        0.7748538011695907
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        27.25
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        -15.5
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -5.875
+        ],
+        [
+         54.0,
+         -5.875
+        ],
+        [
+         54.0,
+         27.25
+        ],
+        [
+         -54.0,
+         -15.5
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      165.625
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -29.625
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -29.625
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        51.0
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        8.25
+       ],
+       "uv": [
+        0.0,
+        0.5302325581395348
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -29.625
+        ],
+        [
+         54.0,
+         -29.625
+        ],
+        [
+         54.0,
+         51.0
+        ],
+        [
+         -54.0,
+         8.25
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable2",
+   "components": {
+    "transform": {
+     "position": [
+      -180.0,
+      189.375
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -53.375
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -53.375
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        74.75
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        32.0
+       ],
+       "uv": [
+        0.0,
+        0.3336585365853659
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -53.375
+        ],
+        [
+         54.0,
+         -53.375
+        ],
+        [
+         54.0,
+         74.75
+        ],
+        [
+         -54.0,
+         32.0
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable3",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      213.125
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -77.125
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -77.125
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        98.5
+       ],
+       "uv": [
+        1.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        55.75
+       ],
+       "uv": [
+        0.0,
+        0.24341637010676156
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -77.125
+        ],
+        [
+         54.0,
+         -77.125
+        ],
+        [
+         54.0,
+         98.5
+        ],
+        [
+         -54.0,
+         55.75
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable4",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      213.125
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -77.125
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -77.125
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        55.75
+       ],
+       "uv": [
+        1.0,
+        0.24341637010676156
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        98.5
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -77.125
+        ],
+        [
+         54.0,
+         -77.125
+        ],
+        [
+         54.0,
+         55.75
+        ],
+        [
+         -54.0,
+         98.5
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable5",
+   "components": {
+    "transform": {
+     "position": [
+      180.0,
+      189.375
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -53.375
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -53.375
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        32.0
+       ],
+       "uv": [
+        1.0,
+        0.3336585365853659
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        74.75
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -53.375
+        ],
+        [
+         54.0,
+         -53.375
+        ],
+        [
+         54.0,
+         32.0
+        ],
+        [
+         -54.0,
+         74.75
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable6",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      165.625
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -29.625
+       ],
+       "uv": [
+        0.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -29.625
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        8.25
+       ],
+       "uv": [
+        1.0,
+        0.5302325581395348
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        51.0
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -29.625
+        ],
+        [
+         54.0,
+         -29.625
+        ],
+        [
+         54.0,
+         8.25
+        ],
+        [
+         -54.0,
+         51.0
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Gable7",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      141.875
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "sprites/glasshouse/glass.png",
+     "vertices": [
+      {
+       "position": [
+        -54.0,
+        -5.875
+       ],
+       "uv": [
+        0.0,
+        0.7748538011695907
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -5.875
+       ],
+       "uv": [
+        1.0,
+        0.7748538011695907
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        54.0,
+        -15.5
+       ],
+       "uv": [
+        1.0,
+        1.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      },
+      {
+       "position": [
+        -54.0,
+        27.25
+       ],
+       "uv": [
+        0.0,
+        0.0
+       ],
+       "color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "q": 1.0
+      }
+     ],
+     "indices": [],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 8
+    },
+    "rigid_body": {
+     "body_type": "Static",
+     "mass": 1.0,
+     "gravity_scale": 1.0
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -54.0,
+         -5.875
+        ],
+        [
+         54.0,
+         -5.875
+        ],
+        [
+         54.0,
+         -15.5
+        ],
+        [
+         -54.0,
+         27.25
+        ]
+       ]
+      }
+     },
+     "collision_membership": 2,
+     "collision_filter": 5,
+     "restitution": 0.1,
+     "friction": 0.6
+    },
+    "breakable": {
+     "pattern": "voronoi",
+     "pieces": 12,
+     "focus": 0.65,
+     "break_speed": 250.0,
+     "scatter": 25.0,
+     "piece_lifetime": 7.0,
+     "debris": "Glints",
+     "debris_count": 18
+    }
+   }
+  },
+  {
+   "name": "Mullion0",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion1",
+   "components": {
+    "transform": {
+     "position": [
+      -360.0,
+      3.75
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      347.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion2",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      27.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      395.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion3",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      51.25
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      442.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      75.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      490.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion5",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      51.25
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      442.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion6",
+   "components": {
+    "transform": {
+     "position": [
+      240.0,
+      27.5
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      395.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion7",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      3.75
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      347.5
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mullion8",
+   "components": {
+    "transform": {
+     "position": [
+      480.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      10.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Transom0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      970.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Transom1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -70.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      970.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Transom2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      970.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Transom3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      970.0,
+      10.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rafter-1",
+   "components": {
+    "transform": {
+     "position": [
+      -240.0,
+      225.0
+     ],
+     "rotation": 0.376909270324821,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      528.2363799656123,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Rafter1",
+   "components": {
+    "transform": {
+     "position": [
+      240.0,
+      225.0
+     ],
+     "rotation": 2.7646833832649724,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      528.2363799656123,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Finial",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      342.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.71057,
+      0.69207,
+      0.60383,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      8.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Glints",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 400,
+     "lifetime": [
+      0.5,
+      1.1
+     ],
+     "speed": [
+      60.0,
+      220.0
+     ],
+     "angle": [
+      0.0,
+      6.283
+     ],
+     "color_start": [
+      2.07621,
+      2.67003,
+      3.0,
+      1.0
+     ],
+     "color_end": [
+      0.44799,
+      0.69207,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      6.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.6,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 14,
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s127_glass_house.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "127   The Glass House",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space throw a stone   R reglaze   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

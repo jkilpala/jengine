@@ -1,0 +1,78 @@
+{
+  "name": "19 - ScoreKeeper",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-380.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "19 - SCENE TRANSITIONS + PERSISTENT STATE", "font_id": "", "font_scale": 2.0, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "1  visit coin scene  (+10)     2  visit gem  (+50)     3  visit bonus  (+100)", "font_id": "", "font_scale": 1.1, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "R  reload this scene (score keeps)    C  clear persistent store    N  cycle player name", "font_id": "", "font_scale": 1.1, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 190.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Score + name use persistent_get/set_number/string -- they survive every scene transition.", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.9, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "ScoreLabel",
+      "components": {
+        "transform": { "position": [-380.0, 80.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Score: 0", "font_id": "", "font_scale": 2.4, "color": [1.0, 0.95, 0.4, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "PlayerLabel",
+      "components": {
+        "transform": { "position": [-380.0, 20.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Player: --", "font_id": "", "font_scale": 1.6, "color": [0.6, 1.0, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "LastAction",
+      "components": {
+        "transform": { "position": [-380.0, -30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Last: (none)", "font_id": "", "font_scale": 1.2, "color": [0.85, 0.85, 0.95, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Visits",
+      "components": {
+        "transform": { "position": [-380.0, -65.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Visits: 0", "font_id": "", "font_scale": 1.2, "color": [0.85, 0.85, 0.95, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_19_scorekeeper.lua" }
+      }
+    }
+  ]
+}

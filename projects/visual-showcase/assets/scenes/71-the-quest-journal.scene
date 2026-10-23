@@ -1,0 +1,665 @@
+{
+ "name": "71 - The Quest Journal",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.2
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.75
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.05,
+       0.02,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.92,
+       0.8,
+       0.08
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Desk",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/journal/desk.png",
+     "color": [
+      0.44799,
+      0.38006,
+      0.31855,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1360.0,
+      800.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       640.0,
+       360.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Book",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/journal/book.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      940.0,
+      580.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Quill",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      -260.0
+     ],
+     "rotation": 0.6,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/journal/quill.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      220.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/journal/candle.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      48.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "CandleGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      182.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/journal/glow.png",
+     "color": [
+      1.0,
+      0.52252,
+      0.17064,
+      0.35
+     ],
+     "z_order": -30,
+     "size": [
+      420.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LogTitle",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -235.0,
+      210.0
+     ],
+     "size": [
+      420.0,
+      46.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[b]Quests[/b]",
+     "font_size": 36.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Center",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Quest0",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -228.0,
+      148.0
+     ],
+     "size": [
+      420.0,
+      40.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[icon=sprites/journal/sword.png] Slay the [color=#9a2a1a]Ash Wyrm[/color] of [color=#2a4f86]Greymoor[/color]",
+     "font_size": 20.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Quest1",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -228.0,
+      92.0
+     ],
+     "size": [
+      420.0,
+      40.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[icon=sprites/journal/skull.png] [shake][color=#9a2a1a]Urgent:[/color][/shake] the crypt bells ring at night",
+     "font_size": 20.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Quest2",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -228.0,
+      36.0
+     ],
+     "size": [
+      420.0,
+      40.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[icon=sprites/journal/key.png] Find the [color=#7a4f00]Gilded Key[/color] in the mill",
+     "font_size": 20.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Quest3",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -228.0,
+      -20.0
+     ],
+     "size": [
+      420.0,
+      40.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[icon=sprites/journal/potion.png] Brew [b]three[/b] draughts for [color=#3d6b25]Old Mara[/color]",
+     "font_size": 20.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Quest4",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -228.0,
+      -76.0
+     ],
+     "size": [
+      420.0,
+      40.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[icon=sprites/journal/gem.png] Reward: the [rainbow]Dawnstar Gem[/rainbow]",
+     "font_size": 20.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Quest5",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -228.0,
+      -132.0
+     ],
+     "size": [
+      420.0,
+      40.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[icon=sprites/journal/scroll.png] [wave][color=#7a4f00]new![/color][/wave] A letter from [color=#2a4f86]Lady Ilse[/color]",
+     "font_size": 20.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Footer",
+   "components": {
+    "gui": {
+     "gui_id": "ui/qj_footer.gui",
+     "visible": true,
+     "variables": {
+      "gold": 1240,
+      "potions": 3,
+      "day": 14
+     }
+    }
+   }
+  },
+  {
+   "name": "Letter",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      245.0,
+      -20.0
+     ],
+     "size": [
+      400.0,
+      500.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "My dear [color=#2a4f86]Edwin[/color],\n\nThe [color=#9a2a1a]wyrm[/color] stirs again.[pause=0.6]\nSmoke over [color=#2a4f86]Greymoor[/color] at\ndawn, and the river runs warm.\n\nBring the [color=#7a4f00]Gilded Key[/color][pause=0.4]\nand come before the moon\nis full.\n\n[color=#2a4f86][b]- Ilse[/b][/color]",
+     "font_size": 20.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Left",
+     "rich": true,
+     "reveal_speed": 26.0
+    }
+   }
+  },
+  {
+   "name": "PageNo",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      235.0,
+      -285.0
+     ],
+     "size": [
+      400.0,
+      24.0
+     ],
+     "z_order": 10
+    },
+    "ui_text": {
+     "text": "[color=#7a5a3a]~ 14 ~[/color]",
+     "font_size": 15.0,
+     "color": [
+      0.02198,
+      0.01002,
+      0.00394,
+      1.0
+     ],
+     "alignment": "Center",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s71_quest_journal.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "71   The Quest Journal",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space  next letter   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

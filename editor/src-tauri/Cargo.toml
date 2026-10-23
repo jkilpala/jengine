@@ -1,0 +1,53 @@
+[package]
+name = "jengine-editor"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+description = "jEngine 2D Game Editor"
+license.workspace = true
+
+[lib]
+name = "jengine_editor_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+jengine-core = { path = "../../crates/jengine-core" }
+jengine-builder = { path = "../../crates/jengine-builder" }
+# The Servers panel's local fleet agent (`commands::servers`).
+jengine-server = { path = "../../crates/jengine-server", default-features = false, features = ["fleet"] }
+jengine-physics = { path = "../../packages/jengine-physics" }
+jengine-audio = { path = "../../packages/jengine-audio" }
+jengine-particles = { path = "../../packages/jengine-particles" }
+jengine-swarm = { path = "../../packages/jengine-swarm" }
+jengine-parallax = { path = "../../packages/jengine-parallax" }
+naga = { workspace = true, features = ["wgsl-in", "glsl-out"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+anyhow = { workspace = true }
+toml = { workspace = true }
+tauri = { version = "2", features = ["devtools"] }
+tauri-plugin-log = "2"
+# Already in the lockfile via other crates; find-in-files uses it for all
+# three query modes so literal and regex share one code path.
+regex = "1"
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+base64 = "0.22"
+image = { workspace = true }
+
+# Windows-only: reach ICoreWebView2Settings3 to switch off the browser
+# accelerator keys (F3 / Ctrl+F / Ctrl+R / F12 …) that would otherwise
+# swallow editor shortcuts. Versions must track wry's so the COM types
+# unify with the controller Tauri hands us.
+[target.'cfg(windows)'.dependencies]
+webview2-com = "0.38"
+windows = { version = "0.61", features = ["Win32_Foundation"] }
+
+[dev-dependencies]
+tempfile = "3"

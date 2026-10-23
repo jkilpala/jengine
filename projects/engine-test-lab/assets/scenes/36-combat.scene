@@ -1,0 +1,544 @@
+{
+  "name": "36-Combat",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            320.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "36 - Combat (Health / Hitbox / HealthBar)",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            268.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Hitbox deals damage to any Health entity its TriggerArea2D overlaps - hitboxes ride the trigger system.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            242.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Health.invuln_time gives i-frames; Hitbox.retrigger rate-limits the same attacker hitting the same victim.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            216.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "HealthBar draws the bar; hide_when_full keeps it off screen until the first hit. DespawnOnDeath removes the entity at 0.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            190.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "The saw sweeps through three dummies with different i-frames. Space heals them, R resets, K kills the middle one.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Saw",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.35,
+            0.3,
+            1.0
+          ],
+          "z_order": 5,
+          "size": [
+            54.0,
+            54.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "oscillator": {
+          "amplitude": [
+            420.0,
+            0.0
+          ],
+          "frequency": [
+            0.25,
+            0.0
+          ],
+          "phase": [
+            0.0,
+            0.0
+          ]
+        },
+        "trigger_area": {
+          "shape": {
+            "kind": "aabb",
+            "half_extents": [
+              30.0,
+              30.0
+            ]
+          },
+          "match_tags": [
+            "dummy"
+          ]
+        },
+        "hitbox": {
+          "damage": 12.0,
+          "knockback": 0.0,
+          "active": true,
+          "retrigger": 0.5,
+          "despawn_on_hit": false
+        },
+        "tags": [
+          "saw"
+        ]
+      }
+    },
+    {
+      "name": "Dummy1",
+      "components": {
+        "transform": {
+          "position": [
+            -320.0,
+            40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.45,
+            0.75,
+            0.95,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            56.0,
+            56.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tags": [
+          "dummy"
+        ],
+        "health": {
+          "current": 100.0,
+          "max": 100.0,
+          "invuln_time": 0.0
+        },
+        "health_bar": {
+          "width": 70.0,
+          "height": 9.0,
+          "y_offset": 46.0,
+          "hide_when_full": false
+        },
+        "despawn_on_death": {}
+      }
+    },
+    {
+      "name": "DummyLabel1",
+      "components": {
+        "transform": {
+          "position": [
+            -320.0,
+            -30.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "invuln 0.0s",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.8,
+            0.85,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Dummy2",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.45,
+            0.75,
+            0.95,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            56.0,
+            56.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tags": [
+          "dummy"
+        ],
+        "health": {
+          "current": 100.0,
+          "max": 100.0,
+          "invuln_time": 0.75
+        },
+        "health_bar": {
+          "width": 70.0,
+          "height": 9.0,
+          "y_offset": 46.0,
+          "hide_when_full": false
+        },
+        "despawn_on_death": {}
+      }
+    },
+    {
+      "name": "DummyLabel2",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -30.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "invuln 0.75s",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.8,
+            0.85,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Dummy3",
+      "components": {
+        "transform": {
+          "position": [
+            320.0,
+            40.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.45,
+            0.75,
+            0.95,
+            1.0
+          ],
+          "z_order": 3,
+          "size": [
+            56.0,
+            56.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "tags": [
+          "dummy"
+        ],
+        "health": {
+          "current": 100.0,
+          "max": 100.0,
+          "invuln_time": 1.5
+        },
+        "health_bar": {
+          "width": 70.0,
+          "height": 9.0,
+          "y_offset": 46.0,
+          "hide_when_full": false
+        },
+        "despawn_on_death": {}
+      }
+    },
+    {
+      "name": "DummyLabel3",
+      "components": {
+        "transform": {
+          "position": [
+            320.0,
+            -30.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "invuln 1.5s",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.8,
+            0.85,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            -270.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "hp: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_36_combat.lua"
+        }
+      }
+    }
+  ]
+}

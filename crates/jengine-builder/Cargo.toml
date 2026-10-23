@@ -1,0 +1,46 @@
+[package]
+name = "jengine-builder"
+description = "Build pipeline for jEngine — packages games for Windows, Web and Android"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+jengine-core = { path = "../jengine-core", default-features = false }
+# Asset pack archives are named for their SHA-256 (`asset_packs`).
+sha2 = "0.10"
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = { workspace = true }
+image = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+anyhow = { workspace = true }
+rectangle-pack = { workspace = true }
+oxipng = { workspace = true }
+basis-universal = { workspace = true }
+# Adding the native libraries and game files to the APK aapt2 links.
+zip = { version = "2", default-features = false, features = ["deflate"] }
+glob = { workspace = true }
+# Test servers (`servers`): the fleet's deploy client and a local agent to
+# deploy to, and plain HTTP for asking a server how it is.
+jengine-server = { path = "../jengine-server", default-features = false, features = ["fleet"] }
+# `tls`: `jengine liveops publish` talks to an https:// service.
+ureq = { version = "2", default-features = false, features = ["json", "tls"] }
+# The test servers' tokens live in the OS keychain (`secret_store`):
+# Credential Manager, the macOS Keychain, the Secret Service over zbus -
+# all pure Rust, so no libdbus or system headers to build against.
+keyring = "4.2"
+
+[[bin]]
+name = "jengine"
+path = "src/bin/jengine.rs"
+
+[dev-dependencies]
+tempfile = "3"
+# `liveops publish` against a real live ops service.
+jengine-server = { path = "../jengine-server", default-features = false }
+jengine-liveops = { path = "../jengine-liveops" }

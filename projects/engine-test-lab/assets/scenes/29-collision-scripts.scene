@@ -1,0 +1,178 @@
+{
+  "name": "29 - Collision Callbacks (scripts)",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-420.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "29 - COLLISION CALLBACKS (scripts)", "font_id": "", "font_scale": 2.2, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 252.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Scripts now receive on_collision_enter(self, data) / on_collision_exit(self, data).", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 226.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "data.other is the other entity's id. Both sides of the contact pair get the callback.", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 200.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Each ball flashes white while touching, restores its tint on the last exit. Watch the log.", "font_id": "", "font_scale": 0.9, "color": [0.7, 0.75, 0.85, 0.9], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Floor",
+      "components": {
+        "transform": { "position": [0.0, -260.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.3, 0.32, 0.4, 1.0], "z_order": 0, "size": [1100.0, 24.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 1100.0, "height": 24.0 } },
+          "friction": 0.6,
+          "restitution": 0.2
+        }
+      }
+    },
+    {
+      "name": "WallLeft",
+      "components": {
+        "transform": { "position": [-540.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.3, 0.32, 0.4, 1.0], "z_order": 0, "size": [20.0, 320.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 20.0, "height": 320.0 } },
+          "friction": 0.4,
+          "restitution": 0.5
+        }
+      }
+    },
+    {
+      "name": "WallRight",
+      "components": {
+        "transform": { "position": [540.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.3, 0.32, 0.4, 1.0], "z_order": 0, "size": [20.0, 320.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 20.0, "height": 320.0 } },
+          "friction": 0.4,
+          "restitution": 0.5
+        }
+      }
+    },
+    {
+      "name": "Bumper",
+      "components": {
+        "transform": { "position": [0.0, -160.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.55, 0.45, 0.55, 1.0], "z_order": 0, "size": [240.0, 24.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Static" },
+        "collider": {
+          "shape": { "Box": { "width": 240.0, "height": 24.0 } },
+          "friction": 0.3,
+          "restitution": 0.85
+        }
+      }
+    },
+
+    {
+      "name": "BallA",
+      "components": {
+        "transform": { "position": [-260.0, 120.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.3, 1.0, 0.8, 1.0], "z_order": 2, "size": [44.0, 44.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 0.8, "linear_damping": 0.08, "angular_damping": 0.1 },
+        "collider": {
+          "shape": { "Circle": { "radius": 20.0 } },
+          "friction": 0.4,
+          "restitution": 0.7,
+          "density": 0.9
+        },
+        "velocity": { "x": 140.0, "y": 0.0 },
+        "script": { "language": "Lua", "source_path": "scripts/lua/collision_ball.lua" }
+      }
+    },
+    {
+      "name": "BallB",
+      "components": {
+        "transform": { "position": [260.0, 80.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.55, 0.4, 1.0], "z_order": 2, "size": [44.0, 44.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 0.8, "linear_damping": 0.08, "angular_damping": 0.1 },
+        "collider": {
+          "shape": { "Circle": { "radius": 20.0 } },
+          "friction": 0.4,
+          "restitution": 0.7,
+          "density": 0.9
+        },
+        "velocity": { "x": -160.0, "y": 0.0 },
+        "script": { "language": "Lua", "source_path": "scripts/lua/collision_ball.lua" }
+      }
+    },
+    {
+      "name": "BallC",
+      "components": {
+        "transform": { "position": [0.0, 200.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.7, 0.7, 1.0, 1.0], "z_order": 2, "size": [40.0, 40.0], "anchor": [0.5, 0.5] },
+        "rigid_body": { "body_type": "Dynamic", "mass": 0.6, "linear_damping": 0.08, "angular_damping": 0.1 },
+        "collider": {
+          "shape": { "Circle": { "radius": 18.0 } },
+          "friction": 0.4,
+          "restitution": 0.8,
+          "density": 0.9
+        },
+        "script": { "language": "Lua", "source_path": "scripts/lua/collision_ball.lua" }
+      }
+    },
+
+    {
+      "name": "BallAStatus",
+      "components": {
+        "transform": { "position": [-580.0, 172.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "BallA: waiting for a contact", "font_id": "", "font_scale": 1.0, "color": [0.3, 1.0, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "BallBStatus",
+      "components": {
+        "transform": { "position": [-580.0, 150.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "BallB: waiting for a contact", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.55, 0.4, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "BallCStatus",
+      "components": {
+        "transform": { "position": [-580.0, 128.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "BallC: waiting for a contact", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.7, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Footer",
+      "components": {
+        "transform": { "position": [-540.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[R] reload   [H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.75, 0.85, 0.8], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "NavScript",
+      "components": {
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_29_collision_scripts.lua" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,344 @@
+{
+ "name": "264 - Dialogue",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "264 - Dialogue",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   Space advance   1 2 3 choose   R restart",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Who",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      140.0,
+      -200.0
+     ],
+     "size": [
+      900.0,
+      30.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 24.0,
+     "color": [
+      0.95,
+      0.75,
+      0.4,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Said",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      140.0,
+      -240.0
+     ],
+     "size": [
+      1100.0,
+      30.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 22.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left",
+     "rich": true
+    }
+   }
+  },
+  {
+   "name": "Pick1",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      170.0,
+      -300.0
+     ],
+     "size": [
+      900.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 19.0,
+     "color": [
+      0.75,
+      0.85,
+      1.0,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Pick2",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      170.0,
+      -330.0
+     ],
+     "size": [
+      900.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 19.0,
+     "color": [
+      0.75,
+      0.85,
+      1.0,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Pick3",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      170.0,
+      -360.0
+     ],
+     "size": [
+      900.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 19.0,
+     "color": [
+      0.75,
+      0.85,
+      1.0,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Talker",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "dialogue": {
+     "table": "dialogue/lab_chat",
+     "autostart": true,
+     "text": "Said",
+     "speaker": "Who",
+     "choices": [
+      "Pick1",
+      "Pick2",
+      "Pick3"
+     ],
+     "reveal_speed": 30.0
+    },
+    "DialogueVars": {
+     "picks": 0,
+     "colour": "none"
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_264_dialogue.lua"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the line types out; Space shows it all, then goes on; picks count up and fill the next line;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the third choice appears after two picks; choosing it ends with 'finished' (`dialogue`, `Dialogue.*`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  }
+ ]
+}

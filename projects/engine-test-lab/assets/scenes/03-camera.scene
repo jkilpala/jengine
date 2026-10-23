@@ -1,0 +1,51 @@
+{
+  "name": "03-Camera",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280, "viewport_height": 720 }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": { "position": [0.0, 300.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "align": "center", "text": "03 - Camera (WASD moves player, camera follows)", "font_id": "default", "font_scale": 2.2, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 100 }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": { "position": [0.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[H/Esc] hub   [PgUp/PgDn] prev/next   [Q/E] zoom", "font_id": "default", "font_scale": 1.6, "color": [0.7, 0.75, 0.85, 1.0], "z_order": 100 }
+      }
+    },
+
+    { "name": "Grid_0_0", "components": { "transform": { "position": [   0.0,    0.0], "rotation": 0.0, "scale": [3.0, 3.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1,1,1,1], "z_order": 0, "size": null, "anchor": [0.5, 0.5] } } },
+    { "name": "Grid_1_0", "components": { "transform": { "position": [ 300.0,    0.0], "rotation": 0.0, "scale": [3.0, 3.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1.0, 0.7, 0.7, 1], "z_order": 0, "size": null, "anchor": [0.5, 0.5] } } },
+    { "name": "Grid_n1_0","components": { "transform": { "position": [-300.0,    0.0], "rotation": 0.0, "scale": [3.0, 3.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [0.7, 1.0, 0.7, 1], "z_order": 0, "size": null, "anchor": [0.5, 0.5] } } },
+    { "name": "Grid_0_1", "components": { "transform": { "position": [   0.0,  300.0], "rotation": 0.0, "scale": [3.0, 3.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [0.7, 0.7, 1.0, 1], "z_order": 0, "size": null, "anchor": [0.5, 0.5] } } },
+    { "name": "Grid_0_n1","components": { "transform": { "position": [   0.0, -300.0], "rotation": 0.0, "scale": [3.0, 3.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1.0, 1.0, 0.7, 1], "z_order": 0, "size": null, "anchor": [0.5, 0.5] } } },
+    { "name": "Grid_2_2", "components": { "transform": { "position": [ 600.0,  600.0], "rotation": 0.0, "scale": [3.0, 3.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [1.0, 0.3, 1.0, 1], "z_order": 0, "size": null, "anchor": [0.5, 0.5] } } },
+    { "name": "Grid_n2_n2","components": { "transform": { "position": [-600.0, -600.0], "rotation": 0.0, "scale": [3.0, 3.0] }, "sprite": { "texture_id": "sprites/checker64.png", "color": [0.3, 1.0, 1.0, 1], "z_order": 0, "size": null, "anchor": [0.5, 0.5] } } },
+
+    {
+      "name": "Player",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.5, 1.5] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.6, 0.2, 1.0], "z_order": 5, "size": [64.0, 64.0], "anchor": [0.5, 0.5] },
+        "camera_follow": { "smoothing": 0.15, "offset": [0.0, 0.0] }
+      }
+    },
+
+    {
+      "name": "Controller",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_03_camera.lua" }
+      }
+    }
+  ]
+}

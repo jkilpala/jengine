@@ -1,0 +1,1942 @@
+{
+ "name": "10 - Clay",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.15,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.28
+     },
+     "smoothness": {
+      "Float": 0.7
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.0
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.62
+    }
+   }
+  },
+  {
+   "name": "Occlusion",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_occlusion": {
+     "radius": 52.0,
+     "strength": 0.6
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      -2400.0,
+      1800.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.89001,
+      0.71057
+     ],
+     "intensity": 0.85,
+     "radius": 6000.0,
+     "falloff": 1.0,
+     "shadow_softness": 70.0,
+     "height": 0.9
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.84809,
+      0.82757,
+      0.78741,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1480.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "WallTop",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      318.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1252.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      1252.0,
+      36.0
+     ],
+     "shadow_length": 66.0
+    }
+   }
+  },
+  {
+   "name": "WallBottom",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -318.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1252.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      1252.0,
+      36.0
+     ],
+     "shadow_length": 66.0
+    }
+   }
+  },
+  {
+   "name": "WallLeft",
+   "components": {
+    "transform": {
+     "position": [
+      -608.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      36.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      36.0,
+      600.0
+     ],
+     "shadow_length": 66.0
+    }
+   }
+  },
+  {
+   "name": "WallRight",
+   "components": {
+    "transform": {
+     "position": [
+      608.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      36.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      36.0,
+      600.0
+     ],
+     "shadow_length": 66.0
+    }
+   }
+  },
+  {
+   "name": "Clay1",
+   "components": {
+    "transform": {
+     "position": [
+      -505.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "shadow_length": 22.0
+    }
+   }
+  },
+  {
+   "name": "Clay2",
+   "components": {
+    "transform": {
+     "position": [
+      -445.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "shadow_length": 49.50000000000001
+    }
+   }
+  },
+  {
+   "name": "Clay3",
+   "components": {
+    "transform": {
+     "position": [
+      -385.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "shadow_length": 77.0
+    }
+   }
+  },
+  {
+   "name": "Clay4",
+   "components": {
+    "transform": {
+     "position": [
+      -325.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      60.0,
+      190.0
+     ],
+     "shadow_length": 104.50000000000001
+    }
+   }
+  },
+  {
+   "name": "Clay5",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      220.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      220.0,
+      130.0
+     ],
+     "shadow_length": 132.0
+    }
+   }
+  },
+  {
+   "name": "Clay6",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      125.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "shadow_length": 44.0
+    }
+   }
+  },
+  {
+   "name": "Clay7",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      -175.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      260.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      260.0,
+      40.0
+     ],
+     "shadow_length": 77.0
+    }
+   }
+  },
+  {
+   "name": "Clay8",
+   "components": {
+    "transform": {
+     "position": [
+      250.0,
+      -65.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      40.0,
+      180.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      40.0,
+      180.0
+     ],
+     "shadow_length": 77.0
+    }
+   }
+  },
+  {
+   "name": "Clay9",
+   "components": {
+    "transform": {
+     "position": [
+      350.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "shadow_length": 99.00000000000001
+    }
+   }
+  },
+  {
+   "name": "Clay10",
+   "components": {
+    "transform": {
+     "position": [
+      456.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      96.0,
+      96.0
+     ],
+     "shadow_length": 99.00000000000001
+    }
+   }
+  },
+  {
+   "name": "Clay11",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_sphere_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       60.0,
+       0.0
+      ],
+      [
+       57.96,
+       15.53
+      ],
+      [
+       51.96,
+       30.0
+      ],
+      [
+       42.43,
+       42.43
+      ],
+      [
+       30.0,
+       51.96
+      ],
+      [
+       15.53,
+       57.96
+      ],
+      [
+       0.0,
+       60.0
+      ],
+      [
+       -15.53,
+       57.96
+      ],
+      [
+       -30.0,
+       51.96
+      ],
+      [
+       -42.43,
+       42.43
+      ],
+      [
+       -51.96,
+       30.0
+      ],
+      [
+       -57.96,
+       15.53
+      ],
+      [
+       -60.0,
+       0.0
+      ],
+      [
+       -57.96,
+       -15.53
+      ],
+      [
+       -51.96,
+       -30.0
+      ],
+      [
+       -42.43,
+       -42.43
+      ],
+      [
+       -30.0,
+       -51.96
+      ],
+      [
+       -15.53,
+       -57.96
+      ],
+      [
+       -0.0,
+       -60.0
+      ],
+      [
+       15.53,
+       -57.96
+      ],
+      [
+       30.0,
+       -51.96
+      ],
+      [
+       42.43,
+       -42.43
+      ],
+      [
+       51.96,
+       -30.0
+      ],
+      [
+       57.96,
+       -15.53
+      ]
+     ],
+     "shadow_length": 121.00000000000001
+    }
+   }
+  },
+  {
+   "name": "Clay12",
+   "components": {
+    "transform": {
+     "position": [
+      130.0,
+      25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_sphere_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       35.0,
+       0.0
+      ],
+      [
+       33.81,
+       9.06
+      ],
+      [
+       30.31,
+       17.5
+      ],
+      [
+       24.75,
+       24.75
+      ],
+      [
+       17.5,
+       30.31
+      ],
+      [
+       9.06,
+       33.81
+      ],
+      [
+       0.0,
+       35.0
+      ],
+      [
+       -9.06,
+       33.81
+      ],
+      [
+       -17.5,
+       30.31
+      ],
+      [
+       -24.75,
+       24.75
+      ],
+      [
+       -30.31,
+       17.5
+      ],
+      [
+       -33.81,
+       9.06
+      ],
+      [
+       -35.0,
+       0.0
+      ],
+      [
+       -33.81,
+       -9.06
+      ],
+      [
+       -30.31,
+       -17.5
+      ],
+      [
+       -24.75,
+       -24.75
+      ],
+      [
+       -17.5,
+       -30.31
+      ],
+      [
+       -9.06,
+       -33.81
+      ],
+      [
+       -0.0,
+       -35.0
+      ],
+      [
+       9.06,
+       -33.81
+      ],
+      [
+       17.5,
+       -30.31
+      ],
+      [
+       24.75,
+       -24.75
+      ],
+      [
+       30.31,
+       -17.5
+      ],
+      [
+       33.81,
+       -9.06
+      ]
+     ],
+     "shadow_length": 71.5
+    }
+   }
+  },
+  {
+   "name": "Clay13",
+   "components": {
+    "transform": {
+     "position": [
+      -30.0,
+      40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_sphere_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       26.0,
+       0.0
+      ],
+      [
+       25.11,
+       6.73
+      ],
+      [
+       22.52,
+       13.0
+      ],
+      [
+       18.38,
+       18.38
+      ],
+      [
+       13.0,
+       22.52
+      ],
+      [
+       6.73,
+       25.11
+      ],
+      [
+       0.0,
+       26.0
+      ],
+      [
+       -6.73,
+       25.11
+      ],
+      [
+       -13.0,
+       22.52
+      ],
+      [
+       -18.38,
+       18.38
+      ],
+      [
+       -22.52,
+       13.0
+      ],
+      [
+       -25.11,
+       6.73
+      ],
+      [
+       -26.0,
+       0.0
+      ],
+      [
+       -25.11,
+       -6.73
+      ],
+      [
+       -22.52,
+       -13.0
+      ],
+      [
+       -18.38,
+       -18.38
+      ],
+      [
+       -13.0,
+       -22.52
+      ],
+      [
+       -6.73,
+       -25.11
+      ],
+      [
+       -0.0,
+       -26.0
+      ],
+      [
+       6.73,
+       -25.11
+      ],
+      [
+       13.0,
+       -22.52
+      ],
+      [
+       18.38,
+       -18.38
+      ],
+      [
+       22.52,
+       -13.0
+      ],
+      [
+       25.11,
+       -6.73
+      ]
+     ],
+     "shadow_length": 52.800000000000004
+    }
+   }
+  },
+  {
+   "name": "Clay14",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_cylinder_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       32.0,
+       0.0
+      ],
+      [
+       30.91,
+       8.28
+      ],
+      [
+       27.71,
+       16.0
+      ],
+      [
+       22.63,
+       22.63
+      ],
+      [
+       16.0,
+       27.71
+      ],
+      [
+       8.28,
+       30.91
+      ],
+      [
+       0.0,
+       32.0
+      ],
+      [
+       -8.28,
+       30.91
+      ],
+      [
+       -16.0,
+       27.71
+      ],
+      [
+       -22.63,
+       22.63
+      ],
+      [
+       -27.71,
+       16.0
+      ],
+      [
+       -30.91,
+       8.28
+      ],
+      [
+       -32.0,
+       0.0
+      ],
+      [
+       -30.91,
+       -8.28
+      ],
+      [
+       -27.71,
+       -16.0
+      ],
+      [
+       -22.63,
+       -22.63
+      ],
+      [
+       -16.0,
+       -27.71
+      ],
+      [
+       -8.28,
+       -30.91
+      ],
+      [
+       -0.0,
+       -32.0
+      ],
+      [
+       8.28,
+       -30.91
+      ],
+      [
+       16.0,
+       -27.71
+      ],
+      [
+       22.63,
+       -22.63
+      ],
+      [
+       27.71,
+       -16.0
+      ],
+      [
+       30.91,
+       -8.28
+      ]
+     ],
+     "shadow_length": 165.0
+    }
+   }
+  },
+  {
+   "name": "Clay15",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_cylinder_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       32.0,
+       0.0
+      ],
+      [
+       30.91,
+       8.28
+      ],
+      [
+       27.71,
+       16.0
+      ],
+      [
+       22.63,
+       22.63
+      ],
+      [
+       16.0,
+       27.71
+      ],
+      [
+       8.28,
+       30.91
+      ],
+      [
+       0.0,
+       32.0
+      ],
+      [
+       -8.28,
+       30.91
+      ],
+      [
+       -16.0,
+       27.71
+      ],
+      [
+       -22.63,
+       22.63
+      ],
+      [
+       -27.71,
+       16.0
+      ],
+      [
+       -30.91,
+       8.28
+      ],
+      [
+       -32.0,
+       0.0
+      ],
+      [
+       -30.91,
+       -8.28
+      ],
+      [
+       -27.71,
+       -16.0
+      ],
+      [
+       -22.63,
+       -22.63
+      ],
+      [
+       -16.0,
+       -27.71
+      ],
+      [
+       -8.28,
+       -30.91
+      ],
+      [
+       -0.0,
+       -32.0
+      ],
+      [
+       8.28,
+       -30.91
+      ],
+      [
+       16.0,
+       -27.71
+      ],
+      [
+       22.63,
+       -22.63
+      ],
+      [
+       27.71,
+       -16.0
+      ],
+      [
+       30.91,
+       -8.28
+      ]
+     ],
+     "shadow_length": 165.0
+    }
+   }
+  },
+  {
+   "name": "Clay16",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/clay_disc.png",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_cylinder_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       32.0,
+       0.0
+      ],
+      [
+       30.91,
+       8.28
+      ],
+      [
+       27.71,
+       16.0
+      ],
+      [
+       22.63,
+       22.63
+      ],
+      [
+       16.0,
+       27.71
+      ],
+      [
+       8.28,
+       30.91
+      ],
+      [
+       0.0,
+       32.0
+      ],
+      [
+       -8.28,
+       30.91
+      ],
+      [
+       -16.0,
+       27.71
+      ],
+      [
+       -22.63,
+       22.63
+      ],
+      [
+       -27.71,
+       16.0
+      ],
+      [
+       -30.91,
+       8.28
+      ],
+      [
+       -32.0,
+       0.0
+      ],
+      [
+       -30.91,
+       -8.28
+      ],
+      [
+       -27.71,
+       -16.0
+      ],
+      [
+       -22.63,
+       -22.63
+      ],
+      [
+       -16.0,
+       -27.71
+      ],
+      [
+       -8.28,
+       -30.91
+      ],
+      [
+       -0.0,
+       -32.0
+      ],
+      [
+       8.28,
+       -30.91
+      ],
+      [
+       16.0,
+       -27.71
+      ],
+      [
+       22.63,
+       -22.63
+      ],
+      [
+       27.71,
+       -16.0
+      ],
+      [
+       30.91,
+       -8.28
+      ]
+     ],
+     "shadow_length": 165.0
+    }
+   }
+  },
+  {
+   "name": "Clay17",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -180.0
+     ],
+     "rotation": 0.45,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "shadow_length": 82.5
+    }
+   }
+  },
+  {
+   "name": "Clay18",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -95.0
+     ],
+     "rotation": 0.8,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "shadow_length": 55.00000000000001
+    }
+   }
+  },
+  {
+   "name": "Clay19",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      -40.0
+     ],
+     "rotation": 0.2,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.93311,
+      0.91141,
+      0.8689,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/clay_box_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "shadow_length": 38.5
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "10   Clay",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.02721,
+      0.02721,
+      0.0331,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Mouse  sun   A  ambient occlusion   S  sun   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.02721,
+      0.02721,
+      0.0331,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.02721,
+      0.02721,
+      0.0331,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s10_clay.lua"
+    }
+   }
+  }
+ ]
+}

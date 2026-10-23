@@ -1,0 +1,506 @@
+{
+ "name": "126 - Toon lighting and outlines",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "126 - Toon lighting and outlines",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -100.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.6,
+      0.6,
+      0.9
+     ],
+     "intensity": 0.25
+    }
+   }
+  },
+  {
+   "name": "Toon",
+   "components": {
+    "toon_lighting": {
+     "bands": 3,
+     "softness": 0.05
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.95,
+      0.85
+     ],
+     "intensity": 1.2,
+     "radius": 900.0,
+     "falloff": 1.0,
+     "shadow_softness": 0.0,
+     "height": 0.6,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.7,
+      0.72,
+      0.8,
+      1
+     ],
+     "z_order": -10,
+     "size": [
+      1100.0,
+      460.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ball1",
+   "components": {
+    "transform": {
+     "position": [
+      -320.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sphere.png",
+     "color": [
+      0.95,
+      0.5,
+      0.4,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/sphere_n.png"
+    }
+   }
+  },
+  {
+   "name": "Ball2",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sphere.png",
+     "color": [
+      0.95,
+      0.7,
+      0.4,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/sphere_n.png"
+    }
+   }
+  },
+  {
+   "name": "Ball3",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/sphere.png",
+     "color": [
+      0.95,
+      0.9,
+      0.4,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/sphere_n.png"
+    }
+   }
+  },
+  {
+   "name": "Star",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/outline_star.png",
+     "color": [
+      1.0,
+      0.85,
+      0.3,
+      1
+     ],
+     "z_order": 0,
+     "size": [
+      200.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "materials/ink_outline",
+     "uniforms": {
+      "outline": {
+       "Vec4": [
+        5.0,
+        0.0,
+        0.0,
+        0.0
+       ]
+      },
+      "outline_color": {
+       "Vec4": [
+        0.02,
+        0.02,
+        0.05,
+        1.0
+       ]
+      }
+     }
+    },
+    "angular_velocity": {
+     "omega": 0.4
+    }
+   }
+  },
+  {
+   "name": "LabelBalls",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "toon_lighting: 3 bands",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "LabelStar",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "ink outline (TexelSize)",
+     "font_id": "",
+     "font_scale": 1.1,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "State",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      70.0
+     ],
+     "size": [
+      900.0,
+      28.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.85,
+      0.5,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Every two seconds toon lighting turns on and off: on, each ball's shading is three flat bands with crisp edges;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "off, a smooth gradient. The turning star keeps a dark line of even width all round its points, throughout.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_126_toon_and_outlines.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,561 @@
+{
+ "name": "21 - Shader Graph",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Header",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "21 - SHADER GRAPH (PULSE)",
+     "font_id": "",
+     "font_scale": 2.5,
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Hint1",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Right sprite: MaterialComponent -> pulse_emission.material -> pulse_emission.shader (graph)",
+     "font_id": "",
+     "font_scale": 1.05,
+     "color": [
+      0.85,
+      0.9,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Hint2",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Graph: TextureSample * (1.0 + 0.5*sin(globals.time)) -> FragmentOutput",
+     "font_id": "",
+     "font_scale": 1.05,
+     "color": [
+      0.85,
+      0.9,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Hint3",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Left: default sprite pipeline. Right: codegen WGSL compiled by GraphPipelineCache.",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.85,
+      0.7,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "LabelDefault",
+   "components": {
+    "transform": {
+     "position": [
+      -280.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "default",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.9,
+      0.9,
+      0.6,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "LabelPulse",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "pulse (graph)",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      0.6,
+      1.0,
+      0.7,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Reference",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      3.0,
+      3.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Pulsing",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      3.0,
+      3.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0
+    },
+    "material": {
+     "material_id": "materials/pulse_emission"
+    }
+   }
+  },
+  {
+   "name": "LabelRim",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "vertex colour -> rim (graph)",
+     "font_id": "",
+     "font_scale": 1.2,
+     "color": [
+      1.0,
+      0.86,
+      0.5,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "HintRim",
+   "components": {
+    "transform": {
+     "position": [
+      -540.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Three identical sprites, one material. Only their sprite COLOUR differs - the script ramps it, and the rim appears past the threshold.",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.85,
+      0.7,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Rim1",
+   "components": {
+    "transform": {
+     "position": [
+      -340.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      2.0,
+      2.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      0.3,
+      0.3,
+      0.3,
+      1.0
+     ],
+     "z_order": 0
+    },
+    "material": {
+     "material_id": "materials/vertex_color_rim"
+    }
+   }
+  },
+  {
+   "name": "Rim2",
+   "components": {
+    "transform": {
+     "position": [
+      -190.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      2.0,
+      2.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      0.3,
+      0.3,
+      0.3,
+      1.0
+     ],
+     "z_order": 0
+    },
+    "material": {
+     "material_id": "materials/vertex_color_rim"
+    }
+   }
+  },
+  {
+   "name": "Rim3",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      2.0,
+      2.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      0.3,
+      0.3,
+      0.3,
+      1.0
+     ],
+     "z_order": 0
+    },
+    "material": {
+     "material_id": "materials/vertex_color_rim"
+    }
+   }
+  },
+  {
+   "name": "LabelTint",
+   "components": {
+    "transform": {
+     "position": [
+      310.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "MaterialParam: one material, three tints",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      1.0,
+      0.9,
+      0.7,
+      1.0
+     ],
+     "z_order": 10,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Tint1",
+   "components": {
+    "transform": {
+     "position": [
+      160.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      2.0,
+      2.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0
+    },
+    "material": {
+     "material_id": "materials/param_tint"
+    }
+   }
+  },
+  {
+   "name": "Tint2",
+   "components": {
+    "transform": {
+     "position": [
+      310.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      2.0,
+      2.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0
+    },
+    "material": {
+     "material_id": "materials/param_tint"
+    }
+   }
+  },
+  {
+   "name": "Tint3",
+   "components": {
+    "transform": {
+     "position": [
+      460.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      2.0,
+      2.0
+     ]
+    },
+    "sprite": {
+     "size": [
+      64.0,
+      64.0
+     ],
+     "texture_id": "sprites/bumps128.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0
+    },
+    "material": {
+     "material_id": "materials/param_tint"
+    }
+   }
+  },
+  {
+   "name": "NavScript",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_21_shader_graph.lua"
+    }
+   }
+  }
+ ]
+}

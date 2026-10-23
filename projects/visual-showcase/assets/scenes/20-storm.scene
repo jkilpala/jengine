@@ -1,0 +1,1598 @@
+{
+ "name": "20 - Storm",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.7
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.01,
+       0.03,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 0.85
+     },
+     "tint_color": {
+      "Vec4": [
+       0.8,
+       0.88,
+       1.0,
+       0.08
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.17064,
+      0.23302,
+      0.52252
+     ],
+     "intensity": 0.42
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_sky.png",
+     "color": [
+      0.78741,
+      0.78741,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1580.0,
+      920.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "CloudsFar",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_clouds.png",
+     "color": [
+      0.14732,
+      0.17064,
+      0.26327,
+      1.0
+     ],
+     "z_order": -95,
+     "size": [
+      3328.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       360.0
+      ]
+     }
+    },
+    "unlit": {},
+    "velocity": {
+     "x": 9.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -512.0,
+      -720
+     ],
+     "max": [
+      512.0,
+      720
+     ]
+    }
+   }
+  },
+  {
+   "name": "CloudsNear",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_clouds.png",
+     "color": [
+      0.05497,
+      0.06372,
+      0.10048,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      3328.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       1024.0,
+       360.0
+      ]
+     }
+    },
+    "unlit": {},
+    "velocity": {
+     "x": 22.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -512.0,
+      -720
+     ],
+     "max": [
+      512.0,
+      720
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bolt",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/st_bolt.png",
+     "color": [
+      0.8,
+      0.85,
+      1.0,
+      0.0
+     ],
+     "z_order": -80,
+     "size": [
+      320.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "RainFar",
+   "components": {
+    "transform": {
+     "position": [
+      -160.0,
+      400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/st_drop.png",
+     "emission_rate": 500.0,
+     "max_particles": 1200,
+     "lifetime": [
+      1.1,
+      1.3
+     ],
+     "speed": [
+      700.0,
+      800.0
+     ],
+     "angle": [
+      -1.42,
+      -1.38
+     ],
+     "color_start": [
+      0.17064,
+      0.21404,
+      0.31855,
+      0.35
+     ],
+     "color_end": [
+      0.17064,
+      0.21404,
+      0.31855,
+      0.35
+     ],
+     "size_start": [
+      1.5,
+      2.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -60,
+     "emit_shape": {
+      "kind": "line",
+      "length": 1980.0
+     },
+     "stretch": 0.03
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HouseA",
+   "components": {
+    "transform": {
+     "position": [
+      -440.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_house_a.png",
+     "color": [
+      0.14732,
+      0.14732,
+      0.19599,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      300.0,
+      440.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 284.0,
+       "height": 290.0
+      }
+     },
+     "offset": [
+      0.0,
+      145.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseARoof",
+   "components": {
+    "transform": {
+     "position": [
+      -440.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -150.0,
+         286.0
+        ],
+        [
+         150.0,
+         286.0
+        ],
+        [
+         0.0,
+         440.0
+        ]
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "HouseAWindow1",
+   "components": {
+    "transform": {
+     "position": [
+      -505.0,
+      -5.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      1.8,
+      1.24573,
+      0.57339,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      56.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HouseAGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -505.0,
+      -35.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 1.6,
+     "radius": 320.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "HouseAWindow2",
+   "components": {
+    "transform": {
+     "position": [
+      -375.0,
+      -5.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      0.01002,
+      0.01341,
+      0.02721,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      56.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseAWindow3",
+   "components": {
+    "transform": {
+     "position": [
+      -505.0,
+      -115.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      1.8,
+      1.24573,
+      0.57339,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      56.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HouseAGlow3",
+   "components": {
+    "transform": {
+     "position": [
+      -505.0,
+      -145.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 1.6,
+     "radius": 320.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "HouseB",
+   "components": {
+    "transform": {
+     "position": [
+      -70.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_house_b.png",
+     "color": [
+      0.14732,
+      0.14732,
+      0.19599,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      400.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 384.0,
+       "height": 190.0
+      }
+     },
+     "offset": [
+      0.0,
+      95.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseBRoof",
+   "components": {
+    "transform": {
+     "position": [
+      -70.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -200.0,
+         186.0
+        ],
+        [
+         200.0,
+         186.0
+        ],
+        [
+         0.0,
+         320.0
+        ]
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "HouseBDoor",
+   "components": {
+    "transform": {
+     "position": [
+      -70.0,
+      -140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      0.01002,
+      0.00598,
+      0.00394,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      64.0,
+      122.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseBWindow1",
+   "components": {
+    "transform": {
+     "position": [
+      -165.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      1.8,
+      1.24573,
+      0.57339,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      76.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HouseBGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -165.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 1.6,
+     "radius": 320.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "HouseBWindow2",
+   "components": {
+    "transform": {
+     "position": [
+      25.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      1.8,
+      1.24573,
+      0.57339,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      76.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HouseBGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      25.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 1.6,
+     "radius": 320.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "HouseC",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_house_c.png",
+     "color": [
+      0.14732,
+      0.14732,
+      0.19599,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      240.0,
+      380.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 224.0,
+       "height": 260.0
+      }
+     },
+     "offset": [
+      0.0,
+      130.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseCRoof",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "ConvexPolygon": {
+       "vertices": [
+        [
+         -120.0,
+         256.0
+        ],
+        [
+         120.0,
+         256.0
+        ],
+        [
+         0.0,
+         380.0
+        ]
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "HouseCWindow1",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      0.01002,
+      0.01341,
+      0.02721,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      66.0,
+      76.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "HouseCWindow2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_window.png",
+     "color": [
+      1.8,
+      1.24573,
+      0.57339,
+      1.0
+     ],
+     "z_order": -41,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "HouseCGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 1.6,
+     "radius": 320.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      540.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_lamp.png",
+     "color": [
+      0.07324,
+      0.07324,
+      0.09463,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      360.0
+     ],
+     "anchor": [
+      0.2,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LampGlass",
+   "components": {
+    "transform": {
+     "position": [
+      578.0,
+      86.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      5.0,
+      3.01915,
+      1.0702,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      34.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "LampLight",
+   "components": {
+    "transform": {
+     "position": [
+      578.0,
+      80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.477,
+      0.14732
+     ],
+     "intensity": 2.6,
+     "radius": 520.0,
+     "falloff": 1.3,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Street",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_street.png",
+     "color": [
+      0.26327,
+      0.28465,
+      0.34239,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      1480.0,
+      170.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       160.0
+      ]
+     }
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1680.0,
+       "height": 200.0
+      }
+     },
+     "offset": [
+      0.0,
+      -100.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Puddle1",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_puddle.png",
+     "color": [
+      0.07324,
+      0.09463,
+      0.17887,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      260.0,
+      41.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Puddle2",
+   "components": {
+    "transform": {
+     "position": [
+      140.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_puddle.png",
+     "color": [
+      0.07324,
+      0.09463,
+      0.17887,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      340.0,
+      54.4
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Puddle3",
+   "components": {
+    "transform": {
+     "position": [
+      470.0,
+      -235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/st_puddle.png",
+     "color": [
+      0.07324,
+      0.09463,
+      0.17887,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      180.0,
+      28.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Rain",
+   "components": {
+    "transform": {
+     "position": [
+      -160.0,
+      400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/st_drop.png",
+     "emission_rate": 700.0,
+     "max_particles": 2000,
+     "lifetime": [
+      1.6,
+      1.8
+     ],
+     "speed": [
+      950.0,
+      1100.0
+     ],
+     "angle": [
+      -1.42,
+      -1.38
+     ],
+     "color_start": [
+      0.34239,
+      0.42003,
+      0.60383,
+      0.45
+     ],
+     "color_end": [
+      0.34239,
+      0.42003,
+      0.60383,
+      0.45
+     ],
+     "size_start": [
+      2.5,
+      3.2
+     ],
+     "size_end": [
+      2.5,
+      3.2
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -20,
+     "emit_shape": {
+      "kind": "line",
+      "length": 1980.0
+     },
+     "stretch": 0.035,
+     "collision": {
+      "response": "kill"
+     },
+     "sub_emitters": [
+      {
+       "on": "collision",
+       "emitter": "Splash",
+       "count": 4,
+       "chance": 0.6
+      }
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Splash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 4000,
+     "lifetime": [
+      0.22,
+      0.4
+     ],
+     "speed": [
+      70.0,
+      190.0
+     ],
+     "angle": [
+      0.5,
+      2.64
+     ],
+     "color_start": [
+      0.60383,
+      0.71057,
+      1.0,
+      0.8
+     ],
+     "color_end": [
+      0.60383,
+      0.71057,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      7.0
+     ],
+     "size_end": [
+      1.5,
+      2.0
+     ],
+     "gravity_modifier": 2.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -19,
+     "stretch": 0.02
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Grass",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "mesh": {
+     "texture_id": "",
+     "color": [
+      0.07324,
+      0.13287,
+      0.04696,
+      1.0
+     ],
+     "z_order": -10,
+     "vertices": [],
+     "indices": []
+    },
+    "material": {
+     "material_id": "materials/storm_grass",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Vec4": [
+        0.165,
+        0.1575,
+        0.0,
+        -360.0
+       ]
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "20   Storm",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "L  lightning   G  a gust   R  rain   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s20_storm.lua"
+    }
+   }
+  }
+ ]
+}

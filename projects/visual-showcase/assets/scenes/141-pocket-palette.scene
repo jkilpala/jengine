@@ -1,0 +1,557 @@
+{
+ "name": "141 - Pocket Palette",
+ "post_process": {
+  "effects": [
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   },
+   {
+    "name": "palette",
+    "enabled": true,
+    "params": {
+     "preset": {
+      "Float": 1.0
+     },
+     "count": {
+      "Float": 16.0
+     },
+     "dither": {
+      "Float": 0.6
+     },
+     "cell": {
+      "Float": 2.0
+     },
+     "cycle_start": {
+      "Float": 12.0
+     },
+     "cycle_end": {
+      "Float": 16.0
+     },
+     "cycle_speed": {
+      "Float": 6.0
+     },
+     "c0": {
+      "Vec4": [
+       0.10196078431372549,
+       0.06274509803921569,
+       0.1568627450980392,
+       1.0
+      ]
+     },
+     "c1": {
+      "Vec4": [
+       0.23137254901960785,
+       0.12156862745098039,
+       0.2901960784313726,
+       1.0
+      ]
+     },
+     "c2": {
+      "Vec4": [
+       0.47843137254901963,
+       0.1843137254901961,
+       0.3568627450980392,
+       1.0
+      ]
+     },
+     "c3": {
+      "Vec4": [
+       0.7607843137254902,
+       0.2823529411764706,
+       0.41568627450980394,
+       1.0
+      ]
+     },
+     "c4": {
+      "Vec4": [
+       0.9411764705882353,
+       0.4823529411764706,
+       0.35294117647058826,
+       1.0
+      ]
+     },
+     "c5": {
+      "Vec4": [
+       0.984313725490196,
+       0.7019607843137254,
+       0.3607843137254902,
+       1.0
+      ]
+     },
+     "c6": {
+      "Vec4": [
+       1.0,
+       0.8784313725490196,
+       0.5411764705882353,
+       1.0
+      ]
+     },
+     "c7": {
+      "Vec4": [
+       1.0,
+       0.9647058823529412,
+       0.8470588235294118,
+       1.0
+      ]
+     },
+     "c8": {
+      "Vec4": [
+       0.16470588235294117,
+       0.16470588235294117,
+       0.22745098039215686,
+       1.0
+      ]
+     },
+     "c9": {
+      "Vec4": [
+       0.2901960784313726,
+       0.23137254901960785,
+       0.30980392156862746,
+       1.0
+      ]
+     },
+     "c10": {
+      "Vec4": [
+       0.4196078431372549,
+       0.3215686274509804,
+       0.38823529411764707,
+       1.0
+      ]
+     },
+     "c11": {
+      "Vec4": [
+       0.1803921568627451,
+       0.35294117647058826,
+       0.22745098039215686,
+       1.0
+      ]
+     },
+     "c12": {
+      "Vec4": [
+       0.11372549019607843,
+       0.23921568627450981,
+       0.47843137254901963,
+       1.0
+      ]
+     },
+     "c13": {
+      "Vec4": [
+       0.17254901960784313,
+       0.3843137254901961,
+       0.6588235294117647,
+       1.0
+      ]
+     },
+     "c14": {
+      "Vec4": [
+       0.30980392156862746,
+       0.5843137254901961,
+       0.8392156862745098,
+       1.0
+      ]
+     },
+     "c15": {
+      "Vec4": [
+       0.6588235294117647,
+       0.8627450980392157,
+       0.9607843137254902,
+       1.0
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Bay",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pocketpalette/bay.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gull0_0",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pocketpalette/gull0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gull0_1",
+   "components": {
+    "transform": {
+     "position": [
+      -200.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pocketpalette/gull1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -50,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gull1_0",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pocketpalette/gull0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gull1_1",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pocketpalette/gull1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -50,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gull2_0",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pocketpalette/gull0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Gull2_1",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      190.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/pocketpalette/gull1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -50,
+     "size": [
+      40.0,
+      20.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s141_pocket_palette.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "141   Pocket Palette",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "1-7 palettes   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

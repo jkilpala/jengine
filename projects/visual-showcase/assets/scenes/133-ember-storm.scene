@@ -1,0 +1,805 @@
+{
+ "name": "133 - Ember Storm",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.75
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.31855,
+      0.69207
+     ],
+     "intensity": 0.22
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1500.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/floor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -5,
+     "size": [
+      1600.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      1.0
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 1800.0,
+       "height": 200.0
+      }
+     },
+     "offset": [
+      0.0,
+      -100.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step0",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -4,
+     "size": [
+      300.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 300.0,
+       "height": 40.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Step1",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -3,
+     "size": [
+      200.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 200.0,
+       "height": 40.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Step2",
+   "components": {
+    "transform": {
+     "position": [
+      460.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -2,
+     "size": [
+      120.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 120.0,
+       "height": 40.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Roof",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      20.0
+     ],
+     "rotation": -0.32,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/roof.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -3,
+     "size": [
+      380.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 380.0,
+       "height": 44.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Cart",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/cart.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      192.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fire",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.2,
+      0.57919,
+      0.04314,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      150.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   },
+   "parent": "Cart"
+  },
+  {
+   "name": "FireLight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.31855,
+      0.05088
+     ],
+     "intensity": 1.8,
+     "radius": 760.0,
+     "falloff": 1.4,
+     "height": 0.5,
+     "casts_shadows": false
+    }
+   },
+   "parent": "Cart"
+  },
+  {
+   "name": "Sparks",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      128.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "gpu_particles": {
+     "count": 9000,
+     "lifetime": [
+      1.4,
+      3.0
+     ],
+     "speed": [
+      140.0,
+      420.0
+     ],
+     "angle": [
+      1.15,
+      2.0
+     ],
+     "radius": 30.0,
+     "gravity": [
+      0.0,
+      -520.0
+     ],
+     "drag": 0.35,
+     "noise": 60.0,
+     "noise_speed": 1.2,
+     "size": [
+      5.0,
+      1.6
+     ],
+     "stretch": 1.4,
+     "color_start": [
+      3.0,
+      2.67003,
+      1.34397,
+      1.0
+     ],
+     "color_mid": [
+      2.0,
+      0.52654,
+      0.03922,
+      1.0
+     ],
+     "color_end": [
+      0.31855,
+      0.01341,
+      0.00155,
+      0.0
+     ],
+     "texture_id": "sprites/fx/spark.png",
+     "blend_mode": "Additive",
+     "z_order": 6,
+     "seed": 133,
+     "collide": true,
+     "simulate": "state",
+     "bounce": 0.45,
+     "friction": 0.15,
+     "inherit": 0.8
+    }
+   },
+   "parent": "Cart"
+  },
+  {
+   "name": "Ash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      430.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "gpu_particles": {
+     "count": 5000,
+     "lifetime": [
+      9.0,
+      14.0
+     ],
+     "speed": [
+      0.0,
+      25.0
+     ],
+     "angle": [
+      -2.0,
+      -1.1
+     ],
+     "radius": 760.0,
+     "gravity": [
+      0.0,
+      -45.0
+     ],
+     "drag": 0.6,
+     "noise": 70.0,
+     "noise_speed": 0.5,
+     "size": [
+      4.0,
+      3.0
+     ],
+     "color_start": [
+      1.0,
+      0.17064,
+      0.01341,
+      0.0
+     ],
+     "color_mid": [
+      1.4,
+      0.18602,
+      0.01403,
+      0.9
+     ],
+     "color_end": [
+      0.05088,
+      0.03968,
+      0.03968,
+      0.0
+     ],
+     "texture_id": "sprites/fx/ember.png",
+     "blend_mode": "Additive",
+     "z_order": 7,
+     "seed": 233,
+     "collide": true,
+     "simulate": "state",
+     "bounce": 0.05,
+     "friction": 0.7
+    }
+   }
+  },
+  {
+   "name": "Chain",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       40.0,
+       560.0
+      ],
+      [
+       40.0,
+       -202.0
+      ]
+     ],
+     "width": 6.0,
+     "color": [
+      0.05088,
+      0.05088,
+      0.06372,
+      1.0
+     ],
+     "z_order": 8
+    }
+   }
+  },
+  {
+   "name": "Ball",
+   "components": {
+    "transform": {
+     "position": [
+      40.0,
+      -202.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/emberstorm/ball.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 9,
+     "size": [
+      112.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 0.0,
+     "y": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 56.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s133_ember_storm.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "133   Ember Storm",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space state / closed form   B ball still / swinging   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

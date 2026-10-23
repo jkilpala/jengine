@@ -1,0 +1,74 @@
+{
+  "schema": "Dialogue",
+  "version": 1,
+  "rows": [
+    {
+      "id": "start",
+      "if": "met_baker",
+      "else": "first",
+      "next": "again"
+    },
+    {
+      "id": "first",
+      "speaker": "Bess the baker",
+      "portrait": "sprites/villagechatter/baker_portrait.png",
+      "text": "Morning! Fresh loaves, straight from the oven.",
+      "set": {
+        "met_baker": true
+      },
+      "next": "offer"
+    },
+    {
+      "id": "again",
+      "speaker": "Bess the baker",
+      "portrait": "sprites/villagechatter/baker_portrait.png",
+      "text": "Back again, dear? You've [color=gold]{gold} coins[/color] on you.",
+      "next": "offer"
+    },
+    {
+      "id": "offer",
+      "speaker": "Bess the baker",
+      "portrait": "sprites/villagechatter/baker_portrait.png",
+      "text": "A loaf is [b]three coins[/b]. What'll it be?",
+      "choices": [
+        {
+          "text": "Buy a loaf (three coins)",
+          "if": "gold >= 3",
+          "set": {
+            "gold": "-3",
+            "loaves": "+1"
+          },
+          "next": "sold"
+        },
+        {
+          "text": "I can't afford one...",
+          "if": "gold < 3",
+          "next": "poor"
+        },
+        {
+          "text": "Just looking.",
+          "next": "bye"
+        }
+      ]
+    },
+    {
+      "id": "sold",
+      "speaker": "Bess the baker",
+      "portrait": "sprites/villagechatter/baker_portrait.png",
+      "text": "There you are - still warm. [wave]Mind the crust![/wave]",
+      "event": "bought"
+    },
+    {
+      "id": "poor",
+      "speaker": "Bess the baker",
+      "portrait": "sprites/villagechatter/baker_portrait.png",
+      "text": "Little Wren by the houses finds coins all week. Ask her."
+    },
+    {
+      "id": "bye",
+      "speaker": "Bess the baker",
+      "portrait": "sprites/villagechatter/baker_portrait.png",
+      "text": "Come back when you're hungry!"
+    }
+  ]
+}

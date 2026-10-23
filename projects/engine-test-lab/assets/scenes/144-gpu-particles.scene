@@ -1,0 +1,449 @@
+{
+ "name": "144 - GPU particles",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Fountain",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gpu_particles": {
+     "count": 60000,
+     "blend_mode": "Additive",
+     "z_order": 1,
+     "color_start": [
+      1.0,
+      0.8,
+      0.4,
+      0.0
+     ],
+     "color_mid": [
+      1.0,
+      0.8,
+      0.4,
+      0.5
+     ],
+     "color_end": [
+      0.4,
+      0.6,
+      1.0,
+      0.0
+     ],
+     "angle": [
+      1.35,
+      1.79
+     ],
+     "speed": [
+      150.0,
+      260.0
+     ],
+     "gravity": [
+      0.0,
+      -260.0
+     ],
+     "lifetime": [
+      1.5,
+      2.5
+     ],
+     "size": [
+      3.0,
+      1.0
+     ],
+     "stretch": 1.0,
+     "seed": 1
+    }
+   }
+  },
+  {
+   "name": "Galaxy",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gpu_particles": {
+     "count": 60000,
+     "blend_mode": "Additive",
+     "z_order": 1,
+     "color_start": [
+      0.5,
+      0.7,
+      1.0,
+      0.0
+     ],
+     "color_mid": [
+      0.6,
+      0.8,
+      1.0,
+      0.5
+     ],
+     "color_end": [
+      1.0,
+      0.5,
+      0.9,
+      0.0
+     ],
+     "speed": [
+      60.0,
+      75.0
+     ],
+     "drag": 0.15,
+     "swirl": 1.0,
+     "arms": 3,
+     "lifetime": [
+      3.0,
+      5.0
+     ],
+     "size": [
+      2.5,
+      1.0
+     ],
+     "seed": 2
+    }
+   }
+  },
+  {
+   "name": "Ring",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "gpu_particles": {
+     "count": 60000,
+     "blend_mode": "Additive",
+     "z_order": 1,
+     "color_start": [
+      0.5,
+      1.0,
+      0.6,
+      0.0
+     ],
+     "color_mid": [
+      0.5,
+      1.0,
+      0.6,
+      0.6
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "radius": 150.0,
+     "edge": true,
+     "speed": [
+      0.0,
+      10.0
+     ],
+     "attract": 1.5,
+     "noise": 10.0,
+     "lifetime": [
+      1.5,
+      3.0
+     ],
+     "size": [
+      3.0,
+      0.5
+     ],
+     "seed": 3
+    }
+   }
+  },
+  {
+   "name": "LF",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "fountain: gravity",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "LG",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "galaxy: swirl + drag",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "LR",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "text": {
+     "text": "ring: attract + noise",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 100,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "144 - GPU particles",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1100.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   [PgUp/PgDn] prev / next   [Up/Down] count   [Space] stop time",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      64.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "60k each",
+     "font_size": 16.0,
+     "color": [
+      0.95,
+      0.85,
+      0.6,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Three clouds, each one draw call: a fountain falling back, a spiral galaxy turning, a ring drawn into its centre.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1200.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Up / Down take them from 10k to 300k each with no slowdown to speak of; Space freezes them mid-flight.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_144_gpu_particles.lua"
+    }
+   }
+  }
+ ]
+}

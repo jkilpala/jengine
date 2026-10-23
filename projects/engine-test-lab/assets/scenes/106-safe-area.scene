@@ -1,0 +1,508 @@
+{
+  "name": "106-SafeArea",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            250.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "106 - Safe Area",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            200.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Editor Game view: pick a phone in the device menu. The corner panels and the controls move clear of the notch; the world (orange = authored edge) stays under it.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -330.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100,
+          "align": "center"
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_106_safe_area.lua"
+        }
+      }
+    },
+    {
+      "name": "Backdrop",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            0.13,
+            0.16,
+            0.24,
+            1
+          ],
+          "size": [
+            4000,
+            2400
+          ],
+          "z_order": -20
+        }
+      }
+    },
+    {
+      "name": "EdgeLeft",
+      "components": {
+        "transform": {
+          "position": [
+            -640,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            1.0,
+            0.55,
+            0.15,
+            1
+          ],
+          "size": [
+            8,
+            2400
+          ],
+          "z_order": -10
+        }
+      }
+    },
+    {
+      "name": "EdgeRight",
+      "components": {
+        "transform": {
+          "position": [
+            640,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            1.0,
+            0.55,
+            0.15,
+            1
+          ],
+          "size": [
+            8,
+            2400
+          ],
+          "z_order": -10
+        }
+      }
+    },
+    {
+      "name": "CenterMark",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/white32.png",
+          "color": [
+            1.0,
+            0.55,
+            0.15,
+            1
+          ],
+          "size": [
+            40,
+            40
+          ],
+          "z_order": -10
+        }
+      }
+    },
+    {
+      "name": "TopLeftPanel",
+      "components": {
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            250.0,
+            64.0
+          ],
+          "visible": true,
+          "z_order": 0
+        },
+        "ui_panel": {
+          "bg_color": [
+            0.1,
+            0.35,
+            0.55,
+            0.95
+          ]
+        }
+      }
+    },
+    {
+      "name": "TopLeftPanelLabel",
+      "components": {
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            12.0,
+            -18.0
+          ],
+          "size": [
+            226.0,
+            28.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "top left",
+          "font_id": "",
+          "font_size": 20.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "TopRightPanel",
+      "components": {
+        "ui_element": {
+          "anchor": "TopRight",
+          "offset": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            250.0,
+            64.0
+          ],
+          "visible": true,
+          "z_order": 0
+        },
+        "ui_panel": {
+          "bg_color": [
+            0.1,
+            0.35,
+            0.55,
+            0.95
+          ]
+        }
+      }
+    },
+    {
+      "name": "TopRightPanelLabel",
+      "components": {
+        "ui_element": {
+          "anchor": "TopRight",
+          "offset": [
+            12.0,
+            -18.0
+          ],
+          "size": [
+            226.0,
+            28.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "top right",
+          "font_id": "",
+          "font_size": 20.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "BottomLeftPanel",
+      "components": {
+        "ui_element": {
+          "anchor": "BottomLeft",
+          "offset": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            250.0,
+            64.0
+          ],
+          "visible": true,
+          "z_order": 0
+        },
+        "ui_panel": {
+          "bg_color": [
+            0.1,
+            0.35,
+            0.55,
+            0.95
+          ]
+        }
+      }
+    },
+    {
+      "name": "BottomLeftPanelLabel",
+      "components": {
+        "ui_element": {
+          "anchor": "BottomLeft",
+          "offset": [
+            12.0,
+            -18.0
+          ],
+          "size": [
+            226.0,
+            28.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "bottom left",
+          "font_id": "",
+          "font_size": 20.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "BottomRightPanel",
+      "components": {
+        "ui_element": {
+          "anchor": "BottomRight",
+          "offset": [
+            0.0,
+            0.0
+          ],
+          "size": [
+            250.0,
+            64.0
+          ],
+          "visible": true,
+          "z_order": 0
+        },
+        "ui_panel": {
+          "bg_color": [
+            0.1,
+            0.35,
+            0.55,
+            0.95
+          ]
+        }
+      }
+    },
+    {
+      "name": "BottomRightPanelLabel",
+      "components": {
+        "ui_element": {
+          "anchor": "BottomRight",
+          "offset": [
+            12.0,
+            -18.0
+          ],
+          "size": [
+            226.0,
+            28.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "bottom right",
+          "font_id": "",
+          "font_size": 20.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "TouchControls",
+      "components": {
+        "touch_controls": {
+          "show": "touch",
+          "controls": [
+            {
+              "type": "stick",
+              "anchor": "bottom_left",
+              "offset": [
+                170,
+                220
+              ],
+              "radius": 100
+            },
+            {
+              "type": "button",
+              "anchor": "bottom_right",
+              "offset": [
+                140,
+                220
+              ],
+              "radius": 60,
+              "press": "confirm",
+              "label": "A"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

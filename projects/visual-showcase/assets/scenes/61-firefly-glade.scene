@@ -1,0 +1,5011 @@
+{
+ "name": "61 - Firefly Glade",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.1,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.8
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       0.95,
+       0.97,
+       1.0,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/sky.png",
+     "color": [
+      0.0331,
+      0.03968,
+      0.14732,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1320.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      0.78741,
+      0.78741,
+      1.0,
+      0.6
+     ],
+     "z_order": -98,
+     "size": [
+      1320.0,
+      420.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MoonGlow",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.44799,
+      0.52252,
+      1.0,
+      0.35
+     ],
+     "z_order": -97,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/duel/moon.png",
+     "color": [
+      1.1,
+      1.1,
+      1.045,
+      1.0
+     ],
+     "z_order": -96,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PinesFar",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glade/pines_far.png",
+     "color": [
+      0.01341,
+      0.02198,
+      0.06372,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      1440.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mist",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/smoke.png",
+     "color": [
+      0.10048,
+      0.13287,
+      0.31855,
+      0.25
+     ],
+     "z_order": -75,
+     "size": [
+      1480.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "PinesNear",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glade/pines_near.png",
+     "color": [
+      0.0031,
+      0.0049,
+      0.01002,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      1440.0,
+      360.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.00232,
+      0.00394,
+      0.0049,
+      1.0
+     ],
+     "z_order": -65,
+     "size": [
+      1320.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pond",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/glade/pond.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      760.0,
+      100.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Grass3",
+   "components": {
+    "transform": {
+     "position": [
+      -236.3229276146743,
+      -325.7029419066474
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      88.5216786111929
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass4",
+   "components": {
+    "transform": {
+     "position": [
+      -574.0356503780182,
+      -326.6138408685335
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      72.29244122718251
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass5",
+   "components": {
+    "transform": {
+     "position": [
+      -651.6575129345898,
+      -314.6088125782356
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      75.20083210033886
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass6",
+   "components": {
+    "transform": {
+     "position": [
+      -214.43748209759525,
+      -334.8843065712674
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      70.34631674329954
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass7",
+   "components": {
+    "transform": {
+     "position": [
+      -127.8221116115094,
+      -322.3739424411286
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      91.6760163653845
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass8",
+   "components": {
+    "transform": {
+     "position": [
+      -239.59100264531196,
+      -314.9991169039354
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      66.06560553074615
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass11",
+   "components": {
+    "transform": {
+     "position": [
+      -421.4826914881994,
+      -339.43650169985204
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      77.87733574010284
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass12",
+   "components": {
+    "transform": {
+     "position": [
+      -151.51828502718263,
+      -332.8836631453343
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      109.89407040548822
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass17",
+   "components": {
+    "transform": {
+     "position": [
+      518.0038863806683,
+      -324.26547751000174
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      53.64600091762138
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass18",
+   "components": {
+    "transform": {
+     "position": [
+      -525.0151077077202,
+      -320.451194158566
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      88.02994677043269
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass19",
+   "components": {
+    "transform": {
+     "position": [
+      625.9059177182048,
+      -310.52796238546705
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      42.07776417565147
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass21",
+   "components": {
+    "transform": {
+     "position": [
+      523.4795869017685,
+      -321.3755038546338
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      98.4946584214041
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass22",
+   "components": {
+    "transform": {
+     "position": [
+      -65.87916537304795,
+      -335.05765062325963
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      89.72171712417097
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass23",
+   "components": {
+    "transform": {
+     "position": [
+      -628.7812380906272,
+      -331.70758388551764
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      67.84359623995805
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass24",
+   "components": {
+    "transform": {
+     "position": [
+      450.39445409527775,
+      -327.2105695349265
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      79.76998226183824
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass25",
+   "components": {
+    "transform": {
+     "position": [
+      -557.3163621157565,
+      -335.7388492917896
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      100.38659950607897
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass27",
+   "components": {
+    "transform": {
+     "position": [
+      523.7881306886261,
+      -328.9215662806399
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      106.91478208208764
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass28",
+   "components": {
+    "transform": {
+     "position": [
+      463.00206236604845,
+      -325.13855513701657
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      85.24595179320812
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass29",
+   "components": {
+    "transform": {
+     "position": [
+      -490.96196127003566,
+      -323.0081667662338
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      74.81834836107237
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass32",
+   "components": {
+    "transform": {
+     "position": [
+      -157.06258838772482,
+      -309.8342260545096
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      107.97331472615049
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass33",
+   "components": {
+    "transform": {
+     "position": [
+      404.06152589260887,
+      -332.01795652371925
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      86.1180737150718
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass34",
+   "components": {
+    "transform": {
+     "position": [
+      -486.29050121569105,
+      -338.40931324569766
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      84.86916966974631
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass35",
+   "components": {
+    "transform": {
+     "position": [
+      -16.07571889247265,
+      -308.83757775602214
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      101.470755544274
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass36",
+   "components": {
+    "transform": {
+     "position": [
+      492.99074419313206,
+      -312.33957907884945
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      77.50507875967531
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass37",
+   "components": {
+    "transform": {
+     "position": [
+      574.0202643329521,
+      -313.98861183562803
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      79.35455916997113
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass38",
+   "components": {
+    "transform": {
+     "position": [
+      153.88581570015901,
+      -332.6984483912831
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      84.2490749376637
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass39",
+   "components": {
+    "transform": {
+     "position": [
+      101.36271731789134,
+      -323.35167981200806
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      57.670869201807804
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass40",
+   "components": {
+    "transform": {
+     "position": [
+      -510.3953024899919,
+      -320.3478733623742
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      75.56729430843966
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass41",
+   "components": {
+    "transform": {
+     "position": [
+      -304.5470665584044,
+      -317.35514084362035
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      93.72070365675059
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass44",
+   "components": {
+    "transform": {
+     "position": [
+      -380.1318050090105,
+      -321.7252361401362
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      66.16018956477339
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass45",
+   "components": {
+    "transform": {
+     "position": [
+      -285.3836612953715,
+      -321.3760332887509
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      81.45873313470264
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass46",
+   "components": {
+    "transform": {
+     "position": [
+      569.5525562835221,
+      -338.18482482727023
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      84.64391480226757
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass49",
+   "components": {
+    "transform": {
+     "position": [
+      -292.28815411421544,
+      -338.76273293595915
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      71.65162682592121
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass51",
+   "components": {
+    "transform": {
+     "position": [
+      577.1859790978606,
+      -308.6085935461293
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      55.0091915810415
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass57",
+   "components": {
+    "transform": {
+     "position": [
+      546.6424582063019,
+      -326.4407744128462
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      43.94675859552828
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass58",
+   "components": {
+    "transform": {
+     "position": [
+      -374.96383259028687,
+      -316.5906296997483
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      48.04619048645775
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass60",
+   "components": {
+    "transform": {
+     "position": [
+      -380.81213742144666,
+      -318.07103406554256
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      81.91545053290054
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass62",
+   "components": {
+    "transform": {
+     "position": [
+      572.244665497652,
+      -333.7126335735677
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      70.91818059901226
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass63",
+   "components": {
+    "transform": {
+     "position": [
+      -336.9393580439398,
+      -338.9046445261802
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      103.82483732863815
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass66",
+   "components": {
+    "transform": {
+     "position": [
+      415.2234425732024,
+      -304.0734626209636
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      65.767527981453
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass67",
+   "components": {
+    "transform": {
+     "position": [
+      -351.66177465596945,
+      -301.9103384549525
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      73.17069017778387
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass69",
+   "components": {
+    "transform": {
+     "position": [
+      -632.5155276169774,
+      -317.4311336385265
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      98.12746987944642
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass70",
+   "components": {
+    "transform": {
+     "position": [
+      -354.0649275981244,
+      -334.39464876224105
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      48.842022077698495
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass71",
+   "components": {
+    "transform": {
+     "position": [
+      620.1866095450416,
+      -338.5853858886836
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      74.07206020349187
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass72",
+   "components": {
+    "transform": {
+     "position": [
+      -651.5593104259725,
+      -315.3679260464787
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      47.17520294668561
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass74",
+   "components": {
+    "transform": {
+     "position": [
+      -659.3620795533294,
+      -332.0063332906087
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      40.745192147071194
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass76",
+   "components": {
+    "transform": {
+     "position": [
+      643.9496720320781,
+      -338.98176712620995
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      46.354522112089796
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass77",
+   "components": {
+    "transform": {
+     "position": [
+      -383.2616929708793,
+      -334.54452326202613
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      64.07845792096035
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass79",
+   "components": {
+    "transform": {
+     "position": [
+      571.2740275165165,
+      -317.5937384879578
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      84.64890496225486
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass80",
+   "components": {
+    "transform": {
+     "position": [
+      -361.6853779344433,
+      -307.42892747012655
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      44.7106035235265
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass82",
+   "components": {
+    "transform": {
+     "position": [
+      -343.71339905481017,
+      -304.1184481667097
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      101.63563659004546
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass83",
+   "components": {
+    "transform": {
+     "position": [
+      -471.49577750491443,
+      -330.0644149631172
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      84.33343886092632
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass85",
+   "components": {
+    "transform": {
+     "position": [
+      -1.0244574581113284,
+      -320.57681552754553
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      88.44206141629928
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass86",
+   "components": {
+    "transform": {
+     "position": [
+      162.85962397586025,
+      -307.4627593816777
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      84.48668624884644
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass87",
+   "components": {
+    "transform": {
+     "position": [
+      -626.4920919724847,
+      -328.5930543551646
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      44.46718475925637
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass88",
+   "components": {
+    "transform": {
+     "position": [
+      -289.52421874832805,
+      -318.7421870465035
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      56.44626235272548
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass90",
+   "components": {
+    "transform": {
+     "position": [
+      -372.304964401095,
+      -300.06276564467163
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      80.06352018344778
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass92",
+   "components": {
+    "transform": {
+     "position": [
+      -335.09207119376754,
+      -338.12657368641226
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      47.66811316364002
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass93",
+   "components": {
+    "transform": {
+     "position": [
+      503.90439998421834,
+      -335.9880645318824
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      92.94091166349008
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass94",
+   "components": {
+    "transform": {
+     "position": [
+      -560.3884667082149,
+      -322.9846491654141
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      71.07561969642525
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass97",
+   "components": {
+    "transform": {
+     "position": [
+      -496.4812834346959,
+      -324.7903020688086
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      75.04074948855137
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass99",
+   "components": {
+    "transform": {
+     "position": [
+      558.2411572199594,
+      -330.3279197494191
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      80.73932188573471
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass100",
+   "components": {
+    "transform": {
+     "position": [
+      656.2946673975609,
+      -302.2950985772186
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      102.91582831063724
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass103",
+   "components": {
+    "transform": {
+     "position": [
+      656.3359922220236,
+      -317.81847622463874
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      66.35825805376287
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass104",
+   "components": {
+    "transform": {
+     "position": [
+      -641.716539887527,
+      -304.6560250218504
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      42.137458399785096
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass105",
+   "components": {
+    "transform": {
+     "position": [
+      -626.7960883239879,
+      -302.89202811398474
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      47.22053993325896
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass106",
+   "components": {
+    "transform": {
+     "position": [
+      655.605925220877,
+      -315.30537153921455
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      54.3017437425892
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass108",
+   "components": {
+    "transform": {
+     "position": [
+      -270.9106364268716,
+      -322.6347785443767
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      94.54508540055522
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass110",
+   "components": {
+    "transform": {
+     "position": [
+      -479.9023565321029,
+      -323.03125544832125
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      94.39063661931942
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass111",
+   "components": {
+    "transform": {
+     "position": [
+      -622.5941621625433,
+      -334.07027253104866
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      70.84664551994172
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass113",
+   "components": {
+    "transform": {
+     "position": [
+      -530.2975390429035,
+      -315.17062792992994
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      98.26914319865806
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass116",
+   "components": {
+    "transform": {
+     "position": [
+      -522.4601821934891,
+      -334.993115959655
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      66.0166115686099
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass117",
+   "components": {
+    "transform": {
+     "position": [
+      626.3749006745447,
+      -301.266173190229
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      70.52394072455877
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass120",
+   "components": {
+    "transform": {
+     "position": [
+      551.0021933553405,
+      -337.70565865886925
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      105.28876518797837
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass121",
+   "components": {
+    "transform": {
+     "position": [
+      -638.0084684186447,
+      -315.2564254242145
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      67.60677469406892
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass122",
+   "components": {
+    "transform": {
+     "position": [
+      403.7335384486405,
+      -336.7819692498884
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      66.83325372324445
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass125",
+   "components": {
+    "transform": {
+     "position": [
+      213.56930776241904,
+      -330.040000898574
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      83.75854387612083
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass127",
+   "components": {
+    "transform": {
+     "position": [
+      625.2449833134474,
+      -320.482845696174
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      45.482974827734495
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass134",
+   "components": {
+    "transform": {
+     "position": [
+      597.1880536050819,
+      -324.5501242573588
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      91.34575062474968
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass135",
+   "components": {
+    "transform": {
+     "position": [
+      -496.3470614201458,
+      -302.59403372174467
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      47.49432799927243
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass136",
+   "components": {
+    "transform": {
+     "position": [
+      -266.6815715833055,
+      -337.4475366556315
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      80.03666688970293
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass137",
+   "components": {
+    "transform": {
+     "position": [
+      -237.95277974678936,
+      -330.7071665562092
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      83.53146275407697
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.3333333333333333,
+      0.0,
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Grass139",
+   "components": {
+    "transform": {
+     "position": [
+      503.92758711851206,
+      -321.1150021615575
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/meadow/blades.png",
+     "color": [
+      0.0049,
+      0.01002,
+      0.00719,
+      1.0
+     ],
+     "z_order": 40,
+     "size": [
+      14.0,
+      52.40302584935502
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ],
+     "uv_rect": [
+      0.6666666666666666,
+      0.0,
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "materials/meadow_sway",
+     "blend_mode": "Alpha",
+     "uniforms": {
+      "wind": {
+       "Float": 7.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Fireflies",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -80.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 22.0,
+     "max_particles": 260,
+     "lifetime": [
+      5.0,
+      9.0
+     ],
+     "speed": [
+      5.0,
+      15.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.66097,
+      2.4,
+      0.40954,
+      0.0
+     ],
+     "color_end": [
+      1.66097,
+      2.4,
+      0.40954,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      7.0
+     ],
+     "size_end": [
+      5.0,
+      7.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1100.0,
+       260.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       1.66097,
+       2.4,
+       0.40954,
+       0.0
+      ],
+      [
+       0.15,
+       1.66097,
+       2.4,
+       0.40954,
+       1.0
+      ],
+      [
+       0.5,
+       1.66097,
+       2.4,
+       0.40954,
+       0.35
+      ],
+      [
+       0.65,
+       1.66097,
+       2.4,
+       0.40954,
+       1.0
+      ],
+      [
+       1.0,
+       1.66097,
+       2.4,
+       0.40954,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 70.0,
+      "scale": 140.0,
+      "speed": 0.25
+     },
+     "trail": {
+      "length": 16,
+      "interval": 0.06,
+      "width": 0.8,
+      "taper": true,
+      "fade": true
+     }
+    }
+   }
+  },
+  {
+   "name": "PondFlies",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 10.0,
+     "max_particles": 260,
+     "lifetime": [
+      5.0,
+      9.0
+     ],
+     "speed": [
+      5.0,
+      15.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.66097,
+      2.4,
+      0.40954,
+      0.0
+     ],
+     "color_end": [
+      1.66097,
+      2.4,
+      0.40954,
+      0.0
+     ],
+     "size_start": [
+      5.0,
+      7.0
+     ],
+     "size_end": [
+      5.0,
+      7.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 30,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       600.0,
+       90.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       1.66097,
+       2.4,
+       0.40954,
+       0.0
+      ],
+      [
+       0.15,
+       1.66097,
+       2.4,
+       0.40954,
+       1.0
+      ],
+      [
+       0.5,
+       1.66097,
+       2.4,
+       0.40954,
+       0.35
+      ],
+      [
+       0.65,
+       1.66097,
+       2.4,
+       0.40954,
+       1.0
+      ],
+      [
+       1.0,
+       1.66097,
+       2.4,
+       0.40954,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 70.0,
+      "scale": 140.0,
+      "speed": 0.25
+     },
+     "trail": {
+      "length": 16,
+      "interval": 0.06,
+      "width": 0.8,
+      "taper": true,
+      "fade": true
+     }
+    }
+   }
+  },
+  {
+   "name": "Sparkler",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/spark.png",
+     "emission_rate": 90.0,
+     "max_particles": 260,
+     "lifetime": [
+      0.35,
+      0.8
+     ],
+     "speed": [
+      90.0,
+      260.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      3.5,
+      2.75594,
+      1.11492,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.42808,
+      0.0662,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.5,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 35,
+     "blend_mode": "Additive",
+     "drag": 1.2,
+     "trail": {
+      "length": 6,
+      "interval": 0.025,
+      "width": 0.9,
+      "taper": true,
+      "fade": true
+     }
+    }
+   }
+  },
+  {
+   "name": "SparklerGlow",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.96613,
+      0.34246,
+      0.6
+     ],
+     "z_order": 34,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Meteor",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 4,
+     "lifetime": [
+      0.9,
+      0.9
+     ],
+     "speed": [
+      900.0,
+      900.0
+     ],
+     "angle": [
+      3.5,
+      3.5
+     ],
+     "color_start": [
+      2.36223,
+      2.67003,
+      3.0,
+      1.0
+     ],
+     "color_end": [
+      2.36223,
+      2.67003,
+      3.0,
+      0.0
+     ],
+     "size_start": [
+      6.0,
+      6.0
+     ],
+     "size_end": [
+      4.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": false,
+     "world_space": true,
+     "z_order": -90,
+     "blend_mode": "Additive",
+     "trail": {
+      "length": 16,
+      "interval": 0.02,
+      "width": 0.7,
+      "taper": true,
+      "fade": true
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "61   Firefly Glade",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Mouse  the sparkler   Space  a shooting star   T  trails on / off   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s61_firefly_glade.lua"
+    }
+   }
+  }
+ ]
+}

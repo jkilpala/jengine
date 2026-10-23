@@ -1,0 +1,386 @@
+{
+ "name": "231 - Paint canvas",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Backdrop",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "color": [
+      0.3,
+      0.32,
+      0.38,
+      1
+     ],
+     "z_order": -10,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      1024.0,
+      512.0
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Canvas",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab231_canvas.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      1024.0,
+      512.0
+     ]
+    },
+    "paintable": {
+     "blend": "over",
+     "alpha_cutoff": 0.0
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/soft_disc.png",
+     "emission_rate": 120.0,
+     "max_particles": 400,
+     "lifetime": [
+      0.6,
+      1.0
+     ],
+     "speed": [
+      10.0,
+      40.0
+     ],
+     "angle": [
+      1.2,
+      1.9
+     ],
+     "color_start": [
+      1.0,
+      0.9,
+      0.5,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.5,
+      0.1,
+      0.0
+     ],
+     "size_start": [
+      6.0,
+      9.0
+     ],
+     "size_end": [
+      2.0,
+      3.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Additive",
+     "emit_shape": {
+      "kind": "sprite",
+      "edge": false,
+      "cutoff": 0.5
+     }
+    }
+   }
+  },
+  {
+   "name": "Painter",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      1.0,
+      0.6,
+      0.2,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      12.0,
+      12.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Eraser",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "color": [
+      0.4,
+      0.8,
+      1.0,
+      1
+     ],
+     "z_order": 6,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      12.0,
+      12.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "231 - Paint canvas",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   left click paints   right click erases",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      700.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: a transparent canvas over the checks - the orange brush paints solid strokes onto it (colour and alpha), the blue one rubs them out",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "(`erase`); sparks rise only from what is painted right now, following both brushes - none from the empty canvas.",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_231_paint_canvas.lua"
+    }
+   }
+  }
+ ]
+}

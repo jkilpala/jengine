@@ -1,0 +1,156 @@
+/*
+ * The site's palettes - shared by the Starlight docs (custom.css maps these
+ * onto Starlight's own tokens) and the hand-built pages (site.css).
+ *
+ * Three palettes from late-80s / 90s OVA cyberpunk, picked with the palette
+ * select in the header and kept in localStorage under `jx-palette`:
+ *   dusk   - MegaTokyo Dusk: plum sky, coral neon, setting sun (the default)
+ *   sabers - Knight Sabers: Bubblegum Crisis night, hot pink and cyan
+ *   genom  - GENOM Tower: blue-black steel, HUD cyan, alarm red
+ *
+ * Each has a dark and a light set (`data-theme`, Starlight's own toggle), plus
+ * `--jx-n-*` "night" tokens the designed pages use in either mode: their hero
+ * is a night skyline, whatever the docs are set to.
+ *
+ * Every token is defined in every block, so no combination falls through to
+ * another palette's colour.
+ *
+ * The editor carries the same palettes (editor/src/theme.css), and the style
+ * guide is docs/brand/README.md. After changing a value, run
+ * `python docs/brand/build_brand.py`, which fails if the two files disagree.
+ */
+
+:root {
+  --jx-display: 'Dela Gothic One', 'Arial Black', Impact, sans-serif;
+  --jx-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --jx-mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}
+
+/* ---------- MegaTokyo Dusk (default) ---------- */
+:root {
+  --jx-bg: #1b0f2e;
+  --jx-panel: #241439;
+  --jx-line: #3d2459;
+  --jx-ink: #fff1e6;
+  --jx-text: #e8d5dc;
+  --jx-muted: #b89bb8;
+  --jx-accent: #ff5d73;
+  --jx-accent-low: #47193d;
+  --jx-accent-high: #ffb3bd;
+  --jx-link: #ff7d8f;
+  --jx-a2: #3ee0c5;
+  --jx-a3: #ff9f43;
+  --jx-code-bg: #22133a;
+
+  --jx-n-bg: #1b0f2e;
+  --jx-n-panel: #2a1745;
+  --jx-n-line: #4a2a6b;
+  --jx-n-ink: #fff1e6;
+  --jx-n-muted: #c9a9c9;
+  --jx-n-accent: #ff5d73;
+  --jx-n-a2: #3ee0c5;
+  --jx-n-a3: #ff9f43;
+  --jx-n-sun1: #ffcf5c;
+  --jx-n-sun2: #ff4f8b;
+}
+:root[data-theme='light'] {
+  --jx-bg: #fff6ef;
+  --jx-panel: #fdece0;
+  --jx-line: #efd2c3;
+  --jx-ink: #2a1238;
+  --jx-text: #3d2348;
+  --jx-muted: #6f4d6b;
+  --jx-accent: #c43a52;
+  --jx-accent-low: #fbdbdd;
+  --jx-accent-high: #8e1f37;
+  --jx-link: #b3304a;
+  --jx-a2: #6a2fb8;
+  --jx-a3: #a85400;
+  --jx-code-bg: #fdf0e6;
+}
+
+/* ---------- Knight Sabers ---------- */
+:root[data-palette='sabers'] {
+  --jx-bg: #0c0a1f;
+  --jx-panel: #141236;
+  --jx-line: #2c2766;
+  --jx-ink: #ece9ff;
+  --jx-text: #d6d2f2;
+  --jx-muted: #9d97d4;
+  --jx-accent: #ff2e88;
+  --jx-accent-low: #3d0f35;
+  --jx-accent-high: #ffa8cf;
+  --jx-link: #ff5ca3;
+  --jx-a2: #29e3f0;
+  --jx-a3: #ffbe3d;
+  --jx-code-bg: #120f2c;
+
+  --jx-n-bg: #0c0a1f;
+  --jx-n-panel: #17143a;
+  --jx-n-line: #2c2766;
+  --jx-n-ink: #ece9ff;
+  --jx-n-muted: #9d97d4;
+  --jx-n-accent: #ff2e88;
+  --jx-n-a2: #29e3f0;
+  --jx-n-a3: #ffbe3d;
+  --jx-n-sun1: #ffd166;
+  --jx-n-sun2: #ff2e88;
+}
+:root[data-palette='sabers'][data-theme='light'] {
+  --jx-bg: #f6f4ff;
+  --jx-panel: #ebe7ff;
+  --jx-line: #d6d0f5;
+  --jx-ink: #1a1640;
+  --jx-text: #2c2756;
+  --jx-muted: #5b5585;
+  --jx-accent: #c1125f;
+  --jx-accent-low: #fbd3e6;
+  --jx-accent-high: #8a0c44;
+  --jx-link: #b0105a;
+  --jx-a2: #08717b;
+  --jx-a3: #8f5c00;
+  --jx-code-bg: #efecff;
+}
+
+/* ---------- GENOM Tower ---------- */
+:root[data-palette='genom'] {
+  --jx-bg: #070b12;
+  --jx-panel: #0d1420;
+  --jx-line: #1e2d42;
+  --jx-ink: #dfe8f2;
+  --jx-text: #c4d0dd;
+  --jx-muted: #7f93ab;
+  --jx-accent: #00d0ff;
+  --jx-accent-low: #062a3a;
+  --jx-accent-high: #a6ecff;
+  --jx-link: #3fdcff;
+  --jx-a2: #ff3b3b;
+  --jx-a3: #ffb000;
+  --jx-code-bg: #0b111b;
+
+  --jx-n-bg: #070b12;
+  --jx-n-panel: #0f1724;
+  --jx-n-line: #1e2d42;
+  --jx-n-ink: #dfe8f2;
+  --jx-n-muted: #7f93ab;
+  --jx-n-accent: #00d0ff;
+  --jx-n-a2: #ff3b3b;
+  --jx-n-a3: #ffb000;
+  --jx-n-sun1: #c7d3e0;
+  --jx-n-sun2: #00d0ff;
+}
+:root[data-palette='genom'][data-theme='light'] {
+  --jx-bg: #f2f5f9;
+  --jx-panel: #e5ebf2;
+  --jx-line: #cbd5e1;
+  --jx-ink: #0b1320;
+  --jx-text: #1f2b3b;
+  --jx-muted: #4b5b70;
+  --jx-accent: #0072a8;
+  --jx-accent-low: #cfe9f6;
+  --jx-accent-high: #004f75;
+  --jx-link: #006699;
+  --jx-a2: #c4161c;
+  --jx-a3: #945500;
+  --jx-code-bg: #e9eef5;
+}

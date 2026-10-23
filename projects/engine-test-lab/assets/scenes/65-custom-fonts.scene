@@ -1,0 +1,168 @@
+{
+  "name": "Scene",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Title",
+      "components": {
+        "transform": { "position": [-600.0, 310.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "65 - CUSTOM FONTS", "font_id": "", "font_scale": 3.0, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": { "position": [-600.0, 255.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Every PAIR below must differ. Same string, same scale - only font_id changes.", "font_id": "", "font_scale": 1.0, "color": [0.65, 0.7, 0.8, 0.9], "z_order": 0 }
+      }
+    },
+
+    {
+      "name": "PairALabel",
+      "components": {
+        "transform": { "position": [-600.0, 195.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "A. font_id = \"\"  (built-in Noto Sans)", "font_id": "", "font_scale": 0.9, "color": [0.55, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "PairABuiltin",
+      "components": {
+        "transform": { "position": [-600.0, 150.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Handgloves 0123", "font_id": "", "font_scale": 2.0, "color": [0.8, 0.85, 1.0, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "PairBLabel",
+      "components": {
+        "transform": { "position": [-600.0, 95.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "B. font_id = \"fonts/bebasneue-regular.font\"  (tall condensed caps)", "font_id": "", "font_scale": 0.9, "color": [0.55, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "PairBCustom",
+      "components": {
+        "transform": { "position": [-600.0, 50.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Handgloves 0123", "font_id": "fonts/bebasneue-regular.font", "font_scale": 2.0, "color": [1.0, 0.85, 0.5, 1.0], "z_order": 0 }
+      }
+    },
+
+    {
+      "name": "AccentLabel",
+      "components": {
+        "transform": { "position": [-600.0, -20.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Accents + descenders (x_offset / y_offset must be honoured):", "font_id": "", "font_scale": 0.9, "color": [0.55, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "AccentCustom",
+      "components": {
+        "transform": { "position": [-600.0, -65.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "jyvaskyla JYVASKYLA ppqqgg", "font_id": "fonts/bebasneue-regular.font", "font_scale": 1.8, "color": [0.8, 1.0, 0.85, 1.0], "z_order": 0 }
+      }
+    },
+
+    {
+      "name": "FallbackLabel",
+      "components": {
+        "transform": { "position": [-600.0, -135.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Missing font falls back - this line must be READABLE, not blank:", "font_id": "", "font_scale": 0.9, "color": [0.55, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "FallbackMissing",
+      "components": {
+        "transform": { "position": [-600.0, -180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "font_id points at a file that does not exist", "font_id": "fonts/does-not-exist.font", "font_scale": 1.4, "color": [1.0, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+
+    {
+      "name": "OrderLabel",
+      "components": {
+        "transform": { "position": [-600.0, -250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "z_order across fonts - the YELLOW custom-font line must sit ON TOP:", "font_id": "", "font_scale": 0.9, "color": [0.55, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "OrderBackBuiltin",
+      "components": {
+        "transform": { "position": [-600.0, -300.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "BEHIND z=0 BEHIND z=0 BEHIND z=0 BEHIND", "font_id": "", "font_scale": 2.0, "color": [0.3, 0.4, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "OrderFrontCustom",
+      "components": {
+        "transform": { "position": [-580.0, -300.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "  IN FRONT z=5  ", "font_id": "fonts/bebasneue-regular.font", "font_scale": 2.0, "color": [1.0, 0.95, 0.4, 1.0], "z_order": 5 }
+      }
+    },
+
+    {
+      "name": "Readout",
+      "components": {
+        "transform": { "position": [80.0, 150.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "", "font_id": "", "font_scale": 1.1, "color": [0.9, 0.9, 0.95, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "TickerLabel",
+      "components": {
+        "transform": { "position": [80.0, 30.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Live set_text in the custom font:", "font_id": "", "font_scale": 0.9, "color": [0.55, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "Ticker",
+      "components": {
+        "transform": { "position": [80.0, -15.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "", "font_id": "fonts/bebasneue-regular.font", "font_scale": 1.6, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "WrapLabel",
+      "components": {
+        "transform": { "position": [80.0, -95.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "wrap_width in the custom font's own metrics:", "font_id": "", "font_scale": 0.9, "color": [0.55, 0.6, 0.7, 1.0], "z_order": 0 }
+      }
+    },
+    {
+      "name": "WrapCustom",
+      "components": {
+        "transform": { "position": [80.0, -140.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "This paragraph wraps at four hundred units and every line break is measured with the custom font advances, not the built-in ones.", "font_id": "fonts/bebasneue-regular.font", "font_scale": 1.2, "wrap_width": 400.0, "color": [0.75, 0.9, 1.0, 1.0], "z_order": 0 }
+      }
+    },
+
+    {
+      "name": "ControlsHelp",
+      "components": {
+        "transform": { "position": [-600.0, -350.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "H hub  |  PgUp/PgDn tour", "font_id": "", "font_scale": 1.0, "color": [0.65, 0.7, 0.8, 0.85], "z_order": 0 }
+      }
+    },
+
+    {
+      "name": "FontWidgets",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "gui": { "gui_id": "ui/scene_65_fonts.gui", "visible": true }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_65_custom_fonts.lua" }
+      }
+    }
+  ]
+}

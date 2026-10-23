@@ -1,0 +1,2856 @@
+{
+ "name": "67 - Signs of the Silk Road",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.95
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.0,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.92,
+       0.85,
+       0.05
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Dusk",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.26327,
+      0.26327,
+      0.69207
+     ],
+     "intensity": 0.45
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/silk/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1380.0,
+      880.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Domes",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/silk/domes.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1400.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1380.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Coping",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -132.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.21404,
+      0.11928,
+      0.05088,
+      1.0
+     ],
+     "z_order": -58,
+     "size": [
+      1380.0,
+      14.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Door0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      100.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DoorWord0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0411\u0430\u0437\u0430\u0440",
+     "font_id": "fonts/noto/NotoSans-Regular-subset.ttf",
+     "font_scale": 1.15,
+     "color": [
+      0.89001,
+      0.69207,
+      0.38006,
+      1.0
+     ],
+     "z_order": -54,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DoorGlow0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 0.9,
+     "radius": 200.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Door1",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      100.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DoorWord1",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u304a\u571f\u7523",
+     "font_id": "fonts/noto/NotoSansJP-Regular-subset.ttf",
+     "font_scale": 1.15,
+     "color": [
+      0.89001,
+      0.69207,
+      0.38006,
+      1.0
+     ],
+     "z_order": -54,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DoorGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -260.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 0.9,
+     "radius": 200.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Door2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      100.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DoorWord2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u5ba2\u6808",
+     "font_id": "fonts/noto/NotoSansSC-Regular-subset.ttf",
+     "font_scale": 1.15,
+     "color": [
+      0.89001,
+      0.69207,
+      0.38006,
+      1.0
+     ],
+     "z_order": -54,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DoorGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 0.9,
+     "radius": 200.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Door3",
+   "components": {
+    "transform": {
+     "position": [
+      260.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      100.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DoorWord3",
+   "components": {
+    "transform": {
+     "position": [
+      260.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\ucc3b\uc9d1",
+     "font_id": "fonts/noto/NotoSansKR-Regular-subset.ttf",
+     "font_scale": 1.15,
+     "color": [
+      0.89001,
+      0.69207,
+      0.38006,
+      1.0
+     ],
+     "z_order": -54,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DoorGlow3",
+   "components": {
+    "transform": {
+     "position": [
+      260.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 0.9,
+     "radius": 200.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Door4",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      100.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "DoorWord4",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0391\u03b3\u03bf\u03c1\u03ac",
+     "font_id": "fonts/noto/NotoSans-Regular-subset.ttf",
+     "font_scale": 1.15,
+     "color": [
+      0.89001,
+      0.69207,
+      0.38006,
+      1.0
+     ],
+     "z_order": -54,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "DoorGlow4",
+   "components": {
+    "transform": {
+     "position": [
+      520.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 0.9,
+     "radius": 200.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Beam",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      268.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.03968,
+      0.01739,
+      0.00719,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      1380.0,
+      18.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hook0",
+   "components": {
+    "transform": {
+     "position": [
+      -525.0,
+      258.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain0",
+   "parent": "Hook0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.05088,
+      0.05088,
+      0.06372,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      3.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign0",
+   "parent": "Hook0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      172.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word0",
+   "parent": "Hook0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u8336\u5c4b",
+     "font_id": "fonts/noto/NotoSansJP-Regular-subset.ttf",
+     "font_scale": 1.8,
+     "color": [
+      0.9551,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0,
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.12,
+       0.06,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "English0",
+   "parent": "Hook0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -121.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Tea House",
+     "font_id": "",
+     "font_scale": 0.7,
+     "color": [
+      0.78741,
+      0.60383,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hook1",
+   "components": {
+    "transform": {
+     "position": [
+      -315.0,
+      258.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain1",
+   "parent": "Hook1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.05088,
+      0.05088,
+      0.06372,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      3.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign1",
+   "parent": "Hook1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      172.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word1",
+   "parent": "Hook1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u0427\u0430\u0439\u0445\u0430\u043d\u0430",
+     "font_id": "fonts/noto/NotoSans-Regular-subset.ttf",
+     "font_scale": 1.8,
+     "color": [
+      0.9551,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0,
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.12,
+       0.06,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "English1",
+   "parent": "Hook1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -121.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Tea Room",
+     "font_id": "",
+     "font_scale": 0.7,
+     "color": [
+      0.78741,
+      0.60383,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hook2",
+   "components": {
+    "transform": {
+     "position": [
+      -105.0,
+      258.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain2",
+   "parent": "Hook2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.05088,
+      0.05088,
+      0.06372,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      3.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign2",
+   "parent": "Hook2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      172.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word2",
+   "parent": "Hook2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u4e1d\u7ef8\u4e4b\u8def",
+     "font_id": "fonts/noto/NotoSansSC-Regular-subset.ttf",
+     "font_scale": 1.8,
+     "color": [
+      0.9551,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0,
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.12,
+       0.06,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "English2",
+   "parent": "Hook2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -121.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "The Silk Road",
+     "font_id": "",
+     "font_scale": 0.7,
+     "color": [
+      0.78741,
+      0.60383,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hook3",
+   "components": {
+    "transform": {
+     "position": [
+      105.0,
+      258.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain3",
+   "parent": "Hook3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.05088,
+      0.05088,
+      0.06372,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      3.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign3",
+   "parent": "Hook3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      172.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word3",
+   "parent": "Hook3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u03a4\u03b1\u03b2\u03ad\u03c1\u03bd\u03b1",
+     "font_id": "fonts/noto/NotoSans-Regular-subset.ttf",
+     "font_scale": 1.8,
+     "color": [
+      0.9551,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0,
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.12,
+       0.06,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "English3",
+   "parent": "Hook3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -121.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Tavern",
+     "font_id": "",
+     "font_scale": 0.7,
+     "color": [
+      0.78741,
+      0.60383,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hook4",
+   "components": {
+    "transform": {
+     "position": [
+      315.0,
+      258.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain4",
+   "parent": "Hook4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.05088,
+      0.05088,
+      0.06372,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      3.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign4",
+   "parent": "Hook4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      172.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word4",
+   "parent": "Hook4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\uc2dc\uc7a5",
+     "font_id": "fonts/noto/NotoSansKR-Regular-subset.ttf",
+     "font_scale": 1.8,
+     "color": [
+      0.9551,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0,
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.12,
+       0.06,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "English4",
+   "parent": "Hook4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -121.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Market",
+     "font_id": "",
+     "font_scale": 0.7,
+     "color": [
+      0.78741,
+      0.60383,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Hook5",
+   "components": {
+    "transform": {
+     "position": [
+      525.0,
+      258.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Chain5",
+   "parent": "Hook5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -22.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.05088,
+      0.05088,
+      0.06372,
+      1.0
+     ],
+     "z_order": -12,
+     "size": [
+      3.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign5",
+   "parent": "Hook5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/silk/sign.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -11,
+     "size": [
+      172.0,
+      88.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Word5",
+   "parent": "Hook5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -84.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "\u9999\u6599",
+     "font_id": "fonts/noto/NotoSansSC-Regular-subset.ttf",
+     "font_scale": 1.8,
+     "color": [
+      0.9551,
+      0.74841,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0,
+     "outline": {
+      "width": 1.2,
+      "color": [
+       0.12,
+       0.06,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "English5",
+   "parent": "Hook5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -121.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Spices",
+     "font_id": "",
+     "font_scale": 0.7,
+     "color": [
+      0.78741,
+      0.60383,
+      0.34239,
+      1.0
+     ],
+     "z_order": -10,
+     "align": "center",
+     "wrap_width": 0.0
+    }
+   }
+  },
+  {
+   "name": "Lantern0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/silk/lantern.png",
+     "color": [
+      1.4,
+      0.73153,
+      0.29966,
+      1.0
+     ],
+     "z_order": -13,
+     "size": [
+      30.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternCord0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.0331,
+      0.0331,
+      0.03968,
+      1.0
+     ],
+     "z_order": -15,
+     "size": [
+      2.0,
+      205.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternGlow0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.35
+     ],
+     "z_order": -14,
+     "size": [
+      140.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternLight0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 1.3,
+     "radius": 330.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Lantern1",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/silk/lantern.png",
+     "color": [
+      1.4,
+      0.73153,
+      0.29966,
+      1.0
+     ],
+     "z_order": -13,
+     "size": [
+      30.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternCord1",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.0331,
+      0.0331,
+      0.03968,
+      1.0
+     ],
+     "z_order": -15,
+     "size": [
+      2.0,
+      205.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternGlow1",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.35
+     ],
+     "z_order": -14,
+     "size": [
+      140.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternLight1",
+   "components": {
+    "transform": {
+     "position": [
+      -210.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 1.3,
+     "radius": 330.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Lantern2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/silk/lantern.png",
+     "color": [
+      1.4,
+      0.73153,
+      0.29966,
+      1.0
+     ],
+     "z_order": -13,
+     "size": [
+      30.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternCord2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.0331,
+      0.0331,
+      0.03968,
+      1.0
+     ],
+     "z_order": -15,
+     "size": [
+      2.0,
+      205.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternGlow2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.35
+     ],
+     "z_order": -14,
+     "size": [
+      140.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternLight2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 1.3,
+     "radius": 330.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Lantern3",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/silk/lantern.png",
+     "color": [
+      1.4,
+      0.73153,
+      0.29966,
+      1.0
+     ],
+     "z_order": -13,
+     "size": [
+      30.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternCord3",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.0331,
+      0.0331,
+      0.03968,
+      1.0
+     ],
+     "z_order": -15,
+     "size": [
+      2.0,
+      205.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternGlow3",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.35
+     ],
+     "z_order": -14,
+     "size": [
+      140.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternLight3",
+   "components": {
+    "transform": {
+     "position": [
+      210.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 1.3,
+     "radius": 330.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Lantern4",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/silk/lantern.png",
+     "color": [
+      1.4,
+      0.73153,
+      0.29966,
+      1.0
+     ],
+     "z_order": -13,
+     "size": [
+      30.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternCord4",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "__white",
+     "color": [
+      0.0331,
+      0.0331,
+      0.03968,
+      1.0
+     ],
+     "z_order": -15,
+     "size": [
+      2.0,
+      205.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternGlow4",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.0331,
+      0.35
+     ],
+     "z_order": -14,
+     "size": [
+      140.0,
+      140.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "LanternLight4",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.10654
+     ],
+     "intensity": 1.3,
+     "radius": 330.0,
+     "falloff": 1.5,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Swing",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "timeline": {
+     "clips": {
+      "swing": {
+       "duration": 7.8,
+       "tracks": [
+        {
+         "target": "Hook0",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           0.0
+          ],
+          [
+           0.4,
+           0.0354
+          ],
+          [
+           0.8,
+           0.05
+          ],
+          [
+           1.2,
+           0.0354
+          ],
+          [
+           1.6,
+           0.0
+          ],
+          [
+           2.0,
+           -0.0354
+          ],
+          [
+           2.4,
+           -0.05
+          ],
+          [
+           2.8,
+           -0.0354
+          ],
+          [
+           3.2,
+           -0.0
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Hook1",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           0.0553
+          ],
+          [
+           0.444,
+           0.059
+          ],
+          [
+           0.888,
+           0.0281
+          ],
+          [
+           1.331,
+           -0.0192
+          ],
+          [
+           1.775,
+           -0.0553
+          ],
+          [
+           2.219,
+           -0.059
+          ],
+          [
+           2.663,
+           -0.0281
+          ],
+          [
+           3.106,
+           0.0192
+          ],
+          [
+           3.55,
+           0.0553
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Hook2",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           0.0404
+          ],
+          [
+           0.488,
+           0.0078
+          ],
+          [
+           0.975,
+           -0.0294
+          ],
+          [
+           1.463,
+           -0.0494
+          ],
+          [
+           1.95,
+           -0.0404
+          ],
+          [
+           2.438,
+           -0.0078
+          ],
+          [
+           2.925,
+           0.0294
+          ],
+          [
+           3.413,
+           0.0494
+          ],
+          [
+           3.9,
+           0.0404
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Hook3",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           -0.0098
+          ],
+          [
+           0.4,
+           -0.0502
+          ],
+          [
+           0.8,
+           -0.0612
+          ],
+          [
+           1.2,
+           -0.0364
+          ],
+          [
+           1.6,
+           0.0098
+          ],
+          [
+           2.0,
+           0.0502
+          ],
+          [
+           2.4,
+           0.0612
+          ],
+          [
+           2.8,
+           0.0364
+          ],
+          [
+           3.2,
+           -0.0098
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Hook4",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           -0.0476
+          ],
+          [
+           0.444,
+           -0.0445
+          ],
+          [
+           0.888,
+           -0.0154
+          ],
+          [
+           1.331,
+           0.0228
+          ],
+          [
+           1.775,
+           0.0476
+          ],
+          [
+           2.219,
+           0.0445
+          ],
+          [
+           2.663,
+           0.0154
+          ],
+          [
+           3.106,
+           -0.0228
+          ],
+          [
+           3.55,
+           -0.0476
+          ]
+         ],
+         "ease": "in_out"
+        },
+        {
+         "target": "Hook5",
+         "component": "transform",
+         "field": "rotation",
+         "keys": [
+          [
+           0.0,
+           -0.0437
+          ],
+          [
+           0.488,
+           0.0001
+          ],
+          [
+           0.975,
+           0.0439
+          ],
+          [
+           1.463,
+           0.062
+          ],
+          [
+           1.95,
+           0.0437
+          ],
+          [
+           2.438,
+           -0.0001
+          ],
+          [
+           2.925,
+           -0.0439
+          ],
+          [
+           3.413,
+           -0.062
+          ],
+          [
+           3.9,
+           -0.0437
+          ]
+         ],
+         "ease": "in_out"
+        }
+       ]
+      }
+     },
+     "looping": true
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 6.0,
+     "max_particles": 60,
+     "lifetime": [
+      6.0,
+      9.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      0.69207,
+      0.31855,
+      0.5
+     ],
+     "color_end": [
+      1.0,
+      0.69207,
+      0.31855,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      2.0,
+      4.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -5,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1240.0,
+       600.0
+      ]
+     },
+     "turbulence": {
+      "strength": 8.0,
+      "scale": 200.0,
+      "speed": 0.2
+     }
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "67   Signs of the Silk Road",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s67_silk_road.lua"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,445 @@
+{
+ "name": "271 - Afterimage",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/checker64.png",
+     "size": [
+      1100.0,
+      520.0
+     ],
+     "color": [
+      0.22,
+      0.24,
+      0.28,
+      1.0
+     ],
+     "z_order": -10
+    }
+   }
+  },
+  {
+   "name": "Tinted",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab271_arrow.png",
+     "size": [
+      64.0,
+      40.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1
+    },
+    "afterimage": {
+     "interval": 0.04,
+     "lifetime": 0.35,
+     "max_echoes": 24,
+     "color": [
+      0.4,
+      0.8,
+      1.0,
+      0.8
+     ],
+     "end_color": [
+      0.2,
+      0.3,
+      1.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "TintedLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -490.0,
+      140.0
+     ],
+     "size": [
+      120.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "tinted",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Flat",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab271_arrow.png",
+     "size": [
+      64.0,
+      40.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1
+    },
+    "afterimage": {
+     "interval": 0.04,
+     "lifetime": 0.35,
+     "max_echoes": 24,
+     "flat": true,
+     "blend_mode": "Additive",
+     "color": [
+      1.0,
+      0.5,
+      0.2,
+      0.9
+     ],
+     "end_color": [
+      1.0,
+      0.2,
+      0.1,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FlatLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -490.0,
+      20.0
+     ],
+     "size": [
+      120.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "flat",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Dashing",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab271_arrow.png",
+     "size": [
+      64.0,
+      40.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 1
+    },
+    "afterimage": {
+     "interval": 0.04,
+     "lifetime": 0.35,
+     "max_echoes": 24,
+     "min_speed": 600.0,
+     "color": [
+      0.8,
+      0.5,
+      1.0,
+      0.8
+     ],
+     "end_color": [
+      0.5,
+      0.2,
+      1.0,
+      0.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "DashingLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -490.0,
+      -100.0
+     ],
+     "size": [
+      120.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "dashing",
+     "font_size": 16.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "271 - Afterimage",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   Space: stop / start emitting   D: dash the last arrow",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: tinted copies of each arrow left behind, fading blue; the middle one's copies its shape in orange, added (glowing);",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the last leaves copies only while it dashes (min_speed). Turned back, the copies point the other way (`afterimage`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_271_afterimage.lua"
+    }
+   }
+  }
+ ]
+}

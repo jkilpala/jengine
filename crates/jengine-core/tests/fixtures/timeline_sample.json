@@ -1,0 +1,17 @@
+{
+  "_doc": "A timeline track's value at a time (ecs::timeline::sample), checked in Rust by timeline_sample_matches_the_editor and in the editor by timelineEdit.test.ts, whose scrubbing preview samples tracks itself - so what the dope sheet shows is what plays.",
+  "cases": [
+    { "name": "before the first key, the first", "track": { "keys": [[1, 10], [2, 20]] }, "t": 0, "expected": 10 },
+    { "name": "after the last, the last", "track": { "keys": [[1, 10], [2, 20]] }, "t": 5, "expected": 20 },
+    { "name": "linear between", "track": { "keys": [[0, 0], [2, 10]] }, "t": 0.5, "expected": 2.5 },
+    { "name": "ease in", "track": { "keys": [[0, 0], [1, 10]], "ease": "in" }, "t": 0.5, "expected": 2.5 },
+    { "name": "ease out", "track": { "keys": [[0, 0], [1, 10]], "ease": "out" }, "t": 0.5, "expected": 7.5 },
+    { "name": "ease in-out", "track": { "keys": [[0, 0], [1, 10]], "ease": "in_out" }, "t": 0.25, "expected": 1.5625 },
+    { "name": "step holds", "track": { "keys": [[0, 0], [1, 10]], "ease": "step" }, "t": 0.99, "expected": 0 },
+    { "name": "a list of numbers, element by element", "track": { "keys": [[0, [0, 0, 1]], [1, [10, 20, 1]]] }, "t": 0.5, "expected": [5, 10, 1] },
+    { "name": "a string holds until the next key", "track": { "keys": [[0, "a.png"], [1, "b.png"]] }, "t": 0.9, "expected": "a.png" },
+    { "name": "and is the next key at it", "track": { "keys": [[0, "a.png"], [1, "b.png"]] }, "t": 1, "expected": "b.png" },
+    { "name": "lists of other lengths hold", "track": { "keys": [[0, [0, 0]], [1, [1, 1, 1]]] }, "t": 0.5, "expected": [0, 0] },
+    { "name": "one key is that key", "track": { "keys": [[3, true]] }, "t": 0, "expected": true }
+  ]
+}

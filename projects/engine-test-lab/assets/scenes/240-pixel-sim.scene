@@ -1,0 +1,279 @@
+{
+ "name": "240 - Pixel simulation",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sim",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 0,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      960.0,
+      540.0
+     ]
+    },
+    "pixel_sim": {
+     "cells": [
+      240,
+      135
+     ],
+     "steps_per_second": 60.0,
+     "sources": [
+      {
+       "at": [
+        -300.0,
+        250.0
+       ],
+       "material": "sand",
+       "rate": 120.0,
+       "radius": 8.0,
+       "active": true
+      },
+      {
+       "at": [
+        120.0,
+        250.0
+       ],
+       "material": "water",
+       "rate": 80.0,
+       "radius": 6.0,
+       "active": true
+      }
+     ],
+     "collider": true,
+     "collider_interval": 0.3,
+     "collider_step": 2,
+     "glow": 2.0
+    }
+   }
+  },
+  {
+   "name": "Crate",
+   "components": {
+    "transform": {
+     "position": [
+      -275.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/white32.png",
+     "color": [
+      0.75,
+      0.5,
+      0.25,
+      1
+     ],
+     "z_order": 3,
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "size": [
+      40.0,
+      40.0
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Kinematic",
+     "mass": 1.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.0,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 40.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "240 - Pixel simulation",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   F fire   L lava   R reset",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: sand piles into a dune on the left and after a few seconds the box drops onto it; water fills the basin and runs; F lights the oil on the shelf, which",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "burns to smoke and sets the plank alight; L drops lava, which glows, sets wood burning and boils water to steam (`pixel_sim`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_240_pixel_sim.lua"
+    }
+   }
+  }
+ ]
+}

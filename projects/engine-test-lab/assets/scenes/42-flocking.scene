@@ -1,0 +1,1504 @@
+{
+  "name": "42-Flocking",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            332.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "align": "center",
+          "text": "42 - Flocking (Separation + Obstacles)",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            300.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Separation gives each agent a personal-space radius: overlapping pairs push apart every frame.",
+          "font_id": "",
+          "font_scale": 0.9,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            280.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Obstacle is a static keep-out circle - resolve_obstacle_collisions pushes movers to its edge.",
+          "font_id": "",
+          "font_scale": 0.9,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            260.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Both run after seeking, so the crowd converges on the target without stacking into one sprite.",
+          "font_id": "",
+          "font_scale": 0.9,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -600.0,
+            240.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "The left group has Separation, the right group does not - watch the right group collapse into a pile.",
+          "font_id": "",
+          "font_scale": 0.9,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -318.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "align": "center",
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "TargetL",
+      "components": {
+        "transform": {
+          "position": [
+            -300.0,
+            -170.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.9,
+            0.35,
+            1.0
+          ],
+          "z_order": 6,
+          "size": [
+            30.0,
+            30.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "oscillator": {
+          "amplitude": [
+            110.0,
+            30.0
+          ],
+          "frequency": [
+            0.13,
+            0.21
+          ],
+          "phase": [
+            0.0,
+            1.2
+          ]
+        }
+      }
+    },
+    {
+      "name": "TargetR",
+      "components": {
+        "transform": {
+          "position": [
+            300.0,
+            -170.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.9,
+            0.35,
+            1.0
+          ],
+          "z_order": 6,
+          "size": [
+            30.0,
+            30.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "oscillator": {
+          "amplitude": [
+            110.0,
+            30.0
+          ],
+          "frequency": [
+            0.13,
+            0.21
+          ],
+          "phase": [
+            1.6,
+            0.4
+          ]
+        }
+      }
+    },
+    {
+      "name": "Rock1",
+      "components": {
+        "transform": {
+          "position": [
+            -300.0,
+            10.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.45,
+            0.4,
+            0.5,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            148.0,
+            148.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "obstacle": {
+          "radius": 84.0
+        }
+      }
+    },
+    {
+      "name": "Rock2",
+      "components": {
+        "transform": {
+          "position": [
+            300.0,
+            10.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.45,
+            0.4,
+            0.5,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            148.0,
+            148.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "obstacle": {
+          "radius": 84.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_0",
+      "components": {
+        "transform": {
+          "position": [
+            -384.0,
+            125.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_1",
+      "components": {
+        "transform": {
+          "position": [
+            -392.7852182587524,
+            152.03812160545377
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_2",
+      "components": {
+        "transform": {
+          "position": [
+            -415.7852182587524,
+            168.74859974957707
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_3",
+      "components": {
+        "transform": {
+          "position": [
+            -444.2147817412476,
+            168.74859974957707
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_4",
+      "components": {
+        "transform": {
+          "position": [
+            -467.2147817412476,
+            152.03812160545377
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_5",
+      "components": {
+        "transform": {
+          "position": [
+            -476.0,
+            125.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_6",
+      "components": {
+        "transform": {
+          "position": [
+            -467.2147817412476,
+            97.96187839454623
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_7",
+      "components": {
+        "transform": {
+          "position": [
+            -444.2147817412476,
+            81.25140025042293
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_8",
+      "components": {
+        "transform": {
+          "position": [
+            -415.7852182587524,
+            81.25140025042293
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent0_9",
+      "components": {
+        "transform": {
+          "position": [
+            -392.7852182587524,
+            97.96187839454623
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            0.4,
+            0.85,
+            1.0,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetL"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        },
+        "separation": {
+          "radius": 26.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_0",
+      "components": {
+        "transform": {
+          "position": [
+            476.0,
+            125.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_1",
+      "components": {
+        "transform": {
+          "position": [
+            467.2147817412476,
+            152.03812160545377
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_2",
+      "components": {
+        "transform": {
+          "position": [
+            444.2147817412476,
+            168.74859974957707
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_3",
+      "components": {
+        "transform": {
+          "position": [
+            415.7852182587524,
+            168.74859974957707
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_4",
+      "components": {
+        "transform": {
+          "position": [
+            392.7852182587524,
+            152.03812160545377
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_5",
+      "components": {
+        "transform": {
+          "position": [
+            384.0,
+            125.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_6",
+      "components": {
+        "transform": {
+          "position": [
+            392.7852182587524,
+            97.96187839454623
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_7",
+      "components": {
+        "transform": {
+          "position": [
+            415.7852182587524,
+            81.25140025042293
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_8",
+      "components": {
+        "transform": {
+          "position": [
+            444.2147817412476,
+            81.25140025042293
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "Agent1_9",
+      "components": {
+        "transform": {
+          "position": [
+            467.2147817412476,
+            97.96187839454623
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "color": [
+            1.0,
+            0.55,
+            0.45,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            22.0,
+            22.0
+          ],
+          "anchor": [
+            0.5,
+            0.5
+          ]
+        },
+        "velocity": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "seek_target": {
+          "target": {
+            "kind": "Named",
+            "value": "TargetR"
+          },
+          "accel": 420.0,
+          "max_speed": 210.0,
+          "slowing_radius": 70.0
+        },
+        "max_speed": {
+          "value": 210.0
+        }
+      }
+    },
+    {
+      "name": "LabelLeft",
+      "components": {
+        "transform": {
+          "position": [
+            -430.0,
+            205.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "align": "center",
+          "text": "Separation: 26px",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.6,
+            0.9,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "LabelRight",
+      "components": {
+        "transform": {
+          "position": [
+            430.0,
+            205.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "align": "center",
+          "text": "no Separation",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            1.0,
+            0.7,
+            0.6,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            -285.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "align": "center",
+          "text": "steering: -",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_42_flocking.lua"
+        }
+      }
+    }
+  ]
+}

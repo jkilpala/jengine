@@ -1,0 +1,12 @@
+{
+  "name": "CmdClick",
+  "version": 1,
+  "nodes": [
+    { "id": "click", "op": "OnMouseClick", "params": { "button": "left" } },
+    { "id": "spawn", "op": "SpawnEntity",
+      "params": { "prefab_id": "Spark" },
+      "in": { "at": { "from": "click", "out": "pos" } }
+    }
+  ],
+  "edges": [ { "from": "click", "to": "spawn" } ]
+}

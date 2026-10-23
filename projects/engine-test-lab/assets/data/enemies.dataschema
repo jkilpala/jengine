@@ -1,0 +1,22 @@
+{
+  "name": "EnemyType",
+  "version": 1,
+  "fields": [
+    { "name": "display_name", "type": { "kind": "string" }, "default": "" },
+    { "name": "health", "type": { "kind": "int" }, "default": 10 },
+    { "name": "speed", "type": { "kind": "float" }, "default": 1.0 },
+    { "name": "elite", "type": { "kind": "bool" }, "default": false },
+    { "name": "tint", "type": { "kind": "color" }, "default": [1.0, 1.0, 1.0, 1.0] },
+    { "name": "size", "type": { "kind": "vec2" }, "default": [48.0, 48.0] },
+    {
+      "name": "family",
+      "type": { "kind": "enum", "options": ["beast", "undead", "construct"] },
+      "default": "beast"
+    },
+    {
+      "name": "drop",
+      "type": { "kind": "ref", "schema": "LootType" },
+      "default": null
+    }
+  ]
+}

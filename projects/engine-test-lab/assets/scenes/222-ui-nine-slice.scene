@@ -1,0 +1,385 @@
+{
+ "version": 2,
+ "name": "222 - UI Nine-Slice",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      330
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "222 - UI NINE-SLICE",
+     "font_id": "",
+     "font_scale": 3.0,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      280
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "A 48 px kit panel from jSuite, as entity UI. Left: stretched whole - the corners swell and blur.\nMiddle and right: nine-slice at scale 2 and 3 - corners keep their pixels, edges stretch.\nBottom: a 96 x 16 bar frame and a 64 x 21 button, sliced to any width.  H hub  [ ] prev / next",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      0.9
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Script",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_222_ui_nine_slice.lua"
+    }
+   }
+  },
+  {
+   "name": "Stretched",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -400,
+      40
+     ],
+     "size": [
+      300,
+      260
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_image": {
+     "texture_id": "ui/ninekit/panel.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ]
+    }
+   }
+  },
+  {
+   "name": "StretchedLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -400,
+      -110
+     ],
+     "size": [
+      300,
+      30
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_text": {
+     "text": "stretched",
+     "font_id": "",
+     "font_size": 18.0,
+     "color": [
+      0.95,
+      0.9,
+      0.8,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "SlicedX2",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -20,
+      40
+     ],
+     "size": [
+      300,
+      260
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_image": {
+     "texture_id": "ui/ninekit/panel.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "nine_slice": {
+      "left": 14,
+      "right": 15,
+      "top": 14,
+      "bottom": 15,
+      "scale": 2
+     }
+    }
+   }
+  },
+  {
+   "name": "SlicedX2Label",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -20,
+      -110
+     ],
+     "size": [
+      300,
+      30
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_text": {
+     "text": "nine-slice, scale 2",
+     "font_id": "",
+     "font_size": 18.0,
+     "color": [
+      0.95,
+      0.9,
+      0.8,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "SlicedX3",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      380,
+      40
+     ],
+     "size": [
+      380,
+      260
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_image": {
+     "texture_id": "ui/ninekit/panel.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "nine_slice": {
+      "left": 14,
+      "right": 15,
+      "top": 14,
+      "bottom": 15,
+      "scale": 3
+     }
+    }
+   }
+  },
+  {
+   "name": "SlicedX3Label",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      380,
+      -110
+     ],
+     "size": [
+      380,
+      30
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_text": {
+     "text": "nine-slice, scale 3",
+     "font_id": "",
+     "font_size": 18.0,
+     "color": [
+      0.95,
+      0.9,
+      0.8,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Bar",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      -200,
+      -190
+     ],
+     "size": [
+      600,
+      40
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_image": {
+     "texture_id": "ui/ninekit/bar.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "nine_slice": {
+      "left": 13,
+      "right": 14,
+      "top": 6,
+      "bottom": 1,
+      "scale": 2.5
+     }
+    }
+   }
+  },
+  {
+   "name": "Button",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      330,
+      -190
+     ],
+     "size": [
+      300,
+      60
+     ],
+     "visible": true,
+     "z_order": 0
+    },
+    "ui_image": {
+     "texture_id": "ui/ninekit/button.png",
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "nine_slice": {
+      "left": 8,
+      "right": 9,
+      "top": 3,
+      "bottom": 7,
+      "scale": 3
+     }
+    }
+   }
+  },
+  {
+   "name": "ButtonLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "Center",
+     "offset": [
+      330,
+      -186
+     ],
+     "size": [
+      300,
+      40
+     ],
+     "visible": true,
+     "z_order": 1
+    },
+    "ui_text": {
+     "text": "a sliced button",
+     "font_id": "",
+     "font_size": 20.0,
+     "color": [
+      0.95,
+      0.9,
+      0.8,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  }
+ ]
+}

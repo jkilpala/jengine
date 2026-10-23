@@ -1,0 +1,15 @@
+{
+  "name": "PlayerMover",
+  "version": 1,
+  "nodes": [
+    { "id": "tick",    "op": "OnTick" },
+    { "id": "axis",    "op": "GetInputAxis" },
+    { "id": "set_vel", "op": "SetVelocity",
+      "in": { "vel": { "from": "axis", "scale": 220.0 } } },
+    { "id": "bounce",  "op": "BounceOnBounds" }
+  ],
+  "edges": [
+    { "from": "tick", "to": "set_vel" },
+    { "from": "tick", "to": "bounce" }
+  ]
+}

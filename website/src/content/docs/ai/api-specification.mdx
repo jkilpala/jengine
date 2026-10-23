@@ -1,0 +1,149 @@
+---
+draft: false
+title: API Specification
+description: Machine-readable API spec files for jEngine — the scripting API, packages, scene schema, and LLM context.
+---
+
+jEngine publishes machine-readable specification files that are regenerated on every documentation
+build (`npm run sync` in `website/`). They are meant for AI agents, code generators and validation
+tools. Treat the live files as the contract; the snippets on this page are illustrative.
+
+## Quick Links
+
+| File | Format | Purpose |
+|------|--------|---------|
+| [`/ai/api-spec.json`](/ai/api-spec.json) | JSON | Every scripting function, core components, packages, enums |
+| [`/ai/scene-schema.json`](/ai/scene-schema.json) | JSON Schema | Validate `.scene` files: structure plus the core component subset |
+| [`/ai/llm-context.md`](/ai/llm-context.md) | Markdown | The engine reference in one file, for system prompts |
+
+---
+
+## `/ai/api-spec.json`
+
+| Key | Contents |
+|-----|----------|
+| `functions` | **Every script function** (over 250): namespaced `name` (`Transform.set_position`), `flatName`, `section`, `signature`, `parameters`, `returns`, and whether it is `deferred` |
+| `components` | Core components with their fields, extracted from `ecs/components.rs` |
+| `packages` | **Every engine package**: `name`, `description`, `builtIn`, script `namespace`, `dependsOn`, `components` (scene key, Rust type, whether core also registers it) and `commands` (the namespaced call and its flat name), plus its docs page |
+| `inputKeys` | Canonical key names, read from `KeyCode::name()` |
+| `gamepadBindings` | How gamepad buttons and stick halves are spelled in input actions |
+| `colliderShapes`, `bodyTypes`, `easingFunctions` | Read from the engine's own enums |
+| `particlePresets`, `anchors` | The editor's particle presets; entity-UI anchors |
+| `lifecycle`, `scriptingLanguages` | `init` / `update`, and the two script languages |
+
+```json
+{
+  "engine": "jEngine",
+  "functions": [
+    {
+      "name": "Transform.set_position",
+      "flatName": "set_position",
+      "section": "Transform",
+      "signature": "Transform.set_position(entity_id, x, y)",
+      "parameters": [
+        { "name": "entity_id", "type": "entity_id", "description": "" },
+        { "name": "x", "type": "number", "description": "" },
+        { "name": "y", "type": "number", "description": "" }
+      ],
+      "returns": "—",
+      "deferred": true
+    }
+  ],
+  "packages": [
+    {
+      "name": "jengine-parallax",
+      "builtIn": true,
+      "namespace": "Parallax",
+      "dependsOn": [],
+      "components": [{ "key": "parallax_layer", "type": "ParallaxLayer", "core": false }],
+      "commands": [{ "call": "Parallax.set(e, x, y)", "flatName": "parallax_set" }],
+      "docs": "/packages/parallax/"
+    }
+  ]
+}
+```
+
+Lua scripts call `name` (the namespaced form); JavaScript scripts call `flatName`.
+
+---
+
+## `/ai/scene-schema.json`
+
+JSON Schema (draft 2020-12) for `.scene` files: the top level (`version`, `name`, `audio_refs`,
+`atlas_refs`, `entities`), the entity shape (`name`, `parent`, `components`), and the fields of the core
+components agents use most (`transform`, `sprite`, `script`, `rigid_body`, `collider`, `audio_source`,
+`particle_emitter`, `sprite_animator`, `camera`, `tilemap`, `gui`).
+
+Every other key is allowed, because a scene also carries the rest of the engine's components, package
+components and custom components (CapitalCase keys). That openness has a cost: **a misspelt engine key
+passes validation and silently becomes custom data at load** - check keys against the
+[Components Reference](/api-reference/components/) and each package's page.
+
+```bash
+# Validate a scene file with ajv-cli
+npm install -g ajv-cli
+ajv validate -s scene-schema.json -d my-scene.scene
+```
+
+---
+
+## `/ai/llm-context.md`
+
+The engine reference as one markdown file, for system prompts and RAG: the rules agents most often get
+wrong (namespaces, deferred mutations, `audio_refs`, linear colour, the Lua dialects), the whole
+[Scripting API](/api-reference/scripting-api/) document — including the behaviour-graph op reference —
+and a section per package with its components and commands. It is large (over 200 KB), so a RAG
+pipeline should chunk it by `##` headings.
+
+```text
+You are building a 2D game with jEngine.
+
+<jengine-reference>
+{contents of /ai/llm-context.md}
+</jengine-reference>
+
+Create a platformer where the player collects coins and avoids spikes.
+Use Lua for scripting.
+```
+
+---
+
+## Where the data comes from
+
+| Source | Generates |
+|--------|-----------|
+| `docs/scripting-api.md` | `functions`; the body of `llm-context.md`; the Scripting API page |
+| `crates/jengine-core/src/ecs/components.rs` | `components`; the Components Reference |
+| `packages/*` (registrations, README or crate doc) | `packages`; the per-package pages; the packages section of `llm-context.md` |
+| Engine enums and the editor's preset list | `inputKeys`, `colliderShapes`, `bodyTypes`, `easingFunctions`, `particlePresets`, `anchors` |
+
+So when you change the scripting API, a component or a package, fix the source and run
+`npm run sync`; the spec follows.
+
+---
+
+## Verify Function Calls
+
+```python
+import json, urllib.request
+
+spec = json.loads(urllib.request.urlopen("https://jengine.hirakame.com/ai/api-spec.json").read())
+fns = {f["name"]: f for f in spec["functions"]}
+
+assert not fns["Transform.get_position"]["deferred"]
+assert fns["Transform.set_position"]["deferred"]
+
+online = next(p for p in spec["packages"] if p["name"] == "jengine-online")
+print(online["dependsOn"], [c["call"] for c in online["commands"]])
+```
+
+## CORS & Hosting
+
+The `/ai/` path is served with permissive CORS headers (`nginx.conf`), so browsers and servers can fetch
+the files directly:
+
+```javascript
+const spec = await fetch("/ai/api-spec.json").then(r => r.json());
+const schema = await fetch("/ai/scene-schema.json").then(r => r.json());
+const llmContext = await fetch("/ai/llm-context.md").then(r => r.text());
+```

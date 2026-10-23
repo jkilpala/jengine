@@ -1,0 +1,29 @@
+{
+  "_doc": "A text_key's text in a chosen language (locale::set_locale, current_in, translate_with): checked in Rust by locale_lookup_matches_the_editor and in the editor by localeEdit.test.ts, whose language preview writes text_key text itself - so the scene view shows what the game will.",
+  "languages": ["en", "fi", "pt-BR"],
+  "tables": {
+    "locale/ui": [
+      { "id": "_name", "en": "English", "fi": "Suomi", "pt-BR": "Português" },
+      { "id": "title", "en": "The Inn", "fi": "Majatalo", "pt-BR": "A Pousada" },
+      { "id": "only_en", "en": "Only in English", "fi": "", "pt-BR": "" },
+      { "id": "door", "en": "Door", "fi": "Ovi", "pt-BR": "" }
+    ],
+    "locale/zz_more": [
+      { "id": "title", "en": "SHADOWED", "fi": "SHADOWED", "pt-BR": "SHADOWED" },
+      { "id": "play", "en": "Play", "fi": "Pelaa", "pt-BR": "Jogar" }
+    ],
+    "data/items": [
+      { "id": "play", "en": "NOT A STRING TABLE", "fi": "NOT A STRING TABLE", "pt-BR": "NOT A STRING TABLE" }
+    ]
+  },
+  "cases": [
+    { "wanted": "fi", "key": "title", "lang": "fi", "text": "Majatalo" },
+    { "wanted": "FI-fi", "key": "door", "lang": "fi", "text": "Ovi" },
+    { "wanted": "pt", "key": "title", "lang": "pt-BR", "text": "A Pousada" },
+    { "wanted": "pt-BR", "key": "door", "lang": "pt-BR", "text": "Door" },
+    { "wanted": "fi", "key": "only_en", "lang": "fi", "text": "Only in English" },
+    { "wanted": "fi", "key": "play", "lang": "fi", "text": "Pelaa" },
+    { "wanted": "de", "key": "title", "lang": "de", "text": "The Inn" },
+    { "wanted": "fi", "key": "missing", "lang": "fi", "text": null }
+  ]
+}

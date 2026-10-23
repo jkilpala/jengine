@@ -1,0 +1,106 @@
+---
+draft: false
+title: Audio
+description: Playing sound effects and music in jEngine.
+---
+
+jEngine uses **kira** for native audio and the **Web Audio API** in the editor and web builds.
+
+:::caution[Preload every clip]
+A clip plays only if the scene lists it in its top-level `"audio_refs"` array. `clip_id` is the path
+under `assets/`:
+
+```json
+{ "audio_refs": ["sounds/jump.ogg", "music/theme.ogg"], "entities": [] }
+```
+:::
+
+## Sound Effects
+
+```lua
+-- Play a one-shot sound
+local h = Audio.play_sound("sounds/jump.ogg")
+
+-- With volume and pitch
+local h2 = Audio.play_sound("sounds/coin.ogg", 0.5, 1.2)
+
+-- Stop a specific sound
+Audio.stop_sound(h)
+
+-- Adjust volume of playing sound
+Audio.set_sound_volume(h2, 0.3)
+```
+
+## Background Music
+
+```lua
+-- Play music (loops by default)
+Audio.play_music("music/theme.ogg", 0.8, true)
+
+-- Control playback
+Audio.pause_music()
+Audio.resume_music()
+Audio.stop_music()
+
+-- Adjust volume
+Audio.set_music_volume(0.5)
+```
+
+## Master Volume
+
+```lua
+Audio.set_master_volume(0.8)  -- affects all audio
+```
+
+## Timing to the music
+
+`Audio.get_music_position()` is the music's own playhead in seconds. It is coarse - the device reports
+in buffer steps, a frame late - so run a clock on `dt` and ease it toward each reading, rather than
+adding up `dt` alone.
+
+## Mixer buses and effects
+
+Sounds play on buses that nest under `master`; each has a volume, mute and solo, a **low-pass filter**
+and a **reverb**:
+
+```lua
+Audio.create_bus("sfx", "master", 1.0)
+Audio.set_bus_volume("sfx", 0.7)
+Audio.set_bus_effect("master", "lowpass", 400)  -- muffle everything (0 turns it off)
+Audio.set_bus_effect("sfx", "reverb", 0.6)      -- how much reverb is mixed in, 0..1
+Audio.set_bus_effect("sfx", "room", 0.9)        -- a closet (0) to a cathedral (1)
+```
+
+An `audio_zone` applies those effects while the listener is inside a box, fading in over `fade` units:
+
+```json
+"audio_zone": { "size": [420, 260], "bus": "sfx", "reverb": 0.75, "room": 0.95, "fade": 90 }
+```
+
+## Spatial sound
+
+A sound can be heard from where it is: set `spatial` on an `audio_source` (with `min_distance` and
+`max_distance`), or play a one-shot at a point with `Audio.play_sound_at(clip_id, x, y, volume, pitch)`.
+The listener is the entity with an `audio_listener`, or the camera.
+
+## AudioSource Component
+
+Attach audio directly to entities via the `audio_source` component:
+
+```json
+{
+  "audio_source": {
+    "clip_id": "sounds/ambient.ogg",
+    "volume": 1.0,
+    "pitch": 1.0,
+    "looping": true,
+    "auto_play": true
+  }
+}
+```
+
+## Supported Formats
+
+- `.ogg` (Vorbis) — recommended for music
+- `.wav` — recommended for short SFX
+- `.mp3` — supported but larger files

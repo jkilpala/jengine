@@ -1,0 +1,2797 @@
+{
+ "name": "77 - The Heist",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.8
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.75
+     },
+     "smoothness": {
+      "Float": 0.45
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 0.95
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 0.45
+     },
+     "tint_color": {
+      "Vec4": [
+       0.75,
+       1.0,
+       0.8,
+       0.18
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.0012
+     }
+    }
+   },
+   {
+    "name": "crt",
+    "enabled": true,
+    "params": {
+     "lines": {
+      "Float": 360.0
+     },
+     "scanline": {
+      "Float": 0.22
+     },
+     "mask": {
+      "Float": 0.08
+     },
+     "curvature": {
+      "Float": 0.03
+     }
+    }
+   },
+   {
+    "name": "film_grain",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.06
+     },
+     "size": {
+      "Float": 1.5
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "CamHall",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0,
+     "priority": 1,
+     "blend": 0.9,
+     "confine": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1800.0,
+       0.0
+      ],
+      [
+       1800.0,
+       1200.0
+      ],
+      [
+       0.0,
+       1200.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "CamGallery",
+   "components": {
+    "transform": {
+     "position": [
+      3100.0,
+      1350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.9,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0,
+     "priority": 0,
+     "blend": 0.9,
+     "confine": [
+      [
+       1800.0,
+       100.0
+      ],
+      [
+       4400.0,
+       100.0
+      ],
+      [
+       4400.0,
+       2600.0
+      ],
+      [
+       2900.0,
+       2600.0
+      ],
+      [
+       2900.0,
+       1100.0
+      ],
+      [
+       1800.0,
+       1100.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "CamRotunda",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.2,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0,
+     "priority": 0,
+     "blend": 0.9,
+     "confine": [
+      [
+       4500.0,
+       3802.1
+      ],
+      [
+       4002.1,
+       4300.0
+      ],
+      [
+       3297.9,
+       4300.0
+      ],
+      [
+       2800.0,
+       3802.1
+      ],
+      [
+       2800.0,
+       3097.9
+      ],
+      [
+       3297.9,
+       2600.0
+      ],
+      [
+       4002.1,
+       2600.0
+      ],
+      [
+       4500.0,
+       3097.9
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "CamVault",
+   "components": {
+    "transform": {
+     "position": [
+      2250.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.5,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0,
+     "priority": 0,
+     "blend": 0.9,
+     "confine": [
+      [
+       1700.0,
+       3000.0
+      ],
+      [
+       2800.0,
+       3000.0
+      ],
+      [
+       2800.0,
+       3900.0
+      ],
+      [
+       1700.0,
+       3900.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Garden",
+   "components": {
+    "transform": {
+     "position": [
+      2200.0,
+      2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/garden.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      9000.0,
+      7500.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "HallFloor",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/marble.png",
+     "color": [
+      0.89001,
+      0.89001,
+      0.89001,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1800.0,
+      1200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       160.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "GalleryFloor",
+   "components": {
+    "transform": {
+     "position": [
+      3100.0,
+      1350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/marble.png",
+     "color": [
+      0.89001,
+      0.89001,
+      0.89001,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      2600.0,
+      2500.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       160.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Courtyard",
+   "components": {
+    "transform": {
+     "position": [
+      2350.0,
+      1850.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/garden.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -85,
+     "size": [
+      1100.0,
+      1500.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "VaultFloor",
+   "components": {
+    "transform": {
+     "position": [
+      2250.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/steel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1100.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "RotundaFloor",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/rotunda.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -90,
+     "size": [
+      1700.0,
+      1700.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Carpet0",
+   "components": {
+    "transform": {
+     "position": [
+      1900.0,
+      600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/carpet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      3500.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       150.0,
+       150.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Carpet1",
+   "components": {
+    "transform": {
+     "position": [
+      3200.0,
+      1550.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/carpet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -80,
+     "size": [
+      1700.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       150.0,
+       150.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "CamHallWall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 0.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": 1800.0,
+       "y": 0.0
+      },
+      {
+       "type": "LineTo",
+       "x": 1800.0,
+       "y": 1200.0
+      },
+      {
+       "type": "LineTo",
+       "x": 0.0,
+       "y": 1200.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.02198,
+      0.01961,
+      0.02452,
+      1.0
+     ],
+     "stroke_width": 30.0,
+     "z_order": -60,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "CamGalleryWall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 1800.0,
+       "y": 100.0
+      },
+      {
+       "type": "LineTo",
+       "x": 4400.0,
+       "y": 100.0
+      },
+      {
+       "type": "LineTo",
+       "x": 4400.0,
+       "y": 2600.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2900.0,
+       "y": 2600.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2900.0,
+       "y": 1100.0
+      },
+      {
+       "type": "LineTo",
+       "x": 1800.0,
+       "y": 1100.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.02198,
+      0.01961,
+      0.02452,
+      1.0
+     ],
+     "stroke_width": 30.0,
+     "z_order": -60,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "CamRotundaWall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 4500.0,
+       "y": 3802.1
+      },
+      {
+       "type": "LineTo",
+       "x": 4002.1,
+       "y": 4300.0
+      },
+      {
+       "type": "LineTo",
+       "x": 3297.9,
+       "y": 4300.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2800.0,
+       "y": 3802.1
+      },
+      {
+       "type": "LineTo",
+       "x": 2800.0,
+       "y": 3097.9
+      },
+      {
+       "type": "LineTo",
+       "x": 3297.9,
+       "y": 2600.0
+      },
+      {
+       "type": "LineTo",
+       "x": 4002.1,
+       "y": 2600.0
+      },
+      {
+       "type": "LineTo",
+       "x": 4500.0,
+       "y": 3097.9
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.02198,
+      0.01961,
+      0.02452,
+      1.0
+     ],
+     "stroke_width": 30.0,
+     "z_order": -60,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "CamVaultWall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 1700.0,
+       "y": 3000.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2800.0,
+       "y": 3000.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2800.0,
+       "y": 3900.0
+      },
+      {
+       "type": "LineTo",
+       "x": 1700.0,
+       "y": 3900.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.02198,
+      0.01961,
+      0.02452,
+      1.0
+     ],
+     "stroke_width": 30.0,
+     "z_order": -60,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Door0",
+   "components": {
+    "transform": {
+     "position": [
+      1800.0,
+      600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/marble.png",
+     "color": [
+      0.26327,
+      0.14732,
+      0.07324,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      60.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Door1",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      2600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/marble.png",
+     "color": [
+      0.26327,
+      0.14732,
+      0.07324,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      220.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Door2",
+   "components": {
+    "transform": {
+     "position": [
+      2800.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/marble.png",
+     "color": [
+      0.26327,
+      0.14732,
+      0.07324,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      60.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       64.0,
+       64.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Painting0",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      1140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting1",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      1140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting2",
+   "components": {
+    "transform": {
+     "position": [
+      1400.0,
+      1140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting3",
+   "components": {
+    "transform": {
+     "position": [
+      600.0,
+      60.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting4",
+   "components": {
+    "transform": {
+     "position": [
+      1200.0,
+      60.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting5",
+   "components": {
+    "transform": {
+     "position": [
+      2200.0,
+      160.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting6",
+   "components": {
+    "transform": {
+     "position": [
+      2750.0,
+      160.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting7",
+   "components": {
+    "transform": {
+     "position": [
+      3300.0,
+      160.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting8",
+   "components": {
+    "transform": {
+     "position": [
+      3850.0,
+      160.0
+     ],
+     "rotation": 3.141592653589793,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting9",
+   "components": {
+    "transform": {
+     "position": [
+      4340.0,
+      1500.0
+     ],
+     "rotation": -1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting10",
+   "components": {
+    "transform": {
+     "position": [
+      4340.0,
+      2100.0
+     ],
+     "rotation": -1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting11",
+   "components": {
+    "transform": {
+     "position": [
+      2960.0,
+      1700.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Painting12",
+   "components": {
+    "transform": {
+     "position": [
+      2960.0,
+      2250.0
+     ],
+     "rotation": 1.5707963267948966,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/painting0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      120.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth0",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase0",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth1",
+   "components": {
+    "transform": {
+     "position": [
+      1300.0,
+      450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase1",
+   "components": {
+    "transform": {
+     "position": [
+      1300.0,
+      450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth2",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      800.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase2",
+   "components": {
+    "transform": {
+     "position": [
+      900.0,
+      800.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth3",
+   "components": {
+    "transform": {
+     "position": [
+      2300.0,
+      870.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase3",
+   "components": {
+    "transform": {
+     "position": [
+      2300.0,
+      870.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth4",
+   "components": {
+    "transform": {
+     "position": [
+      2900.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase4",
+   "components": {
+    "transform": {
+     "position": [
+      2900.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth5",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase5",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth6",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      2100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase6",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      2100.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth7",
+   "components": {
+    "transform": {
+     "position": [
+      3130.0,
+      2930.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase7",
+   "components": {
+    "transform": {
+     "position": [
+      3130.0,
+      2930.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth8",
+   "components": {
+    "transform": {
+     "position": [
+      4170.0,
+      2930.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase8",
+   "components": {
+    "transform": {
+     "position": [
+      4170.0,
+      2930.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth9",
+   "components": {
+    "transform": {
+     "position": [
+      3130.0,
+      3970.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase9",
+   "components": {
+    "transform": {
+     "position": [
+      3130.0,
+      3970.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Plinth10",
+   "components": {
+    "transform": {
+     "position": [
+      4170.0,
+      3970.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Vase10",
+   "components": {
+    "transform": {
+     "position": [
+      4170.0,
+      3970.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/vase.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -34,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Statue",
+   "components": {
+    "transform": {
+     "position": [
+      3650.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/statue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "JewelPlinth",
+   "components": {
+    "transform": {
+     "position": [
+      2000.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/plinth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -35,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "JewelGlow",
+   "components": {
+    "transform": {
+     "position": [
+      2000.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.07324,
+      1.0,
+      0.60383,
+      0.5
+     ],
+     "z_order": -34,
+     "size": [
+      260.0,
+      260.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Jewel",
+   "components": {
+    "transform": {
+     "position": [
+      2000.0,
+      3450.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/jewel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -33,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Laser0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 1720.0,
+       "y": 3100.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2700.0,
+       "y": 3880.0
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      1.0,
+      0.01961,
+      0.01002,
+      0.8
+     ],
+     "stroke_width": 5.0,
+     "z_order": -30,
+     "closed": false
+    }
+   }
+  },
+  {
+   "name": "Laser1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 1720.0,
+       "y": 3800.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2700.0,
+       "y": 3020.0
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      1.0,
+      0.01961,
+      0.01002,
+      0.8
+     ],
+     "stroke_width": 5.0,
+     "z_order": -30,
+     "closed": false
+    }
+   }
+  },
+  {
+   "name": "Laser2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 1720.0,
+       "y": 3450.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2780.0,
+       "y": 3450.0
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      1.0,
+      0.01961,
+      0.01002,
+      0.8
+     ],
+     "stroke_width": 5.0,
+     "z_order": -30,
+     "closed": false
+    }
+   }
+  },
+  {
+   "name": "Route",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 300.0,
+       "y": 600.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2500.0,
+       "y": 600.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 3000.0,
+       "c1y": 600.0,
+       "c2x": 3200.0,
+       "c2y": 800.0,
+       "x": 3200.0,
+       "y": 1300.0
+      },
+      {
+       "type": "LineTo",
+       "x": 3200.0,
+       "y": 2200.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 3200.0,
+       "c1y": 2500.0,
+       "c2x": 3650.0,
+       "c2y": 2350.0,
+       "x": 3650.0,
+       "y": 2700.0
+      },
+      {
+       "type": "CubicTo",
+       "c1x": 3650.0,
+       "c1y": 3000.0,
+       "c2x": 3250.0,
+       "c2y": 3050.0,
+       "x": 3250.0,
+       "y": 3450.0
+      },
+      {
+       "type": "LineTo",
+       "x": 2150.0,
+       "y": 3450.0
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -89,
+     "closed": false
+    }
+   }
+  },
+  {
+   "name": "Thief",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/heist/thief.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      72.0,
+      72.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "Route",
+     "speed": 320.0,
+     "progress": 0.0,
+     "mode": "ping_pong"
+    },
+    "camera_follow": {
+     "smoothing": 0.12
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s77_the_heist.lua"
+    }
+   }
+  },
+  {
+   "name": "CamLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -64.0,
+      -34.0
+     ],
+     "size": [
+      520.0,
+      40.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "CAM 01",
+     "font_size": 34.0,
+     "color": [
+      0.69207,
+      1.0,
+      0.69207,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "RoomLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -64.0,
+      -78.0
+     ],
+     "size": [
+      520.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "ENTRANCE HALL",
+     "font_size": 18.0,
+     "color": [
+      0.52252,
+      0.78741,
+      0.52252,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "RecDot",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -122.0,
+      -112.0
+     ],
+     "size": [
+      16.0,
+      16.0
+     ],
+     "z_order": 100
+    },
+    "ui_image": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.01961,
+      0.01002,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "RecLabel",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -64.0,
+      -108.0
+     ],
+     "size": [
+      50.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "REC",
+     "font_size": 18.0,
+     "color": [
+      1.0,
+      0.07324,
+      0.05088,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Clock",
+   "components": {
+    "ui_element": {
+     "anchor": "TopRight",
+     "offset": [
+      -64.0,
+      -138.0
+     ],
+     "size": [
+      520.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.52252,
+      0.78741,
+      0.52252,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "77   The Heist",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "C  confine   B  blend   Space  hold the thief   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

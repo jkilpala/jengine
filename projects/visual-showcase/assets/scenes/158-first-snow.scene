@@ -1,0 +1,911 @@
+{
+ "name": "158 - First Snow",
+ "post_process": {
+  "effects": [
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.35
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -265.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/ground.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      1400.0,
+      200.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 16.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.6,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "PineL",
+   "components": {
+    "transform": {
+     "position": [
+      -600.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      180.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 3.0,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "PineR",
+   "components": {
+    "transform": {
+     "position": [
+      590.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      180.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 3.0,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "CottageA",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/cottage_a.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.6,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "CottageB",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/cottage_b.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      260.0,
+      280.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.6,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "Fence",
+   "components": {
+    "transform": {
+     "position": [
+      -20.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      420.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.6,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      175.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/lamp.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      80.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.6,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "Bench",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/bench.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      170.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.6,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "Cart",
+   "components": {
+    "transform": {
+     "position": [
+      490.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/firstsnow/cart.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -6,
+     "size": [
+      180.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "snow_cover": {
+     "depth": 7.0,
+     "max_depth": 13.0,
+     "rate": 0.6,
+     "color": [
+      0.84809,
+      0.89001,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.6,
+     "bumps": 1.2,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "GlowA72",
+   "components": {
+    "transform": {
+     "position": [
+      -441.0,
+      -69.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.44799,
+      0.10048,
+      0.55
+     ],
+     "z_order": -19,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "GlowA186",
+   "components": {
+    "transform": {
+     "position": [
+      -327.0,
+      -69.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.44799,
+      0.10048,
+      0.55
+     ],
+     "z_order": -19,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "GlowB62",
+   "components": {
+    "transform": {
+     "position": [
+      279.4,
+      -89.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.44799,
+      0.10048,
+      0.55
+     ],
+     "z_order": -19,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "GlowB161",
+   "components": {
+    "transform": {
+     "position": [
+      378.2,
+      -89.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.44799,
+      0.10048,
+      0.55
+     ],
+     "z_order": -19,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "LampGlow",
+   "components": {
+    "transform": {
+     "position": [
+      175.0,
+      39.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.52252,
+      0.13287,
+      0.6
+     ],
+     "z_order": -7,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Snowfall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 90.0,
+     "max_particles": 900,
+     "lifetime": [
+      7.0,
+      9.0
+     ],
+     "speed": [
+      60.0,
+      90.0
+     ],
+     "angle": [
+      -1.75,
+      -1.39
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      0.85
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.85
+     ],
+     "size_start": [
+      4.0,
+      7.0
+     ],
+     "size_end": [
+      4.0,
+      7.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 40,
+     "emit_shape": {
+      "kind": "line",
+      "length": 1500.0
+     },
+     "turbulence": {
+      "strength": 40.0,
+      "scale": 0.004,
+      "speed": 0.3
+     }
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s158_first_snow.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "158   First Snow",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "S snow   M thaw   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

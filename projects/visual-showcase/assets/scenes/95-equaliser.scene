@@ -1,0 +1,8841 @@
+{
+ "name": "95 - Equaliser",
+ "audio_refs": [
+  "sounds/nd_bass.wav",
+  "sounds/nd_drums.wav",
+  "sounds/nd_pad.wav",
+  "sounds/nd_lead.wav"
+ ],
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.7
+     },
+     "intensity": {
+      "Float": 0.9
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.15
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.21404,
+      0.17064,
+      0.60383
+     ],
+     "intensity": 0.14
+    }
+   }
+  },
+  {
+   "name": "Wall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1344.0,
+      784.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       256.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Led0_0",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_1",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_2",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_3",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_4",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_5",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_6",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_7",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_8",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led0_9",
+   "components": {
+    "transform": {
+     "position": [
+      -270.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_5",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_6",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_7",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_8",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led1_9",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_0",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_2",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_5",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_6",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_7",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_8",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led2_9",
+   "components": {
+    "transform": {
+     "position": [
+      -198.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_0",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_1",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_2",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_3",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_4",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_5",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_6",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_7",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_8",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led3_9",
+   "components": {
+    "transform": {
+     "position": [
+      -162.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_0",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_1",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_2",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_3",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_4",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_5",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_6",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_7",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_8",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led4_9",
+   "components": {
+    "transform": {
+     "position": [
+      -126.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_0",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_1",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_2",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_3",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_4",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_5",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_6",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_7",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_8",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led5_9",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_0",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_1",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_2",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_3",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_4",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_5",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_6",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_7",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_8",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led6_9",
+   "components": {
+    "transform": {
+     "position": [
+      -54.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_0",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_1",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_2",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_3",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_4",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_5",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_6",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_7",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_8",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led7_9",
+   "components": {
+    "transform": {
+     "position": [
+      -18.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_0",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_1",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_2",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_3",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_4",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_5",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_6",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_7",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_8",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led8_9",
+   "components": {
+    "transform": {
+     "position": [
+      18.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_0",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_1",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_2",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_3",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_4",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_5",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_6",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_7",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_8",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led9_9",
+   "components": {
+    "transform": {
+     "position": [
+      54.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_0",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_1",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_2",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_3",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_4",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_5",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_6",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_7",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_8",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led10_9",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_0",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_1",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_2",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_3",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_4",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_5",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_6",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_7",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_8",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led11_9",
+   "components": {
+    "transform": {
+     "position": [
+      126.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_0",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_1",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_2",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_3",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_4",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_5",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_6",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_7",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_8",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led12_9",
+   "components": {
+    "transform": {
+     "position": [
+      162.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_0",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_1",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_2",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_3",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_4",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_5",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_6",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_7",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_8",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led13_9",
+   "components": {
+    "transform": {
+     "position": [
+      198.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_0",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_1",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_2",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_3",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_4",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_5",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_6",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_7",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_8",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led14_9",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_0",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_1",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      78.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_2",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      107.6
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_3",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      136.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_4",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      165.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_5",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      194.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_6",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      222.8
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_7",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      251.60000000000002
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_8",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      280.4
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Led15_9",
+   "components": {
+    "transform": {
+     "position": [
+      270.0,
+      309.2
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/led.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.06
+     ],
+     "z_order": -40,
+     "size": [
+      32.0,
+      24.8
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Light0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.05088,
+      0.44799
+     ],
+     "intensity": 0.8,
+     "radius": 620.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Beam0",
+   "components": {
+    "transform": {
+     "position": [
+      -420.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.05088,
+      0.44799,
+      0.5
+     ],
+     "z_order": -30,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Light1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      0.0331,
+      0.78741,
+      1.0
+     ],
+     "intensity": 0.8,
+     "radius": 620.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Beam1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.0331,
+      0.78741,
+      1.0,
+      0.5
+     ],
+     "z_order": -30,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Light2",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.52252,
+      0.05088
+     ],
+     "intensity": 0.8,
+     "radius": 620.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Beam2",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.52252,
+      0.05088,
+      0.5
+     ],
+     "z_order": -30,
+     "size": [
+      160.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dj",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Booth",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -50.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/booth.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      360.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_0",
+   "components": {
+    "transform": {
+     "position": [
+      -306.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_1",
+   "components": {
+    "transform": {
+     "position": [
+      -238.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_2",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_3",
+   "components": {
+    "transform": {
+     "position": [
+      -102.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_4",
+   "components": {
+    "transform": {
+     "position": [
+      -34.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_5",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_6",
+   "components": {
+    "transform": {
+     "position": [
+      102.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_7",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_8",
+   "components": {
+    "transform": {
+     "position": [
+      238.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile0_9",
+   "components": {
+    "transform": {
+     "position": [
+      306.0,
+      -165.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -306.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -238.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -170.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -102.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -34.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_5",
+   "components": {
+    "transform": {
+     "position": [
+      34.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_6",
+   "components": {
+    "transform": {
+     "position": [
+      102.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_7",
+   "components": {
+    "transform": {
+     "position": [
+      170.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_8",
+   "components": {
+    "transform": {
+     "position": [
+      238.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tile1_9",
+   "components": {
+    "transform": {
+     "position": [
+      306.0,
+      -217.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/tile.png",
+     "color": [
+      0.2,
+      0.2,
+      0.3,
+      1.0
+     ],
+     "z_order": -8,
+     "size": [
+      64.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer0",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose0_0",
+   "parent": "Dancer0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose0_1",
+   "parent": "Dancer0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose0_2",
+   "parent": "Dancer0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose0_3",
+   "parent": "Dancer0",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer1",
+   "components": {
+    "transform": {
+     "position": [
+      -428.0,
+      -269.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose1_0",
+   "parent": "Dancer1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose1_1",
+   "parent": "Dancer1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose1_2",
+   "parent": "Dancer1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose1_3",
+   "parent": "Dancer1",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer2",
+   "components": {
+    "transform": {
+     "position": [
+      -336.0,
+      -283.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose2_0",
+   "parent": "Dancer2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose2_1",
+   "parent": "Dancer2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose2_2",
+   "parent": "Dancer2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose2_3",
+   "parent": "Dancer2",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer3",
+   "components": {
+    "transform": {
+     "position": [
+      -204.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose3_0",
+   "parent": "Dancer3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose3_1",
+   "parent": "Dancer3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose3_2",
+   "parent": "Dancer3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose3_3",
+   "parent": "Dancer3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer4",
+   "components": {
+    "transform": {
+     "position": [
+      -112.0,
+      -269.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose4_0",
+   "parent": "Dancer4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose4_1",
+   "parent": "Dancer4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose4_2",
+   "parent": "Dancer4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose4_3",
+   "parent": "Dancer4",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer5",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      -283.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose5_0",
+   "parent": "Dancer5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose5_1",
+   "parent": "Dancer5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose5_2",
+   "parent": "Dancer5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose5_3",
+   "parent": "Dancer5",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer6",
+   "components": {
+    "transform": {
+     "position": [
+      112.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose6_0",
+   "parent": "Dancer6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose6_1",
+   "parent": "Dancer6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose6_2",
+   "parent": "Dancer6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose6_3",
+   "parent": "Dancer6",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer7",
+   "components": {
+    "transform": {
+     "position": [
+      244.0,
+      -269.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose7_0",
+   "parent": "Dancer7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose7_1",
+   "parent": "Dancer7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose7_2",
+   "parent": "Dancer7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose7_3",
+   "parent": "Dancer7",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer8",
+   "components": {
+    "transform": {
+     "position": [
+      336.0,
+      -283.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose8_0",
+   "parent": "Dancer8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose8_1",
+   "parent": "Dancer8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose8_2",
+   "parent": "Dancer8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose8_3",
+   "parent": "Dancer8",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 7,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer9",
+   "components": {
+    "transform": {
+     "position": [
+      468.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose9_0",
+   "parent": "Dancer9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose9_1",
+   "parent": "Dancer9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose9_2",
+   "parent": "Dancer9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose9_3",
+   "parent": "Dancer9",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dancer10",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -269.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose10_0",
+   "parent": "Dancer10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose10_1",
+   "parent": "Dancer10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose10_2",
+   "parent": "Dancer10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer2.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pose10_3",
+   "parent": "Dancer10",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/club/dancer3.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 6,
+     "size": [
+      64.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key0",
+   "components": {
+    "transform": {
+     "position": [
+      393.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key1",
+   "components": {
+    "transform": {
+     "position": [
+      415.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key2",
+   "components": {
+    "transform": {
+     "position": [
+      437.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key3",
+   "components": {
+    "transform": {
+     "position": [
+      459.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key4",
+   "components": {
+    "transform": {
+     "position": [
+      481.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key5",
+   "components": {
+    "transform": {
+     "position": [
+      503.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key6",
+   "components": {
+    "transform": {
+     "position": [
+      525.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Key7",
+   "components": {
+    "transform": {
+     "position": [
+      547.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "sprite": {
+     "texture_id": "sprites/club/key.png",
+     "color": [
+      0.85,
+      0.85,
+      0.9,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      20.0,
+      50.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s95_equaliser.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "95   Equaliser",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "A S D F G H J K play the synth   Space music on / off   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

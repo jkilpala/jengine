@@ -1,0 +1,1139 @@
+{
+  "name": "40-EntityUI",
+  "atlas_refs": [
+    "atlases/rpg_monsters.atlas"
+  ],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true,
+          "viewport_width": 1280,
+          "viewport_height": 720
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [0.0, 332.0],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": { "align": "center",
+          "text": "40 - Entity UI (UIElement widgets)",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [-600.0, 292.0],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Entity UI is the second UI system: one entity per widget, positioned by UIElement (anchor + offset + size).",
+          "font_id": "",
+          "font_scale": 0.95,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [-600.0, 270.0],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "It is screen-space and separate from .gui documents (scene 10) - a different renderer path and script API.",
+          "font_id": "",
+          "font_scale": 0.95,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [-600.0, 248.0],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Widgets: UIPanel, UIText, UIImage, UIButton, UIProgressBar, UISlider, UIToggle, UITextInput.",
+          "font_id": "",
+          "font_scale": 0.95,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [-600.0, 226.0],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Drag the slider, click the toggle, click the field and type.  [Space] panel  [T] toggle from script  [B] disable button",
+          "font_id": "",
+          "font_scale": 0.95,
+          "color": [
+            0.85,
+            0.9,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [0.0, -322.0],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": { "align": "center",
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Panel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            40.0,
+            -240.0
+          ],
+          "size": [
+            420.0,
+            300.0
+          ],
+          "visible": true,
+          "z_order": 0
+        },
+        "ui_panel": {
+          "bg_color": [
+            0.08,
+            0.1,
+            0.16,
+            0.92
+          ]
+        }
+      }
+    },
+    {
+      "name": "PanelTitle",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            56.0,
+            -256.0
+          ],
+          "size": [
+            380.0,
+            30.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "UIPanel + UIText",
+          "font_id": "",
+          "font_size": 22.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "Thumb",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            56.0,
+            -300.0
+          ],
+          "size": [
+            64.0,
+            64.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_image": {
+          "texture_id": "sprites/checker64.png",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "Caption",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            132.0,
+            -310.0
+          ],
+          "size": [
+            200.0,
+            24.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "UIImage: texture | region",
+          "font_id": "",
+          "font_size": 16.0,
+          "color": [
+            0.8,
+            0.85,
+            0.95,
+            1.0
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "RegionIcon",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            360.0,
+            -292.0
+          ],
+          "size": [
+            64.0,
+            64.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_image": {
+          "texture_id": "atlases/rpg_monsters.png",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "region": "embit"
+        }
+      }
+    },
+    {
+      "name": "Bar",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            56.0,
+            -390.0
+          ],
+          "size": [
+            340.0,
+            24.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_progress_bar": {
+          "value": 35.0,
+          "min": 0.0,
+          "max": 100.0,
+          "fg_color": [
+            0.3,
+            0.8,
+            0.45,
+            1.0
+          ],
+          "bg_color": [
+            0.15,
+            0.15,
+            0.2,
+            1.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "BarLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            56.0,
+            -420.0
+          ],
+          "size": [
+            340.0,
+            22.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "UIProgressBar",
+          "font_id": "",
+          "font_size": 15.0,
+          "color": [
+            0.75,
+            0.8,
+            0.9,
+            1.0
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "Slider",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            56.0,
+            -460.0
+          ],
+          "size": [
+            340.0,
+            26.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_slider": {
+          "value": 0.5,
+          "min": 0.0,
+          "max": 1.0,
+          "track_color": [
+            0.25,
+            0.25,
+            0.32,
+            1.0
+          ],
+          "thumb_color": [
+            0.6,
+            0.75,
+            1.0,
+            1.0
+          ],
+          "thumb_size": 18.0
+        }
+      }
+    },
+    {
+      "name": "Toggle",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            56.0,
+            -500.0
+          ],
+          "size": [
+            60.0,
+            28.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_toggle": {
+          "checked": true,
+          "on_color": [
+            0.3,
+            0.75,
+            0.45,
+            1.0
+          ],
+          "off_color": [
+            0.4,
+            0.4,
+            0.45,
+            1.0
+          ],
+          "thumb_color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "ToggleLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            126.0,
+            -500.0
+          ],
+          "size": [
+            260.0,
+            24.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "UIToggle / UISlider",
+          "font_id": "",
+          "font_size": 15.0,
+          "color": [
+            0.75,
+            0.8,
+            0.9,
+            1.0
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "Input",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopRight",
+          "offset": [
+            -360.0,
+            -260.0
+          ],
+          "size": [
+            320.0,
+            34.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text_input": {
+          "text": "",
+          "placeholder": "UITextInput (click, then type)",
+          "font_id": "",
+          "font_size": 16.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "bg_color": [
+            0.12,
+            0.14,
+            0.2,
+            1.0
+          ]
+        }
+      }
+    },
+    {
+      "name": "Button",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopRight",
+          "offset": [
+            -360.0,
+            -310.0
+          ],
+          "size": [
+            200.0,
+            40.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_button": {
+          "normal_color": [
+            0.25,
+            0.5,
+            0.85,
+            1.0
+          ],
+          "hover_color": [
+            0.35,
+            0.6,
+            0.95,
+            1.0
+          ],
+          "pressed_color": [
+            0.2,
+            0.4,
+            0.7,
+            1.0
+          ],
+          "disabled": false
+        }
+      }
+    },
+    {
+      "name": "ButtonLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopRight",
+          "offset": [
+            -350.0,
+            -320.0
+          ],
+          "size": [
+            180.0,
+            24.0
+          ],
+          "visible": true,
+          "z_order": 2
+        },
+        "ui_text": {
+          "text": "UIButton",
+          "font_id": "",
+          "font_size": 17.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "AnimBar",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            440.0,
+            -390.0
+          ],
+          "size": [
+            220.0,
+            24.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_progress_bar": {
+          "value": 0.0,
+          "min": 0.0,
+          "max": 1.0,
+          "fg_color": [
+            0.95,
+            0.7,
+            0.25,
+            1.0
+          ],
+          "bg_color": [
+            0.15,
+            0.15,
+            0.2,
+            1.0
+          ]
+        },
+        "sprite_animator": {
+          "clips": {
+            "fill": {
+              "name": "fill",
+              "frame_duration": 0.05,
+              "looping": true,
+              "frames": [
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "uv_rect": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                  ]
+                }
+              ],
+              "property_tracks": [
+                {
+                  "property": "UiProgressValue",
+                  "keyframes": [
+                    {
+                      "frame": 0,
+                      "value": 0.0
+                    },
+                    {
+                      "frame": 29,
+                      "value": 1.0
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "current_clip": "fill",
+          "playing": true
+        }
+      }
+    },
+    {
+      "name": "AnimBarLabel",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "ui_element": {
+          "anchor": "TopLeft",
+          "offset": [
+            440.0,
+            -420.0
+          ],
+          "size": [
+            260.0,
+            22.0
+          ],
+          "visible": true,
+          "z_order": 1
+        },
+        "ui_text": {
+          "text": "animated: UiProgressValue track (BUGS #56)",
+          "font_id": "",
+          "font_size": 15.0,
+          "color": [
+            0.75,
+            0.8,
+            0.9,
+            1.0
+          ],
+          "alignment": "Left"
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [0.0, -285.0],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": { "align": "center",
+          "text": "ui: -",
+          "font_id": "",
+          "font_scale": 1.1,
+          "color": [
+            0.7,
+            0.95,
+            0.75,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0.0,
+            0.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_40_entity_ui.lua"
+        }
+      }
+    }
+  ]
+}

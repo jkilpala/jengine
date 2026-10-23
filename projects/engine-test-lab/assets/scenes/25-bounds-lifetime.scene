@@ -1,0 +1,292 @@
+{
+  "name": "25 - Bounds & Lifetime",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-440.0, 310.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "25 - BOUNDS & LIFETIME", "font_id": "", "font_scale": 2.4, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 252.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "WrapBounds (left) - sprites teleport across the box edges.", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 226.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "ClampBounds (right) - sprites are pinned at the box; velocity zeros on hit.", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.85, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 200.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Lifetime - staggered 1.5..12s timeouts, Despawn on expire (lower-left).", "font_id": "", "font_scale": 1.0, "color": [0.9, 0.7, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": { "position": [-580.0, 174.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "DespawnOutOfBounds - vanish on leaving the box (lower-right). Press R to reload.", "font_id": "", "font_scale": 1.0, "color": [1.0, 0.7, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "WrapAsteroid01",
+      "components": {
+        "transform": { "position": [-580.0, 80.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.7, 0.8, 1.0, 1.0], "z_order": 1, "size": [28.0, 28.0] },
+        "velocity": { "x": 95.0, "y": 35.0 },
+        "wrap_bounds": { "min": [-600.0, -50.0], "max": [-40.0, 150.0] },
+        "angular_velocity": { "omega": 0.8 }
+      }
+    },
+    {
+      "name": "WrapAsteroid02",
+      "components": {
+        "transform": { "position": [-460.0, 110.0], "rotation": 0.5, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.6, 0.9, 0.8, 1.0], "z_order": 1, "size": [24.0, 24.0] },
+        "velocity": { "x": -75.0, "y": 50.0 },
+        "wrap_bounds": { "min": [-600.0, -50.0], "max": [-40.0, 150.0] },
+        "angular_velocity": { "omega": -1.2 }
+      }
+    },
+    {
+      "name": "WrapAsteroid03",
+      "components": {
+        "transform": { "position": [-300.0, 60.0], "rotation": 1.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.7, 0.6, 1.0], "z_order": 1, "size": [32.0, 32.0] },
+        "velocity": { "x": 60.0, "y": -45.0 },
+        "wrap_bounds": { "min": [-600.0, -50.0], "max": [-40.0, 150.0] },
+        "angular_velocity": { "omega": 1.6 }
+      }
+    },
+    {
+      "name": "WrapAsteroid04",
+      "components": {
+        "transform": { "position": [-200.0, 130.0], "rotation": 1.7, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.9, 0.95, 0.5, 1.0], "z_order": 1, "size": [22.0, 22.0] },
+        "velocity": { "x": -110.0, "y": -65.0 },
+        "wrap_bounds": { "min": [-600.0, -50.0], "max": [-40.0, 150.0] },
+        "angular_velocity": { "omega": -0.6 }
+      }
+    },
+    {
+      "name": "WrapAsteroid05",
+      "components": {
+        "transform": { "position": [-520.0, 20.0], "rotation": 2.4, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.8, 0.6, 1.0, 1.0], "z_order": 1, "size": [26.0, 26.0] },
+        "velocity": { "x": 130.0, "y": 90.0 },
+        "wrap_bounds": { "min": [-600.0, -50.0], "max": [-40.0, 150.0] },
+        "angular_velocity": { "omega": 2.0 }
+      }
+    },
+    {
+      "name": "WrapAsteroid06",
+      "components": {
+        "transform": { "position": [-110.0, 0.0], "rotation": 0.2, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.5, 0.9, 1.0], "z_order": 1, "size": [30.0, 30.0] },
+        "velocity": { "x": -85.0, "y": 70.0 },
+        "wrap_bounds": { "min": [-600.0, -50.0], "max": [-40.0, 150.0] },
+        "angular_velocity": { "omega": -1.4 }
+      }
+    },
+    {
+      "name": "WrapZoneLabel",
+      "components": {
+        "transform": { "position": [-580.0, 142.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "wrap zone  (-600, -50) -> (-40, 150)", "font_id": "", "font_scale": 0.9, "color": [0.65, 0.8, 1.0, 0.8], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "ClampWanderer01",
+      "components": {
+        "transform": { "position": [200.0, 100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.45, 0.3, 1.0], "z_order": 1, "size": [36.0, 36.0] },
+        "velocity": { "x": 80.0, "y": 60.0 },
+        "clamp_bounds": { "min": [40.0, -50.0], "max": [600.0, 150.0], "zero_velocity_on_hit": true }
+      }
+    },
+    {
+      "name": "ClampWanderer02",
+      "components": {
+        "transform": { "position": [450.0, 60.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [0.95, 0.7, 0.35, 1.0], "z_order": 1, "size": [36.0, 36.0] },
+        "velocity": { "x": -100.0, "y": -45.0 },
+        "clamp_bounds": { "min": [40.0, -50.0], "max": [600.0, 150.0], "zero_velocity_on_hit": true }
+      }
+    },
+    {
+      "name": "ClampWanderer03",
+      "components": {
+        "transform": { "position": [300.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/white32.png", "color": [1.0, 0.85, 0.45, 1.0], "z_order": 1, "size": [36.0, 36.0] },
+        "velocity": { "x": 65.0, "y": -55.0 },
+        "clamp_bounds": { "min": [40.0, -50.0], "max": [600.0, 150.0], "zero_velocity_on_hit": true }
+      }
+    },
+    {
+      "name": "ClampZoneLabel",
+      "components": {
+        "transform": { "position": [40.0, 142.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "clamp zone  (40, -50) -> (600, 150)  -- velocity zeroes at the wall", "font_id": "", "font_scale": 0.9, "color": [1.0, 0.85, 0.7, 0.85], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "LifeShort1",
+      "components": {
+        "transform": { "position": [-560.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.4, 0.85, 1.0], "z_order": 1, "size": [40.0, 40.0] },
+        "lifetime": { "remaining": 1.5, "on_expire": "Despawn" }
+      }
+    },
+    {
+      "name": "LifeShort2",
+      "components": {
+        "transform": { "position": [-480.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.55, 0.85, 1.0], "z_order": 1, "size": [40.0, 40.0] },
+        "lifetime": { "remaining": 3.0, "on_expire": "Despawn" }
+      }
+    },
+    {
+      "name": "LifeShort3",
+      "components": {
+        "transform": { "position": [-400.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.95, 0.65, 1.0, 1.0], "z_order": 1, "size": [40.0, 40.0] },
+        "lifetime": { "remaining": 4.5, "on_expire": "Despawn" }
+      }
+    },
+    {
+      "name": "LifeMed1",
+      "components": {
+        "transform": { "position": [-320.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.85, 0.75, 1.0, 1.0], "z_order": 1, "size": [40.0, 40.0] },
+        "lifetime": { "remaining": 6.0, "on_expire": "Despawn" }
+      }
+    },
+    {
+      "name": "LifeMed2",
+      "components": {
+        "transform": { "position": [-240.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.7, 0.8, 1.0, 1.0], "z_order": 1, "size": [40.0, 40.0] },
+        "lifetime": { "remaining": 7.5, "on_expire": "Despawn" }
+      }
+    },
+    {
+      "name": "LifeLong1",
+      "components": {
+        "transform": { "position": [-160.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.6, 0.9, 1.0, 1.0], "z_order": 1, "size": [40.0, 40.0] },
+        "lifetime": { "remaining": 9.0, "on_expire": "Despawn" }
+      }
+    },
+    {
+      "name": "LifeLong2",
+      "components": {
+        "transform": { "position": [-80.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [0.5, 1.0, 0.85, 1.0], "z_order": 1, "size": [40.0, 40.0] },
+        "lifetime": { "remaining": 12.0, "on_expire": "Despawn" }
+      }
+    },
+    {
+      "name": "LifeZoneLabel",
+      "components": {
+        "transform": { "position": [-580.0, -60.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "Lifetime - 1.5 / 3 / 4.5 / 6 / 7.5 / 9 / 12 s, left to right", "font_id": "", "font_scale": 0.9, "color": [0.9, 0.7, 1.0, 0.85], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "OobBullet1",
+      "components": {
+        "transform": { "position": [320.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.6, 0.4, 1.0], "z_order": 1, "size": [22.0, 22.0] },
+        "velocity": { "x": 250.0, "y": 0.0 },
+        "despawn_out_of_bounds": { "min": [40.0, -260.0], "max": [600.0, -40.0], "margin": 16.0 }
+      }
+    },
+    {
+      "name": "OobBullet2",
+      "components": {
+        "transform": { "position": [320.0, -140.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.5, 0.5, 1.0], "z_order": 1, "size": [22.0, 22.0] },
+        "velocity": { "x": 220.0, "y": -60.0 },
+        "despawn_out_of_bounds": { "min": [40.0, -260.0], "max": [600.0, -40.0], "margin": 16.0 }
+      }
+    },
+    {
+      "name": "OobBullet3",
+      "components": {
+        "transform": { "position": [320.0, -180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.45, 0.6, 1.0], "z_order": 1, "size": [22.0, 22.0] },
+        "velocity": { "x": 190.0, "y": -110.0 },
+        "despawn_out_of_bounds": { "min": [40.0, -260.0], "max": [600.0, -40.0], "margin": 16.0 }
+      }
+    },
+    {
+      "name": "OobBullet4",
+      "components": {
+        "transform": { "position": [320.0, -100.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.7, 0.4, 1.0], "z_order": 1, "size": [22.0, 22.0] },
+        "velocity": { "x": -260.0, "y": -20.0 },
+        "despawn_out_of_bounds": { "min": [40.0, -260.0], "max": [600.0, -40.0], "margin": 16.0 }
+      }
+    },
+    {
+      "name": "OobBullet5",
+      "components": {
+        "transform": { "position": [320.0, -160.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.85, 0.45, 1.0], "z_order": 1, "size": [22.0, 22.0] },
+        "velocity": { "x": -200.0, "y": -130.0 },
+        "despawn_out_of_bounds": { "min": [40.0, -260.0], "max": [600.0, -40.0], "margin": 16.0 }
+      }
+    },
+    {
+      "name": "OobBullet6",
+      "components": {
+        "transform": { "position": [320.0, -220.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "sprite": { "texture_id": "sprites/circle16.png", "color": [1.0, 0.55, 0.35, 1.0], "z_order": 1, "size": [22.0, 22.0] },
+        "velocity": { "x": 170.0, "y": 80.0 },
+        "despawn_out_of_bounds": { "min": [40.0, -260.0], "max": [600.0, -40.0], "margin": 16.0 }
+      }
+    },
+    {
+      "name": "OobZoneLabel",
+      "components": {
+        "transform": { "position": [40.0, -60.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "DespawnOutOfBounds - bullets fly out of the box and vanish", "font_id": "", "font_scale": 0.9, "color": [1.0, 0.7, 0.7, 0.85], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Footer",
+      "components": {
+        "transform": { "position": [-540.0, -320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "[R] reload (respawns)   [H/Esc] hub   [PgUp/PgDn] prev/next", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.75, 0.85, 0.8], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "NavScript",
+      "components": {
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_25_bounds_lifetime.lua" }
+      }
+    }
+  ]
+}

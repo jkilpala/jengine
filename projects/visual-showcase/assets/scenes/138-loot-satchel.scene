@@ -1,0 +1,1822 @@
+{
+ "name": "138 - Loot Satchel",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.2
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.55
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Table",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lootsatchel/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "BagA",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      40.0,
+      165.0
+     ],
+     "size": [
+      430.0,
+      340.0
+     ],
+     "z_order": 10,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/bag_panel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "A1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      65.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      161.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A3",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      257.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A4",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      353.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A5",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      65.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A6",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      161.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A7",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      257.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A8",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      353.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A9",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      65.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A10",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      161.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A11",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      257.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "A12",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      353.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "BagB",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      490.0,
+      165.0
+     ],
+     "size": [
+      430.0,
+      340.0
+     ],
+     "z_order": 10,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/bag_panel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "B1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      515.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      611.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B3",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      707.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B4",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      803.0,
+      392.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B5",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      515.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B6",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      611.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B7",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      707.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B8",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      803.0,
+      296.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B9",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      515.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B10",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      611.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B11",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      707.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "B12",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      803.0,
+      200.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {}
+   }
+  },
+  {
+   "name": "Kit",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      950.0,
+      125.0
+     ],
+     "size": [
+      300.0,
+      420.0
+     ],
+     "z_order": 10,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/equip_panel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "WeaponSlot",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      990.0,
+      417.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot_weapon.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {
+     "accepts": [
+      "weapon"
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShieldSlot",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      1118.0,
+      417.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot_shield.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {
+     "accepts": [
+      "shield"
+     ]
+    }
+   }
+  },
+  {
+   "name": "HelmSlot",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      990.0,
+      287.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot_helm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {
+     "accepts": [
+      "helm"
+     ]
+    }
+   }
+  },
+  {
+   "name": "RingSlot",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      1118.0,
+      287.0
+     ],
+     "size": [
+      88.0,
+      88.0
+     ],
+     "z_order": 20,
+     "focusable": true
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/slot_ring.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_drop_slot": {
+     "accepts": [
+      "ring"
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sword",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/sword.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "weapon",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "A1"
+    }
+   }
+  },
+  {
+   "name": "RedPotion",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/potion_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "potion",
+     "stack": "potion_red",
+     "count": 3,
+     "max_stack": 5,
+     "slot": "A2"
+    }
+   }
+  },
+  {
+   "name": "RedPotion2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/potion_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "potion",
+     "stack": "potion_red",
+     "count": 2,
+     "max_stack": 5,
+     "slot": "A3"
+    }
+   }
+  },
+  {
+   "name": "Coins",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/coins.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "coins",
+     "stack": "coins",
+     "count": 7,
+     "max_stack": 99,
+     "slot": "A5"
+    }
+   }
+  },
+  {
+   "name": "Apple",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/apple.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "food",
+     "stack": "apple",
+     "count": 2,
+     "max_stack": 10,
+     "slot": "A6"
+    }
+   }
+  },
+  {
+   "name": "Scroll",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/scroll.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "scroll",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "A8"
+    }
+   }
+  },
+  {
+   "name": "Axe",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/axe.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "weapon",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "B1"
+    }
+   }
+  },
+  {
+   "name": "Shield",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/shield.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "shield",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "B2"
+    }
+   }
+  },
+  {
+   "name": "Helm",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/helm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "helm",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "B4"
+    }
+   }
+  },
+  {
+   "name": "Ring",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/ring.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "ring",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "B6"
+    }
+   }
+  },
+  {
+   "name": "Gem",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/gem.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "gem",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "B7"
+    }
+   }
+  },
+  {
+   "name": "Key",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/key.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "key",
+     "stack": "",
+     "count": 1,
+     "max_stack": 1,
+     "slot": "B9"
+    }
+   }
+  },
+  {
+   "name": "BluePotion",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      0.0,
+      640.0
+     ],
+     "size": [
+      80.0,
+      80.0
+     ],
+     "z_order": 30,
+     "focusable": false
+    },
+    "ui_image": {
+     "texture_id": "sprites/lootsatchel/potion_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 20.0,
+     "color": [
+      1.0,
+      0.89001,
+      0.60383,
+      1.0
+     ],
+     "alignment": "Right",
+     "outline": {
+      "width": 2.0,
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    },
+    "ui_draggable": {
+     "tag": "potion",
+     "stack": "potion_blue",
+     "count": 1,
+     "max_stack": 5,
+     "slot": "B10"
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s138_loot_satchel.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "138   Loot Satchel",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "drag items   right click put back   arrows + Enter with a controller   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

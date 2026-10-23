@@ -1,0 +1,1284 @@
+{
+ "name": "90 - Fireworks Night",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.55
+     },
+     "intensity": {
+      "Float": 1.1
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       0.95,
+       0.95,
+       1.0,
+       0.03
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fireworks/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Town",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fireworks/town.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1280.0,
+      240.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Water",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fireworks/water.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -70,
+     "size": [
+      1280.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Smoke",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fireworks/smoke.png",
+     "emission_rate": 0.0,
+     "max_particles": 80,
+     "lifetime": [
+      3.0,
+      4.5
+     ],
+     "speed": [
+      6.0,
+      26.0
+     ],
+     "angle": [
+      0.0,
+      6.283
+     ],
+     "color_start": [
+      0.32,
+      0.3,
+      0.38,
+      0.26
+     ],
+     "color_end": [
+      0.26,
+      0.24,
+      0.32,
+      0.0
+     ],
+     "size_start": [
+      120.0,
+      170.0
+     ],
+     "size_end": [
+      240.0,
+      320.0
+     ],
+     "gravity_modifier": -0.04,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -50,
+     "drag": 0.6,
+     "flipbook": {
+      "columns": 4,
+      "rows": 4,
+      "mode": "life"
+     }
+    }
+   }
+  },
+  {
+   "name": "BurstGold",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fireworks/burst.png",
+     "emission_rate": 0.0,
+     "max_particles": 8,
+     "lifetime": [
+      1.1,
+      1.1
+     ],
+     "speed": [
+      0.0,
+      0.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      0.57048,
+      0.10048,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.57048,
+      0.10048,
+      1.0
+     ],
+     "size_start": [
+      300.0,
+      360.0
+     ],
+     "size_end": [
+      340.0,
+      400.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      -0.2,
+      0.2
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -40,
+     "blend_mode": "Additive",
+     "flipbook": {
+      "columns": 8,
+      "rows": 4,
+      "mode": "life"
+     }
+    }
+   }
+  },
+  {
+   "name": "GlitterGold",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fireworks/twinkle.png",
+     "emission_rate": 0.0,
+     "max_particles": 400,
+     "lifetime": [
+      1.2,
+      2.2
+     ],
+     "speed": [
+      70.0,
+      260.0
+     ],
+     "angle": [
+      0.0,
+      6.283
+     ],
+     "color_start": [
+      1.0,
+      0.57048,
+      0.10048,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.9,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      14.0,
+      22.0
+     ],
+     "size_end": [
+      6.0,
+      10.0
+     ],
+     "gravity_modifier": 0.55,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -38,
+     "drag": 1.1,
+     "blend_mode": "Additive",
+     "flipbook": {
+      "columns": 4,
+      "rows": 1,
+      "mode": "fps",
+      "fps": 14.0,
+      "random_start": true
+     }
+    }
+   }
+  },
+  {
+   "name": "LauncherGold",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 6,
+     "lifetime": [
+      1.15,
+      1.35
+     ],
+     "speed": [
+      430.0,
+      480.0
+     ],
+     "angle": [
+      1.47,
+      1.67
+     ],
+     "color_start": [
+      1.0,
+      0.78741,
+      0.44799,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.57048,
+      0.10048,
+      1.0
+     ],
+     "size_start": [
+      7.0,
+      7.0
+     ],
+     "size_end": [
+      4.0,
+      4.0
+     ],
+     "gravity_modifier": 1.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -36,
+     "blend_mode": "Additive",
+     "trail": {
+      "length": 14,
+      "interval": 0.025,
+      "width": 0.9,
+      "taper": true,
+      "fade": true
+     },
+     "sub_emitters": [
+      {
+       "on": "death",
+       "emitter": "BurstGold",
+       "count": 1
+      },
+      {
+       "on": "death",
+       "emitter": "GlitterGold",
+       "count": 70
+      },
+      {
+       "on": "death",
+       "emitter": "Smoke",
+       "count": 3
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "FlashGold",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.57048,
+      0.10048,
+      0.0
+     ],
+     "z_order": -55,
+     "size": [
+      900.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "WaterFlashGold",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.57048,
+      0.10048,
+      0.0
+     ],
+     "z_order": -65,
+     "size": [
+      520.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "BurstRose",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fireworks/burst.png",
+     "emission_rate": 0.0,
+     "max_particles": 8,
+     "lifetime": [
+      1.1,
+      1.1
+     ],
+     "speed": [
+      0.0,
+      0.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      0.10048,
+      0.26327,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.10048,
+      0.26327,
+      1.0
+     ],
+     "size_start": [
+      300.0,
+      360.0
+     ],
+     "size_end": [
+      340.0,
+      400.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      -0.2,
+      0.2
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -40,
+     "blend_mode": "Additive",
+     "flipbook": {
+      "columns": 8,
+      "rows": 4,
+      "mode": "life"
+     }
+    }
+   }
+  },
+  {
+   "name": "GlitterRose",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fireworks/twinkle.png",
+     "emission_rate": 0.0,
+     "max_particles": 400,
+     "lifetime": [
+      1.2,
+      2.2
+     ],
+     "speed": [
+      70.0,
+      260.0
+     ],
+     "angle": [
+      0.0,
+      6.283
+     ],
+     "color_start": [
+      1.0,
+      0.10048,
+      0.26327,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.9,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      14.0,
+      22.0
+     ],
+     "size_end": [
+      6.0,
+      10.0
+     ],
+     "gravity_modifier": 0.55,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -38,
+     "drag": 1.1,
+     "blend_mode": "Additive",
+     "flipbook": {
+      "columns": 4,
+      "rows": 1,
+      "mode": "fps",
+      "fps": 14.0,
+      "random_start": true
+     }
+    }
+   }
+  },
+  {
+   "name": "LauncherRose",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 6,
+     "lifetime": [
+      1.15,
+      1.35
+     ],
+     "speed": [
+      430.0,
+      480.0
+     ],
+     "angle": [
+      1.47,
+      1.67
+     ],
+     "color_start": [
+      1.0,
+      0.78741,
+      0.44799,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.10048,
+      0.26327,
+      1.0
+     ],
+     "size_start": [
+      7.0,
+      7.0
+     ],
+     "size_end": [
+      4.0,
+      4.0
+     ],
+     "gravity_modifier": 1.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -36,
+     "blend_mode": "Additive",
+     "trail": {
+      "length": 14,
+      "interval": 0.025,
+      "width": 0.9,
+      "taper": true,
+      "fade": true
+     },
+     "sub_emitters": [
+      {
+       "on": "death",
+       "emitter": "BurstRose",
+       "count": 1
+      },
+      {
+       "on": "death",
+       "emitter": "GlitterRose",
+       "count": 70
+      },
+      {
+       "on": "death",
+       "emitter": "Smoke",
+       "count": 3
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "FlashRose",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.10048,
+      0.26327,
+      0.0
+     ],
+     "z_order": -55,
+     "size": [
+      900.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "WaterFlashRose",
+   "components": {
+    "transform": {
+     "position": [
+      20.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      1.0,
+      0.10048,
+      0.26327,
+      0.0
+     ],
+     "z_order": -65,
+     "size": [
+      520.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "BurstTeal",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fireworks/burst.png",
+     "emission_rate": 0.0,
+     "max_particles": 8,
+     "lifetime": [
+      1.1,
+      1.1
+     ],
+     "speed": [
+      0.0,
+      0.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      0.10048,
+      0.89001,
+      0.69207,
+      1.0
+     ],
+     "color_end": [
+      0.10048,
+      0.89001,
+      0.69207,
+      1.0
+     ],
+     "size_start": [
+      300.0,
+      360.0
+     ],
+     "size_end": [
+      340.0,
+      400.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      -0.2,
+      0.2
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -40,
+     "blend_mode": "Additive",
+     "flipbook": {
+      "columns": 8,
+      "rows": 4,
+      "mode": "life"
+     }
+    }
+   }
+  },
+  {
+   "name": "GlitterTeal",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fireworks/twinkle.png",
+     "emission_rate": 0.0,
+     "max_particles": 400,
+     "lifetime": [
+      1.2,
+      2.2
+     ],
+     "speed": [
+      70.0,
+      260.0
+     ],
+     "angle": [
+      0.0,
+      6.283
+     ],
+     "color_start": [
+      0.10048,
+      0.89001,
+      0.69207,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      0.9,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      14.0,
+      22.0
+     ],
+     "size_end": [
+      6.0,
+      10.0
+     ],
+     "gravity_modifier": 0.55,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -38,
+     "drag": 1.1,
+     "blend_mode": "Additive",
+     "flipbook": {
+      "columns": 4,
+      "rows": 1,
+      "mode": "fps",
+      "fps": 14.0,
+      "random_start": true
+     }
+    }
+   }
+  },
+  {
+   "name": "LauncherTeal",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 6,
+     "lifetime": [
+      1.15,
+      1.35
+     ],
+     "speed": [
+      430.0,
+      480.0
+     ],
+     "angle": [
+      1.47,
+      1.67
+     ],
+     "color_start": [
+      1.0,
+      0.78741,
+      0.44799,
+      1.0
+     ],
+     "color_end": [
+      0.10048,
+      0.89001,
+      0.69207,
+      1.0
+     ],
+     "size_start": [
+      7.0,
+      7.0
+     ],
+     "size_end": [
+      4.0,
+      4.0
+     ],
+     "gravity_modifier": 1.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": -36,
+     "blend_mode": "Additive",
+     "trail": {
+      "length": 14,
+      "interval": 0.025,
+      "width": 0.9,
+      "taper": true,
+      "fade": true
+     },
+     "sub_emitters": [
+      {
+       "on": "death",
+       "emitter": "BurstTeal",
+       "count": 1
+      },
+      {
+       "on": "death",
+       "emitter": "GlitterTeal",
+       "count": 70
+      },
+      {
+       "on": "death",
+       "emitter": "Smoke",
+       "count": 3
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "FlashTeal",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.10048,
+      0.89001,
+      0.69207,
+      0.0
+     ],
+     "z_order": -55,
+     "size": [
+      900.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "WaterFlashTeal",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "color": [
+      0.10048,
+      0.89001,
+      0.69207,
+      0.0
+     ],
+     "z_order": -65,
+     "size": [
+      520.0,
+      130.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    }
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s90_fireworks_night.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "90   Fireworks Night",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Space a volley   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

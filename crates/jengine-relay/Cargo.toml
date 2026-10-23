@@ -1,0 +1,27 @@
+[package]
+name = "jengine-relay"
+description = "A small WebSocket relay for turn-based jEngine games: rooms, seats, and one ordered message log"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "jengine-relay"
+path = "src/main.rs"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+# The server half of the same crate `jengine-net` uses as a client. Sync and
+# thread-per-connection: a relay for turn-based games moves a handful of
+# messages a minute, and an async runtime would be most of the binary.
+tungstenite = { version = "0.24", default-features = false, features = ["handshake"] }
+
+[dev-dependencies]
+# The engine's own client, against this server, over a real socket - the
+# first time `jengine-net` has talked to anything.
+jengine-net = { path = "../../packages/jengine-net" }

@@ -1,0 +1,975 @@
+{
+ "name": "120 - A Day on the Island",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.4
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.02,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.04
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "intensity": 0.5
+    }
+   }
+  },
+  {
+   "name": "Day",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "day_cycle": {
+     "hour": 4.5,
+     "hours_per_second": 0.42,
+     "keys": [
+      {
+       "hour": 0.0,
+       "sky_top": [
+        0.00077,
+        0.00116,
+        0.00394
+       ],
+       "sky_horizon": [
+        0.00232,
+        0.00394,
+        0.01341
+       ],
+       "ambient": [
+        0.45,
+        0.55,
+        0.9
+       ],
+       "ambient_intensity": 0.12,
+       "sun_color": [
+        1.0,
+        0.6,
+        0.3
+       ],
+       "sun_intensity": 0.0
+      },
+      {
+       "hour": 5.5,
+       "sky_top": [
+        0.00394,
+        0.0049,
+        0.02721
+       ],
+       "sky_horizon": [
+        0.17064,
+        0.05088,
+        0.07324
+       ],
+       "ambient": [
+        0.7,
+        0.55,
+        0.65
+       ],
+       "ambient_intensity": 0.22,
+       "sun_color": [
+        1.0,
+        0.5,
+        0.35
+       ],
+       "sun_intensity": 0.0
+      },
+      {
+       "hour": 7.0,
+       "sky_top": [
+        0.05088,
+        0.10048,
+        0.44799
+       ],
+       "sky_horizon": [
+        1.0,
+        0.31855,
+        0.17064
+       ],
+       "ambient": [
+        1.0,
+        0.8,
+        0.7
+       ],
+       "ambient_intensity": 0.45,
+       "sun_color": [
+        1.0,
+        0.7,
+        0.45
+       ],
+       "sun_intensity": 0.9
+      },
+      {
+       "hour": 9.5,
+       "sky_top": [
+        0.01739,
+        0.10654,
+        0.63828
+       ],
+       "sky_horizon": [
+        0.34239,
+        0.60383,
+        1.0
+       ],
+       "ambient": [
+        0.9,
+        0.92,
+        1.0
+       ],
+       "ambient_intensity": 0.56,
+       "sun_color": [
+        1.0,
+        0.92,
+        0.8
+       ],
+       "sun_intensity": 1.1
+      },
+      {
+       "hour": 12.0,
+       "sky_top": [
+        0.01341,
+        0.10048,
+        0.69207
+       ],
+       "sky_horizon": [
+        0.31855,
+        0.60383,
+        1.0
+       ],
+       "ambient": [
+        0.85,
+        0.92,
+        1.0
+       ],
+       "ambient_intensity": 0.6,
+       "sun_color": [
+        1.0,
+        0.97,
+        0.9
+       ],
+       "sun_intensity": 1.2
+      },
+      {
+       "hour": 15.5,
+       "sky_top": [
+        0.01739,
+        0.09463,
+        0.60383
+       ],
+       "sky_horizon": [
+        0.52252,
+        0.60383,
+        0.89001
+       ],
+       "ambient": [
+        0.95,
+        0.92,
+        0.95
+       ],
+       "ambient_intensity": 0.55,
+       "sun_color": [
+        1.0,
+        0.88,
+        0.7
+       ],
+       "sun_intensity": 1.1
+      },
+      {
+       "hour": 17.3,
+       "sky_top": [
+        0.04696,
+        0.11928,
+        0.52252
+       ],
+       "sky_horizon": [
+        1.0,
+        0.44799,
+        0.13287
+       ],
+       "ambient": [
+        1.0,
+        0.85,
+        0.65
+       ],
+       "ambient_intensity": 0.5,
+       "sun_color": [
+        1.0,
+        0.68,
+        0.38
+       ],
+       "sun_intensity": 1.0
+      },
+      {
+       "hour": 18.5,
+       "sky_top": [
+        0.01739,
+        0.01341,
+        0.10654
+       ],
+       "sky_horizon": [
+        0.89001,
+        0.11928,
+        0.0331
+       ],
+       "ambient": [
+        0.95,
+        0.65,
+        0.55
+       ],
+       "ambient_intensity": 0.32,
+       "sun_color": [
+        1.0,
+        0.45,
+        0.25
+       ],
+       "sun_intensity": 0.6
+      },
+      {
+       "hour": 19.5,
+       "sky_top": [
+        0.0031,
+        0.00394,
+        0.02198
+       ],
+       "sky_horizon": [
+        0.10048,
+        0.01961,
+        0.05088
+       ],
+       "ambient": [
+        0.55,
+        0.5,
+        0.85
+       ],
+       "ambient_intensity": 0.18,
+       "sun_color": [
+        1.0,
+        0.4,
+        0.3
+       ],
+       "sun_intensity": 0.0
+      }
+     ],
+     "sun": "Sun",
+     "sunrise": 6.0,
+     "sunset": 18.5,
+     "sky": true,
+     "sky_z": -100,
+     "bodies": [
+      {
+       "name": "SunDisc",
+       "rise": 6.0,
+       "set": 18.5,
+       "height": 0.85
+      },
+      {
+       "name": "MoonDisc",
+       "rise": 19.0,
+       "set": 5.5,
+       "height": 0.7
+      }
+     ],
+     "night": [
+      "Stars"
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s120_day_on_the_island.lua"
+    }
+   }
+  },
+  {
+   "name": "Stars",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/stars_far.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": -99,
+     "size": [
+      1500.0,
+      600.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       512.0,
+       512.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "SunDisc",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.4,
+      1.66097,
+      0.76452,
+      1.0
+     ],
+     "z_order": -98,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "MoonDisc",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      0.96613,
+      1.10731,
+      1.6,
+      0.9
+     ],
+     "z_order": -98,
+     "size": [
+      120.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "directional_light": {
+     "color": [
+      1.0,
+      0.95,
+      0.85
+     ],
+     "intensity": 1.0,
+     "direction": -1.5708,
+     "shadow_softness": 16.0,
+     "height": 0.5
+    }
+   }
+  },
+  {
+   "name": "Island",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -210.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_island"
+    ],
+    "sprite": {
+     "texture_id": "sprites/island/island.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 2,
+     "size": [
+      900.0,
+      280.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/island/island_n.png"
+    }
+   }
+  },
+  {
+   "name": "Palm0",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_palm"
+    ],
+    "sprite": {
+     "texture_id": "sprites/island/palm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      210.0,
+      315.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/island/palm_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -55.0,
+       0.0
+      ],
+      [
+       55.0,
+       0.0
+      ],
+      [
+       55.0,
+       14.0
+      ],
+      [
+       -55.0,
+       14.0
+      ]
+     ],
+     "shadow_length": 130.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Palm1",
+   "components": {
+    "transform": {
+     "position": [
+      240.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      -1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_palm"
+    ],
+    "sprite": {
+     "texture_id": "sprites/island/palm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 3,
+     "size": [
+      178.5,
+      267.75
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/island/palm_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -55.0,
+       0.0
+      ],
+      [
+       55.0,
+       0.0
+      ],
+      [
+       55.0,
+       14.0
+      ],
+      [
+       -55.0,
+       14.0
+      ]
+     ],
+     "shadow_length": 130.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Hut",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_hut"
+    ],
+    "sprite": {
+     "texture_id": "sprites/island/hut.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      210.0,
+      197.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/island/hut_n.png"
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       -80.0,
+       0.0
+      ],
+      [
+       80.0,
+       0.0
+      ],
+      [
+       80.0,
+       16.0
+      ],
+      [
+       -80.0,
+       16.0
+      ]
+     ],
+     "shadow_length": 100.0,
+     "shadows_casters": false
+    }
+   }
+  },
+  {
+   "name": "Lamp",
+   "components": {
+    "transform": {
+     "position": [
+      95.0,
+      54.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      2.2,
+      1.14954,
+      0.29231,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.44799,
+      0.13287
+     ],
+     "intensity": 0.0,
+     "radius": 280.0,
+     "falloff": 1.6,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Sea",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "water_surface": {
+     "width": 1700.0,
+     "depth": 420.0,
+     "spacing": 10.0,
+     "tension": 0.018,
+     "damping": 0.025,
+     "spread": 0.25,
+     "splash": 0.0,
+     "chop": 6.0,
+     "chop_strength": 0.5,
+     "swell_height": 6.0,
+     "swell_length": 380.0,
+     "swell_speed": 40.0,
+     "buoyancy": 2.0,
+     "drag": 2.5,
+     "angular_drag": 3.0,
+     "color_top": [
+      0.07324,
+      0.21404,
+      0.31855,
+      0.85
+     ],
+     "color_deep": [
+      0.00232,
+      0.00719,
+      0.01739,
+      0.97
+     ],
+     "foam_color": [
+      0.69207,
+      0.78741,
+      0.89001,
+      0.8
+     ],
+     "foam_width": 3.0,
+     "z_order": 6
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "120   A Day on the Island",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "a day in a minute   1-4 morning noon dusk night   Space hurry   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

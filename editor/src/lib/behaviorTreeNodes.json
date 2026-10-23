@@ -1,0 +1,87 @@
+{
+  "_doc": "Every node type of a behaviour tree (Rust ecs::behavior_tree::BtNode) as the editor offers it: its group, what it does, the node it starts as, and the fields its form edits. The Rust test behavior_tree_nodes_match_the_editor deserializes every default and fails a BtNode variant missing here.",
+  "nodes": [
+    { "type": "sequence", "group": "composite", "doc": "Each child in turn while they succeed; fails with the first that fails.",
+      "default": { "type": "sequence", "children": [] },
+      "fields": [{ "name": "reactive", "kind": "bool", "doc": "Look again from the first child every frame (put conditions first)" }] },
+    { "type": "selector", "group": "composite", "doc": "Each child in turn while they fail; succeeds with the first that does.",
+      "default": { "type": "selector", "children": [] },
+      "fields": [{ "name": "reactive", "kind": "bool", "doc": "Look again from the first child every frame: a higher-priority branch that starts aborts the one running" }] },
+    { "type": "parallel", "group": "composite", "doc": "Every child at once: succeeds when `succeed` of them have (0: all).",
+      "default": { "type": "parallel", "succeed": 0, "children": [] },
+      "fields": [{ "name": "succeed", "kind": "int", "doc": "How many children must succeed (0: all)" }] },
+    { "type": "random", "group": "composite", "doc": "One child, picked at random each time it starts.",
+      "default": { "type": "random", "children": [] },
+      "fields": [] },
+    { "type": "invert", "group": "decorator", "doc": "Success for failure and failure for success.",
+      "default": { "type": "invert", "child": { "type": "wait", "seconds": 1 } },
+      "fields": [] },
+    { "type": "succeed", "group": "decorator", "doc": "Success whatever the child answers (once it has finished).",
+      "default": { "type": "succeed", "child": { "type": "wait", "seconds": 1 } },
+      "fields": [] },
+    { "type": "repeat", "group": "decorator", "doc": "The child again, once a frame at most: `times` times (0: forever), or until it fails.",
+      "default": { "type": "repeat", "times": 0, "child": { "type": "wait", "seconds": 1 } },
+      "fields": [
+        { "name": "times", "kind": "int", "doc": "How many times (0: forever)" },
+        { "name": "until_failure", "kind": "bool", "doc": "Repeat until the child fails, then succeed" }
+      ] },
+    { "type": "cooldown", "group": "decorator", "doc": "Fails without running the child for `seconds` after it last finished.",
+      "default": { "type": "cooldown", "seconds": 2, "child": { "type": "wait", "seconds": 1 } },
+      "fields": [{ "name": "seconds", "kind": "number", "doc": "Seconds before the child may run again" }] },
+    { "type": "timeout", "group": "decorator", "doc": "Aborts the child and fails if it runs longer than `seconds`.",
+      "default": { "type": "timeout", "seconds": 5, "child": { "type": "wait", "seconds": 1 } },
+      "fields": [{ "name": "seconds", "kind": "number", "doc": "Seconds the child may run" }] },
+    { "type": "check", "group": "condition", "doc": "A blackboard key against a value.",
+      "default": { "type": "check", "key": "alert", "op": "set", "value": null },
+      "fields": [
+        { "name": "key", "kind": "string", "doc": "The blackboard key" },
+        { "name": "op", "kind": "enum", "options": ["==", "!=", "<", "<=", ">", ">=", "set", "unset"], "doc": "The comparison; `set` is present and not false, 0 or empty" },
+        { "name": "value", "kind": "json", "doc": "What to compare with (a number, a string, true / false)" }
+      ] },
+    { "type": "chance", "group": "condition", "doc": "Succeeds with probability `p`.",
+      "default": { "type": "chance", "p": 0.5 },
+      "fields": [{ "name": "p", "kind": "number", "doc": "Probability of success, 0 to 1" }] },
+    { "type": "near", "group": "condition", "doc": "Succeeds when the target is within `distance`.",
+      "default": { "type": "near", "target": "Player", "distance": 120 },
+      "fields": [
+        { "name": "target", "kind": "string", "doc": "An entity's name, the nearest with a tag (`tag:guard`), or a blackboard key (`@goal`)" },
+        { "name": "distance", "kind": "number", "doc": "World units" },
+        { "name": "store", "kind": "string", "doc": "Keep the target's position under this blackboard key (empty: don't)" }
+      ] },
+    { "type": "wait", "group": "action", "doc": "Runs for `seconds` (plus up to `jitter` more, at random).",
+      "default": { "type": "wait", "seconds": 1 },
+      "fields": [
+        { "name": "seconds", "kind": "number", "doc": "Seconds" },
+        { "name": "jitter", "kind": "number", "doc": "Up to this many seconds more, at random" }
+      ] },
+    { "type": "move_to", "group": "action", "doc": "Goes to within `arrive` of the target (or away from it) at `speed`, through the entity's nav_agent when it has one.",
+      "default": { "type": "move_to", "target": "@goal", "speed": 120, "arrive": 8 },
+      "fields": [
+        { "name": "target", "kind": "json", "doc": "As `near`'s target, or a point [x, y]" },
+        { "name": "speed", "kind": "number", "doc": "World units a second" },
+        { "name": "arrive", "kind": "number", "doc": "Close enough, world units" },
+        { "name": "away", "kind": "bool", "doc": "Flee: go until this far from it" }
+      ] },
+    { "type": "set", "group": "action", "doc": "Writes a blackboard key (adds to it, with `add`).",
+      "default": { "type": "set", "key": "alert", "value": true },
+      "fields": [
+        { "name": "key", "kind": "string", "doc": "The blackboard key" },
+        { "name": "value", "kind": "json", "doc": "The value" },
+        { "name": "add", "kind": "bool", "doc": "Add to the number there instead" }
+      ] },
+    { "type": "write", "group": "action", "doc": "Writes any component field on the entity or the named target.",
+      "default": { "type": "write", "component": "sprite", "field": "color", "value": [1, 1, 1, 1] },
+      "fields": [
+        { "name": "target", "kind": "string", "doc": "Another entity's name (empty: this one)" },
+        { "name": "component", "kind": "string", "doc": "The component's scene key" },
+        { "name": "field", "kind": "string", "doc": "A dotted field path" },
+        { "name": "value", "kind": "json", "doc": "The value" }
+      ] },
+    { "type": "event", "group": "action", "doc": "Calls `on_<event>` on the entity's script and succeeds.",
+      "default": { "type": "event", "event": "spotted" },
+      "fields": [{ "name": "event", "kind": "string", "doc": "Calls on_<event>" }] },
+    { "type": "call", "group": "action", "doc": "Calls `on_<call>` and runs until the script writes \"success\" or \"failure\" to the blackboard key <call>.",
+      "default": { "type": "call", "call": "attack" },
+      "fields": [{ "name": "call", "kind": "string", "doc": "Calls on_<call>, answered under the key <call>" }] }
+  ]
+}

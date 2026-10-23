@@ -1,0 +1,349 @@
+---
+draft: false
+title: Scene Format
+description: JSON scene file format specification for jEngine.
+---
+
+jEngine scenes are stored as JSON files with the `.scene` extension. This page documents the format
+and the most used components; the [Components Reference](/api-reference/components/) is generated from
+the source and lists every core component, and each [package](/packages/) page lists its own.
+
+## Top-Level Structure
+
+```json
+{
+  "version": 2,
+  "name": "Scene Name",
+  "audio_refs": ["sounds/jump.wav"],
+  "atlas_refs": ["atlases/characters.atlas"],
+  "entities": [
+    {
+      "name": "Entity Name",
+      "components": { ... }
+    }
+  ]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `version` | `1` or `2` | Use `2`: every component is dispatched through the registry, so package components load. A v1 scene keeps a key it does not know as inert custom data |
+| `name` | `string` | Human-readable scene name |
+| `audio_refs` | `array` | Every clip the scene may play, as paths under `assets/` — a clip not listed does not play |
+| `atlas_refs` | `array` | Ready-made sprite sheets (`.atlas`) to load with the scene |
+| `entities` | `array` | List of entity definitions |
+
+## Entity Definition
+
+```json
+{
+  "name": "Player",
+  "components": {
+    "transform": { ... },
+    "sprite": { ... },
+    "script": { ... }
+  }
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | `string` | Entity display name |
+| `parent` | `string` | Name of the entity this one hangs from (optional) |
+| `parent_index` | `integer` | Index of the parent, written by a save when the parent's name is shared |
+| `components` | `object` | Component bundle (all fields optional) |
+
+## Component Bundle Fields
+
+All fields in the `components` object are optional. Only include the components your entity needs.
+
+### transform
+
+```json
+{ "position": [0, 0], "rotation": 0.0, "scale": [1, 1] }
+```
+
+### sprite
+
+```json
+{ "texture_id": "sprites/player.png", "color": [1,1,1,1], "z_order": 0, "size": null, "uv_rect": null }
+```
+
+Without `size` a sprite draws at its texture's size. Colours are **linear**. A sprite can name an atlas
+`region` instead of a `uv_rect`, sort by its position with `"y_sort": true`, and turn about its `anchor`.
+
+### script
+
+```json
+{ "language": "Lua", "source_path": "scripts/player.lua" }
+```
+
+Language values: `"Lua"` or `"JavaScript"`.
+
+### camera
+
+```json
+{ "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+```
+
+### camera_follow
+
+```json
+{ "smoothing": 0.1, "offset": [0, 0], "bounds": null }
+```
+
+Put it on the entity the camera should follow — it follows the entity it is on. It also takes
+`dead_zone`, `look_ahead`, and `frame_tag` to frame every entity with a tag.
+
+### rigid_body
+
+```json
+{ "body_type": "Dynamic", "mass": 1.0, "gravity_scale": 1.0, "linear_damping": 0.0, "angular_damping": 0.0, "fixed_rotation": false, "ccd": false }
+```
+
+Set `ccd` on fast bodies, or they pass through walls.
+
+Body types: `"Dynamic"`, `"Static"`, `"Kinematic"`.
+
+### collider
+
+```json
+{ "shape": { "Box": { "width": 32, "height": 32 } }, "offset": [0, 0], "is_sensor": false, "friction": 0.5, "restitution": 0.0, "density": 1.0 }
+```
+
+Shape types: `Box`, `Circle`, `Capsule`, `Segment`, `Triangle`, `ConvexPolygon`, `Polyline`, `HeightField`, `ConvexDecomposition`.
+
+### joint
+
+```json
+{ "target_entity": "OtherEntity", "joint_type": { "Revolute": { "anchor": [0,0], "anchor_b": [0,0], "limits": null, "motor_speed": 0, "motor_max_torque": 0 } }, "collide_connected": false }
+```
+
+### audio_source
+
+```json
+{ "clip_id": "sounds/jump.ogg", "volume": 1.0, "pitch": 1.0, "looping": false, "auto_play": false }
+```
+
+### text
+
+```json
+{ "text": "Hello World", "font_id": "", "font_scale": 1.0, "color": [1,1,1,1], "z_order": 0, "align": "center" }
+```
+
+An empty `font_id` is the built-in font. Text also takes `wrap_width`, `rich` (markup such as
+`[color=..]` and `[wave]`), `reveal_speed` (a typewriter), `outline` and `shadow`.
+
+### tags
+
+```json
+["enemy", "damageable"]
+```
+
+### parallax_layer
+
+```json
+{
+  "scroll_factor_x": 0.5,
+  "scroll_factor_y": 0.5,
+  "repeat_x": false,
+  "repeat_y": false,
+  "offset_x": 0,
+  "offset_y": 0,
+  "auto_scroll_x": 0,
+  "auto_scroll_y": 0
+}
+```
+
+A [jengine-parallax](/packages/parallax/) component: the scene must be `"version": 2`. See the
+[Parallax guide](/guides/parallax/) for details.
+
+### particle_emitter
+
+```json
+{
+  "emission_rate": 20,
+  "max_particles": 256,
+  "lifetime": [0.5, 1.5],
+  "speed": [50, 100],
+  "angle": [0, 6.2832],
+  "color_start": [1, 1, 1, 1],
+  "color_end": [1, 1, 1, 0],
+  "size_start": [8, 12],
+  "size_end": [2, 4],
+  "gravity_modifier": 0,
+  "angular_velocity": [0, 0],
+  "burst_count": 0,
+  "active": true,
+  "world_space": true,
+  "z_order": 0
+}
+```
+
+### sprite_animator
+
+```json
+{
+  "clips": {
+    "idle": {
+      "name": "idle",
+      "frames": [
+        { "uv_rect": [0, 0, 0.25, 1] },
+        { "uv_rect": [0.25, 0, 0.5, 1] }
+      ],
+      "frame_duration": 0.15,
+      "looping": true
+    }
+  },
+  "current_clip": "idle",
+  "current_frame": 0,
+  "elapsed": 0,
+  "playing": true,
+  "speed": 1.0
+}
+```
+
+### material
+
+```json
+{ "material_id": "default_sprite", "blend_mode": null, "uniforms": {}, "normal_map_id": null }
+```
+
+Built-in materials: `"default_sprite"`, `"additive"`, `"multiply"`, `"screen"`, `"unlit"`, `"lit_sprite"`.
+Any other `material_id` names a `.material` file, usually built from a shader graph, whose
+`MaterialParam` nodes read the instance's uniforms:
+
+```json
+{ "material_id": "materials/water.material", "uniforms": { "tint": { "Vec4": [0.2, 0.5, 1.0, 1.0] }, "speed": { "Float": 0.5 } } }
+```
+
+A material can also carry a `normal_map_id`, and `specular` / `shininess` for highlights.
+
+### point_light
+
+```json
+{ "color": [1, 1, 1], "intensity": 1.0, "radius": 200.0, "falloff": 2.0 }
+```
+
+Also `shadow_softness`, `height` (how high it sits, for normal maps), `casts_shadows` and a `cookie`
+texture. Lights cast shadows from `light_occluder` components. See the Lighting section of the
+[Scripting API](/api-reference/scripting-api/) for directional and freeform lights, ambient occlusion
+and toon bands.
+
+### spot_light
+
+```json
+{ "color": [1, 1, 1], "intensity": 1.0, "radius": 300.0, "angle": 0.785, "direction": 0.0, "falloff": 2.0 }
+```
+
+### ambient_light
+
+```json
+{ "color": [1, 1, 1], "intensity": 0.3 }
+```
+
+Only the first `ambient_light` in the scene is used.
+
+### lightmap
+
+```json
+{ "texture_id": "lightmaps/level1.png", "uv_rect": [0, 0, 1, 1], "intensity": 1.0 }
+```
+
+### velocity
+
+```json
+{ "x": 100.0, "y": 50.0, "gravity": 0.0 }
+```
+
+For kinematic motion without the physics engine. Velocity is in pixels/sec, gravity in pixels/sec².
+
+### bounce_area
+
+```json
+{ "min_x": -640, "min_y": -360, "max_x": 640, "max_y": 360, "damping": 0.9 }
+```
+
+Constrains entity position within the bounding box and bounces velocity. `damping` of 1.0 = perfectly elastic, 0.0 = no bounce.
+
+### shadow_caster
+
+```json
+{ "enabled": true, "color": [0, 0, 0, 0.4], "offset": [2, -2], "height": 1.0, "scale": [1, 1], "skew": 0.0 }
+```
+
+Fake drop shadow rendered using the entity's sprite texture. `height` multiplies `offset` to push the shadow further. `skew` adds horizontal shear for perspective-style shadows.
+
+### vector_path
+
+```json
+{
+  "commands": [
+    { "type": "MoveTo", "x": 0, "y": 0 },
+    { "type": "LineTo", "x": 100, "y": 0 },
+    { "type": "LineTo", "x": 100, "y": 100 },
+    { "type": "Close" }
+  ],
+  "fill_color": [1, 1, 1, 1],
+  "stroke_color": [0, 0, 0, 1],
+  "stroke_width": 2.0,
+  "z_order": 0,
+  "closed": false
+}
+```
+
+Path command types: `MoveTo`, `LineTo`, `QuadTo` (quadratic bezier), `CubicTo` (cubic bezier), `Close`.
+
+### Custom Components
+
+Any unrecognized key in `components` is stored as custom component data, read with
+`Entity.get_custom(e, "Health", "current")`. Custom components are CapitalCase by convention — that is
+what tells them apart from a **misspelt engine key**, which is also kept as custom data and silently does
+nothing:
+
+```json
+{
+  "components": {
+    "transform": { ... },
+    "Health": { "current": 100, "max": 100 },
+    "Inventory": { "slots": 10 }
+  }
+}
+```
+
+## Prefab Format
+
+Prefabs use the same format as individual entities, are stored as `.prefab` files under
+`assets/prefabs/`, and are spawned with `Entity.spawn_prefab("prefabs/bullet.prefab")`. Their textures are
+preloaded with the scene:
+
+```json
+{
+  "name": "Bullet",
+  "components": {
+    "transform": { "position": [0,0], "rotation": 0, "scale": [1,1] },
+    "sprite": { "texture_id": "sprites/bullet.png", "color": [1,1,0,1], "z_order": 5, "size": [8, 8] },
+    "rigid_body": { "body_type": "Dynamic", "mass": 0.1, "ccd": true },
+    "lifetime": { "remaining": 2.0 },
+    "collider": { "shape": { "Circle": { "radius": 4 } }, "is_sensor": true }
+  }
+}
+```
+
+A prefab can be a hierarchy: `children` lists its parts, each an entity of
+the same format placed in its parent's frame, with `children` of its own,
+and a part can be a `prefab_instance` of another prefab. A spawn builds the
+whole tree, and a scene instance brings the parts as entities named
+`Parent/Part`. `Entity.find_child(e, "Part")` finds one.
+
+```json
+{
+  "name": "Cart",
+  "components": { "sprite": { "texture_id": "sprites/cart.png", "size": [120, 34] } },
+  "children": [
+    { "name": "Wheel", "components": {
+        "transform": { "position": [-40, -22], "rotation": 0, "scale": [1, 1] },
+        "prefab_instance": { "prefab_id": "Wheel" } } }
+  ]
+}
+```

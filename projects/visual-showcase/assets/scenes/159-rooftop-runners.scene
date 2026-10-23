@@ -1,0 +1,1490 @@
+{
+ "name": "159 - Rooftop Runners",
+ "post_process": {
+  "effects": [
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.3
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Streets",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/streets.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "RoofA",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/roofa.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      340.0,
+      270.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -170.0,
+       -135.0
+      ],
+      [
+       170.0,
+       -135.0
+      ],
+      [
+       170.0,
+       135.0
+      ],
+      [
+       -170.0,
+       135.0
+      ]
+     ],
+     "agent_radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "RoofB",
+   "components": {
+    "transform": {
+     "position": [
+      -30.0,
+      195.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/roofb.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      380.0,
+      270.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -190.0,
+       -135.0
+      ],
+      [
+       190.0,
+       -135.0
+      ],
+      [
+       190.0,
+       135.0
+      ],
+      [
+       -190.0,
+       135.0
+      ]
+     ],
+     "agent_radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "RoofE",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      215.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/roofe.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      400.0,
+      230.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -200.0,
+       -115.0
+      ],
+      [
+       200.0,
+       -115.0
+      ],
+      [
+       200.0,
+       115.0
+      ],
+      [
+       -200.0,
+       115.0
+      ]
+     ],
+     "agent_radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "RoofC",
+   "components": {
+    "transform": {
+     "position": [
+      -370.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/roofc.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      500.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -250.0,
+       -125.0
+      ],
+      [
+       250.0,
+       -125.0
+      ],
+      [
+       250.0,
+       125.0
+      ],
+      [
+       -250.0,
+       125.0
+      ]
+     ],
+     "agent_radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "RoofD",
+   "components": {
+    "transform": {
+     "position": [
+      280.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/roofd.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      680.0,
+      250.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_region": {
+     "outline": [
+      [
+       -340.0,
+       -125.0
+      ],
+      [
+       340.0,
+       -125.0
+      ],
+      [
+       340.0,
+       125.0
+      ],
+      [
+       -340.0,
+       125.0
+      ]
+     ],
+     "agent_radius": 14.0
+    }
+   }
+  },
+  {
+   "name": "Chimney0",
+   "components": {
+    "transform": {
+     "position": [
+      -520.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/chimney.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 48.0,
+       "height": 48.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Chimney1",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/chimney.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 48.0,
+       "height": 48.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Tank2",
+   "components": {
+    "transform": {
+     "position": [
+      -40.0,
+      220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/tank.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 90.0,
+       "height": 90.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Vent3",
+   "components": {
+    "transform": {
+     "position": [
+      60.0,
+      110.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/vent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      56.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 56.0,
+       "height": 40.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Vent4",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      240.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/vent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      56.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 56.0,
+       "height": 40.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Skylight5",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/skylight.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      80.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 60.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Chimney6",
+   "components": {
+    "transform": {
+     "position": [
+      -460.0,
+      -200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/chimney.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 48.0,
+       "height": 48.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Skylight7",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/skylight.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      80.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 80.0,
+       "height": 60.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "Tank8",
+   "components": {
+    "transform": {
+     "position": [
+      350.0,
+      -230.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/tank.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 90.0,
+       "height": 90.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "JumpAB",
+   "components": {
+    "transform": {
+     "position": [
+      -292.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_link": {
+     "from": [
+      0.0,
+      0.0
+     ],
+     "to": [
+      -208.0,
+      200.0
+     ],
+     "kind": "jump",
+     "duration": 0.5,
+     "one_way": false,
+     "cost": 1.0
+    }
+   }
+  },
+  {
+   "name": "PlankBE",
+   "components": {
+    "transform": {
+     "position": [
+      148.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_link": {
+     "from": [
+      0.0,
+      0.0
+     ],
+     "to": [
+      232.0,
+      160.0
+     ],
+     "kind": "plank",
+     "duration": 0.0,
+     "one_way": false,
+     "cost": 1.0
+    }
+   }
+  },
+  {
+   "name": "PlankBEPlank",
+   "components": {
+    "transform": {
+     "position": [
+      190.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/plank.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      104.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "JumpCD",
+   "components": {
+    "transform": {
+     "position": [
+      -132.0,
+      -170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_link": {
+     "from": [
+      0.0,
+      0.0
+     ],
+     "to": [
+      -48.0,
+      -170.0
+     ],
+     "kind": "jump",
+     "duration": 0.5,
+     "one_way": false,
+     "cost": 1.0
+    }
+   }
+  },
+  {
+   "name": "Bridge",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      -92.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_link": {
+     "from": [
+      0.0,
+      0.0
+     ],
+     "to": [
+      440.0,
+      112.0
+     ],
+     "kind": "bridge",
+     "duration": 0.0,
+     "one_way": false,
+     "cost": 1.0
+    }
+   }
+  },
+  {
+   "name": "BridgeDeck",
+   "components": {
+    "transform": {
+     "position": [
+      440.0,
+      10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/bridge.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -45,
+     "size": [
+      60.0,
+      224.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Zip",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      72.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "nav_link": {
+     "from": [
+      0.0,
+      0.0
+     ],
+     "to": [
+      -380.0,
+      -92.0
+     ],
+     "kind": "zip",
+     "duration": 1.1,
+     "one_way": true,
+     "cost": 1.0
+    }
+   }
+  },
+  {
+   "name": "ZipWire",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "line": {
+     "points": [
+      [
+       -560.0,
+       72.0
+      ],
+      [
+       -380.0,
+       -92.0
+      ]
+     ],
+     "width": 3.0,
+     "color": [
+      0.01961,
+      0.01961,
+      0.02721,
+      1.0
+     ],
+     "z_order": -30
+    }
+   }
+  },
+  {
+   "name": "Shadow0",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      176.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -21,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Runner0",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      180.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/runner.png",
+     "color": [
+      0.89001,
+      0.10048,
+      0.07324,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 150.0,
+     "radius": 14.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 10.0
+    }
+   }
+  },
+  {
+   "name": "Shadow1",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      276.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -21,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Runner1",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      280.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/runner.png",
+     "color": [
+      0.07324,
+      0.31855,
+      0.89001,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 162.0,
+     "radius": 14.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 10.0
+    }
+   }
+  },
+  {
+   "name": "Shadow2",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      156.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -21,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Runner2",
+   "components": {
+    "transform": {
+     "position": [
+      400.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/runner.png",
+     "color": [
+      0.89001,
+      0.60383,
+      0.05088,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 174.0,
+     "radius": 14.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 10.0
+    }
+   }
+  },
+  {
+   "name": "Shadow3",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -264.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -21,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Runner3",
+   "components": {
+    "transform": {
+     "position": [
+      -400.0,
+      -260.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/runner.png",
+     "color": [
+      0.13287,
+      0.69207,
+      0.17064,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 186.0,
+     "radius": 14.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 10.0
+    }
+   }
+  },
+  {
+   "name": "Shadow4",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -154.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/shadow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -21,
+     "size": [
+      52.0,
+      52.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Runner4",
+   "components": {
+    "transform": {
+     "position": [
+      200.0,
+      -150.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/rooftops/runner.png",
+     "color": [
+      0.69207,
+      0.17064,
+      0.78741,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      44.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "nav_agent": {
+     "speed": 198.0,
+     "radius": 14.0
+    },
+    "face_velocity": {
+     "offset_radians": 0.0,
+     "min_speed": 5.0,
+     "turn_rate": 10.0
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s159_rooftop_runners.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "159   Rooftop Runners",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click a roof to call them   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

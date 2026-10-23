@@ -1,0 +1,427 @@
+{
+ "version": 2,
+ "name": "224 - Runtime Conformance",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      330
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "224 - RUNTIME CONFORMANCE",
+     "font_id": "",
+     "font_scale": 3.0,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      280
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "The script writes known state, reads it back through every getter a frame later and logs one\n'[conformance] name = value' line per answer. tools/conformance.mjs runs this scene natively and in a\nweb build and diffs the lines: a getter that binds but answers wrongly in one runtime shows up there.\nH hub  [ ] prev / next",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      0.9
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Summary",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      180
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "running...",
+     "font_id": "",
+     "font_scale": 1.6,
+     "color": [
+      1,
+      0.9,
+      0.4,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Lines",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      130
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.8,
+     "color": [
+      0.75,
+      0.8,
+      0.9,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "ProbeA",
+   "components": {
+    "transform": {
+     "position": [
+      200,
+      -120
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      40.0,
+      40.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "anchor": [
+      0.25,
+      0.75
+     ],
+     "z_order": 5
+    },
+    "material": {
+     "material_id": "default_sprite"
+    },
+    "tags": [
+     "probe"
+    ],
+    "health": {
+     "current": 30.0,
+     "max": 50.0
+    },
+    "Probe": {
+     "n": 3
+    }
+   }
+  },
+  {
+   "name": "ProbeChild",
+   "parent": "ProbeA",
+   "components": {
+    "transform": {
+     "position": [
+      30,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      12.0,
+      12.0
+     ],
+     "color": [
+      0.4,
+      0.9,
+      1,
+      1
+     ],
+     "z_order": 6
+    }
+   }
+  },
+  {
+   "name": "ProbeMover",
+   "components": {
+    "transform": {
+     "position": [
+      -200,
+      -200
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": 12.0,
+     "y": -4.0
+    }
+   }
+  },
+  {
+   "name": "ProbeBall",
+   "components": {
+    "transform": {
+     "position": [
+      -200,
+      200
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "velocity": {
+     "x": 50.0,
+     "y": 0.0
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "gravity_scale": 0.0
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 8.0
+      }
+     }
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      16.0,
+      16.0
+     ],
+     "color": [
+      0.9,
+      0.9,
+      0.3,
+      1
+     ],
+     "z_order": 5
+    }
+   }
+  },
+  {
+   "name": "ProbeText",
+   "components": {
+    "transform": {
+     "position": [
+      200,
+      -40
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "before",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 6
+    }
+   }
+  },
+  {
+   "name": "ProbeWall",
+   "components": {
+    "transform": {
+     "position": [
+      400,
+      -120
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "size": [
+      40.0,
+      200.0
+     ],
+     "color": [
+      0.5,
+      0.3,
+      0.3,
+      1
+     ],
+     "z_order": 4
+    },
+    "rigid_body": {
+     "body_type": "Static"
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 40.0,
+       "height": 200.0
+      }
+     }
+    }
+   }
+  },
+  {
+   "name": "ProbeMap",
+   "components": {
+    "transform": {
+     "position": [
+      -560,
+      -100
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tilemap": {
+     "tile_size": [
+      32.0,
+      32.0
+     ],
+     "tilesets": [
+      {
+       "texture_id": "sprites/tiles4.png",
+       "tile_width": 16,
+       "tile_height": 16,
+       "columns": 4,
+       "tile_count": 4,
+       "first_gid": 1,
+       "image_width": 64,
+       "image_height": 16
+      }
+     ],
+     "layers": [
+      {
+       "name": "ground",
+       "width": 4,
+       "height": 3,
+       "visible": true,
+       "collision": false,
+       "tiles": [
+        1,
+        2,
+        3,
+        4,
+        2,
+        null,
+        null,
+        3,
+        4,
+        3,
+        2,
+        1
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "name": "Script",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_224_conformance.lua"
+    }
+   }
+  }
+ ]
+}

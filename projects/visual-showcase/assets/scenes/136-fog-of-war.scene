@@ -1,0 +1,1213 @@
+{
+ "name": "136 - Fog of War",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.0,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.35
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Map",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/map.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1440.0,
+      810.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "RoadRoute",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -509.0625,
+       "y": -11.25
+      },
+      {
+       "type": "LineTo",
+       "x": -298.125,
+       "y": 11.25
+      },
+      {
+       "type": "LineTo",
+       "x": -59.0625,
+       "y": -23.90625
+      },
+      {
+       "type": "LineTo",
+       "x": 28.125,
+       "y": -42.1875
+      },
+      {
+       "type": "LineTo",
+       "x": 151.875,
+       "y": -16.875
+      },
+      {
+       "type": "LineTo",
+       "x": 405.0,
+       "y": 53.4375
+      },
+      {
+       "type": "LineTo",
+       "x": 672.1875,
+       "y": 80.15625
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": false
+    }
+   }
+  },
+  {
+   "name": "NorthRoute",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -360.0,
+       "y": 140.0
+      },
+      {
+       "type": "LineTo",
+       "x": -120.0,
+       "y": 250.0
+      },
+      {
+       "type": "LineTo",
+       "x": 180.0,
+       "y": 320.0
+      },
+      {
+       "type": "LineTo",
+       "x": 470.0,
+       "y": 300.0
+      },
+      {
+       "type": "LineTo",
+       "x": 560.0,
+       "y": 170.0
+      },
+      {
+       "type": "LineTo",
+       "x": 260.0,
+       "y": 150.0
+      },
+      {
+       "type": "LineTo",
+       "x": -60.0,
+       "y": 110.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "SouthRoute",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": -380.0,
+       "y": -150.0
+      },
+      {
+       "type": "LineTo",
+       "x": -150.0,
+       "y": -300.0
+      },
+      {
+       "type": "LineTo",
+       "x": 200.0,
+       "y": -330.0
+      },
+      {
+       "type": "LineTo",
+       "x": 560.0,
+       "y": -290.0
+      },
+      {
+       "type": "LineTo",
+       "x": 430.0,
+       "y": -170.0
+      },
+      {
+       "type": "LineTo",
+       "x": 120.0,
+       "y": -190.0
+      },
+      {
+       "type": "LineTo",
+       "x": -150.0,
+       "y": -120.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "RaidRoute",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "vector_path": {
+     "commands": [
+      {
+       "type": "MoveTo",
+       "x": 330.0,
+       "y": 30.0
+      },
+      {
+       "type": "LineTo",
+       "x": 560.0,
+       "y": 140.0
+      },
+      {
+       "type": "LineTo",
+       "x": 660.0,
+       "y": -40.0
+      },
+      {
+       "type": "LineTo",
+       "x": 500.0,
+       "y": -120.0
+      },
+      {
+       "type": "Close"
+      }
+     ],
+     "fill_color": null,
+     "stroke_color": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     "stroke_width": 1.0,
+     "z_order": -95,
+     "closed": true
+    }
+   }
+  },
+  {
+   "name": "Castle",
+   "components": {
+    "transform": {
+     "position": [
+      -551.25,
+      -16.875
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/castle.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      150.0,
+      150.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sight": {
+     "radius": 200.0,
+     "soft": 60.0
+    }
+   }
+  },
+  {
+   "name": "Tent0",
+   "components": {
+    "transform": {
+     "position": [
+      430.0,
+      235.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Tent1",
+   "components": {
+    "transform": {
+     "position": [
+      485.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Tent2",
+   "components": {
+    "transform": {
+     "position": [
+      395.0,
+      278.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Tent3",
+   "components": {
+    "transform": {
+     "position": [
+      585.0,
+      -205.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Tent4",
+   "components": {
+    "transform": {
+     "position": [
+      630.0,
+      -168.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Tent5",
+   "components": {
+    "transform": {
+     "position": [
+      -120.0,
+      -330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Tent6",
+   "components": {
+    "transform": {
+     "position": [
+      90.0,
+      345.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Tent7",
+   "components": {
+    "transform": {
+     "position": [
+      660.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/tent.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      56.0,
+      56.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Fire0",
+   "components": {
+    "transform": {
+     "position": [
+      445.0,
+      262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.42123,
+      0.05296,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Fire1",
+   "components": {
+    "transform": {
+     "position": [
+      610.0,
+      -192.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.42123,
+      0.05296,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Fire2",
+   "components": {
+    "transform": {
+     "position": [
+      -95.0,
+      -310.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.6,
+      0.42123,
+      0.05296,
+      1.0
+     ],
+     "z_order": -29,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "Raider",
+   "components": {
+    "transform": {
+     "position": [
+      330.0,
+      30.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/scout.png",
+     "color": [
+      1.0,
+      0.45,
+      0.4,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "RaidRoute",
+     "speed": 60.0
+    },
+    "fog_hidden": {
+     "threshold": 0.35
+    }
+   }
+  },
+  {
+   "name": "RoadScout",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/scout.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "RoadRoute",
+     "speed": 48.0,
+     "mode": "ping_pong",
+     "progress": 0.0
+    },
+    "sight": {
+     "radius": 105.0,
+     "soft": 40.0
+    }
+   }
+  },
+  {
+   "name": "NorthScout",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/scout.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "NorthRoute",
+     "speed": 44.0,
+     "mode": "loop",
+     "progress": 0.0
+    },
+    "sight": {
+     "radius": 105.0,
+     "soft": 40.0
+    }
+   }
+  },
+  {
+   "name": "SouthScout",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/scout.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -10,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "path_follow": {
+     "path": "SouthRoute",
+     "speed": 40.0,
+     "mode": "loop",
+     "progress": 400.0
+    },
+    "sight": {
+     "radius": 105.0,
+     "soft": 40.0
+    }
+   }
+  },
+  {
+   "name": "Rider",
+   "components": {
+    "transform": {
+     "position": [
+      -461.25,
+      -56.875
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fogofwar/scout.png",
+     "color": [
+      0.75,
+      0.85,
+      1.25,
+      1.0
+     ],
+     "z_order": -9,
+     "size": [
+      60.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "sight": {
+     "radius": 125.0,
+     "soft": 45.0
+    }
+   }
+  },
+  {
+   "name": "Fog",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 20,
+     "size": [
+      1440.0,
+      810.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "fog_of_war": {
+     "size": [
+      1440.0,
+      810.0
+     ],
+     "cell": 12.0,
+     "unseen_color": [
+      0.00232,
+      0.00271,
+      0.0044,
+      0.96
+     ],
+     "explored_alpha": 0.6,
+     "reveal_speed": 4.0
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s136_fog_of_war.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "136   Fog of War",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "left mouse  send the rider   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,148 @@
+---
+draft: false
+title: Web Portals
+description: Building a web game for jCabinet, Poki, CrazyGames or YouTube Playables - loading, ads, pause and the Platform API.
+---
+
+A web build can be made for a game portal: **jCabinet** (jWorld), **Poki**, **CrazyGames** or
+**YouTube Playables**. The build then loads that portal's SDK, and the engine tells the portal
+what it needs to hear, in that portal's own words. Your game code is the same for all four.
+
+Without any game code, the engine:
+
+- **fills the portal's loading bar** (jCabinet draws one) from the real download,
+- **says loading is done** when the first frame is on screen,
+- **says the game is ready to play** - on that first frame, or when your script says so,
+- **freezes and mutes the game** while an ad plays or the portal pauses it, and
+- **follows the portal's mute setting**.
+
+Your scripts add what only the game knows: when play starts and stops, when to show an ad, and
+what to celebrate.
+
+## Choosing the portal
+
+The portal is chosen per build, because the same game often goes to several portals:
+
+| Where | What |
+|---|---|
+| **Project Settings → Web → Portal** | The project's default (`settings.web_platform`) |
+| **Build → Web → Portal** | This build only; *Project setting* keeps the default |
+| **Command line** | `jengine web-build projects/<name> --platform poki` |
+
+The ids are `none`, `jcabinet`, `poki`, `crazygames` and `youtube`. `none` is a plain web page with
+no SDK.
+
+**Project Settings → Web → Game ready** decides when the portal hears that the game can be played:
+
+- **On the first frame** (the default) suits a game that opens on its menu.
+- **When a script calls `Platform.game_ready()`** suits a game with a splash screen, an intro or
+  its own loading first.
+
+:::caution[YouTube Playables checks this]
+YouTube fails a game that reports "ready" while a splash or loading screen is still showing. If
+your game has one, choose *When a script calls* and call `Platform.game_ready()` from the menu.
+:::
+
+## Scripting
+
+```lua
+-- Which portal this build was made for: "jcabinet", "poki", "crazygames", "youtube",
+-- or "none" (native, the editor, a plain web build).
+if Platform.name() == "youtube" then
+    -- ...
+end
+
+Platform.game_ready()       -- the game can be played (only with "When a script calls")
+Platform.gameplay_start()   -- a level starts, the game resumes
+Platform.gameplay_stop()    -- menu, pause, level end, game over
+Platform.happy_time()       -- a boss beaten, a record broken - use sparingly
+Platform.submit_score(1200, "high-scores")   -- the board name is used by jCabinet
+```
+
+### Ads
+
+Ask for an ad with `Platform.show_ad`. The answer comes back as the `platform_ad_finished` event:
+
+```lua
+function init(entity)
+    Event.on("platform_ad_finished", entity)
+end
+
+-- Between levels; the portal decides whether an ad actually plays.
+Platform.show_ad("midgame")
+
+-- Tell the player first, then ask. The second argument is YouTube's
+-- reward id: one per kind of reward.
+Platform.show_ad("rewarded", "extra-life")
+
+function on_platform_ad_finished(entity, data)
+    -- data = { kind = "rewarded", shown = true, rewarded = true }
+    if data.kind == "rewarded" and data.rewarded then
+        give_extra_life()
+    end
+end
+```
+
+Give a reward only when `rewarded` is `true`. While the ad plays, the game is frozen and silent:
+no `update`, no timers, no physics, no sound. You do not need to pause or mute anything yourself.
+
+### When the portal pauses the game
+
+YouTube Playables pauses a game whenever the player looks away. Scripts hear `platform_pause`
+first, while the game still runs for that one frame, so it is the moment to save. When the
+portal lets go, they hear `platform_resume`:
+
+```lua
+function init(entity)
+    Event.on("platform_pause", entity)
+    Event.on("platform_resume", entity)
+end
+
+function on_platform_pause(entity, data)
+    Save.commit()
+end
+```
+
+### Outside a portal
+
+Natively, in the editor and in a plain web build there is no portal to tell. The calls do nothing,
+`Platform.name()` is `"none"`, and `Platform.show_ad` answers at once with
+`{ shown = false, rewarded = false }`. Your ad flow runs, and can be tested, everywhere.
+
+## What each portal hears
+
+| Your game | jCabinet | Poki | CrazyGames | YouTube Playables |
+|---|---|---|---|---|
+| Downloading | loading bar filled | - | - | - |
+| First frame | `gameLoaded` | `gameLoadingFinished` | `loadingStop` | `firstFrameReady` |
+| Ready to play | - | - | - | `gameReady` |
+| `gameplay_start` / `stop` | - | `gameplayStart` / `Stop` | `gameplayStart` / `Stop` | - |
+| `happy_time` | - | - | `happytime` | - |
+| `submit_score` | the named leaderboard | - | - | your best score |
+| `show_ad("midgame")` | not shown (no midgame ads) | commercial break | midgame ad | interstitial ad |
+| `show_ad("rewarded")` | rewarded video | rewarded break | rewarded ad | rewarded ad |
+| Pauses the game | during its ad | during an ad | during an ad | when the player looks away, and around its ads |
+| Mutes the game | during its ad | during an ad | during an ad, and its mute setting | its audio setting |
+
+The engine also follows each portal's rules for you:
+
+- Gameplay start and stop are sent only when they change, and never during an ad.
+- If the game was playing when it asked for an ad, play stops before the ad and starts again
+  after it.
+- An SDK that never loaded, for example because of an ad blocker, makes every call a no-op, and
+  ads answer "not shown".
+
+## Testing
+
+Engine Test Lab scene **295 - Web platform** calls every function from the keyboard and lists what
+comes back. Build it for a portal and open it on `localhost`:
+
+- **Poki** and **CrazyGames** both run their SDK in a local test mode, with test ads.
+- **YouTube Playables'** SDK does nothing outside YouTube; test there with YouTube's own tools.
+- **jCabinet** needs the game inside a jCabinet site, such as a dev build uploaded to jWorld.
+
+:::note[Not covered yet]
+Cloud saves (YouTube's `saveData`, CrazyGames' data module) and the portals' other modules
+(accounts, rooms, banners) are not wired in. YouTube Playables also has its own limits on bundle
+size and network use; check them before sending a large game there.
+:::

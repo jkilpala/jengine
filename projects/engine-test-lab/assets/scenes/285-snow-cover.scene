@@ -1,0 +1,328 @@
+{
+ "name": "285 - Snow Cover",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Steps",
+   "components": {
+    "transform": {
+     "position": [
+      -380.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab285_steps.png",
+     "size": [
+      240.0,
+      200.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 1
+    },
+    "snow_cover": {
+     "depth": 6.0,
+     "max_depth": 14.0,
+     "rate": 0.0,
+     "color": [
+      0.93,
+      0.95,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.5,
+     "bumps": 1.0,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "Roof",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab285_roof.png",
+     "size": [
+      260.0,
+      200.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 1
+    },
+    "snow_cover": {
+     "depth": 6.0,
+     "max_depth": 14.0,
+     "rate": 0.0,
+     "color": [
+      0.93,
+      0.95,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.5,
+     "bumps": 1.0,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "Post",
+   "components": {
+    "transform": {
+     "position": [
+      380.0,
+      -60.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab285_sheet.png",
+     "size": [
+      80.0,
+      200.0
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.5,
+      1.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 1
+    },
+    "snow_cover": {
+     "depth": 6.0,
+     "max_depth": 14.0,
+     "rate": 0.0,
+     "color": [
+      0.93,
+      0.95,
+      1.0,
+      1.0
+     ],
+     "slope_limit": 1.5,
+     "bumps": 1.0,
+     "cutoff": 0.5,
+     "step": 0.5
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "285 - Snow Cover",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   S snow   M melt   Space stop   Up/Down slope limit",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: snow on each step's flat top and none on the risers; more on the roof's shallow side than its steep one; a cap",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "on the post only (its sheet's solid neighbour is not snowed on); S deepens it, M melts it away (`snow_cover`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_285_snow_cover.lua"
+    }
+   }
+  }
+ ]
+}

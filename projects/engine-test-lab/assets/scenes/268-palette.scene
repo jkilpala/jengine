@@ -1,0 +1,280 @@
+{
+ "name": "268 - Palette",
+ "post_process": {
+  "effects": [
+   {
+    "name": "palette",
+    "enabled": true,
+    "params": {
+     "preset": {
+      "Float": 1.0
+     },
+     "count": {
+      "Float": 0.0
+     },
+     "dither": {
+      "Float": 0.8
+     },
+     "cell": {
+      "Float": 2.0
+     },
+     "cycle_start": {
+      "Float": 2.0
+     },
+     "cycle_end": {
+      "Float": 0.0
+     },
+     "cycle_speed": {
+      "Float": 2.0
+     },
+     "c0": {
+      "Vec4": [
+       0.1,
+       0.1,
+       0.15,
+       1.0
+      ]
+     },
+     "c1": {
+      "Vec4": [
+       0.9,
+       0.85,
+       0.7,
+       1.0
+      ]
+     },
+     "c2": {
+      "Vec4": [
+       0.9,
+       0.2,
+       0.2,
+       1.0
+      ]
+     },
+     "c3": {
+      "Vec4": [
+       0.2,
+       0.4,
+       0.95,
+       1.0
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ramps",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/lab268_ramps.png",
+     "size": [
+      1000.0,
+      300.0
+     ],
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 0
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -30.0
+     ],
+     "size": [
+      1100.0,
+      44.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "268 - Palette",
+     "font_size": 30.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "TopCenter",
+     "offset": [
+      0.0,
+      -80.0
+     ],
+     "size": [
+      1250.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "[H/Esc] hub   1-5 presets   6 custom (cycling)   0 off   D dither on / off",
+     "font_size": 15.0,
+     "color": [
+      0.6,
+      0.65,
+      0.75,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Line0",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      40.0,
+      -110.0
+     ],
+     "size": [
+      1100.0,
+      26.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 18.0,
+     "color": [
+      0.85,
+      0.88,
+      0.95,
+      1
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Expect1",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      40.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Expect: the hue and grey ramps drawn in only the palette's colours, dithered where a colour falls between two;",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Expect2",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomCenter",
+     "offset": [
+      0.0,
+      16.0
+     ],
+     "size": [
+      1250.0,
+      22.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "the custom four-colour palette's last two entries swap twice a second; the captions stay sharp (`palette`).",
+     "font_size": 15.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      1
+     ],
+     "alignment": "Center"
+    }
+   }
+  },
+  {
+   "name": "Controller",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_268_palette.lua"
+    }
+   }
+  }
+ ]
+}

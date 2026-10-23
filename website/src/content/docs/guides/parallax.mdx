@@ -1,0 +1,149 @@
+---
+draft: false
+title: Parallax Scrolling
+description: Create multi-layer scrolling backgrounds with the jEngine parallax package.
+---
+
+The `jengine-parallax` package provides a `ParallaxLayer` component that creates depth-based scrolling effects. Background layers scroll slower than the camera while foreground layers scroll faster, producing a sense of depth.
+
+## How It Works
+
+When the camera moves, each parallax layer shifts by a fraction of the camera displacement determined by its `scroll_factor`:
+
+- `scroll_factor = 0.0` — Layer stays fixed in place (skybox, distant mountains)
+- `scroll_factor = 0.5` — Layer scrolls at half the camera speed (mid-ground)
+- `scroll_factor = 1.0` — Layer scrolls with the scene (no parallax effect)
+- `scroll_factor > 1.0` — Layer scrolls faster than the camera (close foreground)
+
+The formula is: `position = offset + camera_position * (1 - scroll_factor) + auto_scroll_accumulator`
+
+## Setup
+
+`jengine-parallax` is a built-in package, so there is nothing to link; a project with a
+`settings.enabled_packages` list must name it. `parallax_layer` is a package component, so the scene
+must be a **v2** scene (`"version": 2`). See the [package page](/packages/parallax/).
+
+Add the `parallax_layer` component to an entity that also has a `transform` and a `sprite`:
+
+```json
+{
+  "name": "Mountains",
+  "components": {
+    "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+    "sprite": {
+      "texture_id": "backgrounds/mountains.png",
+      "color": [1, 1, 1, 1],
+      "z_order": -10
+    },
+    "parallax_layer": {
+      "scroll_factor_x": 0.3,
+      "scroll_factor_y": 0.1,
+      "repeat_x": true,
+      "repeat_y": false,
+      "offset_x": 0,
+      "offset_y": -100,
+      "auto_scroll_x": 0,
+      "auto_scroll_y": 0
+    }
+  }
+}
+```
+
+## Component Fields
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `scroll_factor_x` | `f32` | `0.5` | Horizontal scroll rate relative to camera |
+| `scroll_factor_y` | `f32` | `0.5` | Vertical scroll rate relative to camera |
+| `repeat_x` | `bool` | `false` | Tile infinitely along X axis |
+| `repeat_y` | `bool` | `false` | Tile infinitely along Y axis |
+| `repeat_width` | `f32` | `0.0` | The span it wraps by along X; 0 uses the sprite's `size`. For a seamless strip, give N copies of a W-wide image offsets 0, W, 2W ... and a `repeat_width` of N x W |
+| `repeat_height` | `f32` | `0.0` | The span it wraps by along Y; 0 uses the sprite's `size` |
+| `offset_x` | `f32` | `0.0` | Base X offset before parallax calculation |
+| `offset_y` | `f32` | `0.0` | Base Y offset before parallax calculation |
+| `auto_scroll_x` | `f32` | `0.0` | Constant horizontal scroll speed (pixels/sec) |
+| `auto_scroll_y` | `f32` | `0.0` | Constant vertical scroll speed (pixels/sec) |
+| `z_order_override` | `i32?` | `null` | Override sprite z_order for draw sorting |
+
+## Typical Layer Stack
+
+Set up multiple entities with different scroll factors and z-orders to build a layered background:
+
+```json
+{
+  "entities": [
+    {
+      "name": "Sky",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "bg/sky.png", "color": [1,1,1,1], "z_order": -100 },
+        "parallax_layer": { "scroll_factor_x": 0.0, "scroll_factor_y": 0.0 }
+      }
+    },
+    {
+      "name": "FarMountains",
+      "components": {
+        "transform": { "position": [0, -50], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "bg/mountains_far.png", "color": [1,1,1,1], "z_order": -90 },
+        "parallax_layer": { "scroll_factor_x": 0.1, "scroll_factor_y": 0.05, "repeat_x": true }
+      }
+    },
+    {
+      "name": "NearHills",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "bg/hills.png", "color": [1,1,1,1], "z_order": -50 },
+        "parallax_layer": { "scroll_factor_x": 0.5, "scroll_factor_y": 0.3, "repeat_x": true }
+      }
+    },
+    {
+      "name": "ForegroundFog",
+      "components": {
+        "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+        "sprite": { "texture_id": "bg/fog.png", "color": [1,1,1,0.5], "z_order": 50 },
+        "parallax_layer": { "scroll_factor_x": 1.5, "scroll_factor_y": 0.0, "repeat_x": true }
+      }
+    }
+  ]
+}
+```
+
+## Auto-Scrolling
+
+Set `auto_scroll_x` or `auto_scroll_y` to create clouds, water, or other elements that scroll continuously regardless of camera movement:
+
+```json
+"parallax_layer": {
+  "scroll_factor_x": 0.2,
+  "scroll_factor_y": 0.0,
+  "auto_scroll_x": 15,
+  "auto_scroll_y": 0,
+  "repeat_x": true
+}
+```
+
+This scrolls the layer 15 pixels per second horizontally while also applying parallax from camera movement.
+
+## Scripting API
+
+Two commands, in every runtime (native, editor and web):
+
+| Call | Does |
+|---|---|
+| `Parallax.set(e, factor_x, factor_y)` | Change the scroll factors |
+| `Parallax.set_auto_scroll(e, speed_x, speed_y)` | Change the auto-scroll speed |
+
+```lua
+-- make the layer scroll faster during a speed boost
+Parallax.set(bg_entity, 0.8, 0.3)
+
+-- speed up the clouds when the wind picks up
+Parallax.set_auto_scroll(clouds_entity, 30, 0)
+```
+
+The older flat globals `set_parallax` and `set_parallax_auto_scroll` exist on the native runtime only;
+in the editor and on the web they are `nil`. Use the namespace.
+
+## System Execution
+
+The parallax system runs during the **PreRender** phase. It reads the active camera's transform position and updates each entity with a `ParallaxLayer` + `Transform` component pair. This means parallax positions are always up-to-date before rendering.

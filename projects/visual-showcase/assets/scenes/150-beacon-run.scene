@@ -1,0 +1,1247 @@
+{
+ "name": "150 - Beacon Run",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.6
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 0.9
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 0.95
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.85,
+       0.75,
+       0.15
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Moor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/moor.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      6000.0,
+      4500.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon1",
+   "components": {
+    "transform": {
+     "position": [
+      1900.0,
+      1200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon1Lit",
+   "components": {
+    "transform": {
+     "position": [
+      1900.0,
+      1200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn_lit.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 1,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon1Glow",
+   "components": {
+    "transform": {
+     "position": [
+      1900.0,
+      1200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.05088,
+      0.0
+     ],
+     "z_order": 2,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon1Marker",
+   "components": {
+    "transform": {
+     "position": [
+      1900.0,
+      1200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 60,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "offscreen_marker": {
+     "target": "Beacon1",
+     "margin": 56.0,
+     "arrow_texture": "sprites/beaconrun/arrow.png",
+     "icon_texture": "sprites/beaconrun/flame_icon.png",
+     "icon_offset": [
+      0.0,
+      90.0
+     ],
+     "label": "Beacon1Label",
+     "label_format": "{d} m",
+     "units_per_meter": 40.0,
+     "label_inset": 52.0
+    }
+   }
+  },
+  {
+   "name": "Beacon1Label",
+   "components": {
+    "transform": {
+     "position": [
+      1900.0,
+      1200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 61,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon2",
+   "components": {
+    "transform": {
+     "position": [
+      -2200.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon2Lit",
+   "components": {
+    "transform": {
+     "position": [
+      -2200.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn_lit.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 1,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon2Glow",
+   "components": {
+    "transform": {
+     "position": [
+      -2200.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.05088,
+      0.0
+     ],
+     "z_order": 2,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon2Marker",
+   "components": {
+    "transform": {
+     "position": [
+      -2200.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 60,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "offscreen_marker": {
+     "target": "Beacon2",
+     "margin": 56.0,
+     "arrow_texture": "sprites/beaconrun/arrow.png",
+     "icon_texture": "sprites/beaconrun/flame_icon.png",
+     "icon_offset": [
+      0.0,
+      90.0
+     ],
+     "label": "Beacon2Label",
+     "label_format": "{d} m",
+     "units_per_meter": 40.0,
+     "label_inset": 52.0
+    }
+   }
+  },
+  {
+   "name": "Beacon2Label",
+   "components": {
+    "transform": {
+     "position": [
+      -2200.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 61,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon3",
+   "components": {
+    "transform": {
+     "position": [
+      2400.0,
+      -1400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon3Lit",
+   "components": {
+    "transform": {
+     "position": [
+      2400.0,
+      -1400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn_lit.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 1,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon3Glow",
+   "components": {
+    "transform": {
+     "position": [
+      2400.0,
+      -1400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.05088,
+      0.0
+     ],
+     "z_order": 2,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon3Marker",
+   "components": {
+    "transform": {
+     "position": [
+      2400.0,
+      -1400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 60,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "offscreen_marker": {
+     "target": "Beacon3",
+     "margin": 56.0,
+     "arrow_texture": "sprites/beaconrun/arrow.png",
+     "icon_texture": "sprites/beaconrun/flame_icon.png",
+     "icon_offset": [
+      0.0,
+      90.0
+     ],
+     "label": "Beacon3Label",
+     "label_format": "{d} m",
+     "units_per_meter": 40.0,
+     "label_inset": 52.0
+    }
+   }
+  },
+  {
+   "name": "Beacon3Label",
+   "components": {
+    "transform": {
+     "position": [
+      2400.0,
+      -1400.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 61,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon4",
+   "components": {
+    "transform": {
+     "position": [
+      -1800.0,
+      -1600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon4Lit",
+   "components": {
+    "transform": {
+     "position": [
+      -1800.0,
+      -1600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn_lit.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 1,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon4Glow",
+   "components": {
+    "transform": {
+     "position": [
+      -1800.0,
+      -1600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.05088,
+      0.0
+     ],
+     "z_order": 2,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon4Marker",
+   "components": {
+    "transform": {
+     "position": [
+      -1800.0,
+      -1600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 60,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "offscreen_marker": {
+     "target": "Beacon4",
+     "margin": 56.0,
+     "arrow_texture": "sprites/beaconrun/arrow.png",
+     "icon_texture": "sprites/beaconrun/flame_icon.png",
+     "icon_offset": [
+      0.0,
+      90.0
+     ],
+     "label": "Beacon4Label",
+     "label_format": "{d} m",
+     "units_per_meter": 40.0,
+     "label_inset": 52.0
+    }
+   }
+  },
+  {
+   "name": "Beacon4Label",
+   "components": {
+    "transform": {
+     "position": [
+      -1800.0,
+      -1600.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 61,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon5",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      1900.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon5Lit",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      1900.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/cairn_lit.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 1,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Beacon5Glow",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      1900.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.05088,
+      0.0
+     ],
+     "z_order": 2,
+     "size": [
+      520.0,
+      520.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beacon5Marker",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      1900.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/arrow.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 60,
+     "size": [
+      54.0,
+      54.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {},
+    "offscreen_marker": {
+     "target": "Beacon5",
+     "margin": 56.0,
+     "arrow_texture": "sprites/beaconrun/arrow.png",
+     "icon_texture": "sprites/beaconrun/flame_icon.png",
+     "icon_offset": [
+      0.0,
+      90.0
+     ],
+     "label": "Beacon5Label",
+     "label_format": "{d} m",
+     "units_per_meter": 40.0,
+     "label_inset": 52.0
+    }
+   }
+  },
+  {
+   "name": "Beacon5Label",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      1900.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 0.9,
+     "color": [
+      1.0,
+      0.82757,
+      0.44799,
+      1.0
+     ],
+     "z_order": 61,
+     "align": "center",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Scout",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/scout0.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "camera_follow": {
+     "smoothing": 0.1
+    }
+   }
+  },
+  {
+   "name": "ScoutStep",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/beaconrun/scout1.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "z_order": 5,
+     "size": [
+      64.0,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s150_beacon_run.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "150   Beacon Run",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "WASD / arrows walk   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

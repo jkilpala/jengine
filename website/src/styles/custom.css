@@ -1,0 +1,128 @@
+/*
+ * Starlight, dressed in the site's palettes (palettes.css).
+ *
+ * Starlight declares its tokens inside `@layer starlight.base`, so these
+ * unlayered declarations win in both of its modes without matching its
+ * selectors; the `--jx-*` values they read change with `data-theme` and
+ * `data-palette`.
+ */
+
+:root {
+  --sl-font: var(--jx-body);
+  --sl-font-mono: var(--jx-mono);
+
+  --sl-color-white: var(--jx-ink);
+  --sl-color-gray-1: color-mix(in srgb, var(--jx-ink) 90%, var(--jx-bg));
+  --sl-color-gray-2: var(--jx-text);
+  --sl-color-gray-3: var(--jx-muted);
+  --sl-color-gray-4: color-mix(in srgb, var(--jx-muted) 60%, var(--jx-bg));
+  --sl-color-gray-5: var(--jx-line);
+  --sl-color-gray-6: var(--jx-panel);
+  --sl-color-gray-7: color-mix(in srgb, var(--jx-panel) 50%, var(--jx-bg));
+  --sl-color-black: var(--jx-bg);
+
+  --sl-color-accent-low: var(--jx-accent-low);
+  --sl-color-accent: var(--jx-accent);
+  --sl-color-accent-high: var(--jx-accent-high);
+  --sl-color-text-accent: var(--jx-link);
+
+  /* Asides: note in the second accent, tip in the first, caution in the third. */
+  --sl-color-blue-low: color-mix(in srgb, var(--jx-a2) 16%, var(--jx-bg));
+  --sl-color-blue: var(--jx-a2);
+  --sl-color-blue-high: color-mix(in srgb, var(--jx-a2) 55%, var(--jx-ink));
+  --sl-color-purple-low: color-mix(in srgb, var(--jx-accent) 16%, var(--jx-bg));
+  --sl-color-purple: var(--jx-accent);
+  --sl-color-purple-high: color-mix(in srgb, var(--jx-accent) 55%, var(--jx-ink));
+  --sl-color-orange-low: color-mix(in srgb, var(--jx-a3) 16%, var(--jx-bg));
+  --sl-color-orange: var(--jx-a3);
+  --sl-color-orange-high: color-mix(in srgb, var(--jx-a3) 55%, var(--jx-ink));
+}
+
+/* The header rides on a thin sunset line. */
+.header {
+  border-bottom: 0;
+  box-shadow: 0 1px 0 var(--jx-line);
+}
+.header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--jx-accent), var(--jx-a3) 55%, var(--jx-a2));
+  opacity: 0.85;
+}
+
+/* Site title: the striped sun, then the name in the display face. */
+.site-title {
+  font-family: var(--jx-display);
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+  color: var(--jx-ink);
+  gap: 0.55rem;
+}
+.site-title::before {
+  content: '';
+  flex: none;
+  width: 1.45rem;
+  height: 1.45rem;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--jx-n-sun1), var(--jx-n-sun2));
+  -webkit-mask: linear-gradient(180deg, #000 50%, transparent 50% 58%, #000 58% 70%, transparent 70% 78%, #000 78%);
+          mask: linear-gradient(180deg, #000 50%, transparent 50% 58%, #000 58% 70%, transparent 70% 78%, #000 78%);
+}
+
+/* Page titles in the display face; section headings stay in Plex. */
+h1#_top {
+  font-family: var(--jx-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.sl-markdown-content :is(h2, h3, h4) {
+  font-weight: 600;
+  text-wrap: balance;
+}
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--jx-line);
+}
+
+/* The current page in the sidebar: tinted, with a bar in the accent. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+  background: color-mix(in srgb, var(--jx-accent) 16%, transparent);
+  color: var(--jx-link);
+  box-shadow: inset 2px 0 0 var(--jx-accent);
+  font-weight: 600;
+}
+.sidebar-content .group-label .large,
+.sidebar-content summary .group-label {
+  color: var(--jx-ink);
+}
+
+/* Inline code in the second accent, so names stand out from prose. */
+.sl-markdown-content :not(pre) > code {
+  color: color-mix(in srgb, var(--jx-a2) 70%, var(--jx-ink));
+  border: 1px solid var(--jx-line);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+/* Generated pages say so in a small line under the title. */
+.auto-generated {
+  font: 500 0.72rem/1.4 var(--jx-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jx-muted);
+  margin-bottom: 1rem;
+}
+
+/* The palette select sits beside the theme select in the header. */
+jx-palette-select {
+  display: contents;
+}

@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jengine-fleet</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d2126; --dim: #6b7280; --line: #e2e0d8;
+    --accent: #2f6f5e; --warn: #b4541a; --bad: #b3261e; --ok: #2f6f5e;
+    --mono: ui-monospace, Consolas, monospace;
+    /* Chart series, in this order and never cycled: a service keeps its
+       colour by its place in the fleet, not by its rank. */
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+    --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+    --grid: #ecebe6;
+    /* State, never a series colour; always shown with an icon and a word. */
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171a; --panel: #1c2024; --ink: #e6e3dc; --dim: #8f97a3; --line: #2c3238;
+            --accent: #6cc0a6; --warn: #e39a5c; --bad: #f08a80; --ok: #6cc0a6;
+            --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+            --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+            --grid: #262b30; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, sans-serif; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 16px;
+           border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 16px; margin: 0; }
+  header .grow { flex: 1; }
+  #file { color: var(--dim); font: 12px var(--mono); }
+  #status { color: var(--dim); font-size: 12px; }
+  #status.bad { color: var(--bad); }
+  main { padding: 16px; display: grid; gap: 16px; max-width: 1280px; margin: 0 auto; }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+  section > h2 { font-size: 13px; margin: 0; padding: 10px 12px; border-bottom: 1px solid var(--line);
+                 display: flex; gap: 8px; align-items: center; }
+  section > h2 .grow { flex: 1; }
+  .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 8px; }
+  .card h3 { margin: 0; font-size: 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .card h3 .grow { flex: 1; }
+  .card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 12px; }
+  .card dt { color: var(--dim); }
+  .card dd { margin: 0; font-family: var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .scroll { overflow: auto; }
+  table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 7px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  th { color: var(--dim); font-weight: 500; font-size: 12px; }
+  td.num, th.num { text-align: right; }
+  td.mono { font-family: var(--mono); font-size: 12px; }
+  td.note { color: var(--dim); white-space: normal; max-width: 320px; font-size: 12px; }
+  .badge { font-size: 11px; padding: 1px 8px; border-radius: 99px; border: 1px solid currentColor; }
+  .running { color: var(--ok); } .stopped, .idle { color: var(--dim); }
+  .crashed, .failed, .unreached { color: var(--bad); }
+  .starting, .stopping, .behind { color: var(--warn); }
+  button, a.btn { font: inherit; color: inherit; background: transparent; border: 1px solid var(--line);
+                  border-radius: 6px; padding: 3px 9px; cursor: pointer; text-decoration: none; display: inline-block; }
+  button:hover, a.btn:hover { border-color: var(--accent); color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+  button.primary:hover { filter: brightness(1.1); color: var(--bg); }
+  button.danger:hover { border-color: var(--bad); color: var(--bad); }
+  button:disabled { opacity: 0.45; cursor: default; }
+  .empty { color: var(--dim); padding: 14px 12px; }
+  .error { color: var(--bad); padding: 12px; white-space: pre-wrap; }
+  .job { border-bottom: 1px solid var(--line); padding: 10px 12px; }
+  .job:last-child { border-bottom: 0; }
+  .job h4 { margin: 0 0 4px; font-size: 13px; display: flex; gap: 8px; align-items: center; }
+  .job time { color: var(--dim); font-weight: 400; font-size: 12px; }
+  pre { margin: 0; font: 12px/1.45 var(--mono); white-space: pre-wrap; word-break: break-word; }
+  .job pre { color: var(--dim); }
+  .job .why { color: var(--bad); }
+  #logText { padding: 10px 12px; max-height: 420px; overflow: auto; }
+  form.row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px 12px; }
+  form.row b { min-width: 60px; }
+  form.row input { font: inherit; padding: 4px 6px; }
+  /* The overview: the fleet at a glance, then each machine. */
+  #overview > h2 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  #overview > h2 .seg button { border: 0; border-radius: 0; padding: 2px 10px; font-size: 12px; }
+  #overview > h2 .seg button.on { background: var(--accent); color: var(--bg); font-weight: 600; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .tile { padding: 10px 12px; min-width: 0; box-shadow: inset -1px 0 var(--line), inset 0 -1px var(--line); }
+  .tile .k { color: var(--dim); font-size: 12px; }
+  .tile .v { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile .v small { font-size: 13px; font-weight: 400; color: var(--dim); }
+  .tile .sub { color: var(--dim); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar { height: 4px; background: var(--grid); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--dim); border-radius: 2px; }
+  .state { font-size: 12px; font-weight: 600; white-space: nowrap; color: var(--ink); }
+  .state i { font-style: normal; margin-right: 3px; }
+  .state.good i { color: var(--good); } .state.warning i { color: var(--warning); }
+  .state.serious i { color: var(--serious); } .state.critical i { color: var(--critical); }
+  .mhead { padding: 10px 12px 0; font-weight: 600; display: flex; gap: 8px; align-items: baseline; border-top: 1px solid var(--line); }
+  .mhead .dim { color: var(--dim); font-weight: 400; font-size: 12px; }
+  .charts { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; padding: 12px; }
+  .chart { position: relative; min-width: 0; min-height: 196px; }
+  .chart h4 { margin: 0 0 4px; font-size: 12px; font-weight: 600; }
+  .chart h4 span { color: var(--dim); font-weight: 400; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--dim); margin-bottom: 2px; }
+  .legend i { display: inline-block; width: 10px; height: 3px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+  .chart svg { display: block; width: 100%; height: 150px; overflow: visible; }
+  .chart svg text { fill: var(--dim); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .chart .tip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line);
+                border-radius: 6px; padding: 6px 8px; font-size: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.15);
+                white-space: nowrap; z-index: 2; }
+  .chart .tip b { display: block; font-weight: 600; margin-bottom: 2px; }
+  .chart .tip i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+  .chart .tip span { float: right; margin-left: 14px; font-variant-numeric: tabular-nums; }
+  /* An element styled with a display of its own still hides when told to. */
+  [hidden] { display: none !important; }
+  #dashboards select { font: inherit; padding: 2px 6px; max-width: 50vw; }
+  #dashFrame { display: block; width: 100%; height: 80vh; border: 0; border-top: 1px solid var(--line);
+               border-radius: 0 0 8px 8px; background: var(--bg); }
+  .collecting { color: var(--dim); font-size: 12px; padding: 40px 0; text-align: center; }
+  #problems .p { display: grid; grid-template-columns: 70px 150px 80px 1fr; gap: 8px; padding: 6px 12px;
+                 border-top: 1px solid var(--line); font-size: 12px; align-items: baseline; cursor: pointer; }
+  #problems .p:hover { background: var(--bg); }
+  #problems .p code { font: 12px var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #problems .p time, #problems .p .svc { color: var(--dim); }
+  @media (max-width: 640px) {
+    #problems .p { grid-template-columns: 60px 1fr; }
+    #problems .p code { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">jengine-fleet</h1>
+  <span id="file"></span>
+  <span class="grow"></span>
+  <span id="status">connecting…</span>
+</header>
+<main>
+  <div id="fleetError" class="error" hidden></div>
+  <section id="overview">
+    <h2>Overview<span class="grow"></span>
+      <span class="seg" role="group" aria-label="Time range">
+        <button data-range="hour" class="on">1 hour</button><button data-range="day">24 hours</button>
+      </span></h2>
+    <div class="tiles" id="totals"></div>
+    <div id="machineOverview"></div>
+    <h2 style="border-top: 1px solid var(--line)">Recent problems<span class="grow"></span><span class="dim" style="color: var(--dim); font-weight: 400">errors and warnings from the servers' logs; click one for the log</span></h2>
+    <div id="problems"></div>
+  </section>
+  <section id="dashboards">
+    <h2>Server dashboards<span class="grow"></span>
+      <select id="dashPick" aria-label="Server"></select>
+      <button id="liveopsBtn" hidden title="this server's live ops: config, experiments, events, content releases">Live ops</button>
+      <a id="dashTab" class="btn" target="_blank" rel="noopener" hidden>Open in a tab</a></h2>
+    <div class="empty" id="dashHint">Each server's own dashboard - rooms, players, kick, notices, drain, accounts,
+      live ops and the game's API routes - signed in by this console. Choose a server.</div>
+    <iframe id="dashFrame" title="Server dashboard" hidden></iframe>
+  </section>
+  <div class="services" id="services"></div>
+  <section>
+    <h2>Machines</h2>
+    <div class="scroll" id="machines"></div>
+  </section>
+  <section>
+    <h2>Fleet file</h2>
+    <form id="machineForm" class="row">
+      <b>Machine</b>
+      <input name="name" placeholder="name" required size="10">
+      <input name="url" placeholder="https://10.0.0.5:9900" required size="22">
+      <input name="token_env" placeholder="token env var" size="14">
+      <input name="ca" placeholder="ca.pem (optional)" size="14">
+      <button class="primary">Add / replace</button>
+    </form>
+    <form id="serviceForm" class="row">
+      <b>Service</b>
+      <input name="name" placeholder="name" required size="10">
+      <input name="machines" placeholder="machines, comma separated" required size="22">
+      <input name="platform" placeholder="platform (windows-x86_64)" required size="18">
+      <input name="artifact" placeholder="path to the build" required size="22">
+      <input name="port" placeholder="port" size="6">
+      <input name="exe" placeholder="file to run, in a .zip" size="16" title="For a build that is an archive: the file inside it to run (bin/my-server)">
+      <input name="admin_token_env" placeholder="admin token env var" size="16">
+      <button class="primary">Add / replace</button>
+    </form>
+  </section>
+  <section id="logs" hidden>
+    <h2><span id="logTitle"></span><span class="grow"></span>
+      <input id="logGrep" placeholder="search (all generations)" size="24">
+      <button id="logRefresh">Refresh</button><button id="logHide">Hide</button></h2>
+    <pre id="logText"></pre>
+  </section>
+  <section>
+    <h2>Jobs</h2>
+    <div id="jobs"></div>
+  </section>
+</main>
+<script>
+"use strict";
+// Machine names, versions and log lines come from files and other machines:
+// every node is built and every string goes in as text, never as HTML.
+const $ = id => document.getElementById(id);
+function h(tag, props, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(props || {})) {
+    if (k === "on") for (const [ev, fn] of Object.entries(v)) el.addEventListener(ev, fn);
+    else if (k === "class") el.className = v;
+    else if (k.includes("-")) el.setAttribute(k, v);
+    else el[k] = v;
+  }
+  for (const kid of kids.flat()) if (kid != null) el.append(kid);
+  return el;
+}
+
+// Served at / on one's own machine, and at /manage/ behind a host's
+// gateway (its console): every request is relative to where the page is.
+const BASE = location.pathname.endsWith("/") ? location.pathname : location.pathname + "/";
+// A host's console takes builds uploaded from here; the page on one's own
+// machine deploys the builds on that machine.
+const HOSTED = "__HOSTED__" === "true";
+
+// Served with the token in it on loopback; asked for otherwise. A link may
+// carry it in its fragment, which a browser never sends anywhere.
+if (location.hash.startsWith("#token=")) {
+  sessionStorage.setItem("jengine-fleet-token", decodeURIComponent(location.hash.slice(7)));
+  history.replaceState(null, "", location.pathname);
+}
+let token = "__TOKEN__" || sessionStorage.getItem("jengine-fleet-token") || "";
+if (!token) {
+  token = (prompt("Fleet UI token") || "").trim();
+  sessionStorage.setItem("jengine-fleet-token", token);
+}
+
+async function api(path, method = "GET", body) {
+  const res = await fetch(BASE + "api/" + path, {
+    method,
+    headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || res.status + " " + res.statusText);
+  }
+  return (res.headers.get("content-type") || "").startsWith("text/plain") ? res.text() : res.json();
+}
+
+function ago(seconds) {
+  if (seconds < 90) return Math.round(seconds) + "s";
+  if (seconds < 5400) return Math.round(seconds / 60) + "m";
+  if (seconds < 129600) return (seconds / 3600).toFixed(1) + "h";
+  return (seconds / 86400).toFixed(1) + "d";
+}
+
+let fleet = { machines: [], services: [] }, status = [], jobs = [], logOf = null;
+const busy = service => jobs.some(j => j.service === service && j.state === "running");
+
+// The build on this machine that a deploy would send to a platform.
+function localVersion(service, platform) {
+  const def = fleet.services.find(s => s.name === service);
+  const artifact = def && def.artifacts.find(a => a.platform === platform);
+  return artifact ? artifact.version : null;
+}
+
+// The platform a machine reported (`linux-aarch64`): what a build for it
+// is filed under.
+function platformOf(machine) {
+  const m = status.find(m => m.machine === machine);
+  return m && m.status ? m.status.platform : "";
+}
+
+// A build from this computer, uploaded to the console's host - which keeps
+// it beside its fleet file and points the service at it.
+// Picked with its signature beside it (`jengine-fleet sign` writes
+// `<build>.sig`) for a host whose agent runs only signed releases: the
+// build is the file that is not the .sig.
+async function uploadBuild(service, platform, picked) {
+  if (!platform) throw new Error("the machine's platform is not known yet; wait for its status");
+  const files = picked instanceof File ? [picked] : Array.from(picked);
+  const file = files.find(f => !f.name.endsWith(".sig"));
+  if (!file) throw new Error("pick the build (and its .sig, if it has one)");
+  const sig = files.find(f => f.name === file.name + ".sig");
+  const headers = { "Authorization": "Bearer " + token };
+  if (sig) headers["X-Jengine-Release-Signature"] = (await sig.text()).trim();
+  $("status").textContent = "uploading " + file.name + (sig ? " (signed)" : "") + "…";
+  const res = await fetch(BASE + "api/build/" + encodeURIComponent(service) + "/" + encodeURIComponent(platform) +
+    "?file=" + encodeURIComponent(file.name), { method: "PUT", headers, body: file });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || res.status + " " + res.statusText);
+  return data;
+}
+
+function pickBuild(service, platform) {
+  // In the document while it is open: a phone's browser ignores a click on
+  // a file input that is not.
+  const input = h("input", { type: "file", hidden: true, multiple: true });
+  document.body.append(input);
+  input.onchange = async () => {
+    input.remove();
+    if (!input.files.length) return;
+    try {
+      const up = await uploadBuild(service, platform, input.files);
+      $("status").textContent = "uploaded " + up.version + " for " + platform + " - Deploy sends it";
+    } catch (e) { alert(e.message); }
+    refresh();
+  };
+  input.click();
+}
+
+async function order(path, body, sure) {
+  if (sure && !confirm(sure)) return;
+  try { await api(path, "POST", body); } catch (e) { alert(e.message); }
+  refresh();
+}
+
+function serviceCards() {
+  $("services").replaceChildren(...fleet.services.map(s => {
+    const running = busy(s.name);
+    const builds = s.artifacts.map(a => [
+      h("dt", {}, a.platform),
+      h("dd", { title: a.path }, a.version ? a.version + "  (" + (a.bytes / 1e6).toFixed(1) + " MB)" : "not built: " + a.path),
+    ]);
+    return h("div", { class: "card" },
+      h("h3", {}, s.name, h("span", { class: "grow" }),
+        h("button", { class: "danger", disabled: running, title: "take it out of the fleet file", on: { click: () =>
+          editFleet("DELETE", "service", { name: s.name }, "Remove the service " + s.name + " from the fleet file? Nothing deployed is stopped.") } }, "Remove"), " ",
+        HOSTED ? h("button", { disabled: running, title: "send a build from this computer to the host", on: { click: () =>
+          pickBuild(s.name, platformOf(s.machines[0] && s.machines[0].name)) } }, "Upload build") : null, " ",
+        h("button", { class: "primary", disabled: running, on: { click: () =>
+          order("deploy", { service: s.name },
+            "Deploy " + s.name + " to " + s.machines.length + " machine(s)? Each drains for up to " + s.drain_secs + "s, then restarts.") } },
+          running ? "Working…" : "Deploy")),
+      h("dl", {},
+        h("dt", {}, "runs on"), h("dd", {}, s.machines.map(m => m.name + (m.port ? ":" + m.port : "")).join(", ")),
+        ...builds.flat(),
+        s.has_admin ? null : [h("dt", {}, "note"), h("dd", {}, "no admin_token: stops are not graceful")]));
+  }));
+}
+
+function machineTable() {
+  if (!status.length) return $("machines").replaceChildren(h("div", { class: "empty" }, "No machines in the fleet file."));
+  const head = h("tr", {}, ...["Machine", "Platform", "Service", "Version", "Status"].map(t => h("th", {}, t)),
+    ...["Players", "CPU", "Memory", "Uptime", "Restarts"].map(t => h("th", { class: "num" }, t)), h("th", {}, "Note"), h("th", {}, ""));
+  const rows = [];
+  for (const m of status) {
+    if (m.error) {
+      rows.push(h("tr", {}, h("td", {}, m.machine), h("td", {}, "?"), h("td", {}, "–"), h("td", {}, "–"),
+        h("td", {}, h("span", { class: "badge unreached" }, "unreached")),
+        h("td", { class: "num" }, "–"), h("td", { class: "num" }, "–"), h("td", { class: "num" }, "–"),
+        h("td", { class: "num" }, "–"), h("td", { class: "num" }, "–"),
+        h("td", { class: "note" }, m.error),
+        h("td", {}, h("button", { class: "danger", on: { click: () => editFleet("DELETE", "machine", { name: m.machine }, "Remove " + m.machine + " from the fleet file?") } }, "Remove"))));
+      continue;
+    }
+    const services = m.status.services;
+    if (!services.length) {
+      rows.push(h("tr", {}, h("td", {}, m.machine), h("td", {}, m.status.platform), h("td", {}, "–"), h("td", {}, "–"),
+        h("td", {}, h("span", { class: "badge idle" }, "idle")),
+        h("td", { class: "num" }, "–"), h("td", { class: "num" }, "–"), h("td", { class: "num" }, "–"),
+        h("td", { class: "num" }, "–"), h("td", { class: "num" }, "–"),
+        h("td", { class: "note" }, "nothing deployed"),
+        h("td", {}, h("button", { class: "danger", on: { click: () => editFleet("DELETE", "machine", { name: m.machine }, "Remove " + m.machine + " from the fleet file?") } }, "Remove"))));
+    }
+    for (const s of services) {
+      const local = localVersion(s.name, m.status.platform);
+      const behind = local && local !== s.version;
+      const working = busy(s.name);
+      const on = { service: s.name, machine: m.machine };
+      const def = fleet.services.find(d => d.name === s.name);
+      const stopped = s.status === "stopped";
+      rows.push(h("tr", {},
+        h("td", {}, m.machine), h("td", {}, m.status.platform), h("td", {}, s.name),
+        h("td", { class: "mono" }, s.version, behind ? [" ", h("span", { class: "badge behind", title: "the local build is " + local }, "behind")] : null),
+        h("td", {}, h("span", { class: "badge " + s.status }, s.status)),
+        h("td", { class: "num" }, s.stats ? s.stats.players : "–"),
+        h("td", { class: "num" }, s.stats && s.stats.cpu != null ? s.stats.cpu.toFixed(0) + "%" : "–"),
+        h("td", { class: "num" }, s.stats && s.stats.memory_mb != null ? s.stats.memory_mb + " MB" : "–"),
+        h("td", { class: "num" }, s.uptime != null ? ago(s.uptime) : "–"),
+        h("td", { class: "num" }, s.restarts),
+        h("td", { class: "note" }, s.last_error || ""),
+        h("td", {},
+          behind ? h("button", { disabled: working, on: { click: () => order("deploy", on, "Deploy the local build of " + s.name + " to " + m.machine + "?") } }, "Update") : null, " ",
+          h("button", { disabled: working, on: { click: () => order("act", { ...on, action: "restart" }, "Restart " + s.name + " on " + m.machine + "?") } }, "Restart"), " ",
+          stopped
+            ? h("button", { disabled: working, on: { click: () => order("act", { ...on, action: "start" }) } }, "Start")
+            : h("button", { class: "danger", disabled: working, on: { click: () => order("act", { ...on, action: "stop" }, "Stop " + s.name + " on " + m.machine + "? Its players are saved and disconnected.") } }, "Stop"), " ",
+          h("button", { disabled: working || !s.previous, title: s.previous ? "back to " + s.previous : "no earlier build",
+            on: { click: () => order("act", { ...on, action: "rollback" }, "Roll " + s.name + " on " + m.machine + " back to " + s.previous + "?") } }, "Rollback"), " ",
+          h("button", { on: { click: () => showLogs(s.name, m.machine) } }, "Logs"), " ",
+          // Through this page and the machine's agent, signed in with this
+          // page's token: the server's own admin token never reaches here.
+          s.port && def && def.has_admin ? h("button", { title: "the server's own dashboard, below",
+            on: { click: () => openDashboard(m.machine, s.name, true) } }, "Dashboard") : null)));
+    }
+  }
+  $("machines").replaceChildren(h("table", {}, h("thead", {}, head), h("tbody", {}, rows)));
+}
+
+function jobList() {
+  if (!jobs.length) return $("jobs").replaceChildren(h("div", { class: "empty" }, "Nothing has been run from this page yet."));
+  $("jobs").replaceChildren(...jobs.map(j => h("div", { class: "job" },
+    h("h4", {}, h("span", { class: "badge " + (j.state === "ok" ? "running" : j.state === "failed" ? "failed" : "starting") },
+      j.state === "ok" ? "done" : j.state), j.title,
+      h("time", {}, new Date(j.started * 1000).toLocaleTimeString())),
+    j.lines.length ? h("pre", {}, j.lines.join("\n")) : null,
+    j.error ? h("pre", { class: "why" }, j.error) : null)));
+}
+
+async function showLogs(service, machine) {
+  logOf = { service, machine };
+  $("logs").hidden = false;
+  $("logTitle").textContent = "Log: " + service + " on " + machine;
+  try {
+    const grep = $("logGrep").value;
+    const text = await api("logs?service=" + encodeURIComponent(service) + "&machine=" + encodeURIComponent(machine) + "&lines=200&grep=" + encodeURIComponent(grep));
+    $("logText").textContent = text || "(the log is empty)";
+  } catch (e) { $("logText").textContent = "Error: " + e.message; }
+  $("logText").scrollTop = $("logText").scrollHeight;
+}
+
+async function editFleet(method, what, body, ask) {
+  if (ask && !confirm(ask)) return;
+  try { await api("fleet/" + what, method, body); } catch (e) { alert(e.message); }
+  refresh();
+}
+
+$("machineForm").onsubmit = e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const body = { name: f.get("name").trim(), url: f.get("url").trim() };
+  if (f.get("token_env").trim()) body.token_env = f.get("token_env").trim();
+  if (f.get("ca").trim()) body.ca = f.get("ca").trim();
+  editFleet("PUT", "machine", body);
+};
+if (HOSTED) {
+  // On a host the build comes from this computer, and the admin token is
+  // made by the console (the dashboards are reached through it).
+  const form = $("serviceForm");
+  form.artifact.replaceWith(h("input", { name: "build", type: "file", required: true, multiple: true }));
+  form.admin_token_env.remove();
+  form.machines.value = "host";
+  form.machines.placeholder = "machines (this host is 'host')";
+}
+$("serviceForm").onsubmit = async e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const platform = f.get("platform").trim();
+  const body = {
+    name: f.get("name").trim(),
+    machines: f.get("machines").split(",").map(m => m.trim()).filter(Boolean),
+    artifacts: {},
+    args: ["127.0.0.1:{port}"],
+  };
+  if (HOSTED) {
+    try { body.artifacts[platform] = (await uploadBuild(body.name, platform, f.getAll("build"))).path; }
+    catch (err) { return alert(err.message); }
+  } else {
+    body.artifacts[platform] = f.get("artifact").trim();
+    if (f.get("admin_token_env").trim()) body.admin_token_env = f.get("admin_token_env").trim();
+  }
+  if (f.get("port").trim()) body.port = Number(f.get("port"));
+  // An archive release names the file inside it to run.
+  if (f.get("exe").trim()) body.exe = f.get("exe").trim();
+  editFleet("PUT", "service", body);
+};
+
+// ---- the overview --------------------------------------------------------
+// Tiles from the pushed status (now); charts and "in the last hour" from the
+// console's own samples (api/history), which it takes whether or not this
+// page is open. Totals that grow (bytes, errors) become rates and sums here;
+// one that went backwards is a counter that started again.
+
+let hist = { interval: 5, samples: [] }, range = "hour";
+const RANGE_SECS = { hour: 3600, day: 86400 };
+
+const fmtBytes = b => b == null ? "–" : b < 1024 ? b.toFixed(0) + " B" : b < 1048576 ? (b / 1024).toFixed(1) + " KB"
+  : b < 1073741824 ? (b / 1048576).toFixed(1) + " MB" : (b / 1073741824).toFixed(2) + " GB";
+const fmtRate = b => b == null ? "–" : fmtBytes(b) + "/s";
+const fmtTime = t => new Date(t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+const pct = (a, b) => a != null && b ? a / b * 100 : null;
+
+// A service's colour is its place among every service in the fleet, by name:
+// the same everywhere on the page, whatever is shown beside it.
+function serviceColor(name) {
+  const names = [...new Set(status.flatMap(m => (m.status?.services || []).map(s => s.name)))].sort();
+  const i = names.indexOf(name);
+  return i >= 0 && i < 8 ? `var(--s${i + 1})` : "var(--dim)";
+}
+
+// [t, rate per second] between each pair of samples of a growing total.
+function rates(samples, get) {
+  const out = [];
+  for (let i = 1; i < samples.length; i++) {
+    const a = get(samples[i - 1]), b = get(samples[i]), dt = samples[i].t - samples[i - 1].t;
+    // A minute between samples (the day's grain, or the hour refilled from
+    // it after a restart) is still a rate; longer is a gap in the line.
+    out.push([samples[i].t, a == null || b == null || dt <= 0 || dt > Math.max(hist.interval * 3, 180) ? null : (b >= a ? b - a : b) / dt]);
+  }
+  return out;
+}
+
+// How much a growing total grew over the samples.
+function grew(samples, get) {
+  let sum = 0;
+  for (let i = 1; i < samples.length; i++) {
+    const a = get(samples[i - 1]), b = get(samples[i]);
+    if (a != null && b != null) sum += b >= a ? b - a : b;
+  }
+  return sum;
+}
+
+function state(level, word) {
+  const icon = { good: "●", warning: "▲", serious: "▲", critical: "■" }[level];
+  return h("span", { class: "state " + level }, h("i", { "aria-hidden": "true" }, icon), word);
+}
+
+function tile(k, v, sub, extra) {
+  return h("div", { class: "tile" }, h("div", { class: "k" }, k), h("div", { class: "v" }, v), sub ? h("div", { class: "sub" }, sub) : null, extra || null);
+}
+
+function bar(fraction) {
+  const b = h("div", { class: "bar" }, h("i"));
+  b.firstChild.style.width = Math.max(0, Math.min(100, fraction * 100)).toFixed(1) + "%";
+  return b;
+}
+
+function renderTotals() {
+  const machines = status.filter(m => m.status);
+  const services = machines.flatMap(m => m.status.services || []);
+  const running = services.filter(s => s.status === "running").length;
+  const players = services.reduce((n, s) => n + (s.stats?.players || 0), 0);
+  const recent = hist.samples;
+  const sum = key => Object.keys(recent.at(-1)?.services || {}).reduce((n, k) => n + grew(recent, x => x.services[k]?.[key] ?? null), 0);
+  const errors = sum("errors"), warnings = sum("warnings");
+  const span = range === "hour" ? "last hour" : "last 24 hours";
+  $("totals").replaceChildren(
+    tile("Players online", String(players), services.length + " server" + (services.length === 1 ? "" : "s")),
+    tile("Servers running", `${running} / ${services.length}`, null,
+      running === services.length ? state("good", "all running") : state("critical", (services.length - running) + " not running")),
+    tile("Machines", `${machines.length} / ${status.length}`, null,
+      machines.length === status.length ? state("good", "all answering") : state("critical", (status.length - machines.length) + " unreached")),
+    tile("Errors", String(errors), warnings + " warnings, " + span, errors ? state("critical", "see below") : state("good", "none")),
+    tile("Game data sent", fmtBytes(sum("out")), span),
+    tile("Game data received", fmtBytes(sum("in")), span),
+  );
+}
+
+function machineTiles(m) {
+  if (!m.status) return h("div", { class: "tiles", "data-tiles": m.machine }, tile("Agent", "unreached", m.error, state("critical", "not answering")));
+  const x = m.status.machine || {};
+  const mine = hist.samples.filter(s => s.machines?.[m.machine]?.up);
+  const rx = rates(mine.slice(-2), s => s.machines[m.machine].rx).at(-1)?.[1];
+  const tx = rates(mine.slice(-2), s => s.machines[m.machine].tx).at(-1)?.[1];
+  const temp = x.temperature;
+  const memPct = pct(x.memory_used, x.memory_total), diskPct = pct(x.disk_used, x.disk_total);
+  const level = v => v >= 90 ? "critical" : v >= 75 ? "warning" : "good";
+  const days = (x.uptime_secs || 0) / 86400;
+  return h("div", { class: "tiles", "data-tiles": m.machine },
+    tile("CPU", x.cpu != null ? x.cpu.toFixed(0) + "%" : "–", `load ${x.load ? x.load[0].toFixed(2) : "–"} · ${x.cores || "?"} cores`, bar((x.cpu || 0) / 100)),
+    tile("Memory", memPct != null ? memPct.toFixed(0) + "%" : "–", fmtBytes(x.memory_used) + " of " + fmtBytes(x.memory_total),
+      h("div", {}, bar((memPct || 0) / 100), memPct != null && memPct >= 75 ? state(level(memPct), "running low") : null)),
+    tile("Disk", diskPct != null ? diskPct.toFixed(0) + "%" : "–", fmtBytes(x.disk_used) + " of " + fmtBytes(x.disk_total),
+      h("div", {}, bar((diskPct || 0) / 100), diskPct != null && diskPct >= 75 ? state(level(diskPct), "filling up") : null)),
+    temp != null ? tile("Temperature", temp.toFixed(0) + " °C", null,
+      temp >= 80 ? state("critical", "throttling soon") : temp >= 70 ? state("warning", "warm") : state("good", "cool")) : null,
+    tile("Network now", h("span", {}, "↓ " + fmtRate(rx)), "↑ " + fmtRate(tx)),
+    tile("Network since boot", h("span", {}, "↓ " + fmtBytes(x.net_rx)), "↑ " + fmtBytes(x.net_tx)),
+    tile("Up", days >= 1 ? days.toFixed(1) + " days" : ((x.uptime_secs || 0) / 3600).toFixed(1) + " h", x.os || m.status.platform),
+  );
+}
+
+// A line chart: one axis, thin lines, a legend and an end label for two or
+// more series, a crosshair and tooltip on hover.
+const NS = "http://www.w3.org/2000/svg";
+function svg(tag, attrs) {
+  const el = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  return el;
+}
+function niceMax(v) {
+  if (!(v > 0)) return 1;
+  const p = Math.pow(10, Math.floor(Math.log10(v)));
+  return [1, 2, 2.5, 5, 10].map(m => m * p).find(m => m >= v);
+}
+
+// Drawn again in the same box: the box is measured while it still holds the
+// last drawing and is swapped in one step. Emptying it first and measuring
+// made the browser lay out a shorter page, which on a phone threw the
+// scroll back to the top every time the charts were drawn.
+function lineChart(parent, opt) {
+  let box = [...parent.children].find(b => b.dataset.key === opt.title);
+  if (!box) { box = h("div", { class: "chart", "data-key": opt.title }); parent.append(box); }
+  const width = box.clientWidth;
+  const kids = [h("h4", {}, opt.title, opt.unit ? h("span", {}, " · " + opt.unit) : null)];
+  const many = opt.series.length >= 2;
+  if (many) kids.push(h("div", { class: "legend" }, opt.series.map(s => { const i = h("i"); i.style.background = s.color; return h("span", {}, i, s.name); })));
+  const collecting = () => box.replaceChildren(...kids, h("div", { class: "collecting" }, "Collecting - the first points come within a minute."));
+  const points = opt.series.flatMap(s => s.pts).filter(p => p[1] != null);
+  if (points.length < 2) return collecting();
+
+  const W = Math.max(260, width), H = 150, L = 50, R = many && opt.series.length <= 4 ? 84 : 10, T = 8, B = 20;
+  // The range asked for, or less while the console has not been sampling
+  // that long: a chart squashed into its last minutes says nothing.
+  const t1 = hist.samples.at(-1).t, t0 = Math.max(t1 - RANGE_SECS[range], hist.samples[0].t);
+  if (t1 - t0 < 1) return collecting();
+  const max = opt.yMax ?? niceMax(Math.max(...points.map(p => p[1]), opt.floor ?? 0));
+  const x = t => L + (t - t0) / (t1 - t0) * (W - L - R), y = v => T + (1 - v / max) * (H - T - B);
+  const chart = svg("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": opt.title });
+  chart.style.height = H + "px";
+  for (const v of [0, max / 2, max]) {
+    chart.append(svg("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), stroke: "var(--grid)", "stroke-width": 1 }));
+    const label = svg("text", { x: L - 6, y: y(v) + 4, "text-anchor": "end" });
+    label.textContent = opt.fmt(v);
+    chart.append(label);
+  }
+  for (const [t, anchor] of [[t0, "start"], [(t0 + t1) / 2, "middle"], [t1, "end"]]) {
+    const label = svg("text", { x: x(t), y: H - 4, "text-anchor": anchor });
+    label.textContent = fmtTime(t);
+    chart.append(label);
+  }
+  const ends = [];
+  for (const s of opt.series) {
+    let d = "", pen = false, last = null;
+    for (const [t, v] of s.pts) {
+      if (v == null || t < t0) { pen = false; continue; }
+      d += (pen ? "L" : "M") + x(t).toFixed(1) + " " + y(v).toFixed(1);
+      pen = true; last = [t, v];
+    }
+    chart.append(svg("path", { d, fill: "none", stroke: s.color, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+    if (last) ends.push({ s, y: y(last[1]) });
+  }
+  // End labels, nudged apart so two series ending together stay readable.
+  if (R > 10) {
+    // Nudged apart downwards, then all moved up as one if that ran off the
+    // bottom - clamping each instead would pile them onto one line.
+    ends.sort((a, b) => a.y - b.y);
+    for (let i = 1; i < ends.length; i++) ends[i].y = Math.max(ends[i].y, ends[i - 1].y + 12);
+    const over = ends.length ? ends.at(-1).y - (H - B) : 0;
+    if (over > 0) for (const e of ends) e.y -= over;
+    for (const e of ends) {
+      const label = svg("text", { x: W - R + 6, y: e.y + 4 });
+      label.textContent = e.s.name;
+      chart.append(label);
+    }
+  }
+  // Hover: the nearest sample's values, for every series.
+  const cross = svg("line", { y1: T, y2: H - B, stroke: "var(--dim)", "stroke-width": 1, visibility: "hidden" });
+  const dots = opt.series.map(s => svg("circle", { r: 4, fill: s.color, stroke: "var(--panel)", "stroke-width": 2, visibility: "hidden" }));
+  const hit = svg("rect", { x: L, y: 0, width: W - L - R, height: H - B, fill: "transparent" });
+  chart.append(cross, ...dots, hit);
+  const tip = h("div", { class: "tip", hidden: true });
+  box.replaceChildren(...kids, chart, tip);
+  const times = [...new Set(opt.series.flatMap(s => s.pts.map(p => p[0])))].filter(t => t >= t0).sort((a, b) => a - b);
+  hit.addEventListener("mousemove", e => {
+    const r = chart.getBoundingClientRect(), px = (e.clientX - r.left) * W / r.width;
+    const t = times.reduce((best, t) => Math.abs(x(t) - px) < Math.abs(x(best) - px) ? t : best, times[0]);
+    cross.setAttribute("x1", x(t)); cross.setAttribute("x2", x(t)); cross.setAttribute("visibility", "visible");
+    const rows = [];
+    opt.series.forEach((s, i) => {
+      const v = s.pts.find(p => p[0] === t)?.[1];
+      dots[i].setAttribute("visibility", v == null ? "hidden" : "visible");
+      if (v != null) { dots[i].setAttribute("cx", x(t)); dots[i].setAttribute("cy", y(v)); }
+      const sw = h("i"); sw.style.background = s.color;
+      rows.push(h("div", {}, sw, s.name, h("span", {}, v == null ? "–" : opt.fmt(v))));
+    });
+    tip.replaceChildren(h("b", {}, new Date(t * 1000).toLocaleTimeString()), ...rows);
+    tip.hidden = false;
+    const left = x(t) / W * r.width;
+    tip.style.left = Math.min(left + 12, r.width - tip.offsetWidth) + "px";
+    tip.style.top = "28px";
+  });
+  hit.addEventListener("mouseleave", () => {
+    tip.hidden = true; cross.setAttribute("visibility", "hidden"); dots.forEach(d => d.setAttribute("visibility", "hidden"));
+  });
+}
+
+function drawCharts(m, grid) {
+  const mine = hist.samples.filter(s => s.machines?.[m.machine]?.up);
+  const at = (get) => mine.map(s => [s.t, get(s.machines[m.machine])]);
+  const services = [...new Set(hist.samples.flatMap(s => Object.keys(s.services || {})))]
+    .filter(k => k.startsWith(m.machine + "/")).sort();
+  const name = k => k.slice(m.machine.length + 1);
+  {
+    lineChart(grid, { title: "CPU and memory", unit: "% of the machine", yMax: 100, fmt: v => v.toFixed(0) + "%", series: [
+      { name: "CPU", color: "var(--s1)", pts: at(x => x.cpu ?? null) },
+      { name: "Memory", color: "var(--s2)", pts: at(x => pct(x.mem, x.mem_total)) },
+    ] });
+    lineChart(grid, { title: "Network", unit: "every interface but loopback", fmt: fmtRate, floor: 1024, series: [
+      { name: "Received", color: "var(--s1)", pts: rates(mine, s => s.machines[m.machine].rx) },
+      { name: "Sent", color: "var(--s2)", pts: rates(mine, s => s.machines[m.machine].tx) },
+    ] });
+    lineChart(grid, { title: "Players", fmt: v => v.toFixed(0), floor: 4, series: services.map(k => ({
+      name: name(k), color: serviceColor(name(k)), pts: hist.samples.map(s => [s.t, s.services?.[k]?.players ?? null]) })) });
+    lineChart(grid, { title: "Game traffic", unit: "sent and received, per server", fmt: fmtRate, floor: 256, series: services.map(k => ({
+      name: name(k), color: serviceColor(name(k)),
+      pts: rates(hist.samples, s => { const v = s.services?.[k]; return v && v.in != null ? v.in + v.out : null; }) })) });
+    if (mine.some(s => s.machines[m.machine].temp != null)) {
+      lineChart(grid, { title: "Temperature", unit: "°C", fmt: v => v.toFixed(0) + "°", floor: 60, series: [
+        { name: "SoC", color: "var(--s1)", pts: at(x => x.temp ?? null) }] });
+    }
+    lineChart(grid, { title: "Server memory", unit: "per server", fmt: v => v.toFixed(0) + " MB", floor: 16, series: services.map(k => ({
+      name: name(k), color: serviceColor(name(k)), pts: hist.samples.map(s => [s.t, s.services?.[k]?.mem ?? null]) })) });
+  }
+}
+
+// The tiles follow every push; the charts are drawn again only when the
+// samples change (or the machines do, or the window's size).
+// One block per machine, made when the machines change and kept after: the
+// tiles are replaced with every push, the charts redrawn in their boxes.
+function renderMachines(charts = true) {
+  const host = $("machineOverview");
+  const key = status.map(m => m.machine + (m.status ? "+" : "-")).join(",");
+  if (host.dataset.key !== key) {
+    host.dataset.key = key;
+    host.replaceChildren(...status.map(m => h("div", { "data-machine": m.machine },
+      h("div", { class: "mhead" }, m.machine, h("span", { class: "dim" })),
+      h("div", { "data-tiles": m.machine }),
+      m.status ? h("div", { class: "charts" }) : null)));
+    charts = true;
+  }
+  for (const m of status) {
+    const block = [...host.children].find(b => b.dataset.machine === m.machine);
+    if (!block) continue;
+    block.querySelector(".mhead .dim").textContent = m.status ? (m.status.machine?.host || "") + " · " + m.status.platform : "";
+    block.querySelector("[data-tiles]").replaceWith(machineTiles(m));
+    if (charts && m.status) drawCharts(m, block.querySelector(".charts"));
+  }
+}
+
+function renderProblems() {
+  const rows = [];
+  for (const m of status.filter(m => m.status)) {
+    for (const s of m.status.services || []) {
+      for (const p of s.log?.recent || []) rows.push({ ...p, machine: m.machine, service: s.name });
+      if (s.status === "crashed" || s.status === "failed") {
+        rows.push({ time: Date.now() / 1000, level: "error", line: s.last_error || s.status, machine: m.machine, service: s.name });
+      }
+    }
+  }
+  rows.sort((a, b) => b.time - a.time);
+  if (!rows.length) return $("problems").replaceChildren(h("div", { class: "empty" }, "Nothing has gone wrong since the agents started."));
+  $("problems").replaceChildren(...rows.slice(0, 15).map(p => h("div", { class: "p", title: p.line, on: { click: () => showLogs(p.service, p.machine) } },
+    h("time", {}, new Date(p.time * 1000).toLocaleTimeString()),
+    h("span", { class: "svc" }, p.machine + " / " + p.service),
+    p.level === "error" ? state("critical", "error") : state("warning", "warning"),
+    h("code", {}, p.line))));
+}
+
+// Tiles and problems with every push; the charts when the samples change
+// (not under a pointer reading one).
+function renderOverview(charts = false) {
+  renderTotals(); renderProblems(); fillDashPick();
+  renderMachines(charts && !document.querySelector(".chart:hover"));
+}
+
+async function loadHistory() {
+  try { hist = await api("history?range=" + range); renderOverview(true); } catch (e) { /* the status line says why */ }
+}
+for (const b of document.querySelectorAll("#overview .seg button")) {
+  b.onclick = () => {
+    range = b.dataset.range;
+    for (const o of document.querySelectorAll("#overview .seg button")) o.classList.toggle("on", o === b);
+    loadHistory();
+  };
+}
+let resized = null;
+window.addEventListener("resize", () => { clearTimeout(resized); resized = setTimeout(() => renderMachines(true), 200); });
+
+// ---- each server's own dashboard, inside the console -----------------------
+// Reached through dash/<machine>/<service>/admin: the console's token signs it
+// in, and the agent puts the server's admin token on every request it makes.
+
+const dashUrl = (machine, service, page = "admin") =>
+  BASE + "dash/" + encodeURIComponent(machine) + "/" + encodeURIComponent(service) + "/" + page + "#token=" + encodeURIComponent(token);
+// What the frame shows: "<machine>/<service>" and which of its pages.
+let dashOn = "", dashPage = "admin";
+
+function dashServers() {
+  return status.filter(m => m.status).flatMap(m => (m.status.services || [])
+    .filter(s => s.port && fleet.services.find(d => d.name === s.name)?.has_admin)
+    .map(s => m.machine + "/" + s.name));
+}
+
+// The choices, made again only when they change: rebuilding a select the
+// viewer is using closes it.
+function fillDashPick() {
+  const pick = $("dashPick"), all = dashServers();
+  const key = all.join(",");
+  if (pick.dataset.key === key) return;
+  pick.dataset.key = key;
+  pick.replaceChildren(h("option", { value: "" }, all.length ? "Choose a server…" : "No server with a dashboard"),
+    ...all.map(k => h("option", { value: k }, k.replace("/", " / "))));
+  pick.value = all.includes(dashOn) ? dashOn : "";
+}
+
+function openDashboard(machine, service, scroll, page = "admin") {
+  const key = machine + "/" + service;
+  const other = key !== dashOn;
+  if (other || page !== dashPage) {
+    dashOn = key;
+    dashPage = page;
+    $("dashFrame").src = dashUrl(machine, service, page);
+  }
+  $("dashFrame").hidden = false;
+  $("dashHint").hidden = true;
+  $("dashTab").hidden = false;
+  $("dashTab").href = dashUrl(machine, service, page);
+  $("dashPick").value = key;
+  $("liveopsBtn").textContent = page === "admin" ? "Live ops" : "Dashboard";
+  // Live ops is a service some servers run (`--liveops`): offered where the
+  // server answers for it.
+  if (other) {
+    $("liveopsBtn").hidden = true;
+    fetch(BASE + "dash/" + encodeURIComponent(machine) + "/" + encodeURIComponent(service) + "/admin/api/liveops",
+      { headers: { "Authorization": "Bearer " + token } })
+      .then(r => { if (dashOn === key) $("liveopsBtn").hidden = !r.ok; })
+      .catch(() => {});
+  }
+  if (scroll) $("dashboards").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+$("liveopsBtn").onclick = () => {
+  const [machine, ...rest] = dashOn.split("/");
+  openDashboard(machine, rest.join("/"), false, dashPage === "admin" ? "admin/liveops" : "admin");
+};
+
+$("dashPick").onchange = e => {
+  const [machine, ...rest] = e.target.value.split("/");
+  if (machine) openDashboard(machine, rest.join("/"), false);
+};
+
+// The fleet file and the jobs, on demand; the machines' status comes pushed.
+async function refresh() {
+  try {
+    const [f, j] = await Promise.all([api("fleet"), api("jobs")]);
+    fleet = f; jobs = j.jobs;
+    $("file").textContent = f.file;
+    $("fleetError").hidden = !f.error;
+    $("fleetError").textContent = f.error ? "The fleet file could not be used: " + f.error : "";
+    if (!pushed) status = f.error ? [] : (await api("status")).machines;
+    serviceCards(); machineTable(); jobList(); renderOverview();
+    $("status").className = "";
+    $("status").textContent = "updated " + new Date().toLocaleTimeString();
+  } catch (err) {
+    $("status").className = "bad";
+    $("status").textContent = err.message;
+  }
+}
+
+// Status pushed by the server every two seconds (an unreachable machine is
+// said so within three); the page polls only if the stream cannot be had.
+let pushed = false;
+function listen() {
+  const source = new EventSource(BASE + "api/events?token=" + encodeURIComponent(token));
+  source.onmessage = e => {
+    const data = JSON.parse(e.data);
+    pushed = true;
+    if (data.machines) status = data.machines;
+    if (HOSTED && !$("serviceForm").platform.value) $("serviceForm").platform.value = platformOf("host");
+    jobs = data.jobs;
+    serviceCards(); machineTable(); jobList(); renderOverview();
+    $("status").className = data.error ? "bad" : "";
+    $("status").textContent = data.error || ("live · " + new Date().toLocaleTimeString());
+  };
+  source.onerror = () => { pushed = false; source.close(); setTimeout(listen, 5000); };
+}
+
+if (HOSTED) { $("title").textContent = "Console · " + location.hostname; document.title = "Console · " + location.hostname; }
+$("logHide").onclick = () => { logOf = null; $("logs").hidden = true; };
+$("logGrep").onchange = () => { if (logOf) showLogs(logOf.service, logOf.machine); };
+$("logRefresh").onclick = () => logOf && showLogs(logOf.service, logOf.machine);
+refresh();
+listen();
+loadHistory();
+setInterval(loadHistory, 10000);
+setInterval(() => { if (!pushed) refresh(); }, 3000);
+setInterval(() => api("fleet").then(f => { fleet = f; serviceCards(); }).catch(() => {}), 10000);
+</script>
+</body>
+</html>

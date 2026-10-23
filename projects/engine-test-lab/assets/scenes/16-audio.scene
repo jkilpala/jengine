@@ -1,0 +1,79 @@
+{
+  "name": "16 - Audio",
+  "audio_refs": ["sounds/blip.wav", "sounds/hum.wav"],
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "camera": { "zoom": 1.0, "is_active": true, "viewport_width": 1280.0, "viewport_height": 720.0 }
+      }
+    },
+
+    {
+      "name": "Header",
+      "components": {
+        "transform": { "position": [-320.0, 320.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "16 - AUDIO", "font_id": "", "font_scale": 2.5, "color": [1.0, 1.0, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint1",
+      "components": {
+        "transform": { "position": [-580.0, 250.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "SPACE  one-shot blip (sfx)     M  start hum loop", "font_id": "", "font_scale": 1.2, "color": [0.85, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": { "position": [-580.0, 215.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "P  pause music    R  resume music    S  stop music", "font_id": "", "font_scale": 1.2, "color": [1.0, 0.95, 0.7, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": { "position": [-580.0, 180.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "1-9  master volume 0.1 .. 0.9      0  master volume 1.0", "font_id": "", "font_scale": 1.2, "color": [0.7, 1.0, 0.8, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": { "position": [-580.0, 145.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "audio_refs in this scene's JSON preload the clips before first frame.", "font_id": "", "font_scale": 1.0, "color": [0.7, 0.8, 0.9, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Status",
+      "components": {
+        "transform": { "position": [-580.0, -260.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "last action: (none)", "font_id": "", "font_scale": 1.2, "color": [0.95, 0.95, 0.95, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Status2",
+      "components": {
+        "transform": { "position": [-580.0, -295.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "music: stopped    master volume: 1.00", "font_id": "", "font_scale": 1.2, "color": [0.75, 0.9, 1.0, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "Status3",
+      "components": {
+        "transform": { "position": [-580.0, -330.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "blip plays: 0", "font_id": "", "font_scale": 1.0, "color": [0.85, 0.85, 0.6, 1.0], "z_order": 10 }
+      }
+    },
+
+    {
+      "name": "Driver",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "script": { "language": "Lua", "source_path": "scripts/lua/scene_16_audio.lua" }
+      }
+    }
+  ]
+}

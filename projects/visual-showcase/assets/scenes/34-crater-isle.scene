@@ -1,0 +1,1277 @@
+{
+ "name": "34 - Crater Isle",
+ "post_process": {
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.35
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.3
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.02,
+       0.06,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.05
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/sky.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1344.0,
+      784.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud1",
+   "components": {
+    "transform": {
+     "position": [
+      -480.0,
+      250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.95
+     ],
+     "z_order": -50,
+     "size": [
+      256.0,
+      128.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 9.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -800.0,
+      -400.0
+     ],
+     "max": [
+      800.0,
+      400.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud2",
+   "components": {
+    "transform": {
+     "position": [
+      120.0,
+      300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.95
+     ],
+     "z_order": -50,
+     "size": [
+      179.2,
+      89.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 6.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -800.0,
+      -400.0
+     ],
+     "max": [
+      800.0,
+      400.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud3",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.95
+     ],
+     "z_order": -50,
+     "size": [
+      307.2,
+      153.6
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 11.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -800.0,
+      -400.0
+     ],
+     "max": [
+      800.0,
+      400.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cloud4",
+   "components": {
+    "transform": {
+     "position": [
+      -60.0,
+      170.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/cloud.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.95
+     ],
+     "z_order": -50,
+     "size": [
+      140.8,
+      70.4
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "velocity": {
+     "x": 4.0,
+     "y": 0.0,
+     "gravity": 0.0
+    },
+    "wrap_bounds": {
+     "min": [
+      -800.0,
+      -400.0
+     ],
+     "max": [
+      800.0,
+      400.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SeaBack",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/sea.png",
+     "color": [
+      0.75,
+      0.85,
+      0.95,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      1344.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Island",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -120.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/island.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      1280.0,
+      400.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "carvable": {
+     "alpha_cutoff": 0.5,
+     "collider": true,
+     "collider_step": 3,
+     "scorch": 14.0,
+     "scorch_color": [
+      0.28,
+      0.2,
+      0.14,
+      1.0
+     ],
+     "friction": 0.9
+    }
+   }
+  },
+  {
+   "name": "Prop1",
+   "components": {
+    "transform": {
+     "position": [
+      -345.0,
+      -4.974706135937197
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Prop2",
+   "components": {
+    "transform": {
+     "position": [
+      -299.0,
+      -4.511973354320418
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Prop3",
+   "components": {
+    "transform": {
+     "position": [
+      -90.0,
+      -60.445431548554325
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 2.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.4,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 19.0
+      }
+     },
+     "friction": 0.7,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Prop4",
+   "components": {
+    "transform": {
+     "position": [
+      110.0,
+      -19.048321314268833
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Prop5",
+   "components": {
+    "transform": {
+     "position": [
+      110.0,
+      26.951678685731167
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Prop6",
+   "components": {
+    "transform": {
+     "position": [
+      165.0,
+      -25.307671486723194
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      40.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 2.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.4,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Circle": {
+       "radius": 19.0
+      }
+     },
+     "friction": 0.7,
+     "restitution": 0.1
+    }
+   }
+  },
+  {
+   "name": "Prop7",
+   "components": {
+    "transform": {
+     "position": [
+      215.0,
+      -22.969508086260333
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "Prop8",
+   "components": {
+    "transform": {
+     "position": [
+      360.0,
+      8.11119175860668
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      46.0,
+      46.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "rigid_body": {
+     "body_type": "Dynamic",
+     "mass": 3.0,
+     "gravity_scale": 1.0,
+     "linear_damping": 0.05,
+     "angular_damping": 0.3,
+     "fixed_rotation": false,
+     "ccd": true
+    },
+    "collider": {
+     "shape": {
+      "Box": {
+       "width": 44.0,
+       "height": 44.0
+      }
+     },
+     "friction": 0.8,
+     "restitution": 0.05
+    }
+   }
+  },
+  {
+   "name": "SeaFront",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -300.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/sea.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 10,
+     "size": [
+      1344.0,
+      160.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       256.0,
+       160.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "BlastFire",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 240,
+     "lifetime": [
+      0.25,
+      0.6
+     ],
+     "speed": [
+      90.0,
+      360.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      26.0,
+      40.0
+     ],
+     "size_end": [
+      6.0,
+      10.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 8,
+     "drag": 3.0,
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       0.95,
+       0.6,
+       1.0
+      ],
+      [
+       0.3,
+       1.0,
+       0.55,
+       0.12,
+       0.9
+      ],
+      [
+       1.0,
+       0.35,
+       0.12,
+       0.05,
+       0.0
+      ]
+     ],
+     "blend_mode": "Additive"
+    }
+   }
+  },
+  {
+   "name": "BlastDirt",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 300,
+     "lifetime": [
+      0.7,
+      1.4
+     ],
+     "speed": [
+      160.0,
+      480.0
+     ],
+     "angle": [
+      0.35,
+      2.8
+     ],
+     "color_start": [
+      0.13287,
+      0.05497,
+      0.01961,
+      1.0
+     ],
+     "color_end": [
+      0.07324,
+      0.0331,
+      0.01341,
+      0.8
+     ],
+     "size_start": [
+      7.0,
+      12.0
+     ],
+     "size_end": [
+      5.0,
+      9.0
+     ],
+     "gravity_modifier": 1.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 7
+    }
+   }
+  },
+  {
+   "name": "BlastSmoke",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 0.0,
+     "max_particles": 120,
+     "lifetime": [
+      1.2,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      70.0
+     ],
+     "angle": [
+      0.6,
+      2.5
+     ],
+     "color_start": [
+      0.55,
+      0.55,
+      0.55,
+      0.55
+     ],
+     "color_end": [
+      0.7,
+      0.7,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      30.0,
+      44.0
+     ],
+     "size_end": [
+      80.0,
+      110.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 9,
+     "drag": 1.2
+    }
+   }
+  },
+  {
+   "name": "Flash",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -2000.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.0,
+      0.75,
+      0.4,
+      0.0
+     ],
+     "z_order": 9,
+     "size": [
+      300.0,
+      300.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Aim",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      330.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/crater/bomb.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      0.5
+     ],
+     "z_order": 12,
+     "size": [
+      24.0,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "34   Crater Isle",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Click  drop a bomb   Right drag  dig   R  a new island   1-4 post   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s34_crater_isle.lua"
+    }
+   }
+  }
+ ]
+}

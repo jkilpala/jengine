@@ -1,0 +1,638 @@
+{
+  "name": "63 - Spawned Body Physics",
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            330
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "63 - Physics on SCRIPT-SPAWNED bodies",
+          "font_id": "",
+          "font_scale": 2.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint2",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            300
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Scene 56 drives bodies the scene AUTHORED. This one drives bodies a SCRIPT created,",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.82,
+            0.88,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint3",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            278
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "which is a different code path: spawn_prefab returns a script handle, not an entity id.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.82,
+            0.88,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint4",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            256
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[S] spawn crate   [I] impulse up   [F] hold to push right   [V] set_velocity   [R] spin",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.72,
+            0.92,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint5",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            234
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[1] body_type \"static\"   [2] \"Static\" (capitalised)   [3] \"dynamic\"   [G] gravity   [C] corners   [D] despawn",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.72,
+            0.92,
+            1.0,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint6",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            212
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "Every one of these was broken in at least one runtime - see BUGS #41-#47. A crate that",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            1.0,
+            0.82,
+            0.6,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Hint7",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            190
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "ignores a key is the bug coming back; the readout says what the engine actually did.",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            1.0,
+            0.82,
+            0.6,
+            0.95
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Floor",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            -300
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.3,
+            0.34,
+            0.42,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            1160.0,
+            32.0
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Static"
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 1160.0,
+              "height": 32.0
+            }
+          },
+          "friction": 0.7,
+          "restitution": 0.2
+        }
+      }
+    },
+    {
+      "name": "WallL",
+      "components": {
+        "transform": {
+          "position": [
+            -580,
+            -160
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.3,
+            0.34,
+            0.42,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            24.0,
+            260.0
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Static"
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 24.0,
+              "height": 260.0
+            }
+          },
+          "friction": 0.7,
+          "restitution": 0.2
+        }
+      }
+    },
+    {
+      "name": "WallR",
+      "components": {
+        "transform": {
+          "position": [
+            580,
+            -160
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.3,
+            0.34,
+            0.42,
+            1.0
+          ],
+          "z_order": 1,
+          "size": [
+            24.0,
+            260.0
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Static"
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 24.0,
+              "height": 260.0
+            }
+          },
+          "friction": 0.7,
+          "restitution": 0.2
+        }
+      }
+    },
+    {
+      "name": "Control",
+      "components": {
+        "transform": {
+          "position": [
+            -360,
+            -180
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "",
+          "color": [
+            0.55,
+            0.75,
+            0.95,
+            1.0
+          ],
+          "z_order": 4,
+          "size": [
+            40.0,
+            40.0
+          ]
+        },
+        "rigid_body": {
+          "body_type": "Dynamic",
+          "mass": 1.0
+        },
+        "collider": {
+          "shape": {
+            "Box": {
+              "width": 40.0,
+              "height": 40.0
+            }
+          },
+          "friction": 0.4,
+          "restitution": 0.25
+        }
+      }
+    },
+    {
+      "name": "ControlLabel",
+      "components": {
+        "transform": {
+          "position": [
+            -410,
+            -130
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "authored (control)",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.55,
+            0.75,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SpawnLabel",
+      "components": {
+        "transform": {
+          "position": [
+            140,
+            -130
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "script-spawned -->",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            1.0,
+            0.72,
+            0.28,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            150
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "crates: 0",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.72,
+            0.96,
+            0.76,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout2",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            126
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "last: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.72,
+            0.96,
+            0.76,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout3",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            102
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "spawned y: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.72,
+            0.96,
+            0.76,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout4",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            78
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "control y: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            0.55,
+            0.75,
+            0.95,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "Readout5",
+      "components": {
+        "transform": {
+          "position": [
+            -620.0,
+            54.0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "by name: -",
+          "font_id": "",
+          "font_scale": 1.2,
+          "color": [
+            1.0,
+            0.82,
+            0.6,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "NavHint",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            -350
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "[H/Esc] hub   [PgUp/PgDn] prev/next",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            1.0
+          ],
+          "z_order": 100
+        }
+      }
+    },
+    {
+      "name": "SceneScript",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_63_spawned_physics.lua"
+        }
+      }
+    }
+  ]
+}

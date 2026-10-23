@@ -1,0 +1,718 @@
+{
+ "name": "154 - Talk of the Town",
+ "post_process": {
+  "effects": [
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.3
+     },
+     "smoothness": {
+      "Float": 0.6
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Market",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/market.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -100,
+     "size": [
+      1280.0,
+      720.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Greengrocer",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      -185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      1.0,
+      0.26327,
+      0.10048,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Baker",
+   "components": {
+    "transform": {
+     "position": [
+      -255.0,
+      -185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      0.89001,
+      0.69207,
+      0.17064,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Fishwife",
+   "components": {
+    "transform": {
+     "position": [
+      -10.0,
+      -185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      0.17064,
+      0.44799,
+      1.0,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Cheesemonger",
+   "components": {
+    "transform": {
+     "position": [
+      235.0,
+      -185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      0.89001,
+      0.52252,
+      0.07324,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Florist",
+   "components": {
+    "transform": {
+     "position": [
+      480.0,
+      -185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      0.69207,
+      0.21404,
+      0.78741,
+      1.0
+     ],
+     "z_order": 4,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Traveller",
+   "components": {
+    "transform": {
+     "position": [
+      -700.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      0.26327,
+      0.78741,
+      0.26327,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Child",
+   "components": {
+    "transform": {
+     "position": [
+      650.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      1.0,
+      0.31855,
+      0.44799,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Guard",
+   "components": {
+    "transform": {
+     "position": [
+      -100.0,
+      -255.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/talkofthetown/person.png",
+     "color": [
+      0.31855,
+      0.31855,
+      0.44799,
+      1.0
+     ],
+     "z_order": 5,
+     "size": [
+      60.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "speech_bubble": {
+     "duration": 3.6,
+     "max_width": 250.0,
+     "font_size": 18.0,
+     "padding": 13.0,
+     "offset": [
+      0.0,
+      62.0
+     ],
+     "texture": "sprites/talkofthetown/bubble.png",
+     "border": 18.0,
+     "tail_texture": "sprites/talkofthetown/tail.png",
+     "tail": [
+      18.0,
+      16.0
+     ],
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "text_color": [
+      0.1,
+      0.09,
+      0.14,
+      1.0
+     ],
+     "reveal_speed": 45.0,
+     "z_order": 60
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s154_talk_of_the_town.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "154   Talk of the Town",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Click someone to make them speak   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,5013 @@
+{
+ "name": "04 - Stained Glass",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.2,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.7
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.38
+     },
+     "smoothness": {
+      "Float": 0.55
+     },
+     "color": {
+      "Vec4": [
+       0.0,
+       0.0,
+       0.01,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.02
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 0.95
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.88,
+       0.06
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": true,
+    "params": {
+     "strength": {
+      "Float": 0.001
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.34239,
+      0.36725,
+      0.57048
+     ],
+     "intensity": 0.17
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_flagstones"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/flagstones.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -60,
+     "size": [
+      1440.0,
+      880.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       260.0,
+       260.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/flagstones_n.png"
+    }
+   }
+  },
+  {
+   "name": "Carpet",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_carpet"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/carpet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -55,
+     "size": [
+      120.0,
+      880.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       120.0,
+       120.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/carpet_n.png"
+    }
+   }
+  },
+  {
+   "name": "Wall1",
+   "components": {
+    "transform": {
+     "position": [
+      -637.5,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.14732,
+      0.11928,
+      0.10654,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      165.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      165.0,
+      120.0
+     ],
+     "self_shadow": true
+    }
+   }
+  },
+  {
+   "name": "Wall2",
+   "components": {
+    "transform": {
+     "position": [
+      -300.0,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.14732,
+      0.11928,
+      0.10654,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      90.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      90.0,
+      120.0
+     ],
+     "self_shadow": true
+    }
+   }
+  },
+  {
+   "name": "Wall3",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.14732,
+      0.11928,
+      0.10654,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      90.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      90.0,
+      120.0
+     ],
+     "self_shadow": true
+    }
+   }
+  },
+  {
+   "name": "Wall4",
+   "components": {
+    "transform": {
+     "position": [
+      300.0,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.14732,
+      0.11928,
+      0.10654,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      90.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      90.0,
+      120.0
+     ],
+     "self_shadow": true
+    }
+   }
+  },
+  {
+   "name": "Wall5",
+   "components": {
+    "transform": {
+     "position": [
+      637.5,
+      360.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.14732,
+      0.11928,
+      0.10654,
+      1.0
+     ],
+     "z_order": -20,
+     "size": [
+      165.0,
+      120.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       128.0,
+       128.0
+      ]
+     }
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      165.0,
+      120.0
+     ],
+     "self_shadow": true
+    }
+   }
+  },
+  {
+   "name": "Pane1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -534.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.95802,
+      0.05986,
+      0.04314,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.89001,
+      0.02721,
+      0.01961
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -534.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.89001,
+      0.02721,
+      0.01961,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -492.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      0.22106,
+      1.95802,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.10048,
+      0.89001
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -492.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.10048,
+      0.89001,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      2.10122,
+      1.25506,
+      0.07282,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.9551,
+      0.57048,
+      0.0331
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -450.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.9551,
+      0.57048,
+      0.0331,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -408.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      1.14954,
+      0.22106,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.52252,
+      0.10048
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -408.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.52252,
+      0.10048,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane1_5",
+   "components": {
+    "transform": {
+     "position": [
+      -366.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70081,
+      0.11194,
+      1.52255,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.31855,
+      0.05088,
+      0.69207
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam1_5",
+   "components": {
+    "transform": {
+     "position": [
+      -366.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.31855,
+      0.05088,
+      0.69207,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead1_0",
+   "components": {
+    "transform": {
+     "position": [
+      -555.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead1_1",
+   "components": {
+    "transform": {
+     "position": [
+      -513.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead1_2",
+   "components": {
+    "transform": {
+     "position": [
+      -471.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead1_3",
+   "components": {
+    "transform": {
+     "position": [
+      -429.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead1_4",
+   "components": {
+    "transform": {
+     "position": [
+      -387.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead1_5",
+   "components": {
+    "transform": {
+     "position": [
+      -345.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      0.22106,
+      1.95802,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.10048,
+      0.89001
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -234.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.10048,
+      0.89001,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane2_2",
+   "components": {
+    "transform": {
+     "position": [
+      -192.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      2.10122,
+      1.25506,
+      0.07282,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.9551,
+      0.57048,
+      0.0331
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam2_2",
+   "components": {
+    "transform": {
+     "position": [
+      -192.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.9551,
+      0.57048,
+      0.0331,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      1.14954,
+      0.22106,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.52252,
+      0.10048
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -150.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.52252,
+      0.10048,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -108.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70081,
+      0.11194,
+      1.52255,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.31855,
+      0.05088,
+      0.69207
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -108.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.31855,
+      0.05088,
+      0.69207,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane2_5",
+   "components": {
+    "transform": {
+     "position": [
+      -66.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.95802,
+      0.05986,
+      0.04314,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.89001,
+      0.02721,
+      0.01961
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam2_5",
+   "components": {
+    "transform": {
+     "position": [
+      -66.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.89001,
+      0.02721,
+      0.01961,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead2_0",
+   "components": {
+    "transform": {
+     "position": [
+      -255.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead2_1",
+   "components": {
+    "transform": {
+     "position": [
+      -213.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead2_2",
+   "components": {
+    "transform": {
+     "position": [
+      -171.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead2_3",
+   "components": {
+    "transform": {
+     "position": [
+      -129.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead2_4",
+   "components": {
+    "transform": {
+     "position": [
+      -87.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead2_5",
+   "components": {
+    "transform": {
+     "position": [
+      -45.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane3_1",
+   "components": {
+    "transform": {
+     "position": [
+      66.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      2.10122,
+      1.25506,
+      0.07282,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.9551,
+      0.57048,
+      0.0331
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam3_1",
+   "components": {
+    "transform": {
+     "position": [
+      66.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.9551,
+      0.57048,
+      0.0331,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane3_2",
+   "components": {
+    "transform": {
+     "position": [
+      108.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      1.14954,
+      0.22106,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.52252,
+      0.10048
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam3_2",
+   "components": {
+    "transform": {
+     "position": [
+      108.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.52252,
+      0.10048,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane3_3",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70081,
+      0.11194,
+      1.52255,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.31855,
+      0.05088,
+      0.69207
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam3_3",
+   "components": {
+    "transform": {
+     "position": [
+      150.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.31855,
+      0.05088,
+      0.69207,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane3_4",
+   "components": {
+    "transform": {
+     "position": [
+      192.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.95802,
+      0.05986,
+      0.04314,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.89001,
+      0.02721,
+      0.01961
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam3_4",
+   "components": {
+    "transform": {
+     "position": [
+      192.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.89001,
+      0.02721,
+      0.01961,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane3_5",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      0.22106,
+      1.95802,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.10048,
+      0.89001
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam3_5",
+   "components": {
+    "transform": {
+     "position": [
+      234.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.10048,
+      0.89001,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead3_0",
+   "components": {
+    "transform": {
+     "position": [
+      45.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead3_1",
+   "components": {
+    "transform": {
+     "position": [
+      87.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead3_2",
+   "components": {
+    "transform": {
+     "position": [
+      129.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead3_3",
+   "components": {
+    "transform": {
+     "position": [
+      171.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead3_4",
+   "components": {
+    "transform": {
+     "position": [
+      213.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead3_5",
+   "components": {
+    "transform": {
+     "position": [
+      255.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane4_1",
+   "components": {
+    "transform": {
+     "position": [
+      366.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      1.14954,
+      0.22106,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.52252,
+      0.10048
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam4_1",
+   "components": {
+    "transform": {
+     "position": [
+      366.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.52252,
+      0.10048,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane4_2",
+   "components": {
+    "transform": {
+     "position": [
+      408.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.70081,
+      0.11194,
+      1.52255,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.31855,
+      0.05088,
+      0.69207
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam4_2",
+   "components": {
+    "transform": {
+     "position": [
+      408.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.31855,
+      0.05088,
+      0.69207,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane4_3",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.95802,
+      0.05986,
+      0.04314,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.89001,
+      0.02721,
+      0.01961
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam4_3",
+   "components": {
+    "transform": {
+     "position": [
+      450.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.89001,
+      0.02721,
+      0.01961,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane4_4",
+   "components": {
+    "transform": {
+     "position": [
+      492.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.07282,
+      0.22106,
+      1.95802,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.0331,
+      0.10048,
+      0.89001
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam4_4",
+   "components": {
+    "transform": {
+     "position": [
+      492.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.0331,
+      0.10048,
+      0.89001,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Pane4_5",
+   "components": {
+    "transform": {
+     "position": [
+      534.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      2.10122,
+      1.25506,
+      0.07282,
+      1.0
+     ],
+     "z_order": -18,
+     "size": [
+      39.0,
+      12.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      42.0,
+      12.0
+     ],
+     "self_shadow": true,
+     "shadow_tint": [
+      0.9551,
+      0.57048,
+      0.0331
+     ],
+     "shadow_opacity": 0.72
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Beam4_5",
+   "components": {
+    "transform": {
+     "position": [
+      534.0,
+      344.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/shaft.png",
+     "color": [
+      0.9551,
+      0.57048,
+      0.0331,
+      0.05
+     ],
+     "z_order": 30,
+     "size": [
+      820.0,
+      100.8
+     ],
+     "anchor": [
+      0.0,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead4_0",
+   "components": {
+    "transform": {
+     "position": [
+      345.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead4_1",
+   "components": {
+    "transform": {
+     "position": [
+      387.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead4_2",
+   "components": {
+    "transform": {
+     "position": [
+      429.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead4_3",
+   "components": {
+    "transform": {
+     "position": [
+      471.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead4_4",
+   "components": {
+    "transform": {
+     "position": [
+      513.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Lead4_5",
+   "components": {
+    "transform": {
+     "position": [
+      555.0,
+      350.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.00719,
+      0.00719,
+      0.00854,
+      1.0
+     ],
+     "z_order": -17,
+     "size": [
+      4.0,
+      16.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "PewL1",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewL1Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewR1",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewR1Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      185.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewL2",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      115.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewL2Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      115.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewR2",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      115.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewR2Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      115.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewL3",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      45.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewL3Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      45.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewR3",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      45.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewR3Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      45.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewL4",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      -25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewL4Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      -25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewR4",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      -25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewR4Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      -25.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewL5",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewL5Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      -290.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PewR5",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_pew"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/pew.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      300.0,
+      44.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/pew_n.png"
+    }
+   }
+  },
+  {
+   "name": "PewR5Occluder",
+   "components": {
+    "transform": {
+     "position": [
+      290.0,
+      -95.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "size": [
+      296.0,
+      40.0
+     ],
+     "shadow_length": 46.0
+    }
+   }
+  },
+  {
+   "name": "PillarL1",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.52252,
+      0.44799,
+      0.39312,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       42.0,
+       0.0
+      ],
+      [
+       29.7,
+       29.7
+      ],
+      [
+       0.0,
+       42.0
+      ],
+      [
+       -29.7,
+       29.7
+      ],
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       -29.7,
+       -29.7
+      ],
+      [
+       -0.0,
+       -42.0
+      ],
+      [
+       29.7,
+       -29.7
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "PillarL2",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.52252,
+      0.44799,
+      0.39312,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       42.0,
+       0.0
+      ],
+      [
+       29.7,
+       29.7
+      ],
+      [
+       0.0,
+       42.0
+      ],
+      [
+       -29.7,
+       29.7
+      ],
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       -29.7,
+       -29.7
+      ],
+      [
+       -0.0,
+       -42.0
+      ],
+      [
+       29.7,
+       -29.7
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "PillarL3",
+   "components": {
+    "transform": {
+     "position": [
+      -560.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.52252,
+      0.44799,
+      0.39312,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       42.0,
+       0.0
+      ],
+      [
+       29.7,
+       29.7
+      ],
+      [
+       0.0,
+       42.0
+      ],
+      [
+       -29.7,
+       29.7
+      ],
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       -29.7,
+       -29.7
+      ],
+      [
+       -0.0,
+       -42.0
+      ],
+      [
+       29.7,
+       -29.7
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "PillarR1",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      200.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.52252,
+      0.44799,
+      0.39312,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       42.0,
+       0.0
+      ],
+      [
+       29.7,
+       29.7
+      ],
+      [
+       0.0,
+       42.0
+      ],
+      [
+       -29.7,
+       29.7
+      ],
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       -29.7,
+       -29.7
+      ],
+      [
+       -0.0,
+       -42.0
+      ],
+      [
+       29.7,
+       -29.7
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "PillarR2",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -10.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.52252,
+      0.44799,
+      0.39312,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       42.0,
+       0.0
+      ],
+      [
+       29.7,
+       29.7
+      ],
+      [
+       0.0,
+       42.0
+      ],
+      [
+       -29.7,
+       29.7
+      ],
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       -29.7,
+       -29.7
+      ],
+      [
+       -0.0,
+       -42.0
+      ],
+      [
+       29.7,
+       -29.7
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "PillarR3",
+   "components": {
+    "transform": {
+     "position": [
+      560.0,
+      -220.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/pillar_top.png",
+     "color": [
+      0.52252,
+      0.44799,
+      0.39312,
+      1.0
+     ],
+     "z_order": -25,
+     "size": [
+      92.0,
+      92.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "light_occluder": {
+     "enabled": true,
+     "polygon": [
+      [
+       42.0,
+       0.0
+      ],
+      [
+       29.7,
+       29.7
+      ],
+      [
+       0.0,
+       42.0
+      ],
+      [
+       -29.7,
+       29.7
+      ],
+      [
+       -42.0,
+       0.0
+      ],
+      [
+       -29.7,
+       -29.7
+      ],
+      [
+       -0.0,
+       -42.0
+      ],
+      [
+       29.7,
+       -29.7
+      ]
+     ],
+     "shadow_length": 240.0
+    }
+   }
+  },
+  {
+   "name": "AltarStep",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/bricks.png",
+     "color": [
+      0.26327,
+      0.23302,
+      0.21404,
+      1.0
+     ],
+     "z_order": -40,
+     "size": [
+      340.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       96.0,
+       96.0
+      ]
+     }
+    }
+   }
+  },
+  {
+   "name": "Altar",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_column"
+    ],
+    "sprite": {
+     "texture_id": "sprites/env/column.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -38,
+     "size": [
+      250.0,
+      58.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ],
+     "fill": {
+      "mode": "tile",
+      "tile_size": [
+       84.0,
+       84.0
+      ]
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/env/column_n.png"
+    }
+   }
+  },
+  {
+   "name": "AltarCloth",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/env/carpet.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -37,
+     "size": [
+      100.0,
+      62.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1",
+   "components": {
+    "transform": {
+     "position": [
+      -105.0,
+      -266.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.82757,
+      0.74841,
+      0.53824,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1Flame",
+   "components": {
+    "transform": {
+     "position": [
+      -105.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -29,
+     "size": [
+      12.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle1Glow",
+   "components": {
+    "transform": {
+     "position": [
+      -105.0,
+      -252.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.4,
+      0.36858,
+      0.04634,
+      0.45
+     ],
+     "z_order": -28,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle2",
+   "components": {
+    "transform": {
+     "position": [
+      -78.0,
+      -266.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.82757,
+      0.74841,
+      0.53824,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Flame",
+   "components": {
+    "transform": {
+     "position": [
+      -78.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -29,
+     "size": [
+      12.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle2Glow",
+   "components": {
+    "transform": {
+     "position": [
+      -78.0,
+      -252.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.4,
+      0.36858,
+      0.04634,
+      0.45
+     ],
+     "z_order": -28,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle3",
+   "components": {
+    "transform": {
+     "position": [
+      78.0,
+      -266.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.82757,
+      0.74841,
+      0.53824,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle3Flame",
+   "components": {
+    "transform": {
+     "position": [
+      78.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -29,
+     "size": [
+      12.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle3Glow",
+   "components": {
+    "transform": {
+     "position": [
+      78.0,
+      -252.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.4,
+      0.36858,
+      0.04634,
+      0.45
+     ],
+     "z_order": -28,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle4",
+   "components": {
+    "transform": {
+     "position": [
+      105.0,
+      -266.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      0.82757,
+      0.74841,
+      0.53824,
+      1.0
+     ],
+     "z_order": -30,
+     "size": [
+      9.0,
+      9.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle4Flame",
+   "components": {
+    "transform": {
+     "position": [
+      105.0,
+      -262.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/flame.png",
+     "color": [
+      3.0,
+      1.56756,
+      0.30144,
+      0.95
+     ],
+     "z_order": -29,
+     "size": [
+      12.0,
+      26.0
+     ],
+     "anchor": [
+      0.5,
+      0.08
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Candle4Glow",
+   "components": {
+    "transform": {
+     "position": [
+      105.0,
+      -252.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/fx/glow.png",
+     "color": [
+      1.4,
+      0.36858,
+      0.04634,
+      0.45
+     ],
+     "z_order": -28,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive",
+     "uniforms": {}
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "AltarLight",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      -250.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.42003,
+      0.13287
+     ],
+     "intensity": 1.8,
+     "radius": 330.0,
+     "falloff": 1.6,
+     "shadow_softness": 6.0
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "transform": {
+     "position": [
+      -500.0,
+      1500.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.84809,
+      0.60383
+     ],
+     "intensity": 4.0,
+     "radius": 3400.0,
+     "falloff": 0.5,
+     "shadow_softness": 40.0
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      20.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "particle_emitter": {
+     "texture_id": "sprites/fx/soft_dot.png",
+     "emission_rate": 70.0,
+     "max_particles": 900,
+     "lifetime": [
+      6.0,
+      11.0
+     ],
+     "speed": [
+      3.0,
+      12.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      3.5
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 40,
+     "emit_shape": {
+      "kind": "rect",
+      "size": [
+       1380.0,
+       680.0
+      ]
+     },
+     "color_curve": [
+      [
+       0.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.25,
+       1.0,
+       1.0,
+       1.0,
+       0.8
+      ],
+      [
+       0.75,
+       1.0,
+       1.0,
+       1.0,
+       0.8
+      ],
+      [
+       1.0,
+       1.0,
+       1.0,
+       1.0,
+       0.0
+      ]
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      304.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "04   Stained Glass",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -576.0,
+      -320.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Left / Right  sun   Space  pause   N normal maps   B beams   1-4 post   0 all   Tab captions",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.44799,
+      0.477,
+      0.57048,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "left",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      576.0,
+      -290.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "z_order": 100,
+     "align": "right",
+     "wrap_width": 0.0
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Driver",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s04_stained_glass.lua"
+    }
+   }
+  }
+ ]
+}

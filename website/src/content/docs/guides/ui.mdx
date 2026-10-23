@@ -1,0 +1,111 @@
+---
+draft: false
+title: UI System
+description: Creating screen-space UI and GUI documents in jEngine.
+---
+
+jEngine has two UI systems: **entity UI** (widgets that are components on entities, created in a scene
+or from scripts) and **GUI documents** (`.gui` JSON widget trees). Both are drawn in screen space, after
+the world and its post-processing, so bloom and vignette never touch them.
+
+## Scaling to the screen
+
+Both systems lay out in pixels against the project's `width` x `height`. `settings.ui_scale_mode`
+(Project Settings → Display) scales the whole UI to the window: `ScaleWithScreen` gives spare width to
+the layout (right for UI anchored to edges), **`ScaleAndCenter`** lays out at exactly the authored size
+and centres it (right for UI placed in absolute positions), and `ConstantPixelSize` opts out. A phone's
+notch or cut-out is kept clear: both systems lay out inside the platform's safe area.
+
+## Entity UI
+
+Create UI elements from scripts at runtime:
+
+```lua
+-- Create text label
+local label = UI.create_text("Score: 0", "top_left", 10, -10)
+
+-- Create colored panel
+local panel = UI.create_panel("top_left", 5, -5, 200, 40, 0, 0, 0, 0.7)
+
+-- Update text
+UI.set_text(label, "Score: 100")
+
+-- Show/hide
+UI.set_visible(label, false)
+
+-- Reposition
+UI.set_position(label, "center", 0, 50)
+
+-- Any widget property, by name
+UI.set_prop(bar, "value", 0.4)              -- clamped to the bar's range
+UI.set_prop(buy, "disabled", money < cost)  -- dims it and stops clicks
+local pressed = UI.get_prop(button, "pressed")
+```
+
+A button click is an event, fired on **release** over the button the press began on:
+
+```lua
+function on_ui_click(entity, data)
+    if data.button == buy_button then buy() end
+end
+```
+
+Engine Test Lab scene 40 shows every entity-UI widget answering the pointer, and reads each value back
+with `UI.get_prop`.
+
+### Anchor Positions
+
+| Anchor | Position |
+|--------|----------|
+| `top_left` | Top-left corner |
+| `top_center` | Top center |
+| `top_right` | Top-right corner |
+| `center_left` | Left center |
+| `center` | Screen center |
+| `center_right` | Right center |
+| `bottom_left` | Bottom-left corner |
+| `bottom_center` | Bottom center |
+| `bottom_right` | Bottom-right corner |
+
+## GUI Documents
+
+For complex UIs, use `.gui` JSON documents with constraint-based layout. **A document is loaded only if
+some entity's `gui` component names it** - give each one an entity in the scene (`"visible": false` if
+it starts hidden), or `GUI.show` finds nothing to show.
+
+```lua
+-- Show/hide GUI documents
+GUI.show("ui/hud.gui")
+GUI.hide("ui/pause_menu.gui")
+
+-- Set node properties
+GUI.set("ui/hud.gui", "score_label", "text", "Score: 42")
+GUI.set("ui/hud.gui", "health_bar", "value", 0.75)
+GUI.set("ui/settings.gui", "music_toggle", "checked", true)
+
+-- Button click handlers
+GUI.on_click(entity, "ui/menu.gui", "play_btn", "on_play")
+
+-- Template variables
+GUI.set("ui/hud.gui", "", "variable:score", 42)
+```
+
+### GUI Widget Types
+
+Panels, Text, Buttons, Progress Bars, Sliders, Toggles, Text Inputs — all with constraint-based positioning.
+
+A node's style can be rounded (`corner_radius`), shadowed (`shadow`), faded (`opacity`) and scaled
+(`scale`) - the last two inherited by its children. A button eases to its `hover_color` /
+`pressed_color` and `hover_scale`. Writing `text` on a Text Input sets what the player typed; the hint
+is `placeholder`.
+
+### Controller and keyboard navigation
+
+Nodes with `focusable = true` (and entity-UI elements with `focusable`) are walked with the arrows,
+D-pad or stick, and Tab; Enter, Space or the pad's **A** presses the focused one exactly as a click
+would. Only mark menus focusable - a focusable HUD takes the D-pad in the middle of play. A document
+whose script runs its own cursor sets `"navigable": false`. Set focus programmatically:
+
+```lua
+GUI.focus("ui/menu.gui", "play_btn")
+```

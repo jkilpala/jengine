@@ -1,0 +1,229 @@
+---
+draft: false
+title: Batch Script Systems
+description: High-performance data-oriented scripting in jEngine — process thousands of entities with a single VM call.
+---
+
+A **batch script system** processes all entities matching a component query in a single VM call. Instead of calling `update(entity, dt)` once per entity, the engine gives the script typed-array views of entire component columns and the script runs a plain inner loop. This is **Tier 3** of jEngine's [three-tier scripting model](/guides/scripting/).
+
+:::caution[Native desktop only]
+Batch scripts run on the **native desktop runtime** only. The batch pool is built on QuickJS and OS
+threads, which WebAssembly and Android lack: in the editor and in web builds a `batch_script` entity
+is loaded and left alone (Engine Test Lab scene 58 says so on screen), and Android builds have no
+batch scripts. For motion that must look the same everywhere, prefer the native components
+(`velocity`, `force2d`, `drag2d`, `wind2d`, ...), which every runtime integrates.
+:::
+
+## When to use
+
+| Use batch scripts for | Use entity scripts for |
+|----------------------|------------------------|
+| Movement, steering, custom physics | Complex per-entity state machines |
+| Crowd simulation, flocking | Unique objects (bosses, doors) |
+| Particle/projectile integration | GUI logic, cutscenes |
+| Any system that runs on 1 000+ entities | Logic that touches < ~100 entities |
+
+**Performance reference (30k entities, 5 read / 3 write workload, measured by the perf harness):**
+
+| Backend | Time per frame |
+|---------|---------------|
+| Lua table (recommended) | ~1.1 ms |
+| JavaScript | ~8.4 ms |
+| Lua buffer / userdata | 14–20 ms |
+
+A batch system replaces ~21× slower per-entity scripts at 20k entities (91 ms → 4 ms).
+
+The native runtime currently loads Lua batch scripts in **buffer** mode, not table mode.
+
+## Attaching a batch script
+
+Add a `batch_script` component to any entity that should be processed by the system. All entities sharing the same `path` are batched together in one call.
+
+```json
+{
+  "name": "Enemy",
+  "components": {
+    "transform": { "position": [0, 0], "rotation": 0, "scale": [1, 1] },
+    "velocity": { "x": 0, "y": 0 },
+    "batch_script": { "path": "scripts/systems/enemy_mover.lua", "lang": "lua" }
+  }
+}
+```
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `path` | `String` | required | Relative path to the script, same as `ScriptComponent`. |
+| `lang` | `"js"` \| `"lua"` | `"js"` | Scripting language. |
+
+## The system header
+
+Declare the column contract in a `system` table (Lua) or `const system` (JS) at the top of the script:
+
+```lua
+-- Lua
+system = {
+    query = {
+        read  = { "Velocity2D" },      -- snapshot reads
+        write = { "Position2D" },      -- mutated in place
+        read_optional = {},            -- present on some archetypes (optional)
+    },
+    state = {
+        -- per-entity persistent storage (field: default_value)
+        -- e.g. acc = 0.0
+    },
+    tick_rate = 1,                     -- run every frame (default)
+}
+```
+
+```javascript
+// JavaScript
+const system = {
+    query: {
+        read:  ["Velocity2D"],
+        write: ["Position2D"],
+        read_optional: [],
+    },
+    state: {},
+    tick_rate: 1,
+};
+```
+
+### Batch vocabulary
+
+The full list of components that can appear in `read` / `write` / `read_optional`:
+
+`Position2D` `Velocity2D` `Acceleration2D` `Drag2D` `Force2D` `Wind2D` `Impulse2D` `Torque2D`
+
+The combined column count across `read + write + read_optional` must not exceed **12** (`MAX_BATCH_COLUMNS`). Exceeding this limit is a load-time error.
+
+## The `update(ctx, q)` function
+
+The batch entry point receives a context object and a query object:
+
+```javascript
+// JavaScript
+function update(ctx, q) {
+    const dt = ctx.dt;                       // frame delta time (Float)
+    const n  = q.count;                      // entity count in this batch
+
+    const vx = q.read.Velocity2D.x;         // Float32Array, length n
+    const vy = q.read.Velocity2D.y;
+    const px = q.write.Position2D.x;        // Float32Array, length n (mutate in place)
+    const py = q.write.Position2D.y;
+
+    for (let i = 0; i < n; i++) {
+        px[i] += vx[i] * dt;
+        py[i] += vy[i] * dt;
+    }
+}
+```
+
+```lua
+-- Lua (Table mode, 1-indexed)
+function update(ctx, q)
+    local dt = ctx.dt
+    local n  = q.count
+    local vx = q.read.Velocity2D.x
+    local vy = q.read.Velocity2D.y
+    local px = q.write.Position2D.x
+    local py = q.write.Position2D.y
+    for i = 1, n do
+        px[i] = px[i] + vx[i] * dt
+        py[i] = py[i] + vy[i] * dt
+    end
+end
+```
+
+### Key rules
+
+- `i` is **chunk-local** — not an entity ID. When the worker pool is active, each worker receives a contiguous chunk starting at 0.
+- Writes to `q.write.*` are copied back to the ECS after `update` returns.
+- `q.read.*` is snapshot-only — writing to read columns has no effect.
+- Dirty-writeback elision: if a write column is bit-identical to its pre-call value the engine skips the copy, saving bandwidth.
+
+## Optional columns
+
+Use `read_optional` when some entities have an extra component and some don't:
+
+```javascript
+const system = {
+    query: {
+        read:  ["Velocity2D"],
+        write: ["Position2D"],
+        read_optional: ["Acceleration2D"],
+    },
+};
+
+function update(ctx, q) {
+    const dt  = ctx.dt;
+    const vx  = q.read.Velocity2D.x;
+    const vy  = q.read.Velocity2D.y;
+    const px  = q.write.Position2D.x;
+    const py  = q.write.Position2D.y;
+    const acc = q.read_optional.Acceleration2D;  // null if not present
+
+    for (let i = 0; i < q.count; i++) {
+        let ax = 0, ay = 0;
+        if (acc) { ax = acc.x[i]; ay = acc.y[i]; }
+        px[i] += (vx[i] + ax * dt) * dt;
+        py[i] += (vy[i] + ay * dt) * dt;
+    }
+}
+```
+
+The dispatcher partitions by archetype so a single VM call always sees a **uniform population** — either every entity in the call has the optional component, or none do. Check once (`if (acc) { ... }`) before the inner loop.
+
+## Per-entity persistent state
+
+Add a `state` field to the system header to give each entity a column of per-entity values that persist across frames:
+
+```lua
+-- Lua: a simple cooldown timer per entity
+system = {
+    query = {
+        read  = { "Velocity2D" },
+        write = { "Position2D" },
+    },
+    state = {
+        cooldown = 0.0,
+    },
+}
+
+function update(ctx, q)
+    local dt = ctx.dt
+    local cd = q.state.cooldown
+    for i = 1, q.count do
+        cd[i] = math.max(0, cd[i] - dt)
+    end
+end
+```
+
+State is stored in `BatchScriptComponent.state: Vec<f32>` — serialised with the entity and loaded with the scene.
+
+## Determinism and RNG
+
+Batch scripts run with a **deterministic per-frame RNG** that shadows `Math.random()` (JS) and `math.random()` (Lua). Seeded from `(scene_seed, frame, script_path_hash, chunk_id)`. This means the same scene, same frame, same worker count produces bit-identical results across runs.
+
+To change the scene seed: `BatchScriptPool::set_scene_seed(u64)` (host side).
+
+## Worker pool (parallel dispatch)
+
+The native runtime runs batch scripts in **direct** mode: one in-process VM, no worker threads, which
+favours predictable startup. A threaded pool (`BatchJsWorkerPool`) exists and is what the perf harness
+measures; it scales sublinearly (JS: 1.3× at N=2, 1.7× at N=8) because the bottleneck at N=1 is already
+the payload allocation and scatter/append, not the compute. No runtime flag switches the shipped
+runtime to it.
+
+## Profiling counters
+
+Available via `ScriptSystem::take_frame_metrics()`:
+
+| Counter | Meaning |
+|---------|---------|
+| `batch_run_us` | Total microseconds in batch script `update` calls |
+| `batch_copy_in_bytes` | Bytes scattered from ECS → mirror buffers |
+| `batch_copy_out_bytes` | Bytes gathered back mirror buffers → ECS |
+| `batch_dirty_bytes` | Post-elision writeback (0 means no mutations) |
+| `batch_writeback_scatters_skipped` | Columns skipped due to dirty elision |
+| `script_worker_memory_bytes_max` | Peak worker mirror buffer usage |
+| `script_worker_memory_bytes_total` | Sum across all workers |

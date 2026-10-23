@@ -1,0 +1,693 @@
+{
+ "name": "113 - Falling Sands",
+ "post_process": {
+  "hdr": true,
+  "tonemap": "aces",
+  "exposure": 1.05,
+  "effects": [
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 1.0
+     },
+     "intensity": {
+      "Float": 0.6
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.5
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.0,
+       0.0,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.08
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.88,
+       0.04
+      ]
+     }
+    }
+   },
+   {
+    "name": "chromatic",
+    "enabled": false,
+    "params": {
+     "strength": {
+      "Float": 0.0015
+     }
+    }
+   }
+  ]
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 0.8,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    }
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "ambient_light": {
+     "color": [
+      0.31855,
+      0.31855,
+      0.52252
+     ],
+     "intensity": 0.75
+    }
+   }
+  },
+  {
+   "name": "BackWall",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "tags": [
+     "bump_backwall"
+    ],
+    "sprite": {
+     "texture_id": "sprites/sands/backwall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -50,
+     "size": [
+      1700.0,
+      960.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/sands/backwall_n.png"
+    }
+   }
+  },
+  {
+   "name": "Cave",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      1600.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "pixel_sim": {
+     "cells": [
+      480,
+      270
+     ],
+     "steps_per_second": 60.0,
+     "seed_texture": "maps/cave_seed.png",
+     "sources": [
+      {
+       "at": [
+        -500.0,
+        416.7
+       ],
+       "material": "sand",
+       "rate": 150.0,
+       "radius": 10.0,
+       "active": true
+      },
+      {
+       "at": [
+        33.3,
+        416.7
+       ],
+       "material": "water",
+       "rate": 70.0,
+       "radius": 6.0,
+       "active": true
+      }
+     ],
+     "collider": true,
+     "collider_interval": 0.3,
+     "collider_step": 2,
+     "glow": 2.2
+    }
+   }
+  },
+  {
+   "name": "Torch0",
+   "components": {
+    "transform": {
+     "position": [
+      -640.0,
+      160.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 26.0,
+     "max_particles": 40,
+     "lifetime": [
+      0.3,
+      0.6
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      24.0
+     ],
+     "size_end": [
+      5.0,
+      7.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Additive",
+     "color_curve": [
+      [
+       0.0,
+       3.0,
+       2.07621,
+       0.64212,
+       0.0
+      ],
+      [
+       0.2,
+       3.0,
+       1.34397,
+       0.21972,
+       1.0
+      ],
+      [
+       1.0,
+       0.3,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.10048
+     ],
+     "intensity": 1.3,
+     "radius": 520.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Torch1",
+   "components": {
+    "transform": {
+     "position": [
+      420.0,
+      90.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 26.0,
+     "max_particles": 40,
+     "lifetime": [
+      0.3,
+      0.6
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      24.0
+     ],
+     "size_end": [
+      5.0,
+      7.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Additive",
+     "color_curve": [
+      [
+       0.0,
+       3.0,
+       2.07621,
+       0.64212,
+       0.0
+      ],
+      [
+       0.2,
+       3.0,
+       1.34397,
+       0.21972,
+       1.0
+      ],
+      [
+       1.0,
+       0.3,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.10048
+     ],
+     "intensity": 1.3,
+     "radius": 520.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Torch2",
+   "components": {
+    "transform": {
+     "position": [
+      -80.0,
+      -40.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "unlit": {},
+    "particle_emitter": {
+     "texture_id": "sprites/fx/flame.png",
+     "emission_rate": 26.0,
+     "max_particles": 40,
+     "lifetime": [
+      0.3,
+      0.6
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.35,
+      1.8
+     ],
+     "color_start": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "color_end": [
+      1.0,
+      1.0,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      18.0,
+      24.0
+     ],
+     "size_end": [
+      5.0,
+      7.0
+     ],
+     "gravity_modifier": 0.0,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 5,
+     "blend_mode": "Additive",
+     "color_curve": [
+      [
+       0.0,
+       3.0,
+       2.07621,
+       0.64212,
+       0.0
+      ],
+      [
+       0.2,
+       3.0,
+       1.34397,
+       0.21972,
+       1.0
+      ],
+      [
+       1.0,
+       0.3,
+       0.06,
+       0.02,
+       0.0
+      ]
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.38006,
+      0.10048
+     ],
+     "intensity": 1.3,
+     "radius": 520.0,
+     "falloff": 1.4,
+     "shadow_softness": 0.0,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "LavaLight",
+   "components": {
+    "transform": {
+     "position": [
+      566.7,
+      -376.7
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.13287,
+      0.01002
+     ],
+     "intensity": 2.2,
+     "radius": 620.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "OilFire",
+   "components": {
+    "transform": {
+     "position": [
+      500.0,
+      -16.7
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "point_light": {
+     "color": [
+      1.0,
+      0.26327,
+      0.0331
+     ],
+     "intensity": 0.0,
+     "radius": 600.0,
+     "falloff": 1.2,
+     "shadow_softness": 0.0,
+     "height": 0.4,
+     "casts_shadows": false
+    }
+   }
+  },
+  {
+   "name": "Keeper",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s113_falling_sands.lua"
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      64.0,
+      -34.0
+     ],
+     "size": [
+      700.0,
+      48.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "113   Falling Sands",
+     "font_size": 38.0,
+     "color": [
+      0.91141,
+      0.84809,
+      0.71057,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      64.0,
+      24.0
+     ],
+     "size": [
+      1150.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "every grain its own   F fire   L lava   Tab captions",
+     "font_size": 16.0,
+     "color": [
+      0.69207,
+      0.71057,
+      0.78741,
+      1.0
+     ],
+     "alignment": "Left"
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -64.0,
+      54.0
+     ],
+     "size": [
+      900.0,
+      24.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 16.0,
+     "color": [
+      0.89001,
+      0.60383,
+      0.26327,
+      1.0
+     ],
+     "alignment": "Right"
+    }
+   }
+  }
+ ]
+}
