@@ -1,0 +1,6 @@
+# Text files are LF in every checkout, Windows included. The guard tests read
+# sources with include_str! and search for a function's closing brace on its
+# own line; a CRLF checkout (Git for Windows and GitHub's Windows runners
+# default to core.autocrlf=true) failed them. Binary files are detected and
+# left alone.
+* text=auto eol=lf
