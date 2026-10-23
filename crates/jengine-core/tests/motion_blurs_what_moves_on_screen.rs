@@ -98,7 +98,12 @@ fn what_the_camera_follows_stays_sharp_and_the_rest_streaks() {
             }
             batch.flush(&gpu.device, &gpu.queue, &mut pass, &vp, assets.get_wgpu_texture("white").unwrap());
         }
-        let (camera_motion, _) = begin_velocity(&camera);
+        // `begin_velocity` scales the camera's motion by the wall time since
+        // the last frame; take that back out, as the sprites below are taken
+        // at a fixed sixtieth. A software renderer (CI's WARP) is a tenth of
+        // a second a frame, which shrank the camera's streak to nothing.
+        let (camera_motion, scale) = begin_velocity(&camera);
+        let camera_motion = [camera_motion[0] / scale, camera_motion[1] / scale];
         let pipeline = batch.velocity_pipeline(&gpu.device);
         batch.set_target_format(&gpu.device, VELOCITY_FORMAT);
         {

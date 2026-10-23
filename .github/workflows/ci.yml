@@ -58,7 +58,9 @@ jobs:
       # hides. Includes the script-global parity ratchet and the preamble
       # command-tag guard.
       - name: cargo test (workspace)
-        run: cargo test --workspace -j 2
+        # --no-fail-fast: every failing binary in one run, not the first
+        # alphabetically - a run is twenty-five minutes.
+        run: cargo test --workspace -j 2 --no-fail-fast
 
       # The overlay and renderer only exist under this feature.
       - name: cargo test (gpu-wgpu)
