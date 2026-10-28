@@ -9,7 +9,166 @@ edition.workspace = true
 license.workspace = true
 
 [features]
-default = ["native", "physics", "audio"]
+default = ["native", "physics", "audio", "engine-full"]
+
+# --- Engine features (docs/engine-features-plan.md) ---
+# Each optional subsystem is a feature, so a game builds only what it uses;
+# `src/features.rs` describes each one (its components, script namespaces,
+# post effects) for the builder to choose a project's set from. `engine-full`
+# is every one: the default here (so core's own tests have everything), and
+# what the editor viewport and a stock runtime build turn on. A crate that
+# depends on core with `default-features = false` gets none of them unless it
+# names them - a package using one says so.
+engine-full = [
+    "fluid",
+    "dialogue",
+    "lens_flare",
+    "smoke",
+    "pixel_sim",
+    "water",
+    "flow",
+    "cloth",
+    "jelly",
+    "displacement",
+    "rewind",
+    "beat_clock",
+    "wfc",
+    "vision",
+    "fog_of_war",
+    "lightning",
+    "day_cycle",
+    "path_morph",
+    "text_path",
+    "mirror",
+    "portal",
+    "mode7",
+    "stage",
+    "sprite_stack",
+    "sprite_tilt",
+    "afterimage",
+    "silhouette",
+    "sprite_outline",
+    "snow",
+    "cast_shadow",
+    "tile_light",
+    "auto_normal",
+    "smooth_terrain",
+    "speech_bubble",
+    "toast",
+    "drag_drop",
+    "radial_menu",
+    "behavior_tree",
+    "timeline",
+    "slice",
+    "offscreen_marker",
+    "trajectory",
+    "save_state",
+    "freeform_light",
+    "fog",
+    "pixelate",
+    "crt",
+    "light_shafts",
+    "tilt_shift",
+    "motion_blur",
+    "depth_of_field",
+    "depth_haze",
+    "gi",
+    "ragdoll",
+    "packs",
+    "liveops",
+    "video",
+    "accessibility",
+    "fracture",
+    "post_volume",
+    "trails",
+    "spline_shape",
+    "line2d",
+    "sprite_library",
+    "dynamic_font",
+    "noise",
+    "lut",
+    "paint",
+    "behavior",
+    "navigation",
+    "ik",
+    "skinned_mesh",
+    "jiggle",
+]
+fluid = []
+dialogue = []
+lens_flare = []
+smoke = []
+pixel_sim = []
+water = []
+flow = []
+cloth = []
+jelly = []
+displacement = []
+rewind = []
+beat_clock = []
+wfc = []
+vision = []
+fog_of_war = []
+lightning = []
+day_cycle = []
+path_morph = []
+text_path = []
+mirror = []
+portal = ["mirror"]
+mode7 = []
+stage = []
+sprite_stack = []
+sprite_tilt = []
+afterimage = []
+silhouette = []
+sprite_outline = []
+snow = []
+cast_shadow = []
+tile_light = []
+auto_normal = []
+smooth_terrain = ["noise"]
+speech_bubble = []
+toast = []
+drag_drop = []
+radial_menu = []
+behavior_tree = []
+timeline = []
+slice = ["fracture"]
+offscreen_marker = []
+trajectory = ["line2d"]
+save_state = []
+freeform_light = []
+fog = []
+pixelate = []
+crt = []
+light_shafts = []
+tilt_shift = []
+motion_blur = []
+depth_of_field = []
+depth_haze = []
+gi = []
+ragdoll = []
+# Asset packs carry the manifest types live ops shares and are checked
+# against their SHA-256; live ops rides on them (its HTTP, its release).
+packs = ["dep:jengine-liveops", "dep:sha2"]
+liveops = ["packs"]
+video = []
+accessibility = []
+fracture = []
+post_volume = []
+trails = []
+spline_shape = []
+line2d = []
+sprite_library = []
+dynamic_font = ["dep:rustybuzz", "dep:unicode-bidi"]
+noise = []
+lut = []
+paint = []
+behavior = []
+navigation = []
+ik = []
+skinned_mesh = []
+jiggle = []
 # `rquickjs` comes with `js-adapter-host`, not here: it has no prebuilt
 # bindings for Android or iOS, and a mobile build runs Lua only.
 native = ["dep:mlua"]
@@ -78,6 +237,9 @@ toml = { workspace = true }
 
 # Logging & Errors
 log = { workspace = true }
+# Simulation maths that give the same bits everywhere (`detmath`).
+libm = { workspace = true }
+rustc-hash = { workspace = true }
 anyhow = { workspace = true }
 thiserror = { workspace = true }
 
@@ -87,13 +249,13 @@ lyon = { workspace = true }
 # Default font rasterization (Noto Sans baked at startup into the built-in atlas)
 fontdue = { workspace = true }
 # Text shaping and bidirectional order for font files (`renderer::dynamic_font`).
-rustybuzz = "0.20"
-unicode-bidi = "0.3"
+rustybuzz = { version = "0.20", optional = true }
+unicode-bidi = { version = "0.3", optional = true }
 # Asset packs are checked against their SHA-256 (`asset::packs`).
-sha2 = "0.10"
+sha2 = { version = "0.10", optional = true }
 # Live ops: the content manifest a game shares with the service, and the
 # Ed25519 check a snapshot has to pass before the game believes it.
-jengine-liveops = { path = "../jengine-liveops" }
+jengine-liveops = { path = "../jengine-liveops", optional = true }
 
 # Scripting — native only
 mlua = { workspace = true, optional = true }
@@ -201,6 +363,11 @@ required-features = ["gpu-wgpu"]
 # The transpiler lives in `adapters::js`, which only exists with this feature.
 # Without the declaration a plain `cargo test -p jengine-core` (which builds
 # every example) failed to compile instead of skipping it.
+[[example]]
+name = "behavior_op_reference"
+path = "examples/behavior_op_reference.rs"
+required-features = ["behavior"]
+
 [[example]]
 name = "transpile_lua"
 path = "examples/transpile_lua.rs"

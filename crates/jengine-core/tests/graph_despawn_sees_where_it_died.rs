@@ -7,6 +7,7 @@
 //! The probe that started this file asks the plainest version of that: an
 //! entity at (300, 200) with a graph that, on despawn, spawns a marker at its
 //! own position. Where does the marker land?
+#![cfg(feature = "behavior")]
 
 use hecs::World;
 use jengine_core::behavior::BehaviorGraphSystem;

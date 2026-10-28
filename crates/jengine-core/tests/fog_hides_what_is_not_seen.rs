@@ -3,6 +3,7 @@
 //! enemy is hidden from every drawing pass (`in_view_layers`) until the scout
 //! is near. The fog's picture is made beside the carved textures and its
 //! sprite pointed at it. Found by the showcase's Fog of War.
+#![cfg(feature = "fog_of_war")]
 
 use glam::Vec2;
 use hecs::World;

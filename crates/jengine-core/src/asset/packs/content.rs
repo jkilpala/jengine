@@ -216,7 +216,7 @@ mod tests {
         };
         assert_eq!(c.add_prefabs(&mut map), vec!["fire_slime".to_string()], "named by its file when its name is empty");
         let v = &map["fire_slime"];
-        assert_eq!(v.components.lifetime.as_ref().map(|l| l.remaining), Some(3.0), "the base's component");
+        assert_eq!(v.components.get::<crate::ecs::components::Lifetime>("lifetime").map(|l| l.remaining), Some(3.0), "the base's component");
         assert_eq!(v.children.len(), 1, "the base's part, once");
         assert_eq!(map["Slime"].children.len(), 1, "the game's own prefab is untouched");
 

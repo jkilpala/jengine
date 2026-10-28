@@ -6,6 +6,7 @@
 //! device, is a bright line from the cloud to the ground with the sky either
 //! side of it left dark. Found by the showcase's Thunderhead. The pixel half
 //! passes with a note without a GPU adapter.
+#![cfg(feature = "lightning")]
 
 use glam::Vec2;
 use hecs::World;

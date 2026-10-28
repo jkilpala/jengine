@@ -126,7 +126,7 @@ impl ColliderOutlines {
             }
         }
         #[cfg(feature = "physics")]
-        for (map, _, hulls) in crate::navigation::tilemap_hulls(world) {
+        for (map, _, hulls) in tilemap_hulls(world) {
             for hull in hulls.iter() {
                 let edges = closed(hull);
                 if edges.is_empty() {
@@ -366,6 +366,119 @@ fn circle_hit(p: Vec2, r: Vec2, c: Vec2, radius: f32) -> Option<SurfaceHit> {
     }
     let point = p + r * t;
     Some(SurfaceHit { t, point, normal: (point - c).normalize_or_zero() })
+}
+
+
+/// A cache key for a tilemap's hulls: FNV-1a over what they are made of.
+#[cfg(feature = "physics")]
+struct HullKey(u64);
+
+#[cfg(feature = "physics")]
+impl HullKey {
+    fn new() -> Self {
+        Self(0xcbf2_9ce4_8422_2325)
+    }
+    fn write(&mut self, v: u64) {
+        for b in v.to_le_bytes() {
+            self.0 ^= b as u64;
+            self.0 = self.0.wrapping_mul(0x0000_0100_0000_01b3);
+        }
+    }
+    fn write_vec(&mut self, v: Vec2) {
+        self.write(v.x.to_bits() as u64 | ((v.y.to_bits() as u64) << 32));
+    }
+}
+
+/// Every colliding tilemap's solid layers as convex outlines in world space:
+/// the colliders the physics builds (`physics::tile_area_colliders`), placed
+/// by the map's position (the physics body has no turn, so neither do
+/// these), as `(map, key, hulls)`. Cached per map, keyed by its layers'
+/// revisions and its grid, so a map nothing edits is converted once.
+/// Navigation bakes them, and this module tests them - which is
+/// what lets a `vision` fan stop at a tile wall (Blackout's could not).
+#[cfg(feature = "physics")]
+pub(crate) fn tilemap_hulls(world: &World) -> Vec<(hecs::Entity, u64, std::sync::Arc<Vec<Vec<Vec2>>>)> {
+    use crate::ecs::components::TilemapCollider;
+    use crate::tilemap::Tilemap;
+    use std::cell::RefCell;
+    use std::collections::HashMap;
+    thread_local! {
+        static CACHE: RefCell<HashMap<u64, (u64, std::sync::Arc<Vec<Vec<Vec2>>>)>> = RefCell::new(HashMap::new());
+    }
+    let mut result = Vec::new();
+    for (e, (tm, t)) in world.query::<(&Tilemap, &Transform)>().iter() {
+        let spec = world.get::<&TilemapCollider>(e).ok();
+        let layers: Vec<usize> = tm
+            .layers
+            .iter()
+            .enumerate()
+            .filter(|(_, l)| l.collision || spec.as_ref().is_some_and(|s| s.solid.contains(&l.name)))
+            .map(|(i, _)| i)
+            .collect();
+        if layers.is_empty() || tm.tile_size[0] <= 0.0 || tm.tile_size[1] <= 0.0 {
+            continue;
+        }
+        // Where it is in the world: a parented map moves with its parent.
+        let origin = crate::tilemap::world_origin(world, e, t);
+        let mut h = HullKey::new();
+        h.write(e.to_bits().get());
+        h.write_vec(origin);
+        h.write_vec(Vec2::from(tm.tile_size));
+        h.write(tm.orientation as u64);
+        h.write(tm.hex_side.to_bits() as u64);
+        h.write(tm.shapes_key());
+        for &i in &layers {
+            let l = &tm.layers[i];
+            h.write(i as u64);
+            h.write(l.rev.id());
+            h.write(l.rev.total());
+            h.write(l.width as u64 | ((l.height as u64) << 32));
+        }
+        let key = h.0;
+        let id = e.to_bits().get();
+        let shapes = CACHE.with(|c| {
+            let mut c = c.borrow_mut();
+            if let Some((k, s)) = c.get(&id)
+                && *k == key
+            {
+                return std::sync::Arc::clone(s);
+            }
+            let mut shapes = Vec::new();
+            for &i in &layers {
+                let l = &tm.layers[i];
+                for b in crate::physics::tile_area_colliders(tm, l, (0, 0, l.width, l.height), false) {
+                    let iso = b.position;
+                    let local: Vec<Vec2> = if let Some(c) = b.shape.as_cuboid() {
+                        let he = c.half_extents;
+                        [(-1.0, -1.0), (1.0, -1.0), (1.0, 1.0), (-1.0, 1.0)]
+                            .iter()
+                            .map(|&(sx, sy)| {
+                                let p = iso * rapier2d::na::Point2::new(sx * he.x, sy * he.y);
+                                Vec2::new(p.x, p.y)
+                            })
+                            .collect()
+                    } else if let Some(poly) = b.shape.as_convex_polygon() {
+                        poly.points()
+                            .iter()
+                            .map(|q| {
+                                let p = iso * q;
+                                Vec2::new(p.x, p.y)
+                            })
+                            .collect()
+                    } else {
+                        continue;
+                    };
+                    let world_pts: Vec<Vec2> = local.into_iter().map(|p| origin + p).collect();
+                    shapes.push(convex_hull(&world_pts));
+                }
+            }
+            let shapes = std::sync::Arc::new(shapes);
+            c.insert(id, (key, std::sync::Arc::clone(&shapes)));
+            shapes
+        });
+        result.push((e, key, shapes));
+    }
+    result
 }
 
 #[cfg(test)]

@@ -152,7 +152,7 @@ pub fn build_ios(
 
 #[tauri::command(async)]
 #[allow(clippy::too_many_arguments)]
-pub fn build_web(app: tauri::AppHandle, project_path: String, output_path: String, release: bool, generate_report: bool, wasm_lto: bool, wasm_opt_size: bool, wasm_single_codegen: bool, wasm_opt: Option<String>, debug_overlay: bool, platform: Option<String>) -> Result<String, String> {
+pub fn build_web(app: tauri::AppHandle, project_path: String, output_path: String, release: bool, generate_report: bool, wasm_lto: bool, wasm_opt_size: bool, wasm_single_codegen: bool, wasm_opt: Option<String>, debug_overlay: bool, logging: Option<bool>, platform: Option<String>) -> Result<String, String> {
     let _stream = stream_output(&app);
     let engine = engine_root()?;
     let project = PathBuf::from(&project_path);
@@ -166,14 +166,15 @@ pub fn build_web(app: tauri::AppHandle, project_path: String, output_path: Strin
         })?),
     };
 
-    // The project's wasm-opt level (Build Settings); none given is the default.
+    // The project's wasm-opt level (Build Settings); none given is a web
+    // build's default (`fast`), not the viewport's.
     let wasm_opt = match wasm_opt.as_deref().map(str::trim) {
-        None | Some("") => jengine_builder::wasm_opt::WasmOpt::default(),
+        None | Some("") => jengine_builder::wasm_opt::WasmOpt::WEB_BUILD_DEFAULT,
         Some(id) => jengine_builder::wasm_opt::WasmOpt::parse(id)
             .ok_or_else(|| format!("Unknown wasm-opt level \"{id}\" (off, fast, optimized, size, max)"))?,
     };
 
-    jengine_builder::web::build_web(&engine, &project, &output, release, generate_report, wasm_lto, wasm_opt_size, wasm_single_codegen, wasm_opt, debug_overlay, platform)
+    jengine_builder::web::build_web(&engine, &project, &output, release, generate_report, wasm_lto, wasm_opt_size, wasm_single_codegen, wasm_opt, debug_overlay, logging.unwrap_or(true), platform)
         .map_err(|e| {
             let msg = format!("Web build failed: {e}");
             jengine_builder::progress::emit(&msg);

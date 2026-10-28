@@ -26,6 +26,14 @@ cd "$REPO_ROOT"
 require_wasm_toolchain
 require cargo-tauri "Run ./setup-dev.sh first."
 [[ -d editor/node_modules ]] || die "editor/node_modules is missing. Run ./setup-dev.sh first."
+# A pull that adds a package leaves node_modules behind it, and Vite then
+# fails in the editor window ("Failed to resolve import ..."). npm keeps what
+# it installed in node_modules/.package-lock.json, so reinstall when the
+# project's lockfile is newer than that.
+if [[ editor/package-lock.json -nt editor/node_modules/.package-lock.json ]]; then
+    info "editor/package-lock.json changed since the last install - running npm ci..."
+    (cd editor && npm ci)
+fi
 
 # A stale Vite from a previous session holds port 5173; Tauri would then
 # fall back to another port while devUrl still points at 5173. Kill it.

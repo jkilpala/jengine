@@ -17,14 +17,11 @@
 //! bubble goes after `duration` seconds (0 keeps it), and with its speaker.
 //! Words appear at `reveal_speed` characters a second, as UI text's do.
 
-use std::cell::RefCell;
-
 use glam::Vec2;
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
 
 use crate::ecs::components::{Transform, WorldTransform};
-use crate::renderer::text::FontData;
 use crate::ui::{TextAlign, UIAnchor, UIElement, UIImage, UIText, UiNineSlice};
 
 /// What a speaker says, in a bubble over its head.
@@ -101,29 +98,8 @@ pub struct BubblePart {
     pub owner: Entity,
 }
 
-thread_local! {
-    static FONT: RefCell<Option<FontData>> = const { RefCell::new(None) };
-}
 
-fn with_font<R>(f: impl FnOnce(&FontData) -> R) -> R {
-    FONT.with(|cell| {
-        let mut cell = cell.borrow_mut();
-        let font = cell.get_or_insert_with(|| crate::renderer::text::built_in_font_atlas().3);
-        f(font)
-    })
-}
-
-/// `text` wrapped to `max_width` at `font_size`: its lines and its size,
-/// UI pixels.
-pub fn wrap(text: &str, font_size: f32, max_width: f32) -> (String, Vec2) {
-    with_font(|font| {
-        let scale = font_size / 16.0;
-        let lines = crate::renderer::text_layout::layout_text(font, text, scale, Some(max_width.max(20.0)));
-        let w = lines.iter().fold(0.0f32, |a, l| a.max(l.width));
-        let h = lines.len() as f32 * font.line_height * scale;
-        (lines.iter().map(|l| l.text.trim_end()).collect::<Vec<_>>().join("\n"), Vec2::new(w, h))
-    })
-}
+pub use super::text_wrap::wrap;
 
 /// Where bubbles go: for each, its middle (UI pixels, y up). `anchors` are
 /// where the tails point, `sizes` the bubbles; each sits `lift` above its
@@ -155,7 +131,7 @@ pub fn arrange(anchors: &[Vec2], sizes: &[Vec2], screen: Vec2, lift: f32, gap: f
 
 /// A world point on the screen of `view`, in UI pixels (y up) for a screen
 /// `w` x `h`.
-fn to_screen(view: &crate::ecs::offscreen_marker::MainView, p: Vec2, w: f32, h: f32) -> Vec2 {
+fn to_screen(view: &crate::ecs::views::MainView, p: Vec2, w: f32, h: f32) -> Vec2 {
     let d = p - view.center;
     let l = Vec2::new(d.dot(view.axis_x) / view.half.x.max(1e-3), d.dot(view.axis_y) / view.half.y.max(1e-3));
     Vec2::new(w * 0.5 * (1.0 + l.x), h * 0.5 * (1.0 + l.y))
@@ -173,7 +149,7 @@ pub fn update_speech_bubbles(world: &mut World, w: f32, h: f32) {
         .iter()
         .map(|(e, (b, t, wt))| (e, b.clone(), wt.map_or(t.position, |w| w.position)))
         .collect();
-    let view = crate::ecs::offscreen_marker::main_view();
+    let view = crate::ecs::views::main_view();
     // Who speaks now, and the size of what they say.
     let mut live: Vec<(Entity, SpeechBubble, Vec2, String, Vec2, bool)> = Vec::new();
     for (e, mut b, p) in speakers {
@@ -344,7 +320,7 @@ pub fn set_field(world: &mut World, e: Entity, field: &str, value: &serde_json::
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ecs::offscreen_marker::{MainView, set_main_view};
+    use crate::ecs::views::{MainView, set_main_view};
 
     fn overlap(a: (Vec2, Vec2), b: (Vec2, Vec2)) -> bool {
         (a.0.x - b.0.x).abs() * 2.0 < a.1.x + b.1.x && (a.0.y - b.0.y).abs() * 2.0 < a.1.y + b.1.y

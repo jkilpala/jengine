@@ -39,6 +39,26 @@ pub struct RuntimeBuild {
     pub profile: &'static str,
 }
 
+/// The cargo arguments that strip a release runtime's symbol table, for the
+/// platforms that keep it in the binary. An ELF or Mach-O executable carries
+/// it unless told otherwise: a quarter of the empty project's Linux binary
+/// (54.1 MB, 40.3 stripped - `docs/build-sizes.md`). A panic still names
+/// itself; only a backtrace loses its function names, the trade the Android
+/// build already makes. Windows keeps its symbols in the `.pdb` beside the
+/// exe, which a build does not ship.
+pub fn strip_args(release: bool, platform: &str) -> &'static [&'static str] {
+    if release && matches!(platform, "linux" | "macos" | "ios") {
+        &["--config", "profile.release.strip=true"]
+    } else {
+        &[]
+    }
+}
+
+/// `jengine-runtime`'s default graphics backends, put back by hand when a
+/// build must pass `--no-default-features` for its engine features alone.
+/// Keep in step with `default` in `crates/jengine-runtime/Cargo.toml`.
+const DEFAULT_BACKENDS: [&str; 3] = ["backend-dx12", "backend-vulkan", "backend-metal"];
+
 /// Plan the runtime's build for `platform` (its graphics backends come from
 /// `settings.graphics_backends.<platform>`), generating the project's
 /// runtime crate when it has Rust packages.
@@ -78,6 +98,7 @@ pub fn plan_native_runtime(engine_path: &Path, project_path: &Path, release: boo
     if release {
         args.push("--release".into());
     }
+    args.extend(strip_args(release, platform).iter().map(|a| a.to_string()));
     // Graphics backends the project pinned for this platform; without a
     // pin the runtime's own default (every desktop API) applies.
     let backend_features = crate::graphics::backends_for_platform(project_path, platform)
@@ -86,10 +107,26 @@ pub fn plan_native_runtime(engine_path: &Path, project_path: &Path, release: boo
             crate::graphics::features_for(&backends).join(",")
         })
         .filter(|f| !f.is_empty());
-    if let Some(features) = backend_features {
+    // The engine features (`engine_features`). A generated crate names them
+    // on its own `jengine-core` dependency; the stock runtime is told on the
+    // command line, which `--no-default-features` would otherwise empty.
+    let engine = crate::engine_features::for_project(project_path)?;
+    crate::progress::step(&engine.summary());
+    let mut features: Vec<String> = Vec::new();
+    if let Some(backends) = &backend_features {
+        features.push(backends.clone());
+    }
+    if !generated && (backend_features.is_some() || !engine.is_all()) {
+        if backend_features.is_none() {
+            // The stock runtime's own default backends.
+            features.push(DEFAULT_BACKENDS.join(","));
+        }
+        features.extend(engine.host_features());
+    }
+    if !features.is_empty() {
         args.push("--no-default-features".into());
         args.push("--features".into());
-        args.push(features);
+        args.push(features.join(","));
     }
     Ok(RuntimeBuild { build_dir, binary_stem, args, profile })
 }
@@ -187,7 +224,7 @@ pub fn build_windows(
     }
 
     if generate_report {
-        crate::report::generate_report(output_path, "windows", profile_name, None)?;
+        crate::report::generate_report(output_path, "windows", profile_name, None, crate::engine_features::for_project(project_path).ok().as_ref())?;
     }
 
     Ok(())

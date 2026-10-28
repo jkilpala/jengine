@@ -1,0 +1,34 @@
+[package]
+name = "jengine-benchmark-cpu"
+description = "Headless CPU benchmark for jEngine - the same world step and scene load timed natively and as WebAssembly"
+version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[lib]
+name = "jengine_benchmark_cpu"
+path = "src/lib.rs"
+# cdylib for wasm-pack (`--target nodejs`), rlib for the native binary.
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "jengine-benchmark-cpu"
+path = "src/main.rs"
+
+[dependencies]
+glam = { workspace = true }
+serde_json = { workspace = true }
+hecs = { workspace = true }
+
+# No `native`: the Luau VM is not what this measures, and leaving it out
+# keeps the native and wasm builds the same engine code.
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+jengine-core = { path = "../jengine-core", default-features = false, features = ["physics", "engine-full"] }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+jengine-core = { path = "../jengine-core", default-features = false, features = ["web", "physics", "engine-full"] }
+wasm-bindgen = { workspace = true }

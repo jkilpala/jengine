@@ -25,12 +25,13 @@ mod display_native;
 /// Text entry: the IME, the soft keyboard and the clipboard (`jengine_core::input::text_entry`).
 mod text_native;
 /// The UI handed to the platform's screen reader (`jengine_core::ui::accessibility`).
+#[cfg(feature = "accessibility")]
 mod a11y_native;
 /// Scenes loaded in the background and laid into the running one (`jengine_core::scene::streaming`).
 mod streaming_native;
 mod shot_env;
 mod wgpu_scene_runner;
-#[cfg(windows)]
+#[cfg(all(windows, feature = "video"))]
 mod video_mf;
 
 /// The Android entry: what a generated project crate's `android_main` calls.
@@ -365,6 +366,7 @@ fn run_event_loop(
     scene_path: PathBuf,
     add_packages: &PackageHook,
 ) -> Result<()> {
+    #[cfg(feature = "packs")]
     install_pack_http();
     let mut app = App::new(settings, scene_path, add_packages);
     event_loop.run_app(&mut app)?;
@@ -374,6 +376,7 @@ fn run_event_loop(
 /// The HTTP client asset packs download through
 /// (`jengine_core::asset::packs::native`, which links none of its own).
 /// A 4xx or 5xx answer is an error, which the pack reports as its failure.
+#[cfg(feature = "packs")]
 fn install_pack_http() {
     jengine_core::asset::packs::native::set_http(Box::new(|url: &str| {
         let agent = ureq::AgentBuilder::new()
@@ -680,6 +683,7 @@ mod game_root_tests {
 }
 
 #[cfg(test)]
+#[cfg(feature = "packs")]
 mod pack_http_tests {
     use jengine_core::asset::packs::{self, PackEntry, archive, native};
     use std::io::{Read, Write};

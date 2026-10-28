@@ -13,6 +13,11 @@ try {
 	if (-not (Test-Path "node_modules")) {
 		throw "editor/node_modules is missing. Run 'npm install' in editor/ first."
 	}
+	# Fengari's `%` and `^` by Luau's rules first (a no-op once done).
+	node scripts/patch-fengari.mjs
+	if ($LASTEXITCODE -ne 0) {
+		throw "patching fengari-web failed."
+	}
 	# esbuild reports on stderr even when it succeeds, and under Windows
 	# PowerShell 5.1 with `Stop` that is a terminating error - the build
 	# looked failed while the bundle had been written. Judge by the exit code.

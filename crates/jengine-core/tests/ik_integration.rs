@@ -1,6 +1,6 @@
 //! Integration tests for Slice 3.5.F — IK constraints round-trip and
 //! end-to-end solve through the runtime pipeline.
-#![cfg(feature = "native")]
+#![cfg(all(feature = "native", feature = "ik"))]
 
 use glam::Vec2;
 use jengine_core::animation::ik::solve_ik;
@@ -19,34 +19,19 @@ fn scene_round_trip_preserves_ik_components() {
                 children: Vec::new(),
                 name: "RootBone".into(),
                 parent: None,
-                components: ComponentBundle {
-                    transform: Some(Transform::default()),
-                    bone: Some(Bone { name: "root".into(), length: 2.0 }),
-                    skeleton_root: Some(SkeletonRoot { name: "rig".into() }),
-                    ..Default::default()
-                },
+                components: ComponentBundle::new().with("transform", &Transform::default()).with("bone", &Bone { name: "root".into(), length: 2.0 }).with("skeleton_root", &SkeletonRoot { name: "rig".into() }),
             },
             EntityData {
                 children: Vec::new(),
                 name: "MidBone".into(),
                 parent: Some("RootBone".into()),
-                components: ComponentBundle {
-                    transform: Some(Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }),
-                    bone: Some(Bone { name: "mid".into(), length: 2.0 }),
-                    ..Default::default()
-                },
+                components: ComponentBundle::new().with("transform", &Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }).with("bone", &Bone { name: "mid".into(), length: 2.0 }),
             },
             EntityData {
                 children: Vec::new(),
                 name: "EndBone".into(),
                 parent: Some("MidBone".into()),
-                components: ComponentBundle {
-                    transform: Some(Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }),
-                    bone: Some(Bone { name: "end".into(), length: 0.0 }),
-                    ik_two_bone: Some(IkTwoBone { target: [1.5, 2.5], flip_bend: true, ..Default::default() }),
-                    ik_look_at: Some(IkLookAt { target: [0.0, 10.0], rotation_offset: 0.25 }),
-                    ..Default::default()
-                },
+                components: ComponentBundle::new().with("transform", &Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }).with("bone", &Bone { name: "end".into(), length: 0.0 }).with("ik_two_bone", &IkTwoBone { target: [1.5, 2.5], flip_bend: true, ..Default::default() }).with("ik_look_at", &IkLookAt { target: [0.0, 10.0], rotation_offset: 0.25 }),
             },
         ],
         ..Default::default()
@@ -67,10 +52,10 @@ fn scene_round_trip_preserves_ik_components() {
 
     let saved = save_scene(&world);
     let saved_end = saved.entities.iter().find(|e| e.name == "EndBone").unwrap();
-    let s_two = saved_end.components.ik_two_bone.as_ref().unwrap();
+    let s_two = saved_end.components.get::<jengine_core::ecs::components::IkTwoBone>("ik_two_bone").unwrap();
     assert_eq!(s_two.target, [1.5, 2.5]);
     assert!(s_two.flip_bend);
-    let s_look = saved_end.components.ik_look_at.as_ref().unwrap();
+    let s_look = saved_end.components.get::<jengine_core::ecs::components::IkLookAt>("ik_look_at").unwrap();
     assert_eq!(s_look.target, [0.0, 10.0]);
 }
 
@@ -87,33 +72,19 @@ fn end_to_end_two_bone_solve_via_scene_load() {
                 children: Vec::new(),
                 name: "RootBone".into(),
                 parent: None,
-                components: ComponentBundle {
-                    transform: Some(Transform::default()),
-                    bone: Some(Bone { name: "root".into(), length: 2.0 }),
-                    skeleton_root: Some(SkeletonRoot { name: "rig".into() }),
-                    ..Default::default()
-                },
+                components: ComponentBundle::new().with("transform", &Transform::default()).with("bone", &Bone { name: "root".into(), length: 2.0 }).with("skeleton_root", &SkeletonRoot { name: "rig".into() }),
             },
             EntityData {
                 children: Vec::new(),
                 name: "MidBone".into(),
                 parent: Some("RootBone".into()),
-                components: ComponentBundle {
-                    transform: Some(Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }),
-                    bone: Some(Bone { name: "mid".into(), length: 2.0 }),
-                    ..Default::default()
-                },
+                components: ComponentBundle::new().with("transform", &Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }).with("bone", &Bone { name: "mid".into(), length: 2.0 }),
             },
             EntityData {
                 children: Vec::new(),
                 name: "EndBone".into(),
                 parent: Some("MidBone".into()),
-                components: ComponentBundle {
-                    transform: Some(Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }),
-                    bone: Some(Bone { name: "end".into(), length: 0.0 }),
-                    ik_two_bone: Some(IkTwoBone { target: [0.0, 3.0], flip_bend: false, ..Default::default() }),
-                    ..Default::default()
-                },
+                components: ComponentBundle::new().with("transform", &Transform { position: Vec2::new(2.0, 0.0), rotation: 0.0, scale: Vec2::ONE }).with("bone", &Bone { name: "end".into(), length: 0.0 }).with("ik_two_bone", &IkTwoBone { target: [0.0, 3.0], flip_bend: false, ..Default::default() }),
             },
         ],
         ..Default::default()

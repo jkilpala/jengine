@@ -1,6 +1,7 @@
 //! `line` (`renderer::line2d`): a polyline with a width along it, a
 //! gradient, a texture stretched or tiled, joints and caps - built as
 //! triangles and drawn in the sprite pass.
+#![cfg(feature = "line2d")]
 
 use glam::Vec2;
 use hecs::World;
@@ -123,7 +124,7 @@ fn a_script_reshapes_it_and_the_scene_keeps_it() {
         assert_eq!(l.gradient.len(), 2);
     }
     let scene = jengine_core::scene::format::save_scene(&world);
-    let saved = scene.entities.iter().find_map(|e| e.components.line.as_ref()).expect("saved");
+    let saved = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::renderer::line2d::Line2D>("line")).expect("saved");
     assert_eq!(saved.points.len(), 3);
 }
 

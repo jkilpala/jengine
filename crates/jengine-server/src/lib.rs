@@ -91,6 +91,7 @@ pub mod fleet;
 pub mod listen;
 pub mod liveops;
 pub mod matchmaking;
+pub mod lockstep;
 pub mod relay;
 pub mod room;
 pub mod scaffold;

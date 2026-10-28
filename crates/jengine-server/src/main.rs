@@ -1,7 +1,7 @@
 //! `jengine-server [host:port] [--db <file>] [--admin-token <secret>]
 //! [--public-stats] [--allow-plain-passwords] [--admin-over-plain]
 //! [--trust-proxy <addr>,..] [--liveops <dir> [--liveops-cdn <url>]]` - the stock
-//! server: relay rooms, and with `--liveops` a live ops service (remote
+//! server: relay rooms, lockstep rooms, and with `--liveops` a live ops service (remote
 //! config, experiments, events and content releases; the dashboard at
 //! `/admin/liveops`) whose signing key and pack archives are kept in `<dir>`
 //! - and, with no `--db`, its channels too (`<dir>/liveops.db`).
@@ -268,7 +268,7 @@ fn main() {
             _ => addr = arg,
         }
     }
-    let mut server = Server::new().relay().admin_token(&admin).trust_proxies(trust);
+    let mut server = Server::new().relay().lockstep().admin_token(&admin).trust_proxies(trust);
     if public_stats {
         server = server.public_stats();
     }

@@ -61,7 +61,8 @@ impl WorldTransform {
     pub fn apply_linear(&self, v: Vec2) -> Vec2 {
         let s = v * self.scale;
         let k = Vec2::new(s.x + self.shear * s.y, s.y);
-        let (sin, cos) = self.rotation.sin_cos();
+        // libm's, not the platform's: a child's place feeds the simulation.
+        let (sin, cos) = crate::detmath::DetMath::dsin_cos(self.rotation);
         Vec2::new(k.x * cos - k.y * sin, k.x * sin + k.y * cos)
     }
 
@@ -147,127 +148,10 @@ pub struct SkeletonRoot {
     pub name: String,
 }
 
-/// Slice 3.5.F — two-bone IK constraint attached to the *end* (effector)
-/// bone of a 3-bone chain `root → mid → end`. The solver walks
-/// `Parent` twice from the entity carrying this component to find the
-/// `mid` and `root` bones, then rotates `root.Transform.rotation` and
-/// `mid.Transform.rotation` (in local space) so that the chain's tip
-/// reaches `target` (world-space). Bone lengths come from the `Bone`
-/// component's `length` field.
-///
-/// `flip_bend` selects the "elbow up" vs "elbow down" solution.
-///
-/// Scaled and mirrored rigs work (Sep 2026, BUGS #152): the lengths are
-/// scaled by each bone's world `scale.x`, and under a mirrored parent
-/// (`scale.x * scale.y < 0`, the usual way a 2D character turns round)
-/// `flip_bend` keeps its meaning on screen - the knee goes to the mirrored
-/// side, as the rest of the character does.
-///
-/// `weight` (Sep 2026) blends the solve over the animated pose: 0 leaves the
-/// clip's leg alone, 1 is all IK - so a foot can be planted and released.
-/// `ground` plants an **animated** foot on what is under it: the target is
-/// then not a script's point but the foot where the clip put it, moved up
-/// or down onto the colliders beneath (`ecs::outlines`) by as much as the
-/// ground there is above or below the clip's own floor. A walk authored on
-/// flat ground walks up a slope; the body is the game's to raise.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct IkTwoBone {
-    pub target: [f32; 2],
-    #[serde(default)]
-    pub flip_bend: bool,
-    /// How much of the solve to apply, 0..1.
-    #[serde(default = "default_ik_weight")]
-    pub weight: f32,
-    /// Plant the animated foot on the ground under it (see [`IkGround`]).
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub ground: Option<IkGround>,
-}
-
-fn default_ik_weight() -> f32 {
-    1.0
-}
-
-impl Default for IkTwoBone {
-    fn default() -> Self {
-        Self { target: [0.0, 0.0], flip_bend: false, weight: 1.0, ground: None }
-    }
-}
-
-/// A chain of any number of bones that bends to reach a target (Oct 2026;
-/// FABRIK - Godot's `SkeletonModification2DFABRIK`, Unity's 2D IK Chain).
-/// On the chain's **end** bone: `bones` counts up the parents from it, so 4
-/// bends this bone and the three above it. The tip - the end bone's far
-/// end - goes to `target`, or to the entity named `target_name` when that
-/// is set. `max_bend` limits each joint after the first to that many
-/// radians either way from where the animation put it (pi is free), which
-/// is what keeps a tail from folding back on itself. `weight` blends the
-/// solve over the animated pose, as two-bone IK's does.
-/// `Skeleton.set_ik_target` / `set_ik_weight` reach it.
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(default)]
-pub struct IkChain {
-    pub target: [f32; 2],
-    #[serde(skip_serializing_if = "String::is_empty")]
-    pub target_name: String,
-    pub bones: u32,
-    pub iterations: u32,
-    /// Close enough, in world units.
-    pub tolerance: f32,
-    pub max_bend: f32,
-    pub weight: f32,
-    /// Per bone, root first: the pose the solve bends from and the angle it
-    /// last wrote. A bone still at what was written was posed by nothing
-    /// else, so its rest stands; one moved by a clip takes the clip's. Never
-    /// saved.
-    #[serde(skip)]
-    pub state: Vec<(f32, f32)>,
-}
-
-impl Default for IkChain {
-    fn default() -> Self {
-        Self {
-            target: [0.0, 0.0],
-            target_name: String::new(),
-            bones: 3,
-            iterations: 12,
-            tolerance: 0.5,
-            max_bend: std::f32::consts::PI,
-            weight: 1.0,
-            state: Vec::new(),
-        }
-    }
-}
-
-/// Foot IK against the scene's colliders: where the clip's floor is, and
-/// how far to look for ground above and below it.
-#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
-#[serde(default)]
-pub struct IkGround {
-    /// The height, in the skeleton root's frame, of the floor the clip was
-    /// authored on: a foot the clip puts here is standing on the ground.
-    pub floor: f32,
-    /// How far above and below that floor to look for ground.
-    pub reach: f32,
-    /// The collision layers that count as ground (a collider's
-    /// `collision_membership`).
-    pub mask: u16,
-}
-
-impl Default for IkGround {
-    fn default() -> Self {
-        Self { floor: 0.0, reach: 200.0, mask: u16::MAX }
-    }
-}
-
-/// Slice 3.5.F — look-at IK constraint. Rotates the carrying entity's
-/// local `Transform.rotation` so that its world `+X` axis (plus
-/// `rotation_offset` radians) points at `target` (world-space).
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct IkLookAt {
-    pub target: [f32; 2],
-    #[serde(default)]
-    pub rotation_offset: f32,
-}
+// The IK constraints (`ik_two_bone`, `ik_chain`, `ik_look_at`) are the `ik`
+// engine feature's, in `animation::ik`; named here too where the build has it.
+#[cfg(feature = "ik")]
+pub use crate::animation::ik::{IkChain, IkGround, IkLookAt, IkTwoBone};
 
 /// One vertex of a [`Mesh2D`].
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
@@ -2184,10 +2068,24 @@ pub struct PointLight2D {
     /// black. Its specular highlight subtracts too.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub subtract: bool,
+    /// How much its pool is squashed top to bottom (Oct 2026): 1 a circle,
+    /// less an ellipse as wide as `radius` and `radius * squash` tall - a
+    /// lamp's pool on a floor seen in perspective (`ecs::stage` sets it from
+    /// the pitch). Shadows and normal maps are unchanged.
+    #[serde(default = "default_squash", skip_serializing_if = "is_unsquashed")]
+    pub squash: f32,
 }
 
 fn default_casts_shadows() -> bool {
     true
+}
+
+fn default_squash() -> f32 {
+    1.0
+}
+
+fn is_unsquashed(v: &f32) -> bool {
+    *v == 1.0
 }
 
 /// Every light layer: what a light lights unless its `light_mask` says less.
@@ -2233,6 +2131,7 @@ impl Default for PointLight2D {
             turn: 0.0,
             light_mask: ALL_LIGHT_LAYERS,
             subtract: false,
+            squash: 1.0,
         }
     }
 }
@@ -2359,6 +2258,12 @@ pub struct SpotLight2D {
     /// black. Its specular highlight subtracts too.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub subtract: bool,
+    /// How much its pool is squashed top to bottom (Oct 2026): 1 a circle,
+    /// less an ellipse as wide as `radius` and `radius * squash` tall - a
+    /// lamp's pool on a floor seen in perspective (`ecs::stage` sets it from
+    /// the pitch). Shadows and normal maps are unchanged.
+    #[serde(default = "default_squash", skip_serializing_if = "is_unsquashed")]
+    pub squash: f32,
 }
 
 impl Default for SpotLight2D {
@@ -2377,6 +2282,7 @@ impl Default for SpotLight2D {
             cookie_scale: 1.0,
             light_mask: ALL_LIGHT_LAYERS,
             subtract: false,
+            squash: 1.0,
         }
     }
 }
@@ -3412,7 +3318,7 @@ impl Ease {
                 if t < 0.5 {
                     2.0 * t * t
                 } else {
-                    1.0 - (-2.0 * t + 2.0).powi(2) / 2.0
+                    1.0 - crate::detmath::DetMath::dpowi(-2.0 * t + 2.0, 2) / 2.0
                 }
             }
         }

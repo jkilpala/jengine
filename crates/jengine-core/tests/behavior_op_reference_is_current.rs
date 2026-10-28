@@ -3,6 +3,7 @@
 //!
 //! The hand-kept one listed 23 of 68 ops and showed an example graph that
 //! did not compile - in the file that feeds the website and the AI spec.
+#![cfg(feature = "behavior")]
 
 use jengine_core::behavior::catalog::{render_op_reference, replace_op_reference};
 

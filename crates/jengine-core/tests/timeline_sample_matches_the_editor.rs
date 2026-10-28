@@ -4,6 +4,7 @@
 //! `fixtures/timeline_sample.json` - the editor's half in
 //! `timelineEdit.test.ts`. A change to either that the other did not get
 //! fails one of the two, and the dope sheet stops lying about what plays.
+#![cfg(feature = "timeline")]
 
 use jengine_core::ecs::timeline::{Track, sample};
 use serde_json::Value;

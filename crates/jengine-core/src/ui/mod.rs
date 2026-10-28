@@ -10,10 +10,15 @@
 
 pub mod gui_document;
 /// The UI as a screen reader sees it (`accessible`, `Accessibility.announce`).
+#[cfg(feature = "accessibility")]
 pub mod accessibility;
+#[cfg(feature = "drag_drop")]
 pub mod drag_drop;
+#[cfg(feature = "radial_menu")]
 pub mod radial_menu;
+#[cfg(feature = "speech_bubble")]
 pub mod speech_bubble;
+#[cfg(feature = "toast")]
 pub mod toast;
 pub mod layout;
 pub mod navigation;
@@ -21,6 +26,7 @@ pub mod scaling;
 pub mod scroll;
 /// A text field you can edit: caret, selection, words, clipboard, IME.
 pub mod text_edit;
+pub mod text_wrap;
 pub mod shapes;
 
 use glam::Vec2;
@@ -438,6 +444,21 @@ pub fn apply_ui_prop(
         _ => return false,
     }
     hit
+}
+
+/// `accessible`: how an entity-UI element (or, as `style.accessible`, a
+/// `.gui` node) reads to a screen reader - a name for a button that is only
+/// a picture, a better one than its text, or none at all (`hidden`, for
+/// decoration).
+#[derive(Debug, Clone, Default, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct Accessible {
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub label: String,
+    /// A longer description, read after the name.
+    #[serde(default, skip_serializing_if = "String::is_empty")]
+    pub description: String,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub hidden: bool,
 }
 
 /// Core UI layout component — determines screen position and size.

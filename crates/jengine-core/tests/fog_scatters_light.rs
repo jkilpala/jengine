@@ -4,7 +4,7 @@
 //! glows in the fog past its own reach. Rendered on the GPU through the real
 //! composite; without a GPU adapter it prints why and passes. The density
 //! itself is tested in the module.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "fog"))]
 
 use hecs::World;
 use jengine_core::ecs::components::{AmbientLight, PointLight2D, Transform};

@@ -202,6 +202,32 @@ that package first: **`RigidBody::reset_forces` does not reset torques.**
 A force added at a point is also a torque; reset only the forces each step
 and the torque piles up until every body spins. Call `reset_torques` too.
 
+## Simulation maths: the same bits everywhere
+
+A simulation should come to the same game on every platform from the same
+seed and inputs - it is what lets multiplayer send inputs alone, a server
+verify a run by replaying it, and a test written on Windows pass on a Mac.
+`+ - * /` and `sqrt` already do. **`sin`, `cos`, `atan2`, `exp`, `powf` and
+the rest do not**: they are the platform's maths library, and a match from
+one seed ended 2 - 0 on a Mac and 1 - 2 in the browser until they went.
+So in code that decides what happens, use `jengine_core::detmath::DetMath`:
+
+```rust
+use jengine_core::detmath::DetMath;
+let (s, c) = heading.dsin_cos();
+let slip = (lateral / forward).datan();
+```
+
+rapier is already deterministic (the workspace turns on its
+`enhanced-determinism` and patches the rest, `vendor/rapier2d`). A package's
+drawing goes through `detmath` too: `jengine-determinism`'s
+`simulation_uses_detmath` test reads every package's source whole and fails
+on a platform call, which keeps the rule one anybody can check (a package
+that has a reason to differ - rally's own `det` maths - is left off its
+`PACKAGES` list). Pin it with a fingerprint test - a module that plays a
+fixed match from a seed and hashes what happened, and a test holding that
+hash - which CI runs on every platform (docs/determinism-proposal.md).
+
 ## Writing into a `Tilemap`: where cell (0, 0) is
 
 **A tilemap's transform is the top-left corner of cell (0, 0), with rows
@@ -311,6 +337,33 @@ slot.texture_id = sheet.as_str().into();
 It is `Copy`, so assigning one costs nothing. Interning one locks a table
 the first time it meets a string, so make the id once and copy it rather than
 building it from a string every frame in a hot loop.
+
+## Using an engine feature: name it on your `jengine-core` dependency
+
+Most of the engine's optional subsystems are **engine features**
+(`docs/engine-features-plan.md`): Cargo features of `jengine-core`, all of
+them under `engine-full`, and a game's build carries only the ones its
+project uses. A package depends on core with `default-features = false`,
+so it gets **none** of them unless it says so. Use one - its module, its
+types - and name it:
+
+```toml
+# This package's course is drawn and collided as spline shapes.
+jengine-core = { path = "../../crates/jengine-core", default-features = false, features = ["spline_shape"] }
+```
+
+A vehicle package's course is drawn this way, and a town package names
+`noise` the same. Cargo unifies features across a build, so a game using the package
+carries the feature whatever its own content says.
+
+Forgetting it is a compile error, not a silent gap - a feature's types live
+in its own module, so code naming `jengine_core::renderer::spline_shape::...`
+does not build without it. The one way to miss it quietly is to make a
+feature's component from **data** - a JSON bundle with its key - without
+naming any of its types: the component lands in `CustomComponents` and
+the load says once which feature the build lacks. Name the feature anyway.
+The list of features, with the components and script namespaces each owns,
+is `jengine_core::features::ALL`.
 
 ## Composing packages: depend on the crate, and list both
 
@@ -478,18 +531,21 @@ deserializes from `{}` derives one. Hand-written metadata
 (`register_editor`, or an `editor.json`) still wins, for ranges and
 descriptions the derivation cannot know.
 
-## Components: your scene must be v2
+## Components: in any scene
 
 `register_components` puts your component in the same `ComponentRegistry` the
-scene loader consults. That only helps for **v2 scenes**:
+scene loader consults, and every scene and prefab reads its components
+through it by scene key - v1 and v2 alike - so your key in a `.scene` or a
+`.prefab` is your component in every runtime that links the package. A key no
+registry knows becomes `CustomComponents` data.
 
-- **v1** scenes deserialize into `ComponentBundle`, a fixed struct in
-  `jengine-core` with no field for anyone else's component. Your key is
-  unknown, gets collected into `CustomComponents`, and is effectively dropped.
-- **v2** scenes (`"version": 2`) dispatch every key through the registry.
-
-So a `.scene` that uses a package component must declare `"version": 2`. See
-`projects/engine-test-lab/assets/scenes/59-packages.scene`.
+Until Oct 2026 this held for **v2 scenes only**: a v1 scene deserialized into
+`ComponentBundle`, then a fixed struct with a field per core component, so a
+package's key was unknown, landed in `CustomComponents` and was effectively
+dropped - every package game's scenes are `"version": 2` for that reason, and
+`projects/engine-test-lab/assets/scenes/59-packages.scene` is the worked
+example. A v2 scene is still the format to write: it keeps the parent of a
+shared name (below).
 
 A v2 entity names what it hangs from the way a v1 one does - `"parent":
 "Body"` beside `"name"` and `"components"` - so a v2 scene can hold a rig.
@@ -606,7 +662,9 @@ builder generates a standalone crate per project at
 name = "my-game-runtime"
 [workspace]                       # standalone, not a member of the engine's
 [dependencies]
-jengine-runtime = { path = "…/crates/jengine-runtime", default-features = false }
+jengine-runtime = { path = "…/crates/jengine-runtime", default-features = false, features = ["video"] }
+# The engine features this project uses (settings.engine_features).
+jengine-core    = { path = "…/crates/jengine-core", default-features = false, features = ["trails", "video"] }
 cool-fx         = { path = "…/packages/cool-fx" }
 [features]                        # forwarded, so backend pinning still works
 default = ["backend-dx12", "backend-vulkan", "backend-metal"]

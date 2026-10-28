@@ -1,0 +1,161 @@
+{
+  "version": 2,
+  "name": "299 - Fixed Steps",
+  "simulation_hz": 20,
+  "entities": [
+    {
+      "name": "Camera",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "camera": {
+          "zoom": 1.0,
+          "is_active": true
+        }
+      }
+    },
+    {
+      "name": "Title",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            330
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "299 - FIXED STEPS",
+          "font_id": "",
+          "font_scale": 3.0,
+          "color": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "z_order": 50
+        }
+      }
+    },
+    {
+      "name": "Hint",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            280
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "This scene runs its gameplay in 20 fixed steps a second (\"simulation_hz\": 20 in the scene;\nsettings.simulation_hz for a whole project): update() runs 20 times a second at any frame rate, a press\nis counted once however fast you tap Space, and the ball - moved only in update() - still glides,\nbecause what is drawn is interpolated between steps.  H hub  [ ] prev / next",
+          "font_id": "",
+          "font_scale": 1.0,
+          "color": [
+            0.7,
+            0.75,
+            0.85,
+            0.9
+          ],
+          "z_order": 50
+        }
+      }
+    },
+    {
+      "name": "Summary",
+      "components": {
+        "transform": {
+          "position": [
+            -620,
+            180
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "text": {
+          "text": "...",
+          "font_id": "",
+          "font_scale": 1.6,
+          "color": [
+            1,
+            0.9,
+            0.4,
+            1
+          ],
+          "z_order": 50
+        }
+      }
+    },
+    {
+      "name": "Ball",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            -80
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "sprite": {
+          "texture_id": "sprites/circle16.png",
+          "size": [
+            48.0,
+            48.0
+          ],
+          "color": [
+            1.0,
+            0.75,
+            0.25,
+            1.0
+          ],
+          "z_order": 10
+        }
+      }
+    },
+    {
+      "name": "Script",
+      "components": {
+        "transform": {
+          "position": [
+            0,
+            0
+          ],
+          "rotation": 0.0,
+          "scale": [
+            1.0,
+            1.0
+          ]
+        },
+        "script": {
+          "language": "Lua",
+          "source_path": "scripts/lua/scene_299_fixed_steps.lua"
+        }
+      }
+    }
+  ]
+}

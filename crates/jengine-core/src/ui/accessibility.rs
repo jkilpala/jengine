@@ -23,22 +23,9 @@ use std::cell::RefCell;
 use std::collections::HashMap;
 
 use hecs::{Entity, World};
-use serde::{Deserialize, Serialize};
 
-/// `accessible`: how an entity-UI element (or, as `style.accessible`, a
-/// `.gui` node) reads to a screen reader - a name for a button that is only
-/// a picture, a better one than its text, or none at all (`hidden`, for
-/// decoration).
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
-pub struct Accessible {
-    #[serde(default, skip_serializing_if = "String::is_empty")]
-    pub label: String,
-    /// A longer description, read after the name.
-    #[serde(default, skip_serializing_if = "String::is_empty")]
-    pub description: String,
-    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
-    pub hidden: bool,
-}
+pub use super::Accessible;
+
 
 /// What a node is.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

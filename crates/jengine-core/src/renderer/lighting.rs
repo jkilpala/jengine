@@ -4,6 +4,7 @@
 //! module only provides the data types and per-frame collection helpers
 //! that both the runtime and the editor viewport feed into the wgpu pass.
 
+use crate::detmath::DetMath;
 use crate::ecs::components::{
     ALL_LIGHT_LAYERS, AmbientLight, AmbientOcclusion, DirectionalLight2D, LightOccluder, LightmapComponent, PointLight2D, SpotLight2D,
     TilemapOccluder, ToonLighting,
@@ -19,6 +20,27 @@ fn placed(t: &Transform, w: Option<&WorldTransform>) -> Transform {
         Some(w) => Transform { position: w.position, rotation: w.rotation, scale: w.scale },
         None => t.clone(),
     }
+}
+
+/// A fog where it is: what the composite needs (`ecs::fog::placed`).
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct PlacedFog {
+    pub fog_color: [f32; 4],
+    /// noise scale, noise amount, ground, height.
+    pub shape: [f32; 4],
+    /// The drift so far (x, y), scatter, unused.
+    pub motion: [f32; 4],
+    /// The box's centre and half size (half size 0: everywhere).
+    pub area: [f32; 4],
+}
+
+/// A freeform light placed in the world: its outline anticlockwise, its
+/// colour times its intensity.
+#[derive(Debug, Clone, PartialEq)]
+pub struct PlacedFreeform {
+    pub points: Vec<glam::Vec2>,
+    pub color: glam::Vec3,
+    pub falloff: f32,
 }
 
 /// Collected light data for a single frame, gathered from ECS.
@@ -65,10 +87,10 @@ pub struct LightData {
     pub gi: Option<crate::ecs::components::GlobalIllumination>,
     /// Freeform lights, placed (`renderer::freeform_light`): drawn as meshes
     /// beside the lightmaps, and added by [`light_at`] as the mesh adds them.
-    pub freeform: Vec<crate::renderer::freeform_light::PlacedFreeform>,
+    pub freeform: Vec<PlacedFreeform>,
     /// Fog that catches the light, if the world has some (`ecs::fog`): the
     /// composite's alone - [`light_at`] leaves it out.
-    pub fog: Option<crate::ecs::fog::PlacedFog>,
+    pub fog: Option<PlacedFog>,
 }
 
 /// One [`LightmapComponent`] placed in the world: what
@@ -233,7 +255,7 @@ pub fn append_occluder_segments(
         occ.shadow_tint[2],
         occ.shadow_opacity,
     ];
-    let (sin, cos) = transform.rotation.sin_cos();
+    let (sin, cos) = transform.rotation.dsin_cos();
     let to_world = |p: glam::Vec2| -> glam::Vec2 {
         let sx = p.x * transform.scale.x;
         let sy = p.y * transform.scale.y;
@@ -267,7 +289,7 @@ pub fn gather_lights(world: &hecs::World) -> LightData {
     data.occlusion = world.query::<&AmbientOcclusion>().iter().next().map(|(_, ao)| *ao);
     data.toon = world.query::<&ToonLighting>().iter().next().map(|(_, t)| *t);
     data.gi = world.query::<&crate::ecs::components::GlobalIllumination>().iter().next().map(|(_, g)| *g);
-    data.fog = crate::ecs::fog::placed(world);
+    crate::feature!("fog", { data.fog = crate::ecs::fog::placed(world) });
 
     for (_entity, (transform, w, light)) in
         world.query::<(&Transform, Option<&WorldTransform>, &PointLight2D)>().iter()
@@ -279,21 +301,23 @@ pub fn gather_lights(world: &hecs::World) -> LightData {
 
     // A hot liquid's lights (`ecs::fluid::Fluid::lights`), as
     // `tick_fluids` left them: no shadows, scaled by the particle's heat.
-    for (_entity, f) in world.query::<&crate::ecs::fluid::Fluid>().iter() {
-        let Some(l) = &f.lights else { continue };
-        for &(position, heat) in &f.lit {
-            data.point_lights.push((
-                position,
-                PointLight2D {
-                    color: l.color,
-                    intensity: l.intensity * heat,
-                    radius: l.radius,
-                    casts_shadows: false,
-                    ..PointLight2D::default()
-                },
-            ));
+    crate::feature!("fluid", {
+        for (_entity, f) in world.query::<&crate::ecs::fluid::Fluid>().iter() {
+            let Some(l) = &f.lights else { continue };
+            for &(position, heat) in &f.lit {
+                data.point_lights.push((
+                    position,
+                    PointLight2D {
+                        color: l.color,
+                        intensity: l.intensity * heat,
+                        radius: l.radius,
+                        casts_shadows: false,
+                        ..PointLight2D::default()
+                    },
+                ));
+            }
         }
-    }
+    });
 
     // Particles that give off light (`ParticleEmitter::light`), as
     // `particles::tick_particles` left them: no shadows, every layer.
@@ -315,6 +339,7 @@ pub fn gather_lights(world: &hecs::World) -> LightData {
 
     // Lightning (`ecs::lightning`): while a strike shows, lights along it -
     // no shadows - and a lift in the ambient light, both by its brightness.
+    #[cfg(feature = "lightning")]
     for (_entity, l) in world.query::<&crate::ecs::lightning::Lightning>().iter() {
         let b = l.now();
         if b <= 0.0 {
@@ -405,8 +430,10 @@ pub fn gather_lights(world: &hecs::World) -> LightData {
         });
     }
     // Light flooded through tilemaps is drawn as lightmaps too.
+    #[cfg(feature = "tile_light")]
     data.lightmaps.extend(crate::ecs::tile_light::quads(world));
 
+    #[cfg(feature = "freeform_light")]
     for (_entity, (t, w, ff)) in world
         .query::<(&Transform, Option<&WorldTransform>, &crate::renderer::freeform_light::FreeformLight)>()
         .iter()
@@ -504,7 +531,7 @@ pub fn sun_as_point(
     anchor: glam::Vec2,
 ) -> (glam::Vec2, PointLight2D, f32) {
     let angle = rotation + sun.direction;
-    let travel = glam::Vec2::new(angle.cos(), angle.sin());
+    let travel = glam::Vec2::new(angle.dcos(), angle.dsin());
     let height = sun.height.max(0.02);
     let light = PointLight2D {
         color: sun.color,
@@ -994,12 +1021,9 @@ pub fn has_lights(world: &hecs::World) -> bool {
         || world.query::<&AmbientLight>().iter().next().is_some()
         // Particles that give off light (`ParticleEmitter::light`).
         || world.query::<&crate::particles::ParticleEmitter>().iter().any(|(_, e)| e.light.is_some())
-        || world.query::<&crate::ecs::tile_light::TileLight>().iter().next().is_some()
+        || tile_lights(world)
         // Lightning that lights what it strikes (`ecs::lightning`).
-        || world
-            .query::<&crate::ecs::lightning::Lightning>()
-            .iter()
-            .any(|(_, l)| (l.light_intensity > 0.0 && l.light_radius > 0.0) || l.flash > 0.0)
+        || lightning_lights(world)
         // A lightmap is light too: a scene lit only by baked maps needs the
         // pass as much as one with a point light.
         || world
@@ -1009,60 +1033,29 @@ pub fn has_lights(world: &hecs::World) -> bool {
             .is_some()
 }
 
-/// P7.7 wedge 3 — Build a shadow `hecs::World` containing only light entities
-/// from a `SceneData`. Used by the WASM runtimes (`jengine-web`,
-/// `jengine-editor-viewport`) which keep `SceneData` as the load/save format
-/// but want a `&World` to pass to [`gather_lights`] / [`has_lights`] each
-/// frame.
-pub fn build_lighting_world_from_scene(
-    scene: &crate::scene::format::SceneData,
-) -> (hecs::World, Vec<Option<hecs::Entity>>) {
-    build_lighting_world_from_scene_with(scene, |_idx, entity| {
-        entity.components.transform.clone().unwrap_or_default()
-    })
+/// Whether some lightning lights what it strikes (`ecs::lightning`).
+#[cfg(feature = "lightning")]
+fn lightning_lights(world: &hecs::World) -> bool {
+    world
+        .query::<&crate::ecs::lightning::Lightning>()
+        .iter()
+        .any(|(_, l)| (l.light_intensity > 0.0 && l.light_radius > 0.0) || l.flash > 0.0)
 }
 
-/// Same as [`build_lighting_world_from_scene`] but lets the caller supply the
-/// `Transform` for each scene entity.
-pub fn build_lighting_world_from_scene_with<F>(
-    scene: &crate::scene::format::SceneData,
-    mut transform_for: F,
-) -> (hecs::World, Vec<Option<hecs::Entity>>)
-where
-    F: FnMut(usize, &crate::scene::format::EntityData) -> Transform,
-{
-    let mut world = hecs::World::new();
-    let mut map: Vec<Option<hecs::Entity>> = Vec::with_capacity(scene.entities.len());
-    for (idx, entity) in scene.entities.iter().enumerate() {
-        let has_light = entity.components.point_light.is_some()
-            || entity.components.spot_light.is_some()
-            || entity.components.directional_light.is_some()
-            || entity.components.ambient_light.is_some()
-            || entity.components.light_occluder.is_some();
-        if !has_light {
-            map.push(None);
-            continue;
-        }
-        let transform = transform_for(idx, entity);
-        let hecs_entity = world.spawn((transform,));
-        if let Some(ref pl) = entity.components.point_light {
-            let _ = world.insert_one(hecs_entity, pl.clone());
-        }
-        if let Some(ref sl) = entity.components.spot_light {
-            let _ = world.insert_one(hecs_entity, sl.clone());
-        }
-        if let Some(ref dl) = entity.components.directional_light {
-            let _ = world.insert_one(hecs_entity, dl.clone());
-        }
-        if let Some(ref amb) = entity.components.ambient_light {
-            let _ = world.insert_one(hecs_entity, amb.clone());
-        }
-        if let Some(ref occ) = entity.components.light_occluder {
-            let _ = world.insert_one(hecs_entity, occ.clone());
-        }
-        map.push(Some(hecs_entity));
-    }
-    (world, map)
+#[cfg(not(feature = "lightning"))]
+fn lightning_lights(_: &hecs::World) -> bool {
+    false
+}
+
+/// Whether some tilemap floods light (`ecs::tile_light`).
+#[cfg(feature = "tile_light")]
+fn tile_lights(world: &hecs::World) -> bool {
+    world.query::<&crate::ecs::tile_light::TileLight>().iter().next().is_some()
+}
+
+#[cfg(not(feature = "tile_light"))]
+fn tile_lights(_: &hecs::World) -> bool {
+    false
 }
 
 // ---------------------------------------------------------------------------
@@ -1203,17 +1196,32 @@ fn shadow_reach(owner: u32, near: f32, scale: f32) -> f32 {
 /// that share those bits and are *both* crossed can confuse each other: two
 /// self-shadow-free occluders that both contain `frag` cancel out and shadow
 /// it, and two bounded ones are measured from the nearer. Rare, and stated.
-fn ray_transmit(frag: glam::Vec2, light: glam::Vec2, occ: &Occluders, flags: u32, scale: f32) -> glam::Vec3 {
-    let seg = |s: &[f32; 4]| (glam::Vec2::new(s[0], s[1]), glam::Vec2::new(s[2], s[3]));
+/// Which self-shadow-free occluders `frag` is inside, as owner bits: parity
+/// along the ray to the light's centre, corrected by whether the light is
+/// inside (`light_inside`). A property of the point, not of a ray - so a soft
+/// light counts it once, not once per sample (the shader's `pixel_inside`).
+fn pixel_inside(frag: glam::Vec2, center: glam::Vec2, occ: &Occluders, flags: u32) -> u32 {
+    if flags & 1 == 0 {
+        return 0;
+    }
     let mut parity = 0u32;
+    for (i, s) in occ.segments.iter().enumerate() {
+        let o = occ.owner(i);
+        let (a, b) = (glam::Vec2::new(s[0], s[1]), glam::Vec2::new(s[2], s[3]));
+        if o & NO_SELF_SHADOW != 0 && ray_crosses(frag, center, a, b) {
+            parity ^= owner_bit(o);
+        }
+    }
+    parity ^ occ.light_inside
+}
+
+fn ray_transmit(frag: glam::Vec2, light: glam::Vec2, occ: &Occluders, flags: u32, scale: f32, inside: u32) -> glam::Vec3 {
+    let seg = |s: &[f32; 4]| (glam::Vec2::new(s[0], s[1]), glam::Vec2::new(s[2], s[3]));
     let mut near = [f32::MAX; 32];
-    if flags != 0 {
+    if flags & 2 != 0 {
         for (i, s) in occ.segments.iter().enumerate() {
             let o = occ.owner(i);
             let (a, b) = seg(s);
-            if o & NO_SELF_SHADOW != 0 && ray_crosses(frag, light, a, b) {
-                parity ^= owner_bit(o);
-            }
             if owner_shadow_length(o) > 0.0
                 && let Some(d) = crossing_distance(frag, light, a, b)
             {
@@ -1222,7 +1230,6 @@ fn ray_transmit(frag: glam::Vec2, light: glam::Vec2, occ: &Occluders, flags: u32
             }
         }
     }
-    let inside = parity ^ occ.light_inside;
     let mut transmit = glam::Vec3::ONE;
     for (i, s) in occ.segments.iter().enumerate() {
         let (a, b) = seg(s);
@@ -1276,9 +1283,10 @@ pub fn shadow_factor_scaled(
     }
     // The shader's `occ.w`: skip the first pass when nothing needs it.
     let flags = occluder_flags(occ.owners);
+    let inside = pixel_inside(frag, center, &occ, flags);
 
     if light_size < 0.001 {
-        return ray_transmit(frag, center, &occ, flags, scale);
+        return ray_transmit(frag, center, &occ, flags, scale, inside);
     }
 
     let perp = glam::Vec2::new(-to_light.y, to_light.x) / dist;
@@ -1286,7 +1294,7 @@ pub fn shadow_factor_scaled(
     for s in 0..SHADOW_SAMPLES {
         let off = (s as f32 / (SHADOW_SAMPLES - 1) as f32 - 0.5) * 2.0;
         let sample_center = center + perp * (off * light_size);
-        acc += ray_transmit(frag, sample_center, &occ, flags, scale);
+        acc += ray_transmit(frag, sample_center, &occ, flags, scale, inside);
     }
     acc / SHADOW_SAMPLES as f32
 }
@@ -1311,8 +1319,8 @@ pub fn point_light_at_scaled(
     if light.radius <= 0.0 {
         return glam::Vec3::ZERO;
     }
-    let dist = p.distance(pos);
-    let attenuation = (1.0 - (dist / light.radius).clamp(0.0, 1.0)).powf(light.falloff);
+    let dist = squashed_distance(p - pos, light.squash);
+    let attenuation = (1.0 - (dist / light.radius).clamp(0.0, 1.0)).dpowf(light.falloff);
     if attenuation <= 0.0 {
         return glam::Vec3::ZERO;
     }
@@ -1322,6 +1330,14 @@ pub fn point_light_at_scaled(
     let shadow = shadow_factor_scaled(p, pos, light.shadow_softness, occ, shadow_scale);
     let color = glam::Vec3::new(light.color[0], light.color[1], light.color[2]);
     color * light.intensity * attenuation * shadow
+}
+
+/// How far `d` from a light is for its falloff, its pool squashed top to
+/// bottom by `squash` (`PointLight2D::squash`) - `squashed_distance` in
+/// `point_light.wgsl`, clamped the same.
+pub fn squashed_distance(d: glam::Vec2, squash: f32) -> f32 {
+    let squash = if squash.is_finite() && squash > 0.0 { squash.clamp(0.05, 1.0) } else { 1.0 };
+    glam::Vec2::new(d.x, d.y / squash).length()
 }
 
 /// WGSL's `smoothstep`, which Rust has no equivalent of.
@@ -1353,19 +1369,19 @@ pub fn spot_light_at(
     }
     let delta = p - pos;
     let dist = delta.length();
-    let attenuation = (1.0 - (dist / light.radius).clamp(0.0, 1.0)).powf(light.falloff);
+    let attenuation = (1.0 - (squashed_distance(delta, light.squash) / light.radius).clamp(0.0, 1.0)).dpowf(light.falloff);
     if attenuation <= 0.0 {
         return glam::Vec3::ZERO;
     }
     let angle = entity_rotation + light.direction;
-    let dir = glam::Vec2::new(angle.cos(), angle.sin());
+    let dir = glam::Vec2::new(angle.dcos(), angle.dsin());
     // At the emitter itself the direction is undefined, and the shader says so
     // twice - `select(normalize(delta), dir, ...)` and then `cone = 1.0`. Both
     // land on "fully lit", so one branch says it here.
     let cone = if dist < RAY_EPS_NEAR {
         1.0
     } else {
-        let cos_cone = light.angle.cos();
+        let cos_cone = light.angle.dcos();
         smoothstep(cos_cone - SPOT_EDGE, cos_cone + SPOT_EDGE, (delta / dist).dot(dir))
     };
     if cone <= 0.0 {
@@ -1429,7 +1445,7 @@ pub fn cookie_factor(
         return glam::Vec3::ONE;
     }
     let d = p - center;
-    let (s, c) = turn.sin_cos();
+    let (s, c) = turn.dsin_cos();
     let local = glam::Vec2::new(d.x * c + d.y * s, -d.x * s + d.y * c) / reach.max(1e-4);
     if local.x.abs() > 1.0 || local.y.abs() > 1.0 {
         return glam::Vec3::ZERO;
@@ -1504,6 +1520,7 @@ fn light_summed(
         let sign = if light.subtract { -1.0 } else { 1.0 };
         total += spot_light_at(p, *pos, *rotation, light, occ) * through * sign;
     }
+    #[cfg(feature = "freeform_light")]
     for ff in &lights.freeform {
         total += crate::renderer::freeform_light::light_at(p, ff);
     }
@@ -1557,7 +1574,7 @@ pub fn toon_step(light: glam::Vec3, toon: &ToonLighting, p: glam::Vec2) -> glam:
 /// samples to - every sprite texture is uploaded that way.
 fn srgb_to_linear(byte: u8) -> f32 {
     let c = byte as f32 / 255.0;
-    if c <= 0.04045 { c / 12.92 } else { ((c + 0.055) / 1.055).powf(2.4) }
+    if c <= 0.04045 { c / 12.92 } else { ((c + 0.055) / 1.055).dpowf(2.4) }
 }
 
 /// The light the baked lightmaps add at `p`, given their pixels.
@@ -1587,7 +1604,7 @@ pub fn lightmap_light_at<'a>(
         // Into the quad's own frame: unturn, then 0..1 across it, with v
         // running *down* from the top edge as the sprite batch lays it out.
         let d = p - lm.center;
-        let (s, c) = lm.rotation.sin_cos();
+        let (s, c) = lm.rotation.dsin_cos();
         let local = glam::Vec2::new(d.x * c + d.y * s, -d.x * s + d.y * c);
         let fx = local.x / lm.size.x + 0.5;
         let fy = 0.5 - local.y / lm.size.y;

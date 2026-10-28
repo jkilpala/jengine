@@ -108,6 +108,7 @@
     viewport_set_camera_size,
     viewport_set_ui_scale,
     viewport_set_texture_filters,
+    viewport_set_simulation,
     viewport_set_audio_mixer,
     viewport_set_asset_packs,
     viewport_set_liveops,
@@ -1988,6 +1989,8 @@
           // Nearest or filtered, per texture (`settings.texture_filter`);
           // a change re-uploads what is drawn next.
           viewport_set_texture_filters(JSON.stringify(proj.settings));
+          // Fixed-step gameplay (`settings.simulation_hz`); off when absent.
+          viewport_set_simulation(JSON.stringify(proj.settings));
           // The project's mixer (`settings.audio_mixer`): live while playing,
           // so Project Settings -> Audio is heard as it is changed.
           viewport_set_audio_mixer(JSON.stringify(proj.settings));

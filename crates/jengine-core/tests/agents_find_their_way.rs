@@ -3,6 +3,7 @@
 //! real `tick_motion` that every runtime calls, and checks the agents'
 //! positions frame by frame rather than only where they end up - a path
 //! that cuts a corner arrives just as well.
+#![cfg(feature = "navigation")]
 
 use glam::Vec2;
 use hecs::{Entity, World};
@@ -286,10 +287,10 @@ fn the_scene_format_keeps_them() {
     agent(&mut world, 10.0, 0.0, Some([50.0, 60.0]));
     tick_motion(&mut world, DT, None, false);
     let scene = jengine_core::scene::format::save_scene(&world);
-    let r = scene.entities.iter().find_map(|e| e.components.nav_region.as_ref()).expect("region saved");
+    let r = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::navigation::NavRegion>("nav_region")).expect("region saved");
     assert_eq!(r.outline[1], [300.0, -200.0]);
     assert!(r.baked.is_none(), "the bake is never saved");
-    let a = scene.entities.iter().find_map(|e| e.components.nav_agent.as_ref()).expect("agent saved");
+    let a = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::navigation::NavAgent>("nav_agent")).expect("agent saved");
     assert_eq!(a.target, Some([50.0, 60.0]));
     let json = serde_json::to_string(&scene).unwrap();
     assert!(!json.contains("\"path\"") && !json.contains("planned"), "walking state is not saved");

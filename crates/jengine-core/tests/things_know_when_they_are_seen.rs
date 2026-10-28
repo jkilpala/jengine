@@ -111,7 +111,7 @@ fn the_scene_format_keeps_it_but_not_its_state() {
     world.spawn((at(0.0, 0.0), VisibilityNotifier { margin: 12.0, pause_offscreen: true, ..Default::default() }));
     step(&mut world);
     let scene = jengine_core::scene::format::save_scene(&world);
-    let n = scene.entities.iter().find_map(|e| e.components.visibility_notifier.as_ref()).expect("saved");
+    let n = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::ecs::visibility::VisibilityNotifier>("visibility_notifier")).expect("saved");
     assert_eq!(n.margin, 12.0);
     assert!(n.pause_offscreen);
     assert_eq!(n.on_screen, None);

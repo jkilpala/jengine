@@ -1,6 +1,7 @@
 //! IK chains (Oct 2026): any number of bones bent by FABRIK so the tip
 //! reaches its target - a tail, a tentacle, a long arm - with a joint limit
 //! and a blend over the animated pose.
+#![cfg(feature = "ik")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

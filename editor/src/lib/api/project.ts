@@ -81,12 +81,21 @@ export interface ProjectSettings {
   /** Which of two GPUs a built game asks for
    *  (`jengine_core::renderer::gpu_preference`). Absent: high performance. */
   gpu_preference?: "high_performance" | "low_power";
+  /** Gameplay in fixed steps a second (`jengine_core::ecs::fixed_step`):
+   *  motion, physics, scripts, timers and tweens advance in steps of exactly
+   *  `1 / simulation_hz`, the same on every display. Absent or 0: one step a
+   *  frame, of the frame's own `dt`. */
+  simulation_hz?: number;
   /** The project's mixer: buses and their effects before any script touches
    *  them (Rust `audio::MixerLayout`; the Mixer panel, `mixerLayout.ts`). */
   audio_mixer?: import("../mixerLayout").Layout;
   /** Asset packs a build moves out of the game, downloaded when a script
    *  asks (Rust `asset::packs::PackSettings`). */
   asset_packs?: AssetPackSettings;
+  /** Engine features a build carries beyond what the project's assets use
+   *  (Rust `jengine_builder::engine_features`; docs/engine-features-plan.md).
+   *  Absent: exactly what the assets use. */
+  engine_features?: { include?: string[]; exclude?: string[]; all?: boolean };
   liveops?: LiveOpsSettings;
   /** The web portal a web build is made for unless the Build panel picks
    *  another (`jengine_builder::web_platform`, docs/web-platforms.md).

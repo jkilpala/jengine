@@ -40,7 +40,7 @@ fn packages_are_registered_before_the_entry_scene_is_parsed() {
     let host = at(&lib, "PackageHost::new()", "builds a PackageHost");
     let project = at(&lib, "PROJECT_PACKAGES.with(|p| {", "adds the project's own packages");
     let init = at(&lib, "package_host.initialize(&mut registry)", "initializes its packages");
-    let load = at(&lib, "load_scene_auto(&scene_json, &mut world, &registry)", "loads the entry scene");
+    let load = at(&lib, "load_scene_value(scene, &mut world, &registry)", "loads the entry scene");
     assert!(host < project && project < init, "built-ins, then the project's, then initialize");
     assert!(init < load, "packages must be in the registry before the scene is parsed");
 }

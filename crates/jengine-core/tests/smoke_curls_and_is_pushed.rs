@@ -3,6 +3,7 @@
 //! up - drawn by its entity's sprite through a texture of its own, blocked by
 //! colliders and pushed by the ones that move. Found by the showcase's Smoke
 //! Chamber. The solver itself is tested in the module.
+#![cfg(feature = "smoke")]
 
 use glam::Vec2;
 use hecs::World;

@@ -37,7 +37,9 @@ struct Light {
     // to the light may take relative to flat (`MAX_NORMAL_RESPONSE`).
     extra: vec4<f32>,
     // x = the light layers it lights (`light_mask`): a pixel whose layers
-    // (`on_light_layers`) share no bit takes nothing from it.
+    // (`on_light_layers`) share no bit takes nothing from it. y = the bits of
+    // its squash (`PointLight2D::squash`): the pool is `radius` wide and
+    // `radius * squash` tall.
     layers: vec4<u32>,
 };
 
@@ -75,6 +77,16 @@ fn normal_response(frag: vec4<f32>, world_pos: vec2<f32>, center: vec2<f32>) -> 
     return min(max(dot(n, l), 0.0) / l.z, u_light.extra.y);
 }
 
+// How far a point is from the light for its falloff: squashed top to
+// bottom (`PointLight2D::squash`), so the pool is an ellipse on a floor
+// seen in perspective. `lighting::squashed_distance` on the CPU.
+fn squashed_distance(d: vec2<f32>) -> f32 {
+    // Zero (a uniform written before squash existed) is no squash.
+    let s = bitcast<f32>(u_light.layers.y);
+    let squash = select(1.0, clamp(s, 0.05, 1.0), s > 0.0);
+    return length(vec2<f32>(d.x, d.y / squash));
+}
+
 struct VsOut {
     @builtin(position) clip_position: vec4<f32>,
     @location(0)       world_pos:     vec2<f32>,
@@ -101,7 +113,7 @@ fn fs_main(in: VsOut) -> LightOut {
     let softness  = u_light.spot.z;
     let cast_shadows = u_light.spot.w;
 
-    let dist        = distance(in.world_pos, center);
+    let dist        = squashed_distance(in.world_pos - center);
     var attenuation = 1.0 - clamp(dist / radius, 0.0, 1.0);
     attenuation     = pow(attenuation, falloff);
 

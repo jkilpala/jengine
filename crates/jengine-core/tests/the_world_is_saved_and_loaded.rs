@@ -6,7 +6,7 @@
 //! holds the bodies to what was saved and the run after the load to the run
 //! after the save. Found by the showcase's Quicksave Workshop.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "save_state"))]
 
 use glam::Vec2;
 use hecs::World;

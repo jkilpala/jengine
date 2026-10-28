@@ -122,40 +122,7 @@ impl Default for BehaviorGraphSystem {
 /// The most `OnTimer` firings one instance gets in a single frame.
 pub const MAX_TIMER_CATCH_UP: u32 = 4;
 
-/// Screen pixels -> world, through the scene's active `Camera2DComponent`
-/// (or an unzoomed camera at the origin the size of the screen). The same
-/// arithmetic as `Camera2D::screen_to_world` and the browser preamble's
-/// `get_mouse_world_position`, the camera's own rotation included.
-pub fn mouse_world_position(world: &World, mouse: (f32, f32), screen: (f32, f32)) -> glam::Vec2 {
-    use crate::ecs::components::{Camera2DComponent, Transform};
-    let (sw, sh) = (screen.0.max(1.0), screen.1.max(1.0));
-    let (mut cx, mut cy, mut vw, mut vh, mut zoom) = (0.0, 0.0, sw, sh, 1.0);
-    let mut rotation = 0.0f32;
-    let main = crate::ecs::camera_rig::main_camera(world);
-    for (e, (t, cam)) in world.query::<(&Transform, &Camera2DComponent)>().iter() {
-        if Some(e) != main {
-            continue;
-        }
-        cx = t.position.x;
-        cy = t.position.y;
-        rotation = t.rotation;
-        if cam.viewport_width > 0.0 && cam.viewport_height > 0.0 {
-            // The world the screen actually shows, as the projection has it.
-            let view = cam.view_on(glam::Vec2::new(sw, sh));
-            vw = view.x;
-            vh = view.y;
-        }
-        if cam.zoom > 0.0 {
-            zoom = cam.zoom;
-        }
-        break;
-    }
-    let nx = (mouse.0 - sw * 0.5) / sw;
-    let ny = (sh * 0.5 - mouse.1) / sh;
-    let (ox, oy) = (nx * (vw / zoom), ny * (vh / zoom));
-    let (sin, cos) = rotation.sin_cos();
-    glam::Vec2::new(cx + ox * cos - oy * sin, cy + ox * sin + oy * cos)
-}
+pub use crate::ecs::camera_rig::mouse_world_position;
 
 impl BehaviorGraphSystem {
     pub fn new() -> Self {

@@ -90,7 +90,12 @@ function Get-FleetTool {
         cargo build --release -q -p jengine-server --bin jengine-fleet 2>&1 | Where-Object { $_ -match "error" } | ForEach-Object { Write-Host $_ }
         if ($LASTEXITCODE -ne 0) { throw "jengine-fleet did not build" }
     } finally { Pop-Location }
-    Join-Path $RepoRoot "target/release/jengine-fleet.exe"
+    # CARGO_TARGET_DIR moves cargo's output; without this the deploy found no
+    # tool, and a missing command did not set $LASTEXITCODE, so it "succeeded".
+    $target = if ($env:CARGO_TARGET_DIR) { $env:CARGO_TARGET_DIR } else { Join-Path $RepoRoot "target" }
+    $tool = Join-Path $target "release/jengine-fleet.exe"
+    if (-not (Test-Path $tool)) { throw "jengine-fleet built, but is not at $tool" }
+    $tool
 }
 
 function Invoke-Fleet {

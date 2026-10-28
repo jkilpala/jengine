@@ -3,6 +3,7 @@
 //! beside the lightmaps - and `light_at` answering exactly what the screen
 //! shows. The GPU half needs an adapter; without one it prints why and
 //! passes.
+#![cfg(feature = "freeform_light")]
 
 use glam::{Vec2, Vec3};
 use hecs::World;

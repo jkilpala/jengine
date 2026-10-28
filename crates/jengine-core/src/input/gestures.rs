@@ -13,7 +13,7 @@
 //!
 //! [`InputState::touches`]: super::InputState::touches
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 use super::{Touch, TouchStage};
 
@@ -102,6 +102,10 @@ struct Track {
 #[derive(Debug, Clone, Default)]
 pub struct GestureRecognizer {
     tracks: HashMap<u64, Track>,
+    /// Fingers whose lift has been read, while they are still in the list:
+    /// a fixed-step game keeps a lifted finger there until a step has seen it
+    /// (`InputState::hold_edges`), and read twice it would tap twice.
+    finished: HashSet<u64>,
     last_tap: Option<(f64, (f32, f32))>,
     /// The two fingers of a pinch and their last distance and angle.
     pair: Option<(u64, u64, f32, f32)>,
@@ -115,8 +119,12 @@ impl GestureRecognizer {
     /// (a finger while no real finger is down) and the wheel.
     pub fn update(&mut self, touches: &[Touch], mouse: Option<((f32, f32), bool)>, wheel: f32, now: f64) -> Vec<Gesture> {
         let mut out = Vec::new();
-        let mut fingers: Vec<(u64, (f32, f32), bool)> =
-            touches.iter().filter(|t| !t.on_control).map(|t| (t.id, t.position, t.stage == TouchStage::Ended)).collect();
+        let mut fingers: Vec<(u64, (f32, f32), bool)> = touches
+            .iter()
+            .filter(|t| !t.on_control && !(t.stage == TouchStage::Ended && self.finished.contains(&t.id)))
+            .map(|t| (t.id, t.position, t.stage == TouchStage::Ended))
+            .collect();
+        self.finished.retain(|id| touches.iter().any(|t| t.id == *id));
         if fingers.is_empty()
             && let Some((pos, down)) = mouse
         {
@@ -167,6 +175,9 @@ impl GestureRecognizer {
             if ended {
                 let t = *t;
                 self.tracks.remove(&id);
+                if id != MOUSE {
+                    self.finished.insert(id);
+                }
                 if t.panning {
                     out.push(Gesture { phase: "ended", ..Gesture::at(GestureKind::Pan, pos.0, pos.1) });
                 }

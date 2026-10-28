@@ -4,6 +4,7 @@
 //! `update_ui_widgets`, with the pointer in the top-left screen space every
 //! host reports - and through `Radial.set`, the shared host command a
 //! browser script reaches. Found by the showcase's Spell Wheel.
+#![cfg(feature = "radial_menu")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

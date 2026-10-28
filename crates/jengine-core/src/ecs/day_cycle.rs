@@ -24,6 +24,7 @@
 //! script to read with `Entity.get_custom`. Ticked in `tick_motion`, so no
 //! host was wired.
 
+use crate::detmath::DetMath;
 use glam::Vec2;
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
@@ -205,11 +206,11 @@ pub fn tick_day_cycle(world: &mut World, dt: f32) {
                 // From the east (+x) up and over to the west; the light
                 // travels away from the sun.
                 let up = f * std::f32::consts::PI;
-                let from = Vec2::new(up.cos(), up.sin().max(0.05));
-                l.direction = (-from).y.atan2((-from).x);
+                let from = Vec2::new(up.dcos(), up.dsin().max(0.05));
+                l.direction = (-from).y.datan2((-from).x);
                 // Low suns are weak: the light comes in at a slant.
                 l.color = now.sun_color;
-                l.intensity = now.sun_intensity * (up.sin() * 1.5).clamp(0.0, 1.0);
+                l.intensity = now.sun_intensity * (up.dsin() * 1.5).clamp(0.0, 1.0);
             }
             None => l.intensity = 0.0,
         }
@@ -221,7 +222,7 @@ pub fn tick_day_cycle(world: &mut World, dt: f32) {
         let pos = match arc(b.rise, b.set, day.hour) {
             Some(f) => {
                 let a = f * std::f32::consts::PI;
-                centre + Vec2::new(a.cos() * half.x * 0.85, -half.y * 0.3 + a.sin() * half.y * b.height)
+                centre + Vec2::new(a.dcos() * half.x * 0.85, -half.y * 0.3 + a.dsin() * half.y * b.height)
             }
             None => centre + Vec2::new(0.0, -half.y * 3.0),
         };

@@ -716,6 +716,18 @@ impl Server {
         })
     }
 
+    /// Register the `lockstep` kind (`crate::lockstep`): rooms that collect
+    /// each seat's input for a fixed step and send every step out once all
+    /// seats have sent it - the server half of a `lockstep_session`. A client joins it by name (`"kind": "lockstep"`).
+    pub fn lockstep(self) -> Self {
+        // Ticked, so a silent seat is noticed; room for spectators beside the seats.
+        let options = KindOptions::ticking(crate::lockstep::TICK_HZ)
+            .max_players(crate::lockstep::MAX_SEATS + crate::lockstep::MAX_WATCHERS);
+        self.room("lockstep", options, |_| {
+            crate::lockstep::LockstepRoom::new()
+        })
+    }
+
     /// Serve on a thread of its own and return at once - for a test, or a
     /// program with something else to do. `127.0.0.1:0` picks a free port.
     pub fn start(self, addr: &str) -> std::io::Result<Running> {
@@ -1387,7 +1399,9 @@ enum RoomCmd {
     Kick { player: PlayerId, why: String },
     Notice { frame: Value },
     /// The player's connection dropped; hold their seat if the kind does.
-    Dropped { player: PlayerId },
+    /// Answered once the room has decided, so a new connection signing in
+    /// as them afterwards finds the seat already held.
+    Dropped { player: PlayerId, done: oneshot::Sender<()> },
     /// The player is back on a new connection. `true` if their seat was
     /// still held and is theirs again.
     Rebind { player: PlayerId, conn: ConnHandle, reply: oneshot::Sender<bool> },
@@ -1721,11 +1735,7 @@ impl Hub {
             "net_rx_kb": used.net_rx_per_sec / 1024.0,
             "net_tx_kb": used.net_tx_per_sec / 1024.0,
         });
-        let mut history = self.history.lock().unwrap();
-        if history.len() >= MAX_SAMPLES {
-            history.pop_front();
-        }
-        history.push_back(sample);
+        push_sample(&mut self.history.lock().unwrap(), sample);
     }
 
     /// Something said in a channel: to everyone in it here, into its backlog
@@ -2050,13 +2060,14 @@ async fn run_room(
                         Err(_) => Err(()),
                     }
                 }
-                Some(RoomCmd::Dropped { player }) => {
+                Some(RoomCmd::Dropped { player, done }) => {
                     let held = options.grace_secs > 0.0
                         && room.conns.get(&player).is_some_and(|conn| conn.persist);
                     if held {
                         room.conns.remove(&player);
                         room.parked.insert(player.clone(), Instant::now() + Duration::from_secs_f64(options.grace_secs));
                         hub.state.lock().unwrap().parked.insert(player.clone(), (kind_name.clone(), id.clone()));
+                        let _ = done.send(());
                         catch_unwind(AssertUnwindSafe(|| runner.disconnected(&player))).map_err(|_| ())
                     } else {
                         // No grace here, or nobody who could come back: a leave.
@@ -2751,9 +2762,16 @@ impl Conn {
             return false;
         }
         let (room, id) = (room.clone(), id.clone());
-        if room.tx.send(RoomCmd::Dropped { player: id }).await.is_err() {
+        let (done, parked) = oneshot::channel();
+        if room.tx.send(RoomCmd::Dropped { player: id, done }).await.is_err() {
             return false;
         }
+        // Wait for the room to hold the seat. The connection signing in as
+        // this player next is let in only after this one is done, and it
+        // looks for a held seat once: sent and not waited for, the seat was
+        // not held yet when a busy machine got there first, and the room
+        // refused the newcomer as "already in this room".
+        let _ = tokio::time::timeout(Duration::from_secs(3), parked).await;
         self.room = None;
         true
     }
@@ -3204,6 +3222,21 @@ async fn run_conn(hub: Arc<Hub>, socket: WebSocket, address: std::net::IpAddr, i
     }
 }
 
+/// Keep a sample, the oldest going once there are [`MAX_SAMPLES`] - unless it
+/// is from before the newest one. A Raspberry Pi has no clock of its own: after
+/// a boot it reads months back until the network sets it, and a sample from
+/// then would be drawn far off the start of the charts and muddle the minutes.
+fn push_sample(history: &mut VecDeque<Value>, sample: Value) {
+    let at = sample["at"].as_f64().unwrap_or(0.0);
+    if history.back().is_some_and(|last| at < last["at"].as_f64().unwrap_or(0.0)) {
+        return;
+    }
+    if history.len() >= MAX_SAMPLES {
+        history.pop_front();
+    }
+    history.push_back(sample);
+}
+
 /// The period of `period` seconds that ended before the newest sample, as
 /// one sample - if it has ended, has samples, and is later than `done` (the
 /// last one rolled): gauges averaged, the slowest tick kept, counters as
@@ -3260,5 +3293,16 @@ mod tests {
         let hour = rolled(&longer, 0.0, 3600.0).unwrap();
         assert_eq!(hour["at"], 3600.0);
         assert_eq!(hour["tick_ms"], 3.0, "the slowest tick of the hour is kept");
+    }
+
+    /// A sample taken before the clock was set (a Pi just booted) is not kept.
+    #[test]
+    fn a_sample_from_before_the_newest_is_dropped() {
+        let mut history = VecDeque::new();
+        for at in [6000.0, 6010.0, 1500.0, 6030.0] {
+            push_sample(&mut history, json!({ "at": at }));
+        }
+        let ats: Vec<f64> = history.iter().map(|s| s["at"].as_f64().unwrap()).collect();
+        assert_eq!(ats, [6000.0, 6010.0, 6030.0]);
     }
 }

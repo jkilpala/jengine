@@ -2,6 +2,7 @@
 //! fields, its event keys call the timeline entity's script, and it ends,
 //! loops and switches clips as told - ticked by `tick_motion`, which every
 //! host runs.
+#![cfg(feature = "timeline")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

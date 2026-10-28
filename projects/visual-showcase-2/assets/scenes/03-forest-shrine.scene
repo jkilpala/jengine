@@ -1,0 +1,9197 @@
+{
+ "name": "03 - Forest Shrine",
+ "post_process": {
+  "effects": [
+   {
+    "name": "depth_haze",
+    "enabled": true,
+    "params": {
+     "color": {
+      "Vec4": [
+       0.5,
+       0.56,
+       0.38,
+       0.5
+      ]
+     },
+     "near": {
+      "Float": -50.0
+     },
+     "far": {
+      "Float": -380.0
+     },
+     "sky": {
+      "Float": 0.3
+     },
+     "curve": {
+      "Float": 1.3
+     }
+    }
+   },
+   {
+    "name": "depth_of_field",
+    "enabled": true,
+    "params": {
+     "focus": {
+      "Float": 0.0
+     },
+     "range": {
+      "Float": 14.0
+     },
+     "strength": {
+      "Float": 0.07
+     },
+     "max_radius": {
+      "Float": 9.0
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.9
+     },
+     "intensity": {
+      "Float": 0.4
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.5
+     },
+     "smoothness": {
+      "Float": 0.65
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.01,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.15
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.95,
+       0.8,
+       0.1
+      ]
+     }
+    }
+   }
+  ],
+  "hdr": true,
+  "exposure": 1.0,
+  "tonemap": "aces"
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hd/sky/day.png",
+     "color": [
+      0.8,
+      0.85,
+      0.75,
+      1.0
+     ],
+     "z_order": -30000,
+     "size": [
+      1500.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hills",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      140.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hd/sky/hills_forest.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29000,
+     "size": [
+      1600.0,
+      480.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.27889,
+      0.39157,
+      0.2462
+     ],
+     "intensity": 0.6
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "directional_light": {
+     "color": [
+      1.0,
+      0.7454,
+      0.35153
+     ],
+     "intensity": 0.55,
+     "direction": 4.4,
+     "height": 0.6,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stage",
+   "components": {
+    "stage": {
+     "target": [
+      0.0,
+      -1.0,
+      0.8
+     ],
+     "yaw": 0.0,
+     "pitch": 0.5,
+     "distance": 44.0,
+     "zoom": 46.0,
+     "near": 1.0,
+     "follow": "Hero",
+     "follow_offset": [
+      0.0,
+      0.0,
+      0.8
+     ],
+     "follow_ease": 3.0,
+     "z_base": 0,
+     "z_per_unit": 10.0,
+     "ground_z": -20000
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ground",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/grass.png",
+     "color": [
+      0.68669,
+      0.63076,
+      0.43415,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -40.0,
+      -24.0,
+      0.0
+     ],
+     "u": [
+      80.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      84.0,
+      0.0
+     ],
+     "repeat": [
+      36.36363636363636,
+      38.18181818181818
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/grass_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Path",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/dirt.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.6,
+      -24.0,
+      0.0
+     ],
+     "u": [
+      3.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      33.0,
+      0.0
+     ],
+     "repeat": [
+      2.0,
+      20.625
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/dirt_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Court",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -6.0,
+      9.0,
+      0.0
+     ],
+     "u": [
+      12.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      7.0,
+      0.0
+     ],
+     "repeat": [
+      8.571428571428571,
+      5.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step0S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.0,
+      8.4,
+      0.0
+     ],
+     "u": [
+      6.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      6.0,
+      0.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step0N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.0,
+      9.0,
+      0.0
+     ],
+     "u": [
+      -6.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      6.0,
+      0.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step0W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.0,
+      9.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      0.5999999999999996,
+      0.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step0E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.0,
+      8.4,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      0.5999999999999996,
+      0.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step0Top",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.0,
+      8.4,
+      0.25
+     ],
+     "u": [
+      6.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.5999999999999996,
+      0.0
+     ],
+     "repeat": [
+      6.0,
+      0.5999999999999996
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step1Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -2.6,
+       8.9
+      ],
+      [
+       2.6,
+       8.9
+      ],
+      [
+       2.6,
+       9.5
+      ],
+      [
+       -2.6,
+       9.5
+      ]
+     ],
+     "base": 0.0,
+     "height": 0.5,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step1S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.6,
+      8.9,
+      0.0
+     ],
+     "u": [
+      5.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.5
+     ],
+     "repeat": [
+      5.2,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step1N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.6,
+      9.5,
+      0.0
+     ],
+     "u": [
+      -5.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.5
+     ],
+     "repeat": [
+      5.2,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step1W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.6,
+      9.5,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.5
+     ],
+     "repeat": [
+      0.5999999999999996,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step1E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.6,
+      8.9,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.5
+     ],
+     "repeat": [
+      0.5999999999999996,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step1Top",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.6,
+      8.9,
+      0.5
+     ],
+     "u": [
+      5.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.5999999999999996,
+      0.0
+     ],
+     "repeat": [
+      5.2,
+      0.5999999999999996
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step2Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -2.2,
+       9.4
+      ],
+      [
+       2.2,
+       9.4
+      ],
+      [
+       2.2,
+       10.0
+      ],
+      [
+       -2.2,
+       10.0
+      ]
+     ],
+     "base": 0.0,
+     "height": 0.75,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step2S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.2,
+      9.4,
+      0.0
+     ],
+     "u": [
+      4.4,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.75
+     ],
+     "repeat": [
+      4.4,
+      0.75
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step2N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.2,
+      10.0,
+      0.0
+     ],
+     "u": [
+      -4.4,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.75
+     ],
+     "repeat": [
+      4.4,
+      0.75
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step2W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.2,
+      10.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.75
+     ],
+     "repeat": [
+      0.5999999999999996,
+      0.75
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step2E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.2,
+      9.4,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.75
+     ],
+     "repeat": [
+      0.5999999999999996,
+      0.75
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Step2Top",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.2,
+      9.4,
+      0.75
+     ],
+     "u": [
+      4.4,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.5999999999999996,
+      0.0
+     ],
+     "repeat": [
+      4.4,
+      0.5999999999999996
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BaseShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -4.5,
+       11
+      ],
+      [
+       4.5,
+       11
+      ],
+      [
+       4.5,
+       16
+      ],
+      [
+       -4.5,
+       16
+      ]
+     ],
+     "base": 0.0,
+     "height": 0.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BaseS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -4.5,
+      11.0,
+      0.0
+     ],
+     "u": [
+      9.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.6
+     ],
+     "repeat": [
+      7.5,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BaseN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      4.5,
+      16.0,
+      0.0
+     ],
+     "u": [
+      -9.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.6
+     ],
+     "repeat": [
+      7.5,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BaseW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -4.5,
+      16.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.6
+     ],
+     "repeat": [
+      4.166666666666667,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BaseE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      4.5,
+      11.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.6
+     ],
+     "repeat": [
+      4.166666666666667,
+      0.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BaseTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -4.5,
+      11.0,
+      0.6
+     ],
+     "u": [
+      9.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "repeat": [
+      7.5,
+      4.166666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -3.6,
+       11.6
+      ],
+      [
+       3.6,
+       11.6
+      ],
+      [
+       3.6,
+       15.4
+      ],
+      [
+       -3.6,
+       15.4
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.3,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.6,
+      11.6,
+      0.0
+     ],
+     "u": [
+      7.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      3.6,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.6,
+      15.4,
+      0.0
+     ],
+     "u": [
+      -7.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      3.6,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.6,
+      15.4,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -3.8000000000000007,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      1.9000000000000004,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.6,
+      11.6,
+      0.0
+     ],
+     "u": [
+      0.0,
+      3.8000000000000007,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      1.9000000000000004,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineGW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_planks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.6,
+      15.4,
+      3.0
+     ],
+     "u": [
+      0.0,
+      -3.8000000000000007,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.6
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineGE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_planks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.6,
+      11.6,
+      3.0
+     ],
+     "u": [
+      0.0,
+      3.8000000000000007,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.6
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineRoofS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -4.4,
+      10.799999999999999,
+      1.905263157894737
+     ],
+     "u": [
+      8.8,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      2.7,
+      3.694736842105263
+     ],
+     "repeat": [
+      5.866666666666667,
+      3.0507616777461384
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": -1.4000000000000001,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShrineRoofN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      4.4,
+      16.2,
+      1.905263157894737
+     ],
+     "u": [
+      -8.8,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      -2.7,
+      3.694736842105263
+     ],
+     "repeat": [
+      5.866666666666667,
+      3.0507616777461384
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": 1.3,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost-2.4Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -2.4,
+       3.6
+      ],
+      [
+       -2.1,
+       3.6
+      ],
+      [
+       -2.1,
+       3.9
+      ],
+      [
+       -2.4,
+       3.9
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.2,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost-2.4S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.4,
+      3.6,
+      0.0
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost-2.4N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.1,
+      3.9,
+      0.0
+     ],
+     "u": [
+      -0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost-2.4W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.4,
+      3.9,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.2999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost-2.4E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.1,
+      3.6,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.2999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost-2.4Top",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.4,
+      3.6,
+      4.2
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.2999999999999998,
+      0.0
+     ],
+     "repeat": [
+      0.4999999999999997,
+      0.4999999999999997
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost2.1Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       2.1,
+       3.6
+      ],
+      [
+       2.4,
+       3.6
+      ],
+      [
+       2.4,
+       3.9
+      ],
+      [
+       2.1,
+       3.9
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.2,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost2.1S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.1,
+      3.6,
+      0.0
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost2.1N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.4,
+      3.9,
+      0.0
+     ],
+     "u": [
+      -0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost2.1W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.1,
+      3.9,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.2999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost2.1E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.4,
+      3.6,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.2999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      0.4999999999999997,
+      7.000000000000001
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GatePost2.1Top",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.1,
+      3.6,
+      4.2
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.2999999999999998,
+      0.0
+     ],
+     "repeat": [
+      0.4999999999999997,
+      0.4999999999999997
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateBeamShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -3.0,
+       3.55
+      ],
+      [
+       3.0,
+       3.55
+      ],
+      [
+       3.0,
+       3.95
+      ],
+      [
+       -3.0,
+       3.95
+      ]
+     ],
+     "base": 4.2,
+     "height": 0.39999999999999947,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateBeamS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.0,
+      3.55,
+      4.2
+     ],
+     "u": [
+      6.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.39999999999999947
+     ],
+     "repeat": [
+      10.0,
+      0.6666666666666659
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateBeamN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.0,
+      3.95,
+      4.2
+     ],
+     "u": [
+      -6.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.39999999999999947
+     ],
+     "repeat": [
+      10.0,
+      0.6666666666666659
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateBeamW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.0,
+      3.95,
+      4.2
+     ],
+     "u": [
+      0.0,
+      -0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.39999999999999947
+     ],
+     "repeat": [
+      0.6666666666666673,
+      0.6666666666666659
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateBeamE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.0,
+      3.55,
+      4.2
+     ],
+     "u": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.39999999999999947
+     ],
+     "repeat": [
+      0.6666666666666673,
+      0.6666666666666659
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateBeamTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.0,
+      3.55,
+      4.6
+     ],
+     "u": [
+      6.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "repeat": [
+      10.0,
+      0.6666666666666673
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateTieS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.6,
+      3.6,
+      3.5
+     ],
+     "u": [
+      5.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      8.666666666666668,
+      0.4166666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateTieN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.6,
+      3.9,
+      3.5
+     ],
+     "u": [
+      -5.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      8.666666666666668,
+      0.4166666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateTieW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.6,
+      3.9,
+      3.5
+     ],
+     "u": [
+      0.0,
+      -0.2999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      0.4999999999999997,
+      0.4166666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateTieE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.6,
+      3.6,
+      3.5
+     ],
+     "u": [
+      0.0,
+      0.2999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.25
+     ],
+     "repeat": [
+      0.4999999999999997,
+      0.4166666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GateTieTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      0.95,
+      0.35,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.6,
+      3.6,
+      3.75
+     ],
+     "u": [
+      5.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.2999999999999998,
+      0.0
+     ],
+     "repeat": [
+      8.666666666666668,
+      0.4999999999999997
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/shrine_lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.8,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -2.8,
+      -2.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/shrine_lantern_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern0Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.7
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -2.8,
+      -2.05,
+      1.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern0Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.65,
+      0.3
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -2.8,
+      -2.1,
+      1.2
+     ],
+     "light_radius": 3.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/shrine_lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.8,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.8,
+      -2.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/shrine_lantern_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern1Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.7
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.8,
+      -2.05,
+      1.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern1Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.65,
+      0.3
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      2.8,
+      -2.1,
+      1.2
+     ],
+     "light_radius": 3.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/shrine_lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.8,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -2.8,
+      5.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/shrine_lantern_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern2Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.7
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -2.8,
+      4.95,
+      1.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern2Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.65,
+      0.3
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -2.8,
+      4.9,
+      1.2
+     ],
+     "light_radius": 3.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/shrine_lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.8,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.8,
+      5.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/shrine_lantern_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern3Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.7
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.8,
+      4.95,
+      1.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern3Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.65,
+      0.3
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      2.8,
+      4.9,
+      1.2
+     ],
+     "light_radius": 3.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/shrine_lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.8,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -5.5,
+      10.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/shrine_lantern_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern4Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.7
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -5.5,
+      9.95,
+      1.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern4Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.65,
+      0.3
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -5.5,
+      9.9,
+      1.2
+     ],
+     "light_radius": 3.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/shrine_lantern.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.8,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      5.5,
+      10.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/shrine_lantern_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern5Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.7
+     ],
+     "z_order": 0,
+     "size": [
+      70.0,
+      70.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      5.5,
+      9.95,
+      1.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern5Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.65,
+      0.3
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      5.5,
+      9.9,
+      1.2
+     ],
+     "light_radius": 3.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      319.8074734700824,
+      411.18103731867745
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.9382838854738065,
+      17.556370895627765,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      323.813008484987,
+      416.331010909269
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -7.614313986642582,
+      -2.842218004918246,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      271.3465273804452,
+      348.87410663200103
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -21.647435800999055,
+      1.8625896953100831,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      283.6105679421682,
+      364.6421587827877
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      24.8831077331335,
+      13.90982601782507,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      278.54589641371365,
+      358.1304382462032
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      23.657667455841302,
+      10.732517416799595,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      325.62367731696025,
+      418.6590136932346
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.338282118850971,
+      10.826892319000375,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree6",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      332.2127158751736,
+      427.13063469665184
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -32.55852317582981,
+      19.927902897113626,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree7",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      259.92251315888336,
+      334.18608834713575
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.655993448956256,
+      16.389064553008765,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree8",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      262.1891084727372,
+      337.1002823220907
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -28.10512986197781,
+      -18.148254510057875,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree9",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      267.18333526703043,
+      343.5214310576106
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -20.509524603351334,
+      -2.9948421020098124,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree10",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      267.3069130978052,
+      343.68031684003523
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.11726011937264,
+      4.482207449577756,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree11",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      289.8526606385856,
+      372.6677065353243
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.496162950716803,
+      -6.837262907435777,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree12",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      299.1854659344101,
+      384.6670276299559
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      8.925337493034359,
+      15.496614410293516,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree13",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      269.942097089149,
+      347.0684105431916
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -13.027128462511742,
+      34.20201703131165,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree14",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      246.76678686330177,
+      317.2715831099594
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.20491209331416,
+      27.87252686102484,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree15",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      283.9376065008294,
+      365.0626369296378
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -14.407876497044247,
+      -8.313354237767381,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree16",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      279.4851201313674,
+      359.3380115974724
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -12.189201357474301,
+      2.858006201345924,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree17",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      297.14417364409275,
+      382.04250897097637
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      16.032088234147125,
+      11.25093811530499,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree18",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      331.79757412704856,
+      426.596881020491
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -10.223759783194042,
+      -12.224236381324786,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree19",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      308.26823167938363,
+      396.34486930206464
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.401780082783453,
+      28.283479705138717,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree20",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      292.58803240314177,
+      376.18461308975367
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -19.287141645414994,
+      10.869028092954252,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree21",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      301.73631034705784,
+      387.94668473193155
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      8.975360401415074,
+      -20.124241309403015,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree22",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      306.9875273874753,
+      394.6982494981826
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      1.0651334665792616,
+      29.91855262303162,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree23",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      251.23776323285165,
+      323.0199812993807
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -37.62777448943143,
+      0.9939277947023877,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree24",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      326.99815770119255,
+      420.42620275867614
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      14.371429953887693,
+      4.500420315025358,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree25",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      316.28526636726417,
+      406.6524853293396
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -29.967238870012277,
+      20.114943518861267,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree26",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      324.7563812984491,
+      417.54391881229174
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      15.051098272128248,
+      23.72398860530033,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree27",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      317.88943165921233,
+      408.71498356184446
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      30.692866844032935,
+      12.431531250667865,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree28",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      281.5571500574577,
+      362.00205007387416
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      14.602208414181518,
+      -6.095661385201842,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree29",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      282.1485033758965,
+      362.7623614832955
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -9.888784780664894,
+      -17.02327076569351,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree30",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      255.67692359644508,
+      328.72747319542935
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -21.945052641241464,
+      -4.037987250841635,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree31",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      303.23234508543953,
+      389.8701579669937
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      21.57303087346284,
+      -22.340727660327474,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree32",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      251.97740481703445,
+      323.9709490504729
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -31.105030782807027,
+      10.25613115210923,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree33",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      252.43434637953504,
+      324.55844534511647
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      30.34030661519659,
+      16.133703906360424,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree34",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      265.1051814159764,
+      340.84951896339817
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -25.16616844457272,
+      -21.79658507221928,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree35",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      260.94236562438,
+      335.49732723134565
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      8.593802042068868,
+      -8.753167911080004,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree36",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      276.868807240018,
+      355.97418073716597
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -23.853818365920464,
+      23.350059243478935,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree37",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      251.11077410856794,
+      322.85670956815875
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      24.95203415958421,
+      8.967722078228086,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree38",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      246.42090205836158,
+      316.8268740750363
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      7.117756396778093,
+      16.482723595420374,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree39",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      259.95333793223676,
+      334.2257201985901
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      32.41066466640342,
+      16.48885268504649,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree40",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      255.49120737482465,
+      328.48869519620314
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.73750825881887,
+      17.209900815315844,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree41",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      278.9794490142976,
+      358.68786301838264
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -29.414509767993074,
+      26.033002900705874,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree42",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      248.68487944528664,
+      319.73770214394
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      21.701432838696373,
+      16.028241855872622,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree43",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      324.7401810126943,
+      417.5230898734641
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -36.52551763392323,
+      -3.7715938791101173,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.6502076092313196,
+      -8.949283498749692,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -7.927751790173527,
+      -2.1887554341741478,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.346769935094962,
+      -9.823364154085372,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.165981647507678,
+      19.76549253796027,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -13.251690830202701,
+      -10.525621030562274,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush6",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -5.035653176223942,
+      -4.998265681615877,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush7",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      10.523372099889936,
+      -8.511087242101329,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush8",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -15.26093692655206,
+      18.333509477739874,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush12",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.626400969269405,
+      9.670690720865263,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush13",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      72.8,
+      46.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -7.644313688660418,
+      -1.5322070801199192,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/shaft.png",
+     "color": [
+      1.2,
+      1.0,
+      0.6,
+      0.4
+     ],
+     "z_order": 0,
+     "size": [
+      200.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -3.5,
+      -1.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 30,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray0Pool",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.85,
+      0.5,
+      0.45
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.1,
+      -1.8,
+      0.02
+     ],
+     "u": [
+      3.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 6,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "RayDust0",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 3.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.2,
+      1.1,
+      0.7,
+      0.7
+     ],
+     "color_end": [
+      1.2,
+      1.1,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      3.5
+     ],
+     "size_end": [
+      1.0,
+      1.75
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 60.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -3.5,
+      -1.0,
+      2.0
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/shaft.png",
+     "color": [
+      1.2,
+      1.0,
+      0.6,
+      0.4
+     ],
+     "z_order": 0,
+     "size": [
+      200.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.5,
+      2.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 30,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray1Pool",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.85,
+      0.5,
+      0.45
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      0.8999999999999999,
+      1.7,
+      0.02
+     ],
+     "u": [
+      3.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 6,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "RayDust1",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 3.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.2,
+      1.1,
+      0.7,
+      0.7
+     ],
+     "color_end": [
+      1.2,
+      1.1,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      3.5
+     ],
+     "size_end": [
+      1.0,
+      1.75
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 60.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      2.5,
+      2.5,
+      2.0
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/shaft.png",
+     "color": [
+      1.2,
+      1.0,
+      0.6,
+      0.4
+     ],
+     "z_order": 0,
+     "size": [
+      200.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      7.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 30,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray2Pool",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.85,
+      0.5,
+      0.45
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.6,
+      6.7,
+      0.02
+     ],
+     "u": [
+      3.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 6,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "RayDust2",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 3.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.2,
+      1.1,
+      0.7,
+      0.7
+     ],
+     "color_end": [
+      1.2,
+      1.1,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      3.5
+     ],
+     "size_end": [
+      1.0,
+      1.75
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 60.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      7.5,
+      2.0
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/shaft.png",
+     "color": [
+      1.2,
+      1.0,
+      0.6,
+      0.4
+     ],
+     "z_order": 0,
+     "size": [
+      200.0,
+      760.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      5.5,
+      -4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 30,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Ray3Pool",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.85,
+      0.5,
+      0.45
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.9,
+      -4.8,
+      0.02
+     ],
+     "u": [
+      3.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 6,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "RayDust3",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 3.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.2,
+      1.1,
+      0.7,
+      0.7
+     ],
+     "color_end": [
+      1.2,
+      1.1,
+      0.7,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      3.5
+     ],
+     "size_end": [
+      1.0,
+      1.75
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 60.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      5.5,
+      -4.0,
+      2.0
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Leaves",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/leaf.png",
+     "emission_rate": 6.0,
+     "max_particles": 80,
+     "lifetime": [
+      5.0,
+      8.0
+     ],
+     "speed": [
+      10.0,
+      30.0
+     ],
+     "angle": [
+      4.2,
+      5.2
+     ],
+     "color_start": [
+      0.7454,
+      0.27889,
+      0.02315,
+      1.0
+     ],
+     "color_end": [
+      0.55201,
+      0.13287,
+      0.01298,
+      0.0
+     ],
+     "color_choices": [
+      [
+       0.7454,
+       0.27889,
+       0.02315,
+       1.0
+      ],
+      [
+       0.55201,
+       0.13287,
+       0.01298,
+       1.0
+      ],
+      [
+       0.87137,
+       0.47932,
+       0.08022,
+       1.0
+      ],
+      [
+       0.32314,
+       0.05781,
+       0.00913,
+       1.0
+      ]
+     ],
+     "size_start": [
+      6.0,
+      9.0
+     ],
+     "size_end": [
+      6.0,
+      9.0
+     ],
+     "gravity_modifier": 0.05,
+     "angular_velocity": [
+      -3.0,
+      3.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 500.0
+     },
+     "drag": 0.4,
+     "turbulence": {
+      "strength": 30.0,
+      "scale": 120.0,
+      "speed": 0.4
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      4.0,
+      9.0
+     ],
+     "perspective": 1.0,
+     "z_bias": 60
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fireflies",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 4.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.0,
+      1.3,
+      0.5,
+      0.9
+     ],
+     "color_end": [
+      1.0,
+      1.3,
+      0.5,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      6.0
+     ],
+     "size_end": [
+      1.5,
+      3.0
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 520.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      6.0,
+      1.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hero",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/traveler.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      0.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HeroShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Hero"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cleric",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/cleric.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -0.8,
+      10.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ClericShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Cleric"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hunter",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/hunter.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      1.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      -1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HunterShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Hunter"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      56.0,
+      -30.0
+     ],
+     "size": [
+      900,
+      51.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "03   Forest Shrine",
+     "font_size": 34.0,
+     "color": [
+      0.88792,
+      0.76052,
+      0.52712,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blurb",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      58.0,
+      -78.0
+     ],
+     "size": [
+      1160,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "A shrine in a clearing of autumn oaks: shafts of sun through the canopy with dust turning in them, falling leaves,\nstone lanterns, and the wood beyond the focus melting into colour.",
+     "font_size": 15.0,
+     "color": [
+      0.57758,
+      0.55201,
+      0.68669,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      58.0,
+      26.0
+     ],
+     "size": [
+      1150.0,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Arrows / WASD walk   Q / E turn the camera   1-5 depth of field, bloom, vignette, grade, haze   Tab captions   PgUp / PgDn scenes   H hub",
+     "font_size": 15.0,
+     "color": [
+      0.47932,
+      0.47932,
+      0.57758,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -58.0,
+      52.0
+     ],
+     "size": [
+      900,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 15.0,
+     "color": [
+      0.87137,
+      0.43415,
+      0.11697,
+      1.0
+     ],
+     "alignment": "Right",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s03_forest_shrine.lua"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

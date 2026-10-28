@@ -57,32 +57,11 @@ impl Default for SilhouetteOccluder {
 /// The silhouette's style as the default sprite shader's `params[2]` and
 /// `params[3]`, in the bits a draw item carries.
 pub fn params(s: &Silhouette) -> [u32; 16] {
-    let mut p = [0u32; 16];
-    let f = [1.0, s.outline.max(0.0), s.fill.clamp(0.0, 1.0), 0.0, s.color[0], s.color[1], s.color[2], s.color[3]];
-    for (i, v) in f.iter().enumerate() {
-        p[8 + i] = v.to_bits();
-    }
-    p
+    super::sprite_quad::silhouette_params(s.color, s.outline, s.fill)
 }
 
-/// A sprite's quad in the world: its corners, and their box.
-pub fn quad(sprite: &SpriteComponent, wt: &WorldTransform, default_size: Vec2) -> ([Vec2; 4], Vec2, Vec2) {
-    let size = sprite.drawn_size(default_size);
-    let (ax, ay) = (sprite.anchor[0], sprite.anchor[1]);
-    let corners = [
-        Vec2::new(-ax * size.x, -ay * size.y),
-        Vec2::new((1.0 - ax) * size.x, -ay * size.y),
-        Vec2::new((1.0 - ax) * size.x, (1.0 - ay) * size.y),
-        Vec2::new(-ax * size.x, (1.0 - ay) * size.y),
-    ]
-    .map(|c| wt.apply(c));
-    let (mut lo, mut hi) = (corners[0], corners[0]);
-    for c in &corners[1..] {
-        lo = lo.min(*c);
-        hi = hi.max(*c);
-    }
-    (corners, lo, hi)
-}
+pub use super::sprite_quad::corners as quad;
+
 
 /// The mask an occluder clips a silhouette to: its sprite's alpha over its
 /// quad, placed at the quad's centre.

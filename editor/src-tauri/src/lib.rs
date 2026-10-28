@@ -9,8 +9,43 @@ use commands::{
     help, packages, project, psd, references, scene, search, servers, shader_editor, spritesheet,
 };
 
+/// An app started from Finder (or a Linux desktop launcher) gets the
+/// system's bare PATH - `/usr/bin:/bin:/usr/sbin:/sbin` - not the shell's,
+/// because rustup and Homebrew add theirs in shell profiles. Builds call
+/// `cargo`, `rustup`, `wasm-pack` and `wasm-opt` by name, so from Finder every
+/// build failed with "not found". Put the usual tool folders on PATH before
+/// anything spawns a process.
+#[cfg(not(windows))]
+fn add_tool_dirs_to_path() {
+    let current = std::env::var_os("PATH").unwrap_or_default();
+    let mut dirs: Vec<std::path::PathBuf> = std::env::split_paths(&current).collect();
+    let cargo_bin = std::env::var_os("CARGO_HOME")
+        .map(std::path::PathBuf::from)
+        .or_else(|| std::env::var_os("HOME").map(|h| std::path::PathBuf::from(h).join(".cargo")))
+        .map(|h| h.join("bin"));
+    let wanted = cargo_bin
+        .into_iter()
+        .chain(["/opt/homebrew/bin", "/usr/local/bin"].map(std::path::PathBuf::from));
+    let mut changed = false;
+    for dir in wanted {
+        if dir.is_dir() && !dirs.contains(&dir) {
+            dirs.push(dir);
+            changed = true;
+        }
+    }
+    if changed {
+        if let Ok(path) = std::env::join_paths(dirs) {
+            // SAFETY: called first thing in `run`, before Tauri or anything
+            // else has started a thread that could read the environment.
+            unsafe { std::env::set_var("PATH", path) };
+        }
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    #[cfg(not(windows))]
+    add_tool_dirs_to_path();
     tauri::Builder::default()
         .manage(std::sync::Mutex::new(audio::AudioPreviewState::new()))
         .plugin(tauri_plugin_dialog::init())
@@ -63,6 +98,8 @@ pub fn run() {
             // (and its key bindings) provide reload + devtools in return.
             for window in app.webview_windows().values() {
                 editor_window::disable_browser_accelerator_keys(window);
+                // Draw at the display's rate on a 120 Hz Mac, not WebKit's 60.
+                editor_window::allow_full_frame_rate(window);
             }
             Ok(())
         })

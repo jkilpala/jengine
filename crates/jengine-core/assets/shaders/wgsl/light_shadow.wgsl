@@ -202,20 +202,48 @@ fn edge_meets_wedge(w: Wedge, a: vec2<f32>, b: vec2<f32>) -> bool {
     return !(e < min(0.0, min(t1, t2)) - WEDGE_MARGIN || e > max(0.0, max(t1, t2)) + WEDGE_MARGIN);
 }
 
+// Which self-shadow-free occluders `frag` is inside, as owner bits: parity
+// along the ray to the light's centre, corrected by whether the light is
+// inside (`u_light.occ.z`). A property of the point, not of a ray, so a soft
+// light counts it once a pixel - it used to be counted again by every one
+// of its eight rays, half of a soft sun's cost. The centre is inside the
+// pixel's wedge, so `cand` holds every edge this ray can cross.
+// `renderer::lighting::pixel_inside`.
+fn pixel_inside(frag: vec2<f32>, center: vec2<f32>, first: u32, words: u32, cand: ptr<function, EdgeMask>) -> u32 {
+    if ((u_light.occ.w & 1u) == 0u) {
+        return 0u;
+    }
+    var parity: u32 = 0u;
+    for (var w: u32 = 0u; w < words; w = w + 1u) {
+        var m = (*cand)[w];
+        loop {
+            if (m == 0u) {
+                break;
+            }
+            let i = first + w * 32u + lowest_bit(m);
+            m = m & (m - 1u);
+            let o = owner_of(i);
+            let seg = u_occ.segs[i];
+            if ((o & NO_SELF_SHADOW) != 0u && ray_crosses(frag, center, seg.xy, seg.zw)) {
+                parity = parity ^ owner_bit(o);
+            }
+        }
+    }
+    return parity ^ u_light.occ.z;
+}
+
 // Light reaching `frag` along one ray from `light`: every edge crossed
 // multiplies in what it lets through - except the edges of an occluder that
-// does not shadow itself and has `frag` inside it, and faded for one whose
-// shadow has a length, measured from that occluder's nearest crossing.
-// Inside is parity along this same ray, corrected by whether the light is
-// inside (`u_light.occ.z`). `renderer::lighting::ray_transmit` is the CPU's
-// copy, and says what the five-bit owner buckets can confuse.
+// does not shadow itself and has `frag` inside it (`inside`, from
+// `pixel_inside`), and faded for one whose shadow has a length, measured
+// from that occluder's nearest crossing. `renderer::lighting::ray_transmit`
+// is the CPU's copy, and says what the five-bit owner buckets can confuse.
 //
 // Only the edges in `cand` are visited; `shadow_factor` leaves out only
 // edges no ray of its can cross, so the answer is the one every edge gives.
-fn ray_transmit(frag: vec2<f32>, light: vec2<f32>, first: u32, words: u32, cand: ptr<function, EdgeMask>, on_caster: bool) -> vec3<f32> {
-    var parity: u32 = 0u;
+fn ray_transmit(frag: vec2<f32>, light: vec2<f32>, first: u32, words: u32, cand: ptr<function, EdgeMask>, on_caster: bool, inside: u32) -> vec3<f32> {
     var near: array<f32, 32>;
-    if (u_light.occ.w != 0u) {
+    if ((u_light.occ.w & 2u) != 0u) {
         for (var k: u32 = 0u; k < 32u; k = k + 1u) {
             near[k] = 3.4e38;
         }
@@ -229,16 +257,12 @@ fn ray_transmit(frag: vec2<f32>, light: vec2<f32>, first: u32, words: u32, cand:
                 m = m & (m - 1u);
                 let o = owner_of(i);
                 let seg = u_occ.segs[i];
-                if ((o & NO_SELF_SHADOW) != 0u && ray_crosses(frag, light, seg.xy, seg.zw)) {
-                    parity = parity ^ owner_bit(o);
-                }
                 if (((o >> 20u) & 0x7FFu) != 0u && segment_blocks(frag, light, seg.xy, seg.zw)) {
                     near[o & 31u] = min(near[o & 31u], crossing_distance(frag, light, seg.xy, seg.zw));
                 }
             }
         }
     }
-    let inside = parity ^ u_light.occ.z;
     var transmit = vec3<f32>(1.0);
     for (var w: u32 = 0u; w < words; w = w + 1u) {
         var m = (*cand)[w];
@@ -313,10 +337,11 @@ fn shadow_factor(frag: vec2<f32>, center: vec2<f32>, light_size: f32, on_caster:
         return vec3<f32>(1.0);
     }
     let words = (n + 31u) / 32u;
+    let inside = pixel_inside(frag, center, first, words, &cand);
 
     // Hard path: single ray to the light center.
     if (!soft) {
-        return ray_transmit(frag, center, first, words, &cand, on_caster);
+        return ray_transmit(frag, center, first, words, &cand, on_caster, inside);
     }
 
     // Soft path: sample the emitter disc across its perpendicular axis.
@@ -324,7 +349,7 @@ fn shadow_factor(frag: vec2<f32>, center: vec2<f32>, light_size: f32, on_caster:
     for (var s: i32 = 0; s < SHADOW_SAMPLES; s = s + 1) {
         let off = (f32(s) / f32(SHADOW_SAMPLES - 1) - 0.5) * 2.0; // -1..1
         let sample_center = center + perp * (off * light_size);
-        acc = acc + ray_transmit(frag, sample_center, first, words, &cand, on_caster);
+        acc = acc + ray_transmit(frag, sample_center, first, words, &cand, on_caster, inside);
     }
     return acc / f32(SHADOW_SAMPLES);
 }

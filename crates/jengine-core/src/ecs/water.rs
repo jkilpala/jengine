@@ -21,6 +21,7 @@
 //! The springs step at a fixed 60 Hz, so the water moves the same at any
 //! frame rate, and every number is per one of those steps.
 
+use crate::detmath::DetMath;
 use std::sync::Arc;
 
 use glam::Vec2;
@@ -134,34 +135,7 @@ impl Default for WaterSurface {
     }
 }
 
-/// The surface's height above rest along the water, sampled for a step -
-/// what the area effect floats things on.
-#[derive(Debug, Clone, PartialEq)]
-pub struct WaterProfile {
-    /// The local x of the first sample (the left edge), and the step.
-    pub x0: f32,
-    pub dx: f32,
-    pub heights: Vec<f32>,
-}
-
-impl WaterProfile {
-    /// The height above rest and the slope at local `x` (clamped to the
-    /// water's ends).
-    pub fn at(&self, x: f32) -> (f32, f32) {
-        let n = self.heights.len();
-        if n == 0 {
-            return (0.0, 0.0);
-        }
-        if n == 1 {
-            return (self.heights[0], 0.0);
-        }
-        let f = ((x - self.x0) / self.dx.max(1e-3)).clamp(0.0, (n - 1) as f32);
-        let i = (f.floor() as usize).min(n - 2);
-        let t = f - i as f32;
-        let (a, b) = (self.heights[i], self.heights[i + 1]);
-        (a + (b - a) * t, (b - a) / self.dx.max(1e-3))
-    }
-}
+pub use super::area_effect::WaterProfile;
 
 impl WaterSurface {
     fn columns(&self) -> usize {
@@ -188,7 +162,7 @@ impl WaterSurface {
             return 0.0;
         }
         let k = std::f32::consts::TAU / self.swell_length.max(1.0);
-        self.swell_height * (k * (x - self.swell_speed * self.clock)).sin()
+        self.swell_height * (k * (x - self.swell_speed * self.clock)).dsin()
     }
 
     /// The surface's height above rest at local `x` - springs and swell.
@@ -213,7 +187,7 @@ impl WaterSurface {
         for i in 0..self.heights.len() {
             let d = (self.column_x(i) - x).abs();
             if d < r {
-                let k = 0.5 + 0.5 * (std::f32::consts::PI * d / r).cos();
+                let k = 0.5 + 0.5 * (std::f32::consts::PI * d / r).dcos();
                 self.speeds[i] += strength * k;
             }
         }

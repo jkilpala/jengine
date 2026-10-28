@@ -6,6 +6,7 @@
 //! and walks on to its target on the far roof. A one-way link is refused the
 //! other way, a switched-off one takes no part, and of two links the cheaper
 //! way wins. Found by the showcase's Rooftop Runners.
+#![cfg(feature = "navigation")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

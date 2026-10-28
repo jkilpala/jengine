@@ -87,7 +87,7 @@ impl Default for Afterimage {
 
 /// The pose `sprite` has at `wt`, as an echo.
 fn echo_of(sprite: &SpriteComponent, wt: &WorldTransform) -> Echo {
-    let (corners, _, _) = crate::ecs::silhouette::quad(sprite, wt, Vec2::from(SpriteComponent::FALLBACK_SIZE));
+    let (corners, _, _) = crate::ecs::sprite_quad::corners(sprite, wt, Vec2::from(SpriteComponent::FALLBACK_SIZE));
     Echo { texture: sprite.texture_id, uv: sprite.uv_rect.unwrap_or([0.0, 0.0, 1.0, 1.0]), corners, age: 0.0 }
 }
 
@@ -148,8 +148,7 @@ pub fn color_at(a: &Afterimage, age: f32) -> [f32; 4] {
 /// The default sprite shader's silhouette fill in `color` - for `flat`
 /// echoes, whose fade then rides on each vertex's alpha.
 pub fn flat_params(a: &Afterimage) -> [u32; 16] {
-    let style = crate::ecs::silhouette::Silhouette { color: [a.color[0], a.color[1], a.color[2], 1.0], outline: 0.0, fill: 1.0 };
-    crate::ecs::silhouette::params(&style)
+    crate::ecs::sprite_quad::silhouette_params([a.color[0], a.color[1], a.color[2], 1.0], 0.0, 1.0)
 }
 
 /// A run of echoes of one texture: world positions, `(u, v, q)`, colours

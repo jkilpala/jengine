@@ -337,7 +337,8 @@ describe('namespaces', () => {
       { get_sprite_color: () => [0.5, 0, 0, 1] },
       [['Sprite', 'get_color', 'get_sprite_color']],
     );
-    expect(out).toEqual(['0.5 1.0']);
+    // A whole number prints as Luau prints it: `1`, not Lua 5.3's `1.0`.
+    expect(out).toEqual(['0.5 1']);
   });
 
   it('is the same function under both names, and Math is ours', async () => {
@@ -351,7 +352,7 @@ describe('namespaces', () => {
     );
     // No `Sprite` rows were published; Lua's `math` is left alone, as native's
     // read-only sandbox leaves it.
-    expect(out).toEqual(['5.0', 'true true nil']);
+    expect(out).toEqual(['5', 'true true nil']);
   });
 });
 

@@ -9,7 +9,10 @@
 //! frame in the editor. The CPU half (`update_mip_chain` equals a rebuilt
 //! chain byte for byte) is a unit test in `texture_filter`; this is the GPU
 //! half: drawn small enough to sample the low mips, an edited texture looks
-//! exactly like the same picture uploaded fresh, and is the same texture.
+//! like the same picture uploaded fresh, and is the same texture. Within one
+//! step a channel: a fresh upload's mips are drawn on the GPU since Oct 2026
+//! (`renderer::backend::wgpu::mipmap`), whose sRGB encode may round a texel
+//! a step from the CPU's - `gpu_mipmaps_match_the_cpu` holds that.
 //! Without a GPU adapter it prints why and passes, like `render_golden`.
 #![cfg(feature = "gpu-wgpu")]
 
@@ -124,6 +127,14 @@ fn an_edited_texture_patches_every_mip_level_in_place() {
     let mut fresh = AssetManager::new();
     fresh.set_texture_filters(linear());
     fresh.insert_texture_bytes(ID.into(), RawTextureData { width: SIDE, height: SIDE, rgba: edited });
-    assert_eq!(small, draw(&gpu, &mut fresh, 16.0), "patched mips differ from rebuilt ones at 16 px");
-    assert_eq!(tiny, draw(&gpu, &mut fresh, 4.0), "patched mips differ from rebuilt ones at 4 px");
+    assert_close(&small, &draw(&gpu, &mut fresh, 16.0), "patched mips differ from rebuilt ones at 16 px");
+    assert_close(&tiny, &draw(&gpu, &mut fresh, 4.0), "patched mips differ from rebuilt ones at 4 px");
+}
+
+/// Equal within one step a channel - the most a GPU-drawn mip level is from
+/// the CPU's - saying where they differ most rather than printing both.
+fn assert_close(a: &[u8], b: &[u8], what: &str) {
+    assert_eq!(a.len(), b.len(), "{what}: sizes differ");
+    let (at, worst) = a.iter().zip(b).map(|(x, y)| x.abs_diff(*y)).enumerate().max_by_key(|&(_, d)| d).unwrap_or((0, 0));
+    assert!(worst <= 1, "{what}: byte {at} is {} against {}", a[at], b[at]);
 }

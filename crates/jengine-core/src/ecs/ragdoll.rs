@@ -21,7 +21,6 @@
 //! capsule overlaps its chest at rest); they collide with everything else,
 //! other ragdolls included.
 
-use glam::Vec2;
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
 
@@ -103,20 +102,8 @@ pub fn bones_of(world: &World, root: Entity) -> Vec<LimpBone> {
     out
 }
 
-/// The local transform that puts a child at world `(position, rotation)`
-/// under `parent` - [`hierarchy::compose`]'s plain rule turned round, which
-/// is exact for a parent that is not sheared and scales both axes by the
-/// same amount (the skeletons this is for).
-pub fn local_under(parent: &WorldTransform, position: Vec2, rotation: f32) -> (Vec2, f32) {
-    let d = position - parent.position;
-    let (sin, cos) = parent.rotation.sin_cos();
-    let r = Vec2::new(d.x * cos + d.y * sin, -d.x * sin + d.y * cos);
-    let s = Vec2::new(
-        if parent.scale.x.abs() > 1e-9 { parent.scale.x } else { 1.0 },
-        if parent.scale.y.abs() > 1e-9 { parent.scale.y } else { 1.0 },
-    );
-    (r / s, rotation - parent.rotation)
-}
+pub use crate::ecs::hierarchy::local_under;
+
 
 /// Whether some ragdoll in the world is limp - the cheap test that keeps
 /// [`is_limp`] free in a world without one.
@@ -164,6 +151,7 @@ pub fn set_ragdoll_field(world: &World, entity: Entity, field: &str, value: &ser
 #[cfg(test)]
 mod tests {
     use super::*;
+    use glam::Vec2;
 
     #[test]
     fn local_under_undoes_compose() {

@@ -6,6 +6,7 @@
 //! private-use characters standing for each glyph with its offset and
 //! advance, which the atlas bakes by glyph index - so layout and drawing are
 //! unchanged. Found by the showcase's Bazaar Signs.
+#![cfg(feature = "dynamic_font")]
 
 use jengine_core::asset::AssetManager;
 use jengine_core::renderer::dynamic_font::{self, GLYPH_BASE, Line, ShapedGlyph};

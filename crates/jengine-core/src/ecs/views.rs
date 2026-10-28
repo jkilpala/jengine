@@ -198,6 +198,47 @@ pub fn render_target_ids(world: &World) -> std::collections::BTreeSet<String> {
         .collect()
 }
 
+
+/// The main camera's view as last drawn: its middle, its two axes and its
+/// half sizes along them. Off-screen markers and speech bubbles place
+/// themselves by it.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct MainView {
+    pub center: glam::Vec2,
+    pub axis_x: glam::Vec2,
+    pub axis_y: glam::Vec2,
+    pub half: glam::Vec2,
+}
+
+impl MainView {
+    /// The view whose corners are `[top left, top right, bottom right,
+    /// bottom left]`.
+    pub fn of_corners(c: [glam::Vec2; 4]) -> Self {
+        let center = (c[0] + c[1] + c[2] + c[3]) * 0.25;
+        let (x, y) = (c[1] - c[0], c[0] - c[3]);
+        Self { center, axis_x: x.normalize_or(glam::Vec2::X), axis_y: y.normalize_or(glam::Vec2::Y), half: glam::Vec2::new(x.length(), y.length()) * 0.5 }
+    }
+}
+
+thread_local! {
+    static MAIN_VIEW: std::cell::Cell<Option<MainView>> = const { std::cell::Cell::new(None) };
+}
+
+/// Record the screen camera's view. `frame_draw` calls it each frame.
+pub fn note_main_view(camera: &crate::renderer::camera::Camera2D) {
+    MAIN_VIEW.with(|v| v.set(Some(MainView::of_corners(camera.view_corners()))));
+}
+
+/// The screen camera's view as last drawn.
+pub fn main_view() -> Option<MainView> {
+    MAIN_VIEW.with(|v| v.get())
+}
+
+/// Set the view directly (tests, tools).
+pub fn set_main_view(view: Option<MainView>) {
+    MAIN_VIEW.with(|v| v.set(view));
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

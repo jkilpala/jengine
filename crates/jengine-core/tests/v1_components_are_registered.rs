@@ -2,63 +2,24 @@
 //! it too - and so the editor, which snapshots the world as v2 before Play
 //! and restores the snapshot on Stop, gives it back.
 //!
-//! The v1 `ComponentBundle` and the `ComponentRegistry` are two lists of the
-//! same components, and they drifted: the whole skeleton set (`bone`,
-//! `skeleton_root`, both IK constraints, `skinned_mesh`, `skeletal_player`),
-//! `anim_state_machine` and `light_occluder` were only ever in the bundle. So
-//! a package game could not author a rig, and scene 34's arm lost its bones
-//! the first time the editor's Stop button was pressed. BUGS #151.
+//! The v1 `ComponentBundle` and the `ComponentRegistry` used to be two lists
+//! of the same components, and they drifted both ways: the whole skeleton set
+//! (`bone`, `skeleton_root`, both IK constraints, `skinned_mesh`,
+//! `skeletal_player`), `anim_state_machine` and `light_occluder` were only
+//! ever in the bundle - so a package game could not author a rig, and scene
+//! 34's arm lost its bones the first time the editor's Stop button was pressed
+//! (BUGS #151) - while `tilemap_collider`, `character_controller` and
+//! `bulk_entity` were only in the registry, and a v1 scene dropped them
+//! (BUGS #164). Two tests compared the lists.
+//!
+//! Since Oct 2026 there is one list. A v1 bundle is JSON by scene key, read
+//! through the registry like a v2 one, so the two cannot drift;
+//! `spawned_prefabs_keep_their_components` loads and saves every registered
+//! component through the v1 path to keep it that way. What is left here is
+//! the round trip the drift broke.
 
 use jengine_core::package::component_registry::ComponentRegistry;
 use jengine_core::package::core_registration::register_core_components;
-
-/// `custom` is the bag of unknown keys, not a component.
-const NOT_COMPONENTS: &[&str] = &["custom"];
-
-fn bundle_fields() -> Vec<String> {
-    // LF, whatever git checked out: CRLF on Windows found no "\n}\n".
-    let src = include_str!("../src/scene/format.rs").replace("\r\n", "\n");
-    let start = src.find("pub struct ComponentBundle").expect("ComponentBundle");
-    let end = start + src[start..].find("\n}\n").expect("end of ComponentBundle");
-    src[start..end]
-        .lines()
-        .filter_map(|l| l.trim().strip_prefix("pub "))
-        .filter_map(|l| l.split(':').next())
-        .filter(|name| !name.contains(' ') && !name.contains('('))
-        .map(str::to_string)
-        .collect()
-}
-
-#[test]
-fn every_v1_component_is_in_the_registry() {
-    let fields = bundle_fields();
-    assert!(fields.len() > 60, "found {} fields - has ComponentBundle moved?", fields.len());
-    let mut registry = ComponentRegistry::new();
-    register_core_components(&mut registry);
-    let missing: Vec<&String> = fields
-        .iter()
-        .filter(|f| !NOT_COMPONENTS.contains(&f.as_str()) && registry.get(f).is_none())
-        .collect();
-    assert!(missing.is_empty(), "in the v1 bundle but not registered - a v2 scene drops them: {missing:?}");
-}
-
-/// The other direction. A component registered but missing from the bundle
-/// is dropped by the v1 loader, which every runtime uses - silently, since
-/// serde ignores an unknown key. `tilemap_collider` was one: test-lab scene
-/// 94's map loaded with no collider and its crates fell out of the world
-/// (BUGS #164), and `character_controller` and `bulk_entity` were the same.
-#[test]
-fn every_registered_component_is_in_the_v1_bundle() {
-    let fields = bundle_fields();
-    let mut registry = ComponentRegistry::new();
-    register_core_components(&mut registry);
-    let missing: Vec<String> = registry
-        .iter()
-        .map(|d| d.name.clone())
-        .filter(|n| !fields.contains(n))
-        .collect();
-    assert!(missing.is_empty(), "registered but not in the v1 bundle - a v1 scene drops them: {missing:?}");
-}
 
 #[test]
 fn a_rig_survives_the_editors_play_snapshot() {

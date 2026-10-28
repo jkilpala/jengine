@@ -170,10 +170,12 @@ pub fn draw_frame(d: FrameDraw<'_, '_>, frame: &mut WgpuFrame, scene: WorldScene
     views.extend(crate::ecs::canvas_group::canvas_group_views(world, &main_camera, (vw, vh)));
     // Off-screen markers (`ecs::offscreen_marker`) are placed from the
     // screen's view as it was last drawn.
-    crate::ecs::offscreen_marker::note_main_view(&main_camera);
+    crate::ecs::views::note_main_view(&main_camera);
     // Mirrors (`ecs::mirror`): a view each of what is in front of the line.
+    #[cfg(feature = "mirror")]
     views.extend(crate::ecs::mirror::mirror_views(world, &main_camera));
     // Portals (`ecs::portal`): a view each of what is in front of the partner.
+    #[cfg(feature = "portal")]
     views.extend(crate::ecs::portal::portal_views(world, &main_camera));
     if !views.is_empty() || !view_targets.is_empty() {
         let settings = screen_post.settings().clone();
@@ -186,6 +188,7 @@ pub fn draw_frame(d: FrameDraw<'_, '_>, frame: &mut WgpuFrame, scene: WorldScene
     // nothing stands in front of a reader.
     // Post volumes (`ecs::post_volume`): the screen's chain blended by
     // where the main camera is, the stack's own settings untouched.
+    #[cfg(feature = "post_volume")]
     screen_post.set_blended(crate::ecs::post_volume::blended(world, screen_post.settings(), main_camera.position));
     let plan = wgpu_systems::SceneReaderPlan::of(world, sort_layers);
 
@@ -505,7 +508,7 @@ pub fn draw_frame(d: FrameDraw<'_, '_>, frame: &mut WgpuFrame, scene: WorldScene
         // The velocity pass (`motion_blur`, `depth_of_field`): each sprite's
         // motion across the screen, over the camera's own, and its z, for
         // the main camera.
-        if target.is_none() && (post.motion_blur_on() || post.depth_of_field_on()) {
+        if target.is_none() && (post.motion_blur_on() || post.depth_of_field_on() || post.depth_haze_on()) {
             let _s = span("render.velocity");
             let (camera_motion, scale) = wgpu_systems::begin_velocity(&camera);
             let pipeline = sprite_batch.velocity_pipeline(device);

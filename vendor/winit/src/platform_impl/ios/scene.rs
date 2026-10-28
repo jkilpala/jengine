@@ -50,6 +50,8 @@ fn attach(window: &WinitUIWindow, scene: &UIWindowScene) {
         window.setFrame(scene.coordinateSpace().bounds());
     }
     window.makeKeyAndVisible();
+    // jEngine patch: a ProMotion screen runs at 60 Hz unless asked.
+    super::frame_rate::request(MainThreadMarker::from(window), window.screen().maximumFramesPerSecond());
 }
 
 fn as_window_scene<T: Message>(object: Retained<T>) -> Option<Retained<UIWindowScene>> {

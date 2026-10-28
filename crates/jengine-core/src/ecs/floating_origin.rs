@@ -86,21 +86,26 @@ pub fn shift_world(world: &mut World, by: Vec2) {
             p.position -= by;
         }
     }
+    #[cfg(feature = "cloth")]
     for (_, c) in world.query_mut::<&mut crate::ecs::cloth::Cloth>() {
         for p in &mut c.points {
             *p -= by;
         }
     }
+    #[cfg(feature = "cloth")]
     for (_, r) in world.query_mut::<&mut crate::ecs::cloth::Rope>() {
         for p in &mut r.points {
             *p -= by;
         }
     }
-    for (_, f) in world.query_mut::<&mut crate::ecs::fluid::Fluid>() {
-        for p in &mut f.particles {
-            p.position -= by;
+    crate::feature!("fluid", {
+        for (_, f) in world.query_mut::<&mut crate::ecs::fluid::Fluid>() {
+            for p in &mut f.particles {
+                p.position -= by;
+            }
         }
-    }
+    });
+    #[cfg(feature = "rewind")]
     for (_, r) in world.query_mut::<&mut crate::ecs::rewind::Rewindable>().without::<&Parent>() {
         for s in &mut r.state.samples {
             s.position -= by;

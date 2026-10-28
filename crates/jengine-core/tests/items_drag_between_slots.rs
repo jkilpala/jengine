@@ -4,6 +4,7 @@
 //! by focus and confirm, as a controller does it. Driven through
 //! `update_ui_widgets`, the step every host calls. Found by the showcase's
 //! Loot Satchel.
+#![cfg(feature = "drag_drop")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

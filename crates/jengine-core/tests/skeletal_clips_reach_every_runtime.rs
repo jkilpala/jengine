@@ -32,5 +32,5 @@ fn a_web_build_ships_every_clip_and_loads_them() {
     let web = read("crates/jengine-web/src/lib.rs");
     assert!(web.contains("assets/skelanim_manifest.json"), "the web runtime no longer reads the clip manifest");
     assert!(web.contains("insert_skeletal_clip"), "the web runtime reads the manifest and inserts nothing");
-    assert!(web.contains("load_skeletal_clips(&mut assets).await"), "the web runtime never calls its clip loader");
+    assert!(web.contains("install_skeletal_clips(&mut assets, skeletal)"), "the web runtime never calls its clip loader");
 }

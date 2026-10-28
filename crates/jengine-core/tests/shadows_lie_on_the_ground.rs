@@ -3,7 +3,7 @@
 //! silhouette on the floor to the west - and under a sun travelling east, to
 //! the east - drawn through the real sprite pass. Without a GPU adapter it
 //! prints why and passes. The geometry is tested in the module.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "cast_shadow"))]
 
 use glam::Vec2;
 use hecs::World;

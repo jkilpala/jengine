@@ -262,8 +262,8 @@ Then, played with (through Xcode 27's DeviceHub):
 - **The frame loop ran one frame and stopped.** winit delivers
   `RedrawRequested` from inside `drawRect:`, and UIKit drops a
   `setNeedsDisplay` made there - which is where every game asks for its next
-  frame. Taps and keys arrived and nothing ran to read them. Patched in the
-  vendored winit (the request goes out on the next turn of the run loop).
+  frame. Taps and keys arrived and nothing ran to read them. Frames now come
+  from a display link in the vendored winit (below).
 - **No hardware keyboard.** winit 0.30 on iOS reports only soft-keyboard
   text. The vendored winit now takes UIKit's `pressesBegan` / `pressesEnded`
   on its window and maps the HID usage to a key (`ios/keyboard.rs`), so an
@@ -277,16 +277,46 @@ Then, played with (through Xcode 27's DeviceHub):
 
 Also: `IPHONEOS_DEPLOYMENT_TARGET` follows `MinimumOSVersion` (the binary
 said 14.0, the plist 15.0), and `--run` opens `DeviceHub.app` when there is no
-`Simulator.app` (Xcode 27 has none). Seen working: taps, drags, hardware keys, the safe area (186 px each side
-in landscape, 60 at the bottom). Still unseen: the notch in scene 106, the
-soft keyboard, multi-touch, and a phone (B57's remaining steps, B58).
+`Simulator.app` (Xcode 27 has none).
+
+**It runs on an iPhone** (2026-10-24, an iPhone 15 Pro Max on iOS 27,
+signed with a free Apple ID's development identity and the profile Xcode made
+for it): it installs, starts, draws the hub on the A17 Pro's GPU, sees five
+fingers at once (scene 108), keeps its UI clear of the Dynamic Island (177 px
+a side in landscape, 60 at the bottom) and comes back from the background.
+What the phone found:
+
+- **An iOS bundle id cannot hold an underscore**, and the default
+  (`com.jengine.engine_test_lab`, from the project's folder) did - valid for
+  Android, whose package names refuse hyphens instead. `ios::bundle_id`
+  turns any character iOS refuses into a hyphen, for the plist and the
+  install alike; Android keeps its spelling.
+- **`devicectl` lists booted simulators too** (Xcode 27, `simulated` in its
+  last column), and a phone's identifier is now its 25-character UDID - so
+  `--run` installed a phone build onto the simulator (EBADARCH).
+  `first_device` skips simulated rows and takes any hex-and-hyphen id.
+- **60 Hz on a 120 Hz screen.** The plist key
+  `CADisableMinimumFrameDurationOnPhone` lifts the system's cap, and it was
+  not enough: frames came from UIKit's own display pass, which stays at 60.
+  The vendored winit drives them from a `CADisplayLink` asking for the
+  screen's maximum (`frame_rate.rs`; its first version registered the link
+  in no run-loop mode and it never fired). Median frame 16.7 ms became 8.3.
+- **A phone has no Esc.** Both test projects' `nav.lua` take three fingers
+  swiped right as "back to the hub" (seen working on the phone). The soft
+  keyboard comes up for a focused field (scene 205) and types into it.
+- **Scene 16 had only keys.** Its audio checks were Space, M, P and so on,
+  so there was no way to play a sound on a phone; it carries
+  `touch_controls` buttons pressing the same keys now.
+- **No icon** - neither project sets `settings.app.icon`, so iOS shows its
+  placeholder. With one set, the build now compiles an asset catalog with
+  `actool` (`Assets.car`, `CFBundleIconName`), as Xcode and a store upload
+  expect, keeping the plain PNGs for an older iOS.
 
 #### Left in Phase 2
 
-- Run it: the simulator, then a phone. Lifecycle (background, resume,
-  rotation), touch and the soft keyboard are all unseen on iOS.
-- An asset catalog (`actool`) for the icons, which a store upload wants,
-  and an `.ipa` for TestFlight.
+- Still unseen on a phone: rotation, and a save surviving a restart
+  (scene 38). Sound plays (scene 16, through its on-screen buttons).
+- An `.ipa` for TestFlight, and a distribution identity.
 - Video (`video_player`) shows a black texture, as on Linux and macOS.
 
 ### Phase 3 — touch as a first-class input

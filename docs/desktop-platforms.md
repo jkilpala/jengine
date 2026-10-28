@@ -23,7 +23,8 @@ then stage the game beside it with the Windows build's own `stage_game`.
   `assets/`, and `icon.png` when `settings.app.icon` names one.
 - **macOS**: `<Name>.app` - `Contents/MacOS/<binary>`, the staged game in
   `Contents/Resources/`, an `Info.plist` from `settings.app` (name, bundle
-  id, version, build; `LSMinimumSystemVersion` 11.0) and `AppIcon.icns`
+  id with underscores made hyphens as on iOS, `ios::bundle_id`; version,
+  build; `LSMinimumSystemVersion` 11.0) and `AppIcon.icns`
   made from the icon (`icns_from_image`, PNG entries `ic07`-`ic10`) -
   then signed ad hoc (`codesign --force --deep --sign -`), since Apple
   Silicon runs no unsigned code and the bundle is assembled after the linker
@@ -94,8 +95,35 @@ tab says so and disables Build). **It has been built and run on a Mac** (Oct
 macos-build projects/engine-test-lab` linked and signed ad hoc on the first
 try, and the binary ran the hub on Metal (Fifo, an `Rgba16Float` scene
 target), with kira audio and its scripts, finding its game in
-`Contents/Resources`. Unchecked by eye: opening it from Finder, sound,
-a pad (the rest of B55). Before that, from Windows:
+`Contents/Resources`. The showcase ran too - its first slow scene was
+GPU-bound on soft sun shadows, not a Mac problem (the shader counts a
+pixel's inside once now; see CLAUDE.md on a sun's `softness`). Unchecked by
+eye: opening it from Finder, sound, a pad (the rest of B55).
+
+**A macOS build was checked again on 2026-10-24** (M1 Pro, macOS 27):
+`engine-test-lab` built in under three minutes from a warm cache. The bundle
+passed `codesign --verify --deep --strict`, and with `env -i` and a working
+directory of `/` (what Finder gives it) it ran the hub on Metal. `spctl
+--assess` **rejects** it, as it does any ad-hoc signature, so a downloaded
+copy is quarantined and refused on another Mac. Players need a Developer ID
+build, notarized (see "Left"). The binary is arm64 only.
+
+**An app started from Finder has the system's bare PATH**
+(`/usr/bin:/bin:/usr/sbin:/sbin`), not the shell's, because rustup and
+Homebrew add theirs in shell profiles. Builds call `cargo` and friends by
+name, so the editor adds `~/.cargo/bin` (or `$CARGO_HOME/bin`),
+`/opt/homebrew/bin` and `/usr/local/bin` to its own PATH when it starts
+(`add_tool_dirs_to_path` in `editor/src-tauri/src/lib.rs`). An editor run
+from a terminal never showed the problem.
+
+**The editor runs on macOS** too, in WKWebView, started by `./run-editor.sh`.
+Two Mac-specific things: WKWebView holds `requestAnimationFrame` near 60 a
+second on a 120 Hz panel, so the editor switches WebKit's
+`PreferPageRenderingUpdatesNear60FPSEnabled` off at start
+(`editor_window::allow_full_frame_rate`, private API, guarded), and the docs
+site needs an LTS Node - Node 26 cannot build its `better-sqlite3`.
+
+Before any of that, from Windows:
 
 - The bundle (layout, `Info.plist`, `.icns`) is unit-tested on any host
   (`desktop::tests`).
@@ -122,8 +150,14 @@ What is left of the first Mac check is manual-verification B55.
 
 - A Linux **AppImage** or a `.desktop` file; a Developer ID signature and
   notarization (an ad-hoc signed `.app` runs on the Mac that built it;
-  another Mac's Gatekeeper refuses it once downloaded); a universal
-  (`x86_64` + `aarch64`) binary.
+  another Mac's Gatekeeper refuses it once downloaded - which needs the
+  paid Apple Developer Program, so for now a player lets it through with
+  *Open Anyway*, as the editor's own download notes say). An Intel build is
+  not planned: Apple Silicon is the Mac that current Xcode supports.
+
+**The editor itself ships for macOS** since 0.1.1: `./build-editor-release.sh`
+(the `.ps1`'s twin) makes the `.app`, a `.dmg` and a zip, ad-hoc signed.
+docs/releasing.md has the steps and the smoke test.
 - Video on Linux (GStreamer) and macOS (AVFoundation).
 - **iOS** is a phone, so it lives with Android: `jengine ios-build`, Phase 2
   of [`mobile-platforms-proposal.md`](mobile-platforms-proposal.md).

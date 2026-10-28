@@ -97,10 +97,10 @@ fn a_scene_instance_brings_its_parts_named_under_it() {
     assert_eq!(named(&scene, "A/Mast/Flag").parent.as_deref(), Some("A/Mast"));
     // The flag is the Flag prefab with the cart's override over it.
     let flag = named(&scene, "A/Mast/Flag").components;
-    let sprite = flag.sprite.expect("the Flag prefab's sprite");
+    let sprite = flag.get::<jengine_core::ecs::components::SpriteComponent>("sprite").expect("the Flag prefab's sprite");
     assert_eq!(sprite.texture_id, "flag.png");
     assert_eq!(sprite.color, [0.0, 0.0, 1.0, 1.0], "the part's override");
-    assert!(named(&scene, "B/Lamp").components.point_light.is_some(), "the variant's own part");
+    assert!(named(&scene, "B/Lamp").components.get::<jengine_core::ecs::components::PointLight2D>("point_light").is_some(), "the variant's own part");
     assert!(scene.entities.iter().all(|e| e.children.is_empty()), "every part hung out");
 
     // Loaded, the parts sit in their parent's frame.
@@ -130,8 +130,8 @@ fn a_scene_can_override_one_part_without_doubling_it() {
     let twos: Vec<_> = scene.entities.iter().filter(|e| e.name == "A/Wheel#2").collect();
     assert_eq!(twos.len(), 1, "one second wheel");
     let c = &twos[0].components;
-    assert_eq!(c.sprite.as_ref().unwrap().texture_id, "spoked.png", "the scene's sprite");
-    assert_eq!(c.transform.as_ref().unwrap().position.to_array(), [30.0, -15.0], "the part's transform");
+    assert_eq!(c.get::<jengine_core::ecs::components::SpriteComponent>("sprite").unwrap().texture_id, "spoked.png", "the scene's sprite");
+    assert_eq!(c.get::<jengine_core::ecs::components::Transform>("transform").unwrap().position.to_array(), [30.0, -15.0], "the part's transform");
     // Saved with its parts written out and loaded again: still once each.
     let again = serde_json::to_string(&scene).unwrap();
     let mut scene: SceneData = serde_json::from_str(&again).unwrap();
@@ -223,7 +223,7 @@ fn resolved_prefabs_carry_their_parts_expanded() {
     let r = resolve_prefab_variants(&workshop());
     let cart = &r["Cart"];
     let flag = &cart.children[2].children[0];
-    assert_eq!(flag.components.sprite.as_ref().unwrap().texture_id, "flag.png", "the part is the Flag prefab");
+    assert_eq!(flag.components.get::<jengine_core::ecs::components::SpriteComponent>("sprite").unwrap().texture_id, "flag.png", "the part is the Flag prefab");
     let lamp = &r["LampCart"];
     let names: Vec<&str> = lamp.children.iter().map(|c| c.name.as_str()).collect();
     assert_eq!(names, ["Wheel", "Wheel", "Mast", "Lamp"], "the base's parts, then its own");
@@ -275,6 +275,7 @@ fn a_native_spawn_builds_the_whole_tree() {
             components: Box::new(Some(cart.components.clone())),
             spawn_id: Some(jengine_core::scripting::spawn_aliases::FIRST_SPAWN_ID + 7),
             children: cart.children.clone(),
+            prepared: None,
         }],
         None,
         None,
@@ -348,7 +349,7 @@ end
         ScriptComponent { language: ScriptLanguage::Lua, source_path: path.to_string_lossy().into(), cull_distance: None },
     ));
     let mut system = ScriptSystem::new().expect("script system");
-    system.api.services.prefabs = resolve_prefab_variants(&workshop());
+    *system.api.services.prefabs_mut() = resolve_prefab_variants(&workshop());
     let input = InputState::new();
     for _ in 0..3 {
         system.run(&mut world, 1.0 / 60.0, &input, None, None);

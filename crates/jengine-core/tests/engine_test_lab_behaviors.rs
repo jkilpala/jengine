@@ -12,6 +12,7 @@
 //! other half: given the graphs, the scene behaves as its on-screen hints
 //! claim. If these pass and the scene still misbehaves in a runtime, the fault
 //! is in that runtime's asset loading, not in the scene or the graphs.
+#![cfg(feature = "behavior")]
 
 use std::path::PathBuf;
 

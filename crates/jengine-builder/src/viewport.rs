@@ -183,6 +183,14 @@ fn read_stamp_at(path: &Path) -> Option<ViewportStamp> {
 
 /// Read the stamp of the editor's module, if it has one.
 pub fn read_stamp(engine_root: &Path) -> Option<ViewportStamp> {
+    // An installed editor serving the module it shipped with: that one is
+    // stock by definition. Its stamp is a dotfile, which Tauri's macOS bundler
+    // leaves out of the app's resources.
+    if let Some(dirs) = MODULE_DIRS.get()
+        && dirs.serving() == dirs.stock
+    {
+        return Some(read_stamp_at(&dirs.stock.join(STAMP_FILE)).unwrap_or(ViewportStamp { stock: true, ..Default::default() }));
+    }
     read_stamp_at(&stamp_path(engine_root))
 }
 

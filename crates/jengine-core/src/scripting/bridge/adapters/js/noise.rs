@@ -6,14 +6,17 @@
 
 use wasm_bindgen::prelude::*;
 
+#[cfg(feature = "noise")]
 fn num(v: &JsValue, or: f64) -> f64 {
     v.as_f64().unwrap_or(or)
 }
 
+#[cfg(feature = "noise")]
 fn seed(v: &JsValue) -> u32 {
     v.as_f64().map(crate::noise::seed_from).unwrap_or(0)
 }
 
+#[cfg(feature = "noise")]
 fn opts(v: &JsValue) -> serde_json::Value {
     if v.is_undefined() || v.is_null() {
         return serde_json::Value::Null;
@@ -25,6 +28,7 @@ fn opts(v: &JsValue) -> serde_json::Value {
         .unwrap_or(serde_json::Value::Null)
 }
 
+#[cfg(feature = "noise")]
 fn numbers(values: impl IntoIterator<Item = f64>) -> JsValue {
     let out = js_sys::Array::new();
     for v in values {
@@ -33,6 +37,7 @@ fn numbers(values: impl IntoIterator<Item = f64>) -> JsValue {
     out.into()
 }
 
+#[cfg(feature = "noise")]
 #[allow(clippy::too_many_arguments)]
 fn op(name: String, a: JsValue, b: JsValue, c: JsValue, d: JsValue, e: JsValue, f: JsValue) -> JsValue {
     use crate::noise as n;
@@ -52,6 +57,13 @@ fn op(name: String, a: JsValue, b: JsValue, c: JsValue, d: JsValue, e: JsValue, 
             JsValue::NULL
         }
     }
+}
+
+/// `Noise.*` in a build without noise: logs once, answers null.
+#[cfg(not(feature = "noise"))]
+fn op(_name: String, _a: JsValue, _b: JsValue, _c: JsValue, _d: JsValue, _e: JsValue, _f: JsValue) -> JsValue {
+    crate::features::missing("noise", "Noise.*");
+    JsValue::NULL
 }
 
 /// Install `noise` on `state`.

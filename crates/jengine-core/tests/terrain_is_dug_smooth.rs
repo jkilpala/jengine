@@ -5,7 +5,7 @@
 //! ball falls; and the browsers' ray snapshot sees the dug terrain exactly as
 //! physics does. Found by the showcase's Smooth Caves.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "smooth_terrain"))]
 
 use glam::Vec2;
 use hecs::World;

@@ -10,8 +10,8 @@ export function buildWindows(projectPath: string, outputPath: string, release: b
  * `crazygames`, `youtube`), or `project` for the project's `web_platform`.
  * See docs/web-platforms.md.
  */
-export function buildWeb(projectPath: string, outputPath: string, release: boolean, generateReport: boolean, wasmLto: boolean, wasmOptSize: boolean, wasmSingleCodegen: boolean, wasmOpt: WasmOptLevel, debugOverlay: boolean, platform: string = "project"): Promise<string> {
-  return invoke<string>("build_web", { projectPath, outputPath, release, generateReport, wasmLto, wasmOptSize, wasmSingleCodegen, wasmOpt, debugOverlay, platform });
+export function buildWeb(projectPath: string, outputPath: string, release: boolean, generateReport: boolean, wasmLto: boolean, wasmOptSize: boolean, wasmSingleCodegen: boolean, wasmOpt: WasmOptLevel, debugOverlay: boolean, logging: boolean, platform: string = "project"): Promise<string> {
+  return invoke<string>("build_web", { projectPath, outputPath, release, generateReport, wasmLto, wasmOptSize, wasmSingleCodegen, wasmOpt, debugOverlay, logging, platform });
 }
 
 /**

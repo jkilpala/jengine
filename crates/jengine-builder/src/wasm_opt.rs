@@ -35,9 +35,12 @@ use serde::{Deserialize, Serialize};
 pub enum WasmOpt {
     /// No `wasm-opt` pass: the fastest build, the largest module.
     Off,
-    /// `-O1`: seconds rather than minutes, a slightly larger module.
+    /// `-O1`: seconds rather than minutes, a module ~5% larger raw - and
+    /// the smallest gzipped or brotli'd, so the smallest download
+    /// ([`WasmOpt::WEB_BUILD_DEFAULT`]).
     Fast,
-    /// `-O`: what wasm-pack has always done.
+    /// `-O`: what wasm-pack has always done, and the editor viewport's
+    /// default.
     #[default]
     Optimized,
     /// `-Oz`: the smallest module, about as slow as `Optimized`.
@@ -48,6 +51,15 @@ pub enum WasmOpt {
 
 impl WasmOpt {
     pub const ALL: [WasmOpt; 5] = [WasmOpt::Off, WasmOpt::Fast, WasmOpt::Optimized, WasmOpt::Size, WasmOpt::Max];
+
+    /// The level a game's web build gets when its project names none:
+    /// `Fast`. Measured on the empty project (`docs/build-sizes.md`), `-O1`
+    /// gives the smallest download at every Cargo profile - gzip 2-7% and
+    /// brotli ~8% under `-O`, `-Oz` and `-O3`, which only shrink the raw
+    /// module - in seconds instead of minutes, and runs the CPU benchmark
+    /// (`jengine-benchmark-cpu`) within noise of `-O` and ~3% behind `-O3`.
+    /// The editor viewport is not downloaded and keeps [`WasmOpt::default`].
+    pub const WEB_BUILD_DEFAULT: WasmOpt = WasmOpt::Fast;
 
     /// The `wasm-opt` flag, or `None` for no pass.
     pub fn flag(self) -> Option<&'static str> {
@@ -237,7 +249,8 @@ mod tests {
 
     #[test]
     fn levels_have_flags_and_round_trip_by_name() {
-        assert_eq!(WasmOpt::default(), WasmOpt::Optimized);
+        assert_eq!(WasmOpt::default(), WasmOpt::Optimized, "the viewport's default");
+        assert_eq!(WasmOpt::WEB_BUILD_DEFAULT, WasmOpt::Fast, "a game's web build: the smallest download");
         assert_eq!(WasmOpt::Optimized.flag(), Some("-O"));
         assert_eq!(WasmOpt::Fast.flag(), Some("-O1"));
         assert_eq!(WasmOpt::Off.flag(), None);

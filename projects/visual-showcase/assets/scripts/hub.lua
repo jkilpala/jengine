@@ -1,9 +1,10 @@
 -- The showcase hub: a menu drawn from nav.SCENES into the scene's Row
--- slots, chosen with the keyboard, a pad or the mouse.
+-- slots, chosen with the keyboard, a pad, the mouse or a finger.
 --
 -- There are more scenes than slots, so the rows are a window onto the list
 -- that scrolls to keep the chosen scene in view (with a couple of rows of
--- context past it), and the mouse wheel and PgUp / PgDn scroll it too.
+-- context past it), and the mouse wheel, a drag and PgUp / PgDn scroll it
+-- too. A row opens on release, so a drag that starts on one only scrolls.
 -- `top` is the list index shown in Row1, less one.
 --
 -- The selection is a light: SelectLight and its glow ease to the chosen
@@ -36,6 +37,9 @@ local light, glow, blurb, track, thumb, count
 local chosen = 1
 local top = 0
 local wheel_acc = 0.0
+-- A press on the list: where it began, the window then, the row under it,
+-- and whether it has dragged far enough to be a scroll rather than a tap.
+local drag = nil
 
 local t = 0.0
 
@@ -197,13 +201,36 @@ function update(entity, dt)
     if last_mx == nil or t < SETTLE then last_mx, last_my = mx, my end
     if math.abs(mx - last_mx) + math.abs(my - last_my) > 3 then
         last_mx, last_my = mx, my
-        local hit = row_at_mouse()
-        if hit then choose(hit) end
+        -- Not while dragging: the rows slide under a finger, and choosing
+        -- each one it crosses would make the list fight the drag.
+        if not (drag and drag.moved) then
+            local hit = row_at_mouse()
+            if hit then choose(hit) end
+        end
     end
+    -- A drag scrolls the list - a finger has no wheel - and a row opens on
+    -- the release of a press that did not drag, so dragging from a row does
+    -- not open it.
     if Input.is_mouse_left_just_pressed() then
-        local hit = row_at_mouse()
-        if hit then
-            chosen = hit
+        local _, wy = Input.get_mouse_world_position()
+        drag = { y = wy or 0, top = top, row = row_at_mouse(), moved = false }
+    end
+    if drag and Input.is_mouse_left_pressed() then
+        local _, wy = Input.get_mouse_world_position()
+        local dy = (wy or drag.y) - drag.y
+        if math.abs(dy) > ROW_STEP * 0.5 then drag.moved = true end
+        if drag.moved then
+            -- World y grows upward: a finger pushing the list up shows rows
+            -- further down it.
+            local shift = (dy >= 0) and math.floor(dy / ROW_STEP) or -math.floor(-dy / ROW_STEP)
+            scroll(clamp_top(drag.top + shift) - top)
+        end
+    end
+    if drag and Input.is_mouse_left_just_released() then
+        local tapped = (not drag.moved) and drag.row
+        drag = nil
+        if tapped then
+            chosen = tapped
             open()
             return
         end

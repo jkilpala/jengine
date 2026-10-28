@@ -49,7 +49,7 @@ pub fn font_texture_id(font_id: &str) -> String {
     let normalized = font_id.replace('\\', "/");
     // A font file's atlas is made at runtime (`renderer::dynamic_font`), not
     // read from a sibling image: an id no file has, so nothing fetches it.
-    if crate::renderer::dynamic_font::is_font_file(&normalized) {
+    if is_font_file(&normalized) {
         return format!("{normalized}#atlas");
     }
     // Only an extension on the *last* segment counts - "a.b/font" has no
@@ -185,7 +185,10 @@ pub fn load_fonts(
         };
 
         // A TTF / OTF is the font itself; its atlas is made as text asks.
-        if crate::renderer::dynamic_font::is_font_file(font_id) {
+        if is_font_file(font_id) {
+            #[cfg(not(feature = "dynamic_font"))]
+            crate::features::missing("dynamic_font", "a TTF / OTF font");
+            #[cfg(feature = "dynamic_font")]
             match std::fs::read(&path) {
                 Ok(bytes) => {
                     if let Err(e) = crate::renderer::dynamic_font::insert_font_file(assets, font_id, &bytes) {
@@ -315,6 +318,13 @@ impl<'a> FrameFonts<'a> {
     pub fn builtin_texture_id(&self) -> &str {
         self.builtin_texture_id
     }
+}
+
+
+/// Whether `font_id` names a font file this module loads.
+pub fn is_font_file(font_id: &str) -> bool {
+    let lower = font_id.to_ascii_lowercase();
+    lower.ends_with(".ttf") || lower.ends_with(".otf")
 }
 
 #[cfg(test)]

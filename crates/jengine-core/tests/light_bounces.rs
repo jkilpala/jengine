@@ -3,7 +3,7 @@
 //! occluders shine again, so a pixel no light reaches is lit by a red-lit
 //! floor beside it - red - and an occluder between them takes that away.
 //! Checked on real pixels: the cascades are all in WGSL, with no CPU twin.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "gi"))]
 
 use glam::Vec2;
 use hecs::World;

@@ -77,6 +77,13 @@ pub enum SystemPhase {
     Render = 6,
     /// Post-render — swap buffers, profiler stats, cleanup.
     PostRender = 7,
+    /// Once per display frame, before the gameplay steps - however many of
+    /// those there are. With fixed-step gameplay (`ecs::fixed_step`) most
+    /// frames of a fast display run no step, and a frame waiting on the
+    /// network runs none at all, so what must happen every frame regardless
+    /// - reading the network, opening a lockstep session's step gate -
+    /// belongs here, not in a phase that only runs inside a step.
+    Frame = 8,
 }
 
 impl fmt::Display for SystemPhase {

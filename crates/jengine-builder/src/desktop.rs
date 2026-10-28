@@ -140,7 +140,7 @@ pub fn build_linux(
     }
     crate::progress::step(&format!("Linux build complete: {}", output_path.display()));
     if generate_report {
-        crate::report::generate_report(output_path, "linux", plan.profile, None)?;
+        crate::report::generate_report(output_path, "linux", plan.profile, None, crate::engine_features::for_project(project_path).ok().as_ref())?;
     }
     Ok(dest)
 }
@@ -167,7 +167,9 @@ pub fn info_plist(app: &crate::app::ResolvedApp, executable: &str, has_icon: boo
          \t<key>LSApplicationCategoryType</key>\n\t<string>public.app-category.games</string>\n\
          </dict>\n</plist>\n",
         name = esc(&app.name),
-        id = esc(&app.id),
+        // The same rule as iOS: a bundle identifier takes no underscore, and
+        // the project-derived default has one (`ios::bundle_id`).
+        id = esc(&crate::ios::bundle_id(&app.id)),
         exe = esc(executable),
         version = esc(&app.version),
         build = app.build,
@@ -266,7 +268,7 @@ pub fn build_macos(
     }
     crate::progress::step(&format!("macOS build complete: {}", bundle.display()));
     if generate_report {
-        crate::report::generate_report(output_path, "macos", if release { "release" } else { "debug" }, None)?;
+        crate::report::generate_report(output_path, "macos", if release { "release" } else { "debug" }, None, crate::engine_features::for_project(project_path).ok().as_ref())?;
     }
     Ok(bundle)
 }
@@ -288,6 +290,18 @@ mod tests {
             let rel = wsl_path(Path::new("relative/path")).unwrap();
             assert!(rel.starts_with("/mnt/") && rel.ends_with("/relative/path"), "{rel}");
         }
+    }
+
+    #[test]
+    fn a_release_runtime_is_stripped_where_its_symbols_would_ship() {
+        use crate::windows::strip_args;
+        for platform in ["linux", "macos", "ios"] {
+            assert_eq!(strip_args(true, platform), ["--config", "profile.release.strip=true"], "{platform}");
+            assert!(strip_args(false, platform).is_empty(), "a debug {platform} build keeps its symbols");
+        }
+        assert!(strip_args(true, "windows").is_empty(), "Windows keeps symbols in the .pdb, not the exe");
+        let s = wsl_build_script("/mnt/c/e", &strip_args(true, "linux").iter().map(|a| a.to_string()).collect::<Vec<_>>(), "t", "release", "x", "/mnt/c/x");
+        assert!(s.contains("cargo '--config' 'profile.release.strip=true'"), "{s}");
     }
 
     #[test]
@@ -327,7 +341,7 @@ mod tests {
         std::fs::write(project.join("assets/scenes/main.scene"), r#"{"name":"main","entities":[]}"#).unwrap();
         std::fs::write(
             project.join("project.jengine"),
-            r#"{"name":"Lab","default_scene":"scenes/main.scene","settings":{"entry_scene":"scenes/main.scene","app":{"id":"com.example.lab","name":"Lab Game","version":"1.2.0","build":7}}}"#,
+            r#"{"name":"Lab","default_scene":"scenes/main.scene","settings":{"entry_scene":"scenes/main.scene","app":{"id":"com.example.my_lab","name":"Lab Game","version":"1.2.0","build":7}}}"#,
         )
         .unwrap();
         let runtime = dir.join("fake-runtime");
@@ -339,7 +353,8 @@ mod tests {
         assert!(c.join("Resources/project.jengine").is_file(), "the game where game_root looks for it");
         assert!(c.join("Resources/assets/scenes/main.scene").is_file());
         let plist = std::fs::read_to_string(c.join("Info.plist")).unwrap();
-        assert!(plist.contains("<string>com.example.lab</string>"));
+        // An Android-style id (underscores) made a valid bundle identifier.
+        assert!(plist.contains("<string>com.example.my-lab</string>"), "{plist}");
         assert!(plist.contains("<string>lab-game</string>"));
         assert!(plist.contains("<string>1.2.0</string>") && plist.contains("<string>7</string>"));
         let _ = std::fs::remove_dir_all(&dir);

@@ -192,6 +192,6 @@ fn the_scene_format_keeps_it() {
     let mut world = World::new();
     world.spawn((at(0.0, 0.0), AreaEffect { buoyancy: 1.5, force: [10.0, 0.0], ..Default::default() }));
     let scene = jengine_core::scene::format::save_scene(&world);
-    let a = scene.entities[0].components.area_effect.as_ref().expect("saved");
+    let a = scene.entities[0].components.get::<jengine_core::ecs::area_effect::AreaEffect>("area_effect").expect("saved");
     assert_eq!((a.buoyancy, a.force), (1.5, [10.0, 0.0]));
 }

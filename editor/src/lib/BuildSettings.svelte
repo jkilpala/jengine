@@ -97,18 +97,25 @@
   let compressionFormat = $state<
     "png_optimized" | "webp_lossless" | "webp_lossy" | "basis_universal"
   >("png_optimized");
-  // Default on - see the note on `EditorSettings` in the Tauri backend;
-  // overwritten by whatever the project's editor-settings.json says.
-  let wasmLto = $state(es.wasm_lto ?? true);
-  let wasmOptSize = $state(es.wasm_opt_size ?? true);
-  let wasmSingleCodegen = $state(es.wasm_single_codegen ?? true);
+  // Default off - `opt-level = 'z'` makes the game's code ~3.7x slower; see
+  // the note on `EditorSettings` in the Tauri backend. Overwritten by
+  // whatever the project's editor-settings.json says.
+  let wasmLto = $state(es.wasm_lto ?? false);
+  let wasmOptSize = $state(es.wasm_opt_size ?? false);
+  let wasmSingleCodegen = $state(es.wasm_single_codegen ?? false);
   // The wasm-opt pass after a release web build - this project's own level,
-  // apart from the editor viewport's (Project Settings -> Graphics).
-  let wasmOptLevel = $state<WasmOptLevel>(es.wasm_opt_level ?? "optimized");
+  // apart from the editor viewport's (Project Settings -> Graphics). `fast`
+  // is the smallest download.
+  let wasmOptLevel = $state<WasmOptLevel>(es.wasm_opt_level ?? "fast");
   let enableProfiling = $state(es.build_enable_profiling);
   // Ships the F3 stats HUD / F12 inspector with the game. On unless a
   // project turned it off - see `EditorSettings` in the Tauri backend.
   let debugOverlay = $state(es.build_debug_overlay ?? true);
+  // Web: the game's info lines - the engine's and the scripts' log / print -
+  // in the browser console. Warnings and errors are written either way.
+  let logging = $state(es.build_logging ?? true);
+  // A release web build with logs on asks first: players see every line.
+  let logWarning = $state(false);
   // The web portal for this build. "project" is the project's own
   // (Project Settings -> Web); the same game is often built for several, so
   // the choice is per build and not kept.
@@ -139,6 +146,10 @@
     updateSetting("build_debug_overlay", debugOverlay);
   });
 
+  $effect(() => {
+    updateSetting("build_logging", logging);
+  });
+
   async function pickOutputDir() {
     const dir = await open({
       directory: true,
@@ -155,7 +166,7 @@
     return `${outputDir}/${target}/${profile}`;
   }
 
-  async function handleBuild() {
+  async function handleBuild(logsConfirmed = false) {
     const proj = get(project);
     if (!proj) {
       logError("Open a project first before building");
@@ -164,6 +175,11 @@
 
     if (get(buildRunning)) {
       logError("A build is already running — watch the Build panel");
+      return;
+    }
+
+    if (target === "web" && profile === "release" && logging && !logsConfirmed) {
+      logWarning = true;
       return;
     }
 
@@ -249,12 +265,17 @@
           wasmSingleCodegen,
           wasmOptLevel,
           debugOverlay,
+          logging,
           webPlatform,
         );
       }
       logInfo(`${label} build complete: ${output}`);
+      // A macOS or iOS build answers with its `.app`, and `open` on a bundle
+      // launches it rather than showing it - so the folder (and the report,
+      // which is written beside the bundle) is the output directory.
+      const outputFolder = target === "macos" || target === "ios" ? finalOutputDir : output;
       if (generateReport && target !== "android" && target !== "ios") {
-        const reportPath = output.replace(/\\/g, "/") + "/build-report.html";
+        const reportPath = outputFolder.replace(/\\/g, "/") + "/build-report.html";
         try {
           await openBuildReport(reportPath);
         } catch {
@@ -263,7 +284,7 @@
       }
       // Open the output folder in the file manager
       try {
-        await openBuildFolder(output);
+        await openBuildFolder(outputFolder);
       } catch {
         // Non-fatal — just log if it fails
       }
@@ -732,6 +753,26 @@
             </label>
           </div>
 
+          <div class="field-row checkbox-row">
+            <label>Logs</label>
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                bind:checked={logging}
+                disabled={building}
+              />
+              Write info lines (engine and script log / print) to the browser console
+            </label>
+          </div>
+          {#if logging && profile === "release"}
+            <div class="field-row">
+              <label></label>
+              <span class="field-hint warn-hint">
+                Logs are on in a release build - players will see them. Warnings and errors are shown either way.
+              </span>
+            </div>
+          {/if}
+
           <hr class="section-divider" />
           <h4 class="section-subtitle">Asset Pipeline</h4>
 
@@ -825,7 +866,8 @@
             style="margin-left: 108px; margin-bottom: 6px;"
           >
             These apply to <strong>release</strong> builds only. They increase build
-            time but reduce WASM size.
+            time but reduce WASM size - and <em>Opt for Size</em> slows the game's
+            code down several times over.
           </div>
 
           <div class="field-row checkbox-row">
@@ -850,7 +892,7 @@
                 disabled={building}
                 onchange={() => updateSetting("wasm_opt_size", wasmOptSize)}
               />
-              Use <code>opt-level = 'z'</code> (size over speed)
+              Use <code>opt-level = 'z'</code> (~⅓ smaller, ~3.7x slower code)
             </label>
           </div>
 
@@ -890,7 +932,7 @@
       >
       <button
         class="build-btn"
-        onclick={handleBuild}
+        onclick={() => handleBuild()}
         disabled={building || $buildRunning || ((activeCategory === "macos" || activeCategory === "ios") && !onMac)}
       >
         {#if building || $buildRunning}
@@ -900,6 +942,30 @@
         {/if}
       </button>
     </div>
+
+    {#if logWarning}
+      <div class="confirm-backdrop">
+        <div class="confirm" role="alertdialog" aria-label="Logs are on">
+          <div class="confirm-title">Logs are on for a release build</div>
+          <p>
+            Every info line - the engine's narration and your scripts'
+            <code>log</code> / <code>print</code> - will show in players'
+            browser consoles. Warnings and errors are shown either way.
+          </p>
+          <p>Turn <b>Logs</b> off in the Web tab for a build you ship.</p>
+          <div class="confirm-buttons">
+            <button class="cancel-btn" onclick={() => (logWarning = false)}>Back</button>
+            <button
+              class="build-btn"
+              onclick={() => {
+                logWarning = false;
+                handleBuild(true);
+              }}>Continue</button
+            >
+          </div>
+        </div>
+      </div>
+    {/if}
   </div>
 </div>
 
@@ -915,6 +981,7 @@
   }
 
   .dialog {
+    position: relative;
     background: var(--ed-base);
     border: 1px solid var(--ed-line-strong);
     border-radius: 8px;
@@ -1111,6 +1178,50 @@
     gap: 8px;
     padding: 12px 16px;
     border-top: 1px solid var(--ed-line);
+  }
+
+  .warn-hint {
+    color: var(--ed-warn);
+  }
+
+  .confirm-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .confirm {
+    width: 380px;
+    background: var(--ed-base);
+    border: 1px solid var(--ed-warn);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 12px;
+    color: var(--ed-text);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+  }
+
+  .confirm-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ed-warn);
+    margin-bottom: 8px;
+  }
+
+  .confirm p {
+    margin: 0 0 8px;
+    line-height: 1.45;
+  }
+
+  .confirm-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
   }
 
   .cancel-btn {

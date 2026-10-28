@@ -1,30 +1,22 @@
 /**
  * extract-components.ts
- * 
- * Parses crates/jengine-core/src/ecs/components.rs to extract component struct definitions,
- * their fields, types, and doc comments. Generates an MDX reference page.
+ *
+ * Generates the components reference page from what core *registers*
+ * (`package/core_registration.rs`, read through `core-metadata.ts`), so a
+ * component is on the page wherever its type is defined - `ecs/components.rs`
+ * or the module of the engine feature that carries it. The page used to be
+ * parsed out of `components.rs` alone, which left out every component defined
+ * in its own module and showed no scene key for any of them (it looked the
+ * keys up in a typed `ComponentBundle` that no longer exists).
  */
 
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
+import { coreComponentMeta, type ComponentMeta } from './core-metadata.js';
 
 const REPO_ROOT = process.env.JENGINE_ROOT || resolve(import.meta.dirname, '../..');
 const COMPONENTS_FILE = resolve(REPO_ROOT, 'crates/jengine-core/src/ecs/components.rs');
-const FORMAT_FILE = resolve(REPO_ROOT, 'crates/jengine-core/src/scene/format.rs');
 const OUTPUT = resolve(import.meta.dirname, '../src/content/docs/api-reference/components.mdx');
-
-interface Field {
-  name: string;
-  type: string;
-  doc: string;
-  default?: string;
-}
-
-interface Component {
-  name: string;
-  doc: string;
-  fields: Field[];
-}
 
 interface EnumVariant {
   name: string;
@@ -37,241 +29,162 @@ interface EnumDef {
   variants: EnumVariant[];
 }
 
-function parseComponents(source: string): { components: Component[]; enums: EnumDef[] } {
-  const components: Component[] = [];
+/** The `pub enum`s of `components.rs`, with their docs and variants. */
+function parseEnums(source: string): EnumDef[] {
   const enums: EnumDef[] = [];
-  const lines = source.split('\n');
-
-  let i = 0;
-  while (i < lines.length) {
-    const line = lines[i];
-
-    // Collect doc comments
-    if (line.trim().startsWith('///')) {
-      const docLines: string[] = [];
-      while (i < lines.length && lines[i].trim().startsWith('///')) {
-        docLines.push(lines[i].trim().replace(/^\/\/\/\s?/, ''));
-        i++;
-      }
-      const doc = docLines.join(' ').trim();
-
-      // Skip attributes
-      while (i < lines.length && lines[i].trim().startsWith('#[')) {
-        i++;
-      }
-
-      const structLine = lines[i]?.trim() || '';
-
-      // Parse struct
-      const structMatch = structLine.match(/^pub struct (\w+)/);
-      if (structMatch) {
-        const name = structMatch[1];
-        const fields: Field[] = [];
-        i++;
-
-        // Check if it's a newtype struct (single line)
-        if (structLine.includes('(pub')) {
-          const newtypeMatch = structLine.match(/\(pub (.+)\)/);
-          if (newtypeMatch) {
-            fields.push({ name: '0', type: newtypeMatch[1].replace(';', '').trim(), doc: 'Inner value' });
-          }
-          components.push({ name, doc, fields });
-          continue;
-        }
-
-        // Regular struct with braces
-        let fieldDoc = '';
-        while (i < lines.length) {
-          const fl = lines[i].trim();
-          if (fl === '}') { i++; break; }
-
-          if (fl.startsWith('///')) {
-            // Accumulate: a multi-line field doc used to be overwritten line
-            // by line, so the table showed only its last line - which for a
-            // doc ending in a caveat read as a fragment. Joined with spaces
-            // because the value lands in a markdown table cell, where a
-            // newline would break the row.
-            const line = fl.replace(/^\/\/\/\s?/, '');
-            fieldDoc = fieldDoc ? `${fieldDoc} ${line}`.trim() : line;
-          } else if (fl.startsWith('#[')) {
-            // Check for serde default
-            const defaultMatch = fl.match(/default\s*=\s*"(\w+)"/);
-            if (defaultMatch) {
-              // Store default hint
-            }
-          } else if (fl.startsWith('pub ')) {
-            const fieldMatch = fl.match(/^pub (\w+):\s*(.+?),?\s*$/);
-            if (fieldMatch) {
-              fields.push({
-                name: fieldMatch[1],
-                type: fieldMatch[2].replace(/,$/, '').trim(),
-                doc: fieldDoc,
-              });
-              fieldDoc = '';
-            }
-          }
-          i++;
-        }
-
-        components.push({ name, doc, fields });
-        continue;
-      }
-
-      // Parse enum
-      const enumMatch = structLine.match(/^pub enum (\w+)/);
-      if (enumMatch) {
-        const name = enumMatch[1];
-        const variants: EnumVariant[] = [];
-        i++;
-
-        while (i < lines.length) {
-          const el = lines[i].trim();
-          if (el === '}') { i++; break; }
-
-          // Skip doc comments and attributes inside enum
-          if (el.startsWith('///') || el.startsWith('#[') || el === '') {
-            i++;
-            continue;
-          }
-
-          // Simple variant
-          const simpleMatch = el.match(/^(\w+),?\s*$/);
-          if (simpleMatch) {
-            variants.push({ name: simpleMatch[1] });
-            i++;
-            continue;
-          }
-
-          // Variant with fields
-          const complexMatch = el.match(/^(\w+)\s*\{/);
-          if (complexMatch) {
-            const variantFields: string[] = [];
-            i++;
-            while (i < lines.length && !lines[i].trim().startsWith('}')) {
-              const vf = lines[i].trim();
-              if (vf.startsWith('pub ') || vf.match(/^\w+:/)) {
-                variantFields.push(vf.replace(/,$/, '').replace(/^pub /, '').trim());
-              }
-              if (vf.startsWith('#[')) { i++; continue; }
-              i++;
-            }
-            variants.push({ name: complexMatch[1], fields: variantFields.join(', ') });
-            i++;
-            continue;
-          }
-
-          i++;
-        }
-
-        enums.push({ name, doc, variants });
-        continue;
-      }
+  const lines = source.replace(/\r\n/g, '\n').split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const m = lines[i].match(/^pub enum (\w+)/);
+    if (!m) continue;
+    const docLines: string[] = [];
+    let j = i - 1;
+    while (j >= 0 && lines[j].trim().startsWith('#[')) j--;
+    while (j >= 0 && lines[j].trim().startsWith('///')) {
+      docLines.unshift(lines[j].trim().replace(/^\/\/\/\s?/, ''));
+      j--;
     }
-
-    i++;
+    const variants: EnumVariant[] = [];
+    let k = i + 1;
+    while (k < lines.length) {
+      const el = lines[k].trim();
+      if (el === '}') break;
+      const simple = el.match(/^(\w+),?\s*$/);
+      const complex = el.match(/^(\w+)\s*\{/);
+      if (simple) {
+        variants.push({ name: simple[1] });
+      } else if (complex) {
+        const fields: string[] = [];
+        k++;
+        while (k < lines.length && !lines[k].trim().startsWith('}')) {
+          const vf = lines[k].trim();
+          if (vf.startsWith('pub ') || /^\w+:/.test(vf)) fields.push(vf.replace(/,$/, '').replace(/^pub /, '').trim());
+          k++;
+        }
+        variants.push({ name: complex[1], fields: fields.join(', ') });
+      }
+      k++;
+    }
+    enums.push({ name: m[1], doc: docLines.join(' ').trim(), variants });
+    i = k;
   }
-
-  return { components, enums };
+  return enums;
 }
 
-function parseSceneBundle(source: string): Map<string, string> {
-  const mapping = new Map<string, string>();
-  const bundleMatch = source.match(/pub struct ComponentBundle\s*\{([\s\S]*?)\n\}/);
-  if (!bundleMatch) return mapping;
+/**
+ * Doc text made safe for MDX prose: outside code spans, `{`, `}` and `<`
+ * would be read as JSX. In a table cell a `|` would end the cell, code span
+ * or not.
+ */
+function mdx(text: string, cell = false): string {
+  const out = text
+    .split(/(`[^`]*`)/)
+    .map((part, i) => (i % 2 ? part : part.replace(/[{}]/g, c => `\\${c}`).replace(/</g, '&lt;')))
+    .join('');
+  return cell ? out.replace(/\|/g, '\\|').replace(/\n+/g, ' ') : out;
+}
 
-  const body = bundleMatch[1];
-  const fieldRegex = /pub (\w+):\s*Option<(\w+)>/g;
-  let m;
-  while ((m = fieldRegex.exec(body)) !== null) {
-    mapping.set(m[2], m[1]); // Component type → JSON field name
-  }
-  return mapping;
+function firstSentence(text: string): string {
+  const s = text.split(/(?<=\.)\s/)[0] ?? '';
+  return s || text;
+}
+
+/** Categories in the order the page lists them: core things first. */
+const CATEGORY_ORDER = ['Core', 'Rendering', 'Lighting', 'Animation', 'Skeleton', 'Physics', 'Tilemap', 'Navigation', 'Behaviors', 'AI', 'Gameplay', 'Combat', 'UI', 'Audio', 'Effects', 'Scripting', 'Performance'];
+
+function categoryRank(c: string): number {
+  const i = CATEGORY_ORDER.indexOf(c);
+  return i < 0 ? CATEGORY_ORDER.length : i;
+}
+
+/** The heading's slug: Starlight's slugger keeps underscores. */
+function anchor(c: ComponentMeta): string {
+  return c.sceneKey;
 }
 
 export function extractComponents(): void {
-  console.log('[sync] Extracting components from', COMPONENTS_FILE);
+  console.log('[sync] Extracting components from the core registry');
 
-  const componentsSource = readFileSync(COMPONENTS_FILE, 'utf-8');
-  const formatSource = readFileSync(FORMAT_FILE, 'utf-8');
+  const components = coreComponentMeta();
+  const enums = parseEnums(readFileSync(COMPONENTS_FILE, 'utf-8'));
+  const categories = [...new Set(components.map(c => c.category || 'Other'))]
+    .sort((a, b) => categoryRank(a) - categoryRank(b) || a.localeCompare(b));
+  const inCategory = (cat: string) => components
+    .filter(c => (c.category || 'Other') === cat)
+    .sort((a, b) => a.sceneKey.localeCompare(b.sceneKey));
+  const featured = components.filter(c => c.feature).length;
 
-  const { components, enums } = parseComponents(componentsSource);
-  const sceneMapping = parseSceneBundle(formatSource);
-
-  let mdx = `---
+  let out = `---
 title: Components Reference
 draft: false
-description: Complete reference for all built-in ECS components in jEngine.
+description: Every component the engine registers, by the key a scene names it with.
 sidebar:
   badge:
     text: Auto-synced
     variant: tip
 ---
 
-{/* Auto-generated from crates/jengine-core/src/ecs/components.rs by website/scripts/extract-components.ts */}
+{/* Auto-generated from crates/jengine-core/src/package/core_registration.rs by website/scripts/extract-components.ts */}
 {/* Do not edit manually — changes will be overwritten on next build */}
 
 <p class="auto-generated">
-  Auto-generated from <code>crates/jengine-core/src/ecs/components.rs</code>
+  Auto-generated from the components <code>crates/jengine-core/src/package/core_registration.rs</code> registers
 </p>
 
-jEngine provides ${components.length} built-in component types. All components derive \`Serialize\` and \`Deserialize\` for JSON scene files.
+jEngine registers ${components.length} components. A scene, a prefab or a script's spawn names one by its **scene key** - the \`"components"\` object of an entity is keyed by it. Every component is plain data and reads and writes as JSON; a field left out takes its default.
+
+${featured} of them belong to an **engine feature**: an optional subsystem a game's build carries only when its project uses it. The builder finds the features a project uses from its assets - a component key in a scene or prefab is one of the signs - so naming one of these components is enough. A component made only by a script, from a key assembled at run time, is a sign the builder cannot see: list its feature under \`include\` in the project's \`settings.engine_features\`. A component whose feature column is empty is in every build.
+
+Packages register components of their own; those are on each [package's page](/packages/).
 
 ## Summary
 
-| Component | Scene Key | Description |
-|-----------|-----------|-------------|
 `;
 
-  for (const comp of components) {
-    const sceneKey = sceneMapping.get(comp.name) || '—';
-    const shortDoc = comp.doc.split('.')[0] + '.';
-    mdx += `| \`${comp.name}\` | \`${sceneKey}\` | ${shortDoc} |\n`;
+  for (const cat of categories) {
+    out += `**${cat}**\n\n| Scene key | Type | Engine feature | Description |\n|-----------|------|----------------|-------------|\n`;
+    for (const c of inCategory(cat)) {
+      out += `| [\`${c.sceneKey}\`](#${anchor(c)}) | \`${c.name}\` | ${c.feature ? `\`${c.feature}\`` : ''} | ${mdx(firstSentence(c.description), true)} |\n`;
+    }
+    out += '\n';
   }
 
-  mdx += '\n---\n\n';
+  out += '---\n\n';
 
-  // Detail sections
-  for (const comp of components) {
-    mdx += `## ${comp.name}\n\n`;
-    mdx += `${comp.doc}\n\n`;
-
-    const sceneKey = sceneMapping.get(comp.name);
-    if (sceneKey) {
-      mdx += `**Scene JSON key:** \`${sceneKey}\`\n\n`;
-    }
-
-    if (comp.fields.length > 0 && comp.fields[0].name !== '0') {
-      mdx += '| Field | Type | Description |\n';
-      mdx += '|-------|------|-------------|\n';
-      for (const field of comp.fields) {
-        mdx += `| \`${field.name}\` | \`${field.type}\` | ${field.doc} |\n`;
+  for (const cat of categories) {
+    out += `## ${cat}\n\n`;
+    for (const c of inCategory(cat)) {
+      out += `### ${c.sceneKey}\n\n`;
+      const facts = [`**Type:** \`${c.name}\``, `**Editor:** ${mdx(c.label)}`];
+      if (c.feature) facts.push(`**Engine feature:** \`${c.feature}\``);
+      if (c.file) facts.push(`**Defined in:** \`${c.file}\``);
+      out += facts.join(' · ') + '\n\n';
+      if (c.doc) out += `${mdx(c.doc)}\n\n`;
+      if (c.fields.length > 0) {
+        out += '| Field | Type | Description |\n|-------|------|-------------|\n';
+        for (const f of c.fields) {
+          out += `| \`${f.name}\` | \`${f.type.replace(/\|/g, '\\|')}\` | ${mdx(f.description, true)} |\n`;
+        }
+        out += '\n';
       }
-    } else if (comp.fields[0]?.name === '0') {
-      mdx += `Newtype wrapper around \`${comp.fields[0].type}\`.\n`;
     }
-
-    mdx += '\n---\n\n';
   }
 
-  // Enum sections
   if (enums.length > 0) {
-    mdx += '## Enums\n\n';
+    out += '## Enums\n\nThe enums of `ecs/components.rs` that component fields take.\n\n';
     for (const en of enums) {
-      mdx += `### ${en.name}\n\n`;
-      mdx += `${en.doc}\n\n`;
-      mdx += '| Variant | Fields |\n';
-      mdx += '|---------|--------|\n';
+      out += `### ${en.name}\n\n`;
+      if (en.doc) out += `${mdx(en.doc)}\n\n`;
+      out += '| Variant | Fields |\n|---------|--------|\n';
       for (const v of en.variants) {
-        const escapedFields = v.fields ? `\`${v.fields}\`` : '—';
-        mdx += `| \`${v.name}\` | ${escapedFields} |\n`;
+        out += `| \`${v.name}\` | ${v.fields ? `\`${v.fields.replace(/\|/g, '\\|')}\`` : '—'} |\n`;
       }
-      mdx += '\n';
+      out += '\n';
     }
   }
 
-  writeFileSync(OUTPUT, mdx, 'utf-8');
+  writeFileSync(OUTPUT, out, 'utf-8');
   console.log('[sync] Written components reference →', OUTPUT);
-  console.log(`[sync]   ${components.length} components, ${enums.length} enums extracted`);
+  console.log(`[sync]   ${components.length} components (${featured} in engine features), ${enums.length} enums`);
 }
 
 if (import.meta.url === `file:///${process.argv[1]?.replace(/\\/g, '/')}` ||

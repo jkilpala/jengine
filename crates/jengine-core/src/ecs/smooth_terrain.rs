@@ -210,7 +210,7 @@ impl SmoothTerrain {
                 if d >= r {
                     continue;
                 }
-                let k = 1.0 - (d / r).powi(2);
+                let k = 1.0 - crate::detmath::DetMath::dpowi(d / r, 2);
                 let v = &mut self.density[j * w + i];
                 let n = (*v - amount * k).clamp(0.0, 1.0);
                 if n != *v {

@@ -42,8 +42,11 @@ const noBuild = args.includes('--no-build');
 if (noBuild) args.splice(args.indexOf('--no-build'), 1);
 const scene = flag('--scene') ?? 'scenes/224-runtime-conformance.scene';
 const chromePath = flag('--chrome') ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe';
+// Every flag taken out before the project is read: read first, `--web-dir`
+// was the "project" and the native run started in a folder that is not there.
+const webDirFlag = flag('--web-dir');
 const project = resolve(ROOT, args[0] ?? 'projects/engine-test-lab');
-const webDir = resolve(ROOT, flag('--web-dir') ?? join('target/web-build', basename(project), 'release'));
+const webDir = resolve(ROOT, webDirFlag ?? join('target/web-build', basename(project), 'release'));
 const TIMEOUT_MS = 120_000;
 
 function run(cmd, cmdArgs, opts = {}) {
@@ -82,7 +85,9 @@ function collector(label, resolveDone) {
 }
 
 async function runNative() {
-  const exe = join(ROOT, 'target/debug', process.platform === 'win32' ? 'jengine-runtime.exe' : 'jengine-runtime');
+  // Where cargo put it: a CARGO_TARGET_DIR moves the whole target directory.
+  const target = resolve(ROOT, process.env.CARGO_TARGET_DIR || 'target');
+  const exe = join(target, 'debug', process.platform === 'win32' ? 'jengine-runtime.exe' : 'jengine-runtime');
   if (!existsSync(exe)) throw new Error(`${exe} is missing - build it, or drop --no-build`);
   console.log(`native: ${scene}`);
   let done;
@@ -140,7 +145,12 @@ async function runWeb() {
   const chrome = spawn(chromePath, [
     `--remote-debugging-port=${port}`, `--user-data-dir=${mkdtempSync(join(tmpdir(), 'jconf-'))}`,
     '--no-first-run', '--no-default-browser-check', '--autoplay-policy=no-user-gesture-required',
-    '--window-size=1280,800', 'about:blank',
+    '--window-size=1280,800',
+    // A window behind another stops getting frames (macOS throttles it), and
+    // a scene that never reaches its fourth frame never says `done`.
+    '--disable-backgrounding-occluded-windows', '--disable-renderer-backgrounding',
+    '--disable-background-timer-throttling',
+    'about:blank',
   ], { stdio: 'ignore' });
   try {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -157,10 +167,14 @@ async function runWeb() {
     const finished = new Promise((r) => (done = r));
     const c = collector('web', done);
     const errors = [];
+    // The page's last lines, shown if it never says `done`.
+    const recent = [];
     ws.onmessage = (ev) => {
       const m = JSON.parse(ev.data);
       if (m.method === 'Runtime.consoleAPICalled') {
         const text = m.params.args.map((a) => a.value ?? a.description ?? '').join(' ');
+        recent.push(text);
+        if (recent.length > 25) recent.shift();
         c.line(text);
       } else if (m.method === 'Runtime.exceptionThrown') {
         errors.push(m.params.exceptionDetails.exception?.description ?? m.params.exceptionDetails.text);
@@ -170,6 +184,7 @@ async function runWeb() {
     send('Page.navigate', { url });
     const timeout = new Promise((r) => setTimeout(() => r('timeout'), TIMEOUT_MS));
     if ((await Promise.race([finished, timeout])) === 'timeout') {
+      console.log(`  web: the page's last ${recent.length} console lines:\n    ${recent.join('\n    ')}`);
       throw new Error(`web: no \`[conformance] done\` before the timeout${errors.length ? ` - ${errors.join('; ')}` : ''}`);
     }
     ws.close();

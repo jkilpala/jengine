@@ -88,7 +88,7 @@ fn a_script_fades_it_and_the_scene_keeps_it() {
     assert!(set_canvas_group_field(&world, g, "alpha", &serde_json::json!(1)).is_err());
     assert_eq!(world.get::<&CanvasGroup>(g).unwrap().opacity, 0.25);
     let scene = jengine_core::scene::format::save_scene(&world);
-    let saved = scene.entities.iter().find_map(|e| e.components.canvas_group.as_ref()).expect("saved");
+    let saved = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::ecs::canvas_group::CanvasGroup>("canvas_group")).expect("saved");
     assert_eq!(saved.opacity, 0.25);
     let _ = SpriteComponent::default();
 }

@@ -2,6 +2,7 @@
 
 mod app_state;
 mod event_loop;
+mod frame_rate; // jEngine patch: ask for the display's full frame rate
 mod keyboard; // jEngine patch: hardware keyboard keys
 mod monitor;
 mod notification_center;

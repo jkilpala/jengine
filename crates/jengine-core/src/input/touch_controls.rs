@@ -171,10 +171,14 @@ impl TouchControlsState {
             self.controller_in_use = true;
         }
         // Last frame's lifted fingers are gone; the rest are held until an
-        // event this frame says otherwise.
-        input.touches.retain(|t| t.stage != TouchStage::Ended);
-        for t in &mut input.touches {
-            t.stage = TouchStage::Held;
+        // event this frame says otherwise - unless no simulation step has
+        // seen last frame's yet (fixed-step gameplay, `InputState::hold_edges`):
+        // then a finger's `began` or `ended` waits for the step that will.
+        if !input.carries_edges() {
+            input.touches.retain(|t| t.stage != TouchStage::Ended);
+            for t in &mut input.touches {
+                t.stage = TouchStage::Held;
+            }
         }
         // Fingers that landed this frame, and controls tapped by one that
         // also lifted this frame: pressed for this one frame anyway, or a

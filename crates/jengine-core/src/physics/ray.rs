@@ -214,6 +214,7 @@ impl RaySnapshot {
             }
         }
         // Smooth terrain: its cells, as its physics body has them.
+        #[cfg(feature = "smooth_terrain")]
         for (entity, (terrain, t, w)) in world
             .query::<(
                 &crate::ecs::smooth_terrain::SmoothTerrain,
@@ -248,6 +249,7 @@ impl RaySnapshot {
             }
         }
         // Spline shapes: their fill, as their physics body has it.
+        #[cfg(feature = "spline_shape")]
         for (entity, (shape, t, w)) in world
             .query::<(
                 &crate::renderer::spline_shape::SplineShape,

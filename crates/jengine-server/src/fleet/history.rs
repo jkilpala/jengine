@@ -89,6 +89,11 @@ impl History {
 
     pub fn push(&mut self, sample: Value) {
         let t = sample["t"].as_f64().unwrap_or(0.0);
+        // A Pi reads months back after a boot until the network sets its clock;
+        // a sample from before the newest one is from then, and is not kept.
+        if self.fine.back().is_some_and(|last| t < last["t"].as_f64().unwrap_or(0.0)) {
+            return;
+        }
         let due = self.coarse.back().is_none_or(|last| t - last["t"].as_f64().unwrap_or(0.0) >= COARSE_EVERY);
         if due {
             self.coarse.push_back(sample.clone());
@@ -161,6 +166,16 @@ mod tests {
         let fine = again.range("hour")["samples"].as_array().unwrap().len();
         assert!((55..=61).contains(&fine), "the last hour's minutes: {fine}");
         let _ = std::fs::remove_file(&file);
+    }
+
+    #[test]
+    fn a_sample_from_before_the_newest_is_dropped() {
+        let mut h = History::new(None);
+        for t in [6000.0, 6005.0, 1500.0, 6015.0] {
+            h.push(json!({ "t": t }));
+        }
+        let ts: Vec<f64> = h.range("hour")["samples"].as_array().unwrap().iter().map(|s| s["t"].as_f64().unwrap()).collect();
+        assert_eq!(ts, [6000.0, 6005.0, 6015.0]);
     }
 
     #[test]

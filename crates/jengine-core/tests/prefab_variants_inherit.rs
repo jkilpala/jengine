@@ -33,25 +33,25 @@ fn zoo() -> HashMap<String, EntityData> {
 fn a_variant_is_its_base_with_its_own_components_and_overrides_over_it() {
     let r = resolve_prefab_variants(&zoo());
     let fire = &r["FireSlime"].components;
-    let sprite = fire.sprite.as_ref().expect("the base's sprite");
+    let sprite = fire.get::<jengine_core::ecs::components::SpriteComponent>("sprite").expect("the base's sprite");
     assert_eq!(sprite.texture_id, "slime.png");
     assert_eq!(sprite.color, [1.0, 0.4, 0.2, 1.0], "the override");
-    assert!(fire.point_light.is_some(), "its own component");
-    assert!(fire.velocity.is_some(), "the base's other components");
-    assert_eq!(fire.prefab_instance.as_ref().map(|i| i.prefab_id.as_str()), Some("Slime"), "it names its base");
+    assert!(fire.get::<jengine_core::ecs::components::PointLight2D>("point_light").is_some(), "its own component");
+    assert!(fire.get::<jengine_core::ecs::components::Velocity2D>("velocity").is_some(), "the base's other components");
+    assert_eq!(fire.get::<jengine_core::ecs::components::PrefabInstance>("prefab_instance").map(|i| i.prefab_id), Some("Slime".to_string()), "it names its base");
     // The base is untouched.
-    assert_eq!(r["Slime"].components.sprite.as_ref().unwrap().color, [0.4, 1.0, 0.4, 1.0]);
-    assert!(r["Slime"].components.point_light.is_none());
+    assert_eq!(r["Slime"].components.get::<jengine_core::ecs::components::SpriteComponent>("sprite").unwrap().color, [0.4, 1.0, 0.4, 1.0]);
+    assert!(r["Slime"].components.get::<jengine_core::ecs::components::PointLight2D>("point_light").is_none());
 }
 
 #[test]
 fn a_variant_of_a_variant_inherits_both() {
     let r = resolve_prefab_variants(&zoo());
     let big = &r["BigFireSlime"].components;
-    assert_eq!(big.transform.as_ref().unwrap().scale.to_array(), [2.0, 2.0]);
-    assert_eq!(big.sprite.as_ref().unwrap().color, [1.0, 0.4, 0.2, 1.0], "the middle variant's override");
-    assert!(big.point_light.is_some(), "the middle variant's component");
-    assert_eq!(big.sprite.as_ref().unwrap().texture_id, "slime.png", "the root's");
+    assert_eq!(big.get::<jengine_core::ecs::components::Transform>("transform").unwrap().scale.to_array(), [2.0, 2.0]);
+    assert_eq!(big.get::<jengine_core::ecs::components::SpriteComponent>("sprite").unwrap().color, [1.0, 0.4, 0.2, 1.0], "the middle variant's override");
+    assert!(big.get::<jengine_core::ecs::components::PointLight2D>("point_light").is_some(), "the middle variant's component");
+    assert_eq!(big.get::<jengine_core::ecs::components::SpriteComponent>("sprite").unwrap().texture_id, "slime.png", "the root's");
 }
 
 #[test]
@@ -65,9 +65,9 @@ fn a_scene_instance_of_a_variant_gets_the_whole_chain() {
     let report = jengine_core::scene::expand_prefab_instances(&mut scene, &prefabs);
     assert_eq!(report.expanded, 1);
     let c = &scene.entities[0].components;
-    assert_eq!(c.transform.as_ref().unwrap().position.to_array(), [100.0, 50.0]);
-    assert_eq!(c.sprite.as_ref().unwrap().color, [1.0, 0.4, 0.2, 1.0]);
-    assert!(c.point_light.is_some() && c.velocity.is_some());
+    assert_eq!(c.get::<jengine_core::ecs::components::Transform>("transform").unwrap().position.to_array(), [100.0, 50.0]);
+    assert_eq!(c.get::<jengine_core::ecs::components::SpriteComponent>("sprite").unwrap().color, [1.0, 0.4, 0.2, 1.0]);
+    assert!(c.get::<jengine_core::ecs::components::PointLight2D>("point_light").is_some() && c.get::<jengine_core::ecs::components::Velocity2D>("velocity").is_some());
 }
 
 #[test]
@@ -81,9 +81,9 @@ fn a_cycle_or_a_missing_base_is_left_as_authored() {
         "prefab_instance": { "prefab_id": "Nobody" }, "sprite": { "texture_id": "o.png", "color": [1, 1, 1, 1], "z_order": 0 } } })));
     let r = resolve_prefab_variants(&m);
     assert_eq!(r.len(), 3, "nothing dropped");
-    assert_eq!(r["Orphan"].components.sprite.as_ref().unwrap().texture_id, "o.png");
+    assert_eq!(r["Orphan"].components.get::<jengine_core::ecs::components::SpriteComponent>("sprite").unwrap().texture_id, "o.png");
     for k in ["A", "B"] {
-        assert!(r[k].components.sprite.is_some(), "{k} kept its own sprite");
+        assert!(r[k].components.get::<jengine_core::ecs::components::SpriteComponent>("sprite").is_some(), "{k} kept its own sprite");
     }
 }
 

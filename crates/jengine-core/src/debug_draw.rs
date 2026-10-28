@@ -25,8 +25,10 @@ const KINEMATIC: [f32; 3] = [0.3, 0.8, 1.0];
 const SENSOR: [f32; 3] = [1.0, 0.9, 0.2];
 const JOINT: [f32; 3] = [1.0, 0.55, 0.1];
 /// A `nav_region`'s walkable outline and the grown shapes it walks round.
+#[cfg(feature = "navigation")]
 const NAV: [f32; 3] = [0.2, 0.85, 0.8];
 /// A walking `nav_agent`'s path.
+#[cfg(feature = "navigation")]
 const NAV_PATH: [f32; 3] = [1.0, 0.4, 0.85];
 /// Radius of the dot marking a joint's anchor on each body.
 const ANCHOR_DOT: f32 = 4.0;
@@ -163,6 +165,7 @@ pub fn physics_debug_commands(world: &World) -> Vec<DebugDrawCommand> {
 
     // Navigation: where an agent's centre may stand (the outline shrunk and
     // each obstacle grown by the agent radius), and each walker's way.
+    #[cfg(feature = "navigation")]
     for (_, region) in world.query::<&crate::navigation::NavRegion>().iter() {
         let Some(graph) = &region.baked else { continue };
         polyline(&mut out, graph.outline(), true, NAV);
@@ -170,6 +173,7 @@ pub fn physics_debug_commands(world: &World) -> Vec<DebugDrawCommand> {
             polyline(&mut out, pts, true, NAV);
         }
     }
+    #[cfg(feature = "navigation")]
     for (_, (t, agent)) in world.query::<(&Transform, &crate::navigation::NavAgent)>().iter() {
         let mut from = t.position;
         for p in &agent.path {

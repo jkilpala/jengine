@@ -293,7 +293,12 @@ pub fn generate_project_runtime(
     // Paths are relative to the generated crate so the project tree stays
     // movable, as long as it keeps the same relation to the engine.
     let runtime_path = rel_path(&crate_dir, &engine_root.join("crates").join("jengine-runtime"));
+    let engine = crate::engine_features::for_project(project_root)?;
+    let core = engine.core_dependency(&rel_path(&crate_dir, &engine_root.join("crates").join("jengine-core")));
+    let hosted = engine.hosted_features().join(", ");
     let winit_path = rel_path(&crate_dir, &engine_root.join("vendor").join("winit"));
+    // The native runtime runs Luau, so it takes the engine's Luau too.
+    let rapier = format!("{}{}", rapier_patch(&crate_dir, engine_root), luau_patch(&crate_dir, engine_root));
 
     let mut deps = String::new();
     for pkg in &full {
@@ -319,7 +324,8 @@ pub fn generate_project_runtime(
          [workspace]\n\
          \n\
          [dependencies]\n\
-         jengine-runtime = {{ path = \"{runtime_path}\", default-features = false }}\n\
+         jengine-runtime = {{ path = \"{runtime_path}\", default-features = false, features = [{hosted}] }}\n\
+         {core}\
          anyhow = \"1\"\n\
          {deps}\n\
          # Forwarded so `--features backend-*` behaves exactly as it does on the\n\
@@ -336,7 +342,8 @@ pub fn generate_project_runtime(
          # the launch screen. A standalone workspace does not inherit the\n\
          # engine's own [patch], so it is repeated here.\n\
          [patch.crates-io]\n\
-         winit = {{ path = \"{winit_path}\" }}\n"
+         winit = {{ path = \"{winit_path}\" }}\n\
+         {rapier}"
     );
     write_if_changed(&crate_dir.join("Cargo.toml"), &cargo_toml)?;
     seed_engine_lock(&crate_dir, engine_root)?;
@@ -402,7 +409,11 @@ pub fn generate_project_android(
         .unwrap_or("game");
     let crate_name = format!("{}-android", slug(project_name));
     let winit_path = rel_path(&crate_dir, &engine_root.join("vendor").join("winit"));
+    // The native runtime runs Luau, so it takes the engine's Luau too.
+    let rapier = format!("{}{}", rapier_patch(&crate_dir, engine_root), luau_patch(&crate_dir, engine_root));
     let runtime_path = rel_path(&crate_dir, &engine_root.join("crates").join("jengine-runtime"));
+    let engine = crate::engine_features::for_project(project_root)?;
+    let core = engine.core_dependency(&rel_path(&crate_dir, &engine_root.join("crates").join("jengine-core")));
 
     let mut deps = String::new();
     for pkg in &full {
@@ -415,6 +426,7 @@ pub fn generate_project_android(
     let features = backend_features
         .iter()
         .map(|f| format!("\"{f}\""))
+        .chain(engine.hosted_features())
         .collect::<Vec<_>>()
         .join(", ");
 
@@ -441,6 +453,7 @@ pub fn generate_project_android(
          \n\
          [dependencies]\n\
          jengine-runtime = {{ path = \"{runtime_path}\", default-features = false, features = [{features}] }}\n\
+         {core}\
          {deps}\n\
          [profile.release]\n\
          # Symbols stripped: a phone has no use for them and they are most of\n\
@@ -452,7 +465,8 @@ pub fn generate_project_android(
          # (vendor/winit/JENGINE-PATCH.md). A standalone workspace does not\n\
          # inherit the engine's own [patch], so it is repeated here.\n\
          [patch.crates-io]\n\
-         winit = {{ path = \"{winit_path}\" }}\n"
+         winit = {{ path = \"{winit_path}\" }}\n\
+         {rapier}"
     );
     write_if_changed(&crate_dir.join("Cargo.toml"), &cargo_toml)?;
     seed_engine_lock(&crate_dir, engine_root)?;
@@ -575,7 +589,10 @@ pub fn generate_project_viewport(
          [dependencies]\n\
          jengine-editor-viewport-lib = {{ package = \"jengine-editor-viewport\", path = \"{viewport_path}\" }}\n\
          wasm-bindgen = \"0.2\"\n\
-         {deps}"
+         {deps}\n\
+         [patch.crates-io]\n\
+         {rapier}",
+        rapier = rapier_patch(&crate_dir, engine_root),
     );
     write_if_changed(&crate_dir.join("Cargo.toml"), &cargo_toml)?;
     seed_engine_lock(&crate_dir, engine_root)?;
@@ -679,6 +696,9 @@ pub fn generate_project_web(
     // jengine_web` pins the emitted files, so `index.html` is unchanged.
     let crate_name = format!("{}-web", slug(project_name));
     let web_path = rel_path(&crate_dir, &engine_root.join("crates").join("jengine-web"));
+    let engine = crate::engine_features::for_project(project_root)?;
+    let core = engine.core_dependency(&rel_path(&crate_dir, &engine_root.join("crates").join("jengine-core")));
+    let hosted = engine.hosted_features().join(", ");
 
     let mut deps = String::new();
     for pkg in &full {
@@ -709,7 +729,8 @@ pub fn generate_project_web(
          \n\
          [dependencies]\n\
          # `standalone` off: this crate supplies the module's start function.\n\
-         jengine-web-lib = {{ package = \"jengine-web\", path = \"{web_path}\", default-features = false }}\n\
+         jengine-web-lib = {{ package = \"jengine-web\", path = \"{web_path}\", default-features = false, features = [{hosted}] }}\n\
+         {core}\
          wasm-bindgen = \"0.2\"\n\
          {deps}\n\
          # Forwarded so `--features physics,backend-*` behaves exactly as it\n\
@@ -718,7 +739,11 @@ pub fn generate_project_web(
          default = [\"physics\", \"backend-webgpu\"]\n\
          physics = [\"jengine-web-lib/physics\"]\n\
          backend-webgpu = [\"jengine-web-lib/backend-webgpu\"]\n\
-         backend-webgl = [\"jengine-web-lib/backend-webgl\"]\n"
+         backend-webgl = [\"jengine-web-lib/backend-webgl\"]\n\
+         \n\
+         [patch.crates-io]\n\
+         {rapier}",
+        rapier = rapier_patch(&crate_dir, engine_root),
     );
     write_if_changed(&crate_dir.join("Cargo.toml"), &cargo_toml)?;
     seed_engine_lock(&crate_dir, engine_root)?;
@@ -874,6 +899,27 @@ fn derived_entry_point(name: &str) -> String {
 /// yet), or the two live on different roots, an absolute path is emitted
 /// instead. Absolute is portable enough — it is correct on this machine, which
 /// is what a generated build artifact needs to be.
+/// The `[patch.crates-io]` line for the engine's rapier
+/// (vendor/rapier2d/JENGINE-PATCH.md): the maths rapier calls on `f32` itself
+/// through `libm`, so a project's physics is the same bits on every platform.
+/// A standalone crate does not inherit the engine's own [patch], so every
+/// generated crate repeats it - one built without it plays a different game
+/// on Windows from the one on a Mac or in the browser.
+fn rapier_patch(crate_dir: &Path, engine_root: &Path) -> String {
+    let path = rel_path(crate_dir, &engine_root.join("vendor").join("rapier2d"));
+    format!("rapier2d = {{ path = \"{path}\" }}\n")
+}
+
+/// The `[patch.crates-io]` line for the engine's Luau, in a crate that runs
+/// Lua natively (runtime, Android): its maths through `libm`, no fused
+/// multiply-add, one rule for `^` (vendor/luau0-src/JENGINE-PATCH.md).
+/// Without it a project's scripts compute different numbers on a Mac, a
+/// phone and Windows - and different ones from the editor.
+fn luau_patch(crate_dir: &Path, engine_root: &Path) -> String {
+    let path = rel_path(crate_dir, &engine_root.join("vendor").join("luau0-src"));
+    format!("luau0-src = {{ path = \"{path}\" }}\n")
+}
+
 fn rel_path(base: &Path, target: &Path) -> String {
     let abs = |p: &Path| -> PathBuf {
         p.canonicalize().unwrap_or_else(|_| {
@@ -1289,6 +1335,7 @@ fn scaffold_rust_package(output_dir: &Path, name: &str, standalone: bool, link_p
             .replace("{{COMPONENT_STRUCT}}", &component_struct)
             .replace("{{COMPONENT_KEY}}", &component_key)
             .replace("{{COMMAND_PREFIX}}", &command_prefix)
+            .replace("{{ENGINE_VERSION}}", jengine_core::version::ENGINE_VERSION)
     };
     let cargo_toml = fill(include_str!("../../../templates/package/Cargo.toml"));
     let lib_rs = fill(include_str!("../../../templates/package/src/lib.rs"));
@@ -1316,7 +1363,8 @@ pub fn create_script_package_from_template(output_dir: &Path, name: &str) -> Res
     }
 
     let package_toml = include_str!("../../../templates/script-package/package.toml")
-        .replace("{{PACKAGE_NAME}}", name);
+        .replace("{{PACKAGE_NAME}}", name)
+        .replace("{{ENGINE_VERSION}}", jengine_core::version::ENGINE_VERSION);
     let example_lua = include_str!("../../../templates/script-package/scripts/example.lua")
         .replace("{{PACKAGE_NAME}}", name);
     let readme = include_str!("../../../templates/script-package/README.md")
@@ -1342,7 +1390,8 @@ pub fn create_asset_package_from_template(output_dir: &Path, name: &str) -> Resu
     }
 
     let package_toml = include_str!("../../../templates/asset-package/package.toml")
-        .replace("{{PACKAGE_NAME}}", name);
+        .replace("{{PACKAGE_NAME}}", name)
+        .replace("{{ENGINE_VERSION}}", jengine_core::version::ENGINE_VERSION);
     let readme = include_str!("../../../templates/asset-package/README.md")
         .replace("{{PACKAGE_NAME}}", name);
 
@@ -1528,6 +1577,57 @@ mod tests {
         assert!(registers < runs, "{lib}");
     }
 
+    /// Every generated crate is standalone and so does not inherit the
+    /// engine's `[patch]`: each must name the patched rapier itself, or a
+    /// project's physics is rapier from crates.io - the platform's maths in
+    /// its broad phase, and a different game on Windows
+    /// (vendor/rapier2d/JENGINE-PATCH.md).
+    #[test]
+    fn every_generated_crate_carries_the_engines_rapier() {
+        let tmp = tempfile::tempdir().unwrap();
+        let engine = tmp.path().join("engine");
+        let project = tmp.path().join("projects").join("game");
+        std::fs::create_dir_all(&project).unwrap();
+        let packages = vec![fixture_package(tmp.path(), "jengine-alpha", PackageType::Full)];
+        let manifests = [
+            generate_project_runtime(&project, &engine, &packages).unwrap().unwrap(),
+            generate_project_android(&project, &engine, &packages, &[]).unwrap(),
+            generate_project_viewport(&project, &engine, &packages).unwrap().unwrap(),
+            generate_project_web(&project, &engine, &packages).unwrap().unwrap(),
+        ];
+        for m in manifests {
+            let cargo = std::fs::read_to_string(&m).unwrap();
+            let patch = cargo.find("[patch.crates-io]").unwrap_or_else(|| panic!("{}: no [patch.crates-io]", m.display()));
+            let rapier = cargo.find("rapier2d = { path = \"").unwrap_or_else(|| panic!("{}: no rapier patch:\n{cargo}", m.display()));
+            assert!(rapier > patch, "{}: rapier is not under [patch.crates-io]", m.display());
+            assert!(cargo[rapier..].lines().next().unwrap().contains("vendor/rapier2d"), "{}", m.display());
+        }
+    }
+
+    /// The runtime and Android crates run Luau, and a project built without
+    /// the engine's copy computes its scripts' numbers with the platform's
+    /// maths and fused multiply-add (vendor/luau0-src/JENGINE-PATCH.md). The
+    /// wasm crates run Fengari and do not link Luau.
+    #[test]
+    fn native_generated_crates_carry_the_engines_luau() {
+        let tmp = tempfile::tempdir().unwrap();
+        let engine = tmp.path().join("engine");
+        let project = tmp.path().join("projects").join("game");
+        std::fs::create_dir_all(&project).unwrap();
+        let packages = vec![fixture_package(tmp.path(), "jengine-alpha", PackageType::Full)];
+        let manifests = [
+            generate_project_runtime(&project, &engine, &packages).unwrap().unwrap(),
+            generate_project_android(&project, &engine, &packages, &[]).unwrap(),
+        ];
+        for m in manifests {
+            let cargo = std::fs::read_to_string(&m).unwrap();
+            let patch = cargo.find("[patch.crates-io]").unwrap();
+            let luau = cargo.find("luau0-src = { path = \"").unwrap_or_else(|| panic!("{}: no luau patch:\n{cargo}", m.display()));
+            assert!(luau > patch, "{}: luau0-src is not under [patch.crates-io]", m.display());
+            assert!(cargo[luau..].lines().next().unwrap().contains("vendor/luau0-src"), "{}", m.display());
+        }
+    }
+
     #[test]
     fn project_web_crate_is_not_generated_without_rust_packages() {
         let tmp = tempfile::tempdir().unwrap();
@@ -1557,6 +1657,10 @@ mod tests {
         assert!(pkg_dir.join("src/lib.rs").exists());
         assert!(pkg_dir.join("package.toml").exists());
         assert!(pkg_dir.join("README.md").exists());
+
+        let manifest = std::fs::read_to_string(pkg_dir.join("package.toml")).unwrap();
+        let engine = format!("engine_version = \"{}\"", jengine_core::version::ENGINE_VERSION);
+        assert!(manifest.contains(&engine), "a new package needs the engine that made it");
 
         let lib = std::fs::read_to_string(pkg_dir.join("src/lib.rs")).unwrap();
         // The type the builder will link, with no `entry_point` declared.
@@ -1683,6 +1787,9 @@ mod tests {
         let manifest_str = std::fs::read_to_string(pkg_dir.join("package.toml")).unwrap();
         assert!(manifest_str.contains("my-script-pack"));
         assert!(manifest_str.contains("script"));
+        assert!(!manifest_str.contains("{{"), "an unfilled placeholder");
+        let engine = format!("engine_version = \"{}\"", jengine_core::version::ENGINE_VERSION);
+        assert!(manifest_str.contains(&engine), "a new package needs the engine that made it");
 
         let lua = std::fs::read_to_string(pkg_dir.join("scripts/example.lua")).unwrap();
         assert!(lua.contains("my-script-pack"));
@@ -1708,6 +1815,9 @@ mod tests {
         let manifest_str = std::fs::read_to_string(pkg_dir.join("package.toml")).unwrap();
         assert!(manifest_str.contains("sprite-pack"));
         assert!(manifest_str.contains("asset"));
+        assert!(!manifest_str.contains("{{"), "an unfilled placeholder");
+        let engine = format!("engine_version = \"{}\"", jengine_core::version::ENGINE_VERSION);
+        assert!(manifest_str.contains(&engine), "a new package needs the engine that made it");
     }
 
     #[test]

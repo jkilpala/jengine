@@ -23,6 +23,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::ecs::components::{Transform, WorldTransform};
 
+pub use crate::renderer::lighting::PlacedFog;
+
 /// `fog`: air that catches light.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
@@ -69,18 +71,6 @@ impl Default for Fog {
             time: 0.0,
         }
     }
-}
-
-/// A fog where it is: what the composite needs.
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct PlacedFog {
-    pub fog_color: [f32; 4],
-    /// noise scale, noise amount, ground, height.
-    pub shape: [f32; 4],
-    /// The drift so far (x, y), scatter, unused.
-    pub motion: [f32; 4],
-    /// The box's centre and half size (half size 0: everywhere).
-    pub area: [f32; 4],
 }
 
 /// Drift every fog. Inside `tick_motion`.

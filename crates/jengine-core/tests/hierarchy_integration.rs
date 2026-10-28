@@ -23,27 +23,21 @@ fn scene_with_parent() -> SceneData {
         children: Vec::new(),
         name: "Parent".to_string(),
         parent: None,
-        components: ComponentBundle {
-            transform: Some(Transform {
+        components: ComponentBundle::new().with("transform", &Transform {
                 position: glam::Vec2::new(10.0, 20.0),
                 rotation: 0.0,
                 scale: glam::Vec2::ONE,
             }),
-            ..Default::default()
-        },
     };
     let child = EntityData {
         children: Vec::new(),
         name: "Child".to_string(),
         parent: Some("Parent".to_string()),
-        components: ComponentBundle {
-            transform: Some(Transform {
+        components: ComponentBundle::new().with("transform", &Transform {
                 position: glam::Vec2::new(5.0, 0.0),
                 rotation: 0.0,
                 scale: glam::Vec2::ONE,
             }),
-            ..Default::default()
-        },
     };
     SceneData {
         name: "hier_test".to_string(),

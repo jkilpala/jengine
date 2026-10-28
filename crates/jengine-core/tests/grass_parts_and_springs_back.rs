@@ -4,6 +4,7 @@
 //! springs back once it has gone - grass parting round a walker. Ticked in
 //! `tick_motion`, the step every host makes. Found by the showcase's Meadow
 //! Trails.
+#![cfg(feature = "displacement")]
 
 use glam::Vec2;
 use hecs::World;

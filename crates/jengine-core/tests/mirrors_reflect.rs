@@ -4,6 +4,7 @@
 //! that texture behind the line, flipped across it. Found by the showcase's
 //! Mirror Maze, where every wall that was a mirror had been a camera, a
 //! target and a hand-placed, hand-flipped sprite.
+#![cfg(feature = "mirror")]
 
 mod support;
 

@@ -542,7 +542,9 @@ fn abort(node: &BtNode, id: usize, runs: &mut [NodeRun], sizes: &[usize], ctx: &
 fn stop_moving(drove: Drove, ctx: &mut Ctx) {
     match drove {
         Drove::Agent => {
-            let _ = crate::navigation::set_nav_target(ctx.world, ctx.me, None);
+            crate::feature!("navigation", {
+                let _ = crate::navigation::set_nav_target(ctx.world, ctx.me, None);
+            });
         }
         Drove::Velocity => {
             if let Ok(mut v) = ctx.world.get::<&mut Velocity2D>(ctx.me) {
@@ -735,7 +737,7 @@ fn tick(node: &BtNode, id: usize, runs: &mut [NodeRun], sizes: &[usize], ctx: &m
         BtNode::Write { target, component, field, value, .. } => {
             let from = ctx.me_pos();
             let Some(e) = find_entity(ctx.world, ctx.me, from, target) else { return Failure };
-            match crate::ecs::timeline::write_field(ctx.world, e, component, field, value) {
+            match crate::package::component_registry::write_field(ctx.world, e, component, field, value) {
                 Ok(()) => Success,
                 Err(err) => {
                     log::warn!("behavior_tree write: {err}");
@@ -744,14 +746,14 @@ fn tick(node: &BtNode, id: usize, runs: &mut [NodeRun], sizes: &[usize], ctx: &m
             }
         }
         BtNode::Event { event, .. } => {
-            crate::ecs::callbacks::push(ctx.me, crate::ecs::timeline::handler_for(event));
+            crate::ecs::callbacks::push(ctx.me, crate::ecs::callbacks::handler_for(event));
             Success
         }
         BtNode::Call { call, .. } => {
             if !runs[id].active {
                 runs[id].active = true;
                 set_blackboard(ctx.world, ctx.me, call, json!("running"));
-                crate::ecs::callbacks::push(ctx.me, crate::ecs::timeline::handler_for(call));
+                crate::ecs::callbacks::push(ctx.me, crate::ecs::callbacks::handler_for(call));
             }
             let s = match blackboard(ctx.world, ctx.me, call) {
                 Some(Value::Bool(true)) => Success,
@@ -782,7 +784,12 @@ fn move_to(node: &BtNode, id: usize, runs: &mut [NodeRun], ctx: &mut Ctx, target
     }
     let started = runs[id].active;
     runs[id].active = true;
+    // A `nav_agent` walks the way there (`navigation`); without one - or in
+    // a build without navigation - the leaf steers its velocity straight.
+    #[cfg(feature = "navigation")]
     let has_agent = ctx.world.get::<&crate::navigation::NavAgent>(ctx.me).is_ok();
+    #[cfg(not(feature = "navigation"))]
+    let has_agent = false;
     let dir = if away {
         let v = from - goal;
         if v.length_squared() > 1e-6 { v.normalize() } else { Vec2::X }
@@ -792,7 +799,10 @@ fn move_to(node: &BtNode, id: usize, runs: &mut [NodeRun], ctx: &mut Ctx, target
     if has_agent {
         // Fleeing walks to a point past the distance wanted.
         let aim = if away { from + dir * (arrive - d + arrive * 0.5) } else { goal };
+        #[cfg(feature = "navigation")]
         let current = ctx.world.get::<&crate::navigation::NavAgent>(ctx.me).ok().and_then(|a| a.target);
+        #[cfg(not(feature = "navigation"))]
+        let current: Option<[f32; 2]> = None;
         // The agent gave up short of the goal (it cannot get closer).
         if started && runs[id].drove == Drove::Agent && current.is_none() && runs[id].timer > 0.25 {
             return finish(runs, id, Status::Failure);
@@ -800,10 +810,12 @@ fn move_to(node: &BtNode, id: usize, runs: &mut [NodeRun], ctx: &mut Ctx, target
         runs[id].timer += ctx.dt;
         let moved = current.is_none_or(|c| Vec2::from(c).distance(aim) > 4.0);
         if moved {
-            let _ = crate::navigation::set_nav_target(ctx.world, ctx.me, Some([aim.x, aim.y]));
-            if let Ok(mut a) = ctx.world.get::<&mut crate::navigation::NavAgent>(ctx.me) {
-                a.speed = speed;
-            }
+            crate::feature!("navigation", {
+                let _ = crate::navigation::set_nav_target(ctx.world, ctx.me, Some([aim.x, aim.y]));
+                if let Ok(mut a) = ctx.world.get::<&mut crate::navigation::NavAgent>(ctx.me) {
+                    a.speed = speed;
+                }
+            });
             runs[id].timer = 0.0;
         }
         runs[id].drove = Drove::Agent;

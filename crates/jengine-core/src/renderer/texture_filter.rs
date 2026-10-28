@@ -80,18 +80,22 @@ impl TextureFilterRules {
             .map(|(_, f)| *f);
         // A falling-sand grid is drawn a cell a pixel: nearest, unless the
         // project names it.
+        #[cfg(feature = "pixel_sim")]
         if rule.is_none() && id.starts_with(crate::ecs::pixel_sim::TEXTURE_PREFIX) {
             return TextureFilter::Nearest;
         }
         // A tile light is a texel a cell, blended into a glow.
+        #[cfg(feature = "tile_light")]
         if rule.is_none() && id.starts_with(crate::ecs::tile_light::TEXTURE_PREFIX) {
             return TextureFilter::Linear;
         }
         // Fog of war is a texel a cell, its edges soft.
+        #[cfg(feature = "fog_of_war")]
         if rule.is_none() && id.starts_with(crate::ecs::fog_of_war::TEXTURE_PREFIX) {
             return TextureFilter::Linear;
         }
         // Smoke is a coarse grid of something soft: smooth, likewise.
+        #[cfg(feature = "smoke")]
         if rule.is_none() && id.starts_with(crate::ecs::smoke::TEXTURE_PREFIX) {
             return TextureFilter::Linear;
         }

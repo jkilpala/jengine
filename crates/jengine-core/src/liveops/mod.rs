@@ -97,7 +97,9 @@ impl LiveOpsSettings {
     /// `liveops` out of a project's `settings` object; empty if absent or
     /// malformed (logged).
     pub fn from_settings(settings: &Value) -> Self {
-        let Some(v) = settings.get("liveops") else { return Self::default() };
+        // `null` is absent too: the web runtime reads `settings` into a
+        // struct and hands `liveops` back as `null` when the project has none.
+        let Some(v) = settings.get("liveops").filter(|v| !v.is_null()) else { return Self::default() };
         serde_json::from_value(v.clone()).unwrap_or_else(|e| {
             log::warn!("[liveops] settings.liveops is not valid: {e}");
             Self::default()
@@ -692,6 +694,13 @@ mod tests {
             defaults: [("coins".to_string(), json!(10)), ("welcome".to_string(), json!("Hi"))].into_iter().collect(),
             ..Default::default()
         }
+    }
+
+    #[test]
+    fn a_null_liveops_setting_is_no_setting() {
+        // What the web runtime hands over for a project without live ops.
+        let s = LiveOpsSettings::from_settings(&json!({ "liveops": null }));
+        assert!(s.url.is_empty());
     }
 
     fn snapshot(issued_at: u64, coins: i64) -> Snapshot {

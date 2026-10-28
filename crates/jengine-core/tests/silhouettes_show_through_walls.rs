@@ -6,7 +6,7 @@
 //! where the wall is clear, and the wall stays blue past the thief. Found by
 //! the showcase's Behind the Walls. Without a GPU adapter it prints why and
 //! passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "silhouette"))]
 
 use glam::Vec2;
 use hecs::World;

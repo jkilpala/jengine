@@ -35,5 +35,5 @@ Linked only into the builds of a project that lists them in `project.jengine`'s 
 | Package | What it is | Script namespace | Components |
 |---|---|---|---|
 | [jengine-net](/packages/net/) | WebSocket transport, connection lifecycle and a script-reachable message bus | `Net` | 0 |
-| [jengine-online](/packages/online/) | A game's side of jengine-server: sign in, join rooms, and show synced entities | `Online` | 2 |
+| [jengine-online](/packages/online/) | A game's side of jengine-server: sign in, join rooms, and show synced entities | `Online` | 3 |
 | [jengine-tracker](/packages/tracker/) | Tracker music: .song files from jSuite's Music Tracker, synthesised to PCM when they load | - | 0 |

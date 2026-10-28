@@ -9,7 +9,8 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
-jengine-core = { path = "../jengine-core", default-features = false }
+# Asset packs and live ops: it splits builds into packs and publishes them.
+jengine-core = { path = "../jengine-core", default-features = false, features = ["packs", "liveops"] }
 # Asset pack archives are named for their SHA-256 (`asset_packs`).
 sha2 = "0.10"
 serde = { workspace = true }

@@ -230,6 +230,20 @@ export const PP_EFFECTS: PpEffectSpec[] = [
     ],
   },
   {
+    // The air between the eye and the far: each pixel mixed toward the haze
+    // colour by its depth (the velocity pass's, a 3D stage's or a sprite's
+    // z). `near` and `far` are z; nearer is higher.
+    name: "depth_haze",
+    label: "Depth Haze",
+    params: [
+      { key: "near", label: "Begins at (z)", min: -2000, max: 500, step: 5, default: 0, decimals: 0 },
+      { key: "far", label: "Thickest at (z)", min: -4000, max: 500, step: 5, default: -300, decimals: 0 },
+      { key: "sky", label: "Over the sky", min: 0, max: 1, step: 0.01, default: 0, decimals: 2 },
+      { key: "curve", label: "Curve", min: 0.05, max: 8, step: 0.05, default: 1, decimals: 2 },
+    ],
+    color: { key: "color", label: "Colour", default: [0.55, 0.62, 0.8, 0.6] },
+  },
+  {
     // Sharp in a horizontal band, blurred away from it: a town read as a
     // model. The band is in world units.
     name: "tilt_shift",

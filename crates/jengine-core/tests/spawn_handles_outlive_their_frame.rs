@@ -29,7 +29,7 @@ fn a_spawn_handle_is_written_and_read_in_later_frames() {
     apply_script_commands(
         &mut world,
         &[
-            ScriptCommand::SpawnEntity { name: "Cell".into(), components: Box::new(None), spawn_id: Some(handle(1)), children: Vec::new() },
+            ScriptCommand::SpawnEntity { name: "Cell".into(), components: Box::new(None), spawn_id: Some(handle(1)), children: Vec::new(), prepared: None },
             ScriptCommand::SetPosition { entity_id: handle(1), x: 5.0, y: 6.0 },
         ],
         None,
@@ -51,7 +51,7 @@ fn a_handle_to_a_despawned_entity_names_nothing() {
     let mut world = World::new();
     apply_script_commands(
         &mut world,
-        &[ScriptCommand::SpawnEntity { name: "Gone".into(), components: Box::new(None), spawn_id: Some(handle(2)), children: Vec::new() }],
+        &[ScriptCommand::SpawnEntity { name: "Gone".into(), components: Box::new(None), spawn_id: Some(handle(2)), children: Vec::new(), prepared: None }],
         None,
         None,
     );

@@ -8,7 +8,7 @@
 //! runs with its assets.
 //! Found by the showcase's First Snow. Without a GPU adapter it prints why
 //! and passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "snow"))]
 
 use glam::Vec2;
 use hecs::World;

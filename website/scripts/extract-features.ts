@@ -139,8 +139,8 @@ sidebar:
   mdx += `| Web | \`jengine web-build <project>\` | WebGPU, with a WebGL2 fallback |\n`;
   mdx += `| Android | \`jengine android-build <project>\` | APK / app bundle; Lua scripts only |\n`;
   mdx += `| Linux | \`jengine linux-build <project>\` | Builds and runs; tested under WSL only |\n`;
-  mdx += `| macOS | \`jengine macos-build <project>\` | Type-checked only, never linked or run: unverified |\n`;
-  mdx += `| iOS | \`jengine ios-build <project>\` | Experimental: has never run |\n`;
+  mdx += `| macOS | \`jengine macos-build <project>\` | Builds and runs on Apple Silicon |\n`;
+  mdx += `| iOS | \`jengine ios-build <project>\` | Runs on the simulator and an iPhone |\n`;
   mdx += `\nSee [Cross-Platform](/architecture/cross-platform/) for what each platform can do.\n`;
 
   writeFileSync(OUTPUT, mdx, 'utf-8');

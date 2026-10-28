@@ -7,6 +7,7 @@
 //!
 //! See [`docs/step7-behavior-graph-spec.md`](../../../../docs/step7-behavior-graph-spec.md) §4.6.
 
+use crate::detmath::DetMath;
 use glam::Vec2;
 use hecs::World;
 
@@ -461,7 +462,7 @@ fn tick_op(
         OpInstruction::Atan2 { y, x, output } => {
             let yv = read_float(y, ctx.pins);
             let xv = read_float(x, ctx.pins);
-            ctx.pins.write_float(*output, yv.atan2(xv));
+            ctx.pins.write_float(*output, yv.datan2(xv));
         }
 
         OpInstruction::BoolOp { op, a, b, output } => {
@@ -643,7 +644,7 @@ fn tick_op(
                 Ok(t) => {
                     let delta = target - t.position;
                     if delta.length_squared() > 1e-12 {
-                        t.rotation = delta.y.atan2(delta.x);
+                        t.rotation = delta.y.datan2(delta.x);
                     }
                 }
                 Err(_) => {

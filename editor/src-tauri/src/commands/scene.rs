@@ -16,16 +16,22 @@ pub fn create_new_scene() -> SceneData {
     }
 }
 
+/// Loaded and saved with every known component's fields filled in
+/// (`SceneData::normalize`) - what the inspector reads, and what a save has
+/// always written, since the editor read scenes through a typed struct until
+/// Oct 2026.
 #[tauri::command]
 pub fn load_scene(path: String) -> Result<SceneData, String> {
     let contents = std::fs::read_to_string(&path).map_err(|e| format!("Failed to read file: {e}"))?;
-    let scene: SceneData =
+    let mut scene: SceneData =
         serde_json::from_str(&contents).map_err(|e| format!("Invalid scene JSON: {e}"))?;
+    jengine_core::package::component_registry::with_registry(|r| scene.normalize(r));
     Ok(scene)
 }
 
 #[tauri::command]
-pub fn save_scene(path: String, scene: SceneData) -> Result<(), String> {
+pub fn save_scene(path: String, mut scene: SceneData) -> Result<(), String> {
+    jengine_core::package::component_registry::with_registry(|r| scene.normalize(r));
     let json =
         serde_json::to_string_pretty(&scene).map_err(|e| format!("Failed to serialize: {e}"))?;
     std::fs::write(&path, json).map_err(|e| format!("Failed to write file: {e}"))?;
@@ -88,7 +94,7 @@ pub fn load_script_sources(
     let mut warnings = Vec::new();
 
     for (i, entity) in scene.entities.iter().enumerate() {
-        if let Some(ref script) = entity.components.script {
+        if let Some(script) = entity.components.get::<jengine_core::ecs::components::ScriptComponent>("script") {
             let script_path = assets_dir.join(&script.source_path);
             match std::fs::read_to_string(&script_path) {
                 Ok(source) => {

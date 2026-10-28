@@ -4,7 +4,7 @@
 //! There was no trail at all before Sep 2026: a sword swing or a comet's
 //! tail was a row of sprites a script spawned and faded itself. Without a
 //! GPU adapter these print why and pass, like `render_golden`.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "trails"))]
 
 use glam::Vec2;
 use hecs::World;

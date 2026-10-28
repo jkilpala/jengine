@@ -69,19 +69,6 @@ interface ApiFn {
   deferred: boolean;
 }
 
-interface ComponentField {
-  name: string;
-  type: string;
-  description: string;
-  optional: boolean;
-}
-
-interface Component {
-  name: string;
-  description: string;
-  fields: ComponentField[];
-}
-
 function stripBackticks(value: string): string {
   const trimmed = value.trim();
   if (trimmed.startsWith('`') && trimmed.endsWith('`')) {
@@ -307,42 +294,6 @@ function specType(rust: string, fallback: string): string {
     Vec2: '[number, number]', Rgba: '[number, number, number, number]', Any: 'any', Nil: 'nil',
   };
   return map[rust] ?? fallback;
-}
-
-// ---------------------------------------------------------------------------
-// parse components.rs → component list
-// ---------------------------------------------------------------------------
-
-function parseComponents(): Component[] {
-  const raw = readIfExists(resolve(REPO_ROOT, 'crates/jengine-core/src/ecs/components.rs'))
-    .replace(/\r\n/g, '\n');
-  if (!raw) return [];
-
-  const components: Component[] = [];
-  const structRe = /\/\/\/\s*(.+)\n(?:\/\/\/.*\n)*#\[derive\([^\]]*\)\]\npub struct (\w+)\s*\{([^}]+)\}/g;
-  let match;
-
-  while ((match = structRe.exec(raw)) !== null) {
-    const description = match[1].trim();
-    const name = match[2];
-    const body = match[3];
-
-    const fields: ComponentField[] = [];
-    const fieldRe = /(?:\/\/\/\s*(.+)\n\s*)?(?:#\[.*\]\n\s*)*pub (\w+):\s*(.+),/g;
-    let fm;
-    while ((fm = fieldRe.exec(body)) !== null) {
-      fields.push({
-        name: fm[2],
-        type: fm[3].trim(),
-        description: fm[1]?.trim() || '',
-        optional: fm[3].includes('Option<'),
-      });
-    }
-
-    components.push({ name, description, fields });
-  }
-
-  return components;
 }
 
 // ---------------------------------------------------------------------------

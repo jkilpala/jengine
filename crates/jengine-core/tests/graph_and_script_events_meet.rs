@@ -18,7 +18,7 @@
 //! only run in a browser; `graph_events_reach_every_runtime` checks they
 //! exist.
 
-#![cfg(feature = "native")]
+#![cfg(all(feature = "native", feature = "behavior"))]
 
 use hecs::World;
 use jengine_core::behavior::BehaviorGraphSystem;

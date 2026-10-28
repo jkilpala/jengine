@@ -7,7 +7,7 @@
 //! near side is taller than its far one, and turned right over it is its
 //! blue back. Found by the showcase's Card Table. Without a GPU adapter it
 //! prints why and passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "sprite_tilt"))]
 
 use glam::Vec2;
 use hecs::World;

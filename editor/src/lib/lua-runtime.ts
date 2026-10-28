@@ -143,7 +143,7 @@ const BRIDGE_FUNCTIONS: string[] = [
   'set_beat_clock_field',
   'smooth_terrain_edit',
   'dialogue_start', 'dialogue_advance', 'dialogue_choose', 'dialogue_stop',
-  'ui_drop', 'mode7_place', 'mode7_set', 'scene_transition', 'sprite_tilt_set', 'afterimage_set', 'physics_slice', 'portal_set', 'jelly_poke', 'jelly_set', 'marker_set', 'radial_set', 'bubble_say', 'bubble_set', 'outline_set', 'lightning_strike', 'lightning_set', 'flow_set', 'nav_link_set', 'morph_to', 'morph_set', 'toast_show', 'toast_set', 'replay_record', 'replay_play', 'replay_stop', 'replay_clear', 'replay_status', 'replay_frames', 'replay_progress', 'replay_live_key', 'snow_set', 'fog_of_war_reset', 'fog_of_war_set',
+  'ui_drop', 'mode7_place', 'mode7_set', 'stage_place', 'stage_set', 'scene_transition', 'sprite_tilt_set', 'afterimage_set', 'physics_slice', 'portal_set', 'jelly_poke', 'jelly_set', 'marker_set', 'radial_set', 'bubble_say', 'bubble_set', 'outline_set', 'lightning_strike', 'lightning_set', 'flow_set', 'nav_link_set', 'morph_to', 'morph_set', 'toast_show', 'toast_set', 'replay_record', 'replay_play', 'replay_stop', 'replay_clear', 'replay_status', 'replay_frames', 'replay_progress', 'replay_live_key', 'snow_set', 'fog_of_war_reset', 'fog_of_war_set',
   'state_save', 'state_load', 'state_has', 'state_forget',
   'set_water_field',
   'water_splash',
@@ -429,6 +429,107 @@ function located(L: any, text: string): string {
   if ((globalThis as any).__jengine_log_locations !== true) return text;
   const at = callerLocation(L);
   return at ? `[@${at}] ${text}` : text;
+}
+
+/** The engine's script maths, published by both wasm hosts
+ *  (`js/script_math.rs`): `jengine_core::scripting::script_math`, which the
+ *  native Luau computes through too. */
+function scriptMath(): any {
+  return (globalThis as any).__jengine_script_math;
+}
+
+/**
+ * Each script's `math` table computes what the native Luau does, to the bit
+ * (docs/determinism-proposal.md, phase 3): `sin`, `exp`, `pow`, `log` and the
+ * rest through the engine's `libm` rather than the browser's `Math` (V8's and
+ * Safari's differ from each other and from Windows and macOS), and `random` /
+ * `randomseed` from the engine's one generator, so a seed gives the same draws
+ * natively and here. `atan2`, `pow`, `log10`, `sinh`, `cosh` and `tanh` exist
+ * here as in Luau, and `atan(y, x)` there as here, so either spelling works in
+ * both dialects. The engine is looked up on each call, so the order a host
+ * installs things in does not matter; with none loaded (a unit test) each
+ * function is Fengari's own. `^` and `%` are the vendored bundle's
+ * (`scripts/patch-fengari.mjs`).
+ */
+function installScriptMath(L: any): void {
+  lua.lua_getglobal(L, to_luastring('math'));
+  const set = (name: string, fn: (Lp: any) => number) => {
+    lua.lua_pushjsfunction(L, fn);
+    lua.lua_setfield(L, -2, to_luastring(name));
+  };
+  // Fengari's own, where it has one, for when no engine is loaded.
+  const own = (name: string): ((Lp: any) => number) | null => {
+    lua.lua_getfield(L, -1, to_luastring(name));
+    const f = lua.lua_tocfunction(L, -1);
+    lua.lua_pop(L, 1);
+    return typeof f === 'function' ? f : null;
+  };
+  const num = (Lp: any, i: number) => lauxlib.luaL_checknumber(Lp, i);
+  const one: [string, (x: number) => number][] = [
+    ['sin', Math.sin], ['cos', Math.cos], ['tan', Math.tan], ['asin', Math.asin],
+    ['acos', Math.acos], ['exp', Math.exp], ['log10', Math.log10],
+    ['sinh', Math.sinh], ['cosh', Math.cosh], ['tanh', Math.tanh],
+  ];
+  for (const [name, fallback] of one) {
+    set(name, (Lp) => {
+      const m = scriptMath();
+      const x = num(Lp, 1);
+      lua.lua_pushnumber(Lp, m ? m[name](x) : fallback(x));
+      return 1;
+    });
+  }
+  set('atan', (Lp) => {
+    const m = scriptMath();
+    const y = num(Lp, 1);
+    const two = !lua.lua_isnoneornil(Lp, 2);
+    const x = two ? num(Lp, 2) : 1;
+    lua.lua_pushnumber(Lp, m ? (two ? m.atan2(y, x) : m.atan(y)) : two ? Math.atan2(y, x) : Math.atan(y));
+    return 1;
+  });
+  set('atan2', (Lp) => {
+    const m = scriptMath();
+    const [y, x] = [num(Lp, 1), num(Lp, 2)];
+    lua.lua_pushnumber(Lp, m ? m.atan2(y, x) : Math.atan2(y, x));
+    return 1;
+  });
+  set('pow', (Lp) => {
+    const m = scriptMath();
+    const [a, b] = [num(Lp, 1), num(Lp, 2)];
+    lua.lua_pushnumber(Lp, m ? m.pow(a, b) : Math.pow(a, b));
+    return 1;
+  });
+  const ownLog = own('log');
+  set('log', (Lp) => {
+    const m = scriptMath();
+    if (!m && ownLog) return ownLog(Lp);
+    const x = num(Lp, 1);
+    const base = lua.lua_isnoneornil(Lp, 2) ? undefined : num(Lp, 2);
+    lua.lua_pushnumber(Lp, m ? m.log(x, base) : Math.log(x));
+    return 1;
+  });
+  const ownRandom = own('random');
+  set('random', (Lp) => {
+    const m = scriptMath();
+    if (!m && ownRandom) return ownRandom(Lp);
+    const n = lua.lua_gettop(Lp);
+    const a = n >= 1 ? num(Lp, 1) : undefined;
+    const b = n >= 2 ? num(Lp, 2) : undefined;
+    const r = m.random(a, b);
+    if (Number.isNaN(r)) return lauxlib.luaL_error(Lp, to_luastring("bad argument to 'random' (interval is empty)"));
+    // A whole-number draw as a Lua integer, so it prints `3` as Luau does -
+    // where it fits Fengari's 32-bit integers.
+    if (a !== undefined && Math.abs(r) <= 2147483647) lua.lua_pushinteger(Lp, r);
+    else lua.lua_pushnumber(Lp, r);
+    return 1;
+  });
+  const ownSeed = own('randomseed');
+  set('randomseed', (Lp) => {
+    const m = scriptMath();
+    if (!m && ownSeed) return ownSeed(Lp);
+    m.randomseed(num(Lp, 1));
+    return 0;
+  });
+  lua.lua_pop(L, 1);
 }
 
 function registerBridge(L: any, lookup: (name: string) => Function | null): void {
@@ -966,6 +1067,7 @@ function compileLua(label: string, source: string): CompiledScript {
   const L = lauxlib.luaL_newstate();
   stateLabels.set(L, label);
   lualib.luaL_openlibs(L);
+  installScriptMath(L);
   registerBridge(L, lookup);
   // Known to the debugger, and hooked now if it is armed. Only when there is
   // one: kept with no debugger, the list would hold every state a web build

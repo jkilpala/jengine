@@ -588,3 +588,44 @@ fn a_transfer_as_the_connection_dies_loses_nothing() {
     }
     server.stop();
 }
+
+/// A player who comes back while their room is busy - in the middle of a
+/// long tick when the line drops - is put back in their held seat, not
+/// refused as "already in this room". The old connection used to hand the
+/// player on as soon as it had *asked* the room to hold the seat, so the new
+/// one looked for a held seat before the room had got round to holding it.
+/// A game's reconnect test met it under the load of the full suite.
+#[test]
+fn a_player_back_while_the_room_is_busy_gets_their_held_seat() {
+    struct Slow;
+    impl Room for Slow {
+        fn on_join(&mut self, _: &mut RoomCtx, _: &mut Player, _: &Value) -> Result<Value, String> {
+            Ok(Value::Null)
+        }
+        fn on_tick(&mut self, _: &mut RoomCtx, _: &mut jengine_server::Players, _: f64) {
+            std::thread::sleep(Duration::from_millis(250));
+        }
+    }
+    let server = Server::new()
+        .room("slow", KindOptions::ticking(30.0).persistent().grace(5.0), |_| Slow)
+        .start("127.0.0.1:0")
+        .unwrap();
+    for round in 0..3 {
+        let mut ada = Client::connect(&server.url());
+        let token = ada.hello(&format!("Ada{round}"), "")["token"].as_str().unwrap().to_string();
+        ada.send(json!({ "t": "join", "kind": "slow", "room": "den" }));
+        ada.wait("joined");
+        ada.conn.disconnect();
+        // Long enough for the server to see the line go and ask the room to
+        // hold the seat; far shorter than the tick the room is in.
+        std::thread::sleep(Duration::from_millis(60));
+        let mut again = Client::connect(&server.url());
+        again.hello("", &token);
+        // As a reconnecting client does: ask for its room again.
+        again.send(json!({ "t": "join", "kind": "slow", "room": "den" }));
+        again.until("joined, or refused", |f| f.iter().any(|x| x["t"] == "joined" || x["t"] == "error"));
+        assert_eq!(again.last("error"), None, "round {round}: refused");
+        assert_eq!(again.wait("joined")["resumed"], true, "round {round}: back in the held seat");
+    }
+    server.stop();
+}

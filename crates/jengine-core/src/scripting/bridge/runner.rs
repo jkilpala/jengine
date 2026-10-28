@@ -414,8 +414,13 @@ impl ScriptBridgeRunner {
     /// Returns a fresh `Vec` so the borrow on `self` is released
     /// immediately — the typical caller iterates and then mutably
     /// re-enters `notify_despawn`.
+    ///
+    /// In id order, as [`Self::entities_defining`] is: the despawn hooks run
+    /// in this order, and a map's order is new on every run.
     pub fn loaded_entity_ids(&self) -> Vec<u64> {
-        self.by_entity.keys().copied().collect()
+        let mut ids: Vec<u64> = self.by_entity.keys().copied().collect();
+        ids.sort_unstable();
+        ids
     }
 
     /// The loaded entities whose script defines `fn_name`, in id order -

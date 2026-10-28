@@ -3,6 +3,7 @@
 //! `spin` turns it through `tick_motion`, and its slices rise along the
 //! screen's up whichever way the camera has turned. Found by the showcase's
 //! Toy Town.
+#![cfg(feature = "sprite_stack")]
 
 use glam::Vec2;
 use hecs::World;

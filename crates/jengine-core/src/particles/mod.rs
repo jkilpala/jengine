@@ -650,9 +650,9 @@ pub const MAX_EMIT_PIXELS: usize = 4096;
 pub fn collect_emit_pixels(world: &mut hecs::World, assets: &crate::asset::AssetManager) {
     use crate::ecs::carve::{Carvable, TexelFrame};
     use crate::ecs::components::SpriteComponent;
-    use crate::ecs::paint::Paintable;
+    use crate::ecs::carve::{PaintableC, painted_texture};
     for (_, (em, sprite, carved, painted)) in
-        world.query_mut::<(&mut ParticleEmitter, &SpriteComponent, Option<&Carvable>, Option<&Paintable>)>()
+        world.query_mut::<(&mut ParticleEmitter, &SpriteComponent, Option<&Carvable>, Option<&PaintableC>)>()
     {
         let EmitShape::Sprite { edge, cutoff } = em.emit_shape else { continue };
         // What the sprite draws - a carved or painted copy before its own
@@ -660,7 +660,7 @@ pub fn collect_emit_pixels(world: &mut hecs::World, assets: &crate::asset::Asset
         // moves its flames with it (`texture_revision`).
         let source = carved
             .and_then(|c| c.state.texture.as_deref())
-            .or_else(|| painted.and_then(|p| p.state.texture.as_deref()))
+            .or_else(|| painted_texture(painted))
             .unwrap_or_else(|| crate::asset::resolve_texture_id(&sprite.texture_id));
         let Some(tex) = assets.get_texture_bytes(source) else { continue };
         let frame = TexelFrame::of(sprite, tex.width, tex.height);

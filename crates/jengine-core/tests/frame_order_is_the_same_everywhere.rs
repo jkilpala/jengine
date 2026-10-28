@@ -12,7 +12,8 @@
 
 
 fn code_only(src: &str) -> String {
-    src.lines().filter(|l| !l.trim_start().starts_with("//")).collect::<Vec<_>>().join("\n")
+    // Ending in a newline, so a function that ends the file ends in "\n}\n" too.
+    src.lines().filter(|l| !l.trim_start().starts_with("//")).collect::<Vec<_>>().join("\n") + "\n"
 }
 
 /// The steps, as each host calls them, in order. `None` where a host has no
@@ -37,12 +38,15 @@ fn steps(scripts: &'static str) -> Vec<&'static str> {
     ]
 }
 
-/// The web's source with `tick_world`'s body put where `render_frame` calls it.
-fn inline_tick_world(src: &str) -> String {
-    let def = src.find("fn tick_world(").expect("web's tick_world");
-    let body = &src[def..def + src[def..].find("\n}\n").expect("its end") + 3];
-    let call = src.find("= tick_world(app").expect("render_frame calls tick_world");
-    format!("{}{}\n{}", &src[..call], body, &src[call..])
+/// `src` with the body of `fn <name>(` put where `call` first calls it, so
+/// the steps a host has moved into a function of its own are read in the
+/// order the frame runs them.
+fn inline_fn(src: &str, name: &str, call: &str) -> String {
+    let def = src.find(&format!("fn {name}(")).unwrap_or_else(|| panic!("no `fn {name}(`"));
+    let end = src[def..].find("\n}\n").unwrap_or_else(|| panic!("`fn {name}` has no end at column 0"));
+    let body = src[def..def + end + 3].to_string();
+    let at = src.find(call).unwrap_or_else(|| panic!("nothing calls `{name}` as `{call}`"));
+    format!("{}{}\n{}", &src[..at], body, &src[at..])
 }
 
 #[test]
@@ -67,10 +71,13 @@ fn every_host_ticks_a_frame_in_one_order() {
         ),
     ] {
         let mut src = code_only(&read(rel));
-        // The web's frame calls its `tick_world` (defined above it) part way
-        // through: read the tick where it is called.
+        // Every host runs its gameplay as `simulation_step` - once a frame, or
+        // once per fixed step (`ecs::fixed_step`) - and the web's step calls
+        // its `tick_world`: read each where it is called.
+        let caller = if name == "native" { "simulation_step(state" } else { "simulation_step(app" };
+        src = inline_fn(&src, "simulation_step", caller);
         if name == "web" {
-            src = inline_tick_world(&src);
+            src = inline_fn(&src, "tick_world", "= tick_world(app");
         }
         let start = src.find(from).unwrap_or_else(|| panic!("{name}: no `{from}`"));
         let mut at = start;

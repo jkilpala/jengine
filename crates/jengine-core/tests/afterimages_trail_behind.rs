@@ -5,7 +5,7 @@
 //! its shape in their own colour rather than the tinted picture (blue over
 //! a red texture, where a tinted copy would be black). Found by the
 //! showcase's Dash Echoes. Without a GPU adapter it prints why and passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "afterimage"))]
 
 use glam::Vec2;
 use hecs::World;

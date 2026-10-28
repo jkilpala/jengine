@@ -2,6 +2,7 @@
 //!
 //! Each function maps `t` in [0..1] to a shaped output in [0..1].
 
+use crate::detmath::DetMath;
 use serde::{Deserialize, Serialize};
 
 /// Available easing functions for tweens.
@@ -31,26 +32,26 @@ impl EasingFunction {
                 if t < 0.5 {
                     2.0 * t * t
                 } else {
-                    1.0 - (-2.0 * t + 2.0).powi(2) / 2.0
+                    1.0 - (-2.0 * t + 2.0).dpowi(2) / 2.0
                 }
             }
             Self::EaseInCubic => t * t * t,
-            Self::EaseOutCubic => 1.0 - (1.0 - t).powi(3),
+            Self::EaseOutCubic => 1.0 - (1.0 - t).dpowi(3),
             Self::EaseInOutCubic => {
                 if t < 0.5 {
                     4.0 * t * t * t
                 } else {
-                    1.0 - (-2.0 * t + 2.0).powi(3) / 2.0
+                    1.0 - (-2.0 * t + 2.0).dpowi(3) / 2.0
                 }
             }
             Self::EaseInSine => {
-                1.0 - (t * std::f32::consts::FRAC_PI_2).cos()
+                1.0 - (t * std::f32::consts::FRAC_PI_2).dcos()
             }
             Self::EaseOutSine => {
-                (t * std::f32::consts::FRAC_PI_2).sin()
+                (t * std::f32::consts::FRAC_PI_2).dsin()
             }
             Self::EaseInOutSine => {
-                -(((t * std::f32::consts::PI).cos() - 1.0) / 2.0)
+                -(((t * std::f32::consts::PI).dcos() - 1.0) / 2.0)
             }
         }
     }

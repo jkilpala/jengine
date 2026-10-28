@@ -5,9 +5,10 @@ audio and a game server framework, with an editor to build your game in.
 
 **Documentation: [jengine.hirakame.com](https://jengine.hirakame.com)**
 
-> **0.1.0 is the first public release.** The engine has been used to build a
-> lot of games, but it is new to everyone else: expect rough edges, and
-> expect the script API and file formats to change before 1.0. See
+> **jEngine is pre-1.0** (0.1.0 was its first public release; the
+> [changelog](CHANGELOG.md) lists every release since). The engine has been
+> used to build a lot of games, but it is new to everyone else: expect rough
+> edges, and expect the script API and file formats to change before 1.0. See
 > [Versioning & stability](https://jengine.hirakame.com/getting-started/versioning/).
 
 ## What is in it
@@ -24,11 +25,21 @@ audio and a game server framework, with an editor to build your game in.
 - **Audio** with mixer buses, effects, spatial sound and a music director.
 - **UI**: entity UI and `.gui` documents, controller navigation, text input,
   screen readers, touch controls, scaling for any screen.
+- **A game ships only what it uses**: about seventy optional subsystems are
+  engine features, and a build compiles in only those its project's assets
+  use - an empty project's web download is about 2.4 MB gzipped.
+- **The same game on every machine**: simulation and script maths are the same
+  bits on Windows, Linux, macOS and the web, and gameplay can run in fixed
+  steps - which is what lets a multiplayer game send inputs alone (lockstep).
+- **A 3D stage** for the HD-2D look: floors and walls in true perspective with
+  sprites standing in them, real shadows from the stage's lights, depth of
+  field and haze by depth.
 - **Packages**: Rust crates that add components, systems and script commands,
-  linked per project.
+  linked per project, each with its own version.
 - **Networking**: `jengine-server`, a framework for game servers (rooms, state
   sync with prediction, accounts, a store, clusters, deployment and a web
-  console), and the client package that talks to it.
+  console), lockstep rooms for deterministic games, and the client package
+  that talks to it.
 - **The editor**: scenes, prefabs, tilemaps, animation, shader and behaviour
   graphs, a profiler, builds for every platform from one menu.
 
@@ -40,10 +51,11 @@ audio and a game server framework, with an editor to build your game in.
 | Web | WebGPU, with a WebGL2 fallback |
 | Android | Builds an APK or App Bundle; tested on the emulator |
 | Linux | Builds and runs; tested under WSL only |
-| macOS | Type-checked only - never linked or run |
-| iOS | Experimental - has never run |
+| macOS | Builds and runs (Apple Silicon); the editor runs too |
+| iOS | Runs on the simulator and an iPhone; less tested than Android |
 
-The editor runs on Windows, and on macOS in WKWebView with less testing.
+The editor runs on Windows, and on macOS (Apple Silicon) in WKWebView with
+less testing; both have installers on the releases page.
 
 ## Getting started
 

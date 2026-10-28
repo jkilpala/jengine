@@ -354,10 +354,15 @@ mod tests {
     #[test]
     fn a_missing_file_fails_quietly() {
         let mut d = MfDecoder::open(PathBuf::from("no/such/video.mp4"));
-        for _ in 0..50 {
+        // Until the decoding thread has started Media Foundation and found
+        // no file - a quarter of a second here, longer on a CI runner, which
+        // a fixed 250 ms once failed on - it shows nothing and says nothing.
+        let deadline = std::time::Instant::now() + std::time::Duration::from_secs(20);
+        while !d.failed && std::time::Instant::now() < deadline {
             assert!(d.update(0.1, PlayState { playing: true, looping: true, speed: 1.0 }).is_none());
             std::thread::sleep(std::time::Duration::from_millis(5));
         }
-        assert!(d.failed);
+        assert!(d.failed, "a missing file is reported as failed");
+        assert!(d.update(0.1, PlayState { playing: true, looping: true, speed: 1.0 }).is_none(), "and shows nothing");
     }
 }

@@ -4,9 +4,24 @@ description: What jEngine's 0.x version number promises, and what may change bet
 draft: false
 ---
 
-jEngine **0.1.0** is its first public release, and it is a **pre-1.0** release. It follows
-[Semantic Versioning](https://semver.org/) in the way semver describes for 0.x versions: **anything
-may change in any 0.x release**, including in ways that break existing projects.
+jEngine is **pre-1.0**: its first public release was 0.1.0, and the [Changelog](/changelog/) lists
+every release since. It follows [Semantic Versioning](https://semver.org/) in the way semver
+describes for 0.x versions: **anything may change in any 0.x release**, including in ways that break
+existing projects.
+
+A release's number says what kind of release it is: the **minor** number moves when it has new
+features (0.1 to 0.2), the **patch** number when it only fixes and improves what is there (0.2.0 to
+0.2.1).
+
+## Package versions
+
+A package has a **version of its own** (since 0.2.0), separate from the engine's. It moves only when
+the package changes, by the same rule - a fix moves the patch number, a new feature or a changed API
+the minor - so a package that did not change in a release keeps its number. The package's
+`Cargo.toml` holds it, and its `package.toml` says the same.
+
+A package's `engine_version` in `package.toml` is a different number again: the **oldest** engine it
+works with. It is not raised just because a newer engine came out.
 
 ## What may change in a 0.x release
 

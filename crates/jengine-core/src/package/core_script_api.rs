@@ -209,6 +209,8 @@ pub fn register_core_script_api(api: &mut ScriptApiRegistry) {
     reg!(api, "ui_drop", "Put a draggable item in the slot named `slot`, by the rules a drop follows (stack, swap or refuse)", Nil, "entity_id" => EntityId, "slot" => String);
     reg!(api, "mode7_place", "Stand a Mode 7 sprite (or a plane's camera) at a ground point, facing `angle`", Nil, "entity_id" => EntityId, "x" => Float, "y" => Float, "angle" => Float);
     reg!(api, "mode7_set", "Set any field of a mode7_sprite, else of a mode7 plane, by name", Nil, "entity_id" => EntityId, "field" => String, "value" => Any);
+    reg!(api, "stage_place", "Stand a stage billboard (or move a stage quad's corner, or point a stage's camera) at a stage point", Nil, "entity_id" => EntityId, "x" => Float, "y" => Float, "z" => Float);
+    reg!(api, "stage_set", "Set any field of a stage_billboard, else a stage_quad, else a stage, by name", Nil, "entity_id" => EntityId, "field" => String, "value" => Any);
     reg!(api, "fog_of_war_reset", "The fog_of_war map unseen again: every cell's visible and explored share cleared", Nil, "entity_id" => EntityId);
     reg!(api, "fog_of_war_set", "Set any fog_of_war field by name (size, cell, unseen_color, explored_alpha, reveal_speed, max_rate)", Nil, "entity_id" => EntityId, "field" => String, "value" => Any);
     reg!(api, "snow_set", "Set any snow_cover field by name (depth, max_depth, rate, color, slope_limit, bumps, cutoff, step)", Nil, "entity_id" => EntityId, "field" => String, "value" => Any);

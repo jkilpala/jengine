@@ -32,8 +32,8 @@ fn prefab_parts_match_the_editor() {
         .iter()
         .map(|e| {
             let c = &e.components;
-            let pos = c.transform.as_ref().map(|t| [t.position.x, t.position.y]).unwrap_or([0.0, 0.0]);
-            let tex = c.sprite.as_ref().map(|s| s.texture_id.as_str().to_string());
+            let pos = c.get::<jengine_core::ecs::components::Transform>("transform").map(|t| [t.position.x, t.position.y]).unwrap_or([0.0, 0.0]);
+            let tex = c.get::<jengine_core::ecs::components::SpriteComponent>("sprite").map(|s| s.texture_id.as_str().to_string());
             (e.name.clone(), e.parent.clone(), pos, tex)
         })
         .collect();

@@ -642,6 +642,7 @@ fn compile_native(
     if features.is_empty() {
         features.push("backend-vulkan".to_string());
     }
+    crate::progress::step(&crate::engine_features::for_project(project_path)?.summary());
     let manifest = crate::packages::generate_project_android(project_path, engine_path, &packages, &features)?;
     let crate_dir = manifest.parent().expect("generated manifest has a parent");
 

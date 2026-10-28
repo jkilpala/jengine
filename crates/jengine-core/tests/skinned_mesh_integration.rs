@@ -1,6 +1,6 @@
 //! Integration tests for Slice 3.5.E — skinned-mesh round-trip and
 //! end-to-end CPU skinning through the rig + resolver pipeline.
-#![cfg(feature = "native")]
+#![cfg(all(feature = "native", feature = "skinned_mesh"))]
 
 use jengine_core::animation::rig::{spawn_rig, BoneDef, SkeletonRig};
 use jengine_core::animation::skinned_mesh::{
@@ -68,12 +68,7 @@ fn scene_round_trip_preserves_skinned_mesh() {
             children: Vec::new(),
             name: "Hero".into(),
             parent: None,
-            components: ComponentBundle {
-                transform: Some(Transform::default()),
-                skeleton_root: Some(SkeletonRoot { name: "rig".into() }),
-                skinned_mesh: Some(quad_mesh()),
-                ..Default::default()
-            },
+            components: ComponentBundle::new().with("transform", &Transform::default()).with("skeleton_root", &SkeletonRoot { name: "rig".into() }).with("skinned_mesh", &quad_mesh()),
         }],
         ..Default::default()
     };
@@ -93,8 +88,7 @@ fn scene_round_trip_preserves_skinned_mesh() {
     let saved = save_scene(&world);
     let bundle = &saved.entities[0].components;
     let saved_mesh = bundle
-        .skinned_mesh
-        .as_ref()
+        .get::<jengine_core::animation::skinned_mesh::SkinnedMesh>("skinned_mesh")
         .expect("SkinnedMesh present after save");
     assert_eq!(saved_mesh.vertices.len(), 4);
     assert_eq!(saved_mesh.indices.len(), 6);

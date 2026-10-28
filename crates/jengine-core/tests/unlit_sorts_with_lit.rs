@@ -49,6 +49,7 @@ fn draws_emission(world: &World) -> bool {
 /// from a lit scene with nothing else unlit in it. Found by the Test Lab's
 /// lightning scene, whose bolt lit the floor and was never seen.
 #[test]
+#[cfg(feature = "lightning")]
 fn engine_drawn_unlit_things_need_the_emission_pass_too() {
     use jengine_core::ecs::lightning::{Lightning, strike, tick_lightning};
     let mut world = World::new();

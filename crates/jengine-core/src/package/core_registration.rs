@@ -7,18 +7,17 @@
 use super::component_registry::ComponentRegistry;
 
 use crate::animation::skeletal::SkeletalPlayer;
-use crate::animation::skinned_mesh::SkinnedMesh;
 use crate::animation::{AnimStateMachine, SpriteAnimator};
-use crate::ecs::components::{Mesh2D, Bone, IkLookAt, IkTwoBone, LightOccluder, SkeletonRoot,
+use crate::ecs::components::{Mesh2D, Bone, LightOccluder, SkeletonRoot,
     Acceleration2D, AmbientLight, AngularVelocity, AudioSource, BatchScriptComponent,
-    BehaviorGraphComponent, BulkEntity, BounceArea, Camera2DComponent, CameraFollow, CharacterController2D, ClampBounds, Collider2D,
+    BulkEntity, BounceArea, Camera2DComponent, CameraFollow, CharacterController2D, ClampBounds, Collider2D,
     DespawnOnDeath, DespawnOutOfBounds, Unlit, Drag2D, FaceVelocity, Flicker, FollowTarget, Force2D,
     Gravity2D, GuiComponent, Health, HealthBar, Hitbox, Impulse2D, InputActionImpulse, InputAxis2D,
     Joint2D,
     DespawnOffscreen, Lifetime, LightmapComponent, MaterialComponent, MaxSpeed, Obstacle, Oscillator, PatrolPathRef,
     PointLight2D, RigidBody2D, ScriptComponent, SeekTarget, Separation, Shake, ShadowCaster,
     SpotLight2D,
-    SpriteComponent, Tags, TextComponent, TilemapCollider, TilemapOccluder, Torque2D, LightLayers, ColorLut, TouchControls, Transform, TriggerArea2D, Tween, VectorPath,
+    SpriteComponent, Tags, TextComponent, TilemapCollider, TilemapOccluder, Torque2D, LightLayers, TouchControls, Transform, TriggerArea2D, Tween, VectorPath,
     Velocity2D, Wind2D, WrapBounds, PrefabInstance,
 };
 use crate::particles::ParticleEmitter;
@@ -44,7 +43,7 @@ pub fn register_core_components(registry: &mut ComponentRegistry) {
     registry.register_defaulted::<TextComponent>("text", "Text", "Rendering");
     registry.register::<Tilemap>("tilemap", "Tilemap", "Rendering");
     registry.register_defaulted::<MaterialComponent>("material", "Material", "Rendering");
-    registry.register_defaulted::<crate::ecs::components::Trail>("trail", "Trail", "Rendering");
+    crate::feature!("trails", { registry.register_defaulted::<crate::ecs::components::Trail>("trail", "Trail", "Rendering") });
 
     // ── 2D Lighting ──
     registry.register_defaulted::<PointLight2D>("point_light", "Point Light 2D", "Lighting");
@@ -52,7 +51,13 @@ pub fn register_core_components(registry: &mut ComponentRegistry) {
     registry.register_defaulted::<crate::ecs::components::DirectionalLight2D>("directional_light", "Directional Light 2D", "Lighting");
     registry.register_defaulted::<AmbientLight>("ambient_light", "Ambient Light", "Lighting");
     registry.register_defaulted::<crate::ecs::components::AmbientOcclusion>("ambient_occlusion", "Ambient Occlusion", "Lighting");
-    registry.register_defaulted::<crate::ecs::components::GlobalIllumination>("global_illumination", "Global Illumination", "Lighting");
+    crate::feature!("gi", {
+        registry.register_defaulted::<crate::ecs::components::GlobalIllumination>(
+            "global_illumination",
+            "Global Illumination",
+            "Lighting",
+        )
+    });
     registry.register_defaulted::<crate::ecs::components::ToonLighting>("toon_lighting", "Toon Lighting", "Lighting");
     registry.register_defaulted::<LightmapComponent>("lightmap", "Lightmap", "Lighting");
     registry.register_defaulted::<ShadowCaster>("shadow_caster", "Shadow Caster", "Lighting");
@@ -69,99 +74,238 @@ pub fn register_core_components(registry: &mut ComponentRegistry) {
     // (which is v2) stripped one on Stop. BUGS #151.
     registry.register_defaulted::<SkeletonRoot>("skeleton_root", "Skeleton Root", "Skeleton");
     registry.register_defaulted::<Bone>("bone", "Bone", "Skeleton");
-    registry.register_defaulted::<IkTwoBone>("ik_two_bone", "IK Two Bone", "Skeleton");
-    registry.register_defaulted::<IkLookAt>("ik_look_at", "IK Look At", "Skeleton");
-    registry.register_defaulted::<crate::ecs::components::IkChain>("ik_chain", "IK Chain", "Skeleton");
+    crate::feature!("ik", {
+        registry.register_defaulted::<crate::animation::ik::IkTwoBone>("ik_two_bone", "IK Two Bone", "Skeleton")
+    });
+    crate::feature!("ik", {
+        registry.register_defaulted::<crate::animation::ik::IkLookAt>("ik_look_at", "IK Look At", "Skeleton")
+    });
+    crate::feature!("ik", {
+        registry.register_defaulted::<crate::animation::ik::IkChain>("ik_chain", "IK Chain", "Skeleton")
+    });
     registry.register_defaulted::<crate::ecs::components::SpriteCollider>("sprite_collider", "Sprite Collider", "Physics");
     registry.register_defaulted::<crate::ecs::components::Conveyor>("conveyor", "Conveyor", "Physics");
-    registry.register_defaulted::<SkinnedMesh>("skinned_mesh", "Skinned Mesh", "Skeleton");
+    crate::feature!("skinned_mesh", {
+        registry.register_defaulted::<crate::animation::skinned_mesh::SkinnedMesh>("skinned_mesh", "Skinned Mesh", "Skeleton")
+    });
     registry.register_defaulted::<SkeletalPlayer>("skeletal_player", "Skeletal Player", "Skeleton");
-    registry.register_defaulted::<crate::ecs::fracture::Breakable>("breakable", "Breakable", "Physics");
-    registry.register_defaulted::<crate::ecs::cloth::Cloth>("cloth", "Cloth", "Rendering");
-    registry.register_defaulted::<crate::ecs::cloth::Rope>("rope", "Rope", "Rendering");
+    crate::feature!("fracture", {
+        registry.register_defaulted::<crate::ecs::fracture::Breakable>("breakable", "Breakable", "Physics")
+    });
+    crate::feature!("cloth", {
+        registry.register_defaulted::<crate::ecs::cloth::Cloth>("cloth", "Cloth", "Rendering")
+    });
+    crate::feature!("cloth", {
+        registry.register_defaulted::<crate::ecs::cloth::Rope>("rope", "Rope", "Rendering")
+    });
     registry.register_defaulted::<crate::ecs::components::SpriteMask>("sprite_mask", "Sprite Mask", "Rendering");
     registry.register_defaulted::<crate::ecs::components::Masked>("masked", "Masked", "Rendering");
     registry.register_defaulted::<crate::particles::gpu::GpuParticles>("gpu_particles", "GPU Particles", "Rendering");
     registry.register_defaulted::<crate::ecs::components::RenderLayers>("render_layers", "Render Layers", "Rendering");
     registry.register_defaulted::<crate::tilemap::autotile::Autotile>("autotile", "Autotile", "Rendering");
     registry.register_defaulted::<crate::ecs::carve::Carvable>("carvable", "Carvable", "Rendering");
-    registry.register_defaulted::<crate::ecs::paint::Paintable>("paintable", "Paintable", "Rendering");
-    registry.register_defaulted::<crate::ecs::fluid::Fluid>("fluid", "Fluid", "Rendering");
-    registry.register_defaulted::<crate::renderer::spline_shape::SplineShape>("spline_shape", "Spline Shape", "Rendering");
+    crate::feature!("paint", {
+        registry.register_defaulted::<crate::ecs::paint::Paintable>("paintable", "Paintable", "Rendering")
+    });
+    crate::feature!("fluid", { registry.register_defaulted::<crate::ecs::fluid::Fluid>("fluid", "Fluid", "Rendering") });
+    crate::feature!("spline_shape", {
+        registry.register_defaulted::<crate::renderer::spline_shape::SplineShape>("spline_shape", "Spline Shape", "Rendering")
+    });
     registry.register_defaulted::<crate::ecs::area_effect::AreaEffect>("area_effect", "Area Effect", "Physics");
-    registry.register_defaulted::<crate::animation::jiggle::Jiggle>("jiggle", "Jiggle", "Animation");
+    crate::feature!("jiggle", {
+        registry.register_defaulted::<crate::animation::jiggle::Jiggle>("jiggle", "Jiggle", "Animation")
+    });
     registry.register_defaulted::<crate::ecs::path_follow::PathFollow>("path_follow", "Path Follow", "Behaviors");
     registry.register_defaulted::<crate::ecs::sorting_group::SortingGroup>("sorting_group", "Sorting Group", "Rendering");
-    registry.register_defaulted::<crate::ecs::sprite_library::SpriteLibrary>("sprite_library", "Sprite Library", "Rendering");
-    registry.register_defaulted::<crate::ecs::sprite_library::SpriteResolver>("sprite_resolver", "Sprite Resolver", "Rendering");
-    registry.register_defaulted::<crate::renderer::line2d::Line2D>("line", "Line", "Rendering");
+    crate::feature!("sprite_library", {
+        registry.register_defaulted::<crate::ecs::sprite_library::SpriteLibrary>("sprite_library", "Sprite Library", "Rendering")
+    });
+    crate::feature!("sprite_library", {
+        registry.register_defaulted::<crate::ecs::sprite_library::SpriteResolver>("sprite_resolver", "Sprite Resolver", "Rendering")
+    });
+    crate::feature!("line2d", {
+        registry.register_defaulted::<crate::renderer::line2d::Line2D>("line", "Line", "Rendering")
+    });
     registry.register_defaulted::<crate::ecs::canvas_group::CanvasGroup>("canvas_group", "Canvas Group", "Rendering");
-    registry.register_defaulted::<crate::ecs::mirror::Mirror>("mirror", "Mirror", "Rendering");
-    registry.register_defaulted::<crate::ecs::water::WaterSurface>("water_surface", "Water Surface", "Physics");
-    registry.register_defaulted::<crate::ecs::post_volume::PostVolume>("post_volume", "Post Volume", "Rendering");
-    registry.register_defaulted::<crate::ecs::pixel_sim::PixelSim>("pixel_sim", "Pixel Simulation", "Physics");
-    registry.register_defaulted::<crate::ecs::smoke::Smoke>("smoke", "Smoke", "Physics");
-    registry.register_defaulted::<crate::ecs::rewind::Rewind>("rewind", "Rewind Clock", "Gameplay");
-    registry.register_defaulted::<crate::ecs::rewind::Rewindable>("rewindable", "Rewindable", "Gameplay");
-    registry.register_defaulted::<crate::ecs::fog::Fog>("fog", "Fog", "Rendering");
-    registry.register_defaulted::<crate::ecs::wfc::WfcGenerator>("wfc", "WFC Generator", "Tilemap");
-    registry.register_defaulted::<crate::ecs::vision::Vision>("vision", "Vision", "Gameplay");
-    registry.register_defaulted::<crate::ecs::day_cycle::DayCycle>("day_cycle", "Day Cycle", "Rendering");
+    crate::feature!("mirror", {
+        registry.register_defaulted::<crate::ecs::mirror::Mirror>("mirror", "Mirror", "Rendering")
+    });
+    crate::feature!("water", {
+        registry.register_defaulted::<crate::ecs::water::WaterSurface>("water_surface", "Water Surface", "Physics")
+    });
+    crate::feature!("post_volume", {
+        registry.register_defaulted::<crate::ecs::post_volume::PostVolume>("post_volume", "Post Volume", "Rendering")
+    });
+    crate::feature!("pixel_sim", {
+        registry.register_defaulted::<crate::ecs::pixel_sim::PixelSim>("pixel_sim", "Pixel Simulation", "Physics")
+    });
+    crate::feature!("smoke", {
+        registry.register_defaulted::<crate::ecs::smoke::Smoke>("smoke", "Smoke", "Physics")
+    });
+    crate::feature!("rewind", {
+        registry.register_defaulted::<crate::ecs::rewind::Rewind>("rewind", "Rewind Clock", "Gameplay")
+    });
+    crate::feature!("rewind", {
+        registry.register_defaulted::<crate::ecs::rewind::Rewindable>("rewindable", "Rewindable", "Gameplay")
+    });
+    crate::feature!("fog", { registry.register_defaulted::<crate::ecs::fog::Fog>("fog", "Fog", "Rendering") });
+    crate::feature!("wfc", {
+        registry.register_defaulted::<crate::ecs::wfc::WfcGenerator>("wfc", "WFC Generator", "Tilemap")
+    });
+    crate::feature!("vision", {
+        registry.register_defaulted::<crate::ecs::vision::Vision>("vision", "Vision", "Gameplay")
+    });
+    crate::feature!("day_cycle", {
+        registry.register_defaulted::<crate::ecs::day_cycle::DayCycle>("day_cycle", "Day Cycle", "Rendering")
+    });
     registry.register_defaulted::<crate::ecs::floating_origin::FloatingOrigin>("floating_origin", "Floating Origin", "Gameplay");
     registry.register_defaulted::<crate::ecs::time_scale::TimeScale>("time_scale", "Time Scale", "Gameplay");
-    registry.register_defaulted::<crate::ecs::cast_shadow::CastShadow>("cast_shadow", "Cast Shadow", "Rendering");
-    registry.register_defaulted::<crate::ecs::auto_normal::AutoNormal>("auto_normal", "Auto Normal", "Rendering");
-    registry.register_defaulted::<crate::ecs::tile_light::TileLight>("tile_light", "Tile Light", "Rendering");
-    registry.register_defaulted::<crate::ecs::tile_light::TileLightSource>("tile_light_source", "Tile Light Source", "Rendering");
-    registry.register_defaulted::<crate::ecs::trajectory::Trajectory>("trajectory", "Trajectory", "Physics");
-    registry.register_defaulted::<crate::ecs::text_path::TextPath>("text_path", "Text Path", "Rendering");
-    registry.register_defaulted::<crate::ecs::beat_clock::BeatClock>("beat_clock", "Beat Clock", "Audio");
-    registry.register_defaulted::<crate::ecs::displacement::DisplacementField>(
-        "displacement_field",
-        "Displacement Field",
-        "Rendering",
-    );
-    registry.register_defaulted::<crate::ecs::displacement::Displacer>("displacer", "Displacer", "Rendering");
-    registry.register_defaulted::<crate::ecs::displacement::FieldBend>("field_bend", "Field Bend", "Rendering");
-    registry.register_defaulted::<crate::ecs::smooth_terrain::SmoothTerrain>("smooth_terrain", "Smooth Terrain", "Physics");
-    registry.register_defaulted::<crate::ecs::fog_of_war::FogOfWar>("fog_of_war", "Fog of War", "Rendering");
-    registry.register_defaulted::<crate::ecs::fog_of_war::Sight>("sight", "Sight", "Rendering");
-    registry.register_defaulted::<crate::ecs::fog_of_war::FogHidden>("fog_hidden", "Fog Hidden", "Rendering");
-    registry.register_defaulted::<crate::ecs::dialogue::Dialogue>("dialogue", "Dialogue", "Gameplay");
-    registry.register_defaulted::<crate::ui::drag_drop::UIDraggable>("ui_draggable", "UI Draggable", "UI");
-    registry.register_defaulted::<crate::ui::drag_drop::UIDropSlot>("ui_drop_slot", "UI Drop Slot", "UI");
-    registry.register_defaulted::<crate::ecs::sprite_stack::SpriteStack>("sprite_stack", "Sprite Stack", "Rendering");
-    registry.register_defaulted::<crate::ecs::mode7::Mode7>("mode7", "Mode 7 Plane", "Rendering");
-    registry.register_defaulted::<crate::ecs::mode7::Mode7Sprite>("mode7_sprite", "Mode 7 Sprite", "Rendering");
-    registry.register_defaulted::<crate::ecs::silhouette::Silhouette>("silhouette", "Silhouette", "Rendering");
-    registry.register_defaulted::<crate::ecs::silhouette::SilhouetteOccluder>("silhouette_occluder", "Silhouette Occluder", "Rendering");
-    registry.register_defaulted::<crate::ecs::sprite_tilt::SpriteTilt>("sprite_tilt", "Sprite Tilt", "Rendering");
-    registry.register_defaulted::<crate::ecs::afterimage::Afterimage>("afterimage", "Afterimage", "Rendering");
-    registry.register_defaulted::<crate::ecs::slice::Sliceable>("sliceable", "Sliceable", "Physics");
-    registry.register_defaulted::<crate::ecs::portal::Portal>("portal", "Portal", "Rendering");
-    registry.register_defaulted::<crate::ecs::jelly::Jelly>("jelly", "Jelly", "Rendering");
-    registry.register_defaulted::<crate::ecs::offscreen_marker::OffscreenMarker>("offscreen_marker", "Off-screen Marker", "UI");
-    registry.register_defaulted::<crate::ui::radial_menu::UIRadialMenu>("ui_radial_menu", "Radial Menu", "UI");
-    registry.register_defaulted::<crate::ui::speech_bubble::SpeechBubble>("speech_bubble", "Speech Bubble", "UI");
-    registry.register_defaulted::<crate::ui::toast::ToastStack>("toast_stack", "Toast Stack", "UI");
-    registry.register_defaulted::<crate::ecs::sprite_outline::SpriteOutline>("sprite_outline", "Sprite Outline", "Rendering");
-    registry.register_defaulted::<crate::ecs::lightning::Lightning>("lightning", "Lightning", "Rendering");
-    registry.register_defaulted::<crate::ecs::flow::FlowPath>("flow_path", "Flow Path", "Rendering");
-    registry.register_defaulted::<crate::ecs::nav_links::NavLink>("nav_link", "Nav Link", "Navigation");
-    registry.register_defaulted::<crate::ecs::path_morph::PathMorph>("path_morph", "Path Morph", "Rendering");
-    registry.register_defaulted::<crate::ecs::snow::SnowCover>("snow_cover", "Snow Cover", "Rendering");
-    registry.register_defaulted::<crate::video::VideoPlayer>("video_player", "Video Player", "Rendering");
+    crate::feature!("cast_shadow", {
+        registry.register_defaulted::<crate::ecs::cast_shadow::CastShadow>("cast_shadow", "Cast Shadow", "Rendering")
+    });
+    crate::feature!("auto_normal", {
+        registry.register_defaulted::<crate::ecs::auto_normal::AutoNormal>("auto_normal", "Auto Normal", "Rendering")
+    });
+    crate::feature!("tile_light", {
+        registry.register_defaulted::<crate::ecs::tile_light::TileLight>("tile_light", "Tile Light", "Rendering")
+    });
+    crate::feature!("tile_light", {
+        registry.register_defaulted::<crate::ecs::tile_light::TileLightSource>("tile_light_source", "Tile Light Source", "Rendering")
+    });
+    crate::feature!("trajectory", {
+        registry.register_defaulted::<crate::ecs::trajectory::Trajectory>("trajectory", "Trajectory", "Physics")
+    });
+    crate::feature!("text_path", {
+        registry.register_defaulted::<crate::ecs::text_path::TextPath>("text_path", "Text Path", "Rendering")
+    });
+    crate::feature!("beat_clock", {
+        registry.register_defaulted::<crate::ecs::beat_clock::BeatClock>("beat_clock", "Beat Clock", "Audio")
+    });
+    crate::feature!("displacement", {
+        registry.register_defaulted::<crate::ecs::displacement::DisplacementField>(
+            "displacement_field",
+            "Displacement Field",
+            "Rendering",
+        )
+    });
+    crate::feature!("displacement", {
+        registry.register_defaulted::<crate::ecs::displacement::Displacer>("displacer", "Displacer", "Rendering")
+    });
+    crate::feature!("displacement", {
+        registry.register_defaulted::<crate::ecs::displacement::FieldBend>("field_bend", "Field Bend", "Rendering")
+    });
+    crate::feature!("smooth_terrain", {
+        registry.register_defaulted::<crate::ecs::smooth_terrain::SmoothTerrain>("smooth_terrain", "Smooth Terrain", "Physics")
+    });
+    crate::feature!("fog_of_war", {
+        registry.register_defaulted::<crate::ecs::fog_of_war::FogOfWar>("fog_of_war", "Fog of War", "Rendering")
+    });
+    crate::feature!("fog_of_war", {
+        registry.register_defaulted::<crate::ecs::fog_of_war::Sight>("sight", "Sight", "Rendering")
+    });
+    crate::feature!("fog_of_war", {
+        registry.register_defaulted::<crate::ecs::fog_of_war::FogHidden>("fog_hidden", "Fog Hidden", "Rendering")
+    });
+    crate::feature!("dialogue", {
+        registry.register_defaulted::<crate::ecs::dialogue::Dialogue>("dialogue", "Dialogue", "Gameplay")
+    });
+    crate::feature!("drag_drop", {
+        registry.register_defaulted::<crate::ui::drag_drop::UIDraggable>("ui_draggable", "UI Draggable", "UI")
+    });
+    crate::feature!("drag_drop", {
+        registry.register_defaulted::<crate::ui::drag_drop::UIDropSlot>("ui_drop_slot", "UI Drop Slot", "UI")
+    });
+    crate::feature!("sprite_stack", {
+        registry.register_defaulted::<crate::ecs::sprite_stack::SpriteStack>("sprite_stack", "Sprite Stack", "Rendering")
+    });
+    crate::feature!("mode7", {
+        registry.register_defaulted::<crate::ecs::mode7::Mode7>("mode7", "Mode 7 Plane", "Rendering")
+    });
+    crate::feature!("mode7", {
+        registry.register_defaulted::<crate::ecs::mode7::Mode7Sprite>("mode7_sprite", "Mode 7 Sprite", "Rendering")
+    });
+    crate::feature!("stage", {
+        registry.register_defaulted::<crate::ecs::stage::Stage>("stage", "3D Stage", "Rendering")
+    });
+    crate::feature!("stage", {
+        registry.register_defaulted::<crate::ecs::stage::StageGroup>("stage_group", "Stage Group", "Rendering")
+    });
+    crate::feature!("stage", {
+        registry.register_defaulted::<crate::ecs::stage::StageQuad>("stage_quad", "Stage Quad", "Rendering")
+    });
+    crate::feature!("stage", {
+        registry.register_defaulted::<crate::ecs::stage::StageBillboard>("stage_billboard", "Stage Billboard", "Rendering")
+    });
+    crate::feature!("stage", {
+        registry.register_defaulted::<crate::ecs::stage::StageCaster>("stage_caster", "Stage Caster", "Rendering")
+    });
+    crate::feature!("silhouette", {
+        registry.register_defaulted::<crate::ecs::silhouette::Silhouette>("silhouette", "Silhouette", "Rendering")
+    });
+    crate::feature!("silhouette", {
+        registry.register_defaulted::<crate::ecs::silhouette::SilhouetteOccluder>("silhouette_occluder", "Silhouette Occluder", "Rendering")
+    });
+    crate::feature!("sprite_tilt", {
+        registry.register_defaulted::<crate::ecs::sprite_tilt::SpriteTilt>("sprite_tilt", "Sprite Tilt", "Rendering")
+    });
+    crate::feature!("afterimage", {
+        registry.register_defaulted::<crate::ecs::afterimage::Afterimage>("afterimage", "Afterimage", "Rendering")
+    });
+    crate::feature!("slice", {
+        registry.register_defaulted::<crate::ecs::slice::Sliceable>("sliceable", "Sliceable", "Physics")
+    });
+    crate::feature!("portal", {
+        registry.register_defaulted::<crate::ecs::portal::Portal>("portal", "Portal", "Rendering")
+    });
+    crate::feature!("jelly", {
+        registry.register_defaulted::<crate::ecs::jelly::Jelly>("jelly", "Jelly", "Rendering")
+    });
+    crate::feature!("offscreen_marker", {
+        registry.register_defaulted::<crate::ecs::offscreen_marker::OffscreenMarker>("offscreen_marker", "Off-screen Marker", "UI")
+    });
+    crate::feature!("radial_menu", {
+        registry.register_defaulted::<crate::ui::radial_menu::UIRadialMenu>("ui_radial_menu", "Radial Menu", "UI")
+    });
+    crate::feature!("speech_bubble", {
+        registry.register_defaulted::<crate::ui::speech_bubble::SpeechBubble>("speech_bubble", "Speech Bubble", "UI")
+    });
+    crate::feature!("toast", {
+        registry.register_defaulted::<crate::ui::toast::ToastStack>("toast_stack", "Toast Stack", "UI")
+    });
+    crate::feature!("sprite_outline", {
+        registry.register_defaulted::<crate::ecs::sprite_outline::SpriteOutline>("sprite_outline", "Sprite Outline", "Rendering")
+    });
+    crate::feature!("lightning", {
+        registry.register_defaulted::<crate::ecs::lightning::Lightning>("lightning", "Lightning", "Rendering")
+    });
+    crate::feature!("flow", {
+        registry.register_defaulted::<crate::ecs::flow::FlowPath>("flow_path", "Flow Path", "Rendering")
+    });
+    crate::feature!("navigation", { registry.register_defaulted::<crate::ecs::nav_links::NavLink>("nav_link", "Nav Link", "Navigation") });
+    crate::feature!("path_morph", {
+        registry.register_defaulted::<crate::ecs::path_morph::PathMorph>("path_morph", "Path Morph", "Rendering")
+    });
+    crate::feature!("snow", {
+        registry.register_defaulted::<crate::ecs::snow::SnowCover>("snow_cover", "Snow Cover", "Rendering")
+    });
+    crate::feature!("video", {
+        registry.register_defaulted::<crate::video::VideoPlayer>("video_player", "Video Player", "Rendering")
+    });
     registry.register_defaulted::<crate::ecs::visibility::VisibilityNotifier>(
         "visibility_notifier",
         "Visibility Notifier",
         "Behaviors",
     );
-    registry.register_defaulted::<crate::renderer::freeform_light::FreeformLight>("freeform_light", "Freeform Light", "Rendering");
+    crate::feature!("freeform_light", {
+        registry.register_defaulted::<crate::renderer::freeform_light::FreeformLight>("freeform_light", "Freeform Light", "Rendering")
+    });
     registry.register_defaulted::<crate::audio::zones::AudioZone>("audio_zone", "Audio Zone", "Audio");
-    registry.register_defaulted::<crate::navigation::NavRegion>("nav_region", "Nav Region", "Navigation");
-    registry.register_defaulted::<crate::navigation::NavAgent>("nav_agent", "Nav Agent", "Navigation");
-    registry.register_defaulted::<crate::navigation::NavObstacle>("nav_obstacle", "Nav Obstacle", "Navigation");
-    registry.register_defaulted::<crate::ui::accessibility::Accessible>("accessible", "Accessible", "UI");
+    crate::feature!("navigation", { registry.register_defaulted::<crate::navigation::NavRegion>("nav_region", "Nav Region", "Navigation") });
+    crate::feature!("navigation", { registry.register_defaulted::<crate::navigation::NavAgent>("nav_agent", "Nav Agent", "Navigation") });
+    crate::feature!("navigation", { registry.register_defaulted::<crate::navigation::NavObstacle>("nav_obstacle", "Nav Obstacle", "Navigation") });
+    crate::feature!("accessibility", {
+        registry.register_defaulted::<crate::ui::Accessible>("accessible", "Accessible", "UI")
+    });
     registry.register_defaulted::<crate::audio::spatial::AudioListener>("audio_listener", "Audio Listener", "Audio");
 
     // ── Scripting ──
@@ -175,10 +319,16 @@ pub fn register_core_components(registry: &mut ComponentRegistry) {
     registry.register_defaulted::<TilemapCollider>("tilemap_collider", "Tilemap Collider", "Physics");
     registry.register_defaulted::<TilemapOccluder>("tilemap_occluder", "Tilemap Occluder", "Lighting");
     registry.register_defaulted::<LightLayers>("light_layers", "Light Layers", "Lighting");
-    registry.register_defaulted::<ColorLut>("color_lut", "Color LUT", "Rendering");
-    registry.register_defaulted::<crate::ecs::ragdoll::Ragdoll>("ragdoll", "Ragdoll", "Physics");
-    registry.register_defaulted::<crate::ecs::timeline::Timeline>("timeline", "Timeline", "Animation");
-    registry.register_defaulted::<crate::ecs::behavior_tree::BehaviorTree>("behavior_tree", "Behavior Tree", "AI");
+    crate::feature!("lut", { registry.register_defaulted::<crate::ecs::components::ColorLut>("color_lut", "Color LUT", "Rendering") });
+    crate::feature!("ragdoll", {
+        registry.register_defaulted::<crate::ecs::ragdoll::Ragdoll>("ragdoll", "Ragdoll", "Physics")
+    });
+    crate::feature!("timeline", {
+        registry.register_defaulted::<crate::ecs::timeline::Timeline>("timeline", "Timeline", "Animation")
+    });
+    crate::feature!("behavior_tree", {
+        registry.register_defaulted::<crate::ecs::behavior_tree::BehaviorTree>("behavior_tree", "Behavior Tree", "AI")
+    });
 
     // ── Audio ──
     registry.register_defaulted::<AudioSource>("audio_source", "Audio Source", "Audio");
@@ -224,7 +374,9 @@ pub fn register_core_components(registry: &mut ComponentRegistry) {
     registry.register_defaulted::<InputAxis2D>("input_axis", "Input Axis 2D", "Behaviors");
     registry.register_defaulted::<InputActionImpulse>("input_action_impulse", "Input Action Impulse", "Behaviors");
     registry.register_defaulted::<TriggerArea2D>("trigger_area", "Trigger Area 2D", "Behaviors");
-    registry.register_defaulted::<BehaviorGraphComponent>("behavior_graph", "Behavior Graph", "Behaviors");
+    crate::feature!("behavior", {
+        registry.register_defaulted::<crate::ecs::components::BehaviorGraphComponent>("behavior_graph", "Behavior Graph", "Behaviors")
+    });
 
     // ── Combat (data-driven health + trigger hitboxes) ──
     registry.register_defaulted::<Health>("health", "Health", "Combat");
@@ -271,7 +423,7 @@ mod tests {
     /// stale by seven entries and told nobody which seven. Naming them makes
     /// the failure say exactly what drifted.
     const EXPECTED_CORE_COMPONENTS: &[&str] = &[
-    "acceleration", "ambient_light", "breakable", "cloth", "rope", "sprite_mask", "masked", "gpu_particles", "render_layers", "autotile", "carvable", "paintable", "fluid", "spline_shape", "area_effect", "nav_region", "nav_agent", "nav_obstacle", "accessible", "behavior_tree", "audio_zone", "freeform_light", "jiggle", "visibility_notifier", "path_follow", "sorting_group", "line", "canvas_group", "mirror", "water_surface", "post_volume", "pixel_sim", "smoke", "rewind", "rewindable", "fog", "wfc", "vision", "day_cycle", "floating_origin", "time_scale", "cast_shadow", "auto_normal", "tile_light", "tile_light_source", "trajectory", "text_path", "beat_clock", "displacement_field", "displacer", "field_bend", "smooth_terrain", "fog_of_war", "sight", "fog_hidden", "dialogue", "ui_draggable", "ui_drop_slot", "sprite_stack", "mode7", "mode7_sprite", "silhouette", "silhouette_occluder", "sprite_tilt", "afterimage", "sliceable", "portal", "jelly", "offscreen_marker", "ui_radial_menu", "speech_bubble", "toast_stack", "sprite_outline", "lightning", "flow_path", "nav_link", "path_morph", "snow_cover", "video_player", "audio_listener", "ambient_occlusion", "global_illumination", "angular_velocity", "audio_source",
+    "acceleration", "ambient_light", "breakable", "cloth", "rope", "sprite_mask", "masked", "gpu_particles", "render_layers", "autotile", "carvable", "paintable", "fluid", "spline_shape", "area_effect", "nav_region", "nav_agent", "nav_obstacle", "accessible", "behavior_tree", "audio_zone", "freeform_light", "jiggle", "visibility_notifier", "path_follow", "sorting_group", "line", "canvas_group", "mirror", "water_surface", "post_volume", "pixel_sim", "smoke", "rewind", "rewindable", "fog", "wfc", "vision", "day_cycle", "floating_origin", "time_scale", "cast_shadow", "auto_normal", "tile_light", "tile_light_source", "trajectory", "text_path", "beat_clock", "displacement_field", "displacer", "field_bend", "smooth_terrain", "fog_of_war", "sight", "fog_hidden", "dialogue", "ui_draggable", "ui_drop_slot", "sprite_stack", "mode7", "mode7_sprite", "stage", "stage_group", "stage_quad", "stage_billboard", "stage_caster", "silhouette", "silhouette_occluder", "sprite_tilt", "afterimage", "sliceable", "portal", "jelly", "offscreen_marker", "ui_radial_menu", "speech_bubble", "toast_stack", "sprite_outline", "lightning", "flow_path", "nav_link", "path_morph", "snow_cover", "video_player", "audio_listener", "ambient_occlusion", "global_illumination", "angular_velocity", "audio_source",
     "anim_state_machine", "bone", "ik_look_at", "ik_two_bone", "ik_chain", "sprite_collider", "conveyor", "sprite_library", "sprite_resolver", "light_occluder", "light_layers", "color_lut", "ragdoll", "timeline",
     "skeletal_player", "skeleton_root", "skinned_mesh",
     "batch_script", "behavior_graph", "bounce_area", "camera",
@@ -299,8 +451,13 @@ mod tests {
 
         let registered: std::collections::BTreeSet<&str> =
             registry.iter().map(|d| d.name.as_str()).collect();
-        let expected: std::collections::BTreeSet<&str> =
-            EXPECTED_CORE_COMPONENTS.iter().copied().collect();
+        // A component of an engine feature this build left out is expected
+        // only where the feature is on (`features`).
+        let expected: std::collections::BTreeSet<&str> = EXPECTED_CORE_COMPONENTS
+            .iter()
+            .copied()
+            .filter(|k| crate::features::of_component(k).is_none_or(|f| crate::features::enabled(f.name)))
+            .collect();
         let missing: Vec<&&str> = expected.difference(&registered).collect();
         let unlisted: Vec<&&str> = registered.difference(&expected).collect();
         assert!(
@@ -310,7 +467,7 @@ mod tests {
         );
         // Registering two components under one id would silently overwrite:
         // `descriptors` is keyed by id, so the set above would still match.
-        assert_eq!(registry.len(), EXPECTED_CORE_COMPONENTS.len());
+        assert_eq!(registry.len(), expected.len());
 
         // Spot-check some lookups
         assert!(registry.get("transform").is_some());

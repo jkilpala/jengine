@@ -222,7 +222,7 @@ pub fn update_toasts_at(world: &mut World, w: f32, h: f32, now_ms: f64) {
                 ToastPart { owner: e },
             ));
             let text_w = s.size[0] - s.padding * 3.0 - if icon.is_some() { s.icon_size } else { 0.0 };
-            let (wrapped, _) = crate::ui::speech_bubble::wrap(&t.text, s.text_size, text_w.max(40.0));
+            let (wrapped, _) = crate::ui::text_wrap::wrap(&t.text, s.text_size, text_w.max(40.0));
             let body = world.spawn((
                 UIElement { z_order: s.z_order + 1, ..el.clone() },
                 UIText { text: wrapped, font_size: s.text_size, color: s.text_color, alignment: TextAlign::Left, ..Default::default() },

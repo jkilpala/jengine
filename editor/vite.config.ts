@@ -1,5 +1,7 @@
 import { defineConfig, type Plugin } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+// @ts-expect-error - a plain .mjs script, shared with `npm install`'s postinstall
+import { patchFengari, MARK } from './scripts/patch-fengari.mjs'
 
 /**
  * A built editor imports its WASM viewport at run time rather than bundling
@@ -31,7 +33,21 @@ function viewportAtRunTime(): Plugin {
   }
 }
 
+/**
+ * The editor's Lua computes `%` and `^` by the native Luau's rules only with
+ * `fengari-web` patched (`scripts/patch-fengari.mjs`). This patches it on
+ * start, so a checkout that never re-ran `npm install` is patched anyway -
+ * and carries the patch's version in its name, because Vite's dependency
+ * cache (`node_modules/.vite`) is keyed on the lockfile and the config's
+ * plugin names, not on the files: a cache made before the patch would keep
+ * serving the unpatched Fengari forever. A new name re-bundles it once.
+ */
+function fengariPatched(): Plugin {
+  patchFengari()
+  return { name: `jengine-fengari-patch ${MARK}` }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [viewportAtRunTime(), svelte()],
+  plugins: [fengariPatched(), viewportAtRunTime(), svelte()],
 })

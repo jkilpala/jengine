@@ -5,7 +5,7 @@
 //!
 //! The showcase's Forest God Rays is built on it. Without a GPU adapter it
 //! prints why and passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "light_shafts"))]
 
 use std::collections::HashMap;
 

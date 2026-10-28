@@ -24,6 +24,7 @@ use hecs::World;
 
 use crate::asset::sort_layers::SortLayers;
 use crate::ecs::components::{GuiComponent, MaterialComponent, Mesh2D, ShadowCaster, SpriteComponent, SpriteFill, TextComponent, Transform, VectorPath, WorldTransform};
+#[cfg(feature = "skinned_mesh")]
 use crate::animation::skinned_mesh::{compute_skinned_positions, SkinnedMesh};
 use crate::particles::{ParticleEmitter, ParticleSystem};
 use crate::renderer::backend::wgpu::{
@@ -222,6 +223,7 @@ pub fn render_lightmaps_wgpu(
     }
     // Light flooded through tilemaps (`ecs::tile_light`): a quad of one
     // texel a cell over each map.
+    #[cfg(feature = "tile_light")]
     for q in crate::ecs::tile_light::quads(world) {
         batch.begin();
         let k = q.intensity.max(0.0);
@@ -235,6 +237,8 @@ pub fn render_lightmaps_wgpu(
     // Freeform lights (`renderer::freeform_light`): meshes added into the
     // same buffer, coloured by their falloff, against the white texture -
     // here so every host that draws lightmaps draws them too.
+    #[cfg(feature = "freeform_light")]
+    {
     let mut q = world.query::<(&Transform, Option<&WorldTransform>, &crate::renderer::freeform_light::FreeformLight)>();
     let placed: Vec<_> = q
         .iter()
@@ -254,6 +258,7 @@ pub fn render_lightmaps_wgpu(
             total += 1;
         }
         flush(batch, crate::asset::WHITE_TEXTURE_ID, None);
+    }
     }
     total
 }
@@ -305,6 +310,7 @@ fn sprites_materialized_filtered(
         /// A `VectorPath`, tessellated for this frame.
         Path(Vec<crate::renderer::vector_path::PathPart>),
         /// A `SkinnedMesh`, skinned for this frame: world-space triangles.
+        #[cfg(feature = "skinned_mesh")]
         Skinned(SkinnedTriangles),
     }
     let mut drawables: Vec<Item> = query
@@ -407,11 +413,13 @@ fn sprites_materialized_filtered(
     }
     // Skinned meshes too - skinned on the CPU against their bones, then
     // sorted like the sprite of their texture they are drawn as.
+    #[cfg(feature = "skinned_mesh")]
     let mut skinned_query = world.query::<(
         &SkinnedMesh,
         &crate::ecs::components::SkeletonRoot,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "skinned_mesh")]
     for (root, (mesh, _, unlit)) in skinned_query.iter() {
         if only_unlit.is_some_and(|want| unlit.is_some() != want) {
             continue;
@@ -479,6 +487,7 @@ fn sprites_materialized_filtered(
                 Drawable::Sprite(s) => queue_sprite(batch, &drawables[i].transform, s, default_size),
                 Drawable::Mesh(mesh) => queue_mesh(batch, &drawables[i].transform, mesh),
                 Drawable::Path(parts) => queue_path(batch, &drawables[i].transform, parts),
+                #[cfg(feature = "skinned_mesh")]
                 Drawable::Skinned(tris) => queue_skinned(batch, tris),
             }
             // A mesh bigger than a whole batch goes out in pieces.
@@ -611,6 +620,7 @@ fn queue_path_tinted(
 
 /// A skinned mesh, skinned for one frame: world-space positions, and what
 /// the batch needs to draw them.
+#[derive(Default)]
 pub(crate) struct SkinnedTriangles {
     positions: Vec<Vec2>,
     uvq: Vec<[f32; 3]>,
@@ -620,6 +630,7 @@ pub(crate) struct SkinnedTriangles {
 
 /// Skin one mesh against its bones for this frame. `None` when it has
 /// nothing to draw.
+#[cfg(feature = "skinned_mesh")]
 fn skin(world: &World, root: hecs::Entity, mesh: &SkinnedMesh) -> Option<SkinnedTriangles> {
     if mesh.indices.len() < 3 || mesh.color[3] <= 0.0 {
         return None;
@@ -644,6 +655,7 @@ fn skin(world: &World, root: hecs::Entity, mesh: &SkinnedMesh) -> Option<Skinned
     })
 }
 
+#[cfg(feature = "skinned_mesh")]
 /// Queue a skinned mesh's triangles - already in world space.
 fn queue_skinned(batch: &mut WgpuSpriteBatch, tris: &SkinnedTriangles) {
     queue_skinned_tinted(batch, tris, Vec4::ONE);
@@ -985,6 +997,7 @@ pub fn sync_view_targets(
 /// `set_frame_view` it already calls per camera.
 pub fn in_view_layers(world: &World, entity: hecs::Entity) -> bool {
     // Out of every fog's sight (`ecs::fog_of_war`): drawn by no pass.
+    #[cfg(feature = "fog_of_war")]
     if crate::ecs::fog_of_war::hidden(world, entity) {
         return false;
     }
@@ -1064,8 +1077,9 @@ pub fn uses_light_layers(world: &World) -> bool {
 /// `flush_group(pipeline, diffuse_id, normal_id)` resolves the textures
 /// (`lit_sprite_textures`, with the flat fallback for `None`) and calls
 /// `pipeline.flush_normals`. `Unlit` sprites are skipped: nothing lights
-/// them. Tilemaps, text and particles are not drawn here, so they take the
-/// normal of whatever sprite is under them - flat, unless it is bumpy.
+/// them. Meshes are drawn too (Oct 2026), in perspective. Tilemaps, text and
+/// particles are not, so they take the normal of whatever is under them -
+/// flat, unless it is bumpy.
 pub fn render_normals_wgpu(
     world:        &World,
     sort_layers:  &SortLayers,
@@ -1082,45 +1096,75 @@ pub fn render_normals_wgpu(
         Option<&crate::ecs::components::Unlit>,
         Option<&crate::ecs::components::LightOccluder>,
         Option<&crate::ecs::components::LightLayers>,
-        Option<&crate::ecs::paint::Paintable>,
+        Option<&PaintableC>,
     )>();
     // Only what covers what is under it is a surface. An additive glow or a
     // multiply decal (a scorch mark) tints the floor and has no shape of its
     // own; drawn here it wrote a flat normal over the floor's bumps, and the
     // floor under every scorch lit as a pale rectangle.
-    let mut drawables: Vec<(WorldTransform, &SpriteComponent, Option<&str>, i32, (bool, u32), [f32; 2])> = query
+    let covers = |m: Option<&MaterialComponent>| {
+        matches!(
+            sprite_blend(m),
+            crate::renderer::material::BlendMode::Alpha | crate::renderer::material::BlendMode::PremultipliedAlpha
+        )
+    };
+    let mut drawables: Vec<NormalSurface> = query
         .iter()
         .filter(|(e, (_, s, m, _, unlit, _, _, _))| {
-            unlit.is_none()
-                && in_view_layers(world, *e)
-                && s.color[3] > 0.0
-                && matches!(
-                    sprite_blend(*m),
-                    crate::renderer::material::BlendMode::Alpha | crate::renderer::material::BlendMode::PremultipliedAlpha
-                )
+            unlit.is_none() && in_view_layers(world, *e) && s.color[3] > 0.0 && covers(*m)
         })
         // A sprite whose entity casts a shadow is marked as a caster, for
         // occluders that do not shadow casters (`shadows_casters` off).
         .map(|(_, (t, s, m, w, _, occ, layers, pressed))| {
             let marks = (occ.is_some_and(|o| o.enabled), layers.map_or(1, |l| l.layers));
             // A pressed sprite's normals come from its pressed copy.
-            let pressed = pressed.and_then(|p| p.state.normal.as_deref());
+            let pressed = crate::ecs::carve::pressed_normal(pressed);
             (w.cloned().unwrap_or_else(|| WorldTransform::from(t)), s, m, marks, pressed)
         })
         .filter(|(transform, s, _, _, _)| {
             view.is_none_or(|v| v.sees_sprite(transform.position, transform.scale, s, default_size))
         })
-        .map(|(transform, s, m, marks, pressed)| {
-            (
-                transform,
-                s,
-                pressed.or_else(|| m.and_then(|m| m.normal_map_id.as_deref()).filter(|id| !id.is_empty())),
-                sort_layers.resolve(s.sort_layer.as_deref(), s.z_order),
-                marks,
-                m.map_or([0.0, 0.0], |m| specular_encoding(m.specular, m.shininess)),
-            )
+        .map(|(transform, s, m, marks, pressed)| NormalSurface {
+            z: sort_layers.resolve(s.sort_layer.as_deref(), s.z_order),
+            y_key: s.y_sort_key(transform.position.y),
+            tex: crate::asset::resolve_texture_id(&s.texture_id),
+            normal: pressed.or_else(|| m.and_then(|m| m.normal_map_id.as_deref()).filter(|id| !id.is_empty())),
+            marks,
+            specular: m.map_or([0.0, 0.0], |m| specular_encoding(m.specular, m.shininess)),
+            transform,
+            shape: NormalShape::Sprite(s),
         })
         .collect();
+    // Meshes are surfaces too (Oct 2026): a normal-mapped wall drawn as a
+    // mesh - a 3D stage's, a corridor's - lit flat before, whatever its map.
+    let mut mesh_query = world.query::<(
+        &Transform,
+        &Mesh2D,
+        Option<&MaterialComponent>,
+        Option<&WorldTransform>,
+        Option<&crate::ecs::components::Unlit>,
+        Option<&crate::ecs::components::LightOccluder>,
+        Option<&crate::ecs::components::LightLayers>,
+    )>();
+    for (e, (t, mesh, m, w, unlit, occ, layers)) in mesh_query.iter() {
+        if unlit.is_some() || !in_view_layers(world, e) || mesh.color[3] <= 0.0 || mesh.vertices.len() < 3 || !covers(m) {
+            continue;
+        }
+        let transform = w.cloned().unwrap_or_else(|| WorldTransform::from(t));
+        if !view_sees_mesh(view.as_ref(), &transform, mesh) {
+            continue;
+        }
+        drawables.push(NormalSurface {
+            z: sort_layers.resolve(mesh.sort_layer.as_deref(), mesh.z_order),
+            y_key: 0,
+            tex: crate::asset::resolve_texture_id(&mesh.texture_id),
+            normal: m.and_then(|m| m.normal_map_id.as_deref()).filter(|id| !id.is_empty()),
+            marks: (occ.is_some_and(|o| o.enabled), layers.map_or(1, |l| l.layers)),
+            specular: m.map_or([0.0, 0.0], |m| specular_encoding(m.specular, m.shininess)),
+            transform,
+            shape: NormalShape::Mesh(mesh),
+        });
+    }
     if drawables.is_empty() {
         return 0;
     }
@@ -1128,33 +1172,44 @@ pub fn render_normals_wgpu(
     // The colour pass's order: z, then down the screen for whoever asked,
     // then by texture pair so neighbours flush together.
     drawables.sort_by(|a, b| {
-        a.3.cmp(&b.3)
-            .then_with(|| a.1.y_sort_key(a.0.position.y).cmp(&b.1.y_sort_key(b.0.position.y)))
-            .then_with(|| {
-                crate::asset::resolve_texture_id(&a.1.texture_id)
-                    .cmp(crate::asset::resolve_texture_id(&b.1.texture_id))
-            })
-            .then_with(|| a.2.cmp(&b.2))
+        a.z.cmp(&b.z).then_with(|| a.y_key.cmp(&b.y_key)).then_with(|| a.tex.cmp(b.tex)).then_with(|| a.normal.cmp(&b.normal))
     });
 
     let mut total = 0usize;
     let mut i = 0;
     while i < drawables.len() {
-        let diffuse_id = crate::asset::resolve_texture_id(&drawables[i].1.texture_id);
-        let normal_id = drawables[i].2;
+        let diffuse_id = drawables[i].tex;
+        let normal_id = drawables[i].normal;
         pipeline.begin();
         let mut count = 0usize;
-        while i < drawables.len()
-            && crate::asset::resolve_texture_id(&drawables[i].1.texture_id) == diffuse_id
-            && drawables[i].2 == normal_id
-        {
+        while i < drawables.len() && drawables[i].tex == diffuse_id && drawables[i].normal == normal_id {
             if pipeline.is_full() {
                 flush_group(pipeline, diffuse_id, normal_id);
                 total += count;
                 count = 0;
                 pipeline.begin();
             }
-            queue_lit_sprite(pipeline, &drawables[i].0, drawables[i].1, default_size, drawables[i].4, drawables[i].5);
+            let d = &drawables[i];
+            match d.shape {
+                NormalShape::Sprite(s) => queue_lit_sprite(pipeline, &d.transform, s, default_size, d.marks, d.specular),
+                NormalShape::Mesh(mesh) => {
+                    let (positions, uvq, indices) = mesh_geometry(&d.transform, mesh);
+                    let color = Vec4::new(normal_code(d.marks), d.specular[0], d.specular[1], mesh.color[3]);
+                    // A mesh longer than a batch: flush and draw the rest.
+                    let mut rest = indices.as_slice();
+                    loop {
+                        let left = pipeline.draw_mesh(&positions, &uvq, color, rest);
+                        if left == 0 {
+                            break;
+                        }
+                        flush_group(pipeline, diffuse_id, normal_id);
+                        total += count;
+                        count = 0;
+                        pipeline.begin();
+                        rest = &rest[rest.len() - left * 3..];
+                    }
+                }
+            }
             count += 1;
             i += 1;
         }
@@ -1162,6 +1217,49 @@ pub fn render_normals_wgpu(
         total += count;
     }
     total
+}
+
+/// One surface the normal pass draws: where it sorts, its two textures, the
+/// code its vertices carry, and its shape.
+struct NormalSurface<'a> {
+    z: i32,
+    y_key: i32,
+    tex: &'a str,
+    normal: Option<&'a str>,
+    /// Whether it is a caster, and its light layers.
+    marks: (bool, u32),
+    specular: [f32; 2],
+    transform: WorldTransform,
+    shape: NormalShape<'a>,
+}
+
+enum NormalShape<'a> {
+    Sprite(&'a SpriteComponent),
+    Mesh(&'a Mesh2D),
+}
+
+/// The red of a normal-pass vertex: its light layers and whether it is a
+/// caster, `layers * 2 + (1 if not)` - an integer, exact in the vertex's
+/// float (`fs_normal` decodes it).
+fn normal_code((caster, layers): (bool, u32)) -> f32 {
+    ((layers & 0xFF) * 2 + if caster { 0 } else { 1 }) as f32
+}
+
+/// A [`Mesh2D`]'s triangles as the sprite pass draws them: positions carried
+/// by the world transform, `(u q, v q, q)` inside its `uv_rect`, and its
+/// triangle list.
+fn mesh_geometry(transform: &WorldTransform, mesh: &Mesh2D) -> (Vec<Vec2>, Vec<[f32; 3]>, Vec<u32>) {
+    let [u0, v0, u1, v1] = mesh.uv_rect.unwrap_or([0.0, 0.0, 1.0, 1.0]);
+    let mut positions = Vec::with_capacity(mesh.vertices.len());
+    let mut uvq = Vec::with_capacity(mesh.vertices.len());
+    for v in &mesh.vertices {
+        positions.push(transform.apply(Vec2::from(v.position)));
+        let q = if v.q.is_finite() && v.q > 0.0 { v.q } else { 1.0 };
+        let u = u0 + (u1 - u0) * v.uv[0];
+        let vv = v0 + (v1 - v0) * v.uv[1];
+        uvq.push([u * q, vv * q, q]);
+    }
+    (positions, uvq, mesh.triangles().into_owned())
 }
 
 /// What the velocity pass remembers between frames: the camera's view, when,
@@ -1223,10 +1321,11 @@ pub fn begin_velocity(camera: &crate::renderer::camera::Camera2D) -> ([f32; 2], 
     })
 }
 
-/// The velocity pass: every covering sprite drawn with its motion across the
-/// screen since the last frame - its own and the camera's - in the vertex
-/// colour's red and green, and its z in its blue (`depth_of_field` reads
-/// it), through `WgpuSpriteBatch::velocity_pipeline`. A sprite the camera
+/// The velocity pass: every covering sprite and mesh drawn with its motion
+/// across the screen since the last frame - its own and the camera's - in the
+/// vertex colour's red and green, and its z in its blue (`depth_of_field`
+/// reads it; a 3D stage's objects give their depth instead, per vertex for a
+/// quad), through `WgpuSpriteBatch::velocity_pipeline`. A sprite the camera
 /// follows has none and stays sharp under `motion_blur`; the street it
 /// drives down streams past. A sprite seen for the first time has none.
 /// Remembers this frame for the next.
@@ -1244,54 +1343,146 @@ pub fn render_velocity_wgpu(
     let (prev_corners, prev_positions) =
         VELOCITY.with(|v| { let mut v = v.borrow_mut(); (v.corners, std::mem::take(&mut v.positions)) });
     let mut seen: std::collections::HashMap<u64, Vec2> = std::collections::HashMap::with_capacity(prev_positions.len());
-    let mut query = world.query::<(&Transform, &SpriteComponent, Option<&WorldTransform>, Option<&MaterialComponent>)>();
-    let mut items: Vec<(WorldTransform, &SpriteComponent, i32, Vec4)> = Vec::new();
-    for (e, (t, s, w, m)) in query.iter() {
-        if s.color[3] <= 0.0
-            || !in_view_layers(world, e)
-            || !matches!(
-                sprite_blend(m),
-                crate::renderer::material::BlendMode::Alpha | crate::renderer::material::BlendMode::PremultipliedAlpha
-            )
-        {
+    let covers = |m: Option<&MaterialComponent>| {
+        matches!(
+            sprite_blend(m),
+            crate::renderer::material::BlendMode::Alpha | crate::renderer::material::BlendMode::PremultipliedAlpha
+        )
+    };
+    // The motion of a thing at `position` since the last frame, across the
+    // screen.
+    let mut motion = |e: hecs::Entity, position: Vec2| {
+        let key = e.to_bits().get();
+        seen.insert(key, position);
+        let was = prev_positions.get(&key).copied().unwrap_or(position);
+        match prev_corners {
+            Some(pc) if prev_positions.contains_key(&key) => (view_uv(&corners, position) - view_uv(&pc, was)) * scale,
+            _ => Vec2::ZERO,
+        }
+    };
+    let mut items: Vec<VelocityItem> = Vec::new();
+    let mut query = world.query::<(
+        &Transform,
+        &SpriteComponent,
+        Option<&WorldTransform>,
+        Option<&MaterialComponent>,
+        Option<&StageBillboardC>,
+    )>();
+    for (e, (t, s, w, m, billboard)) in query.iter() {
+        if s.color[3] <= 0.0 || !in_view_layers(world, e) || !covers(m) {
             continue;
         }
         let wt = w.cloned().unwrap_or_else(|| WorldTransform::from(t));
-        let key = e.to_bits().get();
-        seen.insert(key, wt.position);
+        let vel = motion(e, wt.position);
         if !view.is_none_or(|v| v.sees_sprite(wt.position, wt.scale, s, default_size)) {
             continue;
         }
-        let was = prev_positions.get(&key).copied().unwrap_or(wt.position);
-        let vel = match prev_corners {
-            Some(pc) if prev_positions.contains_key(&key) => (view_uv(&corners, wt.position) - view_uv(&pc, was)) * scale,
-            _ => Vec2::ZERO,
-        };
         let z = sort_layers.resolve(s.sort_layer.as_deref(), s.z_order);
-        items.push((wt, s, z, Vec4::new(vel.x, vel.y, z as f32, s.color[3])));
+        // A thing standing on a 3D stage is as deep as the stage says
+        // (`ecs::stage`), not as its z - which only orders it.
+        #[cfg(feature = "stage")]
+        let depth = billboard.map_or(z as f32, |b| b.view_z);
+        #[cfg(not(feature = "stage"))]
+        let depth = {
+            let _ = billboard;
+            z as f32
+        };
+        items.push(VelocityItem {
+            z,
+            y_key: s.y_sort_key(wt.position.y),
+            tex: crate::asset::resolve_texture_id(&s.texture_id),
+            color: Vec4::new(vel.x, vel.y, depth, s.color[3]),
+            transform: wt,
+            shape: VelocityShape::Sprite(s),
+        });
+    }
+    // Meshes (Oct 2026): a 3D stage's floors and walls blur by their depth,
+    // which a quad carries per vertex - so a floor softens smoothly into the
+    // distance instead of as one layer.
+    let mut mesh_query = world.query::<(
+        &Transform,
+        &Mesh2D,
+        Option<&WorldTransform>,
+        Option<&MaterialComponent>,
+        Option<&StageQuadC>,
+    )>();
+    for (e, (t, mesh, w, m, quad)) in mesh_query.iter() {
+        if mesh.color[3] <= 0.0 || mesh.vertices.len() < 3 || !in_view_layers(world, e) || !covers(m) {
+            continue;
+        }
+        let wt = w.cloned().unwrap_or_else(|| WorldTransform::from(t));
+        let vel = motion(e, wt.position);
+        if !view_sees_mesh(view.as_ref(), &wt, mesh) {
+            continue;
+        }
+        let z = sort_layers.resolve(mesh.sort_layer.as_deref(), mesh.z_order);
+        #[cfg(feature = "stage")]
+        let depths = quad.map(|q| q.view_z.as_slice()).filter(|d| d.len() == mesh.vertices.len());
+        #[cfg(not(feature = "stage"))]
+        let depths: Option<&[f32]> = {
+            let _ = quad;
+            None
+        };
+        items.push(VelocityItem {
+            z,
+            y_key: 0,
+            tex: crate::asset::resolve_texture_id(&mesh.texture_id),
+            color: Vec4::new(vel.x, vel.y, z as f32, mesh.color[3]),
+            transform: wt,
+            shape: VelocityShape::Mesh(mesh, depths),
+        });
     }
     // Nearer drawn last, so it is what a pixel's motion is.
-    items.sort_by(|a, b| {
-        a.2.cmp(&b.2)
-            .then_with(|| a.1.y_sort_key(a.0.position.y).cmp(&b.1.y_sort_key(b.0.position.y)))
-    });
+    items.sort_by(|a, b| a.z.cmp(&b.z).then_with(|| a.y_key.cmp(&b.y_key)));
     let mut total = 0usize;
     let mut i = 0;
     while i < items.len() {
-        let tex = crate::asset::resolve_texture_id(&items[i].1.texture_id);
+        let tex = items[i].tex;
         batch.begin();
         let mut count = 0usize;
-        while i < items.len() && crate::asset::resolve_texture_id(&items[i].1.texture_id) == tex {
+        while i < items.len() && items[i].tex == tex {
             if batch.is_full() {
                 flush(batch, tex);
                 total += count;
                 count = 0;
                 batch.begin();
             }
-            let (wt, s, _, color) = &items[i];
-            for_each_fill_quad(s, default_size, wt.scale, |sub_size, uv, sub_anchor| {
-                batch.draw_sprite_anchored_skewed(wt.position, sub_size, wt.rotation, wt.shear, *color, uv, sub_anchor);
-            });
+            let it = &items[i];
+            match it.shape {
+                VelocityShape::Sprite(s) => {
+                    let wt = &it.transform;
+                    for_each_fill_quad(s, default_size, wt.scale, |sub_size, uv, sub_anchor| {
+                        batch.draw_sprite_anchored_skewed(wt.position, sub_size, wt.rotation, wt.shear, it.color, uv, sub_anchor);
+                    });
+                }
+                VelocityShape::Mesh(mesh, depths) => {
+                    let (positions, uvq, indices) = mesh_geometry(&it.transform, mesh);
+                    let colors: Vec<[f32; 4]> = (0..positions.len())
+                        .map(|k| {
+                            let mut c = it.color;
+                            if let Some(d) = depths {
+                                // Times the vertex's perspective weight: the
+                                // shader divides by the weight it is handed,
+                                // as it does the texture coordinate, so the
+                                // depth is right across a quad in depth.
+                                c.z = d[k] * uvq[k][2];
+                            }
+                            // Coverage: the vertex's own alpha too.
+                            c.w *= mesh.vertices[k].color[3];
+                            c.into()
+                        })
+                        .collect();
+                    batch.draw_mesh(&positions, &uvq, &colors, &indices);
+                    while batch.has_overflow() {
+                        let rest = batch.take_overflow();
+                        flush(batch, tex);
+                        total += count;
+                        count = 0;
+                        batch.begin();
+                        batch.resume_overflow(rest);
+                    }
+                }
+            }
             count += 1;
             i += 1;
         }
@@ -1305,6 +1496,23 @@ pub fn render_velocity_wgpu(
         v.at = crate::profiling::now_ms() / 1000.0;
     });
     total
+}
+
+/// One thing the velocity pass draws: where it sorts, its texture, the
+/// colour its vertices carry (motion, depth, coverage) and its shape.
+struct VelocityItem<'a> {
+    z: i32,
+    y_key: i32,
+    tex: &'a str,
+    color: Vec4,
+    transform: WorldTransform,
+    shape: VelocityShape<'a>,
+}
+
+enum VelocityShape<'a> {
+    Sprite(&'a SpriteComponent),
+    /// A mesh, and its depth per vertex when a 3D stage gave it one.
+    Mesh(&'a Mesh2D, Option<&'a [f32]>),
 }
 
 /// A material's specular as the normal pass carries it in a vertex colour:
@@ -1327,8 +1535,7 @@ fn queue_lit_sprite(
     // layers and whether this is a caster, `layers * 2 + (1 if not)` - an
     // integer, exact in the vertex's float - green and blue the material's
     // specular strength and shininess - see `fs_normal`.
-    let code = (layers & 0xFF) * 2 + if caster { 0 } else { 1 };
-    let color = Vec4::new(code as f32, specular[0], specular[1], sprite.color[3]);
+    let color = Vec4::new(normal_code((caster, layers)), specular[0], specular[1], sprite.color[3]);
     for_each_fill_quad(sprite, default_size, transform.scale, |sub_size, uv, sub_anchor| {
         pipeline.draw_sprite_anchored_skewed(
             transform.position,
@@ -3605,6 +3812,7 @@ pub fn render_shadows_wgpu(
 /// `texture_id` and flushed per texture group through the supplied
 /// callback — same protocol as [`render_sprites_wgpu_multi`].
 /// Returns the total number of triangles queued.
+#[cfg(feature = "skinned_mesh")]
 #[deprecated = "skinned meshes are drawn by the sprite pass, sorted by z_order; this draws them a second time over every sprite"]
 pub fn render_skinned_meshes_wgpu(
     world: &World,
@@ -4602,7 +4810,19 @@ fn anything_above(world: &World, sort_layers: &SortLayers, t: i32) -> bool {
         || world.query::<&crate::ecs::components::Trail>().iter().any(|(_, x)| above(x.sort_layer.as_deref(), x.z_order))
         || world.query::<&ParticleEmitter>().iter().any(|(_, x)| above(x.sort_layer.as_deref(), x.z_order))
         || world.query::<&Tilemap>().iter().any(|(_, x)| above(x.sort_layer.as_deref(), x.z_order))
-        || world.query::<&SkinnedMesh>().iter().any(|(_, x)| above(None, x.z_order))
+        || skinned_above(world, &above)
+}
+
+/// Whether a skinned mesh sorts above the window's floor (`ecs::frame_draw`'s
+/// scene readers) - none in a build without skinned meshes.
+#[cfg(feature = "skinned_mesh")]
+fn skinned_above(world: &World, above: &impl Fn(Option<&str>, i32) -> bool) -> bool {
+    world.query::<&SkinnedMesh>().iter().any(|(_, x)| above(None, x.z_order))
+}
+
+#[cfg(not(feature = "skinned_mesh"))]
+fn skinned_above(_: &World, _: &impl Fn(Option<&str>, i32) -> bool) -> bool {
+    false
 }
 
 thread_local! {
@@ -4686,6 +4906,14 @@ pub fn render_sprites_with_shadows_wgpu_materialized(
     render_world_items(world, sort_layers, fonts, default_size, |w| w.draw(layer, batch, flush))
 }
 
+crate::feature_component!(type JellyC = "jelly" => crate::ecs::jelly::Jelly);
+use crate::ecs::carve::{PaintableC, painted_texture};
+crate::feature_component!(type StageBillboardC = "stage" => crate::ecs::stage::StageBillboard);
+crate::feature_component!(type StageQuadC = "stage" => crate::ecs::stage::StageQuad);
+crate::feature_component!(type SpriteTiltC = "sprite_tilt" => crate::ecs::sprite_tilt::SpriteTilt);
+crate::feature_component!(type SpriteOutlineC = "sprite_outline" => crate::ecs::sprite_outline::SpriteOutline);
+crate::feature_component!(type SnowCoverC = "snow" => crate::ecs::snow::SnowCover);
+
 /// Collect the world's drawables once - query, cull, build each item, note
 /// what each layer will make of it - and hand them to `f`, which draws them
 /// with [`WorldItems::draw`] as many times as the frame needs: a lit frame's
@@ -4708,11 +4936,13 @@ pub fn render_world_items<R>(
     let mut canvas_targets: Vec<(hecs::Entity, i32, bool, crate::renderer::material::BlendMode, [f32; 4], [Vec2; 4])> =
         Vec::new();
     // Falling sand's glow (`ecs::pixel_sim`): fire and lava again, additive.
+    #[cfg(feature = "pixel_sim")]
     let pixel_glows: Vec<(hecs::Entity, [Vec2; 4], f32, i32, String)> = crate::ecs::pixel_sim::glow_quads(world)
         .into_iter()
         .map(|(e, c, k, z)| (e, c, k, z, crate::ecs::pixel_sim::glow_id(e)))
         .collect();
     // Mirrors' textures (`ecs::mirror`), owned here for the same reason.
+    #[cfg(feature = "mirror")]
     let mirror_ids: Vec<(hecs::Entity, String)> = world
         .query::<&crate::ecs::mirror::Mirror>()
         .iter()
@@ -4720,6 +4950,7 @@ pub fn render_world_items<R>(
         .map(|(m, _)| (m, crate::ecs::mirror::target_id(m)))
         .collect();
     // Portals' textures (`ecs::portal`), likewise.
+    #[cfg(feature = "portal")]
     let portal_ids: Vec<(hecs::Entity, String)> = world
         .query::<&crate::ecs::portal::Portal>()
         .iter()
@@ -4775,11 +5006,11 @@ pub fn render_world_items<R>(
         Option<&crate::ecs::components::Masked>,
         Option<&crate::ecs::carve::Carvable>,
         Option<&crate::ecs::canvas_group::CanvasGroup>,
-        Option<&crate::ecs::paint::Paintable>,
-        Option<&crate::ecs::sprite_tilt::SpriteTilt>,
-        Option<&crate::ecs::jelly::Jelly>,
-        Option<&crate::ecs::sprite_outline::SpriteOutline>,
-        Option<&crate::ecs::snow::SnowCover>,
+        Option<&PaintableC>,
+        Option<&SpriteTiltC>,
+        Option<&JellyC>,
+        Option<&SpriteOutlineC>,
+        Option<&SnowCoverC>,
     )>();
     for (e, (t, s, w, m, unlit, masked, carved, group, painted, tilted, jellied, outlined, snowy)) in sprite_query.iter() {
         if !in_view_layers(world, e) {
@@ -4815,12 +5046,15 @@ pub fn render_world_items<R>(
         // paintable one its painted copy (`ecs::paint`).
         let tex = carved
             .and_then(|c| c.state.texture.as_deref())
-            .or_else(|| painted.and_then(|p| p.state.texture.as_deref()))
+            .or_else(|| painted_texture(painted))
             .unwrap_or_else(|| crate::asset::resolve_texture_id(&s.texture_id));
         // A tilted sprite (`ecs::sprite_tilt`) is one quad in perspective,
         // with its back where it faces away.
         // A jelly (`ecs::jelly`) is its quad cut into a grid, each point
         // moved by its wobble.
+        #[cfg(not(feature = "jelly"))]
+        let _ = jellied;
+        #[cfg(feature = "jelly")]
         if let Some(jl) = jellied
             && tilted.is_none()
         {
@@ -4840,6 +5074,9 @@ pub fn render_world_items<R>(
             });
             continue;
         }
+        #[cfg(not(feature = "sprite_tilt"))]
+        let _ = tilted;
+        #[cfg(feature = "sprite_tilt")]
         if let Some(tilt) = tilted {
             let uv = s.uv_rect.unwrap_or([0.0, 0.0, 1.0, 1.0]);
             let q = crate::ecs::sprite_tilt::quad(s, tilt, &transform, s.drawn_size(default_size), uv);
@@ -4865,6 +5102,9 @@ pub fn render_world_items<R>(
         // An outline (`ecs::sprite_outline`): the quad grown by the ring's
         // reach, just behind the sprite (one place earlier in its z), drawn
         // by the default shader's outline mode - unlit, as a glow is.
+        #[cfg(not(feature = "sprite_outline"))]
+        let _ = outlined;
+        #[cfg(feature = "sprite_outline")]
         if let Some(o) = outlined
             && o.enabled
             && o.reach() > 0.0
@@ -4898,13 +5138,16 @@ pub fn render_world_items<R>(
         }
         // Snow lying on it (`ecs::snow`): its picture over the sprite's quad,
         // one place later in its z, lit as the sprite is.
+        #[cfg(not(feature = "snow"))]
+        let _ = snowy;
+        #[cfg(feature = "snow")]
         if let Some(snow) = snowy
             && crate::ecs::snow::shows(snow)
             && s.fill.is_none()
         {
             let uv = s.uv_rect.unwrap_or([0.0, 0.0, 1.0, 1.0]);
             let size = s.drawn_size(default_size);
-            let q = crate::ecs::sprite_outline::quad(s, &transform, size, uv, 0.0);
+            let q = crate::ecs::sprite_quad::grown(s, &transform, size, uv, 0.0);
             rules.resize(items.len(), pending);
             pending = LayerRule::new(unlit.is_some(), crate::renderer::material::BlendMode::Alpha);
             items.push(InterleavedItem::Skinned {
@@ -4943,14 +5186,18 @@ pub fn render_world_items<R>(
 
     // Silhouettes (`ecs::silhouette`): a thing an occluder hides, drawn again
     // over the occluder - outlined, unlit, clipped to the occluder's pixels.
+    #[cfg(feature = "silhouette")]
     let silhouettes = crate::ecs::silhouette::hidden_by(world, default_size);
+    #[cfg(feature = "silhouette")]
     let mut silhouette_query = world.query::<(
         &Transform,
         &SpriteComponent,
         Option<&WorldTransform>,
         &crate::ecs::silhouette::Silhouette,
     )>();
+    #[cfg(feature = "silhouette")]
     let silhouette_view = silhouette_query.view();
+    #[cfg(feature = "silhouette")]
     for (hidden, wall) in silhouettes {
         if !in_view_layers(world, hidden) {
             continue;
@@ -5066,11 +5313,13 @@ pub fn render_world_items<R>(
     }
 
     // Skinned meshes, lit, sorted by their z like the sprite they draw as.
+    #[cfg(feature = "skinned_mesh")]
     let mut skinned_query = world.query::<(
         &SkinnedMesh,
         &crate::ecs::components::SkeletonRoot,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "skinned_mesh")]
     for (root, (mesh, _, unlit)) in skinned_query.iter() {
         if !in_view_layers(world, root) {
             continue;
@@ -5096,12 +5345,14 @@ pub fn render_world_items<R>(
 
     // Trails: a ribbon from where the entity is now back through the points
     // it left, drawn as world-space triangles like a skinned mesh.
+    #[cfg(feature = "trails")]
     let mut trail_query = world.query::<(
         &Transform,
         &crate::ecs::components::Trail,
         Option<&WorldTransform>,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "trails")]
     for (e, (t, trail, w, unlit)) in trail_query.iter() {
         if !in_view_layers(world, e) {
             continue;
@@ -5133,6 +5384,7 @@ pub fn render_world_items<R>(
 
     // Spline shapes (`renderer::spline_shape`): the fill, then the edge over
     // it, each a list of world triangles of its texture, lit like a sprite.
+    #[cfg(feature = "spline_shape")]
     let mut spline_query = world.query::<(
         &Transform,
         &crate::renderer::spline_shape::SplineShape,
@@ -5140,6 +5392,7 @@ pub fn render_world_items<R>(
         Option<&crate::ecs::components::Unlit>,
         Option<&MaterialComponent>,
     )>();
+    #[cfg(feature = "spline_shape")]
     for (e, (t, shape, w, unlit, m)) in spline_query.iter() {
         if !in_view_layers(world, e) {
             continue;
@@ -5188,6 +5441,7 @@ pub fn render_world_items<R>(
     }
 
     // Smooth terrain (`ecs::smooth_terrain`): its fill and edge strip.
+    #[cfg(feature = "smooth_terrain")]
     let mut terrain_query = world.query::<(
         &Transform,
         &crate::ecs::smooth_terrain::SmoothTerrain,
@@ -5195,6 +5449,7 @@ pub fn render_world_items<R>(
         Option<&crate::ecs::components::Unlit>,
         Option<&MaterialComponent>,
     )>();
+    #[cfg(feature = "smooth_terrain")]
     for (e, (t, terrain, w, unlit, m)) in terrain_query.iter() {
         if !in_view_layers(world, e) || terrain.rev == 0 {
             continue;
@@ -5233,12 +5488,14 @@ pub fn render_world_items<R>(
 
     // Lines (`renderer::line2d`): triangles in world space, drawn as a
     // trail's are.
+    #[cfg(feature = "line2d")]
     let mut line_query = world.query::<(
         &Transform,
         &crate::renderer::line2d::Line2D,
         Option<&WorldTransform>,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "line2d")]
     for (e, (t, line, w, unlit)) in line_query.iter() {
         if !in_view_layers(world, e) {
             continue;
@@ -5272,17 +5529,20 @@ pub fn render_world_items<R>(
 
     // Shadows laid on the ground (`ecs::cast_shadow`): the sprite's own
     // silhouette sheared from its foot along each light, fading to its tip.
+    #[cfg(feature = "cast_shadow")]
     let shadow_lights = if world.query::<&crate::ecs::cast_shadow::CastShadow>().iter().next().is_some() {
         crate::ecs::cast_shadow::lights(world)
     } else {
         Vec::new()
     };
+    #[cfg(feature = "cast_shadow")]
     let mut cast_query = world.query::<(
         &Transform,
         &SpriteComponent,
         &crate::ecs::cast_shadow::CastShadow,
         Option<&WorldTransform>,
     )>();
+    #[cfg(feature = "cast_shadow")]
     for (e, (t, s, shadow, w)) in cast_query.iter() {
         if shadow_lights.is_empty() || s.color[3] <= 0.0 || !in_view_layers(world, e) {
             continue;
@@ -5329,12 +5589,14 @@ pub fn render_world_items<R>(
 
     // Mode 7 planes (`ecs::mode7`): the ground in perspective, one quad
     // with a perspective weight a corner.
+    #[cfg(feature = "mode7")]
     let mut mode7_query = world.query::<(
         &Transform,
         &crate::ecs::mode7::Mode7,
         Option<&WorldTransform>,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "mode7")]
     for (e, (t, m, w, unlit)) in mode7_query.iter() {
         if m.texture_id.is_empty() || !in_view_layers(world, e) {
             continue;
@@ -5362,6 +5624,7 @@ pub fn render_world_items<R>(
 
     // Afterimages (`ecs::afterimage`): the poses a sprite left behind, a
     // run of quads a texture, just under the sprite in its own z.
+    #[cfg(feature = "afterimage")]
     let mut echo_query = world.query::<(
         &Transform,
         &SpriteComponent,
@@ -5369,6 +5632,7 @@ pub fn render_world_items<R>(
         Option<&WorldTransform>,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "afterimage")]
     for (e, (t, s, a, w, unlit)) in echo_query.iter() {
         if a.echoes.is_empty() || !in_view_layers(world, e) {
             continue;
@@ -5394,15 +5658,89 @@ pub fn render_world_items<R>(
         }
     }
 
+    // Shadows thrown on a 3D stage's floor (`ecs::stage`): the sprite's
+    // own frame as a flat dark silhouette, in the floor band.
+    #[cfg(feature = "stage")]
+    let mut stage_shadow_query = world.query::<(&SpriteComponent, &crate::ecs::stage::StageBillboard)>();
+    #[cfg(feature = "stage")]
+    let shadow_params = boxed_params(crate::ecs::sprite_quad::silhouette_params([0.0, 0.0, 0.0, 1.0], 0.0, 1.0));
+    #[cfg(feature = "stage")]
+    for (e, (s, b)) in stage_shadow_query.iter() {
+        if b.shadow_quads.is_empty() || s.color[3] <= 0.0 || !in_view_layers(world, e) {
+            continue;
+        }
+        let [u0, v0, u1, v1] = s.uv_rect.unwrap_or([0.0, 0.0, 1.0, 1.0]);
+        let mut tris = SkinnedTriangles::default();
+        for quad in &b.shadow_quads {
+            let base = tris.positions.len() as u32;
+            for i in 0..4 {
+                let [uq, vq, q] = quad.uvq[i];
+                tris.positions.push(quad.corners[i]);
+                // The frame's 0..1 into the sprite's own rect, still times q.
+                tris.uvq.push([u0 * q + (u1 - u0) * uq, v0 * q + (v1 - v0) * vq, q]);
+                tris.colors.push([0.0, 0.0, 0.0, quad.alpha[i] * s.color[3]]);
+            }
+            tris.indices.extend_from_slice(&[base, base + 1, base + 2, base, base + 2, base + 3]);
+        }
+        rules.resize(items.len(), pending);
+        pending = LayerRule::new(false, crate::renderer::material::BlendMode::Alpha);
+        items.push(InterleavedItem::Skinned {
+            mat: None,
+            params: shadow_params.clone(),
+            g: groups.of(world, e),
+            z: b.shadow_quads[0].z,
+            tex: crate::asset::resolve_texture_id(&s.texture_id),
+            tris,
+            blend: crate::renderer::material::BlendMode::Alpha,
+            cutout: false,
+            mask: 0,
+            order: 0,
+        });
+    }
+
+    // Solids' shadows on a 3D stage's floor (`ecs::stage::StageCaster`):
+    // one flat dark shape a light, under the figures' own shadows.
+    #[cfg(feature = "stage")]
+    let mut caster_query = world.query::<&crate::ecs::stage::StageCaster>();
+    #[cfg(feature = "stage")]
+    for (e, c) in caster_query.iter() {
+        if c.shadow.indices.is_empty() || !in_view_layers(world, e) {
+            continue;
+        }
+        rules.resize(items.len(), pending);
+        pending = LayerRule::new(false, crate::renderer::material::BlendMode::Alpha);
+        let s = &c.shadow;
+        items.push(InterleavedItem::Skinned {
+            mat: None,
+            params: None,
+            g: groups.of(world, e),
+            z: s.z,
+            tex: crate::asset::WHITE_TEXTURE_ID,
+            tris: SkinnedTriangles {
+                positions: s.positions.clone(),
+                uvq: vec![[0.5, 0.5, 1.0]; s.positions.len()],
+                colors: s.colors.clone(),
+                indices: s.indices.clone(),
+            },
+            blend: crate::renderer::material::BlendMode::Alpha,
+            cutout: false,
+            mask: 0,
+            order: 0,
+        });
+    }
+
     // Sprite stacks (`ecs::sprite_stack`): a model's slices raised up the
     // screen, sorted by where the foot is on the screen.
+    #[cfg(feature = "sprite_stack")]
     let stack_up = crate::ecs::sprite_stack::screen_up(view.map(|v| v.corners));
+    #[cfg(feature = "sprite_stack")]
     let mut stack_query = world.query::<(
         &Transform,
         &crate::ecs::sprite_stack::SpriteStack,
         Option<&WorldTransform>,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "sprite_stack")]
     for (e, (t, stack, w, unlit)) in stack_query.iter() {
         if stack.color[3] <= 0.0 || stack.texture_id.is_empty() || !in_view_layers(world, e) {
             continue;
@@ -5432,7 +5770,9 @@ pub fn render_world_items<R>(
 
     // Liquids (`ecs::fluid`): a quad a particle, in world space, one item a
     // fluid - a `canvas_group` round it with a `threshold` makes one surface.
+    #[cfg(feature = "fluid")]
     let mut fluid_query = world.query::<(&crate::ecs::fluid::Fluid, Option<&crate::ecs::components::Unlit>)>();
+    #[cfg(feature = "fluid")]
     for (e, (fluid, unlit)) in fluid_query.iter() {
         if fluid.particles.is_empty() || !in_view_layers(world, e) {
             continue;
@@ -5457,6 +5797,7 @@ pub fn render_world_items<R>(
 
     // Falling sand's glow: unlit and additive over the simulation's sprite,
     // so bloom picks up its fire and lava.
+    #[cfg(feature = "pixel_sim")]
     for (e, corners, k, z, tex) in &pixel_glows {
         if !in_view_layers(world, *e) {
             continue;
@@ -5485,12 +5826,14 @@ pub fn render_world_items<R>(
 
     // Water (`ecs::water`): the body from its moving surface down, and its
     // foam, one item a water.
+    #[cfg(feature = "water")]
     let mut water_query = world.query::<(
         &crate::ecs::water::WaterSurface,
         &Transform,
         Option<&WorldTransform>,
         Option<&crate::ecs::components::Unlit>,
     )>();
+    #[cfg(feature = "water")]
     for (e, (water, t, w, unlit)) in water_query.iter() {
         if !in_view_layers(world, e) {
             continue;
@@ -5516,7 +5859,9 @@ pub fn render_world_items<R>(
 
     // Water running along a curve (`ecs::flow`): a ribbon cut where its
     // texture repeats, the cuts running downstream.
+    #[cfg(feature = "flow")]
     let mut flow_query = world.query::<(&crate::ecs::flow::FlowPath, Option<&crate::ecs::components::Unlit>)>();
+    #[cfg(feature = "flow")]
     for (e, (f, unlit)) in flow_query.iter() {
         if !in_view_layers(world, e) {
             continue;
@@ -5546,7 +5891,9 @@ pub fn render_world_items<R>(
 
     // Lightning (`ecs::lightning`): a strike's glow and core, additive and
     // unlit, one item a bolt.
+    #[cfg(feature = "lightning")]
     let mut bolt_query = world.query::<&crate::ecs::lightning::Lightning>();
+    #[cfg(feature = "lightning")]
     for (e, l) in bolt_query.iter() {
         if l.strike.is_none() || !in_view_layers(world, e) {
             continue;
@@ -5631,8 +5978,11 @@ pub fn render_world_items<R>(
     // front of it, drawn over as deep behind it, flipped across the line. In
     // views too, so a mirror shows the mirrors it faces; not in a canvas
     // group's pass, which draws only the group.
+    #[cfg(any(feature = "mirror", feature = "portal"))]
     let pass = view.map(|v| v.pass);
+    #[cfg(any(feature = "mirror", feature = "portal"))]
     let group_pass = matches!(pass, Some(crate::renderer::camera::CameraPass::CanvasGroup(_)));
+    #[cfg(feature = "mirror")]
     for (m, tex) in mirror_ids.iter().filter(|_| !group_pass) {
         if pass == Some(crate::renderer::camera::CameraPass::Mirror(crate::ecs::mirror::mirror_key(*m)))
             || !in_view_layers(world, *m)
@@ -5670,6 +6020,7 @@ pub fn render_world_items<R>(
     // Portals' windows (`ecs::portal`): each portal's view out of its
     // partner, drawn as deep behind its line, turned half round - the same
     // rules as a mirror's reflection.
+    #[cfg(feature = "portal")]
     for (p, tex) in portal_ids.iter().filter(|_| !group_pass) {
         if pass == Some(crate::renderer::camera::CameraPass::Mirror(crate::ecs::portal::portal_key(*p)))
             || !in_view_layers(world, *p)
@@ -5728,6 +6079,7 @@ pub fn render_world_items<R>(
             w.map_or((t.position, t.scale.x, t.rotation), |w| (w.position, w.scale.x, w.rotation));
         // Text along a path (`ecs::text_path`): every glyph bent onto the
         // curve and turned to it, drawn as one mesh of the font's atlas.
+        #[cfg(feature = "text_path")]
         if let Ok(tp) = world.get::<&crate::ecs::text_path::TextPath>(e) {
             if let Some(path) = crate::ecs::text_path::source(world, &tp.path) {
                 let s = tc.font_scale * scale;

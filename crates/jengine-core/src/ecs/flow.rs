@@ -19,6 +19,7 @@
 //! half-width, in the vertex colours. Ticked in `tick_motion`, drawn by
 //! `render_world_items` as one `Skinned` item - no host was wired.
 
+use crate::detmath::DetMath;
 use glam::Vec2;
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
@@ -159,7 +160,7 @@ pub fn tick_flows(world: &mut World, dt: f32) {
 /// A floating thing's velocity `v` after `dt` in water running at `water`:
 /// eased towards it by `grip` a second, the same at any frame rate.
 pub fn carry(v: Vec2, water: Vec2, grip: f32, dt: f32) -> Vec2 {
-    let k = 1.0 - (-grip.max(0.0) * dt).exp();
+    let k = 1.0 - (-grip.max(0.0) * dt).dexp();
     v + (water - v) * k
 }
 
@@ -275,7 +276,7 @@ mod tests {
             slow = carry(slow, water, 3.0, 1.0 / 30.0);
         }
         assert!((fast - slow).length() < 1e-3, "{fast} vs {slow}");
-        assert!((fast.x - 100.0 * (1.0 - (-3.0f32).exp())).abs() < 1e-2, "{fast}");
+        assert!((fast.x - 100.0 * (1.0 - (-3.0f32).dexp())).abs() < 1e-2, "{fast}");
     }
 
     #[test]

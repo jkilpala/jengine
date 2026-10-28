@@ -92,8 +92,10 @@ fn the_soft_shadow_sample_count_matches_the_shader() {
 }
 
 /// Whether an occluder shadows its own inside (`self_shadow`) is decided by
-/// parity along the ray, and the light's own containment - the CPU's
-/// `ray_transmit` transcribes these lines in both light shaders.
+/// parity along the ray to the light's centre - once a pixel, in
+/// `pixel_inside`, not once per soft-shadow sample - and the light's own
+/// containment. The CPU's `pixel_inside` and `ray_transmit` transcribe these
+/// lines in both light shaders.
 #[test]
 fn the_self_shadow_rule_matches_the_shader() {
     for file in ["point_light.wgsl", "spot_light.wgsl"] {
@@ -103,7 +105,7 @@ fn the_self_shadow_rule_matches_the_shader() {
             flag.as_str(),
             "return 1u << (o & 31u);",
             "parity = parity ^ owner_bit(o);",
-            "if ((o & NO_SELF_SHADOW) != 0u && ray_crosses(frag, light, seg.xy, seg.zw)) {",
+            "if ((o & NO_SELF_SHADOW) != 0u && ray_crosses(frag, center, seg.xy, seg.zw)) {",
             "let side_a = r.x * (a.y - p.y) - r.y * (a.x - p.x) >= 0.0;",
             // `shadow_length`, packed into the owner word as the CPU packs it.
             // ... stretched by the light's shadow scale (a sun's `1 / height`).
@@ -112,7 +114,8 @@ fn the_self_shadow_rule_matches_the_shader() {
             "near[o & 31u] = min(near[o & 31u], crossing_distance(frag, light, seg.xy, seg.zw));",
             "reach = shadow_reach(o, near[o & 31u]);",
             "transmit = transmit * mix(vec3<f32>(1.0), occluder_transmit(i), reach);",
-            "let inside = parity ^ u_light.occ.z;",
+            "return parity ^ u_light.occ.z;",
+            "let inside = pixel_inside(frag, center, first, words, &cand);",
             "if ((o & NO_SELF_SHADOW) != 0u && (inside & owner_bit(o)) != 0u) {",
         ] {
             assert!(

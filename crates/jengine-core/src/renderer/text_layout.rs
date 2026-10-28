@@ -44,8 +44,9 @@ pub fn measure_line(font: &FontData, text: &str, scale: f32) -> f32 {
 /// (`dynamic_font::display_text`). Shaping a display string again leaves it.
 pub fn display_for<'a>(font: &FontData, text: &'a str) -> std::borrow::Cow<'a, str> {
     match &font.shaping {
+        #[cfg(feature = "dynamic_font")]
         Some(id) => crate::renderer::dynamic_font::display_text(id, text),
-        None => std::borrow::Cow::Borrowed(text),
+        _ => std::borrow::Cow::Borrowed(text),
     }
 }
 

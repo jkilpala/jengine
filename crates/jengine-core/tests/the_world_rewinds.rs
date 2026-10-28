@@ -4,7 +4,7 @@
 //! with the speed it had then. Found by the showcase's Rewind Ruins. The
 //! recording itself is tested in the module.
 
-#![cfg(all(feature = "native", feature = "physics"))]
+#![cfg(all(feature = "native", feature = "physics", feature = "rewind"))]
 
 use hecs::World;
 use jengine_core::ecs::behaviors::tick_motion;

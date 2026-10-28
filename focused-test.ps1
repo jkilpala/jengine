@@ -64,6 +64,22 @@ if ($native -ne 0 -or $wasm -ne 0) {
     exit 1
 }
 
+# With no engine features (docs/engine-features-plan.md): every call into an
+# optional subsystem must be gated (`feature!`), and this is what notices one
+# that is not - a build with everything on compiles either way.
+Write-Host "== compile: core and both runtimes with no engine features"
+cargo check -p jengine-core --no-default-features --features native,physics,audio,gpu-wgpu 2>&1 | Out-File $log -Append -Encoding utf8
+$lean = $LASTEXITCODE
+cargo check -p jengine-runtime --no-default-features --features backend-dx12 2>&1 | Out-File $log -Append -Encoding utf8
+$lean = [Math]::Max($lean, $LASTEXITCODE)
+# The web runtime hosts features of its own (packs, live ops, video).
+cargo check -p jengine-web --target wasm32-unknown-unknown --no-default-features --features standalone,physics,backend-webgpu 2>&1 | Out-File $log -Append -Encoding utf8
+$lean = [Math]::Max($lean, $LASTEXITCODE)
+if ($lean -ne 0) {
+    Write-Host "FAILED to compile without engine features - an ungated call into a subsystem? See $log"
+    exit 1
+}
+
 $cargoArgs = @("test", "-p", "jengine-core", "-j", "4", "--no-fail-fast", "--lib")
 if (-not $NoGpu) { $cargoArgs += @("--features", "gpu-wgpu") }
 foreach ($t in ($guards + $Tests)) { $cargoArgs += @("--test", $t) }

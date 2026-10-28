@@ -20,51 +20,31 @@ fn skeleton_scene() -> SceneData {
         children: Vec::new(),
         name: "HeroRoot".to_string(),
         parent: None,
-        components: ComponentBundle {
-            transform: Some(Transform::default()),
-            skeleton_root: Some(SkeletonRoot { name: "hero".into() }),
-            ..Default::default()
-        },
+        components: ComponentBundle::new().with("transform", &Transform::default()).with("skeleton_root", &SkeletonRoot { name: "hero".into() }),
     };
     let pelvis = EntityData {
         children: Vec::new(),
         name: "Pelvis".to_string(),
         parent: Some("HeroRoot".to_string()),
-        components: ComponentBundle {
-            transform: Some(Transform::default()),
-            bone: Some(Bone { name: "pelvis".into(), length: 1.0 }),
-            ..Default::default()
-        },
+        components: ComponentBundle::new().with("transform", &Transform::default()).with("bone", &Bone { name: "pelvis".into(), length: 1.0 }),
     };
     let spine = EntityData {
         children: Vec::new(),
         name: "Spine".to_string(),
         parent: Some("Pelvis".to_string()),
-        components: ComponentBundle {
-            transform: Some(Transform::default()),
-            bone: Some(Bone { name: "spine".into(), length: 1.5 }),
-            ..Default::default()
-        },
+        components: ComponentBundle::new().with("transform", &Transform::default()).with("bone", &Bone { name: "spine".into(), length: 1.5 }),
     };
     let head = EntityData {
         children: Vec::new(),
         name: "Head".to_string(),
         parent: Some("Spine".to_string()),
-        components: ComponentBundle {
-            transform: Some(Transform::default()),
-            bone: Some(Bone { name: "head".into(), length: 0.5 }),
-            ..Default::default()
-        },
+        components: ComponentBundle::new().with("transform", &Transform::default()).with("bone", &Bone { name: "head".into(), length: 0.5 }),
     };
     let arm = EntityData {
         children: Vec::new(),
         name: "Arm".to_string(),
         parent: Some("Spine".to_string()),
-        components: ComponentBundle {
-            transform: Some(Transform::default()),
-            bone: Some(Bone { name: "arm".into(), length: 2.0 }),
-            ..Default::default()
-        },
+        components: ComponentBundle::new().with("transform", &Transform::default()).with("bone", &Bone { name: "arm".into(), length: 2.0 }),
     };
     SceneData {
         name: "skeleton_test".to_string(),
@@ -101,9 +81,7 @@ fn scene_round_trip_preserves_bones_and_root() {
         .find(|e| e.name == "Head")
         .expect("Head should be saved");
     let head_bone = saved_head
-        .components
-        .bone
-        .as_ref()
+        .components.get::<jengine_core::ecs::components::Bone>("bone")
         .expect("Head should have bone in saved scene");
     assert_eq!(head_bone.name, "head");
     assert_eq!(head_bone.length, 0.5);
@@ -113,9 +91,7 @@ fn scene_round_trip_preserves_bones_and_root() {
         .find(|e| e.name == "HeroRoot")
         .expect("HeroRoot should be saved");
     let root_save = saved_root
-        .components
-        .skeleton_root
-        .as_ref()
+        .components.get::<jengine_core::ecs::components::SkeletonRoot>("skeleton_root")
         .expect("HeroRoot should have skeleton_root in saved scene");
     assert_eq!(root_save.name, "hero");
 }

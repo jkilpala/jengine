@@ -19,8 +19,8 @@ What runs where:
 | **Web** | WebGPU, with a WebGL2 fallback. Built with `jengine web-build`. |
 | **Android** | APKs and Play bundles from `jengine android-build`. Lua scripts only (no JavaScript). |
 | **Linux** | Builds and runs, but has only been tested under WSL. |
-| **macOS** | Type-checked only. No macOS build has been linked or run: **unverified**. |
-| **iOS** | Experimental. A build exists, but it has **never run**. |
+| **macOS** | Builds and runs on Apple Silicon, and the editor runs there (in WKWebView). Less tested than Windows. |
+| **iOS** | Runs on the simulator and on an iPhone. Less tested than Android. |
 
 [Cross-Platform](/architecture/cross-platform/) has the details.
 
@@ -55,8 +55,10 @@ packages for you (see below).
 ### macOS and Linux
 
 Every PowerShell script at the repository root has a `.sh` twin - `./setup-dev.sh`,
-`./run-editor.sh`, `./build-viewport.sh` and so on - that does the same thing. Keep in mind that
-macOS itself is unverified and Linux has only been run under WSL.
+`./run-editor.sh`, `./build-viewport.sh` and so on - that does the same thing. Linux has only
+been run under WSL. On a Mac, install Xcode (the iOS simulator and device builds need it, not
+just the Command Line Tools), and use an LTS Node (20 to 24) for `website/` - Node 26 cannot
+build one of its native modules.
 
 ## Clone the repository
 
@@ -155,8 +157,11 @@ This makes a debug-signed APK without Gradle and starts it on a connected device
 ### Linux, macOS and iOS
 
 `jengine linux-build`, `jengine macos-build` and `jengine ios-build` exist. On Windows a Linux build is
-made inside WSL. The macOS and iOS builds need a Mac, and neither has been verified - see the
-platform table above.
+made inside WSL. The macOS and iOS builds need a Mac. `ios-build` targets the simulator by default;
+for a phone, pass `--target device --identity "Apple Development: ..." --profile x.mobileprovision`
+(a free Apple ID works for your own phone: let Xcode make the profile once by running any app with
+the same bundle id on it). An iOS bundle id cannot contain underscores; the build turns them into
+hyphens.
 
 ## Checking your changes
 

@@ -169,7 +169,13 @@ impl InputState {
         // Gestures from the fingers - and the mouse, a finger while none is
         // down - on the same clock.
         let mouse = Some((self.mouse_position, self.mouse_left));
-        self.gestures = self.gesture_state.update(&self.touches, mouse, self.mouse_wheel_delta, now);
+        let recognised = self.gesture_state.update(&self.touches, mouse, self.mouse_wheel_delta, now);
+        // Held over a frame no step saw, the gestures it made wait for one.
+        if self.carries_edges() {
+            self.gestures.extend(recognised);
+        } else {
+            self.gestures = recognised;
+        }
         // An input replay (`input::replay`) keeps this frame's input, or puts
         // back the kept frame's - after the timing above, so holds and
         // gestures play back as they were.

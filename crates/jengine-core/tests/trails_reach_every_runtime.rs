@@ -9,6 +9,7 @@
 //! showcase's Trails drew every slash with a fold back to the resting tip.
 //! Recording right after the resolve reads what the frame actually ends
 //! with, whatever ran before it.
+#![cfg(feature = "trails")]
 
 mod support;
 

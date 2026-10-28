@@ -1,0 +1,7236 @@
+{
+ "name": "04 - The Tavern",
+ "post_process": {
+  "effects": [
+   {
+    "name": "depth_haze",
+    "enabled": true,
+    "params": {
+     "color": {
+      "Vec4": [
+       0.22,
+       0.12,
+       0.06,
+       0.35
+      ]
+     },
+     "near": {
+      "Float": -30.0
+     },
+     "far": {
+      "Float": -140.0
+     },
+     "sky": {
+      "Float": 0.0
+     },
+     "curve": {
+      "Float": 1.3
+     }
+    }
+   },
+   {
+    "name": "depth_of_field",
+    "enabled": true,
+    "params": {
+     "focus": {
+      "Float": 0.0
+     },
+     "range": {
+      "Float": 12.0
+     },
+     "strength": {
+      "Float": 0.07
+     },
+     "max_radius": {
+      "Float": 7.0
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.6
+     },
+     "smoothness": {
+      "Float": 0.65
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.01,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.08
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.85,
+       0.7,
+       0.15
+      ]
+     }
+    }
+   }
+  ],
+  "hdr": true,
+  "exposure": 1.0,
+  "tonemap": "aces"
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dark",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hd/sky/cave.png",
+     "color": [
+      0.6,
+      0.5,
+      0.45,
+      1.0
+     ],
+     "z_order": -30000,
+     "size": [
+      1500.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.68669,
+      0.39157,
+      0.31399
+     ],
+     "intensity": 0.42
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging0Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.6
+     ],
+     "z_order": 0,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -5.0,
+      3.5,
+      3.8
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging0",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.68,
+      0.38
+     ],
+     "intensity": 1.4,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.8,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -5.0,
+      3.5,
+      3.8
+     ],
+     "light_radius": 6.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging1Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.6
+     ],
+     "z_order": 0,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.5,
+      2.5,
+      3.8
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging1",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.68,
+      0.38
+     ],
+     "intensity": 1.4,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.8,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      2.5,
+      2.5,
+      3.8
+     ],
+     "light_radius": 6.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging2Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.6
+     ],
+     "z_order": 0,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      7.0,
+      3.8
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging2",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.68,
+      0.38
+     ],
+     "intensity": 1.4,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.8,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      7.0,
+      3.8
+     ],
+     "light_radius": 6.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging3Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      0.6
+     ],
+     "z_order": 0,
+     "size": [
+      80.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      7.0,
+      5.5,
+      3.8
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hanging3",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.68,
+      0.38
+     ],
+     "intensity": 1.4,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.8,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      7.0,
+      5.5,
+      3.8
+     ],
+     "light_radius": 6.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stage",
+   "components": {
+    "stage": {
+     "target": [
+      0.0,
+      2.0,
+      0.8
+     ],
+     "yaw": 0.0,
+     "pitch": 0.68,
+     "distance": 36.0,
+     "zoom": 56.0,
+     "near": 1.0,
+     "follow": "Hero",
+     "follow_offset": [
+      0.0,
+      3.0,
+      0.8
+     ],
+     "follow_ease": 3.0,
+     "z_base": 0,
+     "z_per_unit": 10.0,
+     "ground_z": -20000
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      -4.0,
+      0.0
+     ],
+     "u": [
+      20.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      14.0,
+      0.0
+     ],
+     "repeat": [
+      16.666666666666668,
+      11.666666666666668
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      10.0,
+      0.0
+     ],
+     "u": [
+      20.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "repeat": [
+      12.5,
+      3.125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FrontSillShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -10.3,
+       -4.4
+      ],
+      [
+       10.3,
+       -4.4
+      ],
+      [
+       10.3,
+       -4.0
+      ],
+      [
+       -10.3,
+       -4.0
+      ]
+     ],
+     "base": -0.6,
+     "height": 0.95,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FrontSillS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.3,
+      -4.4,
+      -0.6
+     ],
+     "u": [
+      20.6,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.95
+     ],
+     "repeat": [
+      25.75,
+      1.1874999999999998
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FrontSillN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.3,
+      -4.0,
+      -0.6
+     ],
+     "u": [
+      -20.6,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.95
+     ],
+     "repeat": [
+      25.75,
+      1.1874999999999998
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FrontSillW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.3,
+      -4.0,
+      -0.6
+     ],
+     "u": [
+      0.0,
+      -0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.95
+     ],
+     "repeat": [
+      0.5000000000000004,
+      1.1874999999999998
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FrontSillE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.3,
+      -4.4,
+      -0.6
+     ],
+     "u": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.95
+     ],
+     "repeat": [
+      0.5000000000000004,
+      1.1874999999999998
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FrontSillTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.3,
+      -4.4,
+      0.35
+     ],
+     "u": [
+      20.6,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "repeat": [
+      25.75,
+      0.5000000000000004
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "West",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      -4.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      14.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "repeat": [
+      8.75,
+      3.125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_wall_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "East",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_wall.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.0,
+      10.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -14.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "repeat": [
+      8.75,
+      3.125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_wall_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BeamShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -10,
+       9.6
+      ],
+      [
+       10,
+       9.6
+      ],
+      [
+       10,
+       10
+      ],
+      [
+       -10,
+       10
+      ]
+     ],
+     "base": 4.6,
+     "height": 0.40000000000000036,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BeamS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      9.6,
+      4.6
+     ],
+     "u": [
+      20.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.40000000000000036
+     ],
+     "repeat": [
+      25.0,
+      0.5000000000000004
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BeamN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.0,
+      10.0,
+      4.6
+     ],
+     "u": [
+      -20.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.40000000000000036
+     ],
+     "repeat": [
+      25.0,
+      0.5000000000000004
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BeamW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      10.0,
+      4.6
+     ],
+     "u": [
+      0.0,
+      -0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.40000000000000036
+     ],
+     "repeat": [
+      0.5000000000000004,
+      0.5000000000000004
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BeamE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.0,
+      9.6,
+      4.6
+     ],
+     "u": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.40000000000000036
+     ],
+     "repeat": [
+      0.5000000000000004,
+      0.5000000000000004
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BeamTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      9.6,
+      5.0
+     ],
+     "u": [
+      20.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "repeat": [
+      25.0,
+      0.5000000000000004
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-10Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -10,
+       9.6
+      ],
+      [
+       -9.6,
+       9.6
+      ],
+      [
+       -9.6,
+       10
+      ],
+      [
+       -10,
+       10
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-10S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.40000000000000036,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-10N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -9.6,
+      10.0,
+      0.0
+     ],
+     "u": [
+      -0.40000000000000036,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-10W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      10.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-10E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -9.6,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-3.3Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -3.3,
+       9.6
+      ],
+      [
+       -2.9,
+       9.6
+      ],
+      [
+       -2.9,
+       10
+      ],
+      [
+       -3.3,
+       10
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-3.3S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.3,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.3999999999999999,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.4999999999999999,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-3.3N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.9,
+      10.0,
+      0.0
+     ],
+     "u": [
+      -0.3999999999999999,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.4999999999999999,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-3.3W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -3.3,
+      10.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post-3.3E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.9,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post3.3Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       3.3,
+       9.6
+      ],
+      [
+       3.6999999999999997,
+       9.6
+      ],
+      [
+       3.6999999999999997,
+       10
+      ],
+      [
+       3.3,
+       10
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post3.3S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.3,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.3999999999999999,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.4999999999999999,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post3.3N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.6999999999999997,
+      10.0,
+      0.0
+     ],
+     "u": [
+      -0.3999999999999999,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.4999999999999999,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post3.3W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.3,
+      10.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post3.3E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.6999999999999997,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post9.6Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       9.6,
+       9.6
+      ],
+      [
+       10.0,
+       9.6
+      ],
+      [
+       10.0,
+       10
+      ],
+      [
+       9.6,
+       10
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post9.6S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.6,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.40000000000000036,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post9.6N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.0,
+      10.0,
+      0.0
+     ],
+     "u": [
+      -0.40000000000000036,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post9.6W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.6,
+      10.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Post9.6E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.0,
+      9.6,
+      0.0
+     ],
+     "u": [
+      0.0,
+      0.40000000000000036,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.6
+     ],
+     "repeat": [
+      0.5000000000000004,
+      5.749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -2.0,
+       8.8
+      ],
+      [
+       2.0,
+       8.8
+      ],
+      [
+       2.0,
+       10
+      ],
+      [
+       -2.0,
+       10
+      ]
+     ],
+     "base": 0.0,
+     "height": 2.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      0.52712,
+      0.35153,
+      0.27889,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.0,
+      8.8,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.6
+     ],
+     "repeat": [
+      5.0,
+      3.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      0.52712,
+      0.35153,
+      0.27889,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.0,
+      10.0,
+      0.0
+     ],
+     "u": [
+      -4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.6
+     ],
+     "repeat": [
+      5.0,
+      3.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      0.52712,
+      0.35153,
+      0.27889,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.0,
+      10.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -1.1999999999999993,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.6
+     ],
+     "repeat": [
+      1.4999999999999991,
+      3.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      0.52712,
+      0.35153,
+      0.27889,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.0,
+      8.8,
+      0.0
+     ],
+     "u": [
+      0.0,
+      1.1999999999999993,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.6
+     ],
+     "repeat": [
+      1.4999999999999991,
+      3.25
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      0.52712,
+      0.35153,
+      0.27889,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.0,
+      8.8,
+      2.6
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      1.1999999999999993,
+      0.0
+     ],
+     "repeat": [
+      5.0,
+      1.4999999999999991
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HearthMouth",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      0.05,
+      0.03,
+      0.03,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.2,
+      8.75,
+      0.05
+     ],
+     "u": [
+      2.4,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.4
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fire",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      80.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -0.4,
+      8.6,
+      0.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FireHalo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -0.4,
+      8.6,
+      0.7999999999999999
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FireEmbers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -0.4,
+      8.6,
+      0.4
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FireLight",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 3.0,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -0.4,
+      8.6,
+      0.5
+     ],
+     "light_radius": 11.0
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fire2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      38.400000000000006,
+      64.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      0.5,
+      8.6,
+      0.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fire2Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      176.0,
+      176.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      0.5,
+      8.6,
+      0.6599999999999999
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fire2Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      0.5,
+      8.6,
+      0.4
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BarShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       5.5,
+       1.0
+      ],
+      [
+       7.0,
+       1.0
+      ],
+      [
+       7.0,
+       8.0
+      ],
+      [
+       5.5,
+       8.0
+      ]
+     ],
+     "base": 0.0,
+     "height": 1.2,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BarS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.5,
+      1.0,
+      0.0
+     ],
+     "u": [
+      1.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.2
+     ],
+     "repeat": [
+      1.6666666666666665,
+      1.3333333333333333
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BarN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      7.0,
+      8.0,
+      0.0
+     ],
+     "u": [
+      -1.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.2
+     ],
+     "repeat": [
+      1.6666666666666665,
+      1.3333333333333333
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BarW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.5,
+      8.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -7.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.2
+     ],
+     "repeat": [
+      7.777777777777778,
+      1.3333333333333333
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BarE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks_dark.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      7.0,
+      1.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      7.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.2
+     ],
+     "repeat": [
+      7.777777777777778,
+      1.3333333333333333
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_dark_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BarTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.5,
+      1.0,
+      1.2
+     ],
+     "u": [
+      1.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      7.0,
+      0.0
+     ],
+     "repeat": [
+      1.6666666666666665,
+      7.777777777777778
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.800000000000004,
+      57.6
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      9.2,
+      1.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/barrel_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.800000000000004,
+      57.6
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      9.2,
+      3.2,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/barrel_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.800000000000004,
+      57.6
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      9.2,
+      4.8,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/barrel_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      44.800000000000004,
+      57.6
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      9.2,
+      6.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/barrel_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Table0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      96.0,
+      44.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.5,
+      6.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/table_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mug0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/mug.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      19.200000000000003,
+      22.400000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.9,
+      6.45,
+      0.85
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/mug_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      14.399999999999999,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      6.45,
+      0.9
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle0Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      6.45,
+      1.11
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle0Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      6.45,
+      1.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle0Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      6.45,
+      1.3
+     ],
+     "light_radius": 3.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Table1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      96.0,
+      44.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.5,
+      1.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/table_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mug1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/mug.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      19.200000000000003,
+      22.400000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.9,
+      1.45,
+      0.85
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/mug_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      14.399999999999999,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      1.45,
+      0.9
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      1.45,
+      1.11
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      1.45,
+      1.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle1Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      1.45,
+      1.3
+     ],
+     "light_radius": 3.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Table2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      96.0,
+      44.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -1.5,
+      3.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/table_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mug2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/mug.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      19.200000000000003,
+      22.400000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -1.9,
+      2.95,
+      0.85
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/mug_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      14.399999999999999,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      2.95,
+      0.9
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      2.95,
+      1.11
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      2.95,
+      1.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle2Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -1.0,
+      2.95,
+      1.3
+     ],
+     "light_radius": 3.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Table3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/table.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      96.0,
+      44.800000000000004
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.5,
+      -0.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/table_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Mug3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/mug.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      19.200000000000003,
+      22.400000000000002
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      2.1,
+      -0.55,
+      0.85
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/mug_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      14.399999999999999,
+      24.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      -0.55,
+      0.9
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle3Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      66.0,
+      66.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      -0.55,
+      1.11
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle3Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      -0.55,
+      1.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Candle3Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 1.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      -0.55,
+      1.3
+     ],
+     "light_radius": 3.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -9.2,
+      8.8,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crate_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -8.5,
+      9.2,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crate_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      48.0,
+      48.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -9.4,
+      7.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crate_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Window",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -9.97,
+      7.0,
+      1.8
+     ],
+     "u": [
+      0.0,
+      -1.6,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Moon",
+   "components": {
+    "point_light": {
+     "color": [
+      0.5,
+      0.65,
+      1.0
+     ],
+     "intensity": 0.9,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.8,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -8.5,
+      6.0,
+      2.5
+     ],
+     "light_radius": 6.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dust",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.1,
+      0.9,
+      0.6,
+      0.5
+     ],
+     "color_end": [
+      1.1,
+      0.9,
+      0.6,
+      0.0
+     ],
+     "size_start": [
+      1.5,
+      3.0
+     ],
+     "size_end": [
+      0.75,
+      1.5
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 380.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      4.0,
+      2.0
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hero",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/traveler.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      -2.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HeroShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Hero"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barkeep",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/merchant.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      7.8,
+      4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      -1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BarkeepShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Barkeep"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Guard",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -5.5,
+      6.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GuardShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Guard"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Scholar",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/scholar.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -7.5,
+      1.4,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ScholarShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Scholar"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Farmer",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/farmer.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.4,
+      -0.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      -1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FarmerShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Farmer"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Villager",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/villager.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -2.5,
+      2.8,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "VillagerShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Villager"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      56.0,
+      -30.0
+     ],
+     "size": [
+      900,
+      51.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "04   The Tavern",
+     "font_size": 34.0,
+     "color": [
+      0.88792,
+      0.76052,
+      0.52712,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blurb",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      58.0,
+      -78.0
+     ],
+     "size": [
+      1160,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Inside a tavern seen as a dollhouse: the hearth's light washing across the planks, candles on the tables, moonlight\nthrough the window, regulars making their rounds between the bar and the fire.",
+     "font_size": 15.0,
+     "color": [
+      0.57758,
+      0.55201,
+      0.68669,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      58.0,
+      26.0
+     ],
+     "size": [
+      1150.0,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Arrows / WASD walk   Q / E turn the camera a little   1-5 depth of field, bloom, vignette, grade, haze   Tab captions   PgUp / PgDn scenes   H hub",
+     "font_size": 15.0,
+     "color": [
+      0.47932,
+      0.47932,
+      0.57758,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -58.0,
+      52.0
+     ],
+     "size": [
+      900,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 15.0,
+     "color": [
+      0.87137,
+      0.43415,
+      0.11697,
+      1.0
+     ],
+     "alignment": "Right",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s04_the_tavern.lua"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

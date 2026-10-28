@@ -18,6 +18,7 @@
 //! [`tick_path_follow`] runs inside `behaviors::tick_motion`, so every host
 //! has it; `PathFollow.set(e, field, value)` changes any field.
 
+use crate::detmath::DetMath;
 use std::collections::HashMap;
 
 use glam::Vec2;
@@ -225,7 +226,7 @@ pub fn measured_path(world: &World, name: &str) -> Option<MeasuredPath> {
         Some(w) => local.iter().map(|p| w.apply(*p)).collect(),
         None => match world.get::<&Transform>(e) {
             Ok(t) => {
-                let (sin, cos) = t.rotation.sin_cos();
+                let (sin, cos) = t.rotation.dsin_cos();
                 local
                     .iter()
                     .map(|p| {
@@ -242,7 +243,7 @@ pub fn measured_path(world: &World, name: &str) -> Option<MeasuredPath> {
 
 /// A world point in the frame of `w` - the inverse of `WorldTransform::apply`.
 fn to_local(w: &crate::ecs::components::WorldTransform, p: Vec2) -> Vec2 {
-    let (sin, cos) = (-w.rotation).sin_cos();
+    let (sin, cos) = (-w.rotation).dsin_cos();
     let d = p - w.position;
     let k = Vec2::new(d.x * cos - d.y * sin, d.x * sin + d.y * cos);
     let s = Vec2::new(k.x - w.shear * k.y, k.y);
@@ -301,7 +302,7 @@ pub fn tick_path_follow(world: &mut World, dt: f32) {
         let heading = if (f.speed < 0.0) != f.returning { -dir } else { dir };
         let left = Vec2::new(-heading.y, heading.x);
         let pos = at + left * f.lateral;
-        let rotation = heading.y.atan2(heading.x) + f.rotation_offset;
+        let rotation = heading.y.datan2(heading.x) + f.rotation_offset;
         let has_parent = world.get::<&Parent>(e).is_ok();
         if let Ok(mut t) = world.get::<&mut Transform>(e) {
             if !has_parent {

@@ -8,7 +8,7 @@
 //! writes no velocity, so it used to slide round every corner facing
 //! wherever it was authored. Both found by the showcase's Tilt-Shift
 //! Diorama.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "tilt_shift"))]
 
 use std::collections::HashMap;
 

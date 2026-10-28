@@ -1,6 +1,7 @@
 //! Jiggle bones (`animation::jiggle`): a bone's tip lags its pose and springs
 //! back. Run through `update_skeletal_players`, which every host calls each
 //! frame - the jiggle step rides at its end.
+#![cfg(feature = "jiggle")]
 
 mod support;
 
@@ -129,7 +130,7 @@ fn the_scene_format_keeps_it_but_not_its_motion() {
     step(&mut world);
     assert!(world.get::<&Jiggle>(bones[0]).unwrap().state.is_some());
     let scene = jengine_core::scene::format::save_scene(&world);
-    let j = scene.entities.iter().find_map(|e| e.components.jiggle.as_ref()).expect("saved");
+    let j = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::animation::jiggle::Jiggle>("jiggle")).expect("saved");
     assert_eq!(j.stiffness, 0.3);
     assert!(j.state.is_none());
 }

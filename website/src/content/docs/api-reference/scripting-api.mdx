@@ -147,6 +147,25 @@ physics one step at a time only when some script defines `fixed_update`, so
 a game without one pays nothing. Lua scripts only; JavaScript scripts keep
 `update`. Test Lab scene 187; the showcase's Moon Lander.
 
+**A whole game can step at a fixed rate** (Oct 2026): `settings.simulation_hz`
+in `project.jengine` (Project Settings -> Physics -> Gameplay Steps; absent or
+0 is off). Then `update(entity, dt)` - with motion, the physics, triggers,
+animation, timers, tweens and package systems - runs once per **step** of
+exactly `1 / simulation_hz` seconds (times `Time.set_scale`), as many as real
+time pays for: none on most frames of a 165 Hz display, two after a slow one.
+So the same inputs give the same game to the bit at any frame rate, which is
+what a lockstep or rollback match needs. A press is seen by exactly one
+`update` (`Input.is_key_just_pressed` and kin): kept over frames that run no
+step, not seen again by a frame's second. What is drawn is interpolated
+between the last two steps, so a 60 Hz game still moves smoothly at 165 Hz;
+the camera, audio, particles and drawing still run once a frame. Off, a
+frame is one `update` of the frame's own `dt`, as it always was.
+`fixed_update` still runs per physics step inside each. **A scene can choose
+for itself** with a top-level `"simulation_hz"` in the scene file (0 turns
+fixed steps off for that scene), which wins over the project's while the
+scene is loaded and travels with a pushed scene - a menu can stay off while
+the match steps, or one mini-game can step on its own. Test Lab scene 299.
+
 Scripts may also declare **named callbacks** invoked by `Timer.after`, `Timer.every`, `Event.on`, and `GUI.on_click`. Each named callback receives the entity id as its first argument:
 
 ```lua
@@ -372,7 +391,8 @@ end
   are Lua's own libraries, read-only on native. `Math.lerp`, `Math.clamp`,
   `Math.distance` and `Math.angle_between` are ours.
 - **Global:** `log` (and `print`, which goes to the same place in every
-  runtime), and `require`.
+  runtime), and `require`. A web build made with *Logs* off (Build Settings,
+  `--no-logs`) keeps both out of the browser console.
 - **Packages** each get one namespace, from the crate name: `jengine-quest`
   is `Quest`. Where all of a package's commands share one prefix it is
   dropped - `quest_talk` is `Quest.talk` - otherwise the names stay whole,
@@ -413,7 +433,7 @@ adding it there too, or `script_namespaces_reach_every_runtime` fails.
 
 
 
-442 functions.
+444 functions.
 
 **Runtimes** says where a function is actually installed:
 
@@ -731,6 +751,8 @@ adding it there too, or `script_namespaces_reach_every_runtime` fails.
 | UI | `UI.set_visible(entity_id, visible)` | `set_ui_visible` | — | deferred | all |
 | Mode7 | `Mode7.place(entity_id, x, y, angle)` | `mode7_place` | — | deferred | all |
 | Mode7 | `Mode7.set(entity_id, field, value)` | `mode7_set` | — | deferred | all |
+| Stage | `Stage.place(entity_id, x, y, z)` | `stage_place` | — | deferred | all |
+| Stage | `Stage.set(entity_id, field, value)` | `stage_set` | — | deferred | all |
 | SpriteTilt | `SpriteTilt.set(entity_id, field, value)` | `sprite_tilt_set` | — | deferred | all |
 | Afterimage | `Afterimage.set(entity_id, field, value)` | `afterimage_set` | — | deferred | all |
 | Portal | `Portal.set(entity_id, field, value)` | `portal_set` | — | deferred | all |
@@ -4583,6 +4605,103 @@ Circuit.
 
 ---
 
+## 3D stage
+
+```json
+"stage": { "target": [0, 0, 1], "yaw": 0, "pitch": 0.55, "distance": 60, "zoom": 36,
+           "near": 0.5, "follow": "Hero", "follow_offset": [0, 0, 1], "follow_ease": 4,
+           "z_base": 0, "z_per_unit": 10, "ground_z": -20000 }
+"stage_quad": { "origin": [-10, -6, 0], "u": [20, 0, 0], "v": [0, 30, 0], "repeat": [5, 7.5],
+                "ground": true, "two_sided": false, "sort_bias": 0, "z_bias": 0, "follow": "" }
+"stage_billboard": { "position": [2, 4, 0], "perspective": 1, "scale": [1, 1],
+                     "sort_bias": 0, "z_bias": 0, "follow": "", "light_radius": 6,
+                     "shadow": { "opacity": 0.6, "fade": 0.15, "lights": 2, "max_length": 3, "height": 1.5 } }
+"stage_group": { "position": [-9, 4.75, 0], "yaw": 0.3, "follow": "" }
+```
+
+```lua
+Stage.place(e, x, y, z)        -- move a group, stand a billboard, move a quad's corner, or point a stage's camera
+Stage.set(e, field, value)     -- any field of the entity's stage_group, else stage_billboard, else
+                               -- stage_quad, else stage_caster, else stage
+```
+
+A perspective camera over a diorama of flat pieces placed in three
+dimensions - the HD-2D look: pixel-art characters as
+upright cards in a scene drawn in perspective (Oct 2026). Stage space is x
+east, y north and z up. A `stage` looks at `target` from `distance` away,
+turned `yaw` about the vertical (0 looks north) and tipped `pitch` down; at
+the target's depth one stage unit is `zoom` world units, and the target lands
+on the stage entity's own position, so the 2D camera stays put while the stage
+camera moves. A nearer eye is stronger perspective. With `follow` naming a
+stage object, the target eases to it (`follow_ease` per second, 0 snaps).
+
+A `stage_quad` is a parallelogram - a corner (`origin`, the picture's bottom
+left seen from the front) and two edges, `u` along the bottom and `v` up the
+left - projected each frame into the entity's own `mesh`, so put the texture,
+colour and material on a `mesh` beside it (one is made if there is none). The
+texture repeats `repeat` times each way, cut into cells in the geometry since
+every sampler clamps, and is drawn in true perspective; the near plane clips
+it. Its front is `u x v`: a wall facing the camera has `u` east and `v` up, a
+floor `u` east and `v` north. A back-facing quad draws nothing unless
+`two_sided`, so a box authored with all its faces shows the right ones as the
+camera turns.
+
+A `stage_billboard` stands anything at `position`: its transform is written to
+where that falls on the screen and its scale to how big it is there (times
+`scale`; `perspective` 0 keeps its size), so a sprite anchored at its feet
+(`anchor: [0.5, 0]`) stands on the floor, drawn its own size at the target's
+depth. On a point or spot light, `light_radius` (stage units) sets the light's
+radius, and its pool is squashed into the floor's ellipse - `squash`, the sine
+of the pitch unless given.
+
+A `stage_caster` is a solid's shadow - `footprint` (a convex polygon of
+`[x, y]`), `base`, `height`, `opacity`, `lights`, `max_length` - on an entity
+of its own: from each of the `lights` stage lights lighting its middle most
+strongly, the hull of its footprint and its top projected from the light onto
+the floor, as dark as the light is strong at each point, under every figure's
+shadow. One shape a light, so a house's walls never darken each other; a light
+inside the footprint throws nothing from it.
+
+A billboard with a `shadow` throws its sprite's current frame on the floor
+from each of the `lights` stage lights (billboards with a `light_radius`)
+lighting its feet most strongly: a flat dark silhouette from the feet to
+where the light puts its top - projected from the light's own 3D position,
+so it is long from a low lamp near by, short from one high above, turning as
+the thing walks past, and foreshortened by the camera like the floor. It is
+`opacity` dark at the feet (times the light's strength there), `fade` of that
+at the tip, never longer than `max_length` heights; `height` is how tall the
+thing stands (0: its sprite's height above its anchor). A light carried or
+stood right under throws none. `Stage.set(e, "shadow", nil)` switches it off.
+
+A `stage_group` is a frame: the stage coordinates of everything under it in
+the scene's hierarchy - a quad's `origin`, `u` and `v`, a billboard's
+`position`, a caster's footprint and base - are in it, and it stands at
+`position` turned `yaw` (radians, anticlockwise seen from above: a quarter
+turn takes east to north) in the frame of the group above it. Parents without
+one are passed through. So a house built of walls, roof and windows under one
+group moves and turns as one - `Stage.place(group, x, y, z)` and
+`Stage.set(group, "yaw", a)` - while each of its pieces still sorts by its own
+depth, so a traveller can stand between its front wall and its roof. A
+quad's or billboard's 2D parent never moves it: what the stage writes is
+already its place on the screen.
+
+`follow` (on a billboard, quad, caster, group or the `stage`) makes a thing an
+offset from its leader, in place of its groups: any named stage object,
+found by its whole name or else its part name (`Hero` finds `Party/Hero`),
+wherever that leader is through its own groups and follows - so a lamp can
+follow a hero who follows a cart.
+
+Everything upright sorts by how far into the scene its footprint lies - `z =
+z_base - depth * z_per_unit`, the target's depth at `z_base` - and a `ground`
+quad draws at `ground_z` under all of it, so nothing standing on a floor is
+drawn under it; `sort_bias` (stage units) and `z_bias` settle a tie. Each also
+hands `depth_of_field` that depth, per vertex for a quad, so `focus` at
+`z_base` focuses on the target and a floor softens smoothly into the distance.
+The stage writes its objects' transforms every frame: move them with
+`Stage.place`, not `set_position`. Engine Test Lab scene 296; Visual Showcase 2.
+
+---
+
 ## Palettes
 
 ```json
@@ -4988,7 +5107,8 @@ replayed.
 
 What a replay cannot reach: anything timed on the wall clock rather than
 the frame (toasts, speech bubbles, wet paint), and `math.random` unless the
-script seeds it. The recording lives in memory for the session.
+script seeds it (`math.randomseed`, which gives the same draws in every
+runtime). The recording lives in memory for the session.
 
 Engine Test Lab scene 289; the showcase's Instant Replay.
 
@@ -6369,6 +6489,19 @@ subtracts too. `light_at` subtracts the same way and stops at black.
 `Lighting.set_intensity` fades it like any light. Test Lab scene 213; the
 showcase's Ghost Lantern.
 
+### Squashed lights
+
+```json
+"point_light": { "radius": 300, "squash": 0.55 }
+```
+
+A point or spot light's pool can be an **ellipse** (Oct 2026): `squash`
+(default 1, a circle) keeps it `radius` wide and makes it `radius * squash`
+tall - a lamp's pool on a floor seen in perspective, which a circle is not.
+Only the falloff is squashed; shadows, cookies, normal maps and a spot light's
+cone are as before. A 3D stage sets it on its lights from the pitch
+(`stage_billboard`). `light_at` squashes the same. Test Lab scene 297.
+
 ### Light cookies
 
 ```json
@@ -6603,8 +6736,9 @@ foliage by the lens) needs nothing more: a pixel more than `range` from
 `focus` in z is blurred by `strength` pixels per unit of z past it, up to
 `max_radius` (32 at most). Pull `focus` from one z to another and the focus
 racks. It reads each pixel's z from the velocity pass (the one `motion_blur`
-uses), which draws **covering sprites** only: world text, particles,
-meshes, lines and tilemaps take the depth of the sprite under them - so a
+uses), which draws **covering sprites and meshes** (Oct 2026; a 3D stage's
+objects give their stage depth, per vertex for a quad): world text,
+particles, lines and tilemaps take the depth of what is under them - so a
 label over a soft layer is soft with it - and over nothing they stay sharp.
 A soft sprite edge takes the depth of what is under it. Two rules make it a
 lens rather than a blur: a sharp layer does not leak into the soft ones
@@ -6612,6 +6746,23 @@ round it, and a soft layer behind never bleeds over a sharp one in front
 (a soft one in front does spread over what it covers, as near ferns do over
 a deer). Put it first in the chain, before bloom. Main camera only.
 Test Lab scene 258; the showcase's Rack Focus.
+
+### Depth haze
+
+```json
+"post_process": { "effects": [{ "name": "depth_haze", "params": {
+    "color": { "Vec4": [0.45, 0.42, 0.62, 0.55] }, "near": { "Float": -60.0 },
+    "far": { "Float": -420.0 }, "sky": { "Float": 0.25 }, "curve": { "Float": 1.3 } } }] }
+```
+
+**`depth_haze`** (Oct 2026) is the air between the eye and the far: each
+pixel mixed toward `color` (linear rgb) by how deep it is, from nothing at
+z `near` to `color`'s alpha at z `far` (nearer is higher z), thickening by
+`curve`. Its depth is the one depth of field reads - the velocity pass's, so
+a 3D stage's per-pixel depth for a floor, a sprite's z otherwise - and a
+pixel nothing covers (a backdrop, the sky) takes `sky`. Put it before
+`depth_of_field` so the haze is blurred with what it covers. Main camera
+only. Visual Showcase 2, `a_stage_floor_fades_into_the_haze_with_distance`.
 
 ### Light shafts
 
@@ -7588,20 +7739,69 @@ Full spec: `docs/step7-behavior-graph-spec.md`.
 
 ## Browser Adapter Parity
 
+### Numbers are the same in every runtime
+
+A Lua script computes the same number natively (Luau), in the editor and in
+a web build (Fengari, Lua 5.3), on every platform, to the last bit (Oct 2026;
+docs/determinism-proposal.md, phase 3) - which is what lets a game whose
+rules live in Lua run the same match on two machines from the same inputs.
+
+- `math.sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `atan2`, `exp`, `log`,
+  `log10`, `pow`, `sinh`, `cosh`, `tanh`, the `^` operator and the
+  compiler's folding of them all compute through the engine's `libm`
+  (`scripting::script_math`), not the platform's maths library or the
+  browser's `Math`, which differ in the last bit.
+- **Both spellings of arc tangent work in both dialects**: `math.atan2(y, x)`
+  and `math.atan(y, x)`. So do `math.pow`, `math.log10`, `math.sinh`,
+  `math.cosh` and `math.tanh`, which Lua 5.3 lacks.
+- `a ^ b` is one rule: an exponent of 2, 0.5 or 3 is `a * a`, `sqrt(a)` or
+  `a * a * a`, any other goes through `pow` - whether the exponent is a
+  literal or a variable.
+- `a % b` on fractional numbers is Luau's `a - floor(a / b) * b` everywhere
+  (Lua 5.3's is `fmod`-based and differs in the last bit), and native Luau
+  is built without fused multiply-add, which made a Mac or a phone compute
+  `%` differently from Windows.
+- **`math.random` is one generator** every script draws from, the same
+  algorithm in every runtime: `math.randomseed(x)` gives the same sequence
+  natively and in the browser. Unseeded, it starts somewhere new each run.
+  `math.random(m, n)` rounds both bounds down to whole numbers. The draws
+  are the same only if the scripts draw in the same order - seed once, and
+  draw from one script, for anything that must match across machines.
+- `Math.lerp`, `Math.distance` and `Math.angle_between` are `f64` everywhere.
+
+- **Whole numbers do not wrap.** Fengari's integers are 32-bit; past 2^31
+  its arithmetic gives what Luau's doubles give (`2000000000 + 2000000000`
+  is `4000000000` everywhere), and `% 0` / `// 0` give NaN and infinity as
+  Luau's do rather than raising.
+- **A number prints the same**: `tostring`, `print` and `..` give Luau's text
+  in every runtime - the shortest digits that read back as the same number,
+  `3` rather than `3.0`, `1e+21` past 21 digits, `-0`, `inf`, `nan`.
+  `string.format("%d", x)` drops `x`'s fraction in every runtime (Fengari
+  used to raise "number has no integer representation"); it agrees below
+  2^53.
+
+Still different: bitwise operators exist only in Lua 5.3 (Luau has
+`bit32`), and a numeric `for` over whole numbers stops at 2^31 - 1 in the
+browsers. Test-lab scene 298 logs every function above to the bit, and
+numbers' text; `node tools/conformance.mjs --scene scenes/298-script-maths.scene`
+diffs native against a web build.
+
 The browser JavaScript adapter (`adapters/js/browser.rs`, used by `jengine-web`, `jengine-editor-viewport`, `jengine-benchmark-web`) defines every global as a JS function that proxies through `window.__jengine_play`; the Fengari Lua runtime binds the names in `BRIDGE_FUNCTIONS` (`editor/src/lib/lua-runtime.ts`) to them and gathers them into the same namespaces native builds. Name-level agreement with native is guarded by `script_global_parity` and `host_command_parity`; behavioural differences are registered in `docs/parity-gaps.md`.
 
 **P7.7 wedges 1–2.5 status:** All native bridge names are now **available as flat globals** on the browser adapter. Wedge 1 added `find_by_name`, `find_by_tag`, `on_event`, `set_post_process_float`, `set_post_process_vec4`. Wedge 2 added `get_name`, `get_mouse_position`, `is_mouse_left_just_pressed`, `set_ambient_light`, `set_light_color`, `set_light_intensity`, `set_light_radius`, `contact_count`, `get_contact`. Wedge 2.5 added `get_material` and `gui_focus`. Scripts using the canonical bridge names now work portably across both targets with no remaining gaps.
 
 **Browser-only surface (do not rely on for portable scripts):**
 
-Convenience helpers the browser preamble defines that Luau does not, because
-the language already has them:
+Convenience helpers the browser preamble defines. `clamp`, `distance` and
+`angle_between` are bound natively too since Sep 2026 - as `Math.clamp`,
+`Math.distance` and `Math.angle_between`, the same `f64` arithmetic in every
+runtime:
 
-| Browser name | Use instead under Luau | Notes |
+| Browser name | Use instead | Notes |
 |---|---|---|
-| `clamp(v, lo, hi)` | `math.min(math.max(v, lo), hi)` | |
-| `distance(x1, y1, x2, y2)` | `math.sqrt(dx*dx + dy*dy)` | |
-| `angle_between(x1, y1, x2, y2)` | `math.atan2(dy, dx)` | Luau has `math.atan2`; Fengari does not — see the dialect note in CLAUDE.md |
+| `clamp(v, lo, hi)` | `Math.clamp(v, lo, hi)` | |
+| `distance(x1, y1, x2, y2)` | `Math.distance(x1, y1, x2, y2)` | |
+| `angle_between(x1, y1, x2, y2)` | `Math.angle_between(x1, y1, x2, y2)` | `math.atan2(dy, dx)` and `math.atan(dy, dx)` work in both dialects since Oct 2026 |
 | `get_delta_time()` | the `dt` parameter to `update` | |
 
 Aliases — both spellings work everywhere, the left is legacy:

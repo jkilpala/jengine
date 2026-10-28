@@ -50,6 +50,7 @@
 //! at its goal stops at the crowd's edge. All of it is one step,
 //! [`tick_navigation`], inside `behaviors::tick_motion`, so no host is wired.
 
+use crate::detmath::DetMath;
 use std::f32::consts::PI;
 use std::sync::Arc;
 
@@ -318,8 +319,8 @@ fn grow(hull: &[Vec2], r: f32) -> Vec<Vec2> {
         let d1 = next - v;
         let n0 = Vec2::new(d0.y, -d0.x).normalize_or_zero();
         let n1 = Vec2::new(d1.y, -d1.x).normalize_or_zero();
-        let a0 = n0.y.atan2(n0.x);
-        let mut turn = n1.y.atan2(n1.x) - a0;
+        let a0 = n0.y.datan2(n0.x);
+        let mut turn = n1.y.datan2(n1.x) - a0;
         while turn < 0.0 {
             turn += 2.0 * PI;
         }
@@ -328,10 +329,10 @@ fn grow(hull: &[Vec2], r: f32) -> Vec<Vec2> {
         }
         let steps = ((turn / ARC_STEP - 1e-3).ceil() as usize).max(1);
         let half = turn / steps as f32 * 0.5;
-        let rr = r / half.cos();
+        let rr = r / half.dcos();
         for k in 0..=steps {
             let a = a0 + turn * k as f32 / steps as f32;
-            out.push(v + rr * Vec2::new(a.cos(), a.sin()));
+            out.push(v + rr * Vec2::new(a.dcos(), a.dsin()));
         }
     }
     out.dedup_by(|a, b| a.distance_squared(*b) < 1e-6);
@@ -344,11 +345,11 @@ fn grow(hull: &[Vec2], r: f32) -> Vec<Vec2> {
 /// A disc as a tangent polygon of twelve sides.
 fn disc(c: Vec2, r: f32) -> Vec<Vec2> {
     const SIDES: usize = 12;
-    let rr = r / (PI / SIDES as f32).cos();
+    let rr = r / (PI / SIDES as f32).dcos();
     (0..SIDES)
         .map(|k| {
             let a = 2.0 * PI * k as f32 / SIDES as f32;
-            c + rr * Vec2::new(a.cos(), a.sin())
+            c + rr * Vec2::new(a.dcos(), a.dsin())
         })
         .collect()
 }
@@ -775,107 +776,16 @@ fn obstacle_shapes(world: &World) -> Obstacles {
     out
 }
 
-/// A colliding tilemap's solid layers as obstacles - see [`tilemap_hulls`].
+/// A colliding tilemap's solid layers as obstacles - see [`crate::ecs::outlines::tilemap_hulls`].
 #[cfg(feature = "physics")]
 fn tilemap_shapes(world: &World, out: &mut Obstacles) {
-    for (_, key, hulls) in tilemap_hulls(world) {
+    for (_, key, hulls) in crate::ecs::outlines::tilemap_hulls(world) {
         for h in hulls.iter() {
             out.push((Shape::Hull(h.clone()), 0xFFFF, Some(key)));
         }
     }
 }
 
-/// Every colliding tilemap's solid layers as convex outlines in world space:
-/// the colliders the physics builds (`physics::tile_area_colliders`), placed
-/// by the map's position (the physics body has no turn, so neither do
-/// these), as `(map, key, hulls)`. Cached per map, keyed by its layers'
-/// revisions and its grid, so a map nothing edits is converted once.
-/// Navigation bakes them, and [`crate::ecs::outlines`] tests them - which is
-/// what lets a `vision` fan stop at a tile wall (Blackout's could not).
-#[cfg(feature = "physics")]
-pub(crate) fn tilemap_hulls(world: &World) -> Vec<(hecs::Entity, u64, Arc<Vec<Vec<Vec2>>>)> {
-    use crate::ecs::components::TilemapCollider;
-    use crate::tilemap::Tilemap;
-    use std::cell::RefCell;
-    use std::collections::HashMap;
-    thread_local! {
-        static CACHE: RefCell<HashMap<u64, (u64, Arc<Vec<Vec<Vec2>>>)>> = RefCell::new(HashMap::new());
-    }
-    let mut result = Vec::new();
-    for (e, (tm, t)) in world.query::<(&Tilemap, &Transform)>().iter() {
-        let spec = world.get::<&TilemapCollider>(e).ok();
-        let layers: Vec<usize> = tm
-            .layers
-            .iter()
-            .enumerate()
-            .filter(|(_, l)| l.collision || spec.as_ref().is_some_and(|s| s.solid.contains(&l.name)))
-            .map(|(i, _)| i)
-            .collect();
-        if layers.is_empty() || tm.tile_size[0] <= 0.0 || tm.tile_size[1] <= 0.0 {
-            continue;
-        }
-        // Where it is in the world: a parented map moves with its parent.
-        let origin = crate::tilemap::world_origin(world, e, t);
-        let mut h = Fnv::new();
-        h.write(e.to_bits().get());
-        h.write_vec(origin);
-        h.write_vec(Vec2::from(tm.tile_size));
-        h.write(tm.orientation as u64);
-        h.write(tm.hex_side.to_bits() as u64);
-        h.write(tm.shapes_key());
-        for &i in &layers {
-            let l = &tm.layers[i];
-            h.write(i as u64);
-            h.write(l.rev.id());
-            h.write(l.rev.total());
-            h.write(l.width as u64 | ((l.height as u64) << 32));
-        }
-        let key = h.0;
-        let id = e.to_bits().get();
-        let shapes = CACHE.with(|c| {
-            let mut c = c.borrow_mut();
-            if let Some((k, s)) = c.get(&id)
-                && *k == key
-            {
-                return Arc::clone(s);
-            }
-            let mut shapes = Vec::new();
-            for &i in &layers {
-                let l = &tm.layers[i];
-                for b in crate::physics::tile_area_colliders(tm, l, (0, 0, l.width, l.height), false) {
-                    let iso = b.position;
-                    let local: Vec<Vec2> = if let Some(c) = b.shape.as_cuboid() {
-                        let he = c.half_extents;
-                        [(-1.0, -1.0), (1.0, -1.0), (1.0, 1.0), (-1.0, 1.0)]
-                            .iter()
-                            .map(|&(sx, sy)| {
-                                let p = iso * rapier2d::na::Point2::new(sx * he.x, sy * he.y);
-                                Vec2::new(p.x, p.y)
-                            })
-                            .collect()
-                    } else if let Some(poly) = b.shape.as_convex_polygon() {
-                        poly.points()
-                            .iter()
-                            .map(|q| {
-                                let p = iso * q;
-                                Vec2::new(p.x, p.y)
-                            })
-                            .collect()
-                    } else {
-                        continue;
-                    };
-                    let world_pts: Vec<Vec2> = local.into_iter().map(|p| origin + p).collect();
-                    shapes.push(convex_hull(&world_pts));
-                }
-            }
-            let shapes = Arc::new(shapes);
-            c.insert(id, (key, Arc::clone(&shapes)));
-            shapes
-        });
-        result.push((e, key, shapes));
-    }
-    result
-}
 
 fn region_inputs(region: &NavRegion, t: &Transform, obstacles: &[(Shape, u16, Option<u64>)]) -> RegionInputs {
     let rot = glam::Mat2::from_angle(t.rotation);
@@ -1102,7 +1012,7 @@ pub fn tick_navigation(world: &mut World, dt: f32) {
                 && let Ok(mut t) = world.get::<&mut Transform>(w.e)
                 && mv.length_squared() > 1e-8
             {
-                t.rotation = face.turn(t.rotation, mv.y.atan2(mv.x), dt);
+                t.rotation = face.turn(t.rotation, mv.y.datan2(mv.x), dt);
             }
             continue;
         }
@@ -1284,7 +1194,7 @@ pub fn tick_navigation(world: &mut World, dt: f32) {
             && let Ok(mut t) = world.get::<&mut Transform>(w.e)
             && mv.length_squared() > 1e-8
         {
-            t.rotation = face.turn(t.rotation, mv.y.atan2(mv.x), dt);
+            t.rotation = face.turn(t.rotation, mv.y.datan2(mv.x), dt);
         }
     }
     // 3. Push apart whoever overlaps: half each, or all of it onto the one
@@ -1368,8 +1278,8 @@ mod tests {
         let o = Obstacle::new(g).unwrap();
         for k in 0..64 {
             let a = k as f32 / 64.0 * 2.0 * PI;
-            let corner = Vec2::new(10.0 * a.cos().signum(), 10.0 * a.sin().signum());
-            let p = corner + Vec2::new(a.cos(), a.sin()) * 4.9;
+            let corner = Vec2::new(10.0 * a.dcos().signum(), 10.0 * a.dsin().signum());
+            let p = corner + Vec2::new(a.dcos(), a.dsin()) * 4.9;
             assert!(o.contains(p), "{p} is in the sweep and outside the grown box");
         }
     }

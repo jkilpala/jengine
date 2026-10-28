@@ -40,6 +40,7 @@ pub struct NavSnapshot {
     maps: HashMap<u64, (Tilemap, (f32, f32))>,
     /// Every `nav_region`'s graph - shared, not copied: a graph is an `Arc`
     /// the region keeps until its colliders move.
+    #[cfg(feature = "navigation")]
     graphs: Vec<std::sync::Arc<crate::navigation::NavGraph>>,
     /// The agents with somewhere to walk to, by entity id.
     moving: std::collections::HashSet<u64>,
@@ -60,19 +61,23 @@ impl NavSnapshot {
     /// `spawn_prefab` gave the script), so `Nav.is_moving` knows a spawned
     /// agent by the handle the script holds - as the ray snapshot does.
     pub fn refresh_named(&mut self, world: &hecs::World, names: &HashMap<u64, u64>) {
-        self.graphs = crate::navigation::graphs(world);
         self.moving.clear();
-        if !self.graphs.is_empty() {
-            for (e, a) in world.query::<&crate::navigation::NavAgent>().iter() {
-                if a.is_moving() {
-                    let id = e.id() as u64;
-                    self.moving.insert(id);
-                    if let Some(&handle) = names.get(&id) {
-                        self.moving.insert(handle);
+        #[cfg(not(feature = "navigation"))]
+        let _ = names;
+        crate::feature!("navigation", {
+            self.graphs = crate::navigation::graphs(world);
+            if !self.graphs.is_empty() {
+                for (e, a) in world.query::<&crate::navigation::NavAgent>().iter() {
+                    if a.is_moving() {
+                        let id = e.id() as u64;
+                        self.moving.insert(id);
+                        if let Some(&handle) = names.get(&id) {
+                            self.moving.insert(handle);
+                        }
                     }
                 }
             }
-        }
+        });
         self.maps.clear();
         for (entity, (tilemap, transform)) in world.query::<(&Tilemap, &Transform)>().iter() {
             let origin = crate::tilemap::world_origin(world, entity, transform);
@@ -83,17 +88,36 @@ impl NavSnapshot {
     /// True when no tilemap exists — the callbacks then answer `null`, which
     /// is what the native snapshot does for an unknown entity.
     pub fn is_empty(&self) -> bool {
-        self.maps.is_empty() && self.graphs.is_empty()
+        #[cfg(feature = "navigation")]
+        return self.maps.is_empty() && self.graphs.is_empty();
+        #[cfg(not(feature = "navigation"))]
+        return self.maps.is_empty();
     }
 
     /// `Nav.find_path` from the frame's graphs.
     pub fn nav_path(&self, from: (f32, f32), to: (f32, f32)) -> Option<Vec<(f32, f32)>> {
-        let path = crate::navigation::find_path_in(&self.graphs, from.into(), to.into())?;
-        Some(path.into_iter().map(|p| (p.x, p.y)).collect())
+        #[cfg(not(feature = "navigation"))]
+        {
+            let _ = (from, to);
+            crate::features::missing("navigation", "Nav.find_path");
+            return None;
+        }
+        #[cfg(feature = "navigation")]
+        {
+            let path = crate::navigation::find_path_in(&self.graphs, from.into(), to.into())?;
+            Some(path.into_iter().map(|p| (p.x, p.y)).collect())
+        }
     }
 
     /// `Nav.closest_point` from the frame's graphs.
     pub fn nav_closest(&self, p: (f32, f32)) -> Option<(f32, f32)> {
+        #[cfg(not(feature = "navigation"))]
+        {
+            let _ = p;
+            crate::features::missing("navigation", "Nav.closest_point");
+            return None;
+        }
+        #[cfg(feature = "navigation")]
         crate::navigation::closest_point_in(&self.graphs, p.into()).map(|q| (q.x, q.y))
     }
 
@@ -321,6 +345,7 @@ pub fn install_nav_callbacks(snapshot: Rc<RefCell<NavSnapshot>>) -> Result<(), J
     super::input_query::install_input_query_callbacks(&state)?;
     super::music::install_music_callbacks(&state)?;
     super::noise::install_noise_callbacks(&state)?;
+    super::script_math::install_script_math()?;
     super::analysis::install_analysis_callbacks(&state)?;
     super::screenshot::install_screenshot_callbacks(&state)?;
     super::accessibility::install_accessibility_callbacks(&state)?;

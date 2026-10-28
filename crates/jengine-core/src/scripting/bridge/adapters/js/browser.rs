@@ -1301,7 +1301,12 @@ fn build_wrapper(source: &str) -> String {
   function lerp(a, b, t) {{ return a + (b - a) * t; }}
   function clamp(v, mn, mx) {{ return Math.min(Math.max(v, mn), mx); }}
   function distance(x1, y1, x2, y2) {{ return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1)); }}
-  function angle_between(x1, y1, x2, y2) {{ return Math.atan2(y2 - y1, x2 - x1); }}
+  // Through the engine's `libm` (`script_math`), as native computes it; the
+  // browser's `Math.atan2` differs in the last bit.
+  function angle_between(x1, y1, x2, y2) {{
+    var m = globalThis.__jengine_script_math;
+    return m ? m.atan2(y2 - y1, x2 - x1) : Math.atan2(y2 - y1, x2 - x1);
+  }}
   function set_timer(entity, delay, callback) {{
     var timers = window.__jengine_play.timers || [];
     var id = (window.__jengine_play.next_timer_id || 1);
@@ -1565,6 +1570,8 @@ fn build_wrapper(source: &str) -> String {
   function ui_drop(entity, slot) {{ window.__jengine_play.commands.push({{ t: 'uidp', e: entity, s: String(slot) }}); }}
   function mode7_place(entity, x, y, angle) {{ window.__jengine_play.commands.push({{ t: 'm7p', e: entity, x: x, y: y, a: angle || 0 }}); }}
   function mode7_set(entity, field, value) {{ window.__jengine_play.commands.push({{ t: 'm7s', e: entity, f: field, v: value }}); }}
+  function stage_place(entity, x, y, z) {{ window.__jengine_play.commands.push({{ t: 'stgp', e: entity, x: x, y: y, z: z || 0 }}); }}
+  function stage_set(entity, field, value) {{ window.__jengine_play.commands.push({{ t: 'stgs', e: entity, f: field, v: value }}); }}
   function sprite_tilt_set(entity, field, value) {{ window.__jengine_play.commands.push({{ t: 'tilt', e: entity, f: field, v: value }}); }}
   function afterimage_set(entity, field, value) {{ window.__jengine_play.commands.push({{ t: 'aimg', e: entity, f: field, v: value }}); }}
   function physics_slice(x0, y0, x1, y1) {{ window.__jengine_play.commands.push({{ t: 'pslc', x0: x0, y0: y0, x1: x1, y1: y1 }}); }}

@@ -360,6 +360,10 @@ pub enum BridgeCommand {
     Mode7Place { entity_id: u64, x: f32, y: f32, angle: f32 },
     /// Any Mode 7 field by name: `mode7_set(e, field, value)`.
     Mode7Set { entity_id: u64, field: String, value: serde_json::Value },
+    /// Stand a stage billboard, move a quad or point a stage: `stage_place(e, x, y, z)`.
+    StagePlace { entity_id: u64, x: f32, y: f32, z: f32 },
+    /// Any stage field by name: `stage_set(e, field, value)`.
+    StageSet { entity_id: u64, field: String, value: serde_json::Value },
     /// Any sprite tilt field by name: `sprite_tilt_set(e, field, value)`.
     SpriteTiltSet { entity_id: u64, field: String, value: serde_json::Value },
     /// Any afterimage field by name: `afterimage_set(e, field, value)`.

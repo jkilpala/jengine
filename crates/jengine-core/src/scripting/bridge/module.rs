@@ -54,6 +54,7 @@ pub fn null_resolver() -> ModuleResolver {
 /// path under `assets/`.
 #[cfg(not(target_arch = "wasm32"))]
 pub fn fs_resolver(root: std::path::PathBuf) -> ModuleResolver {
+    #[cfg(feature = "packs")]
     let folder = root.file_name().map(|f| f.to_string_lossy().into_owned()).unwrap_or_default();
     Rc::new(move |path: &str| {
         if path.split(['/', '\\']).any(|seg| seg == "..") {
@@ -76,6 +77,7 @@ pub fn fs_resolver(root: std::path::PathBuf) -> ModuleResolver {
                     .map_err(|e| format!("require('{path}'): read failed: {e}"));
             }
         }
+        #[cfg(feature = "packs")]
         for name in &names {
             if let Some(candidate) = crate::asset::packs::locate(&format!("{folder}/{name}"))
                 && candidate.is_file()

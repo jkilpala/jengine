@@ -5,6 +5,7 @@
 //! pass every host already runs before drawing (`resolve_sprite_regions`),
 //! and every part is preloaded with the scene, since nothing names a part
 //! until it is worn.
+#![cfg(feature = "sprite_library")]
 
 use hecs::World;
 use jengine_core::asset::AssetManager;

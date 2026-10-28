@@ -93,7 +93,7 @@ use jengine_core::ecs::components::CustomComponents;
 use jengine_core::package::component_registry::ComponentRegistry;
 use jengine_core::package::script_api::ScriptApiRegistry;
 use jengine_core::package::script_commands::PackageCommandRegistry;
-use jengine_core::package::system_schedule::{SystemPhase, SystemSchedule};
+use jengine_core::package::system_schedule::{SystemContext, SystemPhase, SystemSchedule};
 use jengine_core::package::{JEnginePackage, PackageMetadata};
 
 /// Open a connection, replacing any existing one.
@@ -287,140 +287,18 @@ impl JEnginePackage for NetPackage {
     fn register_systems(&self, schedule: &mut SystemSchedule) {
         // Receive before scripts run, so a script sees this frame's traffic
         // rather than last frame's.
-        schedule.add_system("net_receive", SystemPhase::PreUpdate, 0, |ctx| {
-            let (world, _dt, resources) = ctx.split();
-
-            // Who wants what: every `Net` component's requested URL, and
-            // whether it wants a connection of its own. Read before any
-            // connection is borrowed, because both need the world.
-            let asks: Vec<(hecs::Entity, Option<String>, bool)> = world
-                .query::<&CustomComponents>()
-                .iter()
-                .filter_map(|(e, custom)| {
-                    let component = custom.0.get(channel::COMPONENT)?;
-                    let url = channel::requested_url(component).map(str::to_string);
-                    Some((e, url, channel::owns_connection(component)))
-                })
-                .collect();
-            // The shared connection: what the first component asking for
-            // one (and not for its own) wants.
-            let requested: Option<String> =
-                asks.iter().filter(|(_, url, own)| url.is_some() && !own).find_map(|(_, url, _)| url.clone());
-            // What each `Net` component is told this frame: (inbox, state, dropped).
-            let mut told: Vec<(hecs::Entity, Vec<String>, &'static str, u64)> = Vec::new();
-
-            // Connections of their own, one per entity that asked. Kept
-            // apart from the shared one so a scene with one session is
-            // exactly as it was.
-            let owners: Vec<(hecs::Entity, Option<String>)> =
-                asks.iter().filter(|(_, _, own)| *own).map(|(e, url, _)| (*e, url.clone())).collect();
-            if !owners.is_empty() || resources.contains::<OwnConnections>() {
-                if !resources.contains::<OwnConnections>() {
-                    resources.insert(OwnConnections::default());
-                }
-                let own = resources.get_mut::<OwnConnections>().expect("just inserted if absent");
-                // An entity that is gone takes its socket with it.
-                own.0.retain(|e, _| owners.iter().any(|(o, _)| o == e));
-                for (e, url) in &owners {
-                    let conn = own.0.entry(*e).or_insert_with(NetConnection::new);
-                    match url.as_deref() {
-                        Some("") if conn.url().is_some() => conn.disconnect(),
-                        Some(url) if !url.is_empty() && conn.url() != Some(url) => {
-                            log::info!("[net] connecting to {url} (an entity's own connection)");
-                            connect(conn, url);
-                        }
-                        _ => {}
-                    }
-                    conn.pump();
-                    let incoming = texts(conn.drain());
-                    told.push((*e, incoming, conn.state().as_str(), conn.dropped_count()));
-                }
-            }
-
-            // Nothing is asking for the shared connection and none exists:
-            // stay out of the way entirely rather than parking an idle
-            // resource on every project that merely links this package.
-            let shared = if requested.is_none() && !resources.contains::<NetConnection>() {
-                None
-            } else {
-                // The connection is this package's own state, not something
-                // the runtime hands down - unlike `PhysicsWorld`, nothing
-                // else can create it, so creating it here is not stepping on
-                // an owner.
-                if !resources.contains::<NetConnection>() {
-                    resources.insert(NetConnection::new());
-                }
-                let conn = resources
-                    .get_mut::<NetConnection>()
-                    .expect("just inserted if absent");
-
-                // Reconcile: a script states the URL it wants, this closes the gap.
-                match requested.as_deref() {
-                    Some("") if conn.url().is_some() => conn.disconnect(),
-                    Some(url) if !url.is_empty() && conn.url() != Some(url) => {
-                        log::info!("[net] connecting to {url}");
-                        connect(conn, url);
-                    }
-                    _ => {}
-                }
-
-                conn.pump();
-                Some((texts(conn.drain()), conn.state().as_str(), conn.dropped_count()))
-            };
-
-            // Each component with a connection of its own hears that one;
-            // every other hears the shared one.
-            for (e, custom) in world.query_mut::<&mut CustomComponents>() {
-                let Some(component) = custom.0.get_mut(channel::COMPONENT) else {
-                    continue;
-                };
-                if let Some(i) = told.iter().position(|(owner, ..)| *owner == e) {
-                    let (_, incoming, state, dropped) = told.swap_remove(i);
-                    channel::publish(component, &incoming, state, dropped);
-                } else if let Some((incoming, state, dropped)) = &shared {
-                    channel::publish(component, incoming, state, *dropped);
-                }
-            }
-        });
+        schedule.add_system("net_receive", SystemPhase::PreUpdate, 0, net_receive);
+        // And once a frame before any step: with fixed-step gameplay a frame
+        // that runs no step - one waiting on the network, say - still reads it.
+        schedule.add_system("net_receive_frame", SystemPhase::Frame, 0, net_receive);
 
         // Send after scripts have run, so a message queued this frame leaves
         // this frame instead of waiting for the next one.
-        schedule.add_system("net_send", SystemPhase::ScriptExec, 0, |ctx| {
-            let (world, _dt, resources) = ctx.split();
-            // A message is taken only where there is a connection to carry
-            // it; otherwise it waits in the outbox.
-            let has_shared = resources.contains::<NetConnection>();
-            let owned: Vec<hecs::Entity> =
-                resources.get::<OwnConnections>().map(|own| own.0.keys().copied().collect()).unwrap_or_default();
-            // (entity, its messages, whether it has a connection of its own)
-            let mut outgoing: Vec<(hecs::Entity, Vec<String>, bool)> = Vec::new();
-            for (e, custom) in world.query_mut::<&mut CustomComponents>() {
-                let Some(component) = custom.0.get_mut(channel::COMPONENT) else {
-                    continue;
-                };
-                let own = channel::owns_connection(component);
-                if if own { !owned.contains(&e) } else { !has_shared } {
-                    continue;
-                }
-                let msgs = channel::take_outbox(component);
-                if !msgs.is_empty() {
-                    outgoing.push((e, msgs, own));
-                }
-            }
-            for (e, msgs, own) in outgoing {
-                let conn = if own {
-                    resources.get_mut::<OwnConnections>().and_then(|own| own.0.get_mut(&e))
-                } else {
-                    resources.get_mut::<NetConnection>()
-                };
-                let Some(conn) = conn else { continue };
-                for msg in msgs {
-                    if let Err(e) = conn.send_text(&msg) {
-                        log::warn!("[net] send failed: {e}");
-                    }
-                }
-            }
-        });
+        schedule.add_system("net_send", SystemPhase::ScriptExec, 0, net_send);
+        // And at the end of the frame's own phase, after what a `Frame`
+        // system queued (a lockstep session's inputs) - none of which waits
+        // for a step that may not come.
+        schedule.add_system("net_send_frame", SystemPhase::Frame, 20, net_send);
 
         // HTTP answers land in the same pass, and before scripts, so a
         // response is readable on the frame it arrived rather than the next.
@@ -609,10 +487,145 @@ mod tests {
 
         let mut schedule = SystemSchedule::new();
         NetPackage.register_systems(&mut schedule);
-        // Four: WebSocket receive/send and HTTP receive/send. Receive runs in
+        // Six: WebSocket receive/send and HTTP receive/send. Receive runs in
         // PreUpdate and send in ScriptExec for both, so traffic queued on a
         // frame leaves on that frame and an answer is readable on the frame it
-        // arrived.
-        assert_eq!(schedule.len(), 4);
+        // arrived - and the WebSocket pair runs again in `Frame`, once a
+        // frame before any step, so a fixed-step frame that runs no step
+        // (one waiting on a lockstep session) still reads and sends.
+        assert_eq!(schedule.len(), 6);
+    }
+}
+
+fn net_receive(ctx: &mut SystemContext<'_>) {
+    let (world, _dt, resources) = ctx.split();
+
+    // Who wants what: every `Net` component's requested URL, and
+    // whether it wants a connection of its own. Read before any
+    // connection is borrowed, because both need the world.
+    let asks: Vec<(hecs::Entity, Option<String>, bool)> = world
+        .query::<&CustomComponents>()
+        .iter()
+        .filter_map(|(e, custom)| {
+            let component = custom.0.get(channel::COMPONENT)?;
+            let url = channel::requested_url(component).map(str::to_string);
+            Some((e, url, channel::owns_connection(component)))
+        })
+        .collect();
+    // The shared connection: what the first component asking for
+    // one (and not for its own) wants.
+    let requested: Option<String> =
+        asks.iter().filter(|(_, url, own)| url.is_some() && !own).find_map(|(_, url, _)| url.clone());
+    // What each `Net` component is told this frame: (inbox, state, dropped).
+    let mut told: Vec<(hecs::Entity, Vec<String>, &'static str, u64)> = Vec::new();
+
+    // Connections of their own, one per entity that asked. Kept
+    // apart from the shared one so a scene with one session is
+    // exactly as it was.
+    let owners: Vec<(hecs::Entity, Option<String>)> =
+        asks.iter().filter(|(_, _, own)| *own).map(|(e, url, _)| (*e, url.clone())).collect();
+    if !owners.is_empty() || resources.contains::<OwnConnections>() {
+        if !resources.contains::<OwnConnections>() {
+            resources.insert(OwnConnections::default());
+        }
+        let own = resources.get_mut::<OwnConnections>().expect("just inserted if absent");
+        // An entity that is gone takes its socket with it.
+        own.0.retain(|e, _| owners.iter().any(|(o, _)| o == e));
+        for (e, url) in &owners {
+            let conn = own.0.entry(*e).or_insert_with(NetConnection::new);
+            match url.as_deref() {
+                Some("") if conn.url().is_some() => conn.disconnect(),
+                Some(url) if !url.is_empty() && conn.url() != Some(url) => {
+                    log::info!("[net] connecting to {url} (an entity's own connection)");
+                    connect(conn, url);
+                }
+                _ => {}
+            }
+            conn.pump();
+            let incoming = texts(conn.drain());
+            told.push((*e, incoming, conn.state().as_str(), conn.dropped_count()));
+        }
+    }
+
+    // Nothing is asking for the shared connection and none exists:
+    // stay out of the way entirely rather than parking an idle
+    // resource on every project that merely links this package.
+    let shared = if requested.is_none() && !resources.contains::<NetConnection>() {
+        None
+    } else {
+        // The connection is this package's own state, not something
+        // the runtime hands down - unlike `PhysicsWorld`, nothing
+        // else can create it, so creating it here is not stepping on
+        // an owner.
+        if !resources.contains::<NetConnection>() {
+            resources.insert(NetConnection::new());
+        }
+        let conn = resources
+            .get_mut::<NetConnection>()
+            .expect("just inserted if absent");
+
+        // Reconcile: a script states the URL it wants, this closes the gap.
+        match requested.as_deref() {
+            Some("") if conn.url().is_some() => conn.disconnect(),
+            Some(url) if !url.is_empty() && conn.url() != Some(url) => {
+                log::info!("[net] connecting to {url}");
+                connect(conn, url);
+            }
+            _ => {}
+        }
+
+        conn.pump();
+        Some((texts(conn.drain()), conn.state().as_str(), conn.dropped_count()))
+    };
+
+    // Each component with a connection of its own hears that one;
+    // every other hears the shared one.
+    for (e, custom) in world.query_mut::<&mut CustomComponents>() {
+        let Some(component) = custom.0.get_mut(channel::COMPONENT) else {
+            continue;
+        };
+        if let Some(i) = told.iter().position(|(owner, ..)| *owner == e) {
+            let (_, incoming, state, dropped) = told.swap_remove(i);
+            channel::publish(component, &incoming, state, dropped);
+        } else if let Some((incoming, state, dropped)) = &shared {
+            channel::publish(component, incoming, state, *dropped);
+        }
+    }
+}
+
+fn net_send(ctx: &mut SystemContext<'_>) {
+    let (world, _dt, resources) = ctx.split();
+    // A message is taken only where there is a connection to carry
+    // it; otherwise it waits in the outbox.
+    let has_shared = resources.contains::<NetConnection>();
+    let owned: Vec<hecs::Entity> =
+        resources.get::<OwnConnections>().map(|own| own.0.keys().copied().collect()).unwrap_or_default();
+    // (entity, its messages, whether it has a connection of its own)
+    let mut outgoing: Vec<(hecs::Entity, Vec<String>, bool)> = Vec::new();
+    for (e, custom) in world.query_mut::<&mut CustomComponents>() {
+        let Some(component) = custom.0.get_mut(channel::COMPONENT) else {
+            continue;
+        };
+        let own = channel::owns_connection(component);
+        if if own { !owned.contains(&e) } else { !has_shared } {
+            continue;
+        }
+        let msgs = channel::take_outbox(component);
+        if !msgs.is_empty() {
+            outgoing.push((e, msgs, own));
+        }
+    }
+    for (e, msgs, own) in outgoing {
+        let conn = if own {
+            resources.get_mut::<OwnConnections>().and_then(|own| own.0.get_mut(&e))
+        } else {
+            resources.get_mut::<NetConnection>()
+        };
+        let Some(conn) = conn else { continue };
+        for msg in msgs {
+            if let Err(e) = conn.send_text(&msg) {
+                log::warn!("[net] send failed: {e}");
+            }
+        }
     }
 }

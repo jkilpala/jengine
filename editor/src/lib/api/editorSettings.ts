@@ -19,6 +19,8 @@ export interface EditorSettings {
   build_enable_profiling: boolean;
   /** Ship the F3 stats HUD / F12 inspector in the built game. */
   build_debug_overlay: boolean;
+  /** Web builds: the game's info lines reach the browser console. */
+  build_logging: boolean;
 }
 
 export function defaultEditorSettings(): EditorSettings {
@@ -33,9 +35,11 @@ export function defaultEditorSettings(): EditorSettings {
     wasm_lto: false,
     wasm_opt_size: false,
     wasm_single_codegen: false,
-    wasm_opt_level: "optimized",
+    // A game's web build: the smallest download (WasmOpt::WEB_BUILD_DEFAULT).
+    wasm_opt_level: "fast",
     build_enable_profiling: false,
     build_debug_overlay: true,
+    build_logging: true,
   };
 }
 

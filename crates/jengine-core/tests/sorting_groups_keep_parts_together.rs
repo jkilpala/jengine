@@ -51,7 +51,7 @@ fn the_scene_format_keeps_it() {
     let mut world = World::new();
     world.spawn((at(0.0, 0.0), SortingGroup { z_order: 3, y_sort: true, sort_layer: None }));
     let scene = jengine_core::scene::format::save_scene(&world);
-    let g = scene.entities.iter().find_map(|e| e.components.sorting_group.as_ref()).expect("saved");
+    let g = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::ecs::sorting_group::SortingGroup>("sorting_group")).expect("saved");
     assert_eq!((g.z_order, g.y_sort), (3, true));
 }
 

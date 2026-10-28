@@ -12,8 +12,11 @@
 //! - [`backend`] — wgpu device/pipeline implementations under
 //!   `backend::wgpu`.
 
+#[cfg(feature = "spline_shape")]
 pub mod spline_shape;
+#[cfg(feature = "line2d")]
 pub mod line2d;
+#[cfg(feature = "lut")]
 pub mod lut;
 pub mod palette;
 /// The finished frame copied into a texture or a file (`Screenshot.take`).
@@ -29,9 +32,11 @@ pub mod mask;
 // Not gated to native: the wasm hosts use `insert_font_json` / `resolve_font`
 // even though only native has the disk loader.
 pub mod font_asset;
+#[cfg(feature = "dynamic_font")]
 pub mod dynamic_font;
 #[cfg(feature = "gpu-wgpu")]
 pub mod graph_pipeline_cache;
+#[cfg(feature = "freeform_light")]
 pub mod freeform_light;
 pub mod lighting;
 pub mod material;

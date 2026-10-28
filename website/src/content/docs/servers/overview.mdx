@@ -18,6 +18,7 @@ decides; the game shows what it is told and sends what the player does.
 | `jengine-server` | The framework: **rooms** (sync Rust, ticked on a timer), **players** whose state outlives a room, accounts, a store (SQLite), an admin dashboard at `/admin`, and optional **live ops**. A game's server is its own small binary crate depending on it. |
 | `jengine-online` | The client package: connects, signs in, joins rooms, mirrors server state into entities, predicts the player's own movement. |
 | `jengine-relay` | The smallest server: rooms and an ordered log, for turn-based games. `jengine-server` speaks the same protocol. |
+| `lockstep` room | A room kind of `jengine-server` (`Server::lockstep()`) that orders players' inputs for a game run in fixed steps on every machine - see below. The stock `cargo run -p jengine-server` serves it beside the relay. |
 | `jengine-fleet` | The deploy tool: an **agent** on each machine runs and restarts servers; a command line and a web page on yours deploy builds to them. |
 | `jengine-fleet host` | An agent that is also a **host**: one port for players in front of every server it runs, and a web **console** to manage them. |
 
@@ -31,6 +32,29 @@ cargo run -p jengine-server -- new ../my-server --template world   # or relay | 
 example: a small world of zones whose server owns a tilemap, paths monsters
 with the engine's own A*, and sends the walls to the client so the player is
 predicted against them (`crates/jengine-server/examples/zones`).
+
+## Two ways to play together
+
+- **The server decides.** A room runs the game's rules in Rust and sends each
+  player what they may see; the game draws it and sends what the player does.
+  Cheating is hard, and the server pays for every match. This is what the
+  `world`, `match` and `relay` templates are.
+- **Every machine decides, in lockstep.** A game in fixed steps
+  (`settings.simulation_hz`) is deterministic - the same inputs give the same
+  game on every platform - so machines need to exchange only what their players
+  pressed. A `lockstep_session` (in `jengine-online`) joins a `lockstep` room,
+  which only puts each step's inputs in order and hands them to everyone; each
+  machine runs a step once every player's input for it has arrived. The
+  machines compare a hash of the world now and then, and stop a match that came
+  apart. A player who drops rejoins, and a spectator can watch: both replay the
+  match so far, fast. The room needs no code of its own, so the stock server is
+  enough:
+
+  ```json
+  "lockstep_session": { "url": "ws://127.0.0.1:9001", "room": "duel", "seats": 2, "delay": 3 }
+  ```
+
+  See the [`jengine-online`](/packages/online/) page for every field.
 
 ## Three ways to run a server
 
@@ -56,8 +80,8 @@ predicted against them (`crates/jengine-server/examples/zones`).
 
 <Aside>
 The deep reference is in the repository: `crates/jengine-server/README.md`
-(the framework, deploying, clusters, live ops), `docs/making-online-games.md`
-(writing a game's room and client), and `crates/jengine-server/LIMITS.md` -
+(the framework, deploying, clusters, live ops, writing a room) and
+`crates/jengine-server/LIMITS.md` -
 every known limit of the stack, numbered. Read the limits before relying on a
 feature in production.
 </Aside>

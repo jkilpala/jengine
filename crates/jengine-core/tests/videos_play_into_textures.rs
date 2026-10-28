@@ -1,6 +1,7 @@
 //! Video (`video`): a `video_player` plays a file into a texture through
 //! the platform's decoder, which keeps the clock; frames are written into
 //! the texture by the runtime-texture path, so any sprite naming it shows it.
+#![cfg(feature = "video")]
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -126,7 +127,7 @@ fn the_scene_keeps_it_and_scripts_set_it() {
     set_video_field(&world, e, "looping", &serde_json::json!(false)).unwrap();
     assert!(set_video_field(&world, e, "volume", &serde_json::json!(1)).is_err(), "video is silent");
     let scene = jengine_core::scene::format::save_scene(&world);
-    let saved = scene.entities.iter().find_map(|e| e.components.video_player.as_ref()).expect("saved");
+    let saved = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::video::VideoPlayer>("video_player")).expect("saved");
     assert_eq!((saved.speed, saved.looping), (2.0, false));
 }
 

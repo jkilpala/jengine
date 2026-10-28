@@ -107,8 +107,12 @@ impl PostProcessSettings {
     /// Parsing is lenient by design: a scene whose block is malformed loses
     /// its effects rather than failing to load.
     pub fn from_scene_json(json: &str) -> Option<Self> {
-        let value: serde_json::Value = serde_json::from_str(json).ok()?;
-        serde_json::from_value(value.get("post_process")?.clone()).ok()
+        Self::from_scene_value(&serde_json::from_str(json).ok()?)
+    }
+
+    /// [`Self::from_scene_json`] for a scene already parsed.
+    pub fn from_scene_value(scene: &serde_json::Value) -> Option<Self> {
+        serde_json::from_value(scene.get("post_process")?.clone()).ok()
     }
 }
 

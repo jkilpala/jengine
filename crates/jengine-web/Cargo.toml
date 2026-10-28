@@ -12,7 +12,17 @@ license.workspace = true
 crate-type = ["cdylib", "rlib"]
 
 [features]
-default = ["standalone", "physics", "backend-webgpu"]
+default = ["standalone", "physics", "backend-webgpu", "engine-full"]
+# Every engine feature (`jengine_core::features`). A project's generated web
+# crate turns this off and names its project's features on `jengine-core`.
+engine-full = ["jengine-core/engine-full", "packs", "liveops", "video", "accessibility", "dynamic_font"]
+# The engine features this runtime hosts too: each its core feature and the
+# web runtime's own code for it.
+packs = ["jengine-core/packs"]
+liveops = ["packs", "jengine-core/liveops"]
+video = ["jengine-core/video"]
+accessibility = ["jengine-core/accessibility"]
+dynamic_font = ["jengine-core/dynamic_font"]
 # The `#[wasm_bindgen(start)]` of a stock build. A generated per-project web
 # crate (`jengine_builder::packages::generate_project_web`) turns this off and
 # supplies its own start, which registers the project's packages first -
@@ -69,6 +79,9 @@ web-sys = { workspace = true, features = [
 ] }
 js-sys = { workspace = true }
 wasm-bindgen-futures = "0.4"
+# `join_all` / `join!`: a scene's assets are fetched at once, not one round
+# trip after another.
+futures-util = { version = "0.3", default-features = false, features = ["alloc", "async-await-macro"] }
 log = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

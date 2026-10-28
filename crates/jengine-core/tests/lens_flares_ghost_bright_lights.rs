@@ -5,6 +5,7 @@
 //! is bright there, so only what is past `threshold` flares. Found by the
 //! showcase's Orbital Station, whose sun and explosions had bloom and nothing
 //! of the lens.
+#![cfg(feature = "lens_flare")]
 
 /// A bright square and a dim one on black. With `lens_flare` on, the bright
 /// one throws a soft ghost to the point mirrored through the centre and the

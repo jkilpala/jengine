@@ -6,7 +6,7 @@
 //! component through the ECS: the lines it draws, the fields a script
 //! reads, and `Trajectory.set`. Found by the showcase's Billiard Hall.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "trajectory"))]
 
 use glam::Vec2;
 use hecs::World;

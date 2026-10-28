@@ -20,8 +20,6 @@
 //! Whether the target is on screen is the custom `OffscreenMarker.visible`,
 //! for a script.
 
-use std::cell::Cell;
-
 use glam::{Mat2, Vec2};
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
@@ -72,44 +70,8 @@ impl Default for OffscreenMarker {
     }
 }
 
-/// The main camera's view as last drawn: its middle, its two axes and its
-/// half sizes along them.
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct MainView {
-    pub center: Vec2,
-    pub axis_x: Vec2,
-    pub axis_y: Vec2,
-    pub half: Vec2,
-}
 
-impl MainView {
-    /// The view whose corners are `[top left, top right, bottom right,
-    /// bottom left]`.
-    pub fn of_corners(c: [Vec2; 4]) -> Self {
-        let center = (c[0] + c[1] + c[2] + c[3]) * 0.25;
-        let (x, y) = (c[1] - c[0], c[0] - c[3]);
-        Self { center, axis_x: x.normalize_or(Vec2::X), axis_y: y.normalize_or(Vec2::Y), half: Vec2::new(x.length(), y.length()) * 0.5 }
-    }
-}
-
-thread_local! {
-    static MAIN_VIEW: Cell<Option<MainView>> = const { Cell::new(None) };
-}
-
-/// Record the screen camera's view. `frame_draw` calls it each frame.
-pub fn note_main_view(camera: &crate::renderer::camera::Camera2D) {
-    MAIN_VIEW.with(|v| v.set(Some(MainView::of_corners(camera.view_corners()))));
-}
-
-/// The screen camera's view as last drawn.
-pub fn main_view() -> Option<MainView> {
-    MAIN_VIEW.with(|v| v.get())
-}
-
-/// Set the view directly (tests, tools).
-pub fn set_main_view(view: Option<MainView>) {
-    MAIN_VIEW.with(|v| v.set(view));
-}
+pub use super::views::{MainView, main_view, note_main_view, set_main_view};
 
 /// Where a marker goes for a target at `p` in `view`: its position, its
 /// turn, and whether the target is in view.

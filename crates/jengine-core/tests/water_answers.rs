@@ -4,6 +4,7 @@
 //! area effect that floats things, so a boat rises on a crest and drops in a
 //! trough. Found by the showcase's Harbour Storm, whose water had been a
 //! flat box of buoyancy under a painted sea.
+#![cfg(feature = "water")]
 
 use glam::Vec2;
 use hecs::World;

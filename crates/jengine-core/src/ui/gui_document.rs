@@ -420,7 +420,7 @@ pub struct NodeStyle {
     /// where its id is all it has (a toggle, a slider), a description, or
     /// `hidden` for decoration. Text and buttons read their own words.
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub accessible: Option<crate::ui::accessibility::Accessible>,
+    pub accessible: Option<crate::ui::Accessible>,
 }
 
 /// A soft shadow under a node: its colour, how far it is offset (x right,

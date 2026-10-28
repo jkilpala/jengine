@@ -74,6 +74,34 @@
         "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
         "script": { "language": "Lua", "source_path": "scripts/lua/scene_16_audio.lua" }
       }
+    },
+    {
+      "name": "TouchHint",
+      "components": {
+        "transform": { "position": [-580.0, 110.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "text": { "text": "touch: Blip, Hum, || pause, > resume, [] stop - L C R pan a blip - 0.3 / 1.0 master volume", "font_id": "", "font_scale": 1.0, "color": [0.75, 0.85, 0.75, 1.0], "z_order": 10 }
+      }
+    },
+    {
+      "name": "TouchButtons",
+      "components": {
+        "transform": { "position": [0.0, 0.0], "rotation": 0.0, "scale": [1.0, 1.0] },
+        "touch_controls": {
+          "show": "touch",
+          "controls": [
+            { "type": "button", "anchor": "center", "offset": [-300.0, 10.0], "radius": 60.0, "press": "Space", "label": "Blip" },
+            { "type": "button", "anchor": "center", "offset": [-150.0, 10.0], "radius": 60.0, "press": "M", "label": "Hum" },
+            { "type": "button", "anchor": "center", "offset": [0.0, 10.0], "radius": 60.0, "press": "P", "label": "||" },
+            { "type": "button", "anchor": "center", "offset": [150.0, 10.0], "radius": 60.0, "press": "R", "label": ">" },
+            { "type": "button", "anchor": "center", "offset": [300.0, 10.0], "radius": 60.0, "press": "S", "label": "[]" },
+            { "type": "button", "anchor": "center", "offset": [-300.0, 150.0], "radius": 60.0, "press": "Comma", "label": "L" },
+            { "type": "button", "anchor": "center", "offset": [-150.0, 150.0], "radius": 60.0, "press": "Slash", "label": "C" },
+            { "type": "button", "anchor": "center", "offset": [0.0, 150.0], "radius": 60.0, "press": "Period", "label": "R" },
+            { "type": "button", "anchor": "center", "offset": [150.0, 150.0], "radius": 60.0, "press": "3", "label": "0.3" },
+            { "type": "button", "anchor": "center", "offset": [300.0, 150.0], "radius": 60.0, "press": "0", "label": "1.0" }
+          ]
+        }
+      }
     }
   ]
 }

@@ -4,6 +4,7 @@
 //! handed to the screen's stack as a copy each frame; the scene's settings,
 //! and what scripts set on them, stay as they were. Found by the showcase's
 //! Haunted Manor. The blending itself is tested in the module.
+#![cfg(feature = "post_volume")]
 
 mod support;
 

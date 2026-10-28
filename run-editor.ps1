@@ -27,6 +27,19 @@ param(
 $env:PATH = "$env:USERPROFILE\.cargo\bin;$env:PATH"
 Set-Location $PSScriptRoot
 
+# A pull that adds a package leaves editor/node_modules behind it, and Vite
+# then fails in the editor window ("Failed to resolve import ..."). npm keeps
+# what it installed in node_modules/.package-lock.json, so reinstall when the
+# project's lockfile is newer than that.
+$lock = Join-Path $PSScriptRoot "editor/package-lock.json"
+$installed = Join-Path $PSScriptRoot "editor/node_modules/.package-lock.json"
+if ((Test-Path $lock) -and (-not (Test-Path $installed) -or
+    (Get-Item $lock).LastWriteTime -gt (Get-Item $installed).LastWriteTime)) {
+    Write-Host "editor/package-lock.json changed since the last install - running npm ci..." -ForegroundColor Cyan
+    Push-Location (Join-Path $PSScriptRoot "editor")
+    try { npm ci } finally { Pop-Location }
+}
+
 # --- Kill any stale Vite / Tauri dev processes from a previous session --------
 # On Windows, Tauri does NOT kill the beforeDevCommand (Vite) when the window
 # closes. The stale Vite keeps holding port 5173. When cargo tauri dev runs

@@ -27,7 +27,7 @@ members = [
 exclude = ["vendor"]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/jkilpala/jengine"
@@ -36,7 +36,7 @@ rust-version = "1.97"
 
 [workspace.dependencies]
 # Rendering
-glam = { version = "0.29", features = ["serde"] }
+glam = { version = "0.29", features = ["serde", "libm"] }
 image = { version = "0.25", default-features = false, features = ["png", "jpeg", "webp"] }
 
 # GPU backend — wgpu (the only path after the Phase 8 glow cut). Behind the
@@ -85,7 +85,10 @@ toml = "0.8"
 
 # Logging
 log = "0.4"
-env_logger = "0.11"
+# Without the `regex` feature: it is only RUST_LOG's `/pattern` message
+# filter (module filters still work), and it put ~750 KB of regex engine in
+# every shipped native game (docs/build-sizes.md).
+env_logger = { version = "0.11", default-features = false, features = ["auto-color", "humantime"] }
 
 # Error handling
 anyhow = "1.0"
@@ -100,8 +103,16 @@ lyon = "1.0"
 # Font rasterization (default UI font)
 fontdue = "0.9"
 
-# Physics
-rapier2d = "0.22"
+# Physics. `enhanced-determinism` makes a step the same bits on every
+# platform: rapier's sin / cos / atan2 go through `libm` instead of the
+# platform's maths library, x86 stops flushing denormals to zero, and the
+# broad phase's pair order stops depending on pointer width (wasm32).
+# docs/determinism-proposal.md measured it; it rules out rapier's SIMD.
+rapier2d = { version = "0.22", features = ["enhanced-determinism"] }
+# The portable maths `jengine_core::detmath` and rapier above share.
+libm = "0.2"
+# A fixed, fast hash for sets keyed by entity pairs (the physics' contacts).
+rustc-hash = "2"
 
 # Audio
 # `wav` and `ogg` are containers only; `pcm` and `vorbis` are the codecs
@@ -153,3 +164,9 @@ opt-level = 2
 # jengine-builder generates carries the same patch.
 [patch.crates-io]
 winit = { path = "vendor/winit" }
+# rapier with the maths it calls on `f32` itself through `libm`, which its
+# `enhanced-determinism` cannot reach (vendor/rapier2d/JENGINE-PATCH.md).
+rapier2d = { path = "vendor/rapier2d" }
+# Luau with its maths through `libm`, no fused multiply-add and one rule
+# for `^` (vendor/luau0-src/JENGINE-PATCH.md).
+luau0-src = { path = "vendor/luau0-src" }

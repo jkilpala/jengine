@@ -48,6 +48,66 @@ the cross-runtime guards and the GPU goldens in a few minutes.
   `println!` in library code, asset files with semantic extensions (`.scene`,
   `.prefab`, never `.scene.json`).
 
+## Branches
+
+- **The default branch** (`master` in the development repository, `main`
+  in the public one) is what releases come from. Nothing is committed to it
+  directly.
+- **New work goes on a branch** made from the default branch, named for
+  what it does: `feat/<what>`, `fix/<what>`, `docs/<what>` or
+  `chore/<what>`. It comes back through a pull request, merged with a merge
+  commit. One branch is one change.
+- **A release has its own branch**, `release-<version>`, made from the
+  default branch when the release is prepared. Nothing is committed to it
+  directly either. A fix for the release goes on a branch made from it and
+  comes back to it through a pull request. When the release is out, the
+  release branch is merged into the default branch, so the default branch
+  has everything that shipped.
+
+## Versions
+
+Versions are `MAJOR.MINOR.PATCH`:
+
+- **MAJOR** for a whole new generation of the engine.
+- **MINOR** for new features.
+- **PATCH** for fixes and improvements to what is already there.
+
+The engine has one version, and it lives in the workspace `version` in
+`Cargo.toml`. The engine's own crates follow that version. Each of these
+carries a copy of the same number:
+
+- the editor: `editor/package.json` and `editor/src-tauri/tauri.conf.json`
+- the website: `website/package.json`
+
+**A package has a version of its own** (since 0.2.0). It moves when the
+package changes, by the same rules (a fix is a patch, a feature a minor),
+and stays where it was when the package did not change. It is written in
+the package's `Cargo.toml` (never `version.workspace = true`) and, when the
+package has one, in its `package.toml` as well. A release checks them with
+`tools/release/package_versions.py <the last release branch>`, which fails
+on a package that changed and kept its number.
+
+The `versions_agree` test fails if a copy of the engine's version differs,
+if a package's `package.toml` disagrees with its `Cargo.toml`, or if a
+package's `Cargo.toml` takes the workspace version. A package's
+`engine_version` is a different number again: the oldest engine the package
+works with, which can be older than the engine but never newer.
+
+A release, in order:
+
+1. Make `release-<version>` from the default branch.
+2. Give the version's `CHANGELOG.md` section its date, through a pull
+   request into the release branch.
+3. Tag `v<version>`; the tag has to match the workspace version. The release
+   workflow publishes the release with that section of the changelog as its
+   notes.
+4. Merge the release branch into the default branch.
+5. On a branch, move the default branch to the next patch version
+   (everything listed above, plus the lock files) and open a new
+   `## [<version>] - Unreleased` section in the changelog. If new features
+   land before the next release, that release becomes the next minor
+   version instead.
+
 ## Pull requests
 
 - Keep a pull request to one change, with a description of what and why.

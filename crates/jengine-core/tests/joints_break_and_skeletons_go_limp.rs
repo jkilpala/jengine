@@ -11,7 +11,7 @@
 //!   with the world, bend no further than their limit, and stand back up as
 //!   plain bones when it is switched off.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "ragdoll", feature = "ik"))]
 
 use glam::Vec2;
 use hecs::{Entity, World};

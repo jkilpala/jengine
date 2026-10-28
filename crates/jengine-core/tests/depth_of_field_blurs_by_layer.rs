@@ -4,6 +4,7 @@
 //! Two rules make it look like a lens rather than a blur: a sharp layer does
 //! not leak into the soft ones round it, and a soft layer behind does not
 //! bleed over a sharp one in front. Found by the showcase's Rack Focus.
+#![cfg(feature = "depth_of_field")]
 
 mod support;
 

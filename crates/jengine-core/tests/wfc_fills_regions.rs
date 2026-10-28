@@ -3,6 +3,7 @@
 //! with tiles whose touching edges agree - each new region joining the
 //! tiles already beside it. Found by the showcase's The Endless Dungeon.
 //! The algorithm is tested in the module.
+#![cfg(feature = "wfc")]
 
 use hecs::World;
 use jengine_core::ecs::wfc::{WfcGenerator, queue_region, tick_wfc};

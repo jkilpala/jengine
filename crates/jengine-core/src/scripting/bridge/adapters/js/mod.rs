@@ -109,6 +109,10 @@ pub mod music;
 /// `Noise.*`: one hook over [`crate::noise`], installed with [`nav`]'s.
 #[cfg(all(target_arch = "wasm32", feature = "web"))]
 pub mod noise;
+/// `math.*`, `^` and `%` for Fengari: [`crate::scripting::script_math`] as
+/// `globalThis.__jengine_script_math`, installed with [`nav`]'s.
+#[cfg(all(target_arch = "wasm32", feature = "web"))]
+pub mod script_math;
 /// `Audio.get_spectrum` / `get_level` / `synth`: one hook over
 /// [`crate::audio::analysis`], installed with [`nav`]'s.
 #[cfg(all(target_arch = "wasm32", feature = "web"))]

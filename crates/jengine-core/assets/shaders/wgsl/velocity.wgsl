@@ -51,6 +51,9 @@ fn fs_main(in: VsOut) -> @location(0) vec4<f32> {
     if (a < 0.5) {
         discard;
     }
-    // Blue is the sprite's z, for `depth_of_field`.
-    return vec4<f32>(in.color.rg, in.color.b, 1.0);
+    // Blue is the sprite's z, for `depth_of_field` - carried times the
+    // vertex's perspective weight and divided here, so a mesh in depth (a 3D
+    // stage's floor) has the right depth at every pixel, not one drawn
+    // straight across the screen. A sprite's weight is 1.
+    return vec4<f32>(in.color.rg, in.color.b / in.uvq.z, 1.0);
 }

@@ -261,7 +261,7 @@ pub fn spawn_prefab_parts(
     let Some(json) = kids_json.filter(|j| !j.is_empty()) else {
         return Ok(());
     };
-    let kids: Vec<crate::scene::format::EntityData> = serde_json::from_str(json).map_err(|e| e.to_string())?;
+    let kids: Vec<crate::scene::format::EntityData> = crate::scene::from_json_text(json).map_err(|e| e.to_string())?;
     crate::scene::prefab::spawn_children_with_registry(world, registry, root, &kids);
     Ok(())
 }

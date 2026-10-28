@@ -5,6 +5,7 @@
 //! the editor's half in `skinEdit.test.ts`. A change to either that the
 //! other did not get fails one of the two, and a rig that bends one way in
 //! the editor bends another in Play.
+#![cfg(feature = "skinned_mesh")]
 
 use glam::Vec2;
 use jengine_core::animation::skinned_mesh::{SkinnedMesh, compute_skinned_positions};

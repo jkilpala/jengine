@@ -201,7 +201,7 @@ fn every_host_has_it_through_the_motion_step_and_the_scene_keeps_it() {
     jengine_core::ecs::behaviors::tick_motion(&mut world, 0.5, None, false);
     assert!((pos(&world, r).x - 30.0).abs() < 0.01, "tick_motion rides it");
     let scene = jengine_core::scene::format::save_scene(&world);
-    let f = scene.entities.iter().find_map(|e| e.components.path_follow.as_ref()).expect("saved");
+    let f = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::ecs::path_follow::PathFollow>("path_follow")).expect("saved");
     assert_eq!(f.path, "Line");
     assert!((f.progress - 30.0).abs() < 0.01);
 }

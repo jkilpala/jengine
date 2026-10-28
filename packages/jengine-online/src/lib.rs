@@ -148,6 +148,7 @@ use jengine_core::scripting::host_commands::{CommandArgs, ScriptWorldHost};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 
+pub mod lockstep;
 pub mod session;
 
 use session::{Session, Status};
@@ -1188,6 +1189,21 @@ fn register_commands(c: &mut PackageCommandRegistry) -> Result<(), String> {
     c.register(PACKAGE, "online_leave", &["e"], |host, args| {
         with_online(host, args, "online_leave", |o| o.queue.push(Request::Leave));
     })?;
+    // A lockstep session's room and name, chosen by a lobby before it loads
+    // the match scene, whose script cannot run until the match starts.
+    c.register(PACKAGE, "online_lockstep_match", &["room", "name"], |_host, args| {
+        let room = args.text("room").unwrap_or_default().trim().to_uppercase();
+        let name = args.text("name").unwrap_or_default();
+        lockstep::set_next_match(&room, name.trim());
+    })?;
+    c.register(PACKAGE, "online_lockstep_leave", &["e"], |host, args| {
+        let Some(id) = args.number("e").filter(|v| *v >= 0.0) else { return };
+        let Some(e) = host.resolve_entity(id as u32) else { return };
+        match host.world().get::<&mut lockstep::StepSession>(e) {
+            Ok(mut s) => s.leave(),
+            Err(_) => log::warn!("[online] online_lockstep_leave: entity has no `lockstep_session`"),
+        }
+    })?;
     c.register(PACKAGE, "online_disconnect", &["e"], |host, args| {
         with_online(host, args, "online_disconnect", |o| o.queue.push(Request::Disconnect));
     })?;
@@ -1213,6 +1229,7 @@ impl JEnginePackage for OnlinePackage {
     fn register_components(&self, registry: &mut ComponentRegistry) {
         registry.register::<Online>("online", "Online", "Networking");
         registry.register::<OnlineSlot>("online_slot", "Online Slot", "Networking");
+        registry.register_defaulted::<lockstep::StepSession>("lockstep_session", "Lockstep Session", "Networking");
     }
 
     fn register_systems(&self, schedule: &mut SystemSchedule) {
@@ -1225,6 +1242,18 @@ impl JEnginePackage for OnlinePackage {
         schedule.add_system("online_step", SystemPhase::ScriptExec, -1, |ctx| {
             let (world, dt, _) = ctx.split();
             send(world, dt);
+        });
+        // Fixed-step lockstep sessions (`lockstep`): the network and the step
+        // gate once a frame, between `jengine-net`'s receive (Frame 0) and
+        // send (Frame 20); every player's input first thing in each step,
+        // before any game reads it.
+        schedule.add_system("online_lockstep_frame", SystemPhase::Frame, 10, |ctx| {
+            let (world, dt, resources) = ctx.split();
+            lockstep::frame(world, dt, resources.get::<jengine_core::input::InputState>());
+        });
+        schedule.add_system("online_lockstep_step", SystemPhase::PreUpdate, -100, |ctx| {
+            let (world, _dt, resources) = ctx.split();
+            lockstep::step(world, resources.get::<jengine_core::input::InputState>());
         });
     }
 

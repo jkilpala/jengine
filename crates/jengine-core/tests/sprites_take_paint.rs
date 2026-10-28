@@ -9,6 +9,7 @@
 //! `over` and `multiply`, a hole left alone, the same splat everywhere),
 //! that the authored texture is untouched, the script command shared by the
 //! browser hosts, the scene key, and that the sprite pass draws the copy.
+#![cfg(feature = "paint")]
 
 mod support;
 
@@ -142,9 +143,11 @@ fn the_script_command_queues_a_stamp() {
 fn the_scene_key_round_trips_and_the_sprite_pass_draws_the_copy() {
     let bundle: jengine_core::scene::format::ComponentBundle =
         serde_json::from_value(serde_json::json!({ "paintable": { "blend": "multiply" } })).unwrap();
-    assert_eq!(bundle.paintable.expect("the scene key reaches the bundle").blend, PaintBlend::Multiply);
+    assert_eq!(bundle.get::<jengine_core::ecs::paint::Paintable>("paintable").expect("the scene key reaches the bundle").blend, PaintBlend::Multiply);
     let src = support::with_frame_draw(include_str!("../src/ecs/wgpu_systems.rs"));
-    assert!(src.contains("painted.and_then(|p| p.state.texture.as_deref())"), "the sprite pass draws the painted copy");
+    assert!(src.contains("painted_texture(painted)"), "the sprite pass draws the painted copy");
+    let carve = include_str!("../src/ecs/carve.rs");
+    assert!(carve.contains("p.and_then(|p| p.state.texture.as_deref())"), "painted_texture reads the painted copy");
 }
 
 /// The same floor with a flat normal map (`floor_n`, specular alpha 200).
@@ -220,7 +223,9 @@ fn a_press_on_a_sprite_with_no_normal_map_does_nothing() {
 #[test]
 fn the_normal_pass_draws_the_pressed_copy() {
     let src = support::with_frame_draw(include_str!("../src/ecs/wgpu_systems.rs"));
-    assert!(src.contains("p.state.normal.as_deref()"), "the normal pass draws the pressed normal map");
+    assert!(src.contains("pressed_normal(pressed)"), "the normal pass draws the pressed normal map");
+    let carve = include_str!("../src/ecs/carve.rs");
+    assert!(carve.contains("p.and_then(|p| p.state.normal.as_deref())"), "pressed_normal reads the pressed copy");
     let assets = include_str!("../src/asset/mod.rs");
     assert!(assets.contains("self.patch_dirty(id, &key, queue)"), "a pressed normal map is patched on the GPU");
 }

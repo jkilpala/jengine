@@ -59,7 +59,7 @@ fn the_component_round_trips_through_a_scene_bundle() {
     let rule = Autotile { layers: vec![AutotileLayer { layer: "ground".into(), terrains: vec![1] }] };
     world.spawn((Transform::default(), map(), rule.clone()));
     let scene = jengine_core::scene::format::save_scene(&world);
-    assert_eq!(scene.entities[0].components.autotile, Some(rule.clone()), "saved with the scene");
+    assert_eq!(scene.entities[0].components.get::<Autotile>("autotile"), Some(rule.clone()), "saved with the scene");
     // And back.
     let mut loaded = World::new();
     jengine_core::scene::format::load_scene(&scene, &mut loaded);

@@ -1,0 +1,6726 @@
+{
+ "name": "02 - Crystal Hollow",
+ "post_process": {
+  "effects": [
+   {
+    "name": "depth_haze",
+    "enabled": true,
+    "params": {
+     "color": {
+      "Vec4": [
+       0.03,
+       0.04,
+       0.09,
+       0.6
+      ]
+     },
+     "near": {
+      "Float": -40.0
+     },
+     "far": {
+      "Float": -220.0
+     },
+     "sky": {
+      "Float": 0.0
+     },
+     "curve": {
+      "Float": 1.3
+     }
+    }
+   },
+   {
+    "name": "depth_of_field",
+    "enabled": true,
+    "params": {
+     "focus": {
+      "Float": 0.0
+     },
+     "range": {
+      "Float": 16.0
+     },
+     "strength": {
+      "Float": 0.06
+     },
+     "max_radius": {
+      "Float": 7.0
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.85
+     },
+     "intensity": {
+      "Float": 0.5
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.6
+     },
+     "smoothness": {
+      "Float": 0.65
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.01,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.1
+     },
+     "saturation": {
+      "Float": 1.05
+     },
+     "tint_color": {
+      "Vec4": [
+       0.9,
+       0.95,
+       1.05,
+       0.1
+      ]
+     }
+    }
+   }
+  ],
+  "hdr": true,
+  "exposure": 1.0,
+  "tonemap": "aces"
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Dark",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hd/sky/cave.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30000,
+     "size": [
+      1500.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.2462,
+      0.31399,
+      0.68669
+     ],
+     "intensity": 0.5
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stage",
+   "components": {
+    "stage": {
+     "target": [
+      0.0,
+      -1.0,
+      0.8
+     ],
+     "yaw": 0.0,
+     "pitch": 0.6,
+     "distance": 44.0,
+     "zoom": 46.0,
+     "near": 1.0,
+     "follow": "Hero",
+     "follow_offset": [
+      0.0,
+      0.0,
+      0.8
+     ],
+     "follow_ease": 3.0,
+     "z_base": 0,
+     "z_per_unit": 10.0,
+     "ground_z": -20000
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Floor",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock_warm.png",
+     "color": [
+      0.80695,
+      0.71569,
+      0.60383,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      -12.0,
+      0.0
+     ],
+     "u": [
+      32.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      30.0,
+      0.0
+     ],
+     "repeat": [
+      14.545454545454545,
+      13.636363636363635
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_warm_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pool",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/water.png",
+     "color": [
+      0.35,
+      0.5,
+      0.75,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.5,
+      2.0,
+      0.0
+     ],
+     "u": [
+      6.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "repeat": [
+      3.25,
+      2.5
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/water_n.png",
+     "specular": 1.0,
+     "shininess": 24.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      6.5
+     ],
+     "repeat": [
+      1.6666666666666667,
+      2.7083333333333335
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -12.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.0
+     ],
+     "repeat": [
+      1.6666666666666667,
+      3.3333333333333335
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back2",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -8.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.0
+     ],
+     "repeat": [
+      1.6666666666666667,
+      2.916666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back3",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -4.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      9.5
+     ],
+     "repeat": [
+      1.6666666666666667,
+      3.9583333333333335
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back4",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      0.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.5
+     ],
+     "repeat": [
+      1.6666666666666667,
+      3.125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back5",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      4.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.5
+     ],
+     "repeat": [
+      1.6666666666666667,
+      3.541666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back6",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      8.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      6.8
+     ],
+     "repeat": [
+      1.6666666666666667,
+      2.8333333333333335
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Back7",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      12.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      4.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      9.0
+     ],
+     "repeat": [
+      1.6666666666666667,
+      3.75
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "West0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      -12.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      6.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      2.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "East0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      16.0,
+      -7.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      9.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      3.75
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "West1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      -7.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.5
+     ],
+     "repeat": [
+      2.0833333333333335,
+      3.125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "East1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      16.0,
+      -2.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      2.916666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "West2",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      -2.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      6.5
+     ],
+     "repeat": [
+      2.0833333333333335,
+      2.7083333333333335
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "East2",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      16.0,
+      3.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      3.3333333333333335
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "West3",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      3.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      9.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      3.75
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "East3",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      16.0,
+      8.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      6.3
+     ],
+     "repeat": [
+      2.0833333333333335,
+      2.625
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "West4",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      8.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      2.916666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "East4",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      16.0,
+      13.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.5
+     ],
+     "repeat": [
+      2.0833333333333335,
+      3.541666666666667
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "West5",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -16.0,
+      13.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      3.3333333333333335
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "East5",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      16.0,
+      18.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      6.0
+     ],
+     "repeat": [
+      2.0833333333333335,
+      2.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar0Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -10.1,
+       6.9
+      ],
+      [
+       -7.9,
+       6.9
+      ],
+      [
+       -7.9,
+       9.1
+      ],
+      [
+       -10.1,
+       9.1
+      ]
+     ],
+     "base": 0.0,
+     "height": 7.0,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar0S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.1,
+      6.9,
+      0.0
+     ],
+     "u": [
+      2.1999999999999993,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.0
+     ],
+     "repeat": [
+      1.0999999999999996,
+      3.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar0N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -7.9,
+      9.1,
+      0.0
+     ],
+     "u": [
+      -2.1999999999999993,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.0
+     ],
+     "repeat": [
+      1.0999999999999996,
+      3.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar0W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.1,
+      9.1,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -2.1999999999999993,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.0
+     ],
+     "repeat": [
+      1.0999999999999996,
+      3.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar0E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -7.9,
+      6.9,
+      0.0
+     ],
+     "u": [
+      0.0,
+      2.1999999999999993,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      7.0
+     ],
+     "repeat": [
+      1.0999999999999996,
+      3.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar1Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       9.7,
+       9.7
+      ],
+      [
+       12.3,
+       9.7
+      ],
+      [
+       12.3,
+       12.3
+      ],
+      [
+       9.7,
+       12.3
+      ]
+     ],
+     "base": 0.0,
+     "height": 8.0,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar1S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.7,
+      9.7,
+      0.0
+     ],
+     "u": [
+      2.6000000000000014,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.0
+     ],
+     "repeat": [
+      1.3000000000000007,
+      4.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar1N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      12.3,
+      12.3,
+      0.0
+     ],
+     "u": [
+      -2.6000000000000014,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.0
+     ],
+     "repeat": [
+      1.3000000000000007,
+      4.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar1W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.7,
+      12.3,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -2.6000000000000014,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.0
+     ],
+     "repeat": [
+      1.3000000000000007,
+      4.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar1E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      12.3,
+      9.7,
+      0.0
+     ],
+     "u": [
+      0.0,
+      2.6000000000000014,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      8.0
+     ],
+     "repeat": [
+      1.3000000000000007,
+      4.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar2Shadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -11.9,
+       -2.9
+      ],
+      [
+       -10.1,
+       -2.9
+      ],
+      [
+       -10.1,
+       -1.1
+      ],
+      [
+       -11.9,
+       -1.1
+      ]
+     ],
+     "base": 0.0,
+     "height": 5.0,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar2S",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -11.9,
+      -2.9,
+      0.0
+     ],
+     "u": [
+      1.8000000000000007,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "repeat": [
+      0.9000000000000004,
+      2.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar2N",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.1,
+      -1.1,
+      0.0
+     ],
+     "u": [
+      -1.8000000000000007,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "repeat": [
+      0.9000000000000004,
+      2.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar2W",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -11.9,
+      -1.1,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -1.7999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "repeat": [
+      0.8999999999999999,
+      2.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Pillar2E",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/rock.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.1,
+      -2.9,
+      0.0
+     ],
+     "u": [
+      0.0,
+      1.7999999999999998,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      5.0
+     ],
+     "repeat": [
+      0.8999999999999999,
+      2.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/rock_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/torch_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      16.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      17.6,
+      1.5
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/torch_bracket_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      24.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      17.55,
+      2.4
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch0Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      17.55,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch0Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      17.55,
+      2.6999999999999997
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch0Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 2.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      17.55,
+      2.8
+     ],
+     "light_radius": 7.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/torch_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      16.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      17.6,
+      1.5
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/torch_bracket_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      24.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      17.55,
+      2.4
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch1Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      17.55,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch1Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      17.55,
+      2.6999999999999997
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch1Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 2.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      17.55,
+      2.8
+     ],
+     "light_radius": 7.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/torch_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      16.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -9.0,
+      6.8,
+      1.3000000000000003
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/torch_bracket_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      24.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -9.0,
+      6.75,
+      2.2
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch2Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -9.0,
+      6.75,
+      2.5500000000000003
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch2Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -9.0,
+      6.75,
+      2.5
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch2Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 2.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -9.0,
+      6.75,
+      2.6
+     ],
+     "light_radius": 7.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/torch_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      16.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      9.6,
+      1.5
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/torch_bracket_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      24.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      9.549999999999999,
+      2.4
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch3Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      9.549999999999999,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch3Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      9.549999999999999,
+      2.6999999999999997
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch3Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 2.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      9.549999999999999,
+      2.8
+     ],
+     "light_radius": 7.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/torch_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      16.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.0,
+      -3.1,
+      1.1
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/torch_bracket_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      24.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.0,
+      -3.15,
+      2.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch4Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.0,
+      -3.15,
+      2.35
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch4Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -11.0,
+      -3.15,
+      2.3
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch4Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 2.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -11.0,
+      -3.15,
+      2.4
+     ],
+     "light_radius": 7.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/torch_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      16.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -15.8,
+      8.0,
+      1.5
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/torch_bracket_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      24.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -15.8,
+      7.95,
+      2.4
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch5Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -15.8,
+      7.95,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch5Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -15.8,
+      7.95,
+      2.6999999999999997
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch5Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 2.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -15.8,
+      7.95,
+      2.8
+     ],
+     "light_radius": 7.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bracket6",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/torch_bracket.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      16.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      15.8,
+      -2.0,
+      1.5
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/torch_bracket_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch6",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/flame.png",
+     "color": [
+      4.0,
+      2.2,
+      0.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      24.0,
+      40.0
+     ],
+     "anchor": [
+      0.5,
+      0.1
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.25,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      15.8,
+      -2.05,
+      2.4
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "sprite_animator": {
+     "clips": {
+      "burn": {
+       "name": "burn",
+       "frame_duration": 0.09,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.25,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.25,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.75,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.75,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "burn",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch6Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.45,
+      0.12,
+      0.5
+     ],
+     "z_order": 0,
+     "size": [
+      110.0,
+      110.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      15.8,
+      -2.05,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch6Embers",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 30,
+     "lifetime": [
+      1.0,
+      2.2
+     ],
+     "speed": [
+      20.0,
+      50.0
+     ],
+     "angle": [
+      1.3,
+      1.85
+     ],
+     "color_start": [
+      5.0,
+      2.4,
+      0.6,
+      1.0
+     ],
+     "color_end": [
+      2.0,
+      0.3,
+      0.05,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.08,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 20.0,
+      "scale": 40.0,
+      "speed": 1.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      15.8,
+      -2.05,
+      2.6999999999999997
+     ],
+     "perspective": 1.0,
+     "z_bias": 3
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Torch6Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.22
+     ],
+     "intensity": 2.2,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.45,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      15.8,
+      -2.05,
+      2.8
+     ],
+     "light_radius": 7.5
+    },
+    "tags": [
+     "flicker"
+    ],
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crystal.png",
+     "color": [
+      1.6,
+      1.6,
+      1.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      86.4,
+      122.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -12.0,
+      12.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crystal_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal0Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      0.35,
+      0.55,
+      1.0,
+      0.35
+     ],
+     "z_order": 0,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -12.0,
+      12.0,
+      1.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal0Light",
+   "components": {
+    "point_light": {
+     "color": [
+      0.35,
+      0.55,
+      1.0
+     ],
+     "intensity": 1.3,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.6,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -12.0,
+      12.0,
+      1.2
+     ],
+     "light_radius": 6.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crystal_pink.png",
+     "color": [
+      1.6,
+      1.6,
+      1.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      86.4,
+      122.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      13.0,
+      3.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crystal_pink_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal1Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.4,
+      0.8,
+      0.35
+     ],
+     "z_order": 0,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      13.0,
+      3.0,
+      1.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal1Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.4,
+      0.8
+     ],
+     "intensity": 1.3,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.6,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      13.0,
+      3.0,
+      1.2
+     ],
+     "light_radius": 6.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crystal.png",
+     "color": [
+      1.6,
+      1.6,
+      1.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      86.4,
+      122.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      13.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crystal_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal2Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      0.35,
+      0.55,
+      1.0,
+      0.35
+     ],
+     "z_order": 0,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      13.0,
+      1.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal2Light",
+   "components": {
+    "point_light": {
+     "color": [
+      0.35,
+      0.55,
+      1.0
+     ],
+     "intensity": 1.3,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.6,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      13.0,
+      1.2
+     ],
+     "light_radius": 6.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crystal_pink.png",
+     "color": [
+      1.6,
+      1.6,
+      1.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      86.4,
+      122.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      8.0,
+      14.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crystal_pink_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal3Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.4,
+      0.8,
+      0.35
+     ],
+     "z_order": 0,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      8.0,
+      14.0,
+      1.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal3Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.4,
+      0.8
+     ],
+     "intensity": 1.3,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.6,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      8.0,
+      14.0,
+      1.2
+     ],
+     "light_radius": 6.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crystal.png",
+     "color": [
+      1.6,
+      1.6,
+      1.8,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      86.4,
+      122.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -13.0,
+      -7.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crystal_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal4Glow",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      0.35,
+      0.55,
+      1.0,
+      0.35
+     ],
+     "z_order": 0,
+     "size": [
+      220.0,
+      220.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -13.0,
+      -7.0,
+      1.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crystal4Light",
+   "components": {
+    "point_light": {
+     "color": [
+      0.35,
+      0.55,
+      1.0
+     ],
+     "intensity": 1.3,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.6,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -13.0,
+      -7.0,
+      1.2
+     ],
+     "light_radius": 6.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stalagmite0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/stalagmite.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      39.199999999999996,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/stalagmite_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stalagmite1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/stalagmite.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      47.6,
+      115.6
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      5.0,
+      -4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/stalagmite_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stalagmite2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/stalagmite.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      56.0,
+      136.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -2.0,
+      10.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/stalagmite_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stalagmite3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/stalagmite.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      39.199999999999996,
+      95.19999999999999
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.0,
+      -8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/stalagmite_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stalagmite4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/stalagmite.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      47.6,
+      115.6
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -12.0,
+      4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/stalagmite_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stalagmite5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/stalagmite.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      56.0,
+      136.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      12.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/stalagmite_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Shaft",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/shaft.png",
+     "color": [
+      0.75,
+      0.9,
+      1.3,
+      0.55
+     ],
+     "z_order": 0,
+     "size": [
+      240.0,
+      820.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      1.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 30,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShaftPool",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      0.6,
+      0.75,
+      1.1,
+      0.55
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.6,
+      0.7,
+      0.02
+     ],
+     "u": [
+      3.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      1.6,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 6,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShaftLight",
+   "components": {
+    "point_light": {
+     "color": [
+      0.75,
+      0.85,
+      1.0
+     ],
+     "intensity": 1.6,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 1.2,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      1.5,
+      3.0
+     ],
+     "light_radius": 5.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ShaftDust",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 10.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      0.9,
+      0.95,
+      1.2,
+      0.8
+     ],
+     "color_end": [
+      0.9,
+      0.95,
+      1.2,
+      0.0
+     ],
+     "size_start": [
+      2.0,
+      4.0
+     ],
+     "size_end": [
+      1.0,
+      2.0
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 80.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      1.5,
+      2.5
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lantern",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.7,
+      0.4
+     ],
+     "intensity": 1.6,
+     "radius": 100.0,
+     "falloff": 1.5,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      0.35,
+      -0.1,
+      1.2
+     ],
+     "light_radius": 5.5,
+     "follow": "Hero"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hero",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/traveler.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      -2.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HeroShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Hero"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hunter",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/hunter.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -3.5,
+      0.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HunterShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Hunter"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Scholar",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/scholar.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      -5.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      -1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ScholarShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Scholar"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      56.0,
+      -30.0
+     ],
+     "size": [
+      900,
+      51.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "02   Crystal Hollow",
+     "font_size": 34.0,
+     "color": [
+      0.88792,
+      0.76052,
+      0.52712,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blurb",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      58.0,
+      -78.0
+     ],
+     "size": [
+      1160,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "A cave lit by torches and glowing crystal: wet rock catching each light in its normal map, embers rising, a cold shaft\nof daylight from a crack far above, and the pool shining.",
+     "font_size": 15.0,
+     "color": [
+      0.57758,
+      0.55201,
+      0.68669,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      58.0,
+      26.0
+     ],
+     "size": [
+      1150.0,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Arrows / WASD walk   Q / E turn the camera   1-5 depth of field, bloom, vignette, grade, haze   Tab captions   PgUp / PgDn scenes   H hub",
+     "font_size": 15.0,
+     "color": [
+      0.47932,
+      0.47932,
+      0.57758,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -58.0,
+      52.0
+     ],
+     "size": [
+      900,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 15.0,
+     "color": [
+      0.87137,
+      0.43415,
+      0.11697,
+      1.0
+     ],
+     "alignment": "Right",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s02_crystal_hollow.lua"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

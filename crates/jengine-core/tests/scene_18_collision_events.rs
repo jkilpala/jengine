@@ -11,7 +11,7 @@
 //! So this drives the frame the way a runtime does, from the project's own
 //! files, rather than hand-building events.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "behavior"))]
 
 use std::path::PathBuf;
 

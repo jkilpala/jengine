@@ -1,0 +1,130 @@
+{
+ "version": 2,
+ "name": "300 - Lockstep",
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      330
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "300 - LOCKSTEP",
+     "font_id": "",
+     "font_scale": 3.0,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      280
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Two machines play one game in fixed steps, sending each other only what their players press.\n1. Start a server: cargo run -p jengine-server   (it listens on 127.0.0.1:9001)\n2. Start two copies: cargo run -p jengine-builder --bin jengine -- run projects/engine-test-lab --instances 2\n3. In each copy press 1 to take a seat. A third copy can press 2 to watch.\nClose one player mid-match and start it again: it replays the match so far and takes its seat back.\nH hub  [ ] prev / next",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      0.9
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Choices",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      60
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "1  play        2  watch",
+     "font_id": "",
+     "font_scale": 2.2,
+     "color": [
+      1,
+      0.9,
+      0.4,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Script",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_300_lockstep.lua"
+    }
+   }
+  }
+ ]
+}

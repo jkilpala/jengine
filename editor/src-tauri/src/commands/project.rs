@@ -185,6 +185,12 @@ pub struct ProjectSettings {
     /// Kept here for the same reason as `texture_filter`.
     #[serde(default, skip_serializing_if = "jengine_core::asset::packs::PackSettings::is_empty")]
     pub asset_packs: jengine_core::asset::packs::PackSettings,
+    /// Which engine features a build carries beyond what the project's
+    /// assets use: `{ "include": [..], "exclude": [..], "all": true }`
+    /// (`jengine_builder::engine_features`). Read by the builder only; kept
+    /// here for the same reason as `texture_filter`.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub engine_features: Option<serde_json::Value>,
     /// Live ops: the service, the channel, its public key and the values
     /// the game ships with (`jengine_core::liveops`, Project Settings -> Live
     /// Ops). Kept here for the same reason as `texture_filter`.
@@ -303,6 +309,7 @@ impl Default for ProjectSettings {
             gpu_preference: Default::default(),
             audio_mixer: Default::default(),
             asset_packs: Default::default(),
+            engine_features: None,
             liveops: Default::default(),
             app: Default::default(),
             android: Default::default(),

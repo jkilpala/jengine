@@ -37,8 +37,8 @@ fn main() -> anyhow::Result<()> {
         .map(PathBuf::from)
         .expect("workspace root");
 
-    // release, no report, then the three WASM size options - on, matching the
+    // release, no report, then the three WASM size options - off, matching the
     // editor's defaults, so a build from here matches what the editor ships.
     // The web portal is the project's own (`settings.web_platform`).
-    jengine_builder::web::build_web(&engine, &project, &output, true, false, true, true, true, jengine_builder::wasm_opt::WasmOpt::default(), true, None)
+    jengine_builder::web::build_web(&engine, &project, &output, true, false, false, false, false, jengine_builder::wasm_opt::WasmOpt::WEB_BUILD_DEFAULT, true, true, None)
 }

@@ -27,6 +27,7 @@
 //! (worst case `depth` passes). For shallow scene graphs (the common
 //! case) it converges in one or two iterations.
 
+use crate::detmath::DetMath;
 use std::collections::{HashMap, HashSet};
 
 use hecs::{Entity, World};
@@ -97,7 +98,7 @@ pub fn compose(parent: &WorldTransform, local: &Transform) -> WorldTransform {
     }
     // The product's two columns: the child's own axes, scaled and turned,
     // then carried through the parent.
-    let (sin_c, cos_c) = local.rotation.sin_cos();
+    let (sin_c, cos_c) = local.rotation.dsin_cos();
     let a = parent.apply_linear(glam::Vec2::new(cos_c, sin_c) * local.scale.x);
     let b = parent.apply_linear(glam::Vec2::new(-sin_c, cos_c) * local.scale.y);
     let len = a.length();
@@ -113,12 +114,12 @@ pub fn compose(parent: &WorldTransform, local: &Transform) -> WorldTransform {
     // a = R(rotation) * (scale.x, 0).
     let flip = parent.scale.x * local.scale.x < 0.0;
     let (sx, rotation) = if flip {
-        (-len, (-a.y).atan2(-a.x))
+        (-len, (-a.y).datan2(-a.x))
     } else {
-        (len, a.y.atan2(a.x))
+        (len, a.y.datan2(a.x))
     };
     // R(-rotation) * b = (shear * scale.y, scale.y).
-    let (sin_r, cos_r) = rotation.sin_cos();
+    let (sin_r, cos_r) = rotation.dsin_cos();
     let rb = glam::Vec2::new(b.x * cos_r + b.y * sin_r, -b.x * sin_r + b.y * cos_r);
     let sy = rb.y;
     let shear = if sy.abs() > 1e-9 { rb.x / sy } else { 0.0 };
@@ -235,12 +236,22 @@ pub fn resolve_world_transforms(world: &mut World) {
     // 1. Pull (entity, local Transform, optional parent Entity) into a
     //    Vec we can iterate freely without holding a query borrow on the
     //    world (we need `world.insert_one` calls below).
+    //    A 3D stage's quads and billboards are roots: the stage wrote their
+    //    transforms where they land on the screen (`ecs::stage`), and a
+    //    parent's 2D transform on top moved the projected picture again.
     let mut entries: Vec<(Entity, Transform, Option<Entity>)> = world
         .query::<(&Transform, Option<&Parent>)>()
         .iter()
         .filter(|(e, _)| participants.contains(e))
         .map(|(e, (t, p))| (e, t.clone(), p.map(|p| p.0)))
         .collect();
+    crate::feature!("stage", {
+        for (e, _, parent) in entries.iter_mut() {
+            if parent.is_some() && crate::ecs::stage::places_on_screen(world, *e) {
+                *parent = None;
+            }
+        }
+    });
 
     // 2. Resolve iteratively. `resolved` holds the final WorldTransform
     //    for each entity once available. Passes terminate when no
@@ -297,6 +308,22 @@ pub fn resolve_world_transforms(world: &mut World) {
         // happen mid-frame, but be defensive against future restructuring).
         let _ = world.insert_one(e, w);
     }
+}
+
+
+/// The local transform that puts a child at world `(position, rotation)`
+/// under `parent` - [`hierarchy::compose`]'s plain rule turned round, which
+/// is exact for a parent that is not sheared and scales both axes by the
+/// same amount (the skeletons this is for).
+pub fn local_under(parent: &crate::ecs::components::WorldTransform, position: glam::Vec2, rotation: f32) -> (glam::Vec2, f32) {
+    let d = position - parent.position;
+    let (sin, cos) = parent.rotation.dsin_cos();
+    let r = glam::Vec2::new(d.x * cos + d.y * sin, -d.x * sin + d.y * cos);
+    let s = glam::Vec2::new(
+        if parent.scale.x.abs() > 1e-9 { parent.scale.x } else { 1.0 },
+        if parent.scale.y.abs() > 1e-9 { parent.scale.y } else { 1.0 },
+    );
+    (r / s, rotation - parent.rotation)
 }
 
 #[cfg(test)]

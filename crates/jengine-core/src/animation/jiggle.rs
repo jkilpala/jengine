@@ -115,8 +115,8 @@ pub fn tick_jiggle(world: &mut World, dt: f32) {
         return;
     }
     // A limp skeleton is posed by physics (`ecs::ragdoll`).
-    if crate::ecs::ragdoll::any_limp(world) {
-        bones.retain(|(_, e)| !crate::ecs::ragdoll::is_limp(world, *e));
+    if crate::ecs::skeleton::any_limp(world) {
+        bones.retain(|(_, e)| !crate::ecs::skeleton::is_limp(world, *e));
     }
     bones.sort_by_key(|(d, e)| (*d, e.id()));
     let steps = dt * 60.0;

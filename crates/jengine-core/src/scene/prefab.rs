@@ -64,15 +64,29 @@ pub fn expand_prefab_instances_in_json(
     prefabs: &std::collections::HashMap<String, crate::scene::format::EntityData>,
     context: &str,
 ) -> String {
-    let raw: serde_json::Value = match serde_json::from_str(json) {
-        Ok(v) => v,
-        Err(_) => return json.to_string(),
+    let Ok(mut raw) = serde_json::from_str::<serde_json::Value>(json) else {
+        return json.to_string();
     };
-    if raw.get("version").and_then(|v| v.as_u64()).unwrap_or(1) >= 2 {
-        let mut raw = raw;
-        let report = expand_v2_instances(&mut raw, prefabs);
+    if !expand_prefab_instances_in_value(&mut raw, prefabs, context) {
+        return json.to_string();
+    }
+    serde_json::to_string(&raw).unwrap_or_else(|_| json.to_string())
+}
+
+/// [`expand_prefab_instances_in_json`] on a scene already parsed, in place:
+/// a runtime parses a scene once and hands the same value to every step that
+/// reads it, where each step used to parse the text again and write it back
+/// (a 2 MB scene was parsed nine times on its way in). Returns whether the
+/// scene was rewritten; one it cannot confidently rewrite is left as it was.
+pub fn expand_prefab_instances_in_value(
+    scene: &mut serde_json::Value,
+    prefabs: &std::collections::HashMap<String, crate::scene::format::EntityData>,
+    context: &str,
+) -> bool {
+    if scene.get("version").and_then(|v| v.as_u64()).unwrap_or(1) >= 2 {
+        let report = expand_v2_instances(scene, prefabs);
         if report.expanded == 0 && report.missing.is_empty() && report.parts == 0 {
-            return json.to_string();
+            return false;
         }
         if report.expanded > 0 {
             log::info!("[{context}] expanded {} prefab_instance entry/entries", report.expanded);
@@ -84,20 +98,26 @@ pub fn expand_prefab_instances_in_json(
                 report.missing
             );
         }
-        return serde_json::to_string(&raw).unwrap_or_else(|_| json.to_string());
+        return true;
     }
     // `SceneData` does not model every top-level field a scene can carry
     // (`audio_refs` is the one that bites), and a typed round-trip drops what
     // it cannot see — silently, so the loss only surfaces later as a sound that
-    // never plays. Keep the original object to merge back.
+    // never plays. The original object's keys are merged back below.
     //
     // The web copy of this function did that and the native one did not, so
     // until this was consolidated a native scene using prefab instances lost
     // its audio refs.
-    let original = raw.clone();
-    let mut scene_data: crate::scene::SceneData = match serde_json::from_value(raw) {
+    //
+    // Read from an owned value, never a borrowed one: each kind of reader
+    // compiles a deserializer for every component (`from_json_text`).
+    let original = scene.clone();
+    let mut scene_data: crate::scene::SceneData = match serde_json::from_value(std::mem::take(scene)) {
         Ok(s) => s,
-        Err(_) => return json.to_string(),
+        Err(_) => {
+            *scene = original;
+            return false;
+        }
     };
     // Tiles that are things become prefab instances first, so they are
     // expanded with the rest (`tilemap::scene_tiles`).
@@ -118,16 +138,20 @@ pub fn expand_prefab_instances_in_json(
     }
     let mut out = match serde_json::to_value(&scene_data) {
         Ok(v) => v,
-        Err(_) => return json.to_string(),
+        Err(_) => {
+            *scene = original;
+            return false;
+        }
     };
     // Restore any top-level key the round-trip lost. `or_insert` means the
     // expanded `entities` (and everything else the typed form owns) wins.
-    if let (Some(out_obj), Some(orig_obj)) = (out.as_object_mut(), original.as_object()) {
+    if let (Some(out_obj), serde_json::Value::Object(orig_obj)) = (out.as_object_mut(), original) {
         for (key, value) in orig_obj {
-            out_obj.entry(key.clone()).or_insert_with(|| value.clone());
+            out_obj.entry(key).or_insert(value);
         }
     }
-    serde_json::to_string(&out).unwrap_or_else(|_| json.to_string())
+    *scene = out;
+    true
 }
 
 /// Walk `scene.entities`; for each entity with a `PrefabInstance`
@@ -166,7 +190,7 @@ fn expand_range(
     report: &mut ExpandReport,
 ) {
     for entity in &mut scene.entities[from..to] {
-        let Some(instance) = entity.components.prefab_instance.clone() else {
+        let Some(instance) = entity.components.get::<crate::ecs::components::PrefabInstance>("prefab_instance") else {
             continue;
         };
 
@@ -181,7 +205,7 @@ fn expand_range(
         match merge_instance(&template.components, &entity.components, &instance) {
             Ok(mut bundle) => {
                 // Always preserve the instance marker for tooling.
-                bundle.prefab_instance = Some(instance.clone());
+                bundle.set("prefab_instance", &instance);
                 entity.components = bundle;
                 if entity.name.is_empty() {
                     entity.name = template.name.clone();
@@ -421,12 +445,12 @@ fn strip_nulls(v: &mut Value) {
 pub fn expand_node(node: &EntityData, prefabs: &HashMap<String, EntityData>, depth: usize) -> EntityData {
     let mut out = node.clone();
     if depth < MAX_DEPTH
-        && let Some(instance) = node.components.prefab_instance.clone()
+        && let Some(instance) = node.components.get::<crate::ecs::components::PrefabInstance>("prefab_instance")
         && let Some(template) = prefabs.get(&instance.prefab_id)
     {
         match merge_instance(&template.components, &node.components, &instance) {
             Ok(mut bundle) => {
-                bundle.prefab_instance = Some(instance.clone());
+                bundle.set("prefab_instance", &instance);
                 out.components = bundle;
                 out.children = template.children.iter().cloned().chain(node.children.iter().cloned()).collect();
             }
@@ -451,6 +475,58 @@ pub fn spawn_children(
         let e = spawn_one(world, child);
         let _ = world.insert_one(e, crate::ecs::components::Parent(parent));
         spawn_children(world, e, &child.children, spawn_one);
+    }
+}
+
+/// A prefab decoded once through the component registry, to be spawned as
+/// often as a script asks: each spawn clones the decoded components instead
+/// of reading the prefab's JSON again, which costs about four times as much
+/// for a bullet (`jengine-benchmark-cpu`'s `spawn`). Its parts are prepared
+/// with it. Made by `ScriptServices::prepared_prefab`, which keeps one per
+/// prefab until the prefab map changes.
+pub struct PreparedPrefab {
+    pub name: String,
+    components: crate::package::component_registry::Prepared,
+    children: Vec<PreparedPrefab>,
+}
+
+impl PreparedPrefab {
+    pub fn new(data: &EntityData, registry: &crate::package::component_registry::ComponentRegistry) -> Self {
+        Self {
+            name: data.name.clone(),
+            components: registry.prepare(&data.components.0),
+            children: data.children.iter().map(|c| Self::new(c, registry)).collect(),
+        }
+    }
+
+    /// Spawn it, named `name`, with its parts under it - each with a
+    /// default `Transform` unless it has its own, its custom data as
+    /// `CustomComponents`, as the registry spawn path gives them.
+    pub fn spawn(&self, world: &mut hecs::World, name: &str) -> hecs::Entity {
+        let mut builder = hecs::EntityBuilder::new();
+        builder.add(crate::ecs::components::Name(name.to_string()));
+        // Added first, so the prefab's own transform replaces it.
+        builder.add(crate::ecs::components::Transform::default());
+        self.components.add_to(&mut builder);
+        if !self.components.unknown.is_empty() {
+            builder.add(crate::ecs::components::CustomComponents(self.components.unknown.clone()));
+        }
+        let entity = world.spawn(builder.build());
+        for child in &self.children {
+            let part = child.spawn(world, &child.name);
+            let _ = world.insert_one(part, crate::ecs::components::Parent(entity));
+        }
+        entity
+    }
+}
+
+impl std::fmt::Debug for PreparedPrefab {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("PreparedPrefab")
+            .field("name", &self.name)
+            .field("components", &self.components)
+            .field("children", &self.children)
+            .finish()
     }
 }
 
@@ -528,7 +604,7 @@ pub fn add_prefabs(resolved: &mut HashMap<String, EntityData>, raw: &HashMap<Str
             return Some(d.clone());
         }
         let raw = prefabs.get(name)?;
-        let Some(instance) = raw.components.prefab_instance.clone() else {
+        let Some(instance) = raw.components.get::<crate::ecs::components::PrefabInstance>("prefab_instance") else {
             done.insert(name.to_string(), raw.clone());
             return Some(raw.clone());
         };
@@ -542,7 +618,7 @@ pub fn add_prefabs(resolved: &mut HashMap<String, EntityData>, raw: &HashMap<Str
         let out = match base {
             Some(base) => match merge_instance(&base.components, &raw.components, &instance) {
                 Ok(mut bundle) => {
-                    bundle.prefab_instance = Some(instance.clone());
+                    bundle.set("prefab_instance", &instance);
                     // A variant keeps its base's parts and adds its own.
                     let children = base.children.iter().cloned().chain(raw.children.iter().cloned()).collect();
                     EntityData { components: bundle, children, ..raw.clone() }
@@ -585,20 +661,19 @@ pub fn add_prefabs(resolved: &mut HashMap<String, EntityData>, raw: &HashMap<Str
 /// with none the file's stem (which it is then given). Every runtime keys
 /// its prefab map this way.
 pub fn parse_prefab(rel: &str, text: &str) -> Result<(String, EntityData), serde_json::Error> {
-    let mut data: EntityData = serde_json::from_str(text)?;
+    let mut data: EntityData = super::from_json_text(text)?;
     if data.name.is_empty() {
         data.name = std::path::Path::new(rel).file_stem().and_then(|s| s.to_str()).unwrap_or("Unknown").to_string();
     }
     Ok((data.name.clone(), data))
 }
 
-/// Serialize a bundle to a JSON object (always succeeds — bundles are
-/// fully serde-derived).
+/// A bundle as the JSON object it is.
 fn bundle_to_value(bundle: &ComponentBundle) -> Value {
-    serde_json::to_value(bundle).unwrap_or_else(|_| Value::Object(Default::default()))
+    Value::Object(bundle.0.clone())
 }
 
-/// Deserialize a JSON object back into a bundle.
+/// A JSON object as a bundle.
 fn value_to_bundle(value: &Value) -> Result<ComponentBundle, serde_json::Error> {
     serde_json::from_value(value.clone())
 }
@@ -698,20 +773,16 @@ mod tests {
             children: Vec::new(),
             name: "Player".to_string(),
             parent: None,
-            components: ComponentBundle {
-                transform: Some(Transform {
+            components: ComponentBundle::new().with("transform", &Transform {
                     position: Vec2::new(0.0, 0.0),
                     rotation: 0.0,
                     scale: Vec2::ONE,
-                }),
-                sprite: Some(SpriteComponent {
+                }).with("sprite", &SpriteComponent {
                     texture_id: "player.png".into(),
                     color: [1.0, 1.0, 1.0, 1.0],
                     z_order: 0,
                     ..Default::default()
                 }),
-                ..Default::default()
-            },
         }
     }
 
@@ -720,13 +791,10 @@ mod tests {
             children: Vec::new(),
             name: String::new(),
             parent: None,
-            components: ComponentBundle {
-                prefab_instance: Some(PrefabInstance {
+            components: ComponentBundle::new().with("prefab_instance", &PrefabInstance {
                     prefab_id: prefab_id.to_string(),
                     overrides,
                 }),
-                ..Default::default()
-            },
         }
     }
 
@@ -746,11 +814,11 @@ mod tests {
         assert!(report.missing.is_empty());
 
         let bundle = &scene.entities[0].components;
-        assert_eq!(bundle.sprite.as_ref().unwrap().texture_id, "player.png");
-        assert!(bundle.transform.is_some());
+        assert_eq!(bundle.get::<crate::ecs::components::SpriteComponent>("sprite").unwrap().texture_id, "player.png");
+        assert!(bundle.get::<crate::ecs::components::Transform>("transform").is_some());
         assert_eq!(scene.entities[0].name, "Player");
         // Marker is preserved.
-        assert!(bundle.prefab_instance.is_some());
+        assert!(bundle.get::<crate::ecs::components::PrefabInstance>("prefab_instance").is_some());
     }
 
     #[test]
@@ -771,13 +839,13 @@ mod tests {
         expand_prefab_instances(&mut scene, &prefabs);
 
         let bundle = &scene.entities[0].components;
-        assert_eq!(bundle.sprite.as_ref().unwrap().color, [1.0, 0.0, 0.0, 1.0]);
+        assert_eq!(bundle.get::<crate::ecs::components::SpriteComponent>("sprite").unwrap().color, [1.0, 0.0, 0.0, 1.0]);
         assert_eq!(
-            bundle.transform.as_ref().unwrap().position,
+            bundle.get::<crate::ecs::components::Transform>("transform").unwrap().position,
             Vec2::new(100.0, 200.0)
         );
         // Other prefab fields preserved.
-        assert_eq!(bundle.sprite.as_ref().unwrap().texture_id, "player.png");
+        assert_eq!(bundle.get::<crate::ecs::components::SpriteComponent>("sprite").unwrap().texture_id, "player.png");
     }
 
     #[test]
@@ -804,7 +872,7 @@ mod tests {
 
         expand_prefab_instances(&mut scene, &prefabs);
 
-        let sprite = scene.entities[0].components.sprite.as_ref().unwrap();
+        let sprite = scene.entities[0].components.get::<crate::ecs::components::SpriteComponent>("sprite").unwrap();
         assert_eq!(sprite.texture_id, "enemy.png");
         assert_eq!(sprite.z_order, 5);
         assert_eq!(sprite.color, [0.0, 1.0, 0.0, 1.0]);
@@ -818,7 +886,7 @@ mod tests {
         // Authored entity already has its own transform; expander
         // should keep it instead of the prefab's origin transform.
         let mut entity = make_instance_entity("Player", HashMap::new());
-        entity.components.transform = Some(Transform {
+        entity.components.set("transform", &Transform {
             position: Vec2::new(50.0, 60.0),
             rotation: 1.0,
             scale: Vec2::splat(2.0),
@@ -831,11 +899,11 @@ mod tests {
 
         expand_prefab_instances(&mut scene, &prefabs);
 
-        let t = scene.entities[0].components.transform.as_ref().unwrap();
+        let t = scene.entities[0].components.get::<crate::ecs::components::Transform>("transform").unwrap();
         assert_eq!(t.position, Vec2::new(50.0, 60.0));
         assert_eq!(t.rotation, 1.0);
         // Sprite still came from the template since it wasn't authored.
-        assert!(scene.entities[0].components.sprite.is_some());
+        assert!(scene.entities[0].components.get::<crate::ecs::components::SpriteComponent>("sprite").is_some());
     }
 
     #[test]
@@ -852,8 +920,8 @@ mod tests {
         assert_eq!(report.expanded, 0);
         assert_eq!(report.missing, vec!["Ghost".to_string()]);
         // Marker stays so tooling can flag the dangling reference.
-        assert!(scene.entities[0].components.prefab_instance.is_some());
-        assert!(scene.entities[0].components.sprite.is_none());
+        assert!(scene.entities[0].components.get::<crate::ecs::components::PrefabInstance>("prefab_instance").is_some());
+        assert!(scene.entities[0].components.get::<crate::ecs::components::SpriteComponent>("sprite").is_none());
     }
 
     #[test]
@@ -880,7 +948,7 @@ mod tests {
         let mut prefabs = HashMap::new();
         let mut template = make_player_template();
         // Strip the transform so the override has to vivify it.
-        template.components.transform = None;
+        template.components.remove("transform");
         prefabs.insert("Player".to_string(), template);
 
         let mut overrides = HashMap::new();
@@ -900,6 +968,6 @@ mod tests {
         // panic.
         let bundle = &scene.entities[0].components;
         // Marker preserved either way.
-        assert!(bundle.prefab_instance.is_some());
+        assert!(bundle.get::<crate::ecs::components::PrefabInstance>("prefab_instance").is_some());
     }
 }

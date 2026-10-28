@@ -5,6 +5,7 @@
 //! throws the dust with `burst_debris` - one rule, no per-runtime copy.
 //!
 //! Found by the showcase's Collapse.
+#![cfg(feature = "fracture")]
 
 mod support;
 

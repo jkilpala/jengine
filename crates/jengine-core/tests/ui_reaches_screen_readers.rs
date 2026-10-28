@@ -6,6 +6,7 @@
 //! reader's "focus" and "press" come back through the same navigation a
 //! D-pad uses - so a press reaches a script as any click does. Found by the
 //! showcase's Readable Menus.
+#![cfg(feature = "accessibility")]
 
 use hecs::World;
 use jengine_core::asset::AssetManager;

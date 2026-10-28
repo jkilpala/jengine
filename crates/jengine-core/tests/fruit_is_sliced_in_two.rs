@@ -6,7 +6,7 @@
 //! and the cut through the shared host command a browser script reaches.
 //! Found by the showcase's Fruit Slicer.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "slice"))]
 
 use glam::Vec2;
 use hecs::World;

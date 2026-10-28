@@ -189,6 +189,69 @@ whatever follows a disconnect waits for the next frame, by which time the
 old socket is closed. (It used to share the old socket and send a second
 `hello` down it, which the server refuses: "already signed in".)
 
+## Lockstep in fixed steps: `lockstep_session`
+
+The other way to play together, for a game whose rules run on every
+machine: any game in fixed steps (`settings.simulation_hz`, or a scene's own
+`"simulation_hz"`) played by two to eight machines that send each other only
+what their players pressed. A `lockstep_session` joins a `lockstep` room on a
+`jengine-server` (`Server::lockstep()`; the stock `cargo run -p
+jengine-server` serves them), and the engine's step clock runs a step only
+once every player's input for it has come back
+(`ecs::fixed_step::set_gate`) - so every machine runs the same steps with the
+same inputs, and a deterministic game is the same game on all of them. Every
+30 steps the machines compare a hash of the world, and a match whose games
+came apart stops (`state = "desync"`).
+
+```json
+"lockstep_session": { "url": "ws://127.0.0.1:9001", "room": "duel", "seats": 2, "delay": 3, "hash_every": 30 }
+```
+
+| Field | Meaning |
+|---|---|
+| `url`, `room`, `seats` | the server, the room every machine names, and how many play; the match starts when all have joined |
+| `name` | this player's name - and the seat a rejoin asks for |
+| `delay` | steps between a press and the step it acts on (3 at 60 Hz is 50 ms) |
+| `hash_every` | steps between world hashes; 0 sends none |
+| `actions` | the input actions sent, in order (32 at most); empty sends every action, sorted |
+| `analog` | actions whose strength is sent too - a stick, a trigger |
+| `pointer` | send the world mouse and its buttons |
+| `spectate` | watch rather than play |
+| `silent_after` | seconds the room waits on a quiet seat before playing it as "nothing held" (set by the room's first joiner) |
+| `catch_up` | steps a frame a late joiner replays at most |
+| `reconnect_every` | seconds between tries after the connection drops |
+| `leave` | actions that give the seat up while the scene is held waiting |
+
+A game reads every player's input - never `Input.*`, which is only this
+machine's player - from the entity's `Lockstep` custom component: `held`,
+`pressed` and `released` (a list of action names per seat, seat 0 first),
+`axes` (per seat, `{ action = 0..1 }`), `pointer` (per seat, `{ x, y, left,
+right }`), `seat` (this machine's; `nil` spectating), `seats`, `step`,
+`behind`, `away` / `silent` / `names` per seat, `why`, and `state`:
+`connecting`, `waiting`, `catching_up`, `running`, `reconnecting`, `ended`,
+`desync` or `left`.
+
+A session holds its scene from the moment it loads, so the match is a scene
+of its own with the lobby before it. No `update` runs while the match waits,
+so the session watches its `leave` actions itself; once the match is over
+the scene steps freely again with nothing held. A lobby hands the room on
+with `Online.lockstep_match(room, name)` (for a session whose `room` is
+empty), and a match scene gives the seat up with
+`Online.lockstep_leave(entity)` - the room is told and the connection closed
+- before loading another.
+
+A player who drops is played as "nothing held" and comes back by
+themselves (the session reconnects every `reconnect_every` seconds) or by
+loading the scene again; a `spectate` session watches. Both replay the match
+so far from the room's history, fast, then play on. A seat silent for
+`silent_after` seconds is played as "nothing held" until it speaks.
+
+`tests/fixed_steps_play_in_lockstep.rs` plays it: machines in threads of
+their own at different frame rates, against a real server over real
+sockets - two playing, one dropping and coming back, one hanging, one
+reconnecting, one watching - and every step any two ran is the same on both.
+Test-lab scene 300 plays it with two copies of the test lab and a server.
+
 ## What it does not do
 
 - **Spawn anything.** It binds slots the scene already has. That is what makes
@@ -198,6 +261,14 @@ old socket is closed. (It used to share the old socket and send a second
   happens when the server says. And the movement rules built in are
   top-down (a direction, a speed, a rectangle) and that over a grid of
   square walls.
+
+- **Roll back.** A `lockstep_session` waits for every player's input: a
+  press acts `delay` steps later, and a late input holds every machine's
+  steps until it arrives. One session per window (the step gate is one per
+  thread), and nothing checks that the machines run the same build and scene
+  until their world hashes disagree. These are C22 - C25 in
+  `crates/jengine-server/LIMITS.md`, which also lists what has not been seen
+  yet (two people, a browser, two computers).
 
 `projects/engine-test-lab` scene 221 is the worked example. It has been run in
 tests (two hosted clients against a real server) and on screen in the native

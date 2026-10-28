@@ -309,6 +309,11 @@ local BUTTONS = {
     { "btn_scene_293", "scenes/293-tilemap-parent.scene" },
     { "btn_scene_294", "scenes/294-tracker-songs.scene" },
     { "btn_scene_295", "scenes/295-web-platform.scene" },
+    { "btn_scene_296", "scenes/296-stage.scene" },
+    { "btn_scene_297", "scenes/297-mesh-normals.scene" },
+    { "btn_scene_298", "scenes/298-script-maths.scene" },
+    { "btn_scene_299", "scenes/299-fixed-steps.scene" },
+    { "btn_scene_300", "scenes/300-lockstep.scene" },
 }
 
 function init(entity)

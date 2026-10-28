@@ -47,6 +47,7 @@
 
 pub mod flock;
 
+use jengine_core::detmath::DetMath;
 use glam::Vec2;
 use jengine_core::ecs::components::{CustomComponents, BulkEntity, SpriteComponent, Transform};
 use jengine_core::package::component_registry::ComponentRegistry;
@@ -295,10 +296,10 @@ pub fn update_swarm(world: &mut hecs::World, dt: f32) {
         t.position.x = p.x;
         t.position.y = p.y;
         // Point along travel, so the flock reads as directional.
-        t.rotation = v.y.atan2(v.x);
+        t.rotation = v.y.datan2(v.x);
         if let Some(beat) = beat {
             // Wings down to up: the silhouette's height, from a sliver to full.
-            let s = ((beat + b.phase) * std::f32::consts::TAU).sin().abs();
+            let s = ((beat + b.phase) * std::f32::consts::TAU).dsin().abs();
             t.scale.y = 0.35 + 0.65 * s;
         }
         b.vx = v.x;
@@ -369,8 +370,8 @@ fn reconcile_population(world: &mut hecs::World, spawner: &SwarmSpawner, desired
             world.spawn((
                 transform,
                 Boid {
-                    vx: angle.cos() * speed,
-                    vy: angle.sin() * speed,
+                    vx: angle.dcos() * speed,
+                    vy: angle.dsin() * speed,
                     phase: flock::hash01(seed.wrapping_mul(11) ^ 0x2545_F491),
                 },
                 // Boids are anonymous bulk simulation - no script can name one,

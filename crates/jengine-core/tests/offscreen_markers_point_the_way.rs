@@ -5,6 +5,7 @@
 //! shared host command a browser script reaches, the motion step places it,
 //! and the frame records the screen's view for it. Found by the showcase's
 //! Beacon Run.
+#![cfg(feature = "offscreen_marker")]
 
 use glam::Vec2;
 use hecs::{Entity, World};
@@ -45,5 +46,5 @@ fn a_script_retargets_a_marker_and_the_motion_step_places_it() {
 #[test]
 fn the_frame_records_the_screens_view() {
     let src = std::fs::read_to_string(std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("src/ecs/frame_draw.rs")).unwrap();
-    assert!(src.contains("offscreen_marker::note_main_view(&main_camera)"), "draw_frame notes the main camera's view");
+    assert!(src.contains("views::note_main_view(&main_camera)"), "draw_frame notes the main camera's view");
 }

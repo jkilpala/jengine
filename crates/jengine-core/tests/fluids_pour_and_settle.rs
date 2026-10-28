@@ -4,6 +4,7 @@
 //! and set solid below `freeze_below`. And a `canvas_group` with a
 //! `threshold` draws the soft dots of such a liquid as one hard-edged
 //! surface (the default sprite shader's `params[1]`).
+#![cfg(feature = "fluid")]
 
 mod support;
 
@@ -145,7 +146,7 @@ fn a_script_pours_and_empties_it_and_the_scene_keeps_it() {
     assert_eq!(host.0.get::<&Fluid>(f).unwrap().pour_rate, 55.0);
     // Saved without its particles; loaded, it pours again.
     let scene = jengine_core::scene::format::save_scene(&host.0);
-    let saved = scene.entities.iter().find_map(|e| e.components.fluid.as_ref()).expect("saved");
+    let saved = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::ecs::fluid::Fluid>("fluid")).expect("saved");
     assert_eq!(saved.pour_rate, 55.0);
     assert!(saved.particles.is_empty());
 }

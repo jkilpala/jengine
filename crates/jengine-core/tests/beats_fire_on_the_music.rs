@@ -8,6 +8,7 @@
 //!
 //! The music's playhead is process-wide, so every test that sets it is in
 //! this one function's binary, run one after another.
+#![cfg(feature = "beat_clock")]
 
 use hecs::World;
 use jengine_core::ecs::beat_clock::BeatClock;

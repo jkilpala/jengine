@@ -1,0 +1,10130 @@
+{
+ "name": "01 - Lantern Square",
+ "post_process": {
+  "effects": [
+   {
+    "name": "depth_haze",
+    "enabled": true,
+    "params": {
+     "color": {
+      "Vec4": [
+       0.45,
+       0.42,
+       0.62,
+       0.55
+      ]
+     },
+     "near": {
+      "Float": -60.0
+     },
+     "far": {
+      "Float": -420.0
+     },
+     "sky": {
+      "Float": 0.25
+     },
+     "curve": {
+      "Float": 1.3
+     }
+    }
+   },
+   {
+    "name": "depth_of_field",
+    "enabled": true,
+    "params": {
+     "focus": {
+      "Float": 0.0
+     },
+     "range": {
+      "Float": 14.0
+     },
+     "strength": {
+      "Float": 0.07
+     },
+     "max_radius": {
+      "Float": 9.0
+     }
+    }
+   },
+   {
+    "name": "bloom",
+    "enabled": true,
+    "params": {
+     "threshold": {
+      "Float": 0.95
+     },
+     "intensity": {
+      "Float": 0.35
+     },
+     "blur_size": {
+      "Float": 0.0
+     }
+    }
+   },
+   {
+    "name": "vignette",
+    "enabled": true,
+    "params": {
+     "intensity": {
+      "Float": 0.45
+     },
+     "smoothness": {
+      "Float": 0.65
+     },
+     "color": {
+      "Vec4": [
+       0.02,
+       0.01,
+       0.04,
+       1.0
+      ]
+     }
+    }
+   },
+   {
+    "name": "color_grade",
+    "enabled": true,
+    "params": {
+     "brightness": {
+      "Float": 1.0
+     },
+     "contrast": {
+      "Float": 1.06
+     },
+     "saturation": {
+      "Float": 1.1
+     },
+     "tint_color": {
+      "Vec4": [
+       1.0,
+       0.94,
+       0.88,
+       0.06
+      ]
+     }
+    }
+   }
+  ],
+  "hdr": true,
+  "exposure": 1.0,
+  "tonemap": "aces"
+ },
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true,
+     "viewport_width": 1280.0,
+     "viewport_height": 720.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sky",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hd/sky/dusk.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -30000,
+     "size": [
+      1500.0,
+      900.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Hills",
+   "components": {
+    "transform": {
+     "position": [
+      0.0,
+      130.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/hd/sky/hills_dusk.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": -29000,
+     "size": [
+      1600.0,
+      480.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "unlit": {}
+   }
+  },
+  {
+   "name": "Ambient",
+   "components": {
+    "ambient_light": {
+     "color": [
+      0.10224,
+      0.14413,
+      0.47932
+     ],
+     "intensity": 0.34
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sun",
+   "components": {
+    "directional_light": {
+     "color": [
+      1.0,
+      0.32314,
+      0.11697
+     ],
+     "intensity": 0.3,
+     "direction": 3.6,
+     "height": 0.35,
+     "casts_shadows": false
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Stage",
+   "components": {
+    "stage": {
+     "target": [
+      0.0,
+      -2.0,
+      0.8
+     ],
+     "yaw": 0.0,
+     "pitch": 0.55,
+     "distance": 52.0,
+     "zoom": 38.0,
+     "near": 1.0,
+     "follow": "Hero",
+     "follow_offset": [
+      0.0,
+      0.0,
+      0.8
+     ],
+     "follow_ease": 3.0,
+     "z_base": 0,
+     "z_per_unit": 10.0,
+     "ground_z": -20000
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Meadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/grass.png",
+     "color": [
+      0.57758,
+      0.52712,
+      0.43415,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -40.0,
+      -24.0,
+      0.0
+     ],
+     "u": [
+      80.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      84.0,
+      0.0
+     ],
+     "repeat": [
+      33.333333333333336,
+      35.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/grass_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Square",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/cobbles_warm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -13.0,
+      -9.0,
+      0.0
+     ],
+     "u": [
+      26.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      18.5,
+      0.0
+     ],
+     "repeat": [
+      21.666666666666668,
+      15.416666666666668
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/cobbles_warm_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lane",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/dirt.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.2,
+      -24.0,
+      0.0
+     ],
+     "u": [
+      4.4,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      15.0,
+      0.0
+     ],
+     "repeat": [
+      2.4444444444444446,
+      8.333333333333334
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/dirt_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BankS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/cobbles_warm.png",
+     "color": [
+      0.39157,
+      0.31399,
+      0.2462,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -40.0,
+      9.5,
+      0.0
+     ],
+     "u": [
+      80.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.6999999999999993,
+      0.0
+     ],
+     "repeat": [
+      50.0,
+      0.43749999999999956
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/cobbles_warm_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "River",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/water.png",
+     "color": [
+      0.4,
+      0.48,
+      0.72,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -40.0,
+      10.2,
+      0.0
+     ],
+     "u": [
+      80.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      3.4000000000000004,
+      0.0
+     ],
+     "repeat": [
+      40.0,
+      1.7000000000000002
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/water_n.png",
+     "specular": 0.3,
+     "shininess": 24.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BankN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/cobbles_warm.png",
+     "color": [
+      0.39157,
+      0.31399,
+      0.2462,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -40.0,
+      13.6,
+      0.0
+     ],
+     "u": [
+      80.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.7000000000000011,
+      0.0
+     ],
+     "repeat": [
+      50.0,
+      0.43750000000000067
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/cobbles_warm_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "NorthStreet",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/cobbles_warm.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -14.0,
+      14.3,
+      0.0
+     ],
+     "u": [
+      28.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      7.699999999999999,
+      0.0
+     ],
+     "repeat": [
+      17.5,
+      4.812499999999999
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/cobbles_warm_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bridge",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/planks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.6,
+      9.8,
+      0.05
+     ],
+     "u": [
+      3.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      4.199999999999999,
+      0.0
+     ],
+     "repeat": [
+      3.2,
+      4.199999999999999
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 3,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/planks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallWShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -1.9,
+       9.8
+      ],
+      [
+       -1.6,
+       9.8
+      ],
+      [
+       -1.6,
+       14.0
+      ],
+      [
+       -1.9,
+       14.0
+      ]
+     ],
+     "base": 0.0,
+     "height": 0.7,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallWS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.9,
+      9.8,
+      0.0
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      0.3749999999999998,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallWN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.6,
+      14.0,
+      0.0
+     ],
+     "u": [
+      -0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      0.3749999999999998,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallWW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.9,
+      14.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -4.199999999999999,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      5.249999999999999,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallWE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.6,
+      9.8,
+      0.0
+     ],
+     "u": [
+      0.0,
+      4.199999999999999,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      5.249999999999999,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallWTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.9,
+      9.8,
+      0.7
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      4.199999999999999,
+      0.0
+     ],
+     "repeat": [
+      0.3749999999999998,
+      5.249999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallEShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       1.6,
+       9.8
+      ],
+      [
+       1.9,
+       9.8
+      ],
+      [
+       1.9,
+       14.0
+      ],
+      [
+       1.6,
+       14.0
+      ]
+     ],
+     "base": 0.0,
+     "height": 0.7,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallES",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      1.6,
+      9.8,
+      0.0
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      0.3749999999999998,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallEN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      1.9,
+      14.0,
+      0.0
+     ],
+     "u": [
+      -0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      0.3749999999999998,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallEW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      1.6,
+      14.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -4.199999999999999,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      5.249999999999999,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallEE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      1.9,
+      9.8,
+      0.0
+     ],
+     "u": [
+      0.0,
+      4.199999999999999,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.7
+     ],
+     "repeat": [
+      5.249999999999999,
+      0.8749999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "BridgeWallETop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      1.6,
+      9.8,
+      0.7
+     ],
+     "u": [
+      0.2999999999999998,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      4.199999999999999,
+      0.0
+     ],
+     "repeat": [
+      0.3749999999999998,
+      5.249999999999999
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -12.5,
+       2.0
+      ],
+      [
+       -5.5,
+       2.0
+      ],
+      [
+       -5.5,
+       7.5
+      ],
+      [
+       -12.5,
+       7.5
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -12.5,
+      2.0,
+      0.0
+     ],
+     "u": [
+      7.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.4
+     ],
+     "repeat": [
+      3.5,
+      1.7
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.5,
+      7.5,
+      0.0
+     ],
+     "u": [
+      -7.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.4
+     ],
+     "repeat": [
+      3.5,
+      1.7
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -12.5,
+      7.5,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.4
+     ],
+     "repeat": [
+      2.75,
+      1.7
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.5,
+      2.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.4
+     ],
+     "repeat": [
+      2.75,
+      1.7
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnGW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -12.5,
+      7.5,
+      3.4
+     ],
+     "u": [
+      0.0,
+      -5.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.4
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnGE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.5,
+      2.0,
+      3.4
+     ],
+     "u": [
+      0.0,
+      5.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.4
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnRoofS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -12.85,
+      1.65,
+      3.0945454545454547
+     ],
+     "u": [
+      7.7,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      3.1,
+      2.705454545454545
+     ],
+     "repeat": [
+      5.133333333333334,
+      2.7430303030303027
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": -1.6,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_red_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnRoofN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.15,
+      7.85,
+      3.0945454545454547
+     ],
+     "u": [
+      -7.7,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      -3.1,
+      2.705454545454545
+     ],
+     "repeat": [
+      5.133333333333334,
+      2.7430303030303027
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": 1.5,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_red_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnWin0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -11.649999999999999,
+      1.97,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnGlow0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -11.649999999999999,
+      1.95,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnWin1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -7.25,
+      1.97,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnGlow1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -7.25,
+      1.95,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnWin2",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.45,
+      1.97,
+      3.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnGlow2",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.45,
+      1.95,
+      3.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnWin3",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -8.049999999999999,
+      1.97,
+      3.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnGlow3",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -8.049999999999999,
+      1.95,
+      3.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnDoor",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -9.5,
+      1.97,
+      0.0
+     ],
+     "u": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/door_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       5.5,
+       2.5
+      ],
+      [
+       12.0,
+       2.5
+      ],
+      [
+       12.0,
+       7.5
+      ],
+      [
+       5.5,
+       7.5
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.1,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.5,
+      2.5,
+      0.0
+     ],
+     "u": [
+      6.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      3.25,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      12.0,
+      7.5,
+      0.0
+     ],
+     "u": [
+      -6.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      3.25,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.5,
+      7.5,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      2.5,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      12.0,
+      2.5,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.0
+     ],
+     "repeat": [
+      2.5,
+      1.5
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyGW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.5,
+      7.5,
+      3.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.2
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyGE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      12.0,
+      2.5,
+      3.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.2
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyRoofS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.15,
+      2.15,
+      2.692
+     ],
+     "u": [
+      7.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      2.85,
+      2.508
+     ],
+     "repeat": [
+      4.8,
+      2.5309255224127
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": -1.475,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyRoofN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      12.35,
+      7.85,
+      2.692
+     ],
+     "u": [
+      -7.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      -2.85,
+      2.508
+     ],
+     "repeat": [
+      4.8,
+      2.5309255224127
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": 1.375,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyWin0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      6.55,
+      2.47,
+      1.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyGlow0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      6.55,
+      2.45,
+      1.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyWin1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.15,
+      2.47,
+      1.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyGlow1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      10.15,
+      2.45,
+      1.2
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmithyDoor",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      8.3,
+      2.47,
+      0.0
+     ],
+     "u": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/door_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -10.0,
+       15.5
+      ],
+      [
+       -2.5,
+       15.5
+      ],
+      [
+       -2.5,
+       20.5
+      ],
+      [
+       -10.0,
+       20.5
+      ]
+     ],
+     "base": 0.0,
+     "height": 5.6,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      15.5,
+      0.0
+     ],
+     "u": [
+      7.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      3.75,
+      2.1
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.5,
+      20.5,
+      0.0
+     ],
+     "u": [
+      -7.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      3.75,
+      2.1
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      20.5,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      2.5,
+      2.1
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.5,
+      15.5,
+      0.0
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      4.2
+     ],
+     "repeat": [
+      2.5,
+      2.1
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallGW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.0,
+      20.5,
+      4.2
+     ],
+     "u": [
+      0.0,
+      -5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.8
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallGE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_bricks.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.5,
+      15.5,
+      4.2
+     ],
+     "u": [
+      0.0,
+      5.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.8
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bricks_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallRoofS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -10.35,
+      15.15,
+      3.8080000000000003
+     ],
+     "u": [
+      8.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      2.85,
+      3.1919999999999997
+     ],
+     "repeat": [
+      5.466666666666666,
+      2.8527853056267656
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": -1.475,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_red_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallRoofN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_red.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -2.15,
+      20.85,
+      3.8080000000000003
+     ],
+     "u": [
+      -8.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      -2.85,
+      3.1919999999999997
+     ],
+     "repeat": [
+      5.466666666666666,
+      2.8527853056267656
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": 1.375,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_red_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallWin0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -9.049999999999999,
+      15.47,
+      1.5
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallGlow0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -9.049999999999999,
+      15.45,
+      1.5
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallWin1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -6.65,
+      15.47,
+      1.5
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallGlow1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -6.65,
+      15.45,
+      1.5
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallWin2",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -4.35,
+      15.47,
+      1.5
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallGlow2",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -4.35,
+      15.45,
+      1.5
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallWin3",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -7.8500000000000005,
+      15.47,
+      3.0
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallGlow3",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -7.8500000000000005,
+      15.45,
+      3.0
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallWin4",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.45,
+      15.47,
+      3.0
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallGlow4",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -5.45,
+      15.45,
+      3.0
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HallDoor",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -6.7,
+      15.47,
+      0.0
+     ],
+     "u": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/door_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       2.5,
+       15.5
+      ],
+      [
+       9.0,
+       15.5
+      ],
+      [
+       9.0,
+       20.0
+      ],
+      [
+       2.5,
+       20.0
+      ]
+     ],
+     "base": 0.0,
+     "height": 4.4,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.5,
+      15.5,
+      0.0
+     ],
+     "u": [
+      6.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.2
+     ],
+     "repeat": [
+      3.25,
+      1.6
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.0,
+      20.0,
+      0.0
+     ],
+     "u": [
+      -6.5,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.2
+     ],
+     "repeat": [
+      3.25,
+      1.6
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.5,
+      20.0,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -4.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.2
+     ],
+     "repeat": [
+      2.25,
+      1.6
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.0,
+      15.5,
+      0.0
+     ],
+     "u": [
+      0.0,
+      4.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      3.2
+     ],
+     "repeat": [
+      2.25,
+      1.6
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillGW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.5,
+      20.0,
+      3.2
+     ],
+     "u": [
+      0.0,
+      -4.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.4
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillGE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/gable_timber.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.0,
+      15.5,
+      3.2
+     ],
+     "u": [
+      0.0,
+      4.5,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.4
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/timber_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillRoofS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      2.15,
+      15.15,
+      2.826666666666667
+     ],
+     "u": [
+      7.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      2.6,
+      2.7733333333333334
+     ],
+     "repeat": [
+      4.8,
+      2.534331187493307
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": -1.35,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillRoofN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/roof_blue.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      9.35,
+      20.35,
+      2.826666666666667
+     ],
+     "u": [
+      -7.2,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      -2.6,
+      2.7733333333333334
+     ],
+     "repeat": [
+      4.8,
+      2.534331187493307
+     ],
+     "ground": false,
+     "two_sided": true,
+     "sort_bias": 1.25,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/roof_blue_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillWin0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.55,
+      15.47,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillGlow0",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      3.55,
+      15.45,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillWin1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      7.1499999999999995,
+      15.47,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/window_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillGlow1",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/window_glow.png",
+     "color": [
+      2.2,
+      1.5,
+      0.7,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      7.1499999999999995,
+      15.45,
+      1.3
+     ],
+     "u": [
+      0.9,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      1.12
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 2,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "unlit": {},
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MillDoor",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/door.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      5.3,
+      15.47,
+      0.0
+     ],
+     "u": [
+      1.0,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      2.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/door_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmokeInn",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      5.0
+     ],
+     "speed": [
+      10.0,
+      22.0
+     ],
+     "angle": [
+      1.35,
+      1.75
+     ],
+     "color_start": [
+      0.35,
+      0.32,
+      0.36,
+      0.35
+     ],
+     "color_end": [
+      0.25,
+      0.22,
+      0.3,
+      0.0
+     ],
+     "size_start": [
+      14.0,
+      20.0
+     ],
+     "size_end": [
+      60.0,
+      90.0
+     ],
+     "gravity_modifier": -0.02,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "drag": 0.3,
+     "turbulence": {
+      "strength": 18.0,
+      "scale": 90.0,
+      "speed": 0.4
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -7.0,
+      6.0,
+      6.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 2
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "SmokeHall",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "emission_rate": 4.0,
+     "max_particles": 40,
+     "lifetime": [
+      3.0,
+      5.0
+     ],
+     "speed": [
+      10.0,
+      22.0
+     ],
+     "angle": [
+      1.35,
+      1.75
+     ],
+     "color_start": [
+      0.35,
+      0.32,
+      0.36,
+      0.35
+     ],
+     "color_end": [
+      0.25,
+      0.22,
+      0.3,
+      0.0
+     ],
+     "size_start": [
+      14.0,
+      20.0
+     ],
+     "size_end": [
+      60.0,
+      90.0
+     ],
+     "gravity_modifier": -0.02,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 4.0
+     },
+     "drag": 0.3,
+     "turbulence": {
+      "strength": 18.0,
+      "scale": 90.0,
+      "speed": 0.4
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      19.0,
+      7.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 2
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainShadow",
+   "components": {
+    "stage_caster": {
+     "footprint": [
+      [
+       -1.3,
+       -0.3
+      ],
+      [
+       1.3,
+       -0.3
+      ],
+      [
+       1.3,
+       2.3
+      ],
+      [
+       -1.3,
+       2.3
+      ]
+     ],
+     "base": 0.0,
+     "height": 0.65,
+     "opacity": 0.7,
+     "lights": 2,
+     "max_length": 3.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainS",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.3,
+      -0.3,
+      0.0
+     ],
+     "u": [
+      2.6,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.65
+     ],
+     "repeat": [
+      3.25,
+      0.8125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainN",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      1.3,
+      2.3,
+      0.0
+     ],
+     "u": [
+      -2.6,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.65
+     ],
+     "repeat": [
+      3.25,
+      0.8125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainW",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.3,
+      2.3,
+      0.0
+     ],
+     "u": [
+      0.0,
+      -2.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.65
+     ],
+     "repeat": [
+      3.2499999999999996,
+      0.8125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainE",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      1.3,
+      -0.3,
+      0.0
+     ],
+     "u": [
+      0.0,
+      2.5999999999999996,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.0,
+      0.65
+     ],
+     "repeat": [
+      3.2499999999999996,
+      0.8125
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainTop",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/moss_stone.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.3,
+      -0.3,
+      0.65
+     ],
+     "u": [
+      2.6,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      2.5999999999999996,
+      0.0
+     ],
+     "repeat": [
+      3.25,
+      3.2499999999999996
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/moss_stone_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "FountainWater",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/scenery/water.png",
+     "color": [
+      0.5,
+      0.65,
+      0.95,
+      1.0
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -1.05,
+      -0.05,
+      0.62
+     ],
+     "u": [
+      2.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      2.1,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": false,
+     "two_sided": false,
+     "sort_bias": -0.2,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/water_n.png",
+     "specular": 1.0,
+     "shininess": 24.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Spray",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 40.0,
+     "max_particles": 120,
+     "lifetime": [
+      0.6,
+      0.9
+     ],
+     "speed": [
+      50.0,
+      80.0
+     ],
+     "angle": [
+      1.4,
+      1.74
+     ],
+     "color_start": [
+      0.7,
+      0.85,
+      1.0,
+      0.8
+     ],
+     "color_end": [
+      0.6,
+      0.75,
+      1.0,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      5.0
+     ],
+     "size_end": [
+      2.0,
+      3.0
+     ],
+     "gravity_modifier": 1.4,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 3.0
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      1.0,
+      1.2
+     ],
+     "perspective": 1.0,
+     "z_bias": 1
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      -4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/lamp_post_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp0Glass",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post_glow.png",
+     "color": [
+      3.0,
+      2.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      -4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp0Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.55,
+      0.2,
+      0.55
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      -4.0,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp0Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.62,
+      0.3
+     ],
+     "intensity": 2.6,
+     "radius": 100.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -4.0,
+      -4.0,
+      2.6
+     ],
+     "light_radius": 9.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      4.0,
+      -4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/lamp_post_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp1Glass",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post_glow.png",
+     "color": [
+      3.0,
+      2.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      4.0,
+      -4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp1Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.55,
+      0.2,
+      0.55
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      4.0,
+      -4.0,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp1Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.62,
+      0.3
+     ],
+     "intensity": 2.6,
+     "radius": 100.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      4.0,
+      -4.0,
+      2.6
+     ],
+     "light_radius": 9.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -3.0,
+      8.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/lamp_post_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp2Glass",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post_glow.png",
+     "color": [
+      3.0,
+      2.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -3.0,
+      8.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp2Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.55,
+      0.2,
+      0.55
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -3.0,
+      8.6,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp2Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.62,
+      0.3
+     ],
+     "intensity": 2.6,
+     "radius": 100.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -3.0,
+      8.6,
+      2.6
+     ],
+     "light_radius": 9.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      8.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/lamp_post_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp3Glass",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post_glow.png",
+     "color": [
+      3.0,
+      2.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      8.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp3Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.55,
+      0.2,
+      0.55
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      8.6,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp3Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.62,
+      0.3
+     ],
+     "intensity": 2.6,
+     "radius": 100.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      8.6,
+      2.6
+     ],
+     "light_radius": 9.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.5,
+      15.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/lamp_post_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp4Glass",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post_glow.png",
+     "color": [
+      3.0,
+      2.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.5,
+      15.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp4Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.55,
+      0.2,
+      0.55
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.5,
+      15.0,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp4Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.62,
+      0.3
+     ],
+     "intensity": 2.6,
+     "radius": 100.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -11.5,
+      15.0,
+      2.6
+     ],
+     "light_radius": 9.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      15.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": ""
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/lamp_post_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp5Glass",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/lamp_post_glow.png",
+     "color": [
+      3.0,
+      2.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      112.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      15.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 1,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp5Halo",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/fx/glow.png",
+     "color": [
+      1.0,
+      0.55,
+      0.2,
+      0.55
+     ],
+     "z_order": 0,
+     "size": [
+      90.0,
+      90.0
+     ],
+     "anchor": [
+      0.5,
+      0.5
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      15.0,
+      2.75
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 50,
+     "follow": ""
+    },
+    "unlit": {},
+    "material": {
+     "material_id": "default_sprite",
+     "blend_mode": "Additive"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamp5Light",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.62,
+      0.3
+     ],
+     "intensity": 2.6,
+     "radius": 100.0,
+     "falloff": 1.3,
+     "height": 0.5,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      15.0,
+      2.6
+     ],
+     "light_radius": 9.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "InnDoorLight",
+   "components": {
+    "point_light": {
+     "color": [
+      1.0,
+      0.55,
+      0.25
+     ],
+     "intensity": 1.4,
+     "radius": 100.0,
+     "falloff": 1.6,
+     "height": 0.6,
+     "casts_shadows": false
+    },
+    "stage_billboard": {
+     "position": [
+      -9.0,
+      1.6,
+      2.2
+     ],
+     "light_radius": 4.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -12.0,
+      0.8,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/barrel_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.3,
+      1.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/barrel_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Barrel2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/barrel.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      28.0,
+      36.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -4.8,
+      1.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/barrel_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      4.6,
+      2.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crate_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      5.2,
+      1.6,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crate_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Crate2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/crate.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      32.0,
+      32.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      12.0,
+      1.8,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/crate_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Sign",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/signpost.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      40.0,
+      60.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.2,
+      -8.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/signpost_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      224.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -16.0,
+      2.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      224.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -15.0,
+      12.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      224.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      16.0,
+      4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      224.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      15.5,
+      11.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      144.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -18.0,
+      -6.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/pine_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      144.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      18.0,
+      -5.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/pine_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree6",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      224.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -8.0,
+      24.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree7",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/pine.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      144.0,
+      320.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      11.0,
+      24.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/pine_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree8",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak_autumn.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      224.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -24.0,
+      18.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_autumn_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Tree9",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/oak.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      224.0,
+      288.0
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      24.0,
+      20.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/oak_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      78.39999999999999,
+      50.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      -9.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      78.39999999999999,
+      50.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      -9.5,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      78.39999999999999,
+      50.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -13.5,
+      9.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      78.39999999999999,
+      50.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      13.5,
+      9.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      78.39999999999999,
+      50.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -3.5,
+      14.8,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Bush5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/bush_berries.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      78.39999999999999,
+      50.4
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      10.0,
+      14.8,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/bush_berries_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fence0",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      89.6,
+      39.199999999999996
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -20.0,
+      -8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/fence_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fence1",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      89.6,
+      39.199999999999996
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -17.8,
+      -8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/fence_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fence2",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      89.6,
+      39.199999999999996
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -15.6,
+      -8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/fence_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fence3",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      89.6,
+      39.199999999999996
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -13.399999999999999,
+      -8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/fence_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fence4",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      89.6,
+      39.199999999999996
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -11.2,
+      -8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/fence_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fence5",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/scenery/fence.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      89.6,
+      39.199999999999996
+     ],
+     "anchor": [
+      0.5,
+      0.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -9.0,
+      -8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0
+     }
+    },
+    "material": {
+     "material_id": "lit_sprite",
+     "normal_map_id": "sprites/hd/scenery/fence_n.png"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hero",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/traveler.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      -3.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "HeroShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Hero"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Merchant",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/merchant.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      6.0,
+      0.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      -1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "MerchantShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Merchant"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Villager",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/villager.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -6.0,
+      -1.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "VillagerShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Villager"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Lamplighter",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/lamplighter.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      3.0,
+      8.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "LamplighterShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Lamplighter"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Guard",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/guard.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      0.6,
+      12.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      -1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "GuardShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Guard"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Child",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/child.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -2.0,
+      4.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ChildShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Child"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Cleric",
+   "components": {
+    "sprite": {
+     "texture_id": "sprites/hd/chars/cleric.png",
+     "color": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+     ],
+     "z_order": 0,
+     "size": [
+      64.0,
+      96.0
+     ],
+     "anchor": [
+      0.5,
+      0.03125
+     ],
+     "uv_rect": [
+      0.0,
+      0.0,
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "stage_billboard": {
+     "position": [
+      -5.0,
+      17.0,
+      0.0
+     ],
+     "perspective": 1.0,
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "sort_bias": 0.0,
+     "z_bias": 0,
+     "follow": "",
+     "shadow": {
+      "opacity": 0.9,
+      "fade": 0.35,
+      "lights": 2,
+      "max_length": 3.0,
+      "height": 1.5
+     }
+    },
+    "sprite_animator": {
+     "clips": {
+      "idle": {
+       "name": "idle",
+       "frame_duration": 0.6,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.0,
+          0.0,
+          0.16666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      },
+      "walk": {
+       "name": "walk",
+       "frame_duration": 0.125,
+       "looping": true,
+       "property_tracks": [],
+       "frames": [
+        {
+         "uv_rect": [
+          0.3333333333333333,
+          0.0,
+          0.5,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.5,
+          0.0,
+          0.6666666666666666,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.6666666666666666,
+          0.0,
+          0.8333333333333334,
+          1.0
+         ],
+         "triggers": []
+        },
+        {
+         "uv_rect": [
+          0.8333333333333334,
+          0.0,
+          1.0,
+          1.0
+         ],
+         "triggers": []
+        }
+       ]
+      }
+     },
+     "current_clip": "idle",
+     "playing": true,
+     "speed": 1.0
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "ClericShadow",
+   "components": {
+    "mesh": {
+     "texture_id": "sprites/hd/fx/blob.png",
+     "color": [
+      0.0,
+      0.0,
+      0.0,
+      0.8
+     ]
+    },
+    "stage_quad": {
+     "origin": [
+      -0.55,
+      -0.275,
+      0.01
+     ],
+     "u": [
+      1.1,
+      0.0,
+      0.0
+     ],
+     "v": [
+      0.0,
+      0.55,
+      0.0
+     ],
+     "repeat": [
+      1.0,
+      1.0
+     ],
+     "ground": true,
+     "two_sided": false,
+     "sort_bias": 0.0,
+     "z_bias": 5,
+     "follow": "Cleric"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Fireflies",
+   "components": {
+    "particle_emitter": {
+     "texture_id": "sprites/hd/fx/mote.png",
+     "emission_rate": 5.0,
+     "max_particles": 120,
+     "lifetime": [
+      3.0,
+      6.0
+     ],
+     "speed": [
+      4.0,
+      14.0
+     ],
+     "angle": [
+      0.0,
+      6.28318
+     ],
+     "color_start": [
+      1.4,
+      1.2,
+      0.5,
+      0.9
+     ],
+     "color_end": [
+      1.4,
+      1.2,
+      0.5,
+      0.0
+     ],
+     "size_start": [
+      3.0,
+      6.0
+     ],
+     "size_end": [
+      1.5,
+      3.0
+     ],
+     "gravity_modifier": -0.01,
+     "angular_velocity": [
+      0.0,
+      0.0
+     ],
+     "burst_count": 0,
+     "active": true,
+     "world_space": true,
+     "z_order": 0,
+     "emit_shape": {
+      "kind": "circle",
+      "radius": 420.0
+     },
+     "blend_mode": "Additive",
+     "turbulence": {
+      "strength": 10.0,
+      "scale": 60.0,
+      "speed": 0.5
+     }
+    },
+    "stage_billboard": {
+     "position": [
+      0.0,
+      4.0,
+      1.5
+     ],
+     "perspective": 1.0,
+     "z_bias": 40
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      56.0,
+      -30.0
+     ],
+     "size": [
+      900,
+      51.0
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "01   Lantern Square",
+     "font_size": 34.0,
+     "color": [
+      0.88792,
+      0.76052,
+      0.52712,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Blurb",
+   "components": {
+    "ui_element": {
+     "anchor": "TopLeft",
+     "offset": [
+      58.0,
+      -78.0
+     ],
+     "size": [
+      1160,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Dusk in a market square: houses, roofs and cobbles drawn in perspective on a 3D stage, pixel people standing in it,\nlanterns pooling light flat on the floor and depth of field focused on the traveller.",
+     "font_size": 15.0,
+     "color": [
+      0.57758,
+      0.55201,
+      0.68669,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomLeft",
+     "offset": [
+      58.0,
+      26.0
+     ],
+     "size": [
+      1150.0,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "Arrows / WASD walk   Q / E turn the camera   1-5 depth of field, bloom, vignette, grade, haze   Tab captions   PgUp / PgDn scenes   H hub",
+     "font_size": 15.0,
+     "color": [
+      0.47932,
+      0.47932,
+      0.57758,
+      1.0
+     ],
+     "alignment": "Left",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "ui_element": {
+     "anchor": "BottomRight",
+     "offset": [
+      -58.0,
+      52.0
+     ],
+     "size": [
+      900,
+      22.5
+     ],
+     "z_order": 100
+    },
+    "ui_text": {
+     "text": "",
+     "font_size": 15.0,
+     "color": [
+      0.87137,
+      0.43415,
+      0.11697,
+      1.0
+     ],
+     "alignment": "Right",
+     "shadow": {
+      "offset": [
+       1.5,
+       -1.5
+      ],
+      "color": [
+       0.0,
+       0.0,
+       0.0,
+       0.75
+      ]
+     }
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  },
+  {
+   "name": "Director",
+   "components": {
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/s01_lantern_square.lua"
+    },
+    "transform": {
+     "position": [
+      0.0,
+      0.0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  }
+ ]
+}

@@ -20,6 +20,7 @@ Starlight). Much of it is *generated* — see [Generated, not written](#generate
 | [parity-gaps.md](parity-gaps.md) | Every place the four runtimes disagree, and which ratchet test guards it. Mark a row FIXED in the change that fixes it. |
 | [step7-behavior-graph-spec.md](step7-behavior-graph-spec.md) | The `.behavior` graph format. A living spec — the behavior runtime cites it by section. |
 | [desktop-platforms.md](desktop-platforms.md) | Linux (built inside WSL from Windows) and macOS (`.app`, on a Mac) builds: what each is, how the runtime finds its game, and what differs by platform. |
+| [build-sizes.md](build-sizes.md) | What an empty project costs to ship on web, Windows, Android and Linux under each release profile and `wasm-opt` level, where the bytes go, and what would shrink them. |
 | [graphics-backends.md](graphics-backends.md) | Which wgpu backends a build carries, and why that is a per-project setting. |
 | [runtime-profiling.md](runtime-profiling.md) | The F3 overlay: what each row means, and how to read the memory numbers. |
 | [web-lua-runtime-proposal.md](web-lua-runtime-proposal.md) | Why the editor and web builds share one Fengari VM. Built; kept as the reason. |
@@ -38,6 +39,7 @@ Starlight). Much of it is *generated* — see [Generated, not written](#generate
 | [textured-mesh-proposal.md](textured-mesh-proposal.md) | `Mesh2D`: mostly built; says what is left (`set_mesh`). |
 | [stable-script-ids-plan.md](stable-script-ids-plan.md) | Script entity ids that are never reused. Planned, not started. |
 | [script-namespaces-plan.md](script-namespaces-plan.md) | Script functions in namespaces (`Sprite.set_color`), flat names kept as aliases. Built Sep 2026; kept as the reason. |
+| [determinism-proposal.md](determinism-proposal.md) | The same simulation on every platform: what makes Windows, Mac and the browser play a seed differently, measured, and a phased plan. Proposed Oct 2026, not built. |
 | [mobile-platforms-proposal.md](mobile-platforms-proposal.md) | Native Android, then iOS: the phases, how an APK is built, and what the emulator found. Phase 1 built Sep 2026 on `mobile-android`. |
 | [feature-backlog.md](feature-backlog.md) | What is not built yet. Shipped items move to [shipped.md](shipped.md). |
 | [editor-tooling-plan.md](editor-tooling-plan.md) | Editor tools (Lua debugger, curve editor, sheet slicer, weight painting, PSD import) and Linux / macOS / iOS builds, split out of the Oct 2026 comparison for a session of their own. Not started. |

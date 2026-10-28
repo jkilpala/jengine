@@ -2,7 +2,7 @@
 //!
 //! Phase 8.2d rebuild: this is a wasm-twin of
 //! `crates/jengine-runtime/src/wgpu_scene_runner.rs`. It loads a `.scene`
-//! file via fetch, builds a `hecs::World` via `load_scene_auto`, then runs
+//! file via fetch, builds a `hecs::World` via `load_scene_value`, then runs
 //! the same `*_wgpu` render systems jengine-core ships for the native
 //! runtime.
 //!
@@ -50,7 +50,7 @@ use jengine_core::renderer::backend::wgpu::{
 use jengine_core::renderer::camera::Camera2D;
 use jengine_core::renderer::lighting::has_lights;
 use jengine_core::renderer::text::{built_in_font_atlas, FontData};
-use jengine_core::scene::format::load_scene_auto;
+use jengine_core::scene::format::load_scene_value;
 use jengine_core::renderer::atlas::AtlasData;
 use jengine_core::ui::gui_document::{load_gui, GuiDocument};
 
@@ -63,8 +63,17 @@ const BUILTIN_FONT_ID: &str = "__font/builtin";
 // Console logging macros
 // ---------------------------------------------------------------------------
 
+/// Whether info lines reach the console - `settings.logging`, which a build
+/// writes from its *Logs* option. Warnings and errors always do: they are what
+/// a player can paste into a bug report.
+static LOGS: std::sync::atomic::AtomicBool = std::sync::atomic::AtomicBool::new(true);
+
+pub(crate) fn logs_on() -> bool {
+    LOGS.load(std::sync::atomic::Ordering::Relaxed)
+}
+
 macro_rules! console_log {
-    ($($arg:tt)*) => { web_sys::console::log_1(&format!($($arg)*).into()) };
+    ($($arg:tt)*) => { if crate::logs_on() { web_sys::console::log_1(&format!($($arg)*).into()) } };
 }
 macro_rules! console_warn {
     ($($arg:tt)*) => { web_sys::console::warn_1(&format!($($arg)*).into()) };
@@ -175,10 +184,54 @@ fn asset_url(id: &str) -> String {
     }
 }
 
+thread_local! {
+    /// The build's bundle of small assets (`asset_bundle.json`), by URL -
+    /// `assets/<path>` - and as text.
+    static BUNDLE: RefCell<std::collections::HashMap<String, String>> = RefCell::new(std::collections::HashMap::new());
+}
+
+/// Take in the build's asset bundle: every small file the runtime fetches by
+/// name (prefabs, materials, shaders, `.gui` documents, data tables, ...),
+/// which the web builder writes as one file because each fetch is a round
+/// trip. A build without one (or a hand-assembled root) fetches each file.
+fn install_asset_bundle(text: &str) {
+    #[derive(Deserialize)]
+    struct Bundle {
+        files: serde_json::Map<String, serde_json::Value>,
+    }
+    let bundle: Bundle = match serde_json::from_str(text) {
+        Ok(b) => b,
+        Err(e) => {
+            console_warn!("asset bundle is not valid: {}", e);
+            return;
+        }
+    };
+    let count = bundle.files.len();
+    BUNDLE.with(|b| {
+        let mut b = b.borrow_mut();
+        for (path, content) in bundle.files {
+            let text = match content {
+                serde_json::Value::String(text) => text,
+                json => json.to_string(),
+            };
+            b.insert(format!("assets/{path}"), text);
+        }
+    });
+    console_log!("asset bundle: {} file(s)", count);
+}
+
+fn bundle_read(url: &str) -> Option<String> {
+    BUNDLE.with(|b| b.borrow().get(url).cloned())
+}
+
 async fn fetch_text(url: &str) -> Result<String, JsValue> {
     // A downloaded asset pack serves its files before the network does.
+    #[cfg(feature = "packs")]
     if let Some(bytes) = jengine_core::asset::packs::web::read(url) {
         return String::from_utf8(bytes).map_err(|_| JsValue::from_str(&format!("{url}: not UTF-8")));
+    }
+    if let Some(text) = bundle_read(url) {
+        return Ok(text);
     }
     let opts = RequestInit::new();
     opts.set_method("GET");
@@ -199,8 +252,12 @@ async fn fetch_text(url: &str) -> Result<String, JsValue> {
 }
 
 async fn fetch_bytes(url: &str) -> Result<Vec<u8>, JsValue> {
+    #[cfg(feature = "packs")]
     if let Some(bytes) = jengine_core::asset::packs::web::read(url) {
         return Ok(bytes);
+    }
+    if let Some(text) = bundle_read(url) {
+        return Ok(text.into_bytes());
     }
     let opts = RequestInit::new();
     opts.set_method("GET");
@@ -217,6 +274,27 @@ async fn fetch_bytes(url: &str) -> Result<Vec<u8>, JsValue> {
     let buf_value = JsFuture::from(resp.array_buffer()?).await?;
     let array = js_sys::Uint8Array::new(&buf_value);
     Ok(array.to_vec())
+}
+
+/// Fetch every URL at once, answering in the order asked.
+///
+/// Every loader here used to await one file before asking for the next, so
+/// a scene of forty textures cost forty round trips end to end - on jWorld
+/// about a tenth of a second each, which was most of a scene change (and a
+/// revisit paid it again, the portal answering `no-cache`). Asked together,
+/// the browser keeps as many in flight as the connection allows.
+async fn fetch_all_bytes(urls: &[String]) -> Vec<Result<Vec<u8>, JsValue>> {
+    futures_util::future::join_all(urls.iter().map(|u| fetch_bytes(u))).await
+}
+
+/// [`fetch_all_bytes`] for text.
+async fn fetch_all_text(urls: &[String]) -> Vec<Result<String, JsValue>> {
+    futures_util::future::join_all(urls.iter().map(|u| fetch_text(u))).await
+}
+
+/// The asset URLs of `ids`, for [`fetch_all_bytes`] / [`fetch_all_text`].
+fn asset_urls<'a>(ids: impl IntoIterator<Item = &'a String>) -> Vec<String> {
+    ids.into_iter().map(|id| asset_url(id)).collect()
 }
 
 // ---------------------------------------------------------------------------
@@ -240,6 +318,9 @@ struct WebProjectSettings {
     ui_scale_mode: Option<String>,
     /// Per-platform frame-rate caps; this runtime reads `web`.
     frame_rate_cap: jengine_core::time::FrameRateCaps,
+    /// Gameplay in fixed steps a second (`ecs::fixed_step`); absent or 0 is
+    /// one step a frame.
+    simulation_hz: Option<f32>,
     /// How textures are sampled (`jengine_core::renderer::texture_filter`).
     texture_filter: jengine_core::renderer::texture_filter::TextureFilterRules,
     /// Which GPU to ask the browser for (`jengine_core::renderer::gpu_preference`).
@@ -248,6 +329,7 @@ struct WebProjectSettings {
     /// (`jengine_core::audio::MixerLayout`).
     audio_mixer: jengine_core::audio::MixerLayout,
     /// Asset packs downloaded when needed (`jengine_core::asset::packs`).
+    #[cfg(feature = "packs")]
     asset_packs: jengine_core::asset::packs::PackSettings,
     /// Live ops (`jengine_core::liveops`), read by it as it is written.
     liveops: serde_json::Value,
@@ -262,7 +344,7 @@ struct WebProjectSettings {
     input_actions: Vec<InputAction>,
     /// Backlog 2.2 — list of `.prefab` asset paths to fetch up-front
     /// so the scene loader can expand any `prefab_instance` entries
-    /// before `load_scene_auto` runs. Empty by default; the web build
+    /// before the scene is loaded. Empty by default; the web build
     /// has no filesystem walker, so the project file (or its builder
     /// pipeline) must list which prefabs are reachable.
     prefabs: Vec<String>,
@@ -283,6 +365,10 @@ struct WebProjectSettings {
     /// builds, which is why it defaults to enabled.
     #[serde(default = "default_debug_overlay")]
     debug_overlay: bool,
+    /// Whether info lines - the engine's and the scripts' `log` / `print` -
+    /// reach the console. Written by the web builder from its *Logs* option;
+    /// absent in older builds, which logged, so only `false` turns it off.
+    logging: Option<bool>,
 }
 
 /// Missing key = overlay available, so a project file written before the
@@ -328,9 +414,11 @@ struct WebApp {
     /// Texture ids already being fetched on demand (`poll_missing_textures`).
     texture_requested: HashSet<String>,
     /// `asset::packs::generation()` when `texture_requested` was last cleared.
+    #[cfg(feature = "packs")]
     packs_generation: u64,
     /// The data tables as the script namespace holds them (`data_tables`),
     /// kept so a pack's tables can be added to them when it mounts.
+    #[cfg(feature = "packs")]
     data_tables: serde_json::Map<String, serde_json::Value>,
     /// Graph-material pipelines, per shader graph, blend and format.
     graph_pipelines: jengine_core::renderer::graph_pipeline_cache::GraphPipelineCache,
@@ -389,6 +477,8 @@ struct WebApp {
     /// millisecond in WebKit and jitters everywhere (`jengine_core::time`).
     refresh_estimate: jengine_core::time::RefreshEstimate,
     pacer: jengine_core::time::FramePacer,
+    /// Gameplay in fixed steps when the project asks (`settings.simulation_hz`).
+    fixed_step: jengine_core::ecs::fixed_step::FixedStep,
     /// When the runtime started (`performance().now()`), for the sprite
     /// batch's clock - what a graph's `TimeInput` reads.
     start_time: f64,
@@ -425,6 +515,7 @@ struct WebApp {
     tween_manager: jengine_core::animation::tween::TweenManager,
     /// The videos playing (`jengine_core::video`), each a `<video>` element
     /// loading its file from `assets/`.
+    #[cfg(feature = "video")]
     video: jengine_core::video::VideoSystem,
     /// True once scripts compiled and `init` ran — gates the per-frame hook.
     play_namespace_ready: bool,
@@ -539,11 +630,13 @@ struct WebApp {
 /// `wgpu_scene_runner`) rather than re-reading the file: a pop returns to
 /// the world as it was, not to the scene's authored state.
 struct SceneSnapshot {
-    scene_json: String,
+    /// The world as a v2 scene, kept parsed: a pop hands it straight to
+    /// `apply_scene`, where a string had to be written and read back.
+    scene: serde_json::Value,
     scripts: Vec<script_host::LoadedScript>,
     /// The effect chain the pushed-over scene was rendering with. The
     /// snapshot JSON cannot carry it (`SceneDataV2` has no `post_process`
-    /// field), and `apply_scene_json` replaces the chain from the scene it
+    /// field), and `apply_scene` replaces the chain from the scene it
     /// loads, so a pop without this drops the effects (BUGS #84).
     post_process: jengine_core::renderer::postprocess::PostProcessSettings,
 }
@@ -607,7 +700,6 @@ pub fn start() {
 pub fn run() {
     console_error_panic_hook::set_once();
     let _ = console_log_init();
-    console_log!("jEngine web runtime (wgpu) initializing...");
     wasm_bindgen_futures::spawn_local(async move {
         if let Err(e) = init_and_run().await {
             console_error!("jEngine init failed: {:?}", e);
@@ -674,8 +766,13 @@ fn ui_scale_from_settings(
 }
 
 async fn init_and_run() -> Result<(), JsValue> {
-    // 1. Load project.jengine (best-effort — defaults if missing).
-    let project: WebProjectFile = match fetch_text("project.jengine").await {
+    // 1. Load project.jengine (best-effort — defaults if missing), and the
+    // bundle of small assets with it, before anything is fetched by name.
+    let (project_text, bundle_text) = futures_util::join!(
+        fetch_text("project.jengine"),
+        fetch_text("assets/asset_bundle.json")
+    );
+    let project: WebProjectFile = match project_text {
         Ok(text) => serde_json::from_str(&text)
             .map_err(|e| JsValue::from_str(&format!("parse project.jengine: {e}")))?,
         Err(_) => {
@@ -684,6 +781,14 @@ async fn init_and_run() -> Result<(), JsValue> {
         }
     };
     let s = &project.settings;
+    if s.logging == Some(false) {
+        LOGS.store(false, std::sync::atomic::Ordering::Relaxed);
+        log::set_max_level(log::LevelFilter::Warn);
+    }
+    console_log!("jEngine web runtime (wgpu) initializing...");
+    if let Ok(text) = &bundle_text {
+        install_asset_bundle(text);
+    }
     let width = s.width.unwrap_or(1280);
     let height = s.height.unwrap_or(720);
     let entry_scene = s
@@ -699,6 +804,7 @@ async fn init_and_run() -> Result<(), JsValue> {
     // Asset packs, and the ones the Cache API still holds, before any scene:
     // a script must never see a cached pack as remote. Only a project that
     // declares packs asks for the manifest, so no other build logs a 404.
+    #[cfg(feature = "packs")]
     let pack_manifest = if s.asset_packs.packs.is_empty() {
         None
     } else {
@@ -706,7 +812,11 @@ async fn init_and_run() -> Result<(), JsValue> {
     };
     // Live ops first: the snapshot believed last time names a content
     // release the packs are laid under before anything mounts.
+    #[cfg(feature = "liveops")]
     let live = jengine_core::liveops::web::init(&serde_json::json!({ "liveops": s.liveops, "app": s.app }), false);
+    #[cfg(all(feature = "packs", not(feature = "liveops")))]
+    let live = None;
+    #[cfg(feature = "packs")]
     jengine_core::asset::packs::web::init(pack_manifest, &s.asset_packs, live.as_ref()).await;
 
     console_log!(
@@ -722,48 +832,31 @@ async fn init_and_run() -> Result<(), JsValue> {
     canvas.set_width(width);
     canvas.set_height(height);
 
-    // 3. Fetch + parse scene.
-    let scene_json = fetch_text(&asset_url(&entry_scene)).await?;
+    // 3. Fetch + parse scene - and, at the same time, the prefabs, the
+    // script modules and the data tables, none of which needs the scene.
+    let (scene_url, table_urls) = (asset_url(&entry_scene), asset_urls(&s.data_tables));
+    let (scene_text, prefab_sources, project_scripts, data_table_texts) = futures_util::join!(
+        fetch_text(&scene_url),
+        fetch_prefab_sources(&s.prefabs),
+        fetch_project_scripts(),
+        fetch_all_text(&table_urls),
+    );
+    // Parsed once, here: every step after reads or rewrites this value, where
+    // each used to parse the text again (nine times for one scene).
+    let mut scene: serde_json::Value = serde_json::from_str(&scene_text?)
+        .map_err(|e| JsValue::from_str(&format!("parse scene: {e}")))?;
 
-    // 3.b — Backlog 2.2: fetch any project-listed prefabs and expand
-    // `prefab_instance` entries before loading. v2 scenes pass through
-    // untouched (handled by the expansion helper); a missing prefab
-    // logs a warning and leaves the marker in place so the
+    // 3.b — Backlog 2.2: expand `prefab_instance` entries before loading.
+    // v2 scenes pass through untouched (handled by the expansion helper); a
+    // missing prefab logs a warning and leaves the marker in place so the
     // diagnostic is visible.
-    // The web builder writes `assets/prefab_manifest.json` listing every
-    // `.prefab` it copied, but nothing ever populates `settings.prefabs` —
-    // so on a stock build this list was empty and `spawn_prefab` had
-    // nothing to spawn. Prefer an explicit project list when present, fall
-    // back to the manifest.
-    let mut prefab_paths: Vec<String> = s.prefabs.clone();
-    if prefab_paths.is_empty() {
-        #[derive(Deserialize)]
-        struct PrefabManifest {
-            #[serde(default)]
-            prefabs: Vec<String>,
-        }
-        match fetch_text("assets/prefab_manifest.json").await {
-            Ok(text) => match serde_json::from_str::<PrefabManifest>(&text) {
-                Ok(m) => {
-                    if !m.prefabs.is_empty() {
-                        console_log!("prefab manifest: {} prefab(s)", m.prefabs.len());
-                    }
-                    prefab_paths = m.prefabs;
-                }
-                Err(e) => console_warn!("parse prefab_manifest.json: {}", e),
-            },
-            // No manifest is normal for hand-assembled web roots.
-            Err(_) => {}
-        }
-    }
-
     let mut prefab_map: std::collections::HashMap<
         String,
         jengine_core::scene::format::EntityData,
     > = std::collections::HashMap::new();
-    for prefab_path in &prefab_paths {
-        match fetch_text(&asset_url(prefab_path)).await {
-            Ok(text) => match jengine_core::scene::parse_prefab(prefab_path, &text) {
+    for (prefab_path, result) in &prefab_sources {
+        match result {
+            Ok(text) => match jengine_core::scene::parse_prefab(prefab_path, text) {
                 Ok((key, entity_data)) => {
                     prefab_map.insert(key, entity_data);
                 }
@@ -779,7 +872,7 @@ async fn init_and_run() -> Result<(), JsValue> {
     // A variant extends another prefab (`scene::prefab::resolve_prefab_variants`);
     // `app.prefab_map` keeps this, so later scenes and spawns see it resolved.
     let prefab_map = jengine_core::scene::resolve_prefab_variants(&prefab_map);
-    let scene_json = jengine_core::scene::expand_prefab_instances_in_json(&scene_json, &prefab_map, "web");
+    jengine_core::scene::expand_prefab_instances_in_value(&mut scene, &prefab_map, "web");
 
     // Hand the prefab map to the script namespace so `spawn_prefab` has
     // component data to spawn (the browser wrapper reads
@@ -797,10 +890,9 @@ async fn init_and_run() -> Result<(), JsValue> {
     // silently, so a build running on it should be loud about why.
     report_lua_runtime();
 
-    // Every `.lua` / `.js` in the project, for `require()`. Must happen
-    // before the first script compiles: module resolution is synchronous
-    // inside the VM, so nothing can be fetched on demand.
-    let project_scripts = fetch_project_scripts().await;
+    // Every `.lua` / `.js` in the project, for `require()` (fetched above).
+    // Must happen before the first script compiles: module resolution is
+    // synchronous inside the VM, so nothing can be fetched on demand.
     if !project_scripts.is_empty() {
         let mut map = serde_json::Map::new();
         for (path, source) in &project_scripts {
@@ -825,16 +917,17 @@ async fn init_and_run() -> Result<(), JsValue> {
     // Inline `.anim` `clip_source` references. The component itself never
     // loads anything, so without this an animator that points at a shared
     // `.anim` file starts with zero clips and the sprite never animates.
-    let scene_json = inline_anim_sources_web(&scene_json).await;
+    inline_anim_sources_web(&mut scene).await;
 
     // 3.c — Data-oriented design: fetch every project-listed `.data` table and
     // seed `window.__jengine_play.data_tables` so the `get_data` script global
     // works identically to native + the editor viewport. Keyed by the table
     // path relative to `assets/` with the `.data` extension stripped.
+    #[cfg_attr(not(feature = "packs"), allow(unused_variables))]
     let data_tables = {
         let mut tables = serde_json::Map::new();
-        for table_path in &s.data_tables {
-            match fetch_text(&asset_url(table_path)).await {
+        for (table_path, result) in s.data_tables.iter().zip(data_table_texts) {
+            match result {
                 Ok(text) => match serde_json::from_str::<serde_json::Value>(&text) {
                     Ok(parsed) => {
                         let rows = parsed
@@ -907,54 +1000,15 @@ async fn init_and_run() -> Result<(), JsValue> {
     // owned.
     jengine_core::package::script_commands::install_global(package_host.take_script_commands());
 
+    // The scene-wide fields, kept; the scene itself goes to the loader whole.
+    let scene_header = jengine_core::scene::format::scene_header(&scene);
     let mut world = World::new();
-    load_scene_auto(&scene_json, &mut world, &registry)
+    load_scene_value(scene, &mut world, &registry)
         .map_err(|e| JsValue::from_str(&format!("parse scene: {e}")))?;
-    jengine_core::scene::set_current_name(&jengine_core::scene::name_of(&scene_json).unwrap_or_default());
+    jengine_core::scene::set_current_name(&jengine_core::scene::name_in(&scene_header).unwrap_or_default());
     console_log!("Loaded scene with {} entities", world.len());
 
-    // 4. Build wgpu renderer (async — adapter+device acquisition).
-    let renderer = WgpuRenderer::new_from_canvas_async_with_gpu(canvas.clone(), UVec2::new(width, height), gpu_preference)
-        .await
-        .map_err(|e| JsValue::from_str(&format!("WgpuRenderer init: {e}")))?;
-    log_browser_gpu().await;
-    // The world is drawn in `scene_format` (float where the adapter has one -
-    // WebGPU always does; WebGL2 may not); the batch switches to
-    // `color_format` for the UI, drawn onto the display after the post chain.
-    let sprite_batch = WgpuSpriteBatch::new(&renderer.device, renderer.scene_format)
-        .map_err(|e| JsValue::from_str(&format!("WgpuSpriteBatch init: {e}")))?;
-    let mut post_process = WgpuPostProcessStack::new(
-        &renderer.device,
-        width.max(1),
-        height.max(1),
-        renderer.scene_format,
-        renderer.color_format,
-    )
-    .map_err(|e| JsValue::from_str(&format!("WgpuPostProcessStack init: {e}")))?;
-    // The entry scene's authored chain, so effects render from frame 0 without
-    // a script re-toggling them - the same thing native does at startup.
-    post_process.set_settings(
-        jengine_core::renderer::postprocess::PostProcessSettings::from_scene_json(&scene_json)
-            .unwrap_or_default(),
-    );
-    let lit_sprite_batch = jengine_core::renderer::backend::wgpu::WgpuLitSpritePipeline::new(
-        &renderer.device,
-        renderer.scene_format,
-    )
-    .map_err(|e| JsValue::from_str(&format!("WgpuLitSpritePipeline init: {e}")))?;
-    let flat_normal = jengine_core::renderer::backend::wgpu::WgpuLitSpritePipeline::flat_normal_texture(
-        &renderer.device,
-        &renderer.queue,
-    );
-    let light_pass = WgpuLightingPass::new(
-        &renderer.device,
-        width.max(1),
-        height.max(1),
-        renderer.scene_format,
-    )
-    .map_err(|e| JsValue::from_str(&format!("WgpuLightingPass init: {e}")))?;
-
-    // 5. Pre-load all sprite textures + GUI documents via fetch.
+    // 4. The asset cache, with what the engine draws by itself.
     let mut assets = AssetManager::new();
     assets.set_texture_filters(texture_filters);
 
@@ -983,61 +1037,104 @@ async fn init_and_run() -> Result<(), JsValue> {
     // A distance field (`renderer::text`): drawn sharp at any size.
     assets.mark_sdf(BUILTIN_FONT_ID);
 
-    fetch_world_textures(&world, &mut assets).await;
-    insert_atlases(&mut assets, fetch_scene_atlases(&scene_json).await);
-    fetch_world_guis(&world, &mut assets).await;
-    fetch_world_fonts(&world, &mut assets).await;
-    load_skeletal_clips(&mut assets).await;
-
-    // Prefab textures too — nothing in the scene references them until a
-    // script spawns one, and by then there is no way to fetch.
-    {
-        let ids: Vec<String> = prefab_texture_ids(&prefab_map)
-            .into_iter()
-            .filter(|id| assets.get_texture_bytes(id).is_none())
-            .collect();
-        if !ids.is_empty() {
-            console_log!("preloading {} prefab texture(s)", ids.len());
-            for (id, raw) in fetch_textures(ids).await {
-                assets.insert_texture_bytes(id, raw);
-            }
-        }
+    // 5. The wgpu renderer (adapter + device acquisition) and, while it comes
+    // up, everything the entry scene needs. Prefab textures too: nothing in
+    // the scene names them until a script spawns one, and by then there is
+    // no way to fetch.
+    let mut wanted = wanted_texture_ids(&world);
+    let prefab_textures = prefab_texture_ids(&prefab_map);
+    if !prefab_textures.is_empty() {
+        console_log!("preloading {} prefab texture(s)", prefab_textures.len());
     }
-
-    // Behavior graphs referenced by this scene.
+    wanted.extend(prefab_textures);
+    let texture_ids: Vec<String> = wanted.into_iter().filter(|id| assets.get_texture_bytes(id).is_none()).collect();
+    let gui_ids: Vec<String> = wanted_gui_ids(&world).into_iter().collect();
+    let font_ids = missing_font_ids(&world, &assets);
+    let mut behavior_paths = world_behavior_paths(&world);
+    behavior_paths.extend(prefab_behavior_paths(&prefab_map));
     let mut pending_behaviors: std::collections::HashMap<String, String> =
         std::collections::HashMap::new();
-    fetch_world_behaviors(&world, &mut pending_behaviors).await;
-    for path in prefab_behavior_paths(&prefab_map) {
-        if pending_behaviors.contains_key(&path) {
-            continue;
-        }
-        match fetch_text(&asset_url(&path)).await {
-            Ok(text) => {
-                pending_behaviors.insert(path, text);
-            }
-            Err(e) => console_warn!("fetch prefab behavior '{}': {:?}", path, e),
+    let gui_side = async {
+        let guis = fetch_guis(gui_ids).await;
+        let (texture_ids, gui_font_ids) = gui_part_ids(&guis, &font_ids, &assets);
+        let (textures, fonts) = futures_util::join!(fetch_textures(texture_ids), fetch_fonts(gui_font_ids));
+        (guis, textures, fonts)
+    };
+    let (renderer, textures, (guis, gui_textures, gui_fonts), fonts, atlases, skeletal, (), audio_clips, loaded_scripts, sort_layers) = futures_util::join!(
+        WgpuRenderer::new_from_canvas_async_with_gpu(canvas.clone(), UVec2::new(width, height), gpu_preference),
+        fetch_textures(texture_ids),
+        gui_side,
+        fetch_fonts(font_ids.clone()),
+        fetch_scene_atlases(&scene_header),
+        fetch_text("assets/skelanim_manifest.json"),
+        fetch_behaviors(behavior_paths, &mut pending_behaviors),
+        fetch_scene_audio_bytes(&scene_header),
+        // Feature 3.7 — user script sources referenced by ScriptComponents,
+        // so behavior matches native + the editor viewport; compilation and
+        // init happen after the app is built (see `install_scripts` below).
+        fetch_world_scripts(&world),
+        // Scene-level sort layers — the same fetch the transition path uses.
+        fetch_scene_sort_layers(&scene_header),
+    );
+    let renderer = renderer.map_err(|e| JsValue::from_str(&format!("WgpuRenderer init: {e}")))?;
+    log_browser_gpu().await;
+    // The world is drawn in `scene_format` (float where the adapter has one -
+    // WebGPU always does; WebGL2 may not); the batch switches to
+    // `color_format` for the UI, drawn onto the display after the post chain.
+    let sprite_batch = WgpuSpriteBatch::new(&renderer.device, renderer.scene_format)
+        .map_err(|e| JsValue::from_str(&format!("WgpuSpriteBatch init: {e}")))?;
+    let mut post_process = WgpuPostProcessStack::new(
+        &renderer.device,
+        width.max(1),
+        height.max(1),
+        renderer.scene_format,
+        renderer.color_format,
+    )
+    .map_err(|e| JsValue::from_str(&format!("WgpuPostProcessStack init: {e}")))?;
+    // The entry scene's authored chain, so effects render from frame 0 without
+    // a script re-toggling them - the same thing native does at startup.
+    post_process.set_settings(
+        jengine_core::renderer::postprocess::PostProcessSettings::from_scene_value(&scene_header)
+            .unwrap_or_default(),
+    );
+    let lit_sprite_batch = jengine_core::renderer::backend::wgpu::WgpuLitSpritePipeline::new(
+        &renderer.device,
+        renderer.scene_format,
+    )
+    .map_err(|e| JsValue::from_str(&format!("WgpuLitSpritePipeline init: {e}")))?;
+    let flat_normal = jengine_core::renderer::backend::wgpu::WgpuLitSpritePipeline::flat_normal_texture(
+        &renderer.device,
+        &renderer.queue,
+    );
+    let light_pass = WgpuLightingPass::new(
+        &renderer.device,
+        width.max(1),
+        height.max(1),
+        renderer.scene_format,
+    )
+    .map_err(|e| JsValue::from_str(&format!("WgpuLightingPass init: {e}")))?;
+
+
+    for (id, raw) in textures.into_iter().chain(gui_textures) {
+        assets.insert_texture_bytes(id, raw);
+    }
+    insert_atlases(&mut assets, atlases);
+    for (id, doc) in guis {
+        assets.insert_gui(id, doc);
+    }
+    insert_fonts(&mut assets, fonts.into_iter().chain(gui_fonts).collect());
+    install_skeletal_clips(&mut assets, skeletal);
+    if let Some((id, text)) = sort_layers {
+        match assets.load_sort_layers_from_str(&id, &text) {
+            Ok(()) => assets.set_active_sort_layers(Some(id)),
+            Err(e) => console_log!("[web] sort_layers parse failed: {e:#}"),
         }
     }
 
     // Audio clips declared in the scene's top-level `audio_refs`. Decoding
     // is async inside the backend; clips become playable a few ms later.
     let mut web_audio = jengine_core::audio::web_audio::WebAudioBackend::new();
-    fetch_scene_audio(&scene_json, &mut web_audio).await;
-
-    // Feature 3.7 — fetch user script sources referenced by ScriptComponents
-    // so behavior matches native + the editor viewport. Sources are fetched
-    // up-front (deduped) here; compilation + init happen after the app is
-    // built (see `install_scripts` below).
-    let loaded_scripts = fetch_world_scripts(&world).await;
-
-    // Scene-level sort layers — the same fetch the transition path uses.
-    if let Some((id, text)) = fetch_scene_sort_layers(&scene_json).await {
-        match assets.load_sort_layers_from_str(&id, &text) {
-            Ok(()) => assets.set_active_sort_layers(Some(id)),
-            Err(e) => console_log!("[web] sort_layers parse failed: {e:#}"),
-        }
-    }
+    load_audio_clips(&mut web_audio, audio_clips);
 
     // 6. Apply background clear color.
     let mut renderer = renderer;
@@ -1094,7 +1191,9 @@ async fn init_and_run() -> Result<(), JsValue> {
         assets,
         missing_warned: HashSet::new(),
         texture_requested: HashSet::new(),
+        #[cfg(feature = "packs")]
         packs_generation: jengine_core::asset::packs::generation(),
+        #[cfg(feature = "packs")]
         data_tables,
         graph_pipelines: jengine_core::renderer::graph_pipeline_cache::GraphPipelineCache::new(),
         shader_graphs: std::collections::HashMap::new(),
@@ -1126,6 +1225,13 @@ async fn init_and_run() -> Result<(), JsValue> {
         last_time: performance().now(),
         refresh_estimate: jengine_core::time::RefreshEstimate::new(),
         pacer: jengine_core::time::FramePacer::new(),
+        fixed_step: {
+            // The project's rate, or the first scene's own.
+            let mut f = jengine_core::ecs::fixed_step::FixedStep::new();
+            f.set_hz(s.simulation_hz.unwrap_or(0.0));
+            f.enter_scene(jengine_core::ecs::fixed_step::scene_simulation_hz(&scene_header));
+            f
+        },
         start_time: performance().now(),
         time_scale: 1.0,
         host: platform::HostState::default(),
@@ -1138,11 +1244,15 @@ async fn init_and_run() -> Result<(), JsValue> {
         spawn_notified: std::collections::HashSet::new(),
         script_cache: std::collections::HashMap::new(),
         tween_manager: jengine_core::animation::tween::TweenManager::new(),
+        #[cfg(feature = "video")]
         video: jengine_core::video::VideoSystem::new(Box::new(|source: &str| {
             let url = asset_url(source);
             // A video from an asset pack plays from a Blob of its bytes.
             Some(Box::new(jengine_core::video::web::WebVideoDecoder::new(Box::new(move || {
-                Some(jengine_core::asset::packs::web::blob_url(&url).unwrap_or_else(|| url.clone()))
+                #[cfg(feature = "packs")]
+                return Some(jengine_core::asset::packs::web::blob_url(&url).unwrap_or_else(|| url.clone()));
+                #[cfg(not(feature = "packs"))]
+                return Some(url.clone());
             })))
                 as Box<dyn jengine_core::video::VideoDecoder>)
         })),
@@ -1174,7 +1284,7 @@ async fn init_and_run() -> Result<(), JsValue> {
             jengine_core::physics::ray::RaySnapshot::new(),
         )),
         physics_config,
-        path_library: build_path_library(&scene_json),
+        path_library: build_path_library(&scene_header),
         gui_scroll: Default::default(),
         current_scripts: loaded_scripts.clone(),
         scene_stack: Vec::new(),
@@ -1224,6 +1334,7 @@ async fn init_and_run() -> Result<(), JsValue> {
             poll_scene_transition(&app_loop);
             // Scenes streamed in or preloaded (`Scene.load_additive`).
             poll_streaming(&app_loop);
+            #[cfg(feature = "packs")]
             poll_asset_packs(&app_loop);
             poll_missing_textures(&app_loop);
             poll_missing_materials(&app_loop);
@@ -1252,8 +1363,8 @@ async fn init_and_run() -> Result<(), JsValue> {
 ///
 /// `None` when the scene declares none, which `update_patrol_paths` tolerates
 /// and which keeps the common case free.
-fn build_path_library(scene_json: &str) -> Option<jengine_core::ecs::path::Path2DLibrary> {
-    let meta = jengine_core::scene::format::read_scene_metadata(scene_json).ok()?;
+fn build_path_library(scene: &serde_json::Value) -> Option<jengine_core::ecs::path::Path2DLibrary> {
+    let meta = jengine_core::scene::format::scene_metadata(scene);
     if meta.paths.is_empty() {
         return None;
     }
@@ -1270,9 +1381,11 @@ fn build_path_library(scene_json: &str) -> Option<jengine_core::ecs::path::Path2
 /// prefabs (and their behaviour graphs), the scripts `require` can reach,
 /// data tables, skeletal clips and rigs. A script on an entity needs
 /// nothing - it is fetched when its scene loads, through `fetch_text`.
+#[cfg(feature = "packs")]
 fn poll_asset_packs(app_cell: &Rc<RefCell<WebApp>>) {
     use jengine_core::asset::packs;
     // Live ops first: a snapshot it believes may change the packs.
+    #[cfg(feature = "liveops")]
     jengine_core::liveops::web::sync();
     packs::web::sync();
     let generation = packs::generation();
@@ -1376,9 +1489,10 @@ fn poll_missing_materials(app_cell: &Rc<RefCell<WebApp>>) {
     if ids.is_empty() {
         return;
     }
-    let app_cell = app_cell.clone();
-    wasm_bindgen_futures::spawn_local(async move {
-        for mid in ids {
+    // Each material on its own, so several arrive together.
+    for mid in ids {
+        let app_cell = app_cell.clone();
+        wasm_bindgen_futures::spawn_local(async move {
             // As native looks: `assets/<id>.material`, then `<id>.material`.
             let mut json = None;
             for url in [asset_url(&format!("{mid}.material")), format!("{mid}.material")] {
@@ -1389,19 +1503,19 @@ fn poll_missing_materials(app_cell: &Rc<RefCell<WebApp>>) {
             }
             let Some(json) = json else {
                 console_warn!("material '{}' has no .material file - drawn with the default shader", mid);
-                continue;
+                return;
             };
             let graph_path = {
                 let mut app = app_cell.borrow_mut();
                 if let Err(e) = app.assets.load_material_from_str(&mid, &json) {
                     console_warn!("material '{}': {:#}", mid, e);
-                    continue;
+                    return;
                 }
                 app.assets.get_material(&mid).and_then(|m| m.shader_graph_path.clone())
             };
-            let Some(path) = graph_path else { continue };
+            let Some(path) = graph_path else { return };
             if app_cell.borrow().shader_graphs.contains_key(&path) {
-                continue;
+                return;
             }
             match fetch_text(&asset_url(&path)).await {
                 Ok(text) => match serde_json::from_str::<jengine_core::renderer::shader_graph::ShaderGraph>(&text) {
@@ -1412,8 +1526,8 @@ fn poll_missing_materials(app_cell: &Rc<RefCell<WebApp>>) {
                 },
                 Err(e) => console_warn!("fetch shader graph '{}': {:?}", path, e),
             }
-        }
-    });
+        });
+    }
 }
 
 /// This runtime's part of `ecs::frame_draw`: materials are looked up among
@@ -1537,15 +1651,16 @@ async fn stream_scene(
         Some(h) => st::set_status(h, Status::Loading(p)),
         None => st::set_preload(rel_path, Status::Loading(p)),
     };
-    let text = fetch_text(&asset_url(rel_path)).await?;
-    let scene_json = inline_anim_sources_web(&text).await;
+    let mut scene = parse_scene(&fetch_text(&asset_url(rel_path)).await?)?;
+    inline_anim_sources_web(&mut scene).await;
     let (prefab_map, registry) = {
         let app = app_cell.borrow();
         (app.prefab_map.clone(), app.registry.clone())
     };
-    let scene_json = jengine_core::scene::expand_prefab_instances_in_json(&scene_json, &prefab_map, "web");
+    jengine_core::scene::expand_prefab_instances_in_value(&mut scene, &prefab_map, "web");
+    let scene_header = jengine_core::scene::format::scene_header(&scene);
     let mut chunk = World::new();
-    load_scene_auto(&scene_json, &mut chunk, &registry).map_err(|e| JsValue::from_str(&format!("load scene: {e}")))?;
+    load_scene_value(scene, &mut chunk, &registry).map_err(|e| JsValue::from_str(&format!("load scene: {e}")))?;
     progress(0.1);
     let (missing_textures, missing_guis, missing_fonts, mut behaviors) = {
         let app = app_cell.borrow();
@@ -1556,24 +1671,39 @@ async fn stream_scene(
         let guis: Vec<String> = wanted_gui_ids(&chunk).into_iter().filter(|id| app.assets.get_gui(id).is_none()).collect();
         (tex, guis, missing_font_ids(&chunk, &app.assets), app.pending_behaviors.clone())
     };
-    // Textures one at a time, so the progress moves as they arrive.
+    // Every texture at once, each installed as it lands so the progress
+    // moves with them.
     let n = missing_textures.len().max(1) as f32;
-    for (i, id) in missing_textures.into_iter().enumerate() {
-        for (id, raw) in fetch_textures(vec![id]).await {
-            app_cell.borrow_mut().assets.insert_texture_bytes(id, raw);
+    let done = std::cell::Cell::new(0usize);
+    let textures = futures_util::future::join_all(missing_textures.into_iter().map(|id| {
+        let done = &done;
+        async move {
+            for (id, raw) in fetch_textures(vec![id]).await {
+                app_cell.borrow_mut().assets.insert_texture_bytes(id, raw);
+            }
+            done.set(done.get() + 1);
+            progress(0.1 + 0.7 * done.get() as f32 / n);
         }
-        progress(0.1 + 0.7 * (i + 1) as f32 / n);
-    }
-    let guis = fetch_guis(missing_guis).await;
-    let gui_textures = {
-        let ids = gui_texture_ids(&guis, &app_cell.borrow().assets);
-        fetch_textures(ids).await
+    }));
+    let gui_side = async {
+        let guis = fetch_guis(missing_guis).await;
+        let (texture_ids, font_ids) = gui_part_ids(&guis, &missing_fonts, &app_cell.borrow().assets);
+        let (textures, fonts) = futures_util::join!(fetch_textures(texture_ids), fetch_fonts(font_ids));
+        (guis, textures, fonts)
     };
-    let fonts = fetch_fonts(missing_fonts).await;
-    fetch_world_behaviors(&chunk, &mut behaviors).await;
-    let audio_clips = fetch_scene_audio_bytes(&scene_json).await;
-    let atlases = fetch_scene_atlases(&scene_json).await;
-    let scripts = if handle.is_some() { fetch_world_scripts(&chunk).await } else { Vec::new() };
+    let scripts = async {
+        if handle.is_some() { fetch_world_scripts(&chunk).await } else { Vec::new() }
+    };
+    let (_, (guis, gui_textures, gui_fonts), mut fonts, (), audio_clips, atlases, scripts) = futures_util::join!(
+        textures,
+        gui_side,
+        fetch_fonts(missing_fonts.clone()),
+        fetch_world_behaviors(&chunk, &mut behaviors),
+        fetch_scene_audio_bytes(&scene_header),
+        fetch_scene_atlases(&scene_header),
+        scripts,
+    );
+    fonts.extend(gui_fonts);
 
     let mut app = app_cell.borrow_mut();
     insert_atlases(&mut app.assets, atlases);
@@ -1653,14 +1783,20 @@ async fn load_scene_transition(
     push: bool,
 ) -> Result<(), JsValue> {
     console_log!("scene transition -> {}", rel_path);
-    let text = fetch_text(&asset_url(rel_path)).await?;
-    let scene_json = inline_anim_sources_web(&text).await;
+    let mut scene = parse_scene(&fetch_text(&asset_url(rel_path)).await?)?;
+    inline_anim_sources_web(&mut scene).await;
     let (prefab_map, registry) = {
         let app = app_cell.borrow();
         (app.prefab_map.clone(), app.registry.clone())
     };
-    let scene_json = jengine_core::scene::expand_prefab_instances_in_json(&scene_json, &prefab_map, "web");
-    apply_scene_json(app_cell, scene_json, &registry, push).await
+    jengine_core::scene::expand_prefab_instances_in_value(&mut scene, &prefab_map, "web");
+    apply_scene(app_cell, scene, &registry, push).await
+}
+
+/// A scene's text, parsed - the one parse it gets: everything after reads or
+/// rewrites the value.
+fn parse_scene(text: &str) -> Result<serde_json::Value, JsValue> {
+    serde_json::from_str(text).map_err(|e| JsValue::from_str(&format!("load scene: {e}")))
 }
 
 /// Restore the scene most recently pushed by `push_scene`.
@@ -1677,12 +1813,12 @@ async fn pop_scene(app_cell: &Rc<RefCell<WebApp>>) -> Result<(), JsValue> {
         }
     };
     console_log!("scene transition <- pop");
-    apply_scene_json(app_cell, snapshot.scene_json.clone(), &registry, false).await?;
+    apply_scene(app_cell, snapshot.scene.clone(), &registry, false).await?;
     // A pop restores the scripts the snapshot was running, not whatever the
     // scene file declares — the world came back mid-flight, so its scripts
     // must too.
     let mut app = app_cell.borrow_mut();
-    // `apply_scene_json` above set the chain from the snapshot's JSON, which
+    // `apply_scene` above set the chain from the snapshot's JSON, which
     // has no `post_process` block - so put back the one the scene was
     // actually rendering with.
     app.post_process.set_settings(snapshot.post_process.clone());
@@ -1692,24 +1828,26 @@ async fn pop_scene(app_cell: &Rc<RefCell<WebApp>>) -> Result<(), JsValue> {
     Ok(())
 }
 
-/// Build a world from `scene_json`, fetch everything it needs, and swap it
+/// Build a world from `scene`, fetch everything it needs, and swap it
 /// in — the shared tail of load / push / pop.
 ///
 /// All fetching happens before any `RefCell` borrow is held, so the render
 /// loop keeps drawing the outgoing scene while assets arrive; the swap
 /// itself is one synchronous borrow.
-async fn apply_scene_json(
+async fn apply_scene(
     app_cell: &Rc<RefCell<WebApp>>,
-    scene_json: String,
+    scene: serde_json::Value,
     registry: &ComponentRegistry,
     push: bool,
 ) -> Result<(), JsValue> {
+    // The scene-wide fields, kept; the scene itself goes to the loader whole.
+    let scene_header = jengine_core::scene::format::scene_header(&scene);
     let mut world = World::new();
-    load_scene_auto(&scene_json, &mut world, registry)
+    load_scene_value(scene, &mut world, registry)
         .map_err(|e| JsValue::from_str(&format!("load scene: {e}")))?;
 
     // Assets the new world needs that the cache doesn't already hold.
-    let (missing_textures, missing_guis, missing_fonts, mut behaviors) = {
+    let (missing_textures, missing_guis, missing_fonts, mut behaviors, behavior_paths) = {
         let app = app_cell.borrow();
         let mut wanted = wanted_texture_ids(&world);
         // Prefabs are project-wide, so a scene entered later can spawn one
@@ -1724,44 +1862,40 @@ async fn apply_scene_json(
             .filter(|id| app.assets.get_gui(id).is_none())
             .collect();
         let fonts = missing_font_ids(&world, &app.assets);
-        (tex, guis, fonts, app.pending_behaviors.clone())
+        let mut paths = world_behavior_paths(&world);
+        paths.extend(prefab_behavior_paths(&app.prefab_map));
+        (tex, guis, fonts, app.pending_behaviors.clone(), paths)
     };
-    let textures = fetch_textures(missing_textures).await;
-    let guis = fetch_guis(missing_guis).await;
-    let gui_textures = {
-        let ids = gui_texture_ids(&guis, &app_cell.borrow().assets);
-        fetch_textures(ids).await
+    // All of it at once (`fetch_all_bytes`); the old scene keeps drawing.
+    let gui_side = async {
+        let guis = fetch_guis(missing_guis).await;
+        let (texture_ids, font_ids) = gui_part_ids(&guis, &missing_fonts, &app_cell.borrow().assets);
+        let (textures, fonts) = futures_util::join!(fetch_textures(texture_ids), fetch_fonts(font_ids));
+        (guis, textures, fonts)
     };
-    let fonts = fetch_fonts(missing_fonts).await;
-    fetch_world_behaviors(&world, &mut behaviors).await;
-    {
-        let paths = {
-            let app = app_cell.borrow();
-            prefab_behavior_paths(&app.prefab_map)
-        };
-        for path in paths {
-            if behaviors.contains_key(&path) {
-                continue;
-            }
-            match fetch_text(&asset_url(&path)).await {
-                Ok(text) => {
-                    behaviors.insert(path, text);
-                }
-                Err(e) => console_warn!("fetch prefab behavior '{}': {:?}", path, e),
-            }
-        }
-    }
-    let audio_clips = fetch_scene_audio_bytes(&scene_json).await;
-    let atlases = fetch_scene_atlases(&scene_json).await;
-    let sort_layers = fetch_scene_sort_layers(&scene_json).await;
-    let scripts = fetch_world_scripts(&world).await;
+    let (textures, (guis, gui_textures, gui_fonts), mut fonts, (), audio_clips, atlases, sort_layers, scripts) = futures_util::join!(
+        fetch_textures(missing_textures),
+        gui_side,
+        fetch_fonts(missing_fonts.clone()),
+        fetch_behaviors(behavior_paths, &mut behaviors),
+        fetch_scene_audio_bytes(&scene_header),
+        fetch_scene_atlases(&scene_header),
+        fetch_scene_sort_layers(&scene_header),
+        fetch_world_scripts(&world),
+    );
+    fonts.extend(gui_fonts);
 
     // Snapshot the outgoing scene before it is dropped.
     let snapshot = if push {
         let app = app_cell.borrow();
         let data = jengine_core::scene::format::snapshot_scene_v2(&app.world, &app.registry);
-        serde_json::to_string(&data).ok().map(|scene_json| SceneSnapshot {
-            scene_json,
+        serde_json::to_value(&data).ok().map(|mut scene| {
+            if let (Some(hz), Some(obj)) = (app.fixed_step.scene_hz(), scene.as_object_mut()) {
+                obj.insert("simulation_hz".into(), serde_json::json!(hz));
+            }
+            scene
+        }).map(|scene| SceneSnapshot {
+            scene,
             scripts: app.current_scripts.clone(),
             post_process: app.post_process.settings().clone(),
         })
@@ -1800,7 +1934,7 @@ async fn apply_scene_json(
         },
         None => app.assets.set_active_sort_layers(None),
     }
-    app.path_library = build_path_library(&scene_json);
+    app.path_library = build_path_library(&scene_header);
 
     // The outgoing scene's scripts are about to stop existing. Fire their
     // `on_despawn` while the old world is still in place — it is the only
@@ -1813,7 +1947,11 @@ async fn apply_scene_json(
     app.world = world;
     // Its additive chunks went with the old world.
     jengine_core::scene::streaming::scene_replaced();
-    jengine_core::scene::set_current_name(&jengine_core::scene::name_of(&scene_json).unwrap_or_default());
+    // A new world owes no fixed-step time and has nothing to interpolate -
+    // and steps at its own `simulation_hz` if it chose one (a pushed scene's
+    // snapshot carries it in its header for the pop).
+    app.fixed_step.enter_scene(jengine_core::ecs::fixed_step::scene_simulation_hz(&scene_header));
+    jengine_core::scene::set_current_name(&jengine_core::scene::name_in(&scene_header).unwrap_or_default());
     app.particle_system = ParticleSystem::new();
     // The effect chain belongs to the scene, not to the session: a scene
     // declaring none gets none, rather than inheriting the last scene's
@@ -1822,7 +1960,7 @@ async fn apply_scene_json(
     // rendered without them and script-set effects followed the player into
     // every scene after (BUGS #84).
     app.post_process
-        .set_settings(jengine_core::renderer::postprocess::PostProcessSettings::from_scene_json(&scene_json).unwrap_or_default());
+        .set_settings(jengine_core::renderer::postprocess::PostProcessSettings::from_scene_value(&scene_header).unwrap_or_default());
     // Bindings point at entities of the outgoing scene.
     app.gui_click_callbacks.clear();
     app.behavior_system = jengine_core::behavior::BehaviorGraphSystem::new();
@@ -1858,6 +1996,36 @@ fn report_lua_runtime() {
             "Lua runtime: transpiler fallback - lua-runtime.js did not load.              Scripts are translated to JavaScript and may not match the editor.              See docs/web-lua-runtime-proposal.md"
         ),
     }
+}
+
+/// Every prefab's source, each with its path: the project's own list when it
+/// names one, else the web builder's `assets/prefab_manifest.json` - nothing
+/// ever populates `settings.prefabs`, so on a stock build that list was empty
+/// and `spawn_prefab` had nothing to spawn.
+async fn fetch_prefab_sources(listed: &[String]) -> Vec<(String, Result<String, JsValue>)> {
+    let mut paths: Vec<String> = listed.to_vec();
+    if paths.is_empty() {
+        #[derive(Deserialize)]
+        struct PrefabManifest {
+            #[serde(default)]
+            prefabs: Vec<String>,
+        }
+        match fetch_text("assets/prefab_manifest.json").await {
+            Ok(text) => match serde_json::from_str::<PrefabManifest>(&text) {
+                Ok(m) => {
+                    if !m.prefabs.is_empty() {
+                        console_log!("prefab manifest: {} prefab(s)", m.prefabs.len());
+                    }
+                    paths = m.prefabs;
+                }
+                Err(e) => console_warn!("parse prefab_manifest.json: {}", e),
+            },
+            // No manifest is normal for hand-assembled web roots.
+            Err(_) => {}
+        }
+    }
+    let fetched = fetch_all_text(&asset_urls(&paths)).await;
+    paths.into_iter().zip(fetched).collect()
 }
 
 /// Fetch every script the project ships, listed by the web builder in
@@ -1898,8 +2066,9 @@ async fn fetch_project_scripts() -> Vec<(String, String)> {
     // Fallback for a manifest written before sources were inlined: one
     // request per script, which is why the inlined form exists.
     let mut out = Vec::with_capacity(manifest.scripts.len());
-    for path in manifest.scripts {
-        match fetch_text(&asset_url(&path)).await {
+    let fetched = fetch_all_text(&asset_urls(&manifest.scripts)).await;
+    for (path, result) in manifest.scripts.into_iter().zip(fetched) {
+        match result {
             Ok(source) => out.push((path, source)),
             Err(e) => console_warn!("fetch script module '{}': {:?}", path, e),
         }
@@ -1957,6 +2126,7 @@ fn seed_data_tables(tables: &serde_json::Map<String, serde_json::Value>) {
 /// Add scripts to what `require` can reach - the Fengari shim's
 /// `prefab_scripts`, under both spellings as at boot, and the transpiler
 /// fallback's map.
+#[cfg(feature = "packs")]
 fn add_require_modules(scripts: &[(String, String)]) {
     let mut map = serde_json::Map::new();
     for (path, source) in scripts {
@@ -1972,12 +2142,12 @@ fn add_require_modules(scripts: &[(String, String)]) {
 /// Mirrors the native runner's `resolve_audio_refs`, which reads the same
 /// top-level array off the scene JSON and seeds the asset cache — scripts
 /// call `play_sound("sounds/hit.wav")` with the id as authored.
-async fn fetch_scene_audio(
-    scene_json: &str,
+fn load_audio_clips(
     audio: &mut jengine_core::audio::web_audio::WebAudioBackend,
+    clips: Vec<(String, Vec<u8>)>,
 ) {
     let mut loaded = 0usize;
-    for (clip_id, bytes) in fetch_scene_audio_bytes(scene_json).await {
+    for (clip_id, bytes) in clips {
         match audio.load_clip(&clip_id, &bytes) {
             Ok(()) => loaded += 1,
             Err(e) => console_warn!("decode audio '{}': {}", clip_id, e),
@@ -2013,7 +2183,7 @@ fn bind_pending_behavior_graphs(app: &mut WebApp) {
 /// finds; a browser can do neither, so until Sep 2026 a web build loaded
 /// none and every `SkeletalPlayer` held its bind pose. Loaded once at boot
 /// and kept across scenes: `play_animation` can name any clip, any time.
-async fn load_skeletal_clips(assets: &mut AssetManager) {
+fn install_skeletal_clips(assets: &mut AssetManager, manifest: Result<String, JsValue>) {
     #[derive(Deserialize)]
     struct ClipManifest {
         #[serde(default)]
@@ -2023,7 +2193,7 @@ async fn load_skeletal_clips(assets: &mut AssetManager) {
         rigs: std::collections::HashMap<String, serde_json::Value>,
     }
     // A build from before the manifest has no clips to find.
-    let Ok(text) = fetch_text("assets/skelanim_manifest.json").await else { return };
+    let Ok(text) = manifest else { return };
     let manifest: ClipManifest = match serde_json::from_str(&text) {
         Ok(m) => m,
         Err(e) => {
@@ -2068,23 +2238,36 @@ async fn fetch_world_behaviors(
     world: &World,
     cache: &mut std::collections::HashMap<String, String>,
 ) {
+    fetch_behaviors(world_behavior_paths(world), cache).await;
+}
+
+/// The `.behavior` graphs a world's entities name.
+fn world_behavior_paths(world: &World) -> HashSet<String> {
     use jengine_core::ecs::components::BehaviorGraphComponent;
-    let mut wanted: HashSet<String> = HashSet::new();
-    for (_, bg) in world.query::<&BehaviorGraphComponent>().iter() {
-        if !bg.graph_path.is_empty() && !cache.contains_key(&bg.graph_path) {
-            wanted.insert(bg.graph_path.clone());
-        }
-    }
-    for path in &wanted {
-        match fetch_text(&asset_url(path)).await {
+    world
+        .query::<&BehaviorGraphComponent>()
+        .iter()
+        .filter(|(_, bg)| !bg.graph_path.is_empty())
+        .map(|(_, bg)| bg.graph_path.clone())
+        .collect()
+}
+
+/// Fetch the graphs in `paths` that `cache` does not hold yet, into it.
+async fn fetch_behaviors(paths: HashSet<String>, cache: &mut std::collections::HashMap<String, String>) {
+    let wanted: Vec<String> = paths.into_iter().filter(|p| !cache.contains_key(p)).collect();
+    let fetched = fetch_all_text(&asset_urls(&wanted)).await;
+    let mut loaded = 0;
+    for (path, result) in wanted.into_iter().zip(fetched) {
+        match result {
             Ok(text) => {
-                cache.insert(path.clone(), text);
+                cache.insert(path, text);
+                loaded += 1;
             }
             Err(e) => console_warn!("fetch behavior '{}': {:?}", path, e),
         }
     }
-    if !wanted.is_empty() {
-        console_log!("loaded {} behavior graph(s)", wanted.len());
+    if loaded > 0 {
+        console_log!("loaded {} behavior graph(s)", loaded);
     }
 }
 
@@ -2093,26 +2276,23 @@ async fn fetch_world_behaviors(
 /// The disk-based twin is `animation::asset::resolve_anim_sources`; both
 /// funnel through the same `collect_clip_sources` / `inline_anim_sources`
 /// pair in jengine-core, so the browser and the native runtime rewrite the
-/// scene identically. Returns the scene JSON unchanged if it parses badly
-/// or references nothing.
-async fn inline_anim_sources_web(scene_json: &str) -> String {
+/// scene identically. A scene that references nothing is left as it was.
+async fn inline_anim_sources_web(value: &mut serde_json::Value) {
     use jengine_core::animation::asset::{
         collect_clip_sources, inline_anim_sources, parse_anim_asset, AnimAssetFile,
     };
 
-    let mut value: serde_json::Value = match serde_json::from_str(scene_json) {
-        Ok(v) => v,
-        Err(_) => return scene_json.to_string(),
-    };
-    let sources = collect_clip_sources(&value);
+    let sources = collect_clip_sources(value);
     if sources.is_empty() {
-        return scene_json.to_string();
+        return;
     }
 
     let mut loaded: std::collections::HashMap<String, AnimAssetFile> =
         std::collections::HashMap::new();
-    for src in sources {
-        match fetch_bytes(&asset_url(&src)).await {
+    let sources: Vec<String> = sources.into_iter().collect();
+    let fetched = fetch_all_bytes(&asset_urls(&sources)).await;
+    for (src, result) in sources.into_iter().zip(fetched) {
+        match result {
             Ok(bytes) => match parse_anim_asset(&bytes, &src) {
                 Ok(asset) => {
                     loaded.insert(src, asset);
@@ -2123,13 +2303,12 @@ async fn inline_anim_sources_web(scene_json: &str) -> String {
         }
     }
     let count = loaded.len();
-    for err in inline_anim_sources(&mut value, &loaded) {
+    for err in inline_anim_sources(value, &loaded) {
         console_warn!("inline .anim: {}", err);
     }
     if count > 0 {
         console_log!("inlined {} .anim clip source(s)", count);
     }
-    serde_json::to_string(&value).unwrap_or_else(|_| scene_json.to_string())
 }
 
 /// Texture ids a prefab can draw with.
@@ -2206,9 +2385,10 @@ fn wanted_gui_ids(world: &World) -> HashSet<String> {
 /// without holding a borrow on the app across an `await`.
 async fn fetch_textures(ids: Vec<String>) -> Vec<(String, RawTextureData)> {
     let mut out = Vec::new();
-    for tex_id in ids {
-        // Texture ids are relative to `assets/` (e.g. "sprites/foo.png").
-        match fetch_bytes(&asset_url(&tex_id)).await {
+    // Texture ids are relative to `assets/` (e.g. "sprites/foo.png").
+    let fetched = fetch_all_bytes(&asset_urls(&ids)).await;
+    for (tex_id, result) in ids.into_iter().zip(fetched) {
+        match result {
             Ok(bytes) => match RawTextureData::from_bytes(&bytes) {
                 Ok(raw) => {
                     console_log!(
@@ -2231,8 +2411,9 @@ async fn fetch_textures(ids: Vec<String>) -> Vec<(String, RawTextureData)> {
 /// Fetch + parse GUI documents by id.
 async fn fetch_guis(ids: Vec<String>) -> Vec<(String, GuiDocument)> {
     let mut out = Vec::new();
-    for gui_id in ids {
-        match fetch_text(&asset_url(&gui_id)).await {
+    let fetched = fetch_all_text(&asset_urls(&ids)).await;
+    for (gui_id, result) in ids.into_iter().zip(fetched) {
+        match result {
             Ok(text) => match load_gui(&text) {
                 Ok(doc) => {
                     console_log!("loaded gui '{}'", gui_id);
@@ -2244,16 +2425,6 @@ async fn fetch_guis(ids: Vec<String>) -> Vec<(String, GuiDocument)> {
         }
     }
     out
-}
-
-async fn fetch_world_textures(world: &World, assets: &mut AssetManager) {
-    let ids: Vec<String> = wanted_texture_ids(world)
-        .into_iter()
-        .filter(|id| assets.get_texture_bytes(id).is_none())
-        .collect();
-    for (id, raw) in fetch_textures(ids).await {
-        assets.insert_texture_bytes(id, raw);
-    }
 }
 
 /// Fetch each `.font` descriptor together with its sibling atlas image.
@@ -2269,35 +2440,45 @@ enum FetchedFont {
 }
 
 async fn fetch_fonts(ids: Vec<String>) -> Vec<FetchedFont> {
-    let mut out = Vec::new();
-    for font_id in ids {
-        if jengine_core::renderer::dynamic_font::is_font_file(&font_id) {
-            match fetch_bytes(&asset_url(&font_id)).await {
-                Ok(bytes) => out.push(FetchedFont::File(font_id, bytes)),
-                Err(e) => console_warn!("fetch font '{}': {:?}", font_id, e),
-            }
-            continue;
+    // Every font at once, and a descriptor together with its atlas.
+    let fonts = ids.into_iter().map(|font_id| async move {
+        if jengine_core::renderer::font_asset::is_font_file(&font_id) {
+            return match fetch_bytes(&asset_url(&font_id)).await {
+                Ok(bytes) => Some(FetchedFont::File(font_id, bytes)),
+                Err(e) => {
+                    console_warn!("fetch font '{}': {:?}", font_id, e);
+                    None
+                }
+            };
         }
         let texture_id = jengine_core::renderer::font_asset::font_texture_id(&font_id);
-        let json = match fetch_text(&asset_url(&font_id)).await {
+        let (json_url, atlas_url) = (asset_url(&font_id), asset_url(&texture_id));
+        let (json, atlas) = futures_util::join!(fetch_text(&json_url), fetch_bytes(&atlas_url));
+        let json = match json {
             Ok(t) => t,
             Err(e) => {
                 console_warn!("fetch font '{}': {:?}", font_id, e);
-                continue;
+                return None;
             }
         };
-        match fetch_bytes(&asset_url(&texture_id)).await {
+        match atlas {
             Ok(bytes) => match RawTextureData::from_bytes(&bytes) {
                 Ok(raw) => {
                     console_log!("loaded font '{}' (atlas '{}')", font_id, texture_id);
-                    out.push(FetchedFont::Bitmap(font_id, json, raw));
+                    Some(FetchedFont::Bitmap(font_id, json, raw))
                 }
-                Err(e) => console_warn!("decode font atlas '{}': {}", texture_id, e),
+                Err(e) => {
+                    console_warn!("decode font atlas '{}': {}", texture_id, e);
+                    None
+                }
             },
-            Err(e) => console_warn!("fetch font atlas '{}': {:?}", texture_id, e),
+            Err(e) => {
+                console_warn!("fetch font atlas '{}': {:?}", texture_id, e);
+                None
+            }
         }
-    }
-    out
+    });
+    futures_util::future::join_all(fonts).await.into_iter().flatten().collect()
 }
 
 /// Register fetched fonts, descriptor first so a parse failure leaves no
@@ -2308,8 +2489,14 @@ fn insert_fonts(assets: &mut AssetManager, fonts: Vec<FetchedFont>) {
         let (font_id, json, raw) = match font {
             FetchedFont::Bitmap(id, json, raw) => (id, json, raw),
             FetchedFont::File(id, bytes) => {
+                #[cfg(feature = "dynamic_font")]
                 if let Err(e) = jengine_core::renderer::dynamic_font::insert_font_file(assets, &id, &bytes) {
                     console_warn!("font '{}': {}", id, e);
+                }
+                #[cfg(not(feature = "dynamic_font"))]
+                {
+                    let _ = (id, bytes);
+                    jengine_core::features::missing("dynamic_font", "a TTF / OTF font");
                 }
                 continue;
             }
@@ -2340,26 +2527,6 @@ fn missing_font_ids(world: &World, assets: &AssetManager) -> Vec<String> {
         .collect()
 }
 
-async fn fetch_world_fonts(world: &World, assets: &mut AssetManager) {
-    let ids = missing_font_ids(world, assets);
-    let fonts = fetch_fonts(ids).await;
-    insert_fonts(assets, fonts);
-}
-
-async fn fetch_world_guis(world: &World, assets: &mut AssetManager) {
-    let ids: Vec<String> = wanted_gui_ids(world)
-        .into_iter()
-        .filter(|id| assets.get_gui(id).is_none())
-        .collect();
-    let guis = fetch_guis(ids).await;
-    for (id, raw) in fetch_textures(gui_texture_ids(&guis, assets)).await {
-        assets.insert_texture_bytes(id, raw);
-    }
-    for (id, doc) in guis {
-        assets.insert_gui(id, doc);
-    }
-}
-
 /// The textures `.gui` documents name - their `Image` nodes and rich-text
 /// icons - that are not loaded yet. Nothing else names them: the texture
 /// preload walks the world and the prefabs, and a document's images are in
@@ -2376,28 +2543,40 @@ fn gui_texture_ids(guis: &[(String, GuiDocument)], assets: &AssetManager) -> Vec
     ids.into_iter().filter(|id| assets.get_texture_bytes(id).is_none() && !id.starts_with("__")).collect()
 }
 
+/// The images and fonts the `.gui` documents just fetched name and nothing
+/// has loaded - or asked for, `fonts_asked` being the world's own. A
+/// document's fonts used to be looked for only among documents already
+/// cached, so a scene entered later drew its new menus in the built-in face.
+fn gui_part_ids(guis: &[(String, GuiDocument)], fonts_asked: &[String], assets: &AssetManager) -> (Vec<String>, Vec<String>) {
+    let mut fonts = HashSet::new();
+    for (_, doc) in guis {
+        jengine_core::renderer::font_asset::collect_gui_font_ids(doc, &mut fonts);
+    }
+    let fonts = fonts.into_iter().filter(|id| !assets.has_font_data(id) && !fonts_asked.contains(id)).collect();
+    (gui_texture_ids(guis, assets), fonts)
+}
+
 /// Fetch the script sources every `ScriptComponent` in a world points at,
 /// de-duplicated so a file shared by ten entities is fetched once.
 async fn fetch_world_scripts(world: &World) -> Vec<script_host::LoadedScript> {
     let requests = script_host::collect_script_requests(world);
+    let mut paths: Vec<String> = requests.iter().map(|r| r.source_path.clone()).collect();
+    paths.sort();
+    paths.dedup();
+    let fetched = fetch_all_text(&asset_urls(&paths)).await;
     let mut sources: std::collections::HashMap<String, String> =
         std::collections::HashMap::new();
+    for (path, result) in paths.into_iter().zip(fetched) {
+        match result {
+            Ok(text) => {
+                sources.insert(path, text);
+            }
+            Err(e) => console_warn!("fetch script {}: {:?}", path, e),
+        }
+    }
     let mut out = Vec::new();
     for req in requests {
-        let source = if let Some(cached) = sources.get(&req.source_path) {
-            cached.clone()
-        } else {
-            match fetch_text(&asset_url(&req.source_path)).await {
-                Ok(text) => {
-                    sources.insert(req.source_path.clone(), text.clone());
-                    text
-                }
-                Err(e) => {
-                    console_warn!("fetch script {}: {:?}", req.source_path, e);
-                    continue;
-                }
-            }
-        };
+        let Some(source) = sources.get(&req.source_path).cloned() else { continue };
         out.push(script_host::LoadedScript {
             entity_id: req.entity_id,
             source_path: req.source_path,
@@ -2409,9 +2588,8 @@ async fn fetch_world_scripts(world: &World) -> Vec<script_host::LoadedScript> {
 }
 
 /// Fetch a scene's `.sortlayers` asset, if it declares one.
-async fn fetch_scene_sort_layers(scene_json: &str) -> Option<(String, String)> {
-    let meta = jengine_core::scene::format::read_scene_metadata(scene_json).ok()?;
-    let rel = meta.sort_layers?;
+async fn fetch_scene_sort_layers(scene: &serde_json::Value) -> Option<(String, String)> {
+    let rel = jengine_core::scene::format::scene_metadata(scene).sort_layers?;
     match fetch_text(&asset_url(&rel)).await {
         Ok(text) => Some((rel, text)),
         Err(e) => {
@@ -2428,14 +2606,18 @@ async fn fetch_scene_sort_layers(scene_json: &str) -> Option<(String, String)> {
 /// the field, so an atlas image still loaded (sprites name it) but no regions
 /// were registered - `set_sprite_region` did nothing and animation frames
 /// naming a region never resolved.
-async fn fetch_scene_atlases(scene_json: &str) -> Vec<(String, AtlasData, RawTextureData)> {
+async fn fetch_scene_atlases(scene: &serde_json::Value) -> Vec<(String, AtlasData, RawTextureData)> {
     let mut out = Vec::new();
-    let Ok(value) = serde_json::from_str::<serde_json::Value>(scene_json) else {
-        return out;
-    };
-    for rel in jengine_core::renderer::atlas::scene_atlas_refs(&value) {
-        let atlas_id = jengine_core::renderer::atlas::derive_atlas_id(&rel);
-        let data = match fetch_text(&asset_url(&rel)).await {
+    let refs = jengine_core::renderer::atlas::scene_atlas_refs(scene);
+    let fetched = futures_util::future::join_all(refs.iter().map(|rel| async move {
+        let atlas_id = jengine_core::renderer::atlas::derive_atlas_id(rel);
+        let (data_url, image_url) = (asset_url(rel), asset_url(&atlas_id));
+        let (data, image) = futures_util::join!(fetch_text(&data_url), fetch_bytes(&image_url));
+        (atlas_id, data, image)
+    }))
+    .await;
+    for (rel, (atlas_id, data, image)) in refs.iter().zip(fetched) {
+        let data = match data {
             Ok(text) => match serde_json::from_str::<AtlasData>(&text) {
                 Ok(d) => d,
                 Err(e) => {
@@ -2448,7 +2630,7 @@ async fn fetch_scene_atlases(scene_json: &str) -> Vec<(String, AtlasData, RawTex
                 continue;
             }
         };
-        match fetch_bytes(&asset_url(&atlas_id)).await {
+        match image {
             Ok(bytes) => match RawTextureData::from_bytes(&bytes) {
                 Ok(raw) => out.push((atlas_id, data, raw)),
                 Err(e) => console_warn!("decode atlas image '{}': {}", atlas_id, e),
@@ -2467,21 +2649,21 @@ fn insert_atlases(assets: &mut AssetManager, atlases: Vec<(String, AtlasData, Ra
 }
 
 /// Fetch the raw bytes of every clip in a scene's `audio_refs`.
-async fn fetch_scene_audio_bytes(scene_json: &str) -> Vec<(String, Vec<u8>)> {
+async fn fetch_scene_audio_bytes(scene: &serde_json::Value) -> Vec<(String, Vec<u8>)> {
     let mut out = Vec::new();
-    let Ok(value) = serde_json::from_str::<serde_json::Value>(scene_json) else {
+    let Some(refs) = scene.get("audio_refs").and_then(|v| v.as_array()) else {
         return out;
     };
-    let Some(refs) = value.get("audio_refs").and_then(|v| v.as_array()) else {
-        return out;
-    };
-    for entry in refs {
-        let Some(clip_id) = entry.as_str() else { continue };
-        if clip_id.is_empty() {
-            continue;
-        }
-        match fetch_bytes(&asset_url(clip_id)).await {
-            Ok(bytes) => out.push((clip_id.to_string(), bytes)),
+    let clips: Vec<String> = refs
+        .iter()
+        .filter_map(|entry| entry.as_str())
+        .filter(|clip_id| !clip_id.is_empty())
+        .map(str::to_string)
+        .collect();
+    let fetched = fetch_all_bytes(&asset_urls(&clips)).await;
+    for (clip_id, result) in clips.into_iter().zip(fetched) {
+        match result {
+            Ok(bytes) => out.push((clip_id, bytes)),
             Err(e) => console_warn!("fetch audio '{}': {:?}", clip_id, e),
         }
     }
@@ -2996,6 +3178,7 @@ fn tick_world(app: &mut WebApp, dt: f32) -> Vec<(u32, u32, bool, f32, f32, f32)>
         }
         // Videos (`jengine_core::video`): this frame's pictures into their
         // textures, before anything draws them.
+        #[cfg(feature = "video")]
         app.video.tick(&mut app.world, &mut app.assets, dt);
         // `visibility_notifier`s that came on screen or left it.
         jengine_core::ecs::visibility::tick_visibility(&mut app.world, view);
@@ -3132,114 +3315,33 @@ fn render_frame(app_cell: &Rc<RefCell<WebApp>>, timestamp: f64) -> Result<(), Js
         // Hold / tap / double-tap timing, now every device has reported.
         app.input.update_interactions();
 
-        // ECS update phase.
-        app.frame_stats.physics_time_ms = 0.0;
-        let update_start = performance().now();
-        let pending_contacts = tick_world(app, dt);
-        // Physics is stepped inside `tick_world` and times itself; charge
-        // the rest to `update` so the two rows do not double-count.
-        app.frame_stats.update_time_ms = ((performance().now() - update_start) as f32
-            - app.frame_stats.physics_time_ms)
-            .max(0.0);
-        let script_start = performance().now();
-
-        // GUI clicks first: a button press and the script it triggers
-        // should land on the same frame, and the handler may well be the
-        // thing that queues this frame's scene change.
-        // Wheel scrolling of `Overflow::Scroll` GUI containers runs first so
-        // the click below hit-tests against the rows actually on screen.
-        // UI space is virtual pixels (see `ui::scaling`), so the pointer is
-        // divided into it before any UI hit test. `input.mouse_position` stays
-        // physical for world-space uses.
-        let (pw, ph) = app.input.screen_size;
-        let screen = app.ui_scale.virtual_size(pw, ph);
-        let ui_mouse = app.ui_scale.to_ui(
-            app.input.mouse_position.0,
-            app.input.mouse_position.1,
-            pw,
-            ph,
-        );
-        if app.input.mouse_wheel_delta != 0.0 {
-            jengine_core::ecs::systems::apply_gui_wheel_scroll(
-                &app.world,
-                &mut app.assets,
-                ui_mouse,
-                app.input.mouse_wheel_delta,
-                screen,
-            );
-        }
-    // Pointer drag / flick / elastic ends, for the same containers the wheel
-    // scrolls. Runs before the click dispatch below so a gesture that turned
-    // out to be a scroll does not also press the button under the finger.
-    {
-        let pointer = jengine_core::ui::scroll::PointerInput {
-            x: ui_mouse.0,
-            y: ui_mouse.1,
-            down: app.input.mouse_left,
-            just_pressed: app.input.mouse_left_just_pressed,
-            just_released: app.input.mouse_left_just_released,
-        };
-        jengine_core::ecs::systems::update_gui_scroll_drag(
-            &app.world,
-            &mut app.assets,
-            &mut app.gui_scroll,
-            pointer,
-            screen,
-            dt,
-        );
-        // Publish the gesture so the click dispatch — which lives deep in
-        // `ScriptSystem::update` and sees only an `InputState` — can swallow
-        // the release that ended a scroll.
-        app.input.gui_scroll_dragging = app.gui_scroll.is_dragging();
-    }
-        // Entity-UI widgets. Buttons, sliders, toggles and text inputs all
-        // answer the pointer here. `update_ui_buttons` had existed since the
-        // widgets did and no runtime ever called it, and the other three had
-        // no interaction code at all - script-driven or nothing (BUGS #61).
-        // Runs beside the GUI pointer work so both UI systems hit-test
-        // against the same frame's mouse.
-    {
-        let mut clicked = Vec::new();
-        jengine_core::ecs::systems::update_ui_widgets(
+        // The true pose back in everything the last frame drew blended, then
+        // the gameplay: once with this frame's `dt`, or - with
+        // `settings.simulation_hz` - as many fixed steps as real time pays
+        // for (`ecs::fixed_step`), each seeing a press once.
+        app.fixed_step.restore(&mut app.world);
+        // Once a frame, before any step: what must happen even on a frame
+        // that runs no step - reading the network, opening a lockstep gate.
+        app.package_host.run_phase_with(
+            jengine_core::package::system_schedule::SystemPhase::Frame,
             &mut app.world,
-            &mut app.input,
-            ui_mouse,
-            screen.0,
-            screen.1,
-            &mut clicked,
+            real_dt,
+            jengine_core::package::host::FrameResources { input: &mut app.input, assets: &mut app.assets, camera: app.camera },
         );
-        // Each click reaches scripts as `ui_click`. The list was collected
-        // and dropped until Sep 2026, so a button could only be polled.
-        script_host::dispatch_ui_clicks(app, &clicked);
-    }
-        script_host::process_gui_clicks(app);
-
-        // What a script asked of the page last frame: fullscreen, the
-        // cursor, the frame cap.
-        if let Some(cap) = app.display.sync(&app.canvas, &app.assets, &mut app.missing_warned, Some(app.fps)) {
-            app.fps = cap.unwrap_or(app.project_fps);
-            app.frame_cap = jengine_core::time::FrameCap::new(app.fps);
+        let plan = app.fixed_step.plan(real_dt, app.time_scale);
+        for step in 0..plan.steps {
+            if step > 0 {
+                app.input.clear_edges();
+            }
+            app.fixed_step.begin_step(&app.world);
+            simulation_step(app, plan.dt);
         }
-        // Refresh the pathfinding snapshot before any script runs, so a
-        // `tilemap_find_path` call sees this frame's tiles and never touches
-        // the live world.
-        app.nav_snapshot.borrow_mut().refresh_named(&app.world, &crate::script_host::script_names());
-        // And the colliders, for `raycast`, with the same timing.
-        #[cfg(feature = "physics")]
-        app.ray_snapshot.borrow_mut().refresh_named(&app.world, &crate::script_host::script_names());
-        // Gravity, contacts and velocities for the scripts about to run.
-        jengine_core::scripting::bridge::adapters::js::mirror::publish_physics_for_scripts(
-            &app.world,
-            app.physics.as_ref(),
-            &pending_contacts,
-        );
-
-        // Script update phase (feature 3.7 \u2014 parity with native + viewport).
-        // Runs after ECS behaviors so trigger overlaps are fresh; may queue
-        // camera shakes (drained below) and spawn/despawn entities. Physics
-        // contacts from `tick_world` drive `on_collision_*` callbacks.
-        jengine_core::profiling::trace::time("scripts", || script_host::run_scripts_frame(app, dt, &pending_contacts));
-        app.frame_stats.script_time_ms = (performance().now() - script_start) as f32;
+        if plan.steps == 0 {
+            app.input.hold_edges();
+        }
+        // Everything a step moved, drawn between the last two steps - before
+        // the camera follows it, or a followed thing would judder.
+        app.fixed_step.blend_for_draw(&mut app.world);
     }
 
     // Resolve the active game camera AFTER scripts so script-driven camera
@@ -3267,7 +3369,9 @@ fn render_frame(app_cell: &Rc<RefCell<WebApp>>, timestamp: f64) -> Result<(), Js
     // Slice 3.5.C — first advance skeletal animation players.
     // Skeletons, IK, the physics blend, world transforms, trails, cloth and
     // carving - the order every host poses its world for drawing in.
-    jengine_core::ecs::systems::pose_world_for_draw(&mut app.world, &mut app.assets, app.physics.as_mut(), dt);
+    // With fixed steps the bodies were blended with everything else above.
+    let blend_bodies = if app.fixed_step.is_on() { None } else { app.physics.as_mut() };
+    jengine_core::ecs::systems::pose_world_for_draw(&mut app.world, &mut app.assets, blend_bodies, dt);
 
     // ── package systems: Animation + PreRender ────────────────────────────
     // After everything that could move the camera this frame - `PreRender`
@@ -3460,4 +3564,120 @@ fn render_frame(app_cell: &Rc<RefCell<WebApp>>, timestamp: f64) -> Result<(), Js
 
     app.input.begin_frame();
     Ok(())
+}
+
+/// One step of the gameplay: the world's tick (input actions, behaviour
+/// graphs, motion, physics, triggers, animation, lifetimes), the UI and the
+/// scripts - what a fixed-step simulation (`settings.simulation_hz`) runs once
+/// per step rather than once per frame. `render_frame` calls it once a frame
+/// with the frame's `dt` otherwise.
+fn simulation_step(app: &mut WebApp, dt: f32) {
+        // ECS update phase.
+        app.frame_stats.physics_time_ms = 0.0;
+        let update_start = performance().now();
+        let pending_contacts = tick_world(app, dt);
+        // Physics is stepped inside `tick_world` and times itself; charge
+        // the rest to `update` so the two rows do not double-count.
+        app.frame_stats.update_time_ms = ((performance().now() - update_start) as f32
+            - app.frame_stats.physics_time_ms)
+            .max(0.0);
+        let script_start = performance().now();
+
+        // GUI clicks first: a button press and the script it triggers
+        // should land on the same frame, and the handler may well be the
+        // thing that queues this frame's scene change.
+        // Wheel scrolling of `Overflow::Scroll` GUI containers runs first so
+        // the click below hit-tests against the rows actually on screen.
+        // UI space is virtual pixels (see `ui::scaling`), so the pointer is
+        // divided into it before any UI hit test. `input.mouse_position` stays
+        // physical for world-space uses.
+        let (pw, ph) = app.input.screen_size;
+        let screen = app.ui_scale.virtual_size(pw, ph);
+        let ui_mouse = app.ui_scale.to_ui(
+            app.input.mouse_position.0,
+            app.input.mouse_position.1,
+            pw,
+            ph,
+        );
+        if app.input.mouse_wheel_delta != 0.0 {
+            jengine_core::ecs::systems::apply_gui_wheel_scroll(
+                &app.world,
+                &mut app.assets,
+                ui_mouse,
+                app.input.mouse_wheel_delta,
+                screen,
+            );
+        }
+    // Pointer drag / flick / elastic ends, for the same containers the wheel
+    // scrolls. Runs before the click dispatch below so a gesture that turned
+    // out to be a scroll does not also press the button under the finger.
+    {
+        let pointer = jengine_core::ui::scroll::PointerInput {
+            x: ui_mouse.0,
+            y: ui_mouse.1,
+            down: app.input.mouse_left,
+            just_pressed: app.input.mouse_left_just_pressed,
+            just_released: app.input.mouse_left_just_released,
+        };
+        jengine_core::ecs::systems::update_gui_scroll_drag(
+            &app.world,
+            &mut app.assets,
+            &mut app.gui_scroll,
+            pointer,
+            screen,
+            dt,
+        );
+        // Publish the gesture so the click dispatch — which lives deep in
+        // `ScriptSystem::update` and sees only an `InputState` — can swallow
+        // the release that ended a scroll.
+        app.input.gui_scroll_dragging = app.gui_scroll.is_dragging();
+    }
+        // Entity-UI widgets. Buttons, sliders, toggles and text inputs all
+        // answer the pointer here. `update_ui_buttons` had existed since the
+        // widgets did and no runtime ever called it, and the other three had
+        // no interaction code at all - script-driven or nothing (BUGS #61).
+        // Runs beside the GUI pointer work so both UI systems hit-test
+        // against the same frame's mouse.
+    {
+        let mut clicked = Vec::new();
+        jengine_core::ecs::systems::update_ui_widgets(
+            &mut app.world,
+            &mut app.input,
+            ui_mouse,
+            screen.0,
+            screen.1,
+            &mut clicked,
+        );
+        // Each click reaches scripts as `ui_click`. The list was collected
+        // and dropped until Sep 2026, so a button could only be polled.
+        script_host::dispatch_ui_clicks(app, &clicked);
+    }
+        script_host::process_gui_clicks(app);
+
+        // What a script asked of the page last frame: fullscreen, the
+        // cursor, the frame cap.
+        if let Some(cap) = app.display.sync(&app.canvas, &app.assets, &mut app.missing_warned, Some(app.fps)) {
+            app.fps = cap.unwrap_or(app.project_fps);
+            app.frame_cap = jengine_core::time::FrameCap::new(app.fps);
+        }
+        // Refresh the pathfinding snapshot before any script runs, so a
+        // `tilemap_find_path` call sees this frame's tiles and never touches
+        // the live world.
+        app.nav_snapshot.borrow_mut().refresh_named(&app.world, &crate::script_host::script_names());
+        // And the colliders, for `raycast`, with the same timing.
+        #[cfg(feature = "physics")]
+        app.ray_snapshot.borrow_mut().refresh_named(&app.world, &crate::script_host::script_names());
+        // Gravity, contacts and velocities for the scripts about to run.
+        jengine_core::scripting::bridge::adapters::js::mirror::publish_physics_for_scripts(
+            &app.world,
+            app.physics.as_ref(),
+            &pending_contacts,
+        );
+
+        // Script update phase (feature 3.7 \u2014 parity with native + viewport).
+        // Runs after ECS behaviors so trigger overlaps are fresh; may queue
+        // camera shakes (drained below) and spawn/despawn entities. Physics
+        // contacts from `tick_world` drive `on_collision_*` callbacks.
+        jengine_core::profiling::trace::time("scripts", || script_host::run_scripts_frame(app, dt, &pending_contacts));
+        app.frame_stats.script_time_ms = (performance().now() - script_start) as f32;
 }

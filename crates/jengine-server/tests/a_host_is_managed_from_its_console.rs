@@ -143,10 +143,13 @@ fn a_host_is_managed_from_its_console() {
         let history: Value = serde_json::from_str(&text).unwrap();
         let last = history["samples"].as_array().and_then(|s| s.last()).cloned().unwrap_or(Value::Null);
         let town = &last["services"]["host/town"];
-        if town["out"].as_u64().unwrap_or(0) > 0 && town["in"].as_u64().unwrap_or(0) > 0 && town["players"] == 1 {
+        // The machine is measured on a thread of its own, and its first
+        // reading can come after the first traffic, so wait for both.
+        let measured = last["machines"]["host"]["mem_total"].is_u64();
+        if measured && town["out"].as_u64().unwrap_or(0) > 0 && town["in"].as_u64().unwrap_or(0) > 0 && town["players"] == 1 {
             break last;
         }
-        assert!(Instant::now() < deadline, "the overview never saw Ada's traffic: {last:#}");
+        assert!(Instant::now() < deadline, "the overview never saw Ada's traffic and the machine: {last:#}");
         std::thread::sleep(Duration::from_millis(250));
     };
     let machine = &sample["machines"]["host"];

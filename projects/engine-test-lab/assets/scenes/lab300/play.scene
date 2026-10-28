@@ -1,0 +1,271 @@
+{
+ "version": 2,
+ "name": "300 - Lockstep (play)",
+ "simulation_hz": 60,
+ "entities": [
+  {
+   "name": "Camera",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "camera": {
+     "zoom": 1.0,
+     "is_active": true
+    }
+   }
+  },
+  {
+   "name": "Title",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      330
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "300 - LOCKSTEP: PLAYING",
+     "font_id": "",
+     "font_scale": 2.4,
+     "color": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Hint",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      285
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Arrows / WASD or the left stick move your ball (the stick by how far it is pushed); hold the left\nmouse button to put your marker down; Space flashes your ball. Both machines run the same steps.\nEsc / H leaves.",
+     "font_id": "",
+     "font_scale": 1.0,
+     "color": [
+      0.7,
+      0.75,
+      0.85,
+      0.9
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Status",
+   "components": {
+    "transform": {
+     "position": [
+      -620,
+      200
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "text": {
+     "text": "Connecting to ws://127.0.0.1:9001 and waiting for the other player...\n(run `cargo run -p jengine-server` first)",
+     "font_id": "",
+     "font_scale": 1.4,
+     "color": [
+      1,
+      0.9,
+      0.4,
+      1
+     ],
+     "z_order": 50
+    }
+   }
+  },
+  {
+   "name": "Seat0",
+   "components": {
+    "transform": {
+     "position": [
+      -200,
+      -60
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "size": [
+      56.0,
+      56.0
+     ],
+     "color": [
+      0.35,
+      0.6,
+      1.0,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Seat1",
+   "components": {
+    "transform": {
+     "position": [
+      200,
+      -60
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "size": [
+      56.0,
+      56.0
+     ],
+     "color": [
+      1.0,
+      0.6,
+      0.25,
+      1.0
+     ],
+     "z_order": 10
+    }
+   }
+  },
+  {
+   "name": "Mark0",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      -2000
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "size": [
+      18.0,
+      18.0
+     ],
+     "color": [
+      0.55,
+      0.75,
+      1.0,
+      1.0
+     ],
+     "z_order": 11
+    }
+   }
+  },
+  {
+   "name": "Mark1",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      -2000
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "sprite": {
+     "texture_id": "sprites/circle16.png",
+     "size": [
+      18.0,
+      18.0
+     ],
+     "color": [
+      1.0,
+      0.75,
+      0.45,
+      1.0
+     ],
+     "z_order": 11
+    }
+   }
+  },
+  {
+   "name": "Session",
+   "components": {
+    "transform": {
+     "position": [
+      0,
+      0
+     ],
+     "rotation": 0.0,
+     "scale": [
+      1.0,
+      1.0
+     ]
+    },
+    "lockstep_session": {
+     "url": "ws://127.0.0.1:9001",
+     "room": "testlab-300",
+     "seats": 2,
+     "delay": 4,
+     "hash_every": 30,
+     "spectate": false,
+     "analog": [
+      "pad_down",
+      "pad_left",
+      "pad_right",
+      "pad_up"
+     ],
+     "pointer": true,
+     "silent_after": 3.0,
+     "leave": [
+      "hub",
+      "cancel"
+     ]
+    },
+    "script": {
+     "language": "Lua",
+     "source_path": "scripts/lua/scene_300_match.lua"
+    }
+   }
+  }
+ ]
+}

@@ -3,6 +3,7 @@
 //! rules, drawn by its entity's sprite through a texture of its own and
 //! solid to bodies through its entity's `carvable`. Found by the showcase's
 //! Falling Sands. The rules themselves are tested in the module.
+#![cfg(feature = "pixel_sim")]
 
 use glam::Vec2;
 use hecs::World;

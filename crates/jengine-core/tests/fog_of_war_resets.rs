@@ -5,6 +5,7 @@
 //! their own fog rather than use the component. Both go through the shared
 //! browser command (`fwrs` / `fwsf`) and the native apply arm; this drives
 //! each.
+#![cfg(feature = "fog_of_war")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

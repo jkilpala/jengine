@@ -8,7 +8,7 @@
 use tauri::Manager;
 
 /// The engine source in the editor's resources, made by `jengine engine-bundle`
-/// in `build-editor-release.ps1`.
+/// in `build-editor-release.ps1` / `.sh`.
 const ENGINE_SOURCE: &str = "engine-source.zip";
 
 pub fn setup(app: &tauri::App) {

@@ -56,6 +56,24 @@ pub fn take() -> Vec<EntityCallback> {
     QUEUE.with(|q| std::mem::take(&mut *q.borrow_mut()))
 }
 
+
+/// `on_<name>`, interned once a name: callbacks carry `&'static str`
+/// handler names, and the names a timeline, a dialogue or a behaviour
+/// tree raises are a small, fixed set.
+#[cfg(any(feature = "timeline", feature = "dialogue", feature = "behavior_tree"))]
+pub(crate) fn handler_for(name: &str) -> &'static str {
+    use std::sync::{Mutex, OnceLock};
+    static NAMES: OnceLock<Mutex<std::collections::HashSet<&'static str>>> = OnceLock::new();
+    let full = format!("on_{name}");
+    let mut set = NAMES.get_or_init(Default::default).lock().unwrap_or_else(|e| e.into_inner());
+    if let Some(s) = set.get(full.as_str()) {
+        return s;
+    }
+    let s: &'static str = Box::leak(full.into_boxed_str());
+    set.insert(s);
+    s
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

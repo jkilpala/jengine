@@ -3,7 +3,7 @@
 //! bridge a rope is drawn along - planks on revolute joints, weighed down by
 //! a character's `push_mass`. Found by the showcase's Cloth & Rope.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "cloth"))]
 
 mod support;
 

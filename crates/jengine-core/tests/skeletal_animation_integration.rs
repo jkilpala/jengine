@@ -24,14 +24,11 @@ fn rig_scene_with_player() -> SceneData {
         children: Vec::new(),
         name: "RigRoot".to_string(),
         parent: None,
-        components: ComponentBundle {
-            transform: Some(Transform {
+        components: ComponentBundle::new().with("transform", &Transform {
                 position: glam::Vec2::new(100.0, 0.0),
                 rotation: 0.0,
                 scale: glam::Vec2::ONE,
-            }),
-            skeleton_root: Some(SkeletonRoot { name: "rig".into() }),
-            skeletal_player: Some(SkeletalPlayer {
+            }).with("skeleton_root", &SkeletonRoot { name: "rig".into() }).with("skeletal_player", &SkeletalPlayer {
                 clip: "wave".into(),
                 time: 0.0,
                 speed: 2.0,
@@ -39,18 +36,12 @@ fn rig_scene_with_player() -> SceneData {
                 playing: true,
                 ..Default::default()
             }),
-            ..Default::default()
-        },
     };
     let arm = EntityData {
         children: Vec::new(),
         name: "Arm".to_string(),
         parent: Some("RigRoot".to_string()),
-        components: ComponentBundle {
-            transform: Some(Transform::default()),
-            bone: Some(Bone { name: "arm".into(), length: 1.0 }),
-            ..Default::default()
-        },
+        components: ComponentBundle::new().with("transform", &Transform::default()).with("bone", &Bone { name: "arm".into(), length: 1.0 }),
     };
     SceneData {
         name: "skelanim_test".to_string(),
@@ -81,9 +72,7 @@ fn scene_round_trip_preserves_skeletal_player_fields() {
         .find(|e| e.name == "RigRoot")
         .expect("RigRoot should be saved");
     let saved_player = saved_root
-        .components
-        .skeletal_player
-        .as_ref()
+        .components.get::<jengine_core::animation::skeletal::SkeletalPlayer>("skeletal_player")
         .expect("SkeletalPlayer should be saved");
     assert_eq!(saved_player.clip, "wave");
     assert_eq!(saved_player.speed, 2.0);

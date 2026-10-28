@@ -20,11 +20,18 @@ use crate::scene::{EntityData, SceneData};
 pub fn expand_scene_tiles(scene: &mut SceneData) -> usize {
     let mut added: Vec<EntityData> = Vec::new();
     for entity in scene.entities.iter_mut() {
-        let origin = entity.components.transform.as_ref().map(|t| t.position).unwrap_or_default();
-        let Some(map) = entity.components.tilemap.as_mut() else { continue };
-        if map.tilesets.iter().all(|t| t.spawns.is_empty()) {
+        // Asked of the JSON first: a big map is decoded only if one of its
+        // tilesets spawns anything.
+        if !spawns_anything(entity.components.value("tilemap")) {
             continue;
         }
+        let Some(mut map) = entity.components.get::<crate::tilemap::Tilemap>("tilemap") else { continue };
+        let origin = entity
+            .components
+            .get::<crate::ecs::components::Transform>("transform")
+            .map(|t| t.position)
+            .unwrap_or_default();
+        let mut emptied = false;
         let mut cells: Vec<(usize, u32, u32, String, bool)> = Vec::new();
         for (li, layer) in map.layers.iter().enumerate() {
             for row in 0..layer.height {
@@ -49,17 +56,29 @@ pub fn expand_scene_tiles(scene: &mut SceneData) -> usize {
                 parent: None,
                 components: Default::default(),
             };
-            data.components.prefab_instance =
-                Some(crate::ecs::components::PrefabInstance { prefab_id: prefab, overrides });
+            data.components
+                .set("prefab_instance", &crate::ecs::components::PrefabInstance { prefab_id: prefab, overrides });
             added.push(data);
             if !keep {
                 map.layers[li].set_tile(col, row, None);
+                emptied = true;
             }
+        }
+        if emptied {
+            entity.components.set("tilemap", &map);
         }
     }
     let n = added.len();
     scene.entities.extend(added);
     n
+}
+
+/// Whether a tilemap's JSON has a tileset with a non-empty `spawns`.
+fn spawns_anything(tilemap: Option<&serde_json::Value>) -> bool {
+    tilemap
+        .and_then(|m| m.get("tilesets"))
+        .and_then(|t| t.as_array())
+        .is_some_and(|sets| sets.iter().any(|s| s.get("spawns").and_then(|v| v.as_array()).is_some_and(|a| !a.is_empty())))
 }
 
 #[cfg(test)]
@@ -80,14 +99,14 @@ mod tests {
         let mut scene: SceneData = serde_json::from_str(SCENE).unwrap();
         assert_eq!(expand_scene_tiles(&mut scene), 2);
         let chest = scene.entities.iter().find(|e| e.name.starts_with("Map/Chest")).expect("a chest");
-        let inst = chest.components.prefab_instance.as_ref().unwrap();
+        let inst = chest.components.get::<crate::ecs::components::PrefabInstance>("prefab_instance").unwrap();
         assert_eq!(inst.prefab_id, "Chest");
         // Cell (1, 0): its centre is 48 right of the map's corner and 16 down.
         assert_eq!(inst.overrides["transform.position"], serde_json::json!([148.0, 184.0]));
         let torch = scene.entities.iter().find(|e| e.name.starts_with("Map/Torch")).expect("a torch");
-        assert_eq!(torch.components.prefab_instance.as_ref().unwrap().overrides["transform.position"],
+        assert_eq!(torch.components.get::<crate::ecs::components::PrefabInstance>("prefab_instance").unwrap().overrides["transform.position"],
                    serde_json::json!([148.0, 152.0]));
-        let layer = &scene.entities[0].components.tilemap.as_ref().unwrap().layers[0];
+        let layer = &scene.entities[0].components.get::<crate::tilemap::Tilemap>("tilemap").unwrap().layers[0];
         assert_eq!(layer.get_tile(1, 0), None, "the chest's cell is emptied");
         assert_eq!(layer.get_tile(1, 1), Some(7), "a kept tile stays");
         assert_eq!(expand_scene_tiles(&mut scene), 1, "only the kept tile is left to spawn");

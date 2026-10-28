@@ -20,6 +20,7 @@
 //! particles and foot IK meet - its own collider and the targets' left out.
 //! Ticked in `tick_motion`, so no host was wired.
 
+use crate::detmath::DetMath;
 use glam::Vec2;
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
@@ -147,7 +148,7 @@ pub fn visibility(eye: Vec2, facing: f32, fov: f32, radius: f32, rays: u32, wall
             if (p - eye).length_squared() > radius * radius * 1.0001 {
                 continue;
             }
-            let base = wrap_near((p.y - eye.y).atan2(p.x - eye.x), facing);
+            let base = wrap_near((p.y - eye.y).datan2(p.x - eye.x), facing);
             for off in [-1e-4, 0.0, 1e-4] {
                 let ang = base + off;
                 if full || (ang > lo && ang < hi) {
@@ -165,7 +166,7 @@ pub fn visibility(eye: Vec2, facing: f32, fov: f32, radius: f32, rays: u32, wall
     angles
         .into_iter()
         .map(|a| {
-            let dir = Vec2::new(a.cos(), a.sin());
+            let dir = Vec2::new(a.dcos(), a.dsin());
             eye + dir * cast(eye, dir, radius, walls)
         })
         .collect()

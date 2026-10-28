@@ -44,26 +44,30 @@ pub struct EditorSettings {
     #[serde(default)]
     pub show_profiler: bool,
 
-    // The three WASM size options default ON: measured on a mid-sized game they
-    // take a release build from 4.46 MB to 3.10 MB (1.56 -> 1.16 MB gzipped)
-    // for about 20 seconds of extra build time, and they only apply to
-    // release builds. Existing settings files that spell out `false` keep it.
+    // The three WASM size options default OFF (Oct 2026; they were on). They
+    // were turned on for size alone - a mid-sized game 1.56 -> 1.16 MB
+    // gzipped - and `opt-level = 'z'` makes the engine's code ~3.7x slower
+    // on the web (the frame of `jengine-benchmark-cpu`, 1.9 -> 7.2 ms);
+    // `'s'` 1.4x. Fat LTO saved nothing measurable on its own. So a game
+    // that wants the smaller module asks for it, knowing the price
+    // (docs/build-sizes.md). A settings file that spells out `true` keeps it.
     /// WASM: enable link-time optimization (lto = true).
-    #[serde(default = "default_true")]
+    #[serde(default)]
     pub wasm_lto: bool,
 
     /// WASM: optimize for size (opt-level = 'z') instead of speed.
-    #[serde(default = "default_true")]
+    #[serde(default)]
     pub wasm_opt_size: bool,
 
     /// WASM: use single codegen unit (codegen-units = 1) for better optimization.
-    #[serde(default = "default_true")]
+    #[serde(default)]
     pub wasm_single_codegen: bool,
 
     /// WASM: the `wasm-opt` pass after a release web build
     /// (`jengine_builder::wasm_opt`) - this project's own, apart from the
-    /// editor viewport's preference.
-    #[serde(default)]
+    /// editor viewport's preference. `fast` unless set: the smallest download
+    /// (`WasmOpt::WEB_BUILD_DEFAULT`).
+    #[serde(default = "default_web_wasm_opt")]
     pub wasm_opt_level: jengine_builder::wasm_opt::WasmOpt,
 
     /// Windows debug builds only: emit a `run-profiled.cmd` launcher next to
@@ -78,6 +82,13 @@ pub struct EditorSettings {
     /// build can turn them off so players cannot open the dev overlays.
     #[serde(default = "default_true")]
     pub build_debug_overlay: bool,
+
+    /// Web builds: whether the game writes its info lines - the engine's and
+    /// the scripts' `log` / `print` - to the browser console. On by default,
+    /// as every build before the option did; Build Settings warns before a
+    /// release build that keeps them.
+    #[serde(default = "default_true")]
+    pub build_logging: bool,
 }
 
 fn default_profile() -> String {
@@ -88,6 +99,9 @@ fn default_target() -> String {
 }
 fn default_true() -> bool {
     true
+}
+fn default_web_wasm_opt() -> jengine_builder::wasm_opt::WasmOpt {
+    jengine_builder::wasm_opt::WasmOpt::WEB_BUILD_DEFAULT
 }
 
 impl Default for EditorSettings {
@@ -102,12 +116,13 @@ impl Default for EditorSettings {
             code_editor: String::new(),
             show_colliders: false,
             show_profiler: false,
-            wasm_lto: true,
-            wasm_opt_size: true,
-            wasm_single_codegen: true,
-            wasm_opt_level: Default::default(),
+            wasm_lto: false,
+            wasm_opt_size: false,
+            wasm_single_codegen: false,
+            wasm_opt_level: default_web_wasm_opt(),
             build_enable_profiling: false,
             build_debug_overlay: true,
+            build_logging: true,
         }
     }
 }

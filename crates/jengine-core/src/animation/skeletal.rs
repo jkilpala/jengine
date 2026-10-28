@@ -774,7 +774,7 @@ pub fn update_skeletal_players(
     // we buffer the writes.
     let mut pending: Vec<(Entity, SampledLocal)> = Vec::new();
     // A limp skeleton is posed by physics (`ecs::ragdoll`).
-    let limp = crate::ecs::ragdoll::any_limp(world);
+    let limp = crate::ecs::skeleton::any_limp(world);
 
     {
         let mut players = world.query::<(&mut SkeletalPlayer, &SkeletonRoot)>();
@@ -783,7 +783,7 @@ pub fn update_skeletal_players(
             if !player.playing && !layered {
                 continue;
             }
-            if limp && crate::ecs::ragdoll::is_limp(&*world, root_entity) {
+            if limp && crate::ecs::skeleton::is_limp(&*world, root_entity) {
                 continue;
             }
             // Its own pace (`time_scale` on the root), if it keeps one.
@@ -871,7 +871,7 @@ pub fn update_skeletal_players(
 
     // Jiggle bones swing off the pose just set (`animation::jiggle`) - here,
     // so every host that animates skeletons jiggles them too.
-    crate::animation::jiggle::tick_jiggle(world, dt);
+    crate::feature!("jiggle", { crate::animation::jiggle::tick_jiggle(world, dt) });
 
     // Silence unused-import warnings on configs where Bone/Parent
     // wouldn't otherwise be referenced from this module.

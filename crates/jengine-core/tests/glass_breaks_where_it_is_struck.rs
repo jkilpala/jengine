@@ -6,7 +6,7 @@
 //! real physics step and `break_on_impact` as a host does. Found by the
 //! showcase's Glass House.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "fracture"))]
 
 use glam::Vec2;
 use hecs::World;

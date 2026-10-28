@@ -5,6 +5,7 @@
 //! through the world - the path named, its transform, a `line` path, the
 //! scroll clock in `tick_motion` and `TextPath.set` - and draws a text along
 //! an arch on the GPU to see the letters land on the curve.
+#![cfg(all(feature = "text_path", feature = "line2d"))]
 
 use glam::Vec2;
 use hecs::World;

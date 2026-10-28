@@ -8,6 +8,7 @@
 //! So is a host that never adds what a pack brought to the maps it filled at
 //! startup (prefabs, data tables, clips, `require`'s modules): the pack
 //! mounts and `spawn_prefab` still says the prefab does not exist.
+#![cfg(feature = "packs")]
 
 use std::path::{Path, PathBuf};
 
@@ -39,7 +40,7 @@ fn the_native_runner_mounts_syncs_and_downloads() {
     assert!(NATIVE_LIB.contains("packs::native::set_http("), "native has no HTTP client for packs");
     let sync = body(NATIVE, "sync_asset_packs");
     assert!(sync.contains("packs::native::arrived()"), "native never hears what a mounted pack brought");
-    for add in ["add_prefabs(&mut state.script_system.api.services.prefabs)", "add_data(", "add_skeletal(&mut state.assets)"] {
+    for add in ["add_prefabs(state.script_system.api.services.prefabs_mut())", "add_data(", "add_skeletal(&mut state.assets)"] {
         assert!(sync.contains(add), "native does not {add} a mounted pack's files");
     }
     assert!(sync.contains("set_data_registry("), "a pack's tables reach packages but not scripts");
@@ -170,7 +171,7 @@ fn a_file_from_an_installed_pack_loads_like_one_from_the_build() {
     assert_eq!(content.scripts.len(), 2);
     let mut prefabs = std::collections::HashMap::new();
     assert_eq!(content.add_prefabs(&mut prefabs), vec!["Chime".to_string()]);
-    assert_eq!(prefabs["Chime"].components.lifetime.as_ref().map(|l| l.remaining), Some(2.0));
+    assert_eq!(prefabs["Chime"].components.get::<jengine_core::ecs::components::Lifetime>("lifetime").map(|l| l.remaining), Some(2.0));
     let mut data = jengine_core::data::DataRegistry::new();
     assert_eq!(content.add_data(&mut data), 1);
     assert_eq!(data.get_f64("data/pack/notes", "low", "hz"), Some(220.0));

@@ -199,47 +199,8 @@ fn lerp(a: &Value, b: &Value, f: f32) -> Value {
     }
 }
 
-/// Put `value` at the dotted `path` inside `root`. A number written over an
-/// integer is rounded, so a track can animate a count or a `z_order`.
-pub fn set_path(root: &mut Value, path: &str, value: &Value) -> Result<(), String> {
-    let mut at = root;
-    let parts: Vec<&str> = path.split('.').filter(|p| !p.is_empty()).collect();
-    if parts.is_empty() {
-        return Err("an empty field".into());
-    }
-    for (n, part) in parts.iter().enumerate() {
-        let next = match at {
-            Value::Object(map) => map.get_mut(*part),
-            Value::Array(list) => part.parse::<usize>().ok().and_then(|i| list.get_mut(i)),
-            _ => None,
-        };
-        let Some(next) = next else {
-            return Err(format!("no field '{}' in '{path}'", parts[..=n].join(".")));
-        };
-        at = next;
-    }
-    *at = match (&*at, value) {
-        (Value::Number(old), Value::Number(new)) if !old.is_f64() => {
-            let r = new.as_f64().unwrap_or(0.0).round();
-            if old.is_u64() && r >= 0.0 { (r as u64).into() } else { (r as i64).into() }
-        }
-        _ => value.clone(),
-    };
-    Ok(())
-}
 
-/// Write one field of `component` on `entity` through the registry's serde.
-pub fn write_field(world: &mut World, entity: Entity, component: &str, path: &str, value: &Value) -> Result<(), String> {
-    crate::package::component_registry::with_registry(|registry| {
-        let desc = registry.get(component).ok_or_else(|| format!("no component '{component}'"))?;
-        let current = (desc.query_fn)(world, entity).ok_or_else(|| format!("the entity has no '{component}'"))?;
-        let mut json = (desc.serialize_fn)(current.as_ref());
-        set_path(&mut json, path, value)?;
-        let new = (desc.deserialize_fn)(&json).ok_or_else(|| format!("'{component}.{path}' cannot take {value}"))?;
-        (desc.insert_fn)(world, entity, new);
-        Ok(())
-    })
-}
+pub use crate::package::component_registry::{set_path, write_field};
 
 /// The entity a track names: the timeline's own for an empty name, else one
 /// so named under the timeline's entity, else any so named.
@@ -261,20 +222,8 @@ fn resolve(world: &World, owner: Entity, name: &str) -> Option<Entity> {
     named.iter().copied().find(|e| under(*e)).or_else(|| named.first().copied())
 }
 
-/// `on_<name>`, interned once a name: callbacks carry `&'static str`
-/// handler names, and a clip's event names are a small, fixed set.
-pub(crate) fn handler_for(name: &str) -> &'static str {
-    use std::sync::{Mutex, OnceLock};
-    static NAMES: OnceLock<Mutex<std::collections::HashSet<&'static str>>> = OnceLock::new();
-    let full = format!("on_{name}");
-    let mut set = NAMES.get_or_init(Default::default).lock().unwrap_or_else(|e| e.into_inner());
-    if let Some(s) = set.get(full.as_str()) {
-        return s;
-    }
-    let s: &'static str = Box::leak(full.into_boxed_str());
-    set.insert(s);
-    s
-}
+
+pub(crate) use super::callbacks::handler_for;
 
 /// Advance every playing timeline by `dt`, write what its tracks say and
 /// call the event keys it passed. See the module docs.

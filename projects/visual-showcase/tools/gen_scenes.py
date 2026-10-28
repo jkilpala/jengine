@@ -16816,6 +16816,15 @@ def lh_tree():
     ]}
 
 
+# A moon's apparent size in radians (`directional_light.softness`). These
+# were 10 and 14 - a light as wide as half the sky, which made each pixel
+# trace eight shadow rays over the whole scene, for shadows too soft to see:
+# Firefight ran at 11 fps on an M1 Pro. 0.5 keeps them soft but visible (a
+# real moon is about 0.01, and 0.15 throws hard shadows across the lot);
+# switching the moon's shadows off is the cheapest way to the old look.
+MOON_SOFTNESS = 0.5
+
+
 def lit_house():
     L = "sprites/lithouse/"
     hw, hh, t = LH_IN[0] / 2, LH_IN[1] / 2, LH_T
@@ -16824,7 +16833,7 @@ def lit_house():
     # The moon lights the grass and the roof (layers 1 and 2) but not the
     # room (layer 3), which only the lamp - and the torch - reach.
     ents.append(ent("Moon", transform=tr(0, 0, rot=-2.3), directional_light={
-        "color": lin(0.62, 0.70, 1.0)[:3], "intensity": 0.42, "height": 0.7, "softness": 10.0, "light_mask": 1 | 2}))
+        "color": lin(0.62, 0.70, 1.0)[:3], "intensity": 0.42, "height": 0.7, "softness": MOON_SOFTNESS, "light_mask": 1 | 2}))
     ents += bumpy("Grass", L + "grass.png", (2600, 1800), (0, 0), -60, tile=(256, 256))
     ents.append(ent("Path", transform=tr(0, -250), sprite=sprite(L + "path.png", (76, 200), (1, 1, 1, 1), z=-55,
                                                                    fill={"mode": "tile", "tile_size": [64.0, 64.0]})))
@@ -17078,7 +17087,7 @@ def firefight():
     ents = [cam]
     ents.append(ent("Ambient", transform=tr(), ambient_light={"color": lin(0.35, 0.42, 0.75)[:3], "intensity": 0.16}))
     ents.append(ent("Moon", transform=tr(0, 0, rot=-2.2), directional_light={
-        "color": lin(0.55, 0.65, 1.0)[:3], "intensity": 0.32, "height": 0.8, "softness": 14.0}))
+        "color": lin(0.55, 0.65, 1.0)[:3], "intensity": 0.32, "height": 0.8, "softness": MOON_SOFTNESS}))
     # The lot: painted into as the fight goes on.
     floor = bumpy("Floor", C + "floor.png", (1920, 1080), (0, 0), -60)
     floor[0]["components"]["paintable"] = {"blend": "over"}
@@ -20750,7 +20759,7 @@ def arena_boss():
     ents = [cam]
     ents.append(ent("Ambient", transform=tr(), ambient_light={"color": lin(0.45, 0.5, 0.8)[:3], "intensity": 0.32}))
     ents.append(ent("Moon", transform=tr(0, 0, rot=-2.4), directional_light={
-        "color": lin(0.6, 0.7, 1.0)[:3], "intensity": 0.35, "height": 0.6, "softness": 10.0}))
+        "color": lin(0.6, 0.7, 1.0)[:3], "intensity": 0.35, "height": 0.6, "softness": MOON_SOFTNESS}))
     ents.append(ent("Sky", transform=tr(0, 120), unlit={},
                     sprite=sprite("sprites/siege/sky.png", (2100, 1300), lin(0.28, 0.3, 0.45), z=-100)))
     ents.append(ent("Colonnade", transform=tr(0, AB_FLOOR + 150), unlit={},

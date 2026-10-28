@@ -98,6 +98,75 @@ pub(crate) fn skelanim_manifest(assets: &Path) -> serde_json::Value {
     })
 }
 
+/// The bundle of small assets a web build ships beside `assets/`, read by the
+/// web runtime before it fetches anything else.
+pub const ASSET_BUNDLE_FILE: &str = "asset_bundle.json";
+
+/// The asset types that go into the bundle: every small file the web runtime
+/// fetches by name. Scenes stay out (a player downloads only the ones they
+/// visit), as do scripts and skeletal clips, which have manifests of their own.
+const BUNDLED_EXTENSIONS: &[&str] =
+    &["prefab", "material", "shader", "gui", "data", "font", "behavior", "sortlayers", "anim", "atlas"];
+
+/// A file larger than this is left to be fetched on its own.
+const BUNDLE_FILE_LIMIT: u64 = 1024 * 1024;
+
+/// Every small asset the web runtime fetches by name, in one file:
+/// `{ "files": { path: content } }`, the path relative to `assets/` and the
+/// content the file's JSON (or its text, if it is not JSON).
+///
+/// A web game pays a round trip per file, and these are many and small - a
+/// showcase build fetched 115 prefabs one request each before its first
+/// frame. The files stay beside it too, for anything that asks for one by URL.
+pub(crate) fn asset_bundle(assets: &Path) -> serde_json::Value {
+    let mut paths = Vec::new();
+    collect_by_extension(assets, assets, BUNDLED_EXTENSIONS, &mut paths);
+    paths.sort();
+    let mut files = serde_json::Map::new();
+    for rel in paths {
+        let path = assets.join(&rel);
+        if std::fs::metadata(&path).is_ok_and(|m| m.len() > BUNDLE_FILE_LIMIT) {
+            continue;
+        }
+        match std::fs::read_to_string(&path) {
+            Ok(text) => {
+                let content = serde_json::from_str(&text).unwrap_or(serde_json::Value::String(text));
+                files.insert(rel, content);
+            }
+            Err(e) => log::warn!("asset bundle: reading {rel}: {e}"),
+        }
+    }
+    serde_json::json!({ "files": files })
+}
+
+/// The JSON asset types a release web build minifies.
+const MINIFIED_EXTENSIONS: &[&str] = &[
+    "scene", "prefab", "material", "shader", "gui", "data", "dataschema", "font", "behavior", "sortlayers", "anim",
+    "atlas", "tilemap", "particle", "skelanim", "rig", "json",
+];
+
+/// Rewrite every JSON asset under `assets` without its whitespace: the same
+/// data, about half the bytes before compression (the showcase's scenes went
+/// from 10.7 MB to 5.9). The project's own files stay as they are - only the
+/// build's copies change. Returns the files rewritten and the bytes saved.
+pub(crate) fn minify_json_assets(assets: &Path) -> (usize, u64) {
+    let mut paths = Vec::new();
+    collect_by_extension(assets, assets, MINIFIED_EXTENSIONS, &mut paths);
+    let (mut count, mut saved) = (0, 0u64);
+    for rel in paths {
+        let path = assets.join(&rel);
+        let Ok(text) = std::fs::read_to_string(&path) else { continue };
+        // Not JSON (a `.json` of some other tool's making): left alone.
+        let Ok(value) = serde_json::from_str::<serde_json::Value>(&text) else { continue };
+        let Ok(compact) = serde_json::to_string(&value) else { continue };
+        if compact.len() < text.len() && std::fs::write(&path, &compact).is_ok() {
+            count += 1;
+            saved += (text.len() - compact.len()) as u64;
+        }
+    }
+    (count, saved)
+}
+
 /// Every `.<ext>` file under `assets` that parses as JSON, by its path there.
 fn inline_json(assets: &Path, ext: &str) -> serde_json::Map<String, serde_json::Value> {
     let mut files = Vec::new();
@@ -219,6 +288,8 @@ fn read_physics_backend(project_path: &Path) -> String {
 ///
 /// `platform`: the web portal to build for, over the project's
 /// `settings.web_platform` (`web_platform`); `None` keeps the project's.
+/// `logging`: whether the game writes its info lines to the console
+/// (`set_logging`); warnings and errors are written either way.
 #[allow(clippy::too_many_arguments)]
 pub fn build_web(
     engine_path: &Path,
@@ -231,6 +302,7 @@ pub fn build_web(
     wasm_single_codegen: bool,
     wasm_opt: crate::wasm_opt::WasmOpt,
     debug_overlay: bool,
+    logging: bool,
     platform: Option<crate::web_platform::WebPlatform>,
 ) -> anyhow::Result<()> {
     // Absolute before anything derives from them: wasm-pack resolves a
@@ -315,6 +387,14 @@ pub fn build_web(
     if project_crate.is_none() {
         features.push("standalone".to_string());
     }
+    // The engine features (`engine_features`): on the stock crate's command
+    // line, since `--no-default-features` empties them; a generated crate
+    // names them on its own `jengine-core` dependency.
+    let engine = crate::engine_features::for_project(project_path)?;
+    if project_crate.is_none() {
+        features.extend(engine.host_features());
+    }
+    crate::progress::step(&engine.summary());
     log::info!("Web graphics backends: {}", backends.join(", "));
 
     let mut cmd = Command::new("wasm-pack");
@@ -325,14 +405,16 @@ pub fn build_web(
     // which `index.html` imports, whatever the crate is called.
     cmd.args(["--out-name", "jengine_web"]);
 
-    cmd.args(["--no-default-features", "--features", &features.join(",")]);
-
     // A release module is optimised at the project's level afterwards; a dev
-    // build is never optimised (wasm-pack's own rule).
+    // build is never optimised (wasm-pack's own rule). wasm-pack's own flags
+    // go before the cargo ones: from the first flag it does not know, wasm-pack
+    // hands everything to `cargo build`, and cargo refuses `--no-opt`.
     let opt_plan = release.then(|| crate::wasm_opt::Plan::new(wasm_opt));
     if let Some(plan) = &opt_plan {
         cmd.args(plan.wasm_pack_args());
     }
+
+    cmd.args(["--no-default-features", "--features", &features.join(",")]);
 
     // Apply WASM optimization env vars (release only)
     if release {
@@ -437,6 +519,12 @@ pub fn build_web(
         crate::set_debug_overlay(&mut doc, debug_overlay);
         if !debug_overlay {
             log::info!("Debug overlay disabled for this build (F3 / F12 inert)");
+        }
+        crate::set_logging(&mut doc, logging);
+        if logging && release {
+            log::warn!("Logs are on in a release build: players see every info line in the browser console");
+        } else if !logging {
+            log::info!("Logs off for this build (warnings and errors still reach the console)");
         }
 
         // Auto-detect entry_scene if not explicitly set
@@ -607,10 +695,26 @@ pub fn build_web(
         log::info!("Generated skeletal manifest: {count} clip(s), {rigs} rig(s)");
     }
 
+    // 10. A release build's JSON without its whitespace - the project's own
+    //     files stay readable; only what ships is minified.
+    if release {
+        let (count, saved) = minify_json_assets(&dest_assets);
+        log::info!("Minified {count} JSON asset(s), {} KB smaller", saved / 1024);
+    }
+
+    // 11. The small assets in one file - see `asset_bundle`.
+    {
+        let bundle = asset_bundle(&dest_assets);
+        let count = bundle["files"].as_object().map_or(0, |m| m.len());
+        let text = serde_json::to_string(&bundle)?;
+        std::fs::write(dest_assets.join(ASSET_BUNDLE_FILE), &text)?;
+        log::info!("Generated asset bundle: {count} file(s), {} KB", text.len() / 1024);
+    }
+
     crate::progress::step(&format!("Web build complete: {}", output_path.display()));
 
     if generate_report {
-        crate::report::generate_report(output_path, "web", profile_name, Some(engine_path))?;
+        crate::report::generate_report(output_path, "web", profile_name, Some(engine_path), Some(&engine))?;
     }
 
     Ok(())
@@ -710,6 +814,16 @@ fn rebuild_lua_runtime(engine_path: &Path, bundle: &Path) -> anyhow::Result<()> 
     if !editor_dir.join("node_modules").is_dir() {
         anyhow::bail!("editor/node_modules is missing - run `npm install` in editor/");
     }
+    // Fengari's `%` and `^` by Luau's rules first (`patch-fengari.mjs`, a
+    // no-op once done): a bundle built from an unpatched `fengari-web` ships
+    // a web build whose scripts compute different numbers from native.
+    let status = crate::progress::run_streaming(
+        Command::new("node").arg("scripts/patch-fengari.mjs").current_dir(&editor_dir),
+        "node scripts/patch-fengari.mjs",
+    )?;
+    if !status.success() {
+        anyhow::bail!("patching fengari-web failed ({status})");
+    }
     let esbuild_args = [
         "esbuild",
         "src/lib/lua-runtime.ts",
@@ -744,6 +858,17 @@ mod web_script_tests {
 
     static COUNTER: AtomicU64 = AtomicU64::new(0);
 
+    /// wasm-pack hands everything from the first flag it does not know to
+    /// `cargo build`, so a wasm-pack flag after `--no-default-features` reached
+    /// cargo, which refused `--no-opt` - every release web build failed.
+    #[test]
+    fn wasm_packs_own_flags_come_before_the_cargo_ones() {
+        let src = include_str!("web.rs");
+        let own = src.find("cmd.args(plan.wasm_pack_args())").expect("the optimiser's wasm-pack flags");
+        let cargo = src.find("cmd.args([\"--no-default-features\"").expect("the cargo feature flags");
+        assert!(own < cargo, "wasm-pack's own flags must be added before the cargo ones");
+    }
+
     fn tmp_project(settings: &str) -> std::path::PathBuf {
         let id = COUNTER.fetch_add(1, Ordering::Relaxed);
         let dir = std::env::temp_dir().join(format!(
@@ -759,6 +884,51 @@ mod web_script_tests {
         )
         .unwrap();
         dir
+    }
+
+    #[test]
+    fn the_bundle_holds_the_small_assets_and_not_the_scenes() {
+        let dir = tmp_project(r#"{}"#);
+        let assets = dir.join("assets");
+        std::fs::create_dir_all(assets.join("prefabs/deep")).unwrap();
+        std::fs::create_dir_all(assets.join("scenes")).unwrap();
+        std::fs::write(assets.join("prefabs/deep/crate.prefab"), r#"{ "name": "crate" }"#).unwrap();
+        std::fs::write(assets.join("materials.material"), r#"{"shader":"x"}"#).unwrap();
+        std::fs::write(assets.join("odd.gui"), "not json").unwrap();
+        std::fs::write(assets.join("scenes/main.scene"), r#"{"entities":[]}"#).unwrap();
+        std::fs::write(assets.join("big.data"), vec![b' '; BUNDLE_FILE_LIMIT as usize + 1]).unwrap();
+        let bundle = asset_bundle(&assets);
+        let files = bundle["files"].as_object().unwrap();
+        let mut keys: Vec<&str> = files.keys().map(|k| k.as_str()).collect();
+        keys.sort();
+        // Nested, by its path under `assets/`; a scene and an oversize file left out.
+        assert_eq!(keys, vec!["materials.material", "odd.gui", "prefabs/deep/crate.prefab"]);
+        assert_eq!(files["prefabs/deep/crate.prefab"]["name"], "crate");
+        // A file that is not JSON is carried as its text.
+        assert_eq!(files["odd.gui"], "not json");
+        // The web runtime asks for it by this name.
+        let runtime = include_str!("../../jengine-web/src/lib.rs");
+        assert!(runtime.contains(&format!("\"assets/{ASSET_BUNDLE_FILE}\"")), "the web runtime reads no asset bundle");
+    }
+
+    #[test]
+    fn minifying_keeps_the_data_and_leaves_other_files_alone() {
+        let dir = tmp_project(r#"{}"#);
+        let assets = dir.join("assets");
+        std::fs::create_dir_all(assets.join("scenes")).unwrap();
+        let scene = "{\n  \"entities\": [\n    { \"name\": \"a\", \"x\": 1.5 }\n  ]\n}\n";
+        std::fs::write(assets.join("scenes/main.scene"), scene).unwrap();
+        std::fs::write(assets.join("notes.json"), "not { json").unwrap();
+        std::fs::write(assets.join("main.lua"), "local  x = 1\n").unwrap();
+        let (count, saved) = minify_json_assets(&assets);
+        assert_eq!(count, 1);
+        let out = std::fs::read_to_string(assets.join("scenes/main.scene")).unwrap();
+        assert_eq!(out, r#"{"entities":[{"name":"a","x":1.5}]}"#);
+        assert_eq!(saved as usize, scene.len() - out.len());
+        let before: serde_json::Value = serde_json::from_str(scene).unwrap();
+        assert_eq!(serde_json::from_str::<serde_json::Value>(&out).unwrap(), before);
+        assert_eq!(std::fs::read_to_string(assets.join("notes.json")).unwrap(), "not { json");
+        assert_eq!(std::fs::read_to_string(assets.join("main.lua")).unwrap(), "local  x = 1\n");
     }
 
     #[test]

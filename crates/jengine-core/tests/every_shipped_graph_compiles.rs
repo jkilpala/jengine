@@ -8,6 +8,7 @@
 //! removed from the catalog. Tests loaded a handful of graphs each; nothing
 //! loaded all of them, so a rule change could break a shipped game's enemies
 //! with every test green.
+#![cfg(feature = "behavior")]
 
 use jengine_core::behavior::{BehaviorAsset, compile};
 use std::path::{Path, PathBuf};

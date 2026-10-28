@@ -26,6 +26,7 @@
 //! `setup_op_under_on_tick` warning when a setup op is reachable from
 //! an `OnTick` trigger (the §2.6 footgun).
 
+use crate::detmath::DetMath;
 use std::collections::{BTreeMap, HashMap, HashSet, VecDeque};
 
 use glam::Vec2;
@@ -518,7 +519,7 @@ impl BinaryFloatOp {
                     a % b
                 }
             }
-            Self::Pow => a.powf(b),
+            Self::Pow => a.dpowf(b),
         }
     }
 }
@@ -606,9 +607,9 @@ impl UnaryFloatOp {
                     a.sqrt()
                 }
             }
-            Self::Sin => a.sin(),
-            Self::Cos => a.cos(),
-            Self::Tan => a.tan(),
+            Self::Sin => a.dsin(),
+            Self::Cos => a.dcos(),
+            Self::Tan => a.dtan(),
             Self::Floor => a.floor(),
             Self::Ceil => a.ceil(),
             Self::Round => a.round(),

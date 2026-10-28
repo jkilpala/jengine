@@ -2,7 +2,7 @@
 //! `Transform + SpriteComponent` entity through the wgpu pipeline.
 //!
 //! Behaviour:
-//! - Auto-detects v1 / v2 scene format via [`load_scene_auto`].
+//! - Auto-detects v1 / v2 scene format via [`load_scene_value`].
 //! - Builds a [`ComponentRegistry`] populated with the engine's core
 //!   component types (so v2 scenes deserialize) but does **not** spin up
 //!   scripts, physics, audio, particles, GUI, or any of the heavier
@@ -55,7 +55,7 @@ use jengine_core::renderer::graph_pipeline_cache::{GraphPipelineCache, GraphPipe
 use jengine_core::renderer::lighting::has_lights;
 use jengine_core::debug_overlay::DebugOverlayState;
 use jengine_core::renderer::text::{built_in_font_atlas, FontData};
-use jengine_core::scene::format::load_scene_auto;
+use jengine_core::scene::format::load_scene_value;
 use jengine_core::scene::manager::{SceneAction, SceneManager};
 use winit::keyboard::PhysicalKey;
 
@@ -113,6 +113,7 @@ pub(crate) struct WgpuSceneState {
     texture_roots: Vec<PathBuf>,
     /// `asset::packs::generation()` when `texture_requested` was last
     /// cleared: a pack mounted since may hold a texture given up on.
+    #[cfg(feature = "packs")]
     packs_generation: u64,
     /// What the scene is cleared to: the project's `background_color`
     /// (set by `lib.rs` after the state is built). It used to be a constant
@@ -135,6 +136,9 @@ pub(crate) struct WgpuSceneState {
     /// on a multi-monitor setup with mismatched refresh rates, where the
     /// present cadence beats against scanout.
     pacer: jengine_core::time::FramePacer,
+    /// Gameplay in fixed steps when the project asks (`settings.simulation_hz`,
+    /// `ecs::fixed_step`); one step of the frame's `dt` otherwise.
+    fixed_step: jengine_core::ecs::fixed_step::FixedStep,
     /// Frames until the pacer re-reads the monitor's refresh rate. The
     /// window can be dragged between displays that do not share one, and
     /// snapping to the wrong grid is worse than not snapping.
@@ -208,6 +212,7 @@ pub(crate) struct WgpuSceneState {
     view_targets: std::collections::HashMap<String, jengine_core::ecs::wgpu_systems::ViewTargets>,
     /// The videos playing (`jengine_core::video`), decoded by Media
     /// Foundation on Windows (`video_mf`).
+    #[cfg(feature = "video")]
     video: jengine_core::video::VideoSystem,
     /// Phase 3.c-4 7-prep wedge 4 — metadata for the engine's
     /// built-in 5×7 monospace debug font. The matching atlas RGBA
@@ -261,6 +266,7 @@ pub(crate) struct WgpuSceneState {
     /// A focused text field's IME, soft keyboard and clipboard.
     text: crate::text_native::NativeText,
     /// The UI as the platform's screen reader sees it.
+    #[cfg(feature = "accessibility")]
     accessibility: crate::a11y_native::NativeAccessibility,
     /// Scenes loading in the background (`Scene.load_additive`, `Scene.preload`).
     streaming: crate::streaming_native::NativeStreaming,
@@ -330,6 +336,9 @@ pub(crate) struct WgpuSceneState {
 /// candidate-root resolution after pop matches the original load.
 struct SceneSnapshot {
     json: String,
+    /// The pushed scene's own `simulation_hz`, which the snapshot's JSON
+    /// does not carry - put back on pop.
+    simulation_hz: Option<f32>,
     scene_path: PathBuf,
     scene_name: String,
     /// Slice 12 follow-up — captured camera so `pop_scene` restores
@@ -338,7 +347,7 @@ struct SceneSnapshot {
     /// to origin / zoom 1.0 even when the previous scene had a
     /// follow-cam mid-flight.
     camera: Camera2D,
-    /// Same story for the effect chain: `apply_scene_json` replaces it from
+    /// Same story for the effect chain: `apply_scene` replaces it from
     /// the scene being loaded, and a pop's snapshot JSON carries no
     /// `post_process` block, so without this a pop drops the pushed-over
     /// scene's bloom (BUGS #84).
@@ -522,8 +531,8 @@ pub(crate) fn handle_window_event(
     event: WindowEvent,
 ) {
         // The screen reader sees every event first (focus, resizing, ...).
-        let window = state.window.clone();
-        state.accessibility.process_event(&window, &event);
+        #[cfg(feature = "accessibility")]
+        state.accessibility.process_event(&state.window.clone(), &event);
         match event {
             WindowEvent::CloseRequested => event_loop.exit(),
             WindowEvent::Resized(size) => {
@@ -558,6 +567,7 @@ pub(crate) fn handle_window_event(
                 );
                 state.text.sync(&state.window, &state.ui_scale);
                 sync_streaming(state);
+                #[cfg(feature = "packs")]
                 sync_asset_packs(state);
                 if let Err(e) = render_frame(state) {
                     log::warn!("[wgpu-scene] frame error: {e:#}");
@@ -822,6 +832,20 @@ fn load_project_texture_filters(scene_path: &Path) -> jengine_core::renderer::te
     TextureFilterRules::from_settings(v.get("settings"))
 }
 
+/// `settings.simulation_hz` - gameplay in fixed steps (`ecs::fixed_step`).
+/// Absent: one step a frame, as always.
+fn load_project_fixed_step(scene_path: &Path) -> jengine_core::ecs::fixed_step::FixedStep {
+    use jengine_core::ecs::fixed_step::FixedStep;
+    let Some(root) = find_project_root(scene_path) else {
+        return FixedStep::new();
+    };
+    let Ok(text) = std::fs::read_to_string(root.join("project.jengine")) else {
+        return FixedStep::new();
+    };
+    let v = serde_json::from_str::<serde_json::Value>(&text).unwrap_or_default();
+    FixedStep::from_settings(v.get("settings"))
+}
+
 /// `settings.gpu_preference` - which of two GPUs to ask for
 /// (`jengine_core::renderer::gpu_preference`). Absent: the fast one.
 fn load_project_gpu_preference(scene_path: &Path) -> jengine_core::renderer::gpu_preference::GpuPreference {
@@ -834,6 +858,31 @@ fn load_project_gpu_preference(scene_path: &Path) -> jengine_core::renderer::gpu
     };
     let v = serde_json::from_str::<serde_json::Value>(&text).unwrap_or_default();
     GpuPreference::from_settings(v.get("settings"))
+}
+
+/// The window's title: the game's - `settings.title`, else the name under its
+/// icon (`settings.app.name`), else the project's name. It used to be
+/// `jEngine — wgpu scene: <scene>`, which a player has no use for.
+fn load_project_title(scene_path: &Path) -> Option<String> {
+    let root = find_project_root(scene_path)?;
+    let text = std::fs::read_to_string(root.join("project.jengine")).ok()?;
+    let v = serde_json::from_str::<serde_json::Value>(&text).ok()?;
+    project_title(&v)
+}
+
+fn project_title(project: &serde_json::Value) -> Option<String> {
+    let settings = project.get("settings");
+    [
+        settings.and_then(|s| s.get("title")),
+        settings.and_then(|s| s.get("app")).and_then(|a| a.get("name")),
+        project.get("name"),
+    ]
+    .into_iter()
+    .flatten()
+    .filter_map(serde_json::Value::as_str)
+    .map(str::trim)
+    .find(|s| !s.is_empty())
+    .map(str::to_string)
 }
 
 /// `settings.audio_mixer` - the buses a game starts with
@@ -884,6 +933,7 @@ pub(crate) fn build_state(
 
     // Asset packs before anything is loaded: one already downloaded must be
     // mounted for the first scene to find what it brought.
+    #[cfg(feature = "packs")]
     init_asset_packs(scene_path);
 
     let mut registry = ComponentRegistry::new();
@@ -912,7 +962,11 @@ pub(crate) fn build_state(
     // `.anim`, `.particle` and `.tilemap` references, inlined before the
     // scene is deserialized. Same asset search roots as textures.
     let candidates = candidate_roots(scene_path);
-    let json = inline_scene_sources(json, &candidates);
+    // Parsed once, here: every step after reads or rewrites this value, where
+    // each used to parse the text again.
+    let mut scene: serde_json::Value = serde_json::from_str(&json)
+        .with_context(|| format!("parsing scene file {}", scene_path.display()))?;
+    inline_scene_sources(&mut scene, &candidates);
 
     // Backlog 2.2 — load `.prefab` files into a local map BEFORE
     // expanding `prefab_instance` entries in the scene JSON. The same
@@ -924,13 +978,15 @@ pub(crate) fn build_state(
     // id + dotted-path overrides) into a fully-materialised
     // ComponentBundle. v2 scenes are not yet supported by this pass
     // and pass through unchanged.
-    let json = jengine_core::scene::expand_prefab_instances_in_json(&json, &prefabs, "wgpu-scene");
+    jengine_core::scene::expand_prefab_instances_in_value(&mut scene, &prefabs, "wgpu-scene");
 
+    // The scene-wide fields, kept; the scene itself goes to the loader whole.
+    let scene_header = jengine_core::scene::format::scene_header(&scene);
     let mut world = World::new();
-    load_scene_auto(&json, &mut world, &registry)
+    load_scene_value(scene, &mut world, &registry)
         .with_context(|| format!("parsing scene file {}", scene_path.display()))?;
 
-    let scene_name = peek_scene_name(&json).unwrap_or_else(|| {
+    let scene_name = jengine_core::scene::name_in(&scene_header).unwrap_or_else(|| {
         scene_path
             .file_stem()
             .and_then(|s| s.to_str())
@@ -951,8 +1007,9 @@ pub(crate) fn build_state(
 
     // Hidden until the screen reader's adapter exists: AccessKit must be
     // set up before a window is first shown (`a11y_native`).
+    let title = load_project_title(scene_path).unwrap_or_else(|| format!("jEngine — {scene_name}"));
     let mut window_attrs = WindowAttributes::default()
-        .with_title(format!("jEngine — wgpu scene: {scene_name}"))
+        .with_title(&title)
         .with_inner_size(LogicalSize::new(win_w, win_h))
         .with_visible(false);
     // One of several copies the editor's Build & Run started: its cell of
@@ -965,12 +1022,13 @@ pub(crate) fn build_state(
         let (x, y, w, h) = tile.cell(crate::instance_tile::usable_area((pos.x, pos.y), (size.width, size.height)));
         let (fw, fh) = crate::instance_tile::FRAME;
         window_attrs = window_attrs
-            .with_title(format!("jEngine — {scene_name}{}", tile.title_suffix()))
+            .with_title(format!("{title}{}", tile.title_suffix()))
             .with_position(winit::dpi::PhysicalPosition::new(x, y))
             .with_inner_size(winit::dpi::PhysicalSize::new(w.saturating_sub(fw).max(320), h.saturating_sub(fh).max(240)));
     }
     let window = Arc::new(event_loop.create_window(window_attrs)?);
-    let accessibility = crate::a11y_native::NativeAccessibility::new(event_loop, &window, &scene_name);
+    #[cfg(feature = "accessibility")]
+    let accessibility = crate::a11y_native::NativeAccessibility::new(event_loop, &window, &title);
     window.set_visible(true);
 
     let renderer = WgpuRenderer::new_with_gpu(window.clone(), load_project_gpu_preference(scene_path))?;
@@ -1019,18 +1077,13 @@ pub(crate) fn build_state(
     // resolve the region without filesystem access at runtime. No-op on
     // scenes without an `atlas_refs` array.
     //
-    // NB: parse the *original authored* file here, not the post-prefab
-    // `json` above — `expand_prefab_instances_in_json` round-trips the
-    // scene through the typed `SceneData`, which has no `atlas_refs` /
-    // `audio_refs` fields and would silently drop them. `sort_layers`
-    // survives (it's a `SceneData` field) but we read it from the same
-    // source for consistency.
-    let refs_src = std::fs::read_to_string(scene_path).unwrap_or_else(|_| json.clone());
+    // From the header: prefab expansion keeps every top-level field (it
+    // merges back what the typed `SceneData` round-trip drops), so this no
+    // longer re-reads the authored file for its `atlas_refs` / `audio_refs`.
     // Wedge 11 — patrol routes. The library, the component and the walk system
     // have all existed since the component was added; nothing ever filled the
     // library, so `PatrolPathRef` moved nothing in any runtime (BUGS #7).
-    let path_library = jengine_core::scene::format::read_scene_metadata(&refs_src)
-        .ok()
+    let path_library = Some(jengine_core::scene::format::scene_metadata(&scene_header))
         .filter(|meta| !meta.paths.is_empty())
         .map(|meta| {
             let mut lib = jengine_core::ecs::path::Path2DLibrary::new();
@@ -1040,9 +1093,10 @@ pub(crate) fn build_state(
             log::info!("[wgpu-scene] patrol paths: {}", lib.len());
             lib
         });
-    if let Ok(value) = serde_json::from_str::<serde_json::Value>(&refs_src) {
+    {
+        let value = &scene_header;
         let slerrs = jengine_core::asset::sort_layers::resolve_scene_sort_layers(
-            &value,
+            value,
             &candidates,
             &mut assets,
         );
@@ -1050,7 +1104,7 @@ pub(crate) fn build_state(
             log::warn!("[wgpu-scene] sort_layers resolve: {e}");
         }
         let aerrs = jengine_core::renderer::atlas_asset::resolve_atlas_refs(
-            &value,
+            value,
             &candidates,
             &mut assets,
         );
@@ -1077,7 +1131,7 @@ pub(crate) fn build_state(
         // `apply_audio_commands`. No-op on scenes without an
         // `audio_refs` array.
         let auerrs = jengine_core::audio::audio_asset::resolve_audio_refs(
-            &value,
+            value,
             &candidates,
             &mut assets,
         );
@@ -1152,7 +1206,7 @@ pub(crate) fn build_state(
     // Phase 8.2e — apply scene-authored post-process settings (if any)
     // so bloom / vignette / etc. authored in the .scene file render
     // from frame 0 without the script needing to re-toggle them.
-    if let Some(settings) = jengine_core::renderer::postprocess::PostProcessSettings::from_scene_json(&json) {
+    if let Some(settings) = jengine_core::renderer::postprocess::PostProcessSettings::from_scene_value(&scene_header) {
         post_process.set_settings(settings);
     }
     let light_pass = WgpuLightingPass::new(
@@ -1265,7 +1319,7 @@ pub(crate) fn build_state(
             script_system
                 .api
                 .services
-                .prefabs
+                .prefabs_mut()
                 .insert(key.clone(), entity_data.clone());
         }
         log::info!("[wgpu-scene] registered {} prefab(s) for script spawn_prefab", count);
@@ -1343,6 +1397,7 @@ pub(crate) fn build_state(
     };
 
     // Videos are files under the scene's `assets/`, like everything else.
+    #[cfg(feature = "video")]
     let video = {
         let root = scene_path
             .parent()
@@ -1370,6 +1425,7 @@ pub(crate) fn build_state(
         missing_warned: HashSet::new(),
         texture_requested: HashSet::new(),
         texture_roots: candidates.clone(),
+        #[cfg(feature = "packs")]
         packs_generation: jengine_core::asset::packs::generation(),
         clear_color: [0.05, 0.05, 0.08, 1.0],
         world,
@@ -1384,11 +1440,18 @@ pub(crate) fn build_state(
         frame_cap: load_project_frame_cap(scene_path),
         display: crate::display_native::NativeDisplay::new(project_frame_cap_fps(scene_path)),
         text: Default::default(),
+        #[cfg(feature = "accessibility")]
         accessibility,
         streaming: Default::default(),
         last_frame: Instant::now(),
         touch: jengine_core::input::touch_controls::TouchControlsState::new(),
         pacer: jengine_core::time::FramePacer::new(),
+        fixed_step: {
+            // The project's rate, or the first scene's own.
+            let mut f = load_project_fixed_step(scene_path);
+            f.enter_scene(jengine_core::ecs::fixed_step::scene_simulation_hz(&scene_header));
+            f
+        },
         pacer_recheck_in: 0,
         frame_stats: jengine_core::profiling::FrameStats::default(),
         fps_ema: 0.0,
@@ -1407,6 +1470,7 @@ pub(crate) fn build_state(
         post_process,
         light_pass,
         view_targets: Default::default(),
+        #[cfg(feature = "video")]
         video,
         font_data,
         input,
@@ -1820,7 +1884,7 @@ fn resolve_scene_path(state: &WgpuSceneState, requested: &str) -> Result<PathBuf
     if let Some(p) = jengine_core::asset::find_in_roots(requested, &roots) {
         return Ok(p);
     }
-    let hint = jengine_core::asset::packs::missing_hint(requested).map(|h| format!(" (it is {h})")).unwrap_or_default();
+    let hint = pack_hint(requested).map(|h| format!(" (it is {h})")).unwrap_or_default();
     Err(anyhow::anyhow!(
         "could not resolve scene path '{requested}' relative to '{}'{hint}",
         state.scene_path.display()
@@ -1828,7 +1892,7 @@ fn resolve_scene_path(state: &WgpuSceneState, requested: &str) -> Result<PathBuf
 }
 
 /// Slice 12 — serialize the current world to a v2 JSON string suitable
-/// for restoration via `apply_scene_json`. Uses the same component
+/// for restoration via `apply_scene`. Uses the same component
 /// registry that the load path builds (`register_core_components`) so
 /// every script-mutated component round-trips with full fidelity.
 fn snapshot_world(
@@ -1850,22 +1914,39 @@ fn snapshot_world(
 /// new textures + GUIs into the existing asset cache, resets the
 /// particle simulation, and updates `state.scene_path` /
 /// `state.scene_name`. Slice 12 also wires Push/Pop via the same
-/// `apply_scene_json` helper that this fn delegates to.
+/// `apply_scene` helper that this fn delegates to.
 fn reload_scene(state: &mut WgpuSceneState, requested: &str) -> Result<()> {
     let path = resolve_scene_path(state, requested)?;
     let json = std::fs::read_to_string(&path)
         .with_context(|| format!("reading scene file {}", path.display()))?;
-    let scene_name = peek_scene_name(&json).unwrap_or_else(|| {
+    // Every scene a script loads comes through here - every game launched
+    // from a hub - and this used to skip what `build_state` did: an external
+    // tilemap arrived empty (a platformer had no ground), clips and emitters
+    // without their files - and, until Oct 2026, its prefab instances, which
+    // loaded unexpanded natively alone. Not in `apply_scene`, which also
+    // restores `pop_scene` snapshots: re-reading the files there would undo
+    // tiles the game had changed.
+    let scene = prepare_scene(&json, &path, state.script_system.api.services.prefabs(), "wgpu-scene")?;
+    let scene_name = jengine_core::scene::name_in(&scene).unwrap_or_else(|| {
         path.file_stem().and_then(|s| s.to_str()).unwrap_or("scene").to_string()
     });
-    // Every scene a script loads comes through here - every game launched
-    // from a hub - and this used to skip what `build_state` did:
-    // an external tilemap arrived empty (a platformer had no ground), clips
-    // and emitters without their files. Not in `apply_scene_json`, which
-    // also restores `pop_scene` snapshots: re-reading the files there would
-    // undo tiles the game had changed.
-    let json = inline_scene_sources(json, &candidate_roots(&path));
-    apply_scene_json(state, &json, path, scene_name)
+    apply_scene(state, scene, path, scene_name)
+}
+
+/// A scene file's text, parsed - the one parse it gets - with its `.anim`,
+/// `.particle` and `.tilemap` references inlined and its prefab instances
+/// expanded: what every scene a script enters or streams in goes through.
+fn prepare_scene(
+    json: &str,
+    path: &Path,
+    prefabs: &std::collections::HashMap<String, jengine_core::scene::format::EntityData>,
+    context: &str,
+) -> Result<serde_json::Value> {
+    let mut scene: serde_json::Value =
+        serde_json::from_str(json).with_context(|| format!("parsing scene file {}", path.display()))?;
+    inline_scene_sources(&mut scene, &candidate_roots(path));
+    jengine_core::scene::expand_prefab_instances_in_value(&mut scene, prefabs, context);
+    Ok(scene)
 }
 
 /// `settings.liveops` (`jengine_core::liveops`), then `settings.asset_packs`
@@ -1873,6 +1954,7 @@ fn reload_scene(state: &mut WgpuSceneState, requested: &str) -> Result<()> {
 /// live ops snapshot believed last time - whose content release the packs
 /// are laid under before anything mounts - and what this game's packs are,
 /// and which are cached already.
+#[cfg(feature = "packs")]
 fn init_asset_packs(scene_path: &Path) {
     use jengine_core::asset::packs::{PackSettings, native};
     let root = find_project_root(scene_path);
@@ -1882,7 +1964,10 @@ fn init_asset_packs(scene_path: &Path) {
         .and_then(|t| serde_json::from_str::<serde_json::Value>(&t).ok())
         .and_then(|v| v.get("settings").cloned())
         .unwrap_or_default();
+    #[cfg(feature = "liveops")]
     let live = jengine_core::liveops::native::init(&settings);
+    #[cfg(not(feature = "liveops"))]
+    let live = None;
     let packs = PackSettings::from_settings(&settings);
     let assets_root = root.map(|r| r.join("assets")).unwrap_or_else(|| PathBuf::from("assets"));
     native::init(&assets_root, &packs, candidate_roots(scene_path), live.as_ref());
@@ -1894,9 +1979,11 @@ fn init_asset_packs(scene_path: &Path) {
 /// their textures), data tables, skeletal clips and rigs. Its scripts need
 /// nothing: they are read when an entity first uses one, through
 /// `find_in_roots`, and `require` looks in the packs itself.
+#[cfg(feature = "packs")]
 fn sync_asset_packs(state: &mut WgpuSceneState) {
     use jengine_core::asset::packs;
     // Live ops first: a snapshot it believes may change the packs.
+    #[cfg(feature = "liveops")]
     jengine_core::liveops::native::sync();
     packs::native::sync();
     let generation = packs::generation();
@@ -1908,11 +1995,11 @@ fn sync_asset_packs(state: &mut WgpuSceneState) {
         if content.is_empty() {
             continue;
         }
-        let added = content.add_prefabs(&mut state.script_system.api.services.prefabs);
+        let added = content.add_prefabs(state.script_system.api.services.prefabs_mut());
         if !added.is_empty() {
             let new: std::collections::HashMap<_, _> = added
                 .iter()
-                .filter_map(|n| state.script_system.api.services.prefabs.get(n).map(|d| (n.clone(), d.clone())))
+                .filter_map(|n| state.script_system.api.services.prefabs().get(n).map(|d| (n.clone(), d.clone())))
                 .collect();
             load_world_textures(&World::new(), &new, &state.texture_roots, &mut state.assets);
         }
@@ -2009,20 +2096,20 @@ fn start_stream_job(state: &mut WgpuSceneState, handle: Option<u32>, requested: 
         Err(e) => return fail(format!("reading {}: {e}", path.display())),
     };
     let candidates = candidate_roots(&path);
-    let json = inline_scene_sources(json, &candidates);
-    let json = jengine_core::scene::expand_prefab_instances_in_json(&json, &state.script_system.api.services.prefabs, "stream");
-    let mut chunk = World::new();
-    if let Err(e) = load_scene_auto(&json, &mut chunk, &state.registry) {
-        return fail(format!("{e:#}"));
-    }
+    let scene = match prepare_scene(&json, &path, state.script_system.api.services.prefabs(), "stream") {
+        Ok(s) => s,
+        Err(e) => return fail(format!("{e:#}")),
+    };
     // Sounds and atlases are small and read here; textures go to a worker.
-    if let Ok(value) = serde_json::from_str::<serde_json::Value>(&json) {
-        for e in jengine_core::renderer::atlas_asset::resolve_atlas_refs(&value, &candidates, &mut state.assets) {
-            log::warn!("[stream] atlas: {e}");
-        }
-        for e in jengine_core::audio::audio_asset::resolve_audio_refs(&value, &candidates, &mut state.assets) {
-            log::warn!("[stream] audio: {e}");
-        }
+    for e in jengine_core::renderer::atlas_asset::resolve_atlas_refs(&scene, &candidates, &mut state.assets) {
+        log::warn!("[stream] atlas: {e}");
+    }
+    for e in jengine_core::audio::audio_asset::resolve_audio_refs(&scene, &candidates, &mut state.assets) {
+        log::warn!("[stream] audio: {e}");
+    }
+    let mut chunk = World::new();
+    if let Err(e) = load_scene_value(scene, &mut chunk, &state.registry) {
+        return fail(format!("{e:#}"));
     }
     let mut files = Vec::new();
     for tex in jengine_core::scene::format::world_texture_ids(&chunk) {
@@ -2054,22 +2141,18 @@ fn start_stream_job(state: &mut WgpuSceneState, handle: Option<u32>, requested: 
 /// Inline a scene's `.anim` / `.particle` / `.tilemap` references
 /// (`scene::sources`), logging what was found and what was not. A scene
 /// that is not valid JSON is returned as it is, for the loader to report.
-fn inline_scene_sources(json: String, candidates: &[PathBuf]) -> String {
-    let Ok(mut value) = serde_json::from_str::<serde_json::Value>(&json) else {
-        return json;
-    };
-    let errors = jengine_core::scene::sources::inline_sources(&mut value, candidates);
+fn inline_scene_sources(value: &mut serde_json::Value, candidates: &[PathBuf]) {
+    let errors = jengine_core::scene::sources::inline_sources(value, candidates);
     for e in &errors {
         log::warn!("[wgpu-scene] source resolve: {e:#}");
     }
-    let (anims, particles, tilemaps) = jengine_core::scene::sources::count_sources(&value);
+    let (anims, particles, tilemaps) = jengine_core::scene::sources::count_sources(value);
     if anims + particles + tilemaps > 0 {
         log::info!(
             "[wgpu-scene] inlined {anims} .anim, {particles} .particle, {tilemaps} .tilemap              reference(s) ({} error(s))",
             errors.len()
         );
     }
-    serde_json::to_string(&value).unwrap_or(json)
 }
 
 /// Slice 12 — swap `state.world` to whatever is in `json` and rebuild
@@ -2079,15 +2162,20 @@ fn inline_scene_sources(json: String, candidates: &[PathBuf]) -> String {
 /// relative asset resolution and `push_scene` / `pop_scene` walks the
 /// correct candidate roots — when restoring a snapshot this is the
 /// original scene path, not a temp file.
-fn apply_scene_json(
+fn apply_scene(
     state: &mut WgpuSceneState,
-    json: &str,
+    scene: serde_json::Value,
     path: PathBuf,
     scene_name: String,
 ) -> Result<()> {
+    // The scene-wide fields, kept; the scene itself goes to the loader whole.
+    let scene_header = jengine_core::scene::format::scene_header(&scene);
     let mut new_world = World::new();
-    load_scene_auto(json, &mut new_world, &state.registry)
+    load_scene_value(scene, &mut new_world, &state.registry)
         .with_context(|| format!("parsing scene source for {}", path.display()))?;
+    // A new world owes no fixed-step time and has nothing to interpolate -
+    // and steps at its own `simulation_hz` if it chose one.
+    state.fixed_step.enter_scene(jengine_core::ecs::fixed_step::scene_simulation_hz(&scene_header));
     // Spawn handles named entities of the scene being replaced.
     jengine_core::scripting::spawn_aliases::clear();
 
@@ -2099,7 +2187,7 @@ fn apply_scene_json(
         new_world.len()
     );
 
-    let prefabs = state.script_system.api.services.prefabs.clone();
+    let prefabs = state.script_system.api.services.prefabs().clone();
     load_world_textures(&new_world, &prefabs, &candidates, &mut state.assets);
     load_world_guis(&new_world, &candidates, &mut state.assets);
     load_world_fonts(&new_world, &candidates, &mut state.assets);
@@ -2108,9 +2196,10 @@ fn apply_scene_json(
     // scene JSON so any new `atlas_refs` / `audio_refs` are
     // preloaded into the asset cache. Errors are logged, never
     // fatal, matching `build_state`.
-    if let Ok(value) = serde_json::from_str::<serde_json::Value>(json) {
+    {
+        let value = &scene_header;
         let slerrs = jengine_core::asset::sort_layers::resolve_scene_sort_layers(
-            &value,
+            value,
             &candidates,
             &mut state.assets,
         );
@@ -2118,7 +2207,7 @@ fn apply_scene_json(
             log::warn!("[wgpu-scene] sort_layers resolve (reload): {e}");
         }
         let aerrs = jengine_core::renderer::atlas_asset::resolve_atlas_refs(
-            &value,
+            value,
             &candidates,
             &mut state.assets,
         );
@@ -2126,7 +2215,7 @@ fn apply_scene_json(
             log::warn!("[wgpu-scene] atlas resolve (reload): {e}");
         }
         let auerrs = jengine_core::audio::audio_asset::resolve_audio_refs(
-            &value,
+            value,
             &candidates,
             &mut state.assets,
         );
@@ -2173,7 +2262,7 @@ fn apply_scene_json(
     // the new scene declares (or clear it if the scene has none).
     state
         .post_process
-        .set_settings(jengine_core::renderer::postprocess::PostProcessSettings::from_scene_json(json).unwrap_or_default());
+        .set_settings(jengine_core::renderer::postprocess::PostProcessSettings::from_scene_value(&scene_header).unwrap_or_default());
     // Wedge 9 — reset the persistent camera so the new scene
     // starts cleanly (zoom 1.0, position zero) instead of inheriting
     // the prior scene's smoothed-follow position. The next frame's
@@ -2582,525 +2671,37 @@ fn render_frame_body(state: &mut WgpuSceneState) -> Result<()> {
     crate::gamepad_android::poll(&mut state.input);
     // Hold / tap / double-tap timing, now every device has reported.
     state.input.update_interactions();
-    // Input actions read this frame's keys and pads.
-    jengine_core::ecs::behaviors::update_input_actions(&mut state.world, &state.input);
-
-    // Wedge 12 — behavior-graph priority 1 tick. Per spec §4.4 the
-    // behavior runtime fires BEFORE the script bridge so any
-    // commands it queues are flushed at the Phase 7 barrier below
-    // and naturally overridden by script commands (priority 2).
-    //
-    // Re-sync instances every frame first so entities spawned at
-    // runtime (script `spawn_prefab`, behavior `SpawnEntity`) that
-    // carry a `BehaviorGraphComponent` get bound + `OnSpawn`-fired,
-    // and despawned graph entities are detached (no instance leak).
-    // Cheap: already-bound entities early-out and graph JSON is
-    // path-cached, so the steady-state cost is one world query.
-    let bg_root = std::path::Path::new("assets");
-    let bg_errors = state.behavior_system.sync_instances(&mut state.world, bg_root);
-    for err in &bg_errors {
-        log::warn!(
-            "[wgpu-scene] behavior graph load failed for entity {:?} ({}): {}",
-            err.entity, err.path.display(), err.source
-        );
-    }
-    // The stepped physics pose back in every body's transform before
-    // anything this frame reads one (the last frame drew the blend).
+    // The true pose back in everything the last frame drew blended: the
+    // physics' bodies, and with fixed steps everything a step moved.
     if let Some(physics) = state.physics.as_mut() {
         physics.restore_stepped_poses(&mut state.world);
     }
-    jengine_core::profiling::trace::time("behavior_graphs", || {
-        state.behavior_system.tick_pre_simulation(&mut state.world, dt)
-    });
-
-    // The world first, then the scripts - the browsers' order, which all
-    // three hosts keep since Oct 2026: a script reads this frame's physics,
-    // as Unity's `Update` does after `FixedUpdate`. Native ran its scripts
-    // first and so read the frame before (`parity-gaps.md`, "The order of a
-    // frame").
-    let update_start = Instant::now();
-    // Before the motion behaviors, so a batch script writing Force2D / Wind2D
-    // / Acceleration2D this frame is integrated in the same frame.
-    run_batch_scripts_if_any(state, dt);
-    // The motion step every host shares. This runtime runs batch scripts,
-    // so their entities' motion is theirs.
-    jengine_core::ecs::behaviors::tick_motion(&mut state.world, dt, state.path_library.as_ref(), true);
-
-    // `AudioSource { auto_play: true }` — entities that carry a sound rather
-    // than a script that plays one. Each plays on its own `bus_id`; a looping
-    // source loops as its own sound instead of replacing the music.
-    {
-        let requests = jengine_core::ecs::behaviors::collect_autoplay_audio(&mut state.world);
-        if !requests.is_empty() {
-            jengine_core::ecs::systems::play_autoplay_audio(
-                &requests,
-                &mut *state.audio,
-                &state.assets,
-                &mut state.script_system.api.services.mixer,
-                &mut state.spatial_audio,
-            );
-        }
-    }
-    // Positional audio: each spatial source at the volume and pan of where it
-    // is now, and the sounds of sources that have gone, stopped.
-    jengine_core::ecs::systems::apply_spatial_audio(
-        &state.world,
-        &mut *state.audio,
-        &mut state.script_system.api.services.mixer,
-        &mut state.spatial_audio,
-    );
-
-    // ── package systems: PreUpdate ────────────────────────────────────────
-    // Each `run_phase` is placed at the point in this frame that matches the
-    // phase's documented meaning, so a package system lands where its docs
-    // say it will. All are cheap no-ops when no package registered for the
-    // phase.
+    state.fixed_step.restore(&mut state.world);
+    // The gameplay: once with this frame's `dt`, or - with
+    // `settings.simulation_hz` - as many fixed steps as real time pays for
+    // (`ecs::fixed_step`), each seeing a press once.
+    // Once a frame, before any step: what must happen even on a frame that
+    // runs no step - reading the network, opening a lockstep gate.
     state.package_host.run_phase_with(
-        SystemPhase::PreUpdate,
+        SystemPhase::Frame,
         &mut state.world,
-        dt,
+        real_dt,
         jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
     );
-
-    // ── package systems: ScriptExec ───────────────────────────────────────
-    state.package_host.run_phase_with(
-        SystemPhase::ScriptExec,
-        &mut state.world,
-        dt,
-        jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
-    );
-
-    // The physics step, after motion (so kinematic bodies follow it, and
-    // last frame's script impulses apply through `ensure_physics_bodies`) and
-    // before the trigger areas and the graph barrier, so contacts feed the
-    // queue the barrier flushes.
-    state.frame_stats.physics_time_ms = 0.0;
-    if let Some(physics) = state.physics.as_mut() {
-        let physics_start = Instant::now();
-        jengine_core::ecs::systems::physics_frame_begin(&mut state.world, physics, dt);
-        let contacts = if state.script_system.has_fixed_update() {
-            // `fixed_update` scripts: one call before each fixed step, each
-            // reading the world as the step before it left it.
-            let steps = physics.begin_frame(dt);
-            let fixed_dt = physics.fixed_dt();
-            for _ in 0..steps {
-                state.script_system.set_physics_ptr(physics);
-                let commands = state.script_system.run_fixed(
-                    &mut state.world,
-                    fixed_dt,
-                    &state.input,
-                    Some(&mut state.scene_manager),
-                    Some(&mut state.assets),
-                );
-                state.script_system.clear_physics_ptr();
-                jengine_core::ecs::systems::apply_physics_commands(&commands, physics, &state.world);
-                jengine_core::ecs::systems::apply_audio_commands(
-                    &commands,
-                    &mut *state.audio,
-                    &state.assets,
-                    &mut state.script_system.api,
-                );
-                // A body spawned by the call steps with the rest, and a force
-                // set in `fixed_update` pushes for this step.
-                jengine_core::ecs::systems::physics_fixed_step(&mut state.world, physics, fixed_dt);
-            }
-            physics.end_frame()
-        } else {
-            physics.step(dt)
-        };
-        jengine_core::ecs::systems::physics_frame_end(
-            &mut state.world,
-            physics,
-            &contacts,
-            &mut state.script_system.api.services.particle_system,
-            dt,
-        );
-        let _disp = state
-            .behavior_system
-            .dispatch_contact_events(&contacts, &mut state.world);
-        // Contacts for the scripts' `on_collision_enter` / `_exit`, which
-        // run later this frame.
-        state.script_system.queue_contact_events(&contacts);
-        // The script system does not own the physics world, so hand it the
-        // gravity `get_gravity()` reports.
-        state.script_system.set_world_gravity(physics.get_gravity());
-        state.frame_stats.physics_time_ms = physics_start.elapsed().as_secs_f32() * 1000.0;
-    }
-
-    // ── package systems: Physics ──────────────────────────────────────────
-    // After the runtime's own step, so a package system sees this frame's
-    // results. The built-in `jengine-physics` package registers here too and
-    // does nothing, because the runtime deliberately does not share
-    // `PhysicsWorld` as a resource — it drives physics directly above.
-    state.package_host.run_phase_with(
-        SystemPhase::Physics,
-        &mut state.world,
-        dt,
-        jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
-    );
-
-    // Trigger areas after the physics step, so overlaps see where things
-    // ended up.
-    jengine_core::ecs::behaviors::update_trigger_areas(&mut state.world);
-
-    // The graph barrier: this frame's trigger-enter events into the
-    // behaviour runtime, then its structural commands flushed. Graph commands
-    // land this frame; the scripts, which run later, see what they did.
-    // Graph input triggers (`OnKey`, `OnMouseClick`) - the same core call in
-    // every runtime; nothing fired them before (BUGS #93).
-    state.behavior_system.dispatch_input(&state.input, &mut state.world);
-    let _trig_dispatched = state
-        .behavior_system
-        .dispatch_trigger_overlaps_from_world(&mut state.world);
-    // Scripts -> graphs: what scripts `send_event`ed this frame reaches the
-    // graphs' `OnEvent` before the barrier, so a handler's commands flush
-    // with everything else's.
-    for ev in state.script_system.take_events_for_graphs() {
-        state
-            .behavior_system
-            .deliver_script_event(&ev.name, ev.data.as_ref(), &mut state.world);
-    }
-    // Then re-dispatch any `EmitEvent` behaviors queued this frame, so
-    // cross-graph `OnEvent` handlers (scene 18's collision pings driving a
-    // separate counter graph) fire in the same frame as the contact. One
-    // shared method so the editor and web do exactly this too.
-    let routed = state.behavior_system.flush_commands_and_route_events(
-        &mut state.world,
-        Some(&jengine_core::behavior::PrefabSource {
-            registry: &state.registry,
-            prefabs: &state.script_system.api.services.prefabs,
-        }),
-    );
-    // Graphs -> scripts: their events reach `on_<name>` next frame.
-    state.script_system.queue_graph_events(&routed.emit_event_requests);
-    // Sound and scene changes need the runtime; forward them through the
-    // exact paths a script's `play_sound` / `load_scene` take (BUGS #93).
-    if !routed.play_sound_requests.is_empty() {
-        let sounds: Vec<jengine_core::scripting::api::ScriptCommand> = routed
-            .play_sound_requests
-            .iter()
-            .map(|r| jengine_core::scripting::api::ScriptCommand::PlaySound {
-                clip_id: r.sound_id.clone(),
-                volume: r.volume,
-                pitch: 1.0,
-                pan: 0.0,
-                sound_id: 0,
-                looping: false,
-            })
-            .collect();
-        jengine_core::ecs::systems::apply_audio_commands(
-            &sounds,
-            &mut *state.audio,
-            &state.assets,
-            &mut state.script_system.api,
-        );
-    }
-    for path in routed.change_scene_requests {
-        state
-            .scene_manager
-            .queue_action(jengine_core::scene::manager::SceneAction::Load(path));
-    }
-
-    // ── package systems: PostPhysics ──────────────────────────────────────
-    state.package_host.run_phase_with(
-        SystemPhase::PostPhysics,
-        &mut state.world,
-        dt,
-        jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
-    );
-
-    // Combat - hitboxes, i-frames, death, the health mirror - after the trigger
-    // areas and the graph barrier, then the sprite animations and their state
-    // machines.
-    let sprite_events = jengine_core::ecs::systems::tick_combat_and_animation(&mut state.world, &state.assets, dt);
-    // What a clip's frames fired: a sound plays, an event goes to the script
-    // on that entity. Every runtime computed these and dropped them until
-    // Sep 2026, so a sound authored on a frame was silent and
-    // `on_animation_event` was a handler nothing ever called.
-    if !sprite_events.is_empty() {
-        let (sounds, _) = jengine_core::animation::split_triggers(&sprite_events);
-        for (_, clip_id, volume) in sounds {
-            jengine_core::ecs::systems::play_sfx(
-                &mut *state.audio,
-                &state.assets,
-                &mut state.script_system.api.services.mixer,
-                &clip_id,
-                volume,
-            );
+    let plan = state.fixed_step.plan(real_dt, state.time_scale);
+    for step in 0..plan.steps {
+        if step > 0 {
+            state.input.clear_edges();
         }
-        state.script_system.queue_animation_events(&sprite_events);
+        state.fixed_step.begin_step(&state.world);
+        simulation_step(state, plan.dt)?;
     }
-    // Typed characters land in the focused GUI TextInput. Kept out of
-    // `tick_world` because GUI documents live in the AssetManager rather than
-    // the world, and threading assets through the whole ECS tick for one
-    // widget is not worth it.
-    jengine_core::ecs::systems::apply_text_input(
-        &mut state.world,
-        &mut state.assets,
-        &mut state.input,
-    );
-    // Menus without a pointer: arrows / D-pad / stick move focus, A / Enter
-    // press it, Tab walks the document. A press reaches scripts as a click
-    // would - a `.gui` node through this frame's `process_gui_clicks`, an
-    // entity-UI button as `ui_click`.
-    let nav = jengine_core::ecs::systems::navigate_ui(
-        &mut state.world,
-        &mut state.assets,
-        &mut state.input,
-        &state.ui_scale,
-        dt,
-    );
-    state.script_system.api.services.pending_gui_activations.extend(nav.gui_activations);
-    // The tree `navigate_ui` just gathered, to the screen reader.
-    state.accessibility.update();
-    for button in nav.ui_clicks {
-        state.script_system.queue_engine_event(
-            jengine_core::ecs::systems::UI_CLICK_EVENT,
-            jengine_core::ecs::systems::ui_click_payload(button),
-        );
+    if plan.steps == 0 {
+        state.input.hold_edges();
     }
-    let expired = jengine_core::ecs::behaviors::update_lifetimes(&mut state.world, dt);
-    for e in expired {
-        let _ = state.world.despawn(e);
-    }
-
-    // Anything carrying `DespawnOffscreen` that has left the view. Every
-    // scrolling game used to walk its own list of spawned things in Lua and
-    // compare each one against the camera by hand.
-    {
-        let view = (state.camera.position, state.camera.half_extents());
-        let travel = state.camera.position - state.prev_camera;
-        let gone = jengine_core::ecs::behaviors::despawn_offscreen(&mut state.world, view, travel);
-        for e in gone {
-            let _ = state.world.despawn(e);
-        }
-        // Videos (`jengine_core::video`): this frame's pictures into their
-        // textures, before anything draws them.
-        state.video.tick(&mut state.world, &mut state.assets, dt);
-        // `visibility_notifier`s that came on screen or left it.
-        jengine_core::ecs::visibility::tick_visibility(&mut state.world, view);
-        // What the engine owes scripts (`ecs::callbacks`): those, a
-        // `path_follow` at its end ... - dispatched by this frame's run.
-        state.script_system.queue_entity_callbacks(&jengine_core::ecs::callbacks::take());
-        state.prev_camera = state.camera.position;
-    }
-
-    // The world tick, less the physics step, which times itself.
-    state.frame_stats.update_time_ms =
-        (update_start.elapsed().as_secs_f32() * 1000.0 - state.frame_stats.physics_time_ms).max(0.0);
-
-    // The UI before the scripts, as both browser hosts have it: a focused
-    // text field takes the keys typed into it (`ui::text_edit`), so a
-    // script reading H or Escape this frame must come after it - and the
-    // scroll gesture below is published for the click dispatch inside
-    // this frame's script run, not the next one's.
-    // GUI scrolling: wheel, then pointer drag / flick / elastic ends. Native
-    // had neither — `apply_gui_wheel_scroll` was written to be shared by all
-    // three runtimes and only the browser two ever called it, so a scrolling
-    // list here could be moved by nothing but a script.
-    {
-        // UI space is virtual pixels (see `ui::scaling`), so the pointer is
-        // divided into it before any UI hit test. `input.mouse_position` stays
-        // physical for world-space uses.
-        let (pw, ph) = state.input.screen_size;
-        let screen = state.ui_scale.virtual_size(pw, ph);
-        let ui_mouse = state.ui_scale.to_ui(
-            state.input.mouse_position.0,
-            state.input.mouse_position.1,
-            pw,
-            ph,
-        );
-        if state.input.mouse_wheel_delta != 0.0 {
-            jengine_core::ecs::systems::apply_gui_wheel_scroll(
-                &state.world,
-                &mut state.assets,
-                ui_mouse,
-                state.input.mouse_wheel_delta,
-                screen,
-            );
-        }
-        let pointer = jengine_core::ui::scroll::PointerInput {
-            x: ui_mouse.0,
-            y: ui_mouse.1,
-            down: state.input.mouse_left,
-            just_pressed: state.input.mouse_left_just_pressed,
-            just_released: state.input.mouse_left_just_released,
-        };
-        jengine_core::ecs::systems::update_gui_scroll_drag(
-            &state.world,
-            &mut state.assets,
-            &mut state.gui_scroll,
-            pointer,
-            screen,
-            dt,
-        );
-        // Publish the gesture so the click dispatch — which lives deep in
-        // `ScriptSystem::update` and sees only an `InputState` — can swallow
-        // the release that ended a scroll.
-        state.input.gui_scroll_dragging = state.gui_scroll.is_dragging();
-        // Entity-UI widgets. Buttons, sliders, toggles and text inputs all
-        // answer the pointer here. `update_ui_buttons` had existed since the
-        // widgets did and no runtime ever called it, and the other three had
-        // no interaction code at all - script-driven or nothing (BUGS #61).
-        // Runs beside the GUI pointer work so both UI systems hit-test
-        // against the same frame's mouse.
-        let mut clicked = Vec::new();
-        jengine_core::ecs::systems::update_ui_widgets(
-            &mut state.world,
-            &mut state.input,
-            ui_mouse,
-            screen.0,
-            screen.1,
-            &mut clicked,
-        );
-        // Each click reaches scripts as `ui_click`. The list was collected
-        // and dropped until Sep 2026, so a button could only be polled.
-        for button in clicked {
-            state.script_system.queue_engine_event(
-                jengine_core::ecs::systems::UI_CLICK_EVENT,
-                jengine_core::ecs::systems::ui_click_payload(button),
-            );
-        }
-    }
-    // Where scripts' "near the camera" is: the camera the player saw last
-    // frame, since this frame's is decided after the scripts.
-    state.script_system.set_viewport_center(Some(state.camera.position));
-
-    {
-        // Screen -> world for `get_mouse_world_position`. Reported here, just
-        // before scripts run, so a click handler converts against the camera
-        // the player is actually looking through this frame.
-        let (vw, vh) = state.camera.viewport_size();
-        state.script_system.set_camera_view((
-            state.camera.position.x,
-            state.camera.position.y,
-            vw,
-            vh,
-            state.camera.zoom,
-        ));
-        state.script_system.set_camera_rotation(state.camera.rotation);
-    }
-    let script_start = Instant::now();
-    // Lend the physics world to the script system for exactly this call, so
-    // `raycast` can be answered against the colliders as they are. It is
-    // the only script read that cannot come from a snapshot, and the
-    // borrow is scoped rather than stored because a scene load replaces
-    // `state.physics` and a kept pointer would dangle.
-    //
-    // Taken out and put back rather than borrowed, because `run` takes
-    // `&mut state.world` and `state.physics` lives in the same struct.
-    //
-    // **No `cfg(feature = "physics")` here**, and that is not an oversight:
-    // `physics` is a *jengine-core* feature that this crate turns on
-    // unconditionally and has no feature of its own by that name, so a
-    // `cfg` on it is permanently false. The first version of this block
-    // carried one and was compiled out entirely - `raycast` bound fine and
-    // answered nothing, which is the same silent shape as the bug it was
-    // written to fix. The editor viewport has a comment about this trap
-    // over its gravity publish, which had the same hole.
-    let lent = state.physics.take();
-    if let Some(physics) = lent.as_ref() {
-        state.script_system.set_physics_ptr(physics);
-    }
-    state.script_system.run(
-        &mut state.world,
-        dt,
-        &state.input,
-        Some(&mut state.scene_manager),
-        Some(&mut state.assets),
-    );
-    {
-        state.script_system.clear_physics_ptr();
-        // A script can load a scene, and the new scene builds its own
-        // physics world - so only put the borrowed one back if nothing
-        // replaced it while it was out.
-        if state.physics.is_none() {
-            state.physics = lent;
-        }
-    }
-    state.frame_stats.script_time_ms = script_start.elapsed().as_secs_f32() * 1000.0;
-
-    // 2.5 — apply queued input remaps before the next frame's
-    // input snapshot. Bridge commands (`input_set_bindings`,
-    // `input_add_binding`, etc.) buffer here because
-    // `route_bridge_commands` only has access to `ScriptState`,
-    // not the live `InputState` owned by the runtime.
-    if !state.script_system.api.services.pending_input_remaps.is_empty() {
-        let drained: Vec<_> = state
-            .script_system
-            .api
-            .services
-            .pending_input_remaps
-            .drain(..)
-            .collect();
-        for cmd in &drained {
-            jengine_core::input::apply_input_remap(&mut state.input, cmd);
-        }
-    }
-
-    // Phase 8.2e — route post-process script commands to the
-    // wgpu post-process stack. `apply_script_commands` skips them
-    // because the stack lives in the runtime, not in ECS systems.
-    {
-        use jengine_core::scripting::api::ScriptCommand;
-        for cmd in &state.script_system.api.commands {
-            match cmd {
-                ScriptCommand::SetPostProcessEnabled { effect_name, enabled } => {
-                    state.post_process.set_effect_enabled(effect_name, *enabled);
-                }
-                ScriptCommand::SetPostProcessParam { effect_name, param_name, value } => {
-                    state
-                        .post_process
-                        .set_effect_param(effect_name, param_name, value.clone());
-                }
-                _ => {}
-            }
-        }
-    }
-
-    // Slice 8 — audio commands queued by scripts this frame.
-    // `apply_audio_commands` lazy-loads clips from the AssetManager on first
-    // reference and ignores every non-audio command, so it gets the whole
-    // list. The runner used to filter it through its own list of audio
-    // variants, which had drifted: `stop_sound_by_clip` and the three
-    // `*_all_sounds` were missing and did nothing natively. The list is taken
-    // and put back rather than cloned, because `apply_script_commands` in
-    // `tick_world` drains the same vec later.
-    {
-        let commands = std::mem::take(&mut state.script_system.api.commands);
-        jengine_core::ecs::systems::apply_audio_commands(
-            &commands,
-            &mut *state.audio,
-            &state.assets,
-            &mut state.script_system.api,
-        );
-        let queued_meanwhile = std::mem::replace(&mut state.script_system.api.commands, commands);
-        state.script_system.api.commands.extend(queued_meanwhile);
-    }
-    // Physics-related script commands: apply_impulse, apply_force,
-    // set_angular_velocity, set_gravity, set_body_type, add_joint,
-    // remove_joint, set_motor_speed.
-    //
-    // **None of these did anything on native until this block existed.**
-    // `apply_script_commands` lists all eight and deliberately ignores
-    // them, on the understanding that `apply_physics_commands` handles
-    // them instead - and the only caller of that is the jengine-physics
-    // package, whose system does nothing here because this runtime
-    // drives physics on its own path and does not share `PhysicsWorld`
-    // as a resource. So the handoff had no landing site: every one of
-    // them was dropped in silence while working perfectly in the editor,
-    // which has its own inline arm. Test-lab scene 17's jump was dead
-    // natively for as long as it had existed. BUGS #144.
-    //
-    // Taken and put back rather than cloned, exactly as the audio block
-    // above does. The step has run this frame, so an impulse lands in the
-    // next one - as in the browsers.
-    if let Some(physics) = state.physics.as_mut() {
-        let commands = std::mem::take(&mut state.script_system.api.commands);
-        jengine_core::ecs::systems::apply_physics_commands(&commands, physics, &state.world);
-        let queued_meanwhile = std::mem::replace(&mut state.script_system.api.commands, commands);
-        state.script_system.api.commands.extend(queued_meanwhile);
-    }
+    // Everything a step moved, drawn between the last two steps - before the
+    // camera follows it, or a followed thing would judder against the view.
+    state.fixed_step.blend_for_draw(&mut state.world);
 
     state.audio.update();
     // After `update`, so sounds that finished this frame are pruned, and every
@@ -3140,7 +2741,7 @@ fn render_frame_body(state: &mut WgpuSceneState) -> Result<()> {
     }
 
     // Drain any queued scene action. Slice 12 wires Push/Pop on top
-    // of the same `apply_scene_json` pipeline that Load uses, with an
+    // of the same `apply_scene` pipeline that Load uses, with an
     // in-memory v2 snapshot stack on `state.scene_stack`. All three
     // arms `return Ok(())` so the rest of this frame doesn't run on a
     // half-loaded world.
@@ -3184,6 +2785,7 @@ fn render_frame_body(state: &mut WgpuSceneState) -> Result<()> {
                         Ok(json) => {
                             state.scene_stack.push(SceneSnapshot {
                                 json,
+                                simulation_hz: state.fixed_step.scene_hz(),
                                 scene_path: state.scene_path.clone(),
                                 scene_name: state.scene_name.clone(),
                                 camera: state.camera,
@@ -3210,18 +2812,18 @@ fn render_frame_body(state: &mut WgpuSceneState) -> Result<()> {
                         );
                         let restored_camera = snap.camera;
                         let restored_post = snap.post_process;
-                        if let Err(e) = apply_scene_json(
-                            state,
-                            &snap.json,
-                            snap.scene_path,
-                            snap.scene_name,
-                        ) {
+                        let restored_hz = snap.simulation_hz;
+                        let restored = serde_json::from_str(&snap.json)
+                            .context("parsing the scene snapshot")
+                            .and_then(|scene| apply_scene(state, scene, snap.scene_path, snap.scene_name));
+                        if let Err(e) = restored {
                             log::warn!("[wgpu-scene] scene pop failed: {e:#}");
                         } else {
                             // Restore the captured camera and effect chain
-                            // after apply_scene_json reset both.
+                            // after apply_scene reset both.
                             state.camera = restored_camera;
                             state.post_process.set_settings(restored_post);
+                            state.fixed_step.enter_scene(restored_hz);
                         }
                     }
                 }
@@ -3268,7 +2870,9 @@ fn render_frame_body(state: &mut WgpuSceneState) -> Result<()> {
     // they drive show up in the resolver's input on the same frame.
     // Skeletons, IK, the physics blend, world transforms, trails, cloth and
     // carving - the order every host poses its world for drawing in.
-    jengine_core::ecs::systems::pose_world_for_draw(&mut state.world, &mut state.assets, state.physics.as_mut(), dt);
+    // With fixed steps the bodies were blended with everything else above.
+    let blend_bodies = if state.fixed_step.is_on() { None } else { state.physics.as_mut() };
+    jengine_core::ecs::systems::pose_world_for_draw(&mut state.world, &mut state.assets, blend_bodies, dt);
 
     // ── package systems: Animation ────────────────────────────────────────
     state.package_host.run_phase_with(
@@ -3490,6 +3094,552 @@ fn render_frame_body(state: &mut WgpuSceneState) -> Result<()> {
     Ok(())
 }
 
+/// One step of the gameplay: input actions, behaviour graphs, motion, the
+/// physics, triggers, animation, UI, lifetimes and the scripts with what they
+/// asked for - everything a fixed-step simulation (`settings.simulation_hz`)
+/// runs once per step rather than once per frame. `render_frame_body` calls
+/// it once a frame with the frame's `dt` otherwise.
+fn simulation_step(state: &mut WgpuSceneState, dt: f32) -> Result<()> {
+    // Input actions read this frame's keys and pads.
+    jengine_core::ecs::behaviors::update_input_actions(&mut state.world, &state.input);
+
+    // Wedge 12 — behavior-graph priority 1 tick. Per spec §4.4 the
+    // behavior runtime fires BEFORE the script bridge so any
+    // commands it queues are flushed at the Phase 7 barrier below
+    // and naturally overridden by script commands (priority 2).
+    //
+    // Re-sync instances every frame first so entities spawned at
+    // runtime (script `spawn_prefab`, behavior `SpawnEntity`) that
+    // carry a `BehaviorGraphComponent` get bound + `OnSpawn`-fired,
+    // and despawned graph entities are detached (no instance leak).
+    // Cheap: already-bound entities early-out and graph JSON is
+    // path-cached, so the steady-state cost is one world query.
+    let bg_root = std::path::Path::new("assets");
+    let bg_errors = state.behavior_system.sync_instances(&mut state.world, bg_root);
+    for err in &bg_errors {
+        log::warn!(
+            "[wgpu-scene] behavior graph load failed for entity {:?} ({}): {}",
+            err.entity, err.path.display(), err.source
+        );
+    }
+    jengine_core::profiling::trace::time("behavior_graphs", || {
+        state.behavior_system.tick_pre_simulation(&mut state.world, dt)
+    });
+
+    // The world first, then the scripts - the browsers' order, which all
+    // three hosts keep since Oct 2026: a script reads this frame's physics,
+    // as Unity's `Update` does after `FixedUpdate`. Native ran its scripts
+    // first and so read the frame before (`parity-gaps.md`, "The order of a
+    // frame").
+    let update_start = Instant::now();
+    // Before the motion behaviors, so a batch script writing Force2D / Wind2D
+    // / Acceleration2D this frame is integrated in the same frame.
+    run_batch_scripts_if_any(state, dt);
+    // The motion step every host shares. This runtime runs batch scripts,
+    // so their entities' motion is theirs.
+    jengine_core::ecs::behaviors::tick_motion(&mut state.world, dt, state.path_library.as_ref(), true);
+
+    // `AudioSource { auto_play: true }` — entities that carry a sound rather
+    // than a script that plays one. Each plays on its own `bus_id`; a looping
+    // source loops as its own sound instead of replacing the music.
+    {
+        let requests = jengine_core::ecs::behaviors::collect_autoplay_audio(&mut state.world);
+        if !requests.is_empty() {
+            jengine_core::ecs::systems::play_autoplay_audio(
+                &requests,
+                &mut *state.audio,
+                &state.assets,
+                &mut state.script_system.api.services.mixer,
+                &mut state.spatial_audio,
+            );
+        }
+    }
+    // Positional audio: each spatial source at the volume and pan of where it
+    // is now, and the sounds of sources that have gone, stopped.
+    jengine_core::ecs::systems::apply_spatial_audio(
+        &state.world,
+        &mut *state.audio,
+        &mut state.script_system.api.services.mixer,
+        &mut state.spatial_audio,
+    );
+
+    // ── package systems: PreUpdate ────────────────────────────────────────
+    // Each `run_phase` is placed at the point in this frame that matches the
+    // phase's documented meaning, so a package system lands where its docs
+    // say it will. All are cheap no-ops when no package registered for the
+    // phase.
+    state.package_host.run_phase_with(
+        SystemPhase::PreUpdate,
+        &mut state.world,
+        dt,
+        jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
+    );
+
+    // ── package systems: ScriptExec ───────────────────────────────────────
+    state.package_host.run_phase_with(
+        SystemPhase::ScriptExec,
+        &mut state.world,
+        dt,
+        jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
+    );
+
+    // The physics step, after motion (so kinematic bodies follow it, and
+    // last frame's script impulses apply through `ensure_physics_bodies`) and
+    // before the trigger areas and the graph barrier, so contacts feed the
+    // queue the barrier flushes.
+    state.frame_stats.physics_time_ms = 0.0;
+    if let Some(physics) = state.physics.as_mut() {
+        let physics_start = Instant::now();
+        jengine_core::ecs::systems::physics_frame_begin(&mut state.world, physics, dt);
+        let contacts = if state.script_system.has_fixed_update() {
+            // `fixed_update` scripts: one call before each fixed step, each
+            // reading the world as the step before it left it.
+            let steps = physics.begin_frame(dt);
+            let fixed_dt = physics.fixed_dt();
+            for _ in 0..steps {
+                state.script_system.set_physics_ptr(physics);
+                let commands = state.script_system.run_fixed(
+                    &mut state.world,
+                    fixed_dt,
+                    &state.input,
+                    Some(&mut state.scene_manager),
+                    Some(&mut state.assets),
+                );
+                state.script_system.clear_physics_ptr();
+                jengine_core::ecs::systems::apply_physics_commands(&commands, physics, &state.world);
+                jengine_core::ecs::systems::apply_audio_commands(
+                    &commands,
+                    &mut *state.audio,
+                    &state.assets,
+                    &mut state.script_system.api,
+                );
+                // A body spawned by the call steps with the rest, and a force
+                // set in `fixed_update` pushes for this step.
+                jengine_core::ecs::systems::physics_fixed_step(&mut state.world, physics, fixed_dt);
+            }
+            physics.end_frame()
+        } else {
+            physics.step(dt)
+        };
+        jengine_core::ecs::systems::physics_frame_end(
+            &mut state.world,
+            physics,
+            &contacts,
+            &mut state.script_system.api.services.particle_system,
+            dt,
+        );
+        let _disp = state
+            .behavior_system
+            .dispatch_contact_events(&contacts, &mut state.world);
+        // Contacts for the scripts' `on_collision_enter` / `_exit`, which
+        // run later this frame.
+        state.script_system.queue_contact_events(&contacts);
+        // The script system does not own the physics world, so hand it the
+        // gravity `get_gravity()` reports.
+        state.script_system.set_world_gravity(physics.get_gravity());
+        state.frame_stats.physics_time_ms = physics_start.elapsed().as_secs_f32() * 1000.0;
+    }
+
+    // ── package systems: Physics ──────────────────────────────────────────
+    // After the runtime's own step, so a package system sees this frame's
+    // results. The built-in `jengine-physics` package registers here too and
+    // does nothing, because the runtime deliberately does not share
+    // `PhysicsWorld` as a resource — it drives physics directly above.
+    state.package_host.run_phase_with(
+        SystemPhase::Physics,
+        &mut state.world,
+        dt,
+        jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
+    );
+
+    // Trigger areas after the physics step, so overlaps see where things
+    // ended up.
+    jengine_core::ecs::behaviors::update_trigger_areas(&mut state.world);
+
+    // The graph barrier: this frame's trigger-enter events into the
+    // behaviour runtime, then its structural commands flushed. Graph commands
+    // land this frame; the scripts, which run later, see what they did.
+    // Graph input triggers (`OnKey`, `OnMouseClick`) - the same core call in
+    // every runtime; nothing fired them before (BUGS #93).
+    state.behavior_system.dispatch_input(&state.input, &mut state.world);
+    let _trig_dispatched = state
+        .behavior_system
+        .dispatch_trigger_overlaps_from_world(&mut state.world);
+    // Scripts -> graphs: what scripts `send_event`ed this frame reaches the
+    // graphs' `OnEvent` before the barrier, so a handler's commands flush
+    // with everything else's.
+    for ev in state.script_system.take_events_for_graphs() {
+        state
+            .behavior_system
+            .deliver_script_event(&ev.name, ev.data.as_ref(), &mut state.world);
+    }
+    // Then re-dispatch any `EmitEvent` behaviors queued this frame, so
+    // cross-graph `OnEvent` handlers (scene 18's collision pings driving a
+    // separate counter graph) fire in the same frame as the contact. One
+    // shared method so the editor and web do exactly this too.
+    let routed = state.behavior_system.flush_commands_and_route_events(
+        &mut state.world,
+        Some(&jengine_core::behavior::PrefabSource {
+            registry: &state.registry,
+            prefabs: state.script_system.api.services.prefabs(),
+        }),
+    );
+    // Graphs -> scripts: their events reach `on_<name>` next frame.
+    state.script_system.queue_graph_events(&routed.emit_event_requests);
+    // Sound and scene changes need the runtime; forward them through the
+    // exact paths a script's `play_sound` / `load_scene` take (BUGS #93).
+    if !routed.play_sound_requests.is_empty() {
+        let sounds: Vec<jengine_core::scripting::api::ScriptCommand> = routed
+            .play_sound_requests
+            .iter()
+            .map(|r| jengine_core::scripting::api::ScriptCommand::PlaySound {
+                clip_id: r.sound_id.clone(),
+                volume: r.volume,
+                pitch: 1.0,
+                pan: 0.0,
+                sound_id: 0,
+                looping: false,
+            })
+            .collect();
+        jengine_core::ecs::systems::apply_audio_commands(
+            &sounds,
+            &mut *state.audio,
+            &state.assets,
+            &mut state.script_system.api,
+        );
+    }
+    for path in routed.change_scene_requests {
+        state
+            .scene_manager
+            .queue_action(jengine_core::scene::manager::SceneAction::Load(path));
+    }
+
+    // ── package systems: PostPhysics ──────────────────────────────────────
+    state.package_host.run_phase_with(
+        SystemPhase::PostPhysics,
+        &mut state.world,
+        dt,
+        jengine_core::package::host::FrameResources { input: &mut state.input, assets: &mut state.assets, camera: state.camera },
+    );
+
+    // Combat - hitboxes, i-frames, death, the health mirror - after the trigger
+    // areas and the graph barrier, then the sprite animations and their state
+    // machines.
+    let sprite_events = jengine_core::ecs::systems::tick_combat_and_animation(&mut state.world, &state.assets, dt);
+    // What a clip's frames fired: a sound plays, an event goes to the script
+    // on that entity. Every runtime computed these and dropped them until
+    // Sep 2026, so a sound authored on a frame was silent and
+    // `on_animation_event` was a handler nothing ever called.
+    if !sprite_events.is_empty() {
+        let (sounds, _) = jengine_core::animation::split_triggers(&sprite_events);
+        for (_, clip_id, volume) in sounds {
+            jengine_core::ecs::systems::play_sfx(
+                &mut *state.audio,
+                &state.assets,
+                &mut state.script_system.api.services.mixer,
+                &clip_id,
+                volume,
+            );
+        }
+        state.script_system.queue_animation_events(&sprite_events);
+    }
+    // Typed characters land in the focused GUI TextInput. Kept out of
+    // `tick_world` because GUI documents live in the AssetManager rather than
+    // the world, and threading assets through the whole ECS tick for one
+    // widget is not worth it.
+    jengine_core::ecs::systems::apply_text_input(
+        &mut state.world,
+        &mut state.assets,
+        &mut state.input,
+    );
+    // Menus without a pointer: arrows / D-pad / stick move focus, A / Enter
+    // press it, Tab walks the document. A press reaches scripts as a click
+    // would - a `.gui` node through this frame's `process_gui_clicks`, an
+    // entity-UI button as `ui_click`.
+    let nav = jengine_core::ecs::systems::navigate_ui(
+        &mut state.world,
+        &mut state.assets,
+        &mut state.input,
+        &state.ui_scale,
+        dt,
+    );
+    state.script_system.api.services.pending_gui_activations.extend(nav.gui_activations);
+    // The tree `navigate_ui` just gathered, to the screen reader.
+    #[cfg(feature = "accessibility")]
+    state.accessibility.update();
+    for button in nav.ui_clicks {
+        state.script_system.queue_engine_event(
+            jengine_core::ecs::systems::UI_CLICK_EVENT,
+            jengine_core::ecs::systems::ui_click_payload(button),
+        );
+    }
+    let expired = jengine_core::ecs::behaviors::update_lifetimes(&mut state.world, dt);
+    for e in expired {
+        let _ = state.world.despawn(e);
+    }
+
+    // Anything carrying `DespawnOffscreen` that has left the view. Every
+    // scrolling game used to walk its own list of spawned things in Lua and
+    // compare each one against the camera by hand.
+    {
+        let view = (state.camera.position, state.camera.half_extents());
+        let travel = state.camera.position - state.prev_camera;
+        let gone = jengine_core::ecs::behaviors::despawn_offscreen(&mut state.world, view, travel);
+        for e in gone {
+            let _ = state.world.despawn(e);
+        }
+        // Videos (`jengine_core::video`): this frame's pictures into their
+        // textures, before anything draws them.
+        #[cfg(feature = "video")]
+        state.video.tick(&mut state.world, &mut state.assets, dt);
+        // `visibility_notifier`s that came on screen or left it.
+        jengine_core::ecs::visibility::tick_visibility(&mut state.world, view);
+        // What the engine owes scripts (`ecs::callbacks`): those, a
+        // `path_follow` at its end ... - dispatched by this frame's run.
+        state.script_system.queue_entity_callbacks(&jengine_core::ecs::callbacks::take());
+        state.prev_camera = state.camera.position;
+    }
+
+    // The world tick, less the physics step, which times itself.
+    state.frame_stats.update_time_ms =
+        (update_start.elapsed().as_secs_f32() * 1000.0 - state.frame_stats.physics_time_ms).max(0.0);
+
+    // The UI before the scripts, as both browser hosts have it: a focused
+    // text field takes the keys typed into it (`ui::text_edit`), so a
+    // script reading H or Escape this frame must come after it - and the
+    // scroll gesture below is published for the click dispatch inside
+    // this frame's script run, not the next one's.
+    // GUI scrolling: wheel, then pointer drag / flick / elastic ends. Native
+    // had neither — `apply_gui_wheel_scroll` was written to be shared by all
+    // three runtimes and only the browser two ever called it, so a scrolling
+    // list here could be moved by nothing but a script.
+    {
+        // UI space is virtual pixels (see `ui::scaling`), so the pointer is
+        // divided into it before any UI hit test. `input.mouse_position` stays
+        // physical for world-space uses.
+        let (pw, ph) = state.input.screen_size;
+        let screen = state.ui_scale.virtual_size(pw, ph);
+        let ui_mouse = state.ui_scale.to_ui(
+            state.input.mouse_position.0,
+            state.input.mouse_position.1,
+            pw,
+            ph,
+        );
+        if state.input.mouse_wheel_delta != 0.0 {
+            jengine_core::ecs::systems::apply_gui_wheel_scroll(
+                &state.world,
+                &mut state.assets,
+                ui_mouse,
+                state.input.mouse_wheel_delta,
+                screen,
+            );
+        }
+        let pointer = jengine_core::ui::scroll::PointerInput {
+            x: ui_mouse.0,
+            y: ui_mouse.1,
+            down: state.input.mouse_left,
+            just_pressed: state.input.mouse_left_just_pressed,
+            just_released: state.input.mouse_left_just_released,
+        };
+        jengine_core::ecs::systems::update_gui_scroll_drag(
+            &state.world,
+            &mut state.assets,
+            &mut state.gui_scroll,
+            pointer,
+            screen,
+            dt,
+        );
+        // Publish the gesture so the click dispatch — which lives deep in
+        // `ScriptSystem::update` and sees only an `InputState` — can swallow
+        // the release that ended a scroll.
+        state.input.gui_scroll_dragging = state.gui_scroll.is_dragging();
+        // Entity-UI widgets. Buttons, sliders, toggles and text inputs all
+        // answer the pointer here. `update_ui_buttons` had existed since the
+        // widgets did and no runtime ever called it, and the other three had
+        // no interaction code at all - script-driven or nothing (BUGS #61).
+        // Runs beside the GUI pointer work so both UI systems hit-test
+        // against the same frame's mouse.
+        let mut clicked = Vec::new();
+        jengine_core::ecs::systems::update_ui_widgets(
+            &mut state.world,
+            &mut state.input,
+            ui_mouse,
+            screen.0,
+            screen.1,
+            &mut clicked,
+        );
+        // Each click reaches scripts as `ui_click`. The list was collected
+        // and dropped until Sep 2026, so a button could only be polled.
+        for button in clicked {
+            state.script_system.queue_engine_event(
+                jengine_core::ecs::systems::UI_CLICK_EVENT,
+                jengine_core::ecs::systems::ui_click_payload(button),
+            );
+        }
+    }
+    // Where scripts' "near the camera" is: the camera the player saw last
+    // frame, since this frame's is decided after the scripts.
+    state.script_system.set_viewport_center(Some(state.camera.position));
+
+    {
+        // Screen -> world for `get_mouse_world_position`. Reported here, just
+        // before scripts run, so a click handler converts against the camera
+        // the player is actually looking through this frame.
+        //
+        // The view is the main camera's `view_on` the screen, as the
+        // projection has it (and as both browser hosts and behaviour graphs
+        // report it). `state.camera` cannot answer here: the frame resized
+        // it to the surface, and `update_camera` fits it only after the
+        // scripts - so a script converted against the screen's own pixels,
+        // which is right only for a window exactly the authored size. A
+        // 1280 x 720 camera on a 2622 x 1206 phone put every tap at 1.7x its
+        // distance from the centre (the showcase hub's rows answered none).
+        let (sw, sh) = state.input.screen_size;
+        let (vw, vh) = {
+            let main = jengine_core::ecs::camera_rig::main_camera(&state.world);
+            main.and_then(|e| {
+                let cam = state.world.get::<&jengine_core::ecs::components::Camera2DComponent>(e).ok()?;
+                (cam.viewport_width > 0.0 && cam.viewport_height > 0.0).then(|| {
+                    let view = cam.view_on(glam::Vec2::new(sw, sh));
+                    (view.x, view.y)
+                })
+            })
+            .unwrap_or_else(|| state.camera.viewport_size())
+        };
+        state.script_system.set_camera_view((
+            state.camera.position.x,
+            state.camera.position.y,
+            vw,
+            vh,
+            state.camera.zoom,
+        ));
+        state.script_system.set_camera_rotation(state.camera.rotation);
+    }
+    let script_start = Instant::now();
+    // Lend the physics world to the script system for exactly this call, so
+    // `raycast` can be answered against the colliders as they are. It is
+    // the only script read that cannot come from a snapshot, and the
+    // borrow is scoped rather than stored because a scene load replaces
+    // `state.physics` and a kept pointer would dangle.
+    //
+    // Taken out and put back rather than borrowed, because `run` takes
+    // `&mut state.world` and `state.physics` lives in the same struct.
+    //
+    // **No `cfg(feature = "physics")` here**, and that is not an oversight:
+    // `physics` is a *jengine-core* feature that this crate turns on
+    // unconditionally and has no feature of its own by that name, so a
+    // `cfg` on it is permanently false. The first version of this block
+    // carried one and was compiled out entirely - `raycast` bound fine and
+    // answered nothing, which is the same silent shape as the bug it was
+    // written to fix. The editor viewport has a comment about this trap
+    // over its gravity publish, which had the same hole.
+    let lent = state.physics.take();
+    if let Some(physics) = lent.as_ref() {
+        state.script_system.set_physics_ptr(physics);
+    }
+    state.script_system.run(
+        &mut state.world,
+        dt,
+        &state.input,
+        Some(&mut state.scene_manager),
+        Some(&mut state.assets),
+    );
+    {
+        state.script_system.clear_physics_ptr();
+        // A script can load a scene, and the new scene builds its own
+        // physics world - so only put the borrowed one back if nothing
+        // replaced it while it was out.
+        if state.physics.is_none() {
+            state.physics = lent;
+        }
+    }
+    state.frame_stats.script_time_ms = script_start.elapsed().as_secs_f32() * 1000.0;
+
+    // 2.5 — apply queued input remaps before the next frame's
+    // input snapshot. Bridge commands (`input_set_bindings`,
+    // `input_add_binding`, etc.) buffer here because
+    // `route_bridge_commands` only has access to `ScriptState`,
+    // not the live `InputState` owned by the runtime.
+    if !state.script_system.api.services.pending_input_remaps.is_empty() {
+        let drained: Vec<_> = state
+            .script_system
+            .api
+            .services
+            .pending_input_remaps
+            .drain(..)
+            .collect();
+        for cmd in &drained {
+            jengine_core::input::apply_input_remap(&mut state.input, cmd);
+        }
+    }
+
+    // Phase 8.2e — route post-process script commands to the
+    // wgpu post-process stack. `apply_script_commands` skips them
+    // because the stack lives in the runtime, not in ECS systems.
+    {
+        use jengine_core::scripting::api::ScriptCommand;
+        for cmd in &state.script_system.api.commands {
+            match cmd {
+                ScriptCommand::SetPostProcessEnabled { effect_name, enabled } => {
+                    state.post_process.set_effect_enabled(effect_name, *enabled);
+                }
+                ScriptCommand::SetPostProcessParam { effect_name, param_name, value } => {
+                    state
+                        .post_process
+                        .set_effect_param(effect_name, param_name, value.clone());
+                }
+                _ => {}
+            }
+        }
+    }
+
+    // Slice 8 — audio commands queued by scripts this frame.
+    // `apply_audio_commands` lazy-loads clips from the AssetManager on first
+    // reference and ignores every non-audio command, so it gets the whole
+    // list. The runner used to filter it through its own list of audio
+    // variants, which had drifted: `stop_sound_by_clip` and the three
+    // `*_all_sounds` were missing and did nothing natively. The list is taken
+    // and put back rather than cloned, because `apply_script_commands` in
+    // `tick_world` drains the same vec later.
+    {
+        let commands = std::mem::take(&mut state.script_system.api.commands);
+        jengine_core::ecs::systems::apply_audio_commands(
+            &commands,
+            &mut *state.audio,
+            &state.assets,
+            &mut state.script_system.api,
+        );
+        let queued_meanwhile = std::mem::replace(&mut state.script_system.api.commands, commands);
+        state.script_system.api.commands.extend(queued_meanwhile);
+    }
+    // Physics-related script commands: apply_impulse, apply_force,
+    // set_angular_velocity, set_gravity, set_body_type, add_joint,
+    // remove_joint, set_motor_speed.
+    //
+    // **None of these did anything on native until this block existed.**
+    // `apply_script_commands` lists all eight and deliberately ignores
+    // them, on the understanding that `apply_physics_commands` handles
+    // them instead - and the only caller of that is the jengine-physics
+    // package, whose system does nothing here because this runtime
+    // drives physics on its own path and does not share `PhysicsWorld`
+    // as a resource. So the handoff had no landing site: every one of
+    // them was dropped in silence while working perfectly in the editor,
+    // which has its own inline arm. Test-lab scene 17's jump was dead
+    // natively for as long as it had existed. BUGS #144.
+    //
+    // Taken and put back rather than cloned, exactly as the audio block
+    // above does. The step has run this frame, so an impulse lands in the
+    // next one - as in the browsers.
+    if let Some(physics) = state.physics.as_mut() {
+        let commands = std::mem::take(&mut state.script_system.api.commands);
+        jengine_core::ecs::systems::apply_physics_commands(&commands, physics, &state.world);
+        let queued_meanwhile = std::mem::replace(&mut state.script_system.api.commands, commands);
+        state.script_system.api.commands.extend(queued_meanwhile);
+    }
+
+    Ok(())
+}
+
 /// Look up the desired window size from the active camera's viewport
 /// hints, falling back to 1280x720.
 fn pick_window_size(world: &World) -> (f32, f32) {
@@ -3532,24 +3682,31 @@ fn resolve_texture_path(tex_id: &str, roots: &[PathBuf]) -> Option<PathBuf> {
     jengine_core::asset::find_in_roots(tex_id, roots)
 }
 
+/// The asset pack `id` is waiting for, when that is why it is missing
+/// (`jengine_core::asset::packs`); none in a build without packs.
+fn pack_hint(id: &str) -> Option<String> {
+    #[cfg(feature = "packs")]
+    return jengine_core::asset::packs::missing_hint(id);
+    #[cfg(not(feature = "packs"))]
+    {
+        let _ = id;
+        None
+    }
+}
+
 /// "not found in any search root", plus the asset pack it is waiting for
 /// when that is why.
 fn not_found(what: &str, id: &str) -> String {
-    match jengine_core::asset::packs::missing_hint(id) {
+    match pack_hint(id) {
         Some(hint) => format!("[wgpu-scene] {what} '{id}' not found: it is {hint}"),
         None => format!("[wgpu-scene] {what} '{id}' not found in any search root"),
     }
 }
 
-/// Cheap top-level `name` extractor — avoids deserialising the whole scene
-/// twice. Returns `None` if the JSON has no top-level string `name` field.
-fn peek_scene_name(json: &str) -> Option<String> {
-    let value: serde_json::Value = serde_json::from_str(json).ok()?;
-    value.get("name")?.as_str().map(|s| s.to_string())
-}
 
 /// The video system this platform has: Media Foundation on Windows (each
 /// video decoded on a thread of its own), none elsewhere yet.
+#[cfg(feature = "video")]
 fn native_video_system(assets_root: std::path::PathBuf) -> jengine_core::video::VideoSystem {
     #[cfg(windows)]
     {
@@ -3581,5 +3738,21 @@ mod safe_area_tests {
         // No notch: nothing covered.
         let i = insets_between((0, 0, 800, 600), (0, 0, 800, 600));
         assert_eq!((i.left, i.top, i.right, i.bottom), (0.0, 0.0, 0.0, 0.0));
+    }
+}
+
+#[cfg(test)]
+mod title_tests {
+    use super::project_title;
+    use serde_json::json;
+
+    #[test]
+    fn the_window_is_named_after_the_game() {
+        let full = json!({"name": "lab", "settings": {"title": "Test Lab", "app": {"name": "Lab"}}});
+        assert_eq!(project_title(&full).as_deref(), Some("Test Lab"));
+        let app = json!({"name": "lab", "settings": {"title": " ", "app": {"name": "Lab"}}});
+        assert_eq!(project_title(&app).as_deref(), Some("Lab"), "a blank title falls through");
+        assert_eq!(project_title(&json!({"name": "lab"})).as_deref(), Some("lab"));
+        assert_eq!(project_title(&json!({})), None);
     }
 }

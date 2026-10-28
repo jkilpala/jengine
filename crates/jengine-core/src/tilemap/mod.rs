@@ -859,7 +859,7 @@ impl Tilemap {
                     return (c, r);
                 }
                 let (cx, cy) = self.cell_centre(c, r);
-                let d = (cx - x).powi(2) + (cy - y).powi(2);
+                let d = crate::detmath::DetMath::dpowi(cx - x, 2) + crate::detmath::DetMath::dpowi(cy - y, 2);
                 if d < best_d {
                     best_d = d;
                     best = (c, r);

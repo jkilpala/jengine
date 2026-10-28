@@ -958,13 +958,28 @@ impl BridgeReadSnapshot {
     /// `Nav.find_path`: the shortest walkable way between two world points
     /// through the `nav_region` the first is in, both ends included.
     pub fn nav_find_path(&self, from: (f32, f32), to: (f32, f32)) -> Option<Vec<(f32, f32)>> {
-        let graphs = crate::navigation::graphs(self.world()?);
-        let path = crate::navigation::find_path_in(&graphs, from.into(), to.into())?;
-        Some(path.into_iter().map(|p| (p.x, p.y)).collect())
+        #[cfg(not(feature = "navigation"))]
+        {
+            let _ = (from, to);
+            crate::features::missing("navigation", "Nav.find_path");
+            return None;
+        }
+        #[cfg(feature = "navigation")]
+        {
+            let graphs = crate::navigation::graphs(self.world()?);
+            let path = crate::navigation::find_path_in(&graphs, from.into(), to.into())?;
+            Some(path.into_iter().map(|p| (p.x, p.y)).collect())
+        }
     }
 
     /// `Nav.is_moving`: whether the agent still has somewhere to walk to.
     pub fn nav_is_moving(&self, entity_id: u64) -> bool {
+        #[cfg(not(feature = "navigation"))]
+        {
+            let _ = entity_id;
+            false
+        }
+        #[cfg(feature = "navigation")]
         self.live_entity(entity_id)
             .and_then(|(world, e)| world.get::<&crate::navigation::NavAgent>(e).ok().map(|a| a.is_moving()))
             .unwrap_or(false)
@@ -972,8 +987,17 @@ impl BridgeReadSnapshot {
 
     /// `Nav.closest_point`: the walkable point nearest `p`.
     pub fn nav_closest_point(&self, p: (f32, f32)) -> Option<(f32, f32)> {
-        let graphs = crate::navigation::graphs(self.world()?);
-        crate::navigation::closest_point_in(&graphs, p.into()).map(|q| (q.x, q.y))
+        #[cfg(not(feature = "navigation"))]
+        {
+            let _ = p;
+            crate::features::missing("navigation", "Nav.closest_point");
+            return None;
+        }
+        #[cfg(feature = "navigation")]
+        {
+            let graphs = crate::navigation::graphs(self.world()?);
+            crate::navigation::closest_point_in(&graphs, p.into()).map(|q| (q.x, q.y))
+        }
     }
 
     /// 2.6 — A* path-find on `layer_name` between two tile coordinates.

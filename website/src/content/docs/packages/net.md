@@ -11,7 +11,7 @@ WebSocket transport, connection lifecycle and a script-reachable message bus.
 |---|---|
 | Kind | Project package: linked into the builds of the projects that list it |
 | Source | `packages/jengine-net` |
-| Version | 0.1.0 |
+| Version | 0.1.1 |
 | Entry point | `jengine_net::NetPackage` |
 | Script namespace | `Net` |
 | Listed by | `projects/engine-test-lab` |

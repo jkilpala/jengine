@@ -402,6 +402,13 @@ pub struct InputState {
     pub last_device: interactions::Device,
     /// The pad used last, when one has been.
     pub last_pad: Option<usize>,
+    /// Keep this frame's edges into the next ([`Self::hold_edges`]): a
+    /// fixed-step simulation ran no step this frame, so nothing has seen them.
+    holding: bool,
+    /// This frame still carries news no step has seen (a frame before it
+    /// was held): the touch tick keeps fingers' `began` / `ended` instead of
+    /// settling them, and gestures are added to rather than replaced.
+    carrying: bool,
 }
 
 impl InputState {
@@ -488,6 +495,48 @@ impl InputState {
 
     /// Call at the start of each frame to reset per-frame state.
     pub fn begin_frame(&mut self) {
+        // Held over: the edges, deltas and text since the last step all stay
+        // for the next one, and this frame's are added to them.
+        if std::mem::take(&mut self.holding) {
+            self.carrying = true;
+            return;
+        }
+        self.clear_edges();
+    }
+
+    /// Whether this frame still carries input news from a frame no step saw
+    /// ([`Self::hold_edges`]). The touch tick and the gestures read it.
+    pub fn carries_edges(&self) -> bool {
+        self.carrying
+    }
+
+    /// Keep everything that happened this frame - presses, releases, the
+    /// wheel, mouse motion, typed text - for the next frame too. A
+    /// fixed-step simulation (`ecs::fixed_step`) calls this after a frame
+    /// that ran no step: at 165 Hz with a 60 Hz simulation, most frames run
+    /// none, and a press made in one of them would otherwise be cleared
+    /// before any script saw it.
+    pub fn hold_edges(&mut self) {
+        self.holding = true;
+    }
+
+    /// Forget this frame's edges, deltas and text: what `begin_frame` does,
+    /// and what a fixed-step simulation does between two steps of one frame,
+    /// so a press is seen by exactly one step.
+    pub fn clear_edges(&mut self) {
+        self.carrying = false;
+        for pad in &mut self.pads {
+            pad.clear_edges();
+        }
+        // Fingers settle: one that lifted is gone, the rest are held until an
+        // event says otherwise - what the touch tick does at a frame's start,
+        // done here too so a frame's second step does not see a finger land
+        // again. And a gesture belongs to one step.
+        self.touches.retain(|t| t.stage != TouchStage::Ended);
+        for t in &mut self.touches {
+            t.stage = TouchStage::Held;
+        }
+        self.gestures.clear();
         self.just_pressed.clear();
         self.repeated.clear();
         self.pasted.clear();
@@ -725,6 +774,15 @@ impl InputState {
     }
 
     /// Is an action currently pressed? (any bound key held)
+    /// Every input action this state knows, sorted - the same list on every
+    /// machine that loaded the same project, which is what lets a lockstep
+    /// session send a player's actions as one number.
+    pub fn action_names(&self) -> Vec<String> {
+        let mut names: Vec<String> = self.actions.keys().cloned().collect();
+        names.sort();
+        names
+    }
+
     pub fn is_action_pressed(&self, action: &str) -> bool {
         let Some(keys) = self.actions.get(action) else {
             return false;
@@ -885,7 +943,8 @@ impl InputState {
         if self.pads.len() <= index {
             self.pads.resize_with(index + 1, gamepad::GamepadState::default);
         }
-        self.pads[index].update(pressed, axes);
+        // Held over a frame with no step, a pad keeps the edges it had too.
+        self.pads[index].update(pressed, axes, self.holding);
         // A press, or a stick pushed out of its dead zone, makes this the pad
         // in use; a stick drifting at rest does not.
         let pad = &self.pads[index];

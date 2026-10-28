@@ -4,7 +4,12 @@
 //! Entity ↔ body mappings are maintained so the ECS and physics world stay in sync.
 
 #[cfg(feature = "physics")]
+use crate::detmath::DetMath;
+#[cfg(feature = "physics")]
 use std::collections::{HashMap, HashSet};
+
+#[cfg(feature = "physics")]
+use rustc_hash::{FxHashMap, FxHashSet};
 
 #[cfg(feature = "physics")]
 pub mod query;
@@ -182,6 +187,36 @@ pub(crate) fn collider_builder_for(
     }
 }
 
+/// What a prediction found (`PhysicsWorld::predict`, read by
+/// `ecs::trajectory`): the body's places, the first dynamic body it
+/// touched, where it was then, and that body's places after.
+#[derive(Debug, Clone, Default, PartialEq)]
+pub struct Prediction {
+    pub path: Vec<[f32; 2]>,
+    /// The struck body's physics id.
+    pub hit: Option<u64>,
+    pub hit_at: Option<[f32; 2]>,
+    pub hit_path: Vec<[f32; 2]>,
+    /// Steps run: fewer than asked when everything came to rest.
+    pub steps: u32,
+}
+
+/// One body as the physics had it (`PhysicsWorld::body_state`, saved and
+/// restored by `ecs::save_state`).
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct BodyState {
+    pub position: [f32; 2],
+    pub rotation: f32,
+    /// The rotation as rapier holds it, `(cos, sin)`: what a restore puts
+    /// back. Rebuilt from `rotation` it is not always the same bits - an
+    /// angle read through `atan2` and turned back through `sin_cos` can land
+    /// a step away - and a world put back a step away is a different game
+    /// from then on.
+    pub turn: [f32; 2],
+    pub velocity: [f32; 2],
+    pub spin: f32,
+}
+
 /// Result of a raycast query.
 #[derive(Debug, Clone)]
 pub struct RayHit {
@@ -254,7 +289,7 @@ struct TilemapBody {
 
 /// The static body built from a spline shape's fill
 /// (`renderer::spline_shape`), and what it was built from.
-#[cfg(feature = "physics")]
+#[cfg(all(feature = "physics", feature = "spline_shape"))]
 struct SplineBody {
     owner: hecs::Entity,
     body: rapier2d::prelude::RigidBodyHandle,
@@ -412,6 +447,7 @@ pub(crate) fn tile_run_collider(
 /// The colliders of a spline shape (`renderer::spline_shape`), in its
 /// entity's frame with `scale` applied: a convex triangle per triangle of its
 /// fill. The physics sync and the browser's ray snapshot both build it.
+#[cfg(feature = "spline_shape")]
 #[cfg(feature = "physics")]
 pub(crate) fn spline_colliders(
     shape: &crate::renderer::spline_shape::SplineShape,
@@ -432,7 +468,7 @@ pub(crate) fn spline_colliders(
 /// entity's frame with `scale` applied: a box per run of full cells and a
 /// convex polygon per cut cell. The physics sync and the browser's ray
 /// snapshot both build it.
-#[cfg(feature = "physics")]
+#[cfg(all(feature = "physics", feature = "smooth_terrain"))]
 pub(crate) fn terrain_colliders(
     terrain: &crate::ecs::smooth_terrain::SmoothTerrain,
     scale: glam::Vec2,
@@ -573,15 +609,22 @@ pub struct PhysicsWorld {
     /// [`Self::add_body_for_entity`] have an entry.
     owners: HashMap<u64, hecs::Entity>,
 
-    // Contact tracking for enter/exit detection
-    prev_contacts: HashSet<(u64, u64)>,
+    // Contact tracking for enter/exit detection. A frame's contact events
+    // come out sorted by their entity ids (`end_frame`), on every run and
+    // platform: read straight out of a `HashSet`, whose seed is random per
+    // process, scripts heard `on_collision_enter` in a new order each run -
+    // which a game that reacts to the first hit of a frame turns into a
+    // different game. The sets themselves only answer "is this pair in it",
+    // so they are hash sets; kept as `BTreeSet`s they cost a tenth of a
+    // frame over 400 resting boxes (`jengine-benchmark-cpu`).
+    prev_contacts: FxHashSet<(u64, u64)>,
     /// Pairs that appeared last step and have not been reported yet.
     ///
     /// A contact is reported one step after rapier first sees it, because
     /// the solver writes the impulse *during* the step that resolves the
     /// pair: read on the step the pair appears, every impact is zero. One
     /// frame of delay buys a collision event that can say how hard it was.
-    pending_contacts: HashSet<(u64, u64)>,
+    pending_contacts: FxHashSet<(u64, u64)>,
 
     /// Where each kinematic body's transform was last frame, and how far it
     /// moved since: what a character standing on it is carried by.
@@ -600,8 +643,10 @@ pub struct PhysicsWorld {
     /// The static body built from each carvable sprite's outline.
     carved_bodies: HashMap<u64, CarvedBody>,
     /// Smooth terrains' bodies (`ecs::smooth_terrain`), as carved ones are.
+    #[cfg(feature = "smooth_terrain")]
     terrain_bodies: HashMap<u64, CarvedBody>,
     /// The static body built from each spline shape with a collider.
+    #[cfg(feature = "spline_shape")]
     spline_bodies: HashMap<u64, SplineBody>,
     /// The area effects as `sync_area_effects` last read them.
     areas: Vec<crate::ecs::area_effect::PlacedArea>,
@@ -677,8 +722,8 @@ pub struct PhysicsWorld {
 #[cfg(feature = "physics")]
 #[derive(Default)]
 struct FrameContacts {
-    current: HashSet<(u64, u64)>,
-    strength: HashMap<(u64, u64), (f32, (f32, f32))>,
+    current: FxHashSet<(u64, u64)>,
+    strength: FxHashMap<(u64, u64), (f32, (f32, f32))>,
     stepped: u32,
 }
 
@@ -694,6 +739,7 @@ pub const BREAK_GRACE_SECONDS: f32 = 0.5;
 /// The bodies of one limp skeleton, parents first.
 #[cfg(feature = "physics")]
 struct RagdollBodies {
+    #[cfg_attr(not(feature = "ragdoll"), allow(dead_code))]
     root: hecs::Entity,
     parts: Vec<RagdollPart>,
 }
@@ -743,7 +789,7 @@ impl rapier2d::prelude::PhysicsHooks for StepHooks {
             (None, Some((s, a))) => (s, a, -1.0),
             _ => return,
         };
-        let v = rapier2d::na::Vector2::new(angle.cos(), angle.sin()) * (speed * sign);
+        let v = rapier2d::na::Vector2::new(angle.dcos(), angle.dsin()) * (speed * sign);
         for c in context.solver_contacts.iter_mut() {
             c.tangent_velocity = v;
         }
@@ -796,15 +842,17 @@ impl PhysicsWorld {
             requested_mass: HashMap::new(),
             entity_to_joint: HashMap::new(),
             owners: HashMap::new(),
-            prev_contacts: HashSet::new(),
-            pending_contacts: HashSet::new(),
+            prev_contacts: FxHashSet::default(),
+            pending_contacts: FxHashSet::default(),
             kinematic_last: HashMap::new(),
             kinematic_delta: HashMap::new(),
             origin_seen: None,
             removed_since_step: Vec::new(),
             tilemap_bodies: HashMap::new(),
             carved_bodies: HashMap::new(),
+            #[cfg(feature = "smooth_terrain")]
             terrain_bodies: HashMap::new(),
+            #[cfg(feature = "spline_shape")]
             spline_bodies: HashMap::new(),
             areas: Vec::new(),
             area_forces_live: false,
@@ -1029,6 +1077,9 @@ impl PhysicsWorld {
                 stale.push(*id);
             }
         }
+        // In id order, not the map's: which slot rapier frees first decides
+        // where later bodies go, and with them the solver's order.
+        stale.sort_unstable();
         for id in &stale {
             self.remove_body(*id);
         }
@@ -1377,6 +1428,9 @@ impl PhysicsWorld {
             }
         }
         self.breakable = breakable;
+        // In handle order, not the map's: the order joints come out of
+        // rapier, and `on_joint_break` reaches scripts, is the same everywhere.
+        snapped.sort_unstable_by_key(|s| s.0.0.into_raw_parts());
         for (h, owner, force, torque) in snapped {
             self.breakable.remove(&h);
             self.impulse_joint_set.remove(h, true);
@@ -1630,7 +1684,7 @@ impl PhysicsWorld {
         // solver applied to resolve it. On the step rapier first sees the
         // pair that number is always zero, so an event read there could only
         // ever say "something touched".
-        let mut reported: HashSet<(u64, u64)> = HashSet::new();
+        let mut reported: FxHashSet<(u64, u64)> = FxHashSet::default();
 
         // A frame that ran no step learned nothing about contacts. At 165 Hz
         // most frames are like that, and diffing their empty set against the
@@ -1643,40 +1697,49 @@ impl PhysicsWorld {
             return Vec::new();
         }
 
-        // Detect contact events by comparing current contacts with previous frame
-        let mut events = Vec::new();
+        // Detect contact events by comparing current contacts with previous
+        // frame. Each kind is sorted by its pair before it is reported:
+        // starts, then ends, then one-step grazes.
+        let mut started = Vec::new();
         for &key in &current_contacts {
             if self.prev_contacts.contains(&key) {
                 reported.insert(key);
             } else if self.pending_contacts.contains(&key) {
-                let (impulse, point) = strength.get(&key).copied().unwrap_or((0.0, (0.0, 0.0)));
-                events.push(ContactEvent {
-                    entity_a: key.0,
-                    entity_b: key.1,
-                    event_type: ContactType::Started,
-                    impulse,
-                    point,
-                });
+                started.push(key);
                 reported.insert(key);
             }
         }
         // Brand-new pairs wait a step.
-        let next_pending: HashSet<(u64, u64)> =
+        let next_pending: FxHashSet<(u64, u64)> =
             current_contacts.iter().copied().filter(|k| !reported.contains(k)).collect();
-
         // Contacts that ended.
-        for &key in &self.prev_contacts {
-            if !current_contacts.contains(&key) {
-                events.push(ContactEvent::simple(key.0, key.1, ContactType::Stopped));
-            }
-        }
+        let mut stopped: Vec<(u64, u64)> =
+            self.prev_contacts.iter().copied().filter(|k| !current_contacts.contains(k)).collect();
         // A graze that lasted a single step is still a contact: report it
         // with what little it was, rather than losing it.
-        for &key in &self.pending_contacts {
-            if !current_contacts.contains(&key) {
-                events.push(ContactEvent::simple(key.0, key.1, ContactType::Started));
-                events.push(ContactEvent::simple(key.0, key.1, ContactType::Stopped));
-            }
+        let mut grazed: Vec<(u64, u64)> =
+            self.pending_contacts.iter().copied().filter(|k| !current_contacts.contains(k)).collect();
+        started.sort_unstable();
+        stopped.sort_unstable();
+        grazed.sort_unstable();
+
+        let mut events = Vec::with_capacity(started.len() + stopped.len() + grazed.len() * 2);
+        for key in started {
+            let (impulse, point) = strength.get(&key).copied().unwrap_or((0.0, (0.0, 0.0)));
+            events.push(ContactEvent {
+                entity_a: key.0,
+                entity_b: key.1,
+                event_type: ContactType::Started,
+                impulse,
+                point,
+            });
+        }
+        for key in stopped {
+            events.push(ContactEvent::simple(key.0, key.1, ContactType::Stopped));
+        }
+        for key in grazed {
+            events.push(ContactEvent::simple(key.0, key.1, ContactType::Started));
+            events.push(ContactEvent::simple(key.0, key.1, ContactType::Stopped));
         }
 
         self.prev_contacts = reported;
@@ -1689,8 +1752,8 @@ impl PhysicsWorld {
     /// pair so far this frame.
     fn collect_contacts(
         &self,
-        current: &mut HashSet<(u64, u64)>,
-        strength: &mut HashMap<(u64, u64), (f32, (f32, f32))>,
+        current: &mut FxHashSet<(u64, u64)>,
+        strength: &mut FxHashMap<(u64, u64), (f32, (f32, f32))>,
     ) {
         for pair in self.narrow_phase.contact_pairs() {
             if pair.has_any_active_contact {
@@ -1815,7 +1878,7 @@ impl PhysicsWorld {
                 };
                 if let Ok(mut t) = world.get::<&mut Transform>(part.entity) {
                     let (lp, lr) = match &above {
-                        Some(w) => crate::ecs::ragdoll::local_under(w, pose.position, pose.rotation),
+                        Some(w) => crate::ecs::hierarchy::local_under(w, pose.position, pose.rotation),
                         None => (pose.position, pose.rotation),
                     };
                     t.position = lp;
@@ -1829,6 +1892,7 @@ impl PhysicsWorld {
     /// Build the bodies of every ragdoll gone limp and drop those of every
     /// one stood up again (or gone). Called by
     /// [`crate::ecs::systems::ensure_physics_bodies`]. See `ecs::ragdoll`.
+    #[cfg(feature = "ragdoll")]
     pub fn sync_ragdolls(&mut self, world: &hecs::World) {
         use crate::ecs::ragdoll::Ragdoll;
         let want: Vec<(u64, hecs::Entity, Ragdoll)> = world
@@ -1862,6 +1926,7 @@ impl PhysicsWorld {
         self.ragdolls.get(&root_id).map(|r| r.parts.len())
     }
 
+    #[cfg(feature = "ragdoll")]
     fn build_ragdoll(&mut self, world: &hecs::World, id: u64, root: hecs::Entity, rd: &crate::ecs::ragdoll::Ragdoll) {
         use rapier2d::prelude::{ActiveEvents, ActiveHooks, ColliderBuilder, RevoluteJointBuilder, RigidBodyBuilder};
         let bones = crate::ecs::ragdoll::bones_of(world, root);
@@ -1909,7 +1974,7 @@ impl PhysicsWorld {
             let Some(pi) = b.parent else { continue };
             let up = &bones[pi].world;
             let d = b.world.position - up.position;
-            let (sin, cos) = up.rotation.sin_cos();
+            let (sin, cos) = up.rotation.dsin_cos();
             let anchor = rapier2d::na::Point2::new(d.x * cos + d.y * sin, -d.x * sin + d.y * cos);
             let rest = (b.world.rotation - up.rotation + std::f32::consts::PI).rem_euclid(std::f32::consts::TAU)
                 - std::f32::consts::PI;
@@ -1928,6 +1993,7 @@ impl PhysicsWorld {
         self.ragdolls.insert(id, RagdollBodies { root, parts });
     }
 
+    #[cfg(feature = "ragdoll")]
     fn drop_ragdoll(&mut self, id: u64) {
         let Some(rd) = self.ragdolls.remove(&id) else { return };
         for part in rd.parts {
@@ -2548,6 +2614,7 @@ impl PhysicsWorld {
     /// body of every smooth terrain with `collider` on
     /// (`terrain_colliders`). A rebuild swaps the colliders on the same body
     /// and wakes what touched them, so a body resting on dug ground falls.
+    #[cfg(feature = "smooth_terrain")]
     pub fn sync_smooth_terrain(&mut self, world: &hecs::World) {
         use crate::ecs::components::{Transform, WorldTransform};
         use crate::ecs::smooth_terrain::SmoothTerrain;
@@ -2609,6 +2676,7 @@ impl PhysicsWorld {
         }
     }
 
+    #[cfg(feature = "smooth_terrain")]
     fn remove_terrain_body(&mut self, entity_id: u64) {
         if let Some(cb) = self.terrain_bodies.remove(&entity_id) {
             self.body_to_entity.remove(&cb.body);
@@ -2629,6 +2697,7 @@ impl PhysicsWorld {
     /// Build - or rebuild, when it or its place changed - the static body of
     /// every spline shape with `collider` on: a convex triangle per triangle
     /// of its fill (`spline_colliders`), solid all the way through.
+    #[cfg(feature = "spline_shape")]
     pub fn sync_spline_colliders(&mut self, world: &hecs::World) {
         use crate::ecs::components::{Transform, WorldTransform};
         use crate::renderer::spline_shape::SplineShape;
@@ -2670,6 +2739,7 @@ impl PhysicsWorld {
         }
     }
 
+    #[cfg(feature = "spline_shape")]
     fn remove_spline_body(&mut self, entity_id: u64) {
         if let Some(sb) = self.spline_bodies.remove(&entity_id) {
             self.body_to_entity.remove(&sb.body);
@@ -2911,7 +2981,7 @@ impl PhysicsWorld {
                             &(Translation::from(side.translation) * lifted), vector![0.0, -drop], filter,
                             |c| landing.push(c),
                         );
-                        let floor = cc.max_slope_deg.to_radians().cos();
+                        let floor = cc.max_slope_deg.to_radians().dcos();
                         if landing.iter().any(|c| c.hit.normal1.y >= floor) {
                             mv.translation += up + side.translation + down.translation;
                             mv.grounded = true;
@@ -2935,7 +3005,7 @@ impl PhysicsWorld {
 
             // What it hit, by the surface normal: ground within the climbable
             // slope, a ceiling overhead, a wall to either side.
-            let floor = cc.max_slope_deg.to_radians().cos();
+            let floor = cc.max_slope_deg.to_radians().dcos();
             let mut ground: Option<(u64, [f32; 2])> = None;
             let (mut wall, mut ceiling) = (0, false);
             let mut touching: Vec<u64> = Vec::new();
@@ -3068,7 +3138,7 @@ impl PhysicsWorld {
     /// and where, and that body's path from then on. Area effects are not
     /// applied (`ecs::trajectory`). `None` for a body that is not dynamic
     /// or does not exist.
-    pub fn predict(&self, entity_id: u64, velocity: [f32; 2], steps: u32, every: u32) -> Option<crate::ecs::trajectory::Prediction> {
+    pub fn predict(&self, entity_id: u64, velocity: [f32; 2], steps: u32, every: u32) -> Option<Prediction> {
         use rapier2d::prelude::*;
         let handle = *self.entity_to_body.get(&entity_id)?;
         if !self.rigid_body_set.get(handle)?.is_dynamic() {
@@ -3090,7 +3160,7 @@ impl PhysicsWorld {
         };
         let own: Vec<ColliderHandle> = bodies[handle].colliders().to_vec();
         let every = every.max(1);
-        let mut out = crate::ecs::trajectory::Prediction { path: vec![at(&bodies, handle)], ..Default::default() };
+        let mut out = Prediction { path: vec![at(&bodies, handle)], ..Default::default() };
         let mut struck: Option<RigidBodyHandle> = None;
         for step in 1..=steps {
             pipeline.step(
@@ -3143,13 +3213,14 @@ impl PhysicsWorld {
     }
 
     /// A body's pose, velocity and spin, for a save state.
-    pub fn body_state(&self, entity_id: u64) -> Option<crate::ecs::save_state::BodyState> {
+    pub fn body_state(&self, entity_id: u64) -> Option<BodyState> {
         let h = self.entity_to_body.get(&entity_id)?;
         let b = self.rigid_body_set.get(*h)?;
         let (p, v) = (b.translation(), b.linvel());
-        Some(crate::ecs::save_state::BodyState {
+        Some(BodyState {
             position: [p.x, p.y],
             rotation: b.rotation().angle(),
+            turn: [b.rotation().re, b.rotation().im],
             velocity: [v.x, v.y],
             spin: b.angvel(),
         })
@@ -3157,11 +3228,12 @@ impl PhysicsWorld {
 
     /// Put a body back as a save state had it, and tell the sync so it is
     /// not taken for an edit made outside (nor blended from where it was).
-    pub fn restore_body(&mut self, entity_id: u64, s: crate::ecs::save_state::BodyState) {
+    pub fn restore_body(&mut self, entity_id: u64, s: BodyState) {
         let Some(&h) = self.entity_to_body.get(&entity_id) else { return };
         let Some(b) = self.rigid_body_set.get_mut(h) else { return };
+        let turn = rapier2d::na::UnitComplex::new_unchecked(rapier2d::na::Complex::new(s.turn[0], s.turn[1]));
         b.set_position(
-            rapier2d::na::Isometry2::new(rapier2d::na::Vector2::new(s.position[0], s.position[1]), s.rotation),
+            rapier2d::na::Isometry2::from_parts(rapier2d::na::Translation2::new(s.position[0], s.position[1]), turn),
             true,
         );
         if b.is_dynamic() {
@@ -3437,9 +3509,11 @@ impl PhysicsWorld {
     pub fn end_frame(&mut self) -> Vec<ContactEvent> { Vec::new() }
     pub fn fixed_dt(&self) -> f32 { 1.0 / 60.0 }
     pub fn sync_carved_colliders(&mut self, _world: &hecs::World) {}
+    #[cfg(feature = "spline_shape")]
     pub fn sync_spline_colliders(&mut self, _world: &hecs::World) {}
     pub fn sync_smooth_terrain(&mut self, _world: &hecs::World) {}
     pub fn sync_area_effects(&mut self, _world: &hecs::World) {}
+    #[cfg(feature = "ragdoll")]
     pub fn sync_ragdolls(&mut self, _world: &hecs::World) {}
     pub fn apply_pending(&mut self, _entity_id: u64) {}
     pub fn set_gravity(&mut self, _gx: f32, _gy: f32) {}
@@ -3447,10 +3521,10 @@ impl PhysicsWorld {
     pub fn apply_impulse(&mut self, _entity_id: u64, _ix: f32, _iy: f32) {}
     pub fn set_velocity(&mut self, _entity_id: u64, _vx: f32, _vy: f32) {}
     pub fn mass_of(&self, _entity_id: u64) -> Option<f32> { None }
-    pub fn body_state(&self, _entity_id: u64) -> Option<crate::ecs::save_state::BodyState> { None }
-    pub fn restore_body(&mut self, _entity_id: u64, _s: crate::ecs::save_state::BodyState) {}
+    pub fn body_state(&self, _entity_id: u64) -> Option<BodyState> { None }
+    pub fn restore_body(&mut self, _entity_id: u64, _s: BodyState) {}
     pub fn body_type_of(&self, _entity_id: u64) -> Option<crate::ecs::components::BodyType> { None }
-    pub fn predict(&self, _entity_id: u64, _velocity: [f32; 2], _steps: u32, _every: u32) -> Option<crate::ecs::trajectory::Prediction> { None }
+    pub fn predict(&self, _entity_id: u64, _velocity: [f32; 2], _steps: u32, _every: u32) -> Option<Prediction> { None }
     pub fn set_angular_velocity(&mut self, _entity_id: u64, _omega: f32) {}
     pub fn get_position(&self, _entity_id: u64) -> Option<(f32, f32)> { None }
     pub fn get_rotation(&self, _entity_id: u64) -> Option<f32> { None }

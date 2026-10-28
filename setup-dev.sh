@@ -22,6 +22,14 @@ require npm "Install Node.js 20+ (brew install node)."
 node_major="$(node --version | sed -E 's/^v([0-9]+).*/\1/')"
 (( node_major >= 20 )) || die "Node.js 20+ is required; found $(node --version)."
 note "Node.js version: $(node --version)"
+# CI runs Node 20 and the docs site's `npm ci` builds a native module
+# (better-sqlite3, through TinaCMS) that does not compile against Node 26's
+# V8. The editor is fine on newer Node; the website is not.
+if (( node_major > 24 )); then
+    warn "Node $(node --version) is newer than the website supports (its better-sqlite3 will not build)."
+    warn "For website/, use an LTS Node: brew install node@22, then"
+    warn "  PATH=/opt/homebrew/opt/node@22/bin:\$PATH npm ci   (in website/)"
+fi
 
 if command -v wasm-pack >/dev/null; then note "wasm-pack already installed."
 else info "Installing wasm-pack..."; run cargo install wasm-pack --locked; fi

@@ -11,6 +11,7 @@ pub mod host_commands;
 pub mod intern;
 pub mod namespaces;
 pub mod persistent;
+pub mod script_math;
 pub mod spawn_aliases;
 pub mod spawn_map;
 pub mod timers;

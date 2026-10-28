@@ -173,28 +173,28 @@ pub fn apply_carves(world: &mut World, assets: &mut AssetManager) {
     // And a `sprite` emit shape's pixels (`particles::collect_emit_pixels`),
     // and the frame's colour grade (`renderer::lut`).
     crate::particles::collect_emit_pixels(world, assets);
-    crate::renderer::lut::sync(world, assets);
+    crate::feature!("lut", { crate::renderer::lut::sync(world, assets) });
     // A dissolving scene transition's texture (`renderer::transition`).
     crate::renderer::transition::sync_mask(assets);
     // Glyphs a font file has not baked yet (`renderer::dynamic_font`).
-    crate::renderer::dynamic_font::sync(world, assets);
+    crate::feature!("dynamic_font", { crate::renderer::dynamic_font::sync(world, assets) });
     // Stamps painted into a `paintable` sprite's copy (`ecs::paint`).
-    super::paint::apply_paints(world, assets);
+    crate::feature!("paint", { super::paint::apply_paints(world, assets) });
     // Falling-sand cells into their texture, and their solid cells into the
     // entity's carvable for the collider (`ecs::pixel_sim`).
-    super::pixel_sim::sync(world, assets);
+    crate::feature!("pixel_sim", { super::pixel_sim::sync(world, assets) });
     // Smoke into its texture, drawn through the carvable too (`ecs::smoke`).
-    super::smoke::sync(world, assets);
+    crate::feature!("smoke", { super::smoke::sync(world, assets) });
     // Normal maps worked out from a flat sprite's silhouette
     // (`ecs::auto_normal`), named in its material.
-    super::auto_normal::sync(world, assets);
+    crate::feature!("auto_normal", { super::auto_normal::sync(world, assets) });
     // Snow lying on sprites' upward edges (`ecs::snow`), its picture remade
     // as it deepens or melts.
-    super::snow::sync(world, assets);
+    crate::feature!("snow", { super::snow::sync(world, assets) });
     // Light flooded through tilemaps (`ecs::tile_light`), one texel a cell.
-    super::tile_light::sync(world, assets);
+    crate::feature!("tile_light", { super::tile_light::sync(world, assets) });
     // Fog of war's picture (`ecs::fog_of_war`), one texel a cell.
-    super::fog_of_war::sync(world, assets);
+    crate::feature!("fog_of_war", { super::fog_of_war::sync(world, assets) });
     // A screenshot the GPU has finished copying (`renderer::screenshot`).
     #[cfg(feature = "gpu-wgpu")]
     crate::renderer::screenshot::gpu::deliver(assets);
@@ -405,6 +405,35 @@ pub fn solid_pieces(
         .filter(|(_, half)| half.x > 0.0 && half.y > 0.0)
         .collect();
     (boxes, polygons)
+}
+
+
+// A paintable sprite (`ecs::paint`) beside a carvable one: what a sprite
+// draws and what its particles start from read either copy.
+crate::feature_component!(pub type PaintableC = "paint" => crate::ecs::paint::Paintable);
+
+/// The painted copy a paintable sprite draws (`ecs::paint`), if it has one.
+#[cfg(feature = "paint")]
+pub fn painted_texture(p: Option<&PaintableC>) -> Option<&str> {
+    p.and_then(|p| p.state.texture.as_deref())
+}
+
+/// The painted copy - none in a build without painting.
+#[cfg(not(feature = "paint"))]
+pub fn painted_texture(_: Option<&PaintableC>) -> Option<&str> {
+    None
+}
+
+/// The normal map a pressed sprite draws its normals from (`Sprite.press`).
+#[cfg(feature = "paint")]
+pub fn pressed_normal(p: Option<&PaintableC>) -> Option<&str> {
+    p.and_then(|p| p.state.normal.as_deref())
+}
+
+/// The pressed normals - none in a build without painting.
+#[cfg(not(feature = "paint"))]
+pub fn pressed_normal(_: Option<&PaintableC>) -> Option<&str> {
+    None
 }
 
 #[cfg(test)]

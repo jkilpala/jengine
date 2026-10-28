@@ -162,10 +162,13 @@ function collectRust() {
   const local = [];
   for (const id of seen) {
     const p = pkgs.get(id);
+    const vendored = !p.source && toPosix(relative(ROOT, p.manifest_path)).startsWith("vendor/");
     if (!p.source) {
-      // A path crate: the workspace's own, or vendored (covered under ASSETS).
+      // A path crate: the workspace's own, or vendored. A vendored crate is
+      // still a crate that ships under its own licence, so it is listed with
+      // the rest as well; its patches are described under ASSETS.
       local.push(p);
-      continue;
+      if (!vendored) continue;
     }
     crates.push({
       name: p.name,
@@ -279,6 +282,8 @@ function collectAssets(rust) {
   const symphonia = rust.crates.filter((c) => c.name === "symphonia" || c.name.startsWith("symphonia-"));
   const symphoniaVersions = symphonia.map((c) => `${c.name} ${c.version}`).join(", ");
   const winit = rust.vendored.find((v) => v.name === "winit");
+  const rapier = rust.vendored.find((v) => v.name === "rapier2d");
+  const luau = rust.vendored.find((v) => v.name === "luau0-src");
   const assets = [
     {
       name: "Noto Sans",
@@ -318,6 +323,30 @@ function collectAssets(rust) {
       files: [repoText("vendor/winit/LICENSE")],
     },
     {
+      name: "rapier2d (patched copy)",
+      license: "Apache-2.0",
+      repository: "https://github.com/dimforge/rapier",
+      note: `vendor/rapier2d: rapier2d ${rapier ? rapier.version : ""} from crates.io with jEngine patches`.replace("  ", " "),
+      detail:
+        `\`vendor/rapier2d\` is rapier2d ${rapier ? rapier.version : ""} from crates.io with one kind of change, ` +
+        "each marked \"jEngine patch\" in the source: the maths it calls on `f32` directly goes through `libm`, " +
+        "so a physics step is the same bits on every platform. `vendor/rapier2d/JENGINE-PATCH.md` lists every " +
+        "changed file.",
+      files: [repoText("vendor/rapier2d/LICENSE")],
+    },
+    {
+      name: "Luau (luau0-src, patched copy)",
+      license: "MIT",
+      repository: "https://github.com/khvzak/luau-src-rs",
+      note: `vendor/luau0-src: luau0-src ${luau ? luau.version : ""} from crates.io with jEngine patches`.replace("  ", " "),
+      detail:
+        `\`vendor/luau0-src\` is luau0-src ${luau ? luau.version : ""} from crates.io, the Luau sources, with ` +
+        "changes so a script's numbers are the same on every platform: its maths calls go through a table of " +
+        "functions the engine fills, `^` has one rule, and it is built without fused multiply-add. " +
+        "`vendor/luau0-src/JENGINE-PATCH.md` describes the changes in full.",
+      files: [repoText("vendor/luau0-src/LICENSE")],
+    },
+    {
       name: "Symphonia",
       license: "MPL-2.0",
       repository: "https://github.com/pdeljanov/Symphonia",
@@ -329,6 +358,12 @@ function collectAssets(rust) {
       files: [],
     },
   ];
+  // A patched copy must say it is patched: a new vendored crate needs its entry above.
+  for (const v of rust.vendored) {
+    if (!assets.some((a) => a.note && a.note.startsWith(`vendor/${v.name}:`))) {
+      throw new Error(`vendor/${v.name} has no entry in collectAssets saying what was changed`);
+    }
+  }
   return assets.sort((a, b) => cmp(a.name, b.name));
 }
 

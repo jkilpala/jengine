@@ -45,6 +45,11 @@ image = { workspace = true }
 # accelerator keys (F3 / Ctrl+F / Ctrl+R / F12 …) that would otherwise
 # swallow editor shortcuts. Versions must track wry's so the COM types
 # unify with the controller Tauri hands us.
+[target.'cfg(target_os = "macos")'.dependencies]
+# WKWebView's preferences, for the frame rate (`editor_window`). The version
+# wry already links.
+objc2 = "0.6"
+
 [target.'cfg(windows)'.dependencies]
 webview2-com = "0.38"
 windows = { version = "0.61", features = ["Win32_Foundation"] }

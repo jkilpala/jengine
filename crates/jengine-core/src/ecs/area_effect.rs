@@ -82,7 +82,8 @@ pub fn set_area_field(world: &hecs::World, entity: hecs::Entity, field: &str, va
 /// (turned and scaled with it).
 pub fn placed_areas(world: &hecs::World) -> Vec<PlacedArea> {
     use super::components::{Transform, WorldTransform};
-    world
+    #[allow(unused_mut)]
+    let mut out = world
         .query::<(&AreaEffect, &Transform, Option<&WorldTransform>)>()
         .iter()
         .map(|(_, (a, t, w))| {
@@ -95,8 +96,38 @@ pub fn placed_areas(world: &hecs::World) -> Vec<PlacedArea> {
                 surface: None,
             }
         })
-        .chain(super::water::placed(world))
-        .collect()
+        .collect::<Vec<_>>();
+    crate::feature!("water", { out.extend(super::water::placed(world)) });
+    out
+}
+
+/// The surface's height above rest along the water, sampled for a step -
+/// what the area effect floats things on.
+#[derive(Debug, Clone, PartialEq)]
+pub struct WaterProfile {
+    /// The local x of the first sample (the left edge), and the step.
+    pub x0: f32,
+    pub dx: f32,
+    pub heights: Vec<f32>,
+}
+
+impl WaterProfile {
+    /// The height above rest and the slope at local `x` (clamped to the
+    /// water's ends).
+    pub fn at(&self, x: f32) -> (f32, f32) {
+        let n = self.heights.len();
+        if n == 0 {
+            return (0.0, 0.0);
+        }
+        if n == 1 {
+            return (self.heights[0], 0.0);
+        }
+        let f = ((x - self.x0) / self.dx.max(1e-3)).clamp(0.0, (n - 1) as f32);
+        let i = (f.floor() as usize).min(n - 2);
+        let t = f - i as f32;
+        let (a, b) = (self.heights[i], self.heights[i + 1]);
+        (a + (b - a) * t, (b - a) / self.dx.max(1e-3))
+    }
 }
 
 /// The wind at world point `p`: the `force` of every enabled box holding it.
@@ -120,7 +151,7 @@ pub struct PlacedArea {
     pub effect: AreaEffect,
     /// A water's surface (`ecs::water`), heights above the box's top in its
     /// frame: the top follows it rather than lying flat.
-    pub surface: Option<std::sync::Arc<super::water::WaterProfile>>,
+    pub surface: Option<std::sync::Arc<WaterProfile>>,
 }
 
 impl PlacedArea {

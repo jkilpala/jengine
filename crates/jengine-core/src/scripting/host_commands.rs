@@ -44,7 +44,7 @@ use hecs::{Entity, World};
 use crate::animation::skeletal::SkeletalPlayer;
 use crate::animation::{AnimStateMachine, SpriteAnimator};
 use crate::ecs::components::{
-    AmbientLight, GuiComponent, Health, Hitbox, IkLookAt, IkTwoBone, MaterialComponent, Parent,
+    AmbientLight, GuiComponent, Health, Hitbox, MaterialComponent, Parent,
     SpriteComponent, TextComponent, Transform,
 };
 use crate::renderer::material::UniformValue;
@@ -228,16 +228,16 @@ pub fn handle_world_command(
                 p.set_blend_position(x, y);
             }
         }
-        "ikw" => {
+        "ikw" => crate::feature!("ik", "Skeleton.set_ik_weight", {
             let weight = args.number("w").unwrap_or(1.0) as f32;
             if let Some(e) = target(host, args) {
-                if let Ok(mut ik) = host.world().get::<&mut IkTwoBone>(e) {
+                if let Ok(mut ik) = host.world().get::<&mut crate::animation::ik::IkTwoBone>(e) {
                     ik.weight = weight.clamp(0.0, 1.0);
-                } else if let Ok(mut ik) = host.world().get::<&mut crate::ecs::components::IkChain>(e) {
+                } else if let Ok(mut ik) = host.world().get::<&mut crate::animation::ik::IkChain>(e) {
                     ik.weight = weight.clamp(0.0, 1.0);
                 }
             }
-        }
+        }),
 
         // ── animation state machine ───────────────────────────────────────
         "sat" => {
@@ -291,21 +291,21 @@ pub fn handle_world_command(
                 player.time = time.max(0.0);
             }
         }
-        "ikt" => {
+        "ikt" => crate::feature!("ik", "Skeleton.set_ik_target", {
             let x = args.number("x").unwrap_or(0.0) as f32;
             let y = args.number("y").unwrap_or(0.0) as f32;
             if let Some(e) = target(host, args) {
                 // Two-bone first, then look-at — the order
                 // `ScriptCommand::SetIkTarget` uses natively.
-                if let Ok(mut ik) = host.world().get::<&mut IkTwoBone>(e) {
+                if let Ok(mut ik) = host.world().get::<&mut crate::animation::ik::IkTwoBone>(e) {
                     ik.target = [x, y];
-                } else if let Ok(mut ik) = host.world().get::<&mut IkLookAt>(e) {
+                } else if let Ok(mut ik) = host.world().get::<&mut crate::animation::ik::IkLookAt>(e) {
                     ik.target = [x, y];
-                } else if let Ok(mut ik) = host.world().get::<&mut crate::ecs::components::IkChain>(e) {
+                } else if let Ok(mut ik) = host.world().get::<&mut crate::animation::ik::IkChain>(e) {
                     ik.target = [x, y];
                 }
             }
-        }
+        }),
 
         // ── particles ─────────────────────────────────────────────────────
         "sea" => {
@@ -344,7 +344,7 @@ pub fn handle_world_command(
             }
         }
         // `set_video_field(entity, field, value)` - `Video.set`.
-        "svf" => {
+        "svf" => crate::feature!("video", "Video.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -352,9 +352,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Video.set: {err}");
             }
-        }
+        }),
         // `set_ragdoll_field(entity, field, value)` - `Ragdoll.set`.
-        "srdf" => {
+        "srdf" => crate::feature!("ragdoll", "Ragdoll.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -362,9 +362,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Ragdoll.set: {err}");
             }
-        }
+        }),
         // `set_behavior_tree_field(entity, field, value)` - `BehaviorTree.set`.
-        "sbtf" => {
+        "sbtf" => crate::feature!("behavior_tree", "BehaviorTree.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -372,9 +372,9 @@ pub fn handle_world_command(
             {
                 log::warn!("BehaviorTree.set: {err}");
             }
-        }
+        }),
         // `set_timeline_field(entity, field, value)` - `Timeline.set`.
-        "stlf" => {
+        "stlf" => crate::feature!("timeline", "Timeline.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -382,7 +382,7 @@ pub fn handle_world_command(
             {
                 log::warn!("Timeline.set: {err}");
             }
-        }
+        }),
         // `set_canvas_group_field(entity, field, value)` - `CanvasGroup.set`.
         "scgf" => {
             let field = args.text("f").unwrap_or_default();
@@ -394,7 +394,7 @@ pub fn handle_world_command(
             }
         }
         // `set_fluid_field(entity, field, value)` - `Fluid.set`.
-        "sffl" => {
+        "sffl" => crate::feature!("fluid", "Fluid.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -402,18 +402,18 @@ pub fn handle_world_command(
             {
                 log::warn!("Fluid.set: {err}");
             }
-        }
+        }),
         // `smooth_terrain_edit(entity, x, y, radius, amount)` - `Terrain.edit`.
-        "stte" => {
+        "stte" => crate::feature!("smooth_terrain", "Terrain.edit", {
             let num = |k: &str| args.number(k).unwrap_or(0.0) as f32;
             if let Some(e) = target(host, args)
                 && let Err(err) = crate::ecs::smooth_terrain::edit(host.world(), e, num("x"), num("y"), num("r"), num("a"))
             {
                 log::warn!("Terrain.edit: {err}");
             }
-        }
+        }),
         // `dialogue_start` / `_advance` / `_choose` / `_stop` - `Dialogue.*`.
-        "dlg" => {
+        "dlg" => crate::feature!("dialogue", "Dialogue.*", {
             let op = args.text("op").unwrap_or_default();
             let arg = args.text("a").unwrap_or_default();
             if let Some(e) = target(host, args)
@@ -421,18 +421,18 @@ pub fn handle_world_command(
             {
                 log::warn!("Dialogue.{op}: {err}");
             }
-        }
+        }),
         // `mode7_place(entity, x, y, angle)` - `Mode7.place`.
-        "m7p" => {
+        "m7p" => crate::feature!("mode7", "Mode7.place", {
             let num = |k: &str| args.number(k).unwrap_or(0.0) as f32;
             if let Some(e) = target(host, args)
                 && let Err(err) = crate::ecs::mode7::place(host.world(), e, num("x"), num("y"), num("a"))
             {
                 log::warn!("Mode7.place: {err}");
             }
-        }
+        }),
         // `mode7_set(entity, field, value)` - `Mode7.set`.
-        "m7s" => {
+        "m7s" => crate::feature!("mode7", "Mode7.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -440,9 +440,28 @@ pub fn handle_world_command(
             {
                 log::warn!("Mode7.set: {err}");
             }
-        }
+        }),
+        // `stage_place(entity, x, y, z)` - `Stage.place`.
+        "stgp" => crate::feature!("stage", "Stage.place", {
+            let num = |k: &str| args.number(k).unwrap_or(0.0) as f32;
+            if let Some(e) = target(host, args)
+                && let Err(err) = crate::ecs::stage::place(host.world(), e, num("x"), num("y"), num("z"))
+            {
+                log::warn!("Stage.place: {err}");
+            }
+        }),
+        // `stage_set(entity, field, value)` - `Stage.set`.
+        "stgs" => crate::feature!("stage", "Stage.set", {
+            let field = args.text("f").unwrap_or_default();
+            let value = args.json("v");
+            if let Some(e) = target(host, args)
+                && let Err(err) = crate::ecs::stage::set_field(host.world(), e, &field, &value)
+            {
+                log::warn!("Stage.set: {err}");
+            }
+        }),
         // `sprite_tilt_set(entity, field, value)` - `SpriteTilt.set`.
-        "tilt" => {
+        "tilt" => crate::feature!("sprite_tilt", "SpriteTilt.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -450,9 +469,9 @@ pub fn handle_world_command(
             {
                 log::warn!("SpriteTilt.set: {err}");
             }
-        }
+        }),
         // `afterimage_set(entity, field, value)` - `Afterimage.set`.
-        "aimg" => {
+        "aimg" => crate::feature!("afterimage", "Afterimage.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -460,14 +479,14 @@ pub fn handle_world_command(
             {
                 log::warn!("Afterimage.set: {err}");
             }
-        }
+        }),
         // `physics_slice(x0, y0, x1, y1)` - `Physics.slice`.
-        "pslc" => {
+        "pslc" => crate::feature!("slice", "Physics.slice", {
             let num = |k: &str| args.number(k).unwrap_or(0.0) as f32;
             crate::ecs::slice::script_slice(host.world(), num("x0"), num("y0"), num("x1"), num("y1"));
-        }
+        }),
         // `portal_set(entity, field, value)` - `Portal.set`.
-        "prtl" => {
+        "prtl" => crate::feature!("portal", "Portal.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -475,18 +494,18 @@ pub fn handle_world_command(
             {
                 log::warn!("Portal.set: {err}");
             }
-        }
+        }),
         // `jelly_poke(entity, x, y, strength, radius)` - `Jelly.poke`.
-        "jlpk" => {
+        "jlpk" => crate::feature!("jelly", "Jelly.poke", {
             let num = |k: &str, d: f64| args.number(k).unwrap_or(d) as f32;
             if let Some(e) = target(host, args)
                 && let Err(err) = crate::ecs::jelly::poke(host.world(), e, glam::Vec2::new(num("x", 0.0), num("y", 0.0)), num("s", 300.0), num("r", 40.0))
             {
                 log::warn!("Jelly.poke: {err}");
             }
-        }
+        }),
         // `jelly_set(entity, field, value)` - `Jelly.set`.
-        "jlst" => {
+        "jlst" => crate::feature!("jelly", "Jelly.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -494,9 +513,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Jelly.set: {err}");
             }
-        }
+        }),
         // `marker_set(entity, field, value)` - `Marker.set`.
-        "mkst" => {
+        "mkst" => crate::feature!("offscreen_marker", "Marker.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -504,9 +523,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Marker.set: {err}");
             }
-        }
+        }),
         // `radial_set(entity, field, value)` - `Radial.set`.
-        "rdst" => {
+        "rdst" => crate::feature!("radial_menu", "Radial.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -514,9 +533,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Radial.set: {err}");
             }
-        }
+        }),
         // `bubble_say(entity, text, seconds)` - `Bubble.say`.
-        "bbsy" => {
+        "bbsy" => crate::feature!("speech_bubble", "Bubble.say", {
             let text = args.text("x").unwrap_or_default();
             let seconds = args.number("s").unwrap_or(-1.0) as f32;
             if let Some(e) = target(host, args)
@@ -524,9 +543,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Bubble.say: {err}");
             }
-        }
+        }),
         // `bubble_set(entity, field, value)` - `Bubble.set`.
-        "bbst" => {
+        "bbst" => crate::feature!("speech_bubble", "Bubble.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -534,9 +553,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Bubble.set: {err}");
             }
-        }
+        }),
         // `outline_set(entity, field, value)` - `Outline.set`.
-        "olst" => {
+        "olst" => crate::feature!("sprite_outline", "Outline.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -544,9 +563,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Outline.set: {err}");
             }
-        }
+        }),
         // `lightning_strike(entity, x, y)` - `Lightning.strike`.
-        "ltsk" => {
+        "ltsk" => crate::feature!("lightning", "Lightning.strike", {
             let x = args.number("x").unwrap_or(0.0) as f32;
             let y = args.number("y").unwrap_or(0.0) as f32;
             if let Some(e) = target(host, args)
@@ -554,9 +573,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Lightning.strike: {err}");
             }
-        }
+        }),
         // `lightning_set(entity, field, value)` - `Lightning.set`.
-        "ltst" => {
+        "ltst" => crate::feature!("lightning", "Lightning.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -564,9 +583,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Lightning.set: {err}");
             }
-        }
+        }),
         // `flow_set(entity, field, value)` - `Flow.set`.
-        "flst" => {
+        "flst" => crate::feature!("flow", "Flow.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -574,9 +593,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Flow.set: {err}");
             }
-        }
+        }),
         // `nav_link_set(entity, field, value)` - `NavLink.set`.
-        "nvlk" => {
+        "nvlk" => crate::feature!("navigation", "NavLink.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -584,9 +603,9 @@ pub fn handle_world_command(
             {
                 log::warn!("NavLink.set: {err}");
             }
-        }
+        }),
         // `morph_to(entity, target, seconds)` - `Morph.to`.
-        "mrto" => {
+        "mrto" => crate::feature!("path_morph", "Morph.to", {
             let target_name = args.text("n").unwrap_or_default();
             let seconds = args.number("s").unwrap_or(-1.0) as f32;
             if let Some(e) = target(host, args)
@@ -594,9 +613,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Morph.to: {err}");
             }
-        }
+        }),
         // `morph_set(entity, field, value)` - `Morph.set`.
-        "mrst" => {
+        "mrst" => crate::feature!("path_morph", "Morph.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -604,9 +623,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Morph.set: {err}");
             }
-        }
+        }),
         // `toast_show(entity, title, text, icon, seconds)` - `Toast.show`.
-        "tsho" => {
+        "tsho" => crate::feature!("toast", "Toast.show", {
             let title = args.text("n").unwrap_or_default();
             let text = args.text("x").unwrap_or_default();
             let icon = args.text("i").unwrap_or_default();
@@ -616,9 +635,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Toast.show: {err}");
             }
-        }
+        }),
         // `toast_set(entity, field, value)` - `Toast.set`.
-        "tsst" => {
+        "tsst" => crate::feature!("toast", "Toast.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -626,17 +645,17 @@ pub fn handle_world_command(
             {
                 log::warn!("Toast.set: {err}");
             }
-        }
+        }),
         // `fog_of_war_reset(entity)` - `FogOfWar.reset`.
-        "fwrs" => {
+        "fwrs" => crate::feature!("fog_of_war", "FogOfWar.reset", {
             if let Some(e) = target(host, args)
                 && let Err(err) = crate::ecs::fog_of_war::reset_fog(host.world(), e)
             {
                 log::warn!("FogOfWar.reset: {err}");
             }
-        }
+        }),
         // `fog_of_war_set(entity, field, value)` - `FogOfWar.set`.
-        "fwsf" => {
+        "fwsf" => crate::feature!("fog_of_war", "FogOfWar.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -644,10 +663,10 @@ pub fn handle_world_command(
             {
                 log::warn!("FogOfWar.set: {err}");
             }
-        }
+        }),
         // `snow_set(entity, field, value)` - `Snow.set`. (`snst` is
         // `stop_nav`'s.)
-        "snwc" => {
+        "snwc" => crate::feature!("snow", "Snow.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -655,16 +674,16 @@ pub fn handle_world_command(
             {
                 log::warn!("Snow.set: {err}");
             }
-        }
+        }),
         // `ui_drop(item, slot)` - `UI.drop`.
-        "uidp" => {
+        "uidp" => crate::feature!("drag_drop", "UI.drop", {
             let slot = args.text("s").unwrap_or_default();
             if let Some(e) = target(host, args) {
                 crate::ui::drag_drop::drop_named(host.world(), e, &slot);
             }
-        }
+        }),
         // `set_beat_clock_field(entity, field, value)` - `BeatClock.set`.
-        "sbcf" => {
+        "sbcf" => crate::feature!("beat_clock", "BeatClock.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -672,9 +691,9 @@ pub fn handle_world_command(
             {
                 log::warn!("BeatClock.set: {err}");
             }
-        }
+        }),
         // `set_text_path_field(entity, field, value)` - `TextPath.set`.
-        "stxp" => {
+        "stxp" => crate::feature!("text_path", "TextPath.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -682,9 +701,9 @@ pub fn handle_world_command(
             {
                 log::warn!("TextPath.set: {err}");
             }
-        }
+        }),
         // `set_trajectory_field(entity, field, value)` - `Trajectory.set`.
-        "strj" => {
+        "strj" => crate::feature!("trajectory", "Trajectory.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -692,9 +711,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Trajectory.set: {err}");
             }
-        }
+        }),
         // `set_tile_light_field(entity, field, value)` - `TileLight.set`.
-        "stlt" => {
+        "stlt" => crate::feature!("tile_light", "TileLight.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -702,9 +721,9 @@ pub fn handle_world_command(
             {
                 log::warn!("TileLight.set: {err}");
             }
-        }
+        }),
         // `set_auto_normal_field(entity, field, value)` - `AutoNormal.set`.
-        "sanf" => {
+        "sanf" => crate::feature!("auto_normal", "AutoNormal.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -712,9 +731,9 @@ pub fn handle_world_command(
             {
                 log::warn!("AutoNormal.set: {err}");
             }
-        }
+        }),
         // `set_cast_shadow_field(entity, field, value)` - `CastShadow.set`.
-        "scsh" => {
+        "scsh" => crate::feature!("cast_shadow", "CastShadow.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -722,7 +741,7 @@ pub fn handle_world_command(
             {
                 log::warn!("CastShadow.set: {err}");
             }
-        }
+        }),
         // `set_time_scale_field(entity, field, value)` - `TimeScale.set`.
         "stsf" => {
             let field = args.text("f").unwrap_or_default();
@@ -744,7 +763,7 @@ pub fn handle_world_command(
             }
         }
         // `set_day_field(entity, field, value)` - `DayCycle.set`.
-        "sdcf" => {
+        "sdcf" => crate::feature!("day_cycle", "DayCycle.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -752,9 +771,9 @@ pub fn handle_world_command(
             {
                 log::warn!("DayCycle.set: {err}");
             }
-        }
+        }),
         // `set_vision_field(entity, field, value)` - `Vision.set`.
-        "svsf" => {
+        "svsf" => crate::feature!("vision", "Vision.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -762,18 +781,18 @@ pub fn handle_world_command(
             {
                 log::warn!("Vision.set: {err}");
             }
-        }
+        }),
         // `wfc_generate(entity, x, y, w, h)` - `Wfc.generate`.
-        "swfc" => {
+        "swfc" => crate::feature!("wfc", "Wfc.generate", {
             let n = |k: &str| args.number(k).unwrap_or(0.0).floor() as i32;
             if let Some(e) = target(host, args)
                 && let Err(err) = crate::ecs::wfc::queue_region(host.world(), e, n("x"), n("y"), n("w"), n("h"))
             {
                 log::warn!("Wfc.generate: {err}");
             }
-        }
+        }),
         // `set_fog_field(entity, field, value)` - `Fog.set`.
-        "sfgf" => {
+        "sfgf" => crate::feature!("fog", "Fog.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -781,9 +800,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Fog.set: {err}");
             }
-        }
+        }),
         // `set_rewind_field(entity, field, value)` - `Rewind.set`.
-        "srwf" => {
+        "srwf" => crate::feature!("rewind", "Rewind.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -791,9 +810,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Rewind.set: {err}");
             }
-        }
+        }),
         // `smoke_puff(entity, x, y, radius, amount, vx, vy)` - `Smoke.puff`.
-        "smpf" => {
+        "smpf" => crate::feature!("smoke", "Smoke.puff", {
             let n = |k: &str| args.number(k).unwrap_or(0.0) as f32;
             let puff = crate::ecs::smoke::Puff {
                 at: glam::Vec2::new(n("x"), n("y")),
@@ -806,9 +825,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Smoke.puff: {err}");
             }
-        }
+        }),
         // `set_smoke_field(entity, field, value)` - `Smoke.set`.
-        "ssmf" => {
+        "ssmf" => crate::feature!("smoke", "Smoke.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -816,9 +835,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Smoke.set: {err}");
             }
-        }
+        }),
         // `pixel_paint(entity, x, y, radius, material)` - `PixelSim.paint`.
-        "spxp" => {
+        "spxp" => crate::feature!("pixel_sim", "PixelSim.paint", {
             let x = args.number("x").unwrap_or(0.0) as f32;
             let y = args.number("y").unwrap_or(0.0) as f32;
             let r = args.number("r").unwrap_or(0.0) as f32;
@@ -828,7 +847,7 @@ pub fn handle_world_command(
             {
                 log::warn!("PixelSim.paint: {err}");
             }
-        }
+        }),
         // `set_sprite_fill(entity, amount)` - `Sprite.set_fill`.
         "ssfl" => {
             let amount = args.number("a").unwrap_or(0.0) as f32;
@@ -840,7 +859,7 @@ pub fn handle_world_command(
             }
         }
         // `set_water_field(entity, field, value)` - `Water.set`.
-        "swtf" => {
+        "swtf" => crate::feature!("water", "Water.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -848,9 +867,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Water.set: {err}");
             }
-        }
+        }),
         // `water_splash(entity, x, strength)` - `Water.splash`.
-        "swsp" => {
+        "swsp" => crate::feature!("water", "Water.splash", {
             let x = args.number("x").unwrap_or(0.0) as f32;
             let strength = args.number("s").unwrap_or(0.0) as f32;
             if let Some(e) = target(host, args)
@@ -858,9 +877,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Water.splash: {err}");
             }
-        }
+        }),
         // `set_mirror_field(entity, field, value)` - `Mirror.set`.
-        "smrf" => {
+        "smrf" => crate::feature!("mirror", "Mirror.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -868,9 +887,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Mirror.set: {err}");
             }
-        }
+        }),
         // `set_trail_field(entity, field, value)` - `Trail.set`.
-        "strl" => {
+        "strl" => crate::feature!("trails", "Trail.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -878,9 +897,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Trail.set: {err}");
             }
-        }
+        }),
         // `set_line_field(entity, field, value)` - `Line.set`.
-        "slf" => {
+        "slf" => crate::feature!("line2d", "Line.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -888,7 +907,7 @@ pub fn handle_world_command(
             {
                 log::warn!("Line.set: {err}");
             }
-        }
+        }),
         // `set_path_follow_field(entity, field, value)` - `PathFollow.set`.
         "spff" => {
             let field = args.text("f").unwrap_or_default();
@@ -901,7 +920,7 @@ pub fn handle_world_command(
         }
         // `set_cloth_field(entity, field, value)`. Mirrors
         // `ScriptCommand::SetClothField`.
-        "scf" => {
+        "scf" => crate::feature!("cloth", "Cloth.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -909,7 +928,7 @@ pub fn handle_world_command(
             {
                 log::warn!("Cloth.set: {err}");
             }
-        }
+        }),
         // `set_area_field(entity, field, value)` - `Area.set`.
         "saef" => {
             let field = args.text("f").unwrap_or_default();
@@ -930,7 +949,7 @@ pub fn handle_world_command(
             }
         }
         // `set_sprite_label(entity, label, category)` - `Sprite.set_label`.
-        "spl" => {
+        "spl" => crate::feature!("sprite_library", "Sprite.set_label", {
             let label = args.text("l").unwrap_or_default();
             let category = args.text("c");
             if let Some(e) = target(host, args)
@@ -938,7 +957,7 @@ pub fn handle_world_command(
             {
                 log::warn!("Sprite.set_label: {err}");
             }
-        }
+        }),
         // `set_camera_field(entity, field, value)` - `Camera.set`.
         "scmf" => {
             let field = args.text("f").unwrap_or_default();
@@ -961,7 +980,7 @@ pub fn handle_world_command(
         }
         // `set_nav_target(entity, x, y)` / `stop_nav(entity)` - `Nav.set_target`
         // and `Nav.stop` (`snst`, no coordinates).
-        "snt" | "snst" => {
+        "snt" | "snst" => crate::feature!("navigation", "Nav.set_target", {
             let goal = match (args.number("x"), args.number("y")) {
                 (Some(x), Some(y)) => Some([x as f32, y as f32]),
                 _ => None,
@@ -971,9 +990,9 @@ pub fn handle_world_command(
             {
                 log::warn!("Nav.set_target: {err}");
             }
-        }
+        }),
         // `set_nav_field(entity, field, value)` - `Nav.set`.
-        "snvf" => {
+        "snvf" => crate::feature!("navigation", "Nav.set", {
             let field = args.text("f").unwrap_or_default();
             let value = args.json("v");
             if let Some(e) = target(host, args)
@@ -981,7 +1000,7 @@ pub fn handle_world_command(
             {
                 log::warn!("Nav.set: {err}");
             }
-        }
+        }),
 
         // ── combat ────────────────────────────────────────────────────────
         // Overwrite `Health`. Mirrors the native `ScriptCommand::SetHealth`.
@@ -1100,7 +1119,7 @@ pub fn handle_world_command(
         // `paint_sprite(entity, x, y, size, r, g, b, a, shape, rotation, blend)` and
         // `press_sprite(entity, x, y, size, depth, shape, rotation)` (`dp`):
         // queued on the `paintable`, drawn by `ecs::paint::apply_paints`.
-        "spnt" => {
+        "spnt" => crate::feature!("paint", "paint", {
             let n = |k: &str, d: f64| args.number(k).unwrap_or(d) as f32;
             let stamp = crate::ecs::paint::Stamp {
                 x: n("x", 0.0),
@@ -1115,7 +1134,7 @@ pub fn handle_world_command(
             if let Some(e) = target(host, args) {
                 crate::ecs::paint::paint(host.world(), e, stamp);
             }
-        }
+        }),
         // `carve_sprite(entity, x, y, radius)`: queued on the `carvable`,
         // cut by `ecs::carve::apply_carves`.
         "scv" => {
@@ -1139,6 +1158,7 @@ pub fn handle_world_command(
                     AnyLight::Point(l) => l.color = color,
                     AnyLight::Spot(l) => l.color = color,
                     AnyLight::Sun(l) => l.color = color,
+                    #[cfg(feature = "freeform_light")]
                     AnyLight::Freeform(l) => l.color = color,
                 });
             }
@@ -1150,6 +1170,7 @@ pub fn handle_world_command(
                     AnyLight::Point(l) => l.intensity = i,
                     AnyLight::Spot(l) => l.intensity = i,
                     AnyLight::Sun(l) => l.intensity = i,
+                    #[cfg(feature = "freeform_light")]
                     AnyLight::Freeform(l) => l.intensity = i,
                 });
             }
@@ -1185,6 +1206,7 @@ pub fn handle_world_command(
                     AnyLight::Point(l) => l.light_mask = m,
                     AnyLight::Spot(l) => l.light_mask = m,
                     AnyLight::Sun(l) => l.light_mask = m,
+                    #[cfg(feature = "freeform_light")]
                     AnyLight::Freeform(_) => {}
                 });
             }
@@ -1196,6 +1218,7 @@ pub fn handle_world_command(
                     AnyLight::Point(l) => l.height = h,
                     AnyLight::Spot(l) => l.height = h,
                     AnyLight::Sun(l) => l.height = h,
+                    #[cfg(feature = "freeform_light")]
                     AnyLight::Freeform(_) => {}
                 });
             }
@@ -1739,7 +1762,7 @@ pub const HOST_DISPATCH_TAGS: &[&str] = &[
 /// make the host skip its own arm and do nothing at all, so the list is checked
 /// against the function itself in the tests below.
 pub const SHARED_WORLD_TAGS: &[&str] = &[
-    "pa", "sa", "sas", "sat", "saf", "sab", "ssm", "sat2", "ikt", "caf", "sabl", "sabp", "anly", "scvs", "ikw", "sea", "ser", "sef", "scf", "spff", "slf", "strl", "sffl", "smrf", "swtf", "swsp", "ssfl", "spxp", "smpf", "ssmf", "srwf", "sfgf", "swfc", "svsf", "sdcf", "sfof", "stsf", "scsh", "sanf", "stlt", "strj", "stxp", "sbcf", "stte", "dlg", "uidp", "m7p", "m7s", "tilt", "aimg", "pslc", "prtl", "jlpk", "jlst", "mkst", "rdst", "bbsy", "bbst", "olst", "ltsk", "ltst", "flst", "nvlk", "mrto", "mrst", "tsho", "tsst", "snwc", "fwrs", "fwsf", "scgf", "svf", "srdf", "scsr", "stlf", "sbtf", "shp", "shb",
+    "pa", "sa", "sas", "sat", "saf", "sab", "ssm", "sat2", "ikt", "caf", "sabl", "sabp", "anly", "scvs", "ikw", "sea", "ser", "sef", "scf", "spff", "slf", "strl", "sffl", "smrf", "swtf", "swsp", "ssfl", "spxp", "smpf", "ssmf", "srwf", "sfgf", "swfc", "svsf", "sdcf", "sfof", "stsf", "scsh", "sanf", "stlt", "strj", "stxp", "sbcf", "stte", "dlg", "uidp", "m7p", "m7s", "stgp", "stgs", "tilt", "aimg", "pslc", "prtl", "jlpk", "jlst", "mkst", "rdst", "bbsy", "bbst", "olst", "ltsk", "ltst", "flst", "nvlk", "mrto", "mrst", "tsho", "tsst", "snwc", "fwrs", "fwsf", "scgf", "svf", "srdf", "scsr", "stlf", "sbtf", "shp", "shb",
     "ssa", "sssz", "st", "sut", "suv", "sup", "uip", "gfo", "sal", "sprt", "smu", "scor", "dtw",
     "scz", "scpx", "psn", "pss", "pcl", "szo", "stc", "mvc", "snm", "tre", "trc",
     "slc", "sli", "slh", "slm", "slut", "stoon", "sao", "smsh", "scv", "spnt", "saef", "snt", "snst", "snvf", "scfl", "scmf", "spl", "sgi",
@@ -1751,6 +1774,7 @@ pub enum AnyLight<'a> {
     Point(&'a mut crate::ecs::components::PointLight2D),
     Spot(&'a mut crate::ecs::components::SpotLight2D),
     Sun(&'a mut crate::ecs::components::DirectionalLight2D),
+    #[cfg(feature = "freeform_light")]
     Freeform(&'a mut crate::renderer::freeform_light::FreeformLight),
 }
 
@@ -1766,6 +1790,7 @@ pub fn with_lights(world: &mut hecs::World, entity: hecs::Entity, mut f: impl Fn
     if let Ok(mut l) = world.get::<&mut crate::ecs::components::DirectionalLight2D>(entity) {
         f(AnyLight::Sun(&mut l));
     }
+    #[cfg(feature = "freeform_light")]
     if let Ok(mut l) = world.get::<&mut crate::renderer::freeform_light::FreeformLight>(entity) {
         f(AnyLight::Freeform(&mut l));
     }
@@ -2154,14 +2179,14 @@ mod tests {
     #[test]
     fn ik_targets_the_two_bone_chain_before_the_look_at() {
         let (mut host, id) = host_with((
-            IkTwoBone { target: [0.0, 0.0], ..Default::default() },
-            IkLookAt { target: [0.0, 0.0], ..Default::default() },
+            crate::animation::ik::IkTwoBone { target: [0.0, 0.0], ..Default::default() },
+            crate::animation::ik::IkLookAt { target: [0.0, 0.0], ..Default::default() },
         ));
         run(&mut host, "ikt", json!({ "e": id, "x": 3.0, "y": 4.0 }));
         let e = host.resolve_entity(id).unwrap();
-        assert_eq!(host.0.get::<&IkTwoBone>(e).unwrap().target, [3.0, 4.0]);
+        assert_eq!(host.0.get::<&crate::animation::ik::IkTwoBone>(e).unwrap().target, [3.0, 4.0]);
         assert_eq!(
-            host.0.get::<&IkLookAt>(e).unwrap().target,
+            host.0.get::<&crate::animation::ik::IkLookAt>(e).unwrap().target,
             [0.0, 0.0],
             "the look-at fallback fired even though a two-bone chain was present"
         );
@@ -2300,7 +2325,7 @@ mod tests {
 
     #[test]
     fn animation_commands_reach_skeletal_players_in_the_browser_hosts() {
-        let (mut host, id) = host_with((SkeletalPlayer { clip: "idle".into(), ..Default::default() }, IkTwoBone::default()));
+        let (mut host, id) = host_with((SkeletalPlayer { clip: "idle".into(), ..Default::default() }, crate::animation::ik::IkTwoBone::default()));
         run(&mut host, "pa", json!({ "e": id, "clip": "walk" }));
         run(&mut host, "sas", json!({ "e": id, "speed": 2.0 }));
         run(&mut host, "sabl", json!({ "e": id, "clip": "run", "w": 0.75 }));
@@ -2309,7 +2334,7 @@ mod tests {
         {
             let p = host.0.get::<&SkeletalPlayer>(e).unwrap();
             assert_eq!((p.clip.as_str(), p.speed, p.blend_clip.as_str(), p.blend), ("walk", 2.0, "run", 0.75));
-            assert_eq!(host.0.get::<&IkTwoBone>(e).unwrap().weight, 0.25);
+            assert_eq!(host.0.get::<&crate::animation::ik::IkTwoBone>(e).unwrap().weight, 0.25);
         }
         run(&mut host, "caf", json!({ "e": id, "clip": "run", "s": 0.3 }));
         assert_eq!(host.0.get::<&SkeletalPlayer>(e).unwrap().fade.as_ref().map(|f| f.duration), Some(0.3));

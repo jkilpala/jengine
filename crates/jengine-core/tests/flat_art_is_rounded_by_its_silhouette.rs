@@ -4,6 +4,7 @@
 //! assets (`carve::apply_carves`) - its material pointed at it, so the
 //! normal pass draws it like a painted one. The map is remade when the
 //! texture changes, and kept when nothing has.
+#![cfg(feature = "auto_normal")]
 
 use hecs::World;
 use jengine_core::asset::{AssetManager, RawTextureData};

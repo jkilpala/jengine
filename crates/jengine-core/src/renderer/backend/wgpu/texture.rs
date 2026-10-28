@@ -93,7 +93,26 @@ impl WgpuTexture {
         srgb:   bool,
     ) -> Result<Self> {
         let format = if srgb { wgpu::TextureFormat::Rgba8UnormSrgb } else { wgpu::TextureFormat::Rgba8Unorm };
-        Self::from_rgba_format(device, queue, width, height, rgba, format, filter, true)
+        Self::from_rgba_format(device, queue, width, height, rgba, format, filter, Mips::Cpu)
+    }
+
+    /// [`Self::from_rgba_filtered`] with a linear texture's mip levels made on
+    /// the GPU by `mips` ([`MipGenerator`](super::mipmap::MipGenerator))
+    /// rather than on the CPU - what the asset manager uploads with, since
+    /// building them on the CPU was most of a new scene's first frame.
+    #[allow(clippy::too_many_arguments)]
+    pub fn from_rgba_filtered_gpu_mips(
+        device: &wgpu::Device,
+        queue:  &wgpu::Queue,
+        mips:   &super::mipmap::MipGenerator,
+        width:  u32,
+        height: u32,
+        rgba:   &[u8],
+        filter: TextureFilter,
+        srgb:   bool,
+    ) -> Result<Self> {
+        let format = if srgb { wgpu::TextureFormat::Rgba8UnormSrgb } else { wgpu::TextureFormat::Rgba8Unorm };
+        Self::from_rgba_format(device, queue, width, height, rgba, format, filter, Mips::Gpu(mips))
     }
 
     /// Build a **signed distance field** (a font atlas): filtered linearly
@@ -112,7 +131,7 @@ impl WgpuTexture {
         rgba:   &[u8],
     ) -> Result<Self> {
         let mut tex = Self::from_rgba_format(
-            device, queue, width, height, rgba, wgpu::TextureFormat::Rgba8UnormSrgb, TextureFilter::Linear, false,
+            device, queue, width, height, rgba, wgpu::TextureFormat::Rgba8UnormSrgb, TextureFilter::Linear, Mips::None,
         )?;
         tex.sdf = true;
         Ok(tex)
@@ -146,7 +165,7 @@ impl WgpuTexture {
         rgba:   &[u8],
         format: wgpu::TextureFormat,
         filter: TextureFilter,
-        mipmapped: bool,
+        mipmapped: Mips,
     ) -> Result<Self> {
         let expected = (width as usize) * (height as usize) * 4;
         if rgba.len() != expected {
@@ -156,21 +175,24 @@ impl WgpuTexture {
             );
         }
 
-        let mips = match filter {
-            TextureFilter::Nearest => Vec::new(),
-            TextureFilter::Linear if !mipmapped => Vec::new(),
-            TextureFilter::Linear => {
-                crate::renderer::texture_filter::mip_chain(width, height, rgba, format.is_srgb())
+        let (mips, levels) = match (filter, &mipmapped) {
+            (TextureFilter::Nearest, _) | (TextureFilter::Linear, Mips::None) => (Vec::new(), 1),
+            (TextureFilter::Linear, Mips::Cpu) => {
+                let chain = crate::renderer::texture_filter::mip_chain(width, height, rgba, format.is_srgb());
+                let levels = 1 + chain.len() as u32;
+                (chain, levels)
             }
+            (TextureFilter::Linear, Mips::Gpu(_)) => (Vec::new(), super::mipmap::mip_level_count(width, height)),
         };
         let texture = device.create_texture(&wgpu::TextureDescriptor {
             label:           Some("WgpuTexture"),
             size:            wgpu::Extent3d { width, height, depth_or_array_layers: 1 },
-            mip_level_count: 1 + mips.len() as u32,
+            mip_level_count: levels,
             sample_count:    1,
             dimension:       wgpu::TextureDimension::D2,
             format,
-            usage:           wgpu::TextureUsages::TEXTURE_BINDING | wgpu::TextureUsages::COPY_DST,
+            // COPY_SRC so a level can be read back (`gpu_mipmaps_match_the_cpu`).
+            usage:           wgpu::TextureUsages::TEXTURE_BINDING | wgpu::TextureUsages::COPY_DST | wgpu::TextureUsages::COPY_SRC,
             view_formats:    &[],
         });
         queue.write_texture(
@@ -204,6 +226,9 @@ impl WgpuTexture {
                 },
                 wgpu::Extent3d { width: *w, height: *h, depth_or_array_layers: 1 },
             );
+        }
+        if let (TextureFilter::Linear, Mips::Gpu(generator)) = (filter, &mipmapped) {
+            generator.generate(device, queue, &texture);
         }
         let view = texture.create_view(&wgpu::TextureViewDescriptor::default());
         let mode = match filter {
@@ -242,4 +267,14 @@ impl WgpuTexture {
     pub fn size(&self) -> UVec2 {
         UVec2::new(self.width, self.height)
     }
+}
+
+/// Where a linear texture's mip levels come from.
+enum Mips<'a> {
+    /// None: one level (a distance field).
+    None,
+    /// Built on the CPU (`texture_filter::mip_chain`).
+    Cpu,
+    /// Drawn on the GPU from the base.
+    Gpu(&'a super::mipmap::MipGenerator),
 }

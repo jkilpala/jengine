@@ -882,8 +882,9 @@ serialize a list that long every time it changes.
 ## 8. Nine components can be authored in a scene but are not registered
 
 > **Fixed.** All nine are registered in `core_registration.rs` now (checked
-> Oct 2026), and `v1_components_are_registered` fails a `ComponentBundle`
-> field the registry lacks (BUGS #151 found the v2 half). Kept as the record.
+> Oct 2026; BUGS #151 found the v2 half), and since later in Oct 2026 the
+> class cannot recur: `ComponentBundle` is JSON by scene key, read through the
+> registry, so there is no second list. Kept as the record.
 
 **Shape.** `ComponentBundle` in `scene/format.rs` has 76 optional component
 fields; `core_registration.rs` registers 70 names. The nine in the first list

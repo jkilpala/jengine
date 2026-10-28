@@ -6,6 +6,7 @@
 //! here - and `name_of` is an exhaustive match, so a new `BtNode` variant
 //! does not compile until it is named here, and then fails until the
 //! catalogue has it.
+#![cfg(feature = "behavior_tree")]
 
 use jengine_core::ecs::behavior_tree::BtNode;
 use serde_json::Value;

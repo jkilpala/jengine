@@ -1039,6 +1039,26 @@
             >
           </div>
           <div class="field-row">
+            <label>Gameplay Steps</label>
+            <input
+              type="number"
+              step="1"
+              min="0"
+              max="1000"
+              placeholder="off"
+              value={settings.simulation_hz ?? 0}
+              oninput={(e) => {
+                const hz = Number((e.currentTarget as HTMLInputElement).value);
+                settings.simulation_hz = hz > 0 ? hz : undefined;
+              }}
+            />
+            <span class="field-hint"
+              >{settings.simulation_hz
+                ? `${settings.simulation_hz} fixed steps a second - the same game at any frame rate`
+                : "off - one step a frame"}</span
+            >
+          </div>
+          <div class="field-row">
             <label>Length Unit</label>
             <input
               type="number"

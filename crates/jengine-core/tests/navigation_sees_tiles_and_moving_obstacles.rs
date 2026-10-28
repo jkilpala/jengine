@@ -9,7 +9,7 @@
 //! its position snapped to `snap` units. Found by the showcase's Warehouse
 //! Robots.
 
-#![cfg(feature = "physics")]
+#![cfg(all(feature = "physics", feature = "navigation"))]
 
 use glam::Vec2;
 use hecs::World;

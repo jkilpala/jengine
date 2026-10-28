@@ -8,6 +8,7 @@
 //! - `BounceOnBounds` is idempotent (insert once; no re-insert/reset).
 //! - `DespawnAfter` does NOT reset an existing `Lifetime` across ticks
 //!   (spec §2.6 footgun protection).
+#![cfg(feature = "behavior")]
 
 use std::path::PathBuf;
 

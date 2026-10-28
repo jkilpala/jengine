@@ -7,15 +7,23 @@
 
 use wasm_bindgen::prelude::*;
 
+#[cfg(feature = "packs")]
 use crate::asset::packs::{ScriptAnswer, script_op};
 
 fn op(name: String, arg: JsValue) -> JsValue {
-    match script_op(&name, &arg.as_string().unwrap_or_default()) {
+    #[cfg(not(feature = "packs"))]
+    {
+        let _ = (name, arg);
+        crate::features::missing("packs", "Packs.*");
+        return JsValue::NULL;
+    }
+    #[cfg(feature = "packs")]
+    return match script_op(&name, &arg.as_string().unwrap_or_default()) {
         ScriptAnswer::Nothing => JsValue::NULL,
         ScriptAnswer::Text(s) => JsValue::from_str(&s),
         ScriptAnswer::Number(n) => JsValue::from(n),
         ScriptAnswer::List(names) => names.into_iter().map(JsValue::from).collect::<js_sys::Array>().into(),
-    }
+    };
 }
 
 /// Install `packs` on `state`.

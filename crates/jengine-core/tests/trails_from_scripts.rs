@@ -3,7 +3,7 @@
 //! `Trail.set` (a pooled ribbon's colour, Paint Party's team blobs) -
 //! natively, and in the browser hosts through the shared arm.
 
-#![cfg(feature = "native")]
+#![cfg(all(feature = "native", feature = "trails"))]
 
 use glam::Vec2;
 use hecs::{Entity, World};

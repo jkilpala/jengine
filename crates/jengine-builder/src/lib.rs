@@ -9,6 +9,7 @@ pub mod liveops_publish;
 pub mod asset_pipeline;
 pub mod compression;
 pub mod desktop;
+pub mod engine_features;
 pub mod engine_root;
 pub mod ios;
 pub mod native_run;
@@ -55,6 +56,18 @@ pub fn set_debug_overlay(doc: &mut serde_json::Value, enabled: bool) {
             "debug_overlay".to_string(),
             serde_json::Value::Bool(enabled),
         );
+    }
+}
+
+/// Stamp `settings.logging` into a project document for a build.
+///
+/// Off, the web runtime keeps its info lines out of the console - the
+/// engine's narration and the scripts' `log` / `print` - and still writes
+/// warnings and errors. Absent means on, so an older project keeps logging.
+/// Like [`set_debug_overlay`], a no-op on a document with no `settings`.
+pub fn set_logging(doc: &mut serde_json::Value, enabled: bool) {
+    if let Some(settings) = doc.get_mut("settings").and_then(|s| s.as_object_mut()) {
+        settings.insert("logging".to_string(), serde_json::Value::Bool(enabled));
     }
 }
 
@@ -126,6 +139,19 @@ mod tests {
         assert_eq!(doc["settings"]["debug_overlay"], serde_json::json!(true));
         // Nothing else in the document is disturbed.
         assert_eq!(doc["settings"]["name"], serde_json::json!("g"));
+    }
+
+    #[test]
+    fn logging_flag_is_written_both_ways() {
+        let mut doc = serde_json::json!({ "settings": { "name": "g" } });
+        set_logging(&mut doc, false);
+        assert_eq!(doc["settings"]["logging"], serde_json::json!(false));
+        set_logging(&mut doc, true);
+        assert_eq!(doc["settings"]["logging"], serde_json::json!(true));
+        assert_eq!(doc["settings"]["name"], serde_json::json!("g"));
+        let mut bare = serde_json::json!({ "packages": [] });
+        set_logging(&mut bare, false);
+        assert!(bare.get("settings").is_none());
     }
 
     #[test]

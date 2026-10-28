@@ -39,7 +39,10 @@ const INDICES_PER_SPRITE:  usize = 6;
 #[derive(Clone, Copy, Pod, Zeroable)]
 pub struct LitSpriteVertex {
     pub position: [f32; 2],
-    pub texcoord: [f32; 2],
+    /// `(u q, v q, q)`, as a sprite vertex carries it: `q` is 1 for a
+    /// rectangle and a mesh vertex's perspective weight otherwise, so a
+    /// mesh's normals land under its colour in perspective too.
+    pub texcoord: [f32; 3],
     pub color:    [f32; 4],
 }
 
@@ -239,7 +242,7 @@ impl WgpuLitSpritePipeline {
                     step_mode:    wgpu::VertexStepMode::Vertex,
                     attributes:   &wgpu::vertex_attr_array![
                         0 => Float32x2,
-                        1 => Float32x2,
+                        1 => Float32x3,
                         2 => Float32x4,
                     ],
                 }],
@@ -474,11 +477,53 @@ impl WgpuLitSpritePipeline {
             );
             self.vertices.push(LitSpriteVertex {
                 position: (position + rotated).into(),
-                texcoord: uvs[i],
+                texcoord: [uvs[i][0], uvs[i][1], 1.0],
                 color:    color.into(),
             });
         }
         self.sprite_count += 1;
+    }
+
+    /// Queue a mesh's triangles, as `WgpuSpriteBatch::draw_mesh` does: two
+    /// triangles `a b c, a c d` are one quad slot, any other triangle a
+    /// slot of its own (its fourth corner repeating its third). `uvq` is
+    /// `(u q, v q, q)`; `color` is the one colour every vertex carries
+    /// (the normal pass's caster, layer and specular code). Returns the
+    /// triangles it could not fit, which a caller flushes and resumes.
+    pub fn draw_mesh(&mut self, positions: &[Vec2], uvq: &[[f32; 3]], color: Vec4, indices: &[u32]) -> usize {
+        let n = positions.len().min(uvq.len());
+        let vertex = |i: usize| LitSpriteVertex { position: positions[i].into(), texcoord: uvq[i], color: color.into() };
+        let mut t = 0;
+        while t + 2 < indices.len() {
+            let (a, b, c) = (indices[t] as usize, indices[t + 1] as usize, indices[t + 2] as usize);
+            if a >= n || b >= n || c >= n {
+                t += 3;
+                continue;
+            }
+            let quad_d = (t + 5 < indices.len()
+                && indices[t + 3] as usize == a
+                && indices[t + 4] as usize == c
+                && (indices[t + 5] as usize) < n)
+                .then(|| indices[t + 5] as usize);
+            if self.sprite_count >= MAX_SPRITES {
+                return (indices.len() - t) / 3;
+            }
+            let d = match quad_d {
+                Some(d) => {
+                    t += 6;
+                    d
+                }
+                None => {
+                    t += 3;
+                    c
+                }
+            };
+            for i in [a, b, c, d] {
+                self.vertices.push(vertex(i));
+            }
+            self.sprite_count += 1;
+        }
+        0
     }
 
     /// Upload the per-frame globals + lights uniforms. Call once per frame

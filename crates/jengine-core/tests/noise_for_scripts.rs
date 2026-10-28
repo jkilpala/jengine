@@ -6,6 +6,7 @@
 //! drew them. Every runtime calls the same Rust now: native through Luau
 //! globals, the browsers through one `state.noise` hook. Found by the
 //! showcase's Procedural Isles.
+#![cfg(feature = "noise")]
 
 use jengine_core::noise::{self, Fractal, Kind, Mode};
 

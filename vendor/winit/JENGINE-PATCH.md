@@ -1,8 +1,9 @@
 # winit 0.30.13, patched for jEngine
 
 This is winit 0.30.13 from crates.io, with its examples, tests and docs left
-out, and three changes: an **input hook on Android**, and on iOS the
-**UIScene lifecycle** and a **frame loop that keeps going** (below).
+out, and four changes: an **input hook on Android**, and on iOS the
+**UIScene lifecycle**, **frames on the display link** and **hardware keys**
+(below).
 
 winit has no gamepad support and does not look at an Android input event's
 source, so a thumbstick's joystick `MotionEvent` became a *touch* at the
@@ -35,19 +36,32 @@ never shown, leaving the launch screen up. So:
 - `src/platform_impl/ios/mod.rs` declares the module; `Cargo.toml` adds the
   `UIScene` and `UIWindowScene` features of `objc2-ui-kit`.
 
-And a third, also iOS: **the frame loop stopped after one frame**.
-`RedrawRequested` is delivered from inside `drawRect:`, and a game asks for
-its next frame from that handler - but a `setNeedsDisplay` made inside
-`drawRect:` is cleared by UIKit when it returns, so the request was lost and
-the app drew once and froze (taps and keys arrived; nothing ran to read
-them). `Window::request_redraw` in `src/platform_impl/ios/window.rs` now
-sends `setNeedsDisplay` on the next turn of the run loop
-(`performSelector:withObject:afterDelay:`). winit's own way round it, the
-`gl_or_metal_backed` queue, never fires: it asks whether the *view* is a
-layer class.
+And a third, also iOS: **frames come from a display link**
+(`src/platform_impl/ios/frame_rate.rs`). winit delivers `RedrawRequested`
+from `drawRect:`, and that went wrong twice. A `setNeedsDisplay` made
+*inside* `drawRect:` - where every game asks for its next frame - is cleared
+by UIKit when it returns, so the app drew one frame and froze (taps and keys
+arrived; nothing ran to read them). And once that was worked round, frames
+still came from UIKit's own display pass, which kept to 60 Hz on a 120 Hz
+ProMotion iPhone. So one `CADisplayLink`, made when the first window is
+shown, asks for the screen's `maximumFramesPerSecond` and drives the frames:
+`Window::request_redraw` marks the window (`frame_rate::want_redraw`) and the
+link's callback hands it `RedrawRequested`. Before the link runs, a redraw
+falls back to `setNeedsDisplay` on the next turn of the run loop
+(`performSelector:withObject:afterDelay:`). The link is added for
+`kCFRunLoopCommonModes` **by the real constant** - a string spelling it
+registered the link in no mode and it never fired. The plist key
+`CADisableMinimumFrameDurationOnPhone`, which `jengine-builder` writes, is
+the other half of 120 Hz. (winit's own `gl_or_metal_backed` queue never
+fires: it asks whether the *view* is a layer class.)
 
-Not patched, and worth knowing: winit 0.30 on iOS reports **no hardware
-keyboard keys** - only text typed into the soft keyboard, and Backspace.
+And a fourth, also iOS: **hardware keyboard keys**
+(`src/platform_impl/ios/keyboard.rs`). winit 0.30 on iOS reports only text
+typed into the soft keyboard, and Backspace. `WinitUIWindow` now takes
+`pressesBegan` / `pressesEnded` / `pressesCancelled` - it ends the responder
+chain, so it hears a press whether or not the view is first responder - and
+turns each `UIKey`'s HID usage into a `KeyCode`, with no text (text still
+comes from `insertText:`, so a focused field gets nothing twice).
 
 Every other platform is untouched.
 

@@ -193,7 +193,8 @@ struct LightUniform {
     /// x = height (the tangent of the light's elevation, for normal maps),
     /// y = the most a face turned to it may take relative to flat.
     extra:              [f32; 4],
-    /// x = the light layers it lights (`light_mask`, `on_light_layers`).
+    /// x = the light layers it lights (`light_mask`, `on_light_layers`);
+    /// y = the bits of its `squash`.
     layers:             [u32; 4],
 }
 
@@ -337,8 +338,10 @@ pub struct WgpuLightingPass {
     composite_uniform:    wgpu::Buffer,
     /// Light that bounces ([`super::gi`]), made the first frame a scene
     /// asks for it.
+    #[cfg(feature = "gi")]
     gi: std::cell::RefCell<Option<super::gi::GiPass>>,
     /// Said once: a frame not drawn in floats cannot bounce light.
+    #[cfg(feature = "gi")]
     gi_refused: std::cell::Cell<bool>,
 }
 
@@ -859,7 +862,9 @@ impl WgpuLightingPass {
             composite_sampler,
             composite_bind_group,
             composite_uniform,
+            #[cfg(feature = "gi")]
             gi: std::cell::RefCell::new(None),
+            #[cfg(feature = "gi")]
             gi_refused: std::cell::Cell::new(false),
         })
     }
@@ -988,6 +993,7 @@ impl WgpuLightingPass {
     ) {
         // Every occluder and the bounce settings, before the lights are
         // narrowed to the view's.
+        #[cfg(feature = "gi")]
         let everything = lights;
         let view = crate::renderer::frame_view::FrameView::of(camera);
         let chosen = crate::renderer::lighting::lights_for_view(lights, view.center - view.half, view.center + view.half);
@@ -1065,7 +1071,7 @@ impl WgpuLightingPass {
                 // z: how much this light stretches bounded shadows - a sun's
                 // `1 / height`, `1` for a lamp. w: its cookie's reach, 0 for none.
                 extra:              [light.height.max(0.02), crate::ecs::components::MAX_NORMAL_RESPONSE, *shadow_scale, cookie_reach(&light.cookie, light.radius, light.cookie_scale)],
-                layers:             [light.light_mask, 0, 0, 0],
+                layers:             [light.light_mask, light.squash.to_bits(), 0, 0],
             };
             let at = i * LIGHT_STRIDE as usize;
             stripe[at..at + std::mem::size_of::<LightUniform>()].copy_from_slice(bytemuck::bytes_of(&u));
@@ -1087,7 +1093,7 @@ impl WgpuLightingPass {
                 spot:               [dir, light.angle, light.shadow_softness, cast_flag],
                 occ:                [start as u32, count as u32, packed.spot_inside[i], any_free((start, count))],
                 extra:              [light.height.max(0.02), crate::ecs::components::MAX_NORMAL_RESPONSE, 1.0, cookie_reach(&light.cookie, light.radius, light.cookie_scale)],
-                layers:             [light.light_mask, 0, 0, 0],
+                layers:             [light.light_mask, light.squash.to_bits(), 0, 0],
             };
             let at = (n_point + i) * LIGHT_STRIDE as usize;
             stripe[at..at + std::mem::size_of::<LightUniform>()].copy_from_slice(bytemuck::bytes_of(&u));
@@ -1261,6 +1267,7 @@ impl WgpuLightingPass {
         drop(pass);
 
         // Then the bounce, from the scene and the direct light just drawn.
+        #[cfg(feature = "gi")]
         if let Some(gi) = everything.gi.filter(|g| g.strength > 0.0) {
             if self.light_buffer.format == wgpu::TextureFormat::Rgba16Float {
                 let mut slot = self.gi.borrow_mut();

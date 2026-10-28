@@ -298,6 +298,11 @@ M.TOUR = {
     "scenes/293-tilemap-parent.scene",
     "scenes/294-tracker-songs.scene",
     "scenes/295-web-platform.scene",
+    "scenes/296-stage.scene",
+    "scenes/297-mesh-normals.scene",
+    "scenes/298-script-maths.scene",
+    "scenes/299-fixed-steps.scene",
+    "scenes/300-lockstep.scene",
 }
 
 local function index_of(path)
@@ -314,10 +319,40 @@ local function go(path)
     Scene.load(path)
 end
 
+-- A phone has no Esc key: three or more fingers swiped to the right go back
+-- to the hub. Read from the raw fingers, since a swipe gesture is one
+-- finger; it fires once and waits until every finger is up.
+local three_finger_done = false
+local function three_finger_back()
+    local touches = Input.get_touches()
+    local down, dx, dy = 0, 0, 0
+    for _, t in ipairs(touches) do
+        if t.phase ~= "ended" then
+            down = down + 1
+            dx = dx + (t.x - t.start_x)
+            dy = dy + (t.y - t.start_y)
+        end
+    end
+    if down == 0 then
+        three_finger_done = false
+        return false
+    end
+    if three_finger_done or down < 3 then
+        return false
+    end
+    local w = Camera.get_screen_size()
+    dx, dy = dx / down, dy / down
+    if dx > 0.12 * w and math.abs(dy) < dx then
+        three_finger_done = true
+        return true
+    end
+    return false
+end
+
 -- Call once per frame from update(). `current_scene_path` should be
 -- the asset-relative path of the scene running this script.
 function M.tick(current_scene_path)
-    if Input.is_action_just_pressed("hub") or Input.is_action_just_pressed("cancel") then
+    if Input.is_action_just_pressed("hub") or Input.is_action_just_pressed("cancel") or three_finger_back() then
         go(M.HUB)
         return
     end

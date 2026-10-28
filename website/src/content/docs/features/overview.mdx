@@ -54,25 +54,25 @@ wgpu renderer (WebGPU with a WebGL2 fallback on the web; DX12, Vulkan or Metal n
 
 Entity-Component-System on hecs: the built-in components (see the Components Reference) and the systems that run them
 
-**Public exports:** `behaviors`, `components`, `fracture`, `cloth`, `views`, `camera_rig`, `sprite_library`, `hierarchy`, `outlines`, `path`, `skeleton`, `spatial`, `systems`, `topology`, `alpha_shape`, `area_effect`, `carve`, `paint`, `fluid`, `trails`, `callbacks`, `canvas_group`, `mirror`, `mode7`, `water`, `sprite_fill`, `post_volume`, `pixel_sim`, `smoke`, `rewind`, `fog`, `wfc`, `vision`, `day_cycle`, `floating_origin`, `time_scale`, `cast_shadow`, `auto_normal`, `tile_light`, `trajectory`, `beat_clock`, `dialogue`, `displacement`, `fog_of_war`, `silhouette`, `flow`, `lightning`, `nav_links`, `path_morph`, `snow`, `sprite_outline`, `sprite_tilt`, `afterimage`, `slice`, `portal`, `jelly`, `offscreen_marker`, `smooth_terrain`, `sprite_stack`, `save_state`, `text_path`, `sorting_group`, `path_follow`, `ragdoll`, `timeline`, `behavior_tree`, `visibility`, `parallel`, `wgpu_systems`, `frame_draw`, `components`, `hecs`
+**Public exports:** `behaviors`, `components`, `fracture`, `cloth`, `views`, `camera_rig`, `sprite_library`, `fixed_step`, `hierarchy`, `outlines`, `path`, `skeleton`, `spatial`, `systems`, `topology`, `alpha_shape`, `area_effect`, `carve`, `paint`, `fluid`, `trails`, `callbacks`, `canvas_group`, `mirror`, `mode7`, `stage`, `water`, `sprite_fill`, `sprite_quad`, `post_volume`, `pixel_sim`, `smoke`, `rewind`, `fog`, `wfc`, `vision`, `day_cycle`, `floating_origin`, `time_scale`, `cast_shadow`, `auto_normal`, `tile_light`, `trajectory`, `beat_clock`, `dialogue`, `displacement`, `fog_of_war`, `silhouette`, `flow`, `lightning`, `nav_links`, `path_morph`, `snow`, `sprite_outline`, `sprite_tilt`, `afterimage`, `slice`, `portal`, `jelly`, `offscreen_marker`, `smooth_terrain`, `sprite_stack`, `save_state`, `text_path`, `sorting_group`, `path_follow`, `ragdoll`, `timeline`, `behavior_tree`, `visibility`, `parallel`, `wgpu_systems`, `frame_draw`, `components`, `hecs`
 
 ### scripting
 
 Luau natively, Lua 5.3 through Fengari in the editor and on the web, and JavaScript on the desktop, over a deferred command bridge
 
-**Public exports:** `api`, `bridge`, `host_commands`, `intern`, `namespaces`, `persistent`, `spawn_aliases`, `spawn_map`, `timers`, `batch`, `batch_lua`, `worker_pool`, `prng`, `ScriptId`
+**Public exports:** `api`, `bridge`, `host_commands`, `intern`, `namespaces`, `persistent`, `script_math`, `spawn_aliases`, `spawn_map`, `timers`, `batch`, `batch_lua`, `worker_pool`, `prng`, `ScriptId`
 
 ### scene
 
 JSON scene format (v1 and v2) with save/load, a scene stack, prefabs, prefab variants and streamed scene chunks
 
-**Public exports:** `format`, `manager`, `prefab`, `sources`, `streaming`, `format`, `manager`, `prefab`, `set_current_name`, `current_name`, `name_of`
+**Public exports:** `format`, `manager`, `prefab`, `sources`, `streaming`, `format`, `manager`, `prefab`, `set_current_name`, `current_name`, `from_json_text`, `name_of`, `name_in`
 
 ### input
 
 Keyboard, mouse, gamepads and touch; input actions with rebinding, hold / tap interactions and gestures
 
-**Public exports:** `gamepad`, `gestures`, `haptics`, `interactions`, `prompts`, `replay`, `clipboard`, `text_entry`, `gamepad_web`, `asset`, `asset`, `touch_controls`, `KeyCode`, `name`, `from_browser_code`, `from_name`, `InputAction`, `TouchStage`, `name`, `Touch`, `InputState`, `new`, `load_actions`, `set_bindings`, `add_binding`, `remove_binding`, `clear_bindings`, `reset_bindings`, `get_bindings`, `set_dead_zone`, `get_dead_zone`, `begin_frame`, `set_middle_mouse_button`, `set_mouse_button`, `key_down`, `is_typed`, `ctrl_held`, `paste`, `pasted`, `consume_typing`, `key_up`, `release_all`, `consume_key`, `type_char`, `type_str`, `typed_chars`, `mouse_motion`, `mouse_wheel`, `is_pressed`, `is_just_pressed`, `is_just_released`, `just_pressed_bindings`, `is_action_pressed`, `pad_state`, `is_pad_connected`, `pad_count`, `pad_axis`, `is_pad_button_pressed`, `is_pad_button_just_pressed`, `action_axis_value`, `update_gamepad`, `set_gamepad_info`, `retain_gamepads`, `disconnect_gamepad`, `has_gamepad`, `gamepad_in_use`, `is_action_just_pressed`, `is_action_just_released`, `get_mouse_wheel`, `get_actions`, `just_pressed_iter`, `just_released_iter`, `pressed_iter`, `apply_input_remap`, `BrowserKeyMods`, `browser_keeps_default`
+**Public exports:** `gamepad`, `gestures`, `haptics`, `interactions`, `prompts`, `replay`, `clipboard`, `text_entry`, `gamepad_web`, `asset`, `asset`, `touch_controls`, `KeyCode`, `name`, `from_browser_code`, `from_name`, `InputAction`, `TouchStage`, `name`, `Touch`, `InputState`, `new`, `load_actions`, `set_bindings`, `add_binding`, `remove_binding`, `clear_bindings`, `reset_bindings`, `get_bindings`, `set_dead_zone`, `get_dead_zone`, `begin_frame`, `carries_edges`, `hold_edges`, `clear_edges`, `set_middle_mouse_button`, `set_mouse_button`, `key_down`, `is_typed`, `ctrl_held`, `paste`, `pasted`, `consume_typing`, `key_up`, `release_all`, `consume_key`, `type_char`, `type_str`, `typed_chars`, `mouse_motion`, `mouse_wheel`, `is_pressed`, `is_just_pressed`, `is_just_released`, `just_pressed_bindings`, `action_names`, `is_action_pressed`, `pad_state`, `is_pad_connected`, `pad_count`, `pad_axis`, `is_pad_button_pressed`, `is_pad_button_just_pressed`, `action_axis_value`, `update_gamepad`, `set_gamepad_info`, `retain_gamepads`, `disconnect_gamepad`, `has_gamepad`, `gamepad_in_use`, `is_action_just_pressed`, `is_action_just_released`, `get_mouse_wheel`, `get_actions`, `just_pressed_iter`, `just_released_iter`, `pressed_iter`, `apply_input_remap`, `BrowserKeyMods`, `browser_keeps_default`
 
 ### asset
 
@@ -84,7 +84,7 @@ Asset loading for textures, atlases, fonts, audio, scripts and GUI documents, pl
 
 2D physics via rapier2d: rigid bodies, colliders, joints, character controllers, raycasts and shape queries, collision contacts
 
-**Public exports:** `query`, `ray`, `crate`, `ContactEvent`, `simple`, `ContactType`, `RayHit`, `merge_tiles`, `PhysicsWorld`, `new`, `step_hz`, `set_step_hz`, `set_fixed_timestep`, `sync_conveyors`, `sync_body_settings`, `has_collider`, `remove_collider`, `sprite_shape_key`, `set_sprite_shape_key`, `has_body`, `add_body`, `add_body_for_entity`, `remove_stale_bodies`, `add_collider`, `add_joint`, `add_target_joint`, `target_follows`, `sync_joint_targets`, `joint_load`, `remove_joint`, `has_joint`, `joint_count`, `set_motor_speed`, `remove_body`, `step`, `begin_frame`, `flush_forces`, `step_once`, `fixed_dt`, `end_frame`, `sync_transforms_to_ecs`, `sync_ragdolls`, `ragdoll_part_count`, `apply_pending`, `blend_transforms_for_render`, `restore_stepped_poses`, `follow_origin`, `sync_kinematic_from_ecs`, `owner_of`, `sync_tilemap_colliders`, `tilemap_box_count`, `tilemap_chunk_rebuilds`, `sync_carved_colliders`, `sync_area_effects`, `sync_smooth_terrain`, `sync_spline_colliders`, `move_characters`, `apply_force`, `apply_impulse`, `predict`, `body_state`, `restore_body`, `mass_of`, `set_velocity`, `get_velocity`, `get_position`, `get_rotation`, `set_angular_velocity`, `get_angular_velocity`, `set_gravity`, `get_gravity`, `body_type_of`, `set_body_type`, `raycast`, `overlap`, `circle_cast`, `PhysicsWorld`, `new`, `step`, `begin_frame`, `step_once`, `flush_forces`, `end_frame`, `fixed_dt`, `sync_carved_colliders`, `sync_spline_colliders`, `sync_smooth_terrain`, `sync_area_effects`, `sync_ragdolls`, `apply_pending`, `set_gravity`, `apply_force`, `apply_impulse`, `set_velocity`, `mass_of`, `body_state`, `restore_body`, `body_type_of`, `predict`, `set_angular_velocity`, `get_position`, `get_rotation`, `get_velocity`, `get_angular_velocity`, `remove_body`, `remove_collider`, `sync_conveyors`, `sync_body_settings`, `sprite_shape_key`, `set_sprite_shape_key`, `set_body_type`, `owner_of`, `raycast`, `add_joint`, `remove_joint`, `add_target_joint`, `sync_joint_targets`, `target_follows`, `set_motor_speed`, `move_characters`, `sync_tilemap_colliders`, `blend_transforms_for_render`, `restore_stepped_poses`, `step_hz`, `set_step_hz`, `set_fixed_timestep`
+**Public exports:** `query`, `ray`, `crate`, `ContactEvent`, `simple`, `ContactType`, `Prediction`, `BodyState`, `RayHit`, `merge_tiles`, `PhysicsWorld`, `new`, `step_hz`, `set_step_hz`, `set_fixed_timestep`, `sync_conveyors`, `sync_body_settings`, `has_collider`, `remove_collider`, `sprite_shape_key`, `set_sprite_shape_key`, `has_body`, `add_body`, `add_body_for_entity`, `remove_stale_bodies`, `add_collider`, `add_joint`, `add_target_joint`, `target_follows`, `sync_joint_targets`, `joint_load`, `remove_joint`, `has_joint`, `joint_count`, `set_motor_speed`, `remove_body`, `step`, `begin_frame`, `flush_forces`, `step_once`, `fixed_dt`, `end_frame`, `sync_transforms_to_ecs`, `sync_ragdolls`, `ragdoll_part_count`, `apply_pending`, `blend_transforms_for_render`, `restore_stepped_poses`, `follow_origin`, `sync_kinematic_from_ecs`, `owner_of`, `sync_tilemap_colliders`, `tilemap_box_count`, `tilemap_chunk_rebuilds`, `sync_carved_colliders`, `sync_area_effects`, `sync_smooth_terrain`, `sync_spline_colliders`, `move_characters`, `apply_force`, `apply_impulse`, `predict`, `body_state`, `restore_body`, `mass_of`, `set_velocity`, `get_velocity`, `get_position`, `get_rotation`, `set_angular_velocity`, `get_angular_velocity`, `set_gravity`, `get_gravity`, `body_type_of`, `set_body_type`, `raycast`, `overlap`, `circle_cast`, `PhysicsWorld`, `new`, `step`, `begin_frame`, `step_once`, `flush_forces`, `end_frame`, `fixed_dt`, `sync_carved_colliders`, `sync_spline_colliders`, `sync_smooth_terrain`, `sync_area_effects`, `sync_ragdolls`, `apply_pending`, `set_gravity`, `apply_force`, `apply_impulse`, `set_velocity`, `mass_of`, `body_state`, `restore_body`, `body_type_of`, `predict`, `set_angular_velocity`, `get_position`, `get_rotation`, `get_velocity`, `get_angular_velocity`, `remove_body`, `remove_collider`, `sync_conveyors`, `sync_body_settings`, `sprite_shape_key`, `set_sprite_shape_key`, `set_body_type`, `owner_of`, `raycast`, `add_joint`, `remove_joint`, `add_target_joint`, `sync_joint_targets`, `target_follows`, `set_motor_speed`, `move_characters`, `sync_tilemap_colliders`, `blend_transforms_for_render`, `restore_stepped_poses`, `step_hz`, `set_step_hz`, `set_fixed_timestep`
 
 ### audio
 
@@ -114,13 +114,13 @@ CPU particle emitters with presets, collisions and sub-emitters, plus GPU partic
 
 Entity UI for HUDs and menus, and JSON GUI documents (.gui) with constraint layout, controller navigation and screen-reader support
 
-**Public exports:** `gui_document`, `accessibility`, `drag_drop`, `radial_menu`, `speech_bubble`, `toast`, `layout`, `navigation`, `scaling`, `scroll`, `text_edit`, `shapes`, `UIAnchor`, `origin`, `from_name`, `alignment_fraction`, `TextAlign`, `offset`, `read_ui_prop`, `apply_ui_prop`, `UIElement`, `screen_center`, `screen_rect`, `UIText`, `UIImage`, `UiNineSlice`, `UIPanel`, `UIButton`, `UIProgressBar`, `UISlider`, `UIToggle`, `UITextInput`
+**Public exports:** `gui_document`, `accessibility`, `drag_drop`, `radial_menu`, `speech_bubble`, `toast`, `layout`, `navigation`, `scaling`, `scroll`, `text_edit`, `text_wrap`, `shapes`, `UIAnchor`, `origin`, `from_name`, `alignment_fraction`, `TextAlign`, `offset`, `read_ui_prop`, `apply_ui_prop`, `Accessible`, `UIElement`, `screen_center`, `screen_rect`, `UIText`, `UIImage`, `UiNineSlice`, `UIPanel`, `UIButton`, `UIProgressBar`, `UISlider`, `UIToggle`, `UITextInput`
 
 ### behavior
 
 Behaviour graphs: node graphs that drive entities without a script
 
-**Public exports:** `cache`, `catalog`, `command`, `compile`, `event`, `format`, `instances`, `interpreter`, `pin`, `state`, `system`, `cache`, `catalog`, `command`, `compile`, `event`, `format`, `instances`, `interpreter`, `pin`, `state`, `system`
+**Public exports:** `command`, `cache`, `catalog`, `compile`, `event`, `format`, `instances`, `interpreter`, `pin`, `state`, `system`, `system`, `cache`, `catalog`, `command`, `compile`, `event`, `format`, `instances`, `interpreter`, `pin`, `state`, `system`
 
 ### data
 
@@ -165,7 +165,7 @@ Live ops in the game: signed remote config, experiments, live events and content
 | Web | `jengine web-build <project>` | WebGPU, with a WebGL2 fallback |
 | Android | `jengine android-build <project>` | APK / app bundle; Lua scripts only |
 | Linux | `jengine linux-build <project>` | Builds and runs; tested under WSL only |
-| macOS | `jengine macos-build <project>` | Type-checked only, never linked or run: unverified |
-| iOS | `jengine ios-build <project>` | Experimental: has never run |
+| macOS | `jengine macos-build <project>` | Builds and runs on Apple Silicon |
+| iOS | `jengine ios-build <project>` | Runs on the simulator and an iPhone |
 
 See [Cross-Platform](/architecture/cross-platform/) for what each platform can do.

@@ -6,6 +6,7 @@
 //! call-sites (`jengine_core::ecs::systems::update_lifetimes`, …) keep
 //! working unchanged.
 
+use crate::detmath::DetMath;
 #[cfg(all(not(target_arch = "wasm32"), feature = "js-adapter-host", feature = "native"))]
 use std::collections::HashMap;
 
@@ -161,7 +162,7 @@ pub fn tick_motion(
 
     // Water running along a curve (`ecs::flow`) eases what floats in it
     // towards its velocity, before the velocities are integrated.
-    time("flow", || crate::ecs::flow::tick_flows(world, dt));
+    crate::feature!("flow", { time("flow", || crate::ecs::flow::tick_flows(world, dt)) });
     time("motion.integrate", || {
         crate::ecs::systems::velocity_system(world, dt);
         update_gravity(world, dt);
@@ -186,45 +187,48 @@ pub fn tick_motion(
     });
     // Behaviour trees (`ecs::behavior_tree`), before navigation so a
     // `move_to` steering a `nav_agent` is walked this frame.
-    time("behavior_trees", || crate::ecs::behavior_tree::tick_behavior_trees(world, dt));
+    crate::feature!("behavior_tree", { time("behavior_trees", || crate::ecs::behavior_tree::tick_behavior_trees(world, dt)) });
     // Riders on drawn curves (`path_follow`).
     time("path_follow", || crate::ecs::path_follow::tick_path_follow(world, dt));
-    time("text_path", || crate::ecs::text_path::tick_text_paths(world, dt));
-    time("beat_clock", || crate::ecs::beat_clock::tick_beat_clocks(world, dt));
-    time("displacement", || crate::ecs::displacement::tick_displacement(world, dt));
-    time("smooth_terrain", || crate::ecs::smooth_terrain::tick_smooth_terrain(world));
-    time("fog_of_war", || crate::ecs::fog_of_war::tick_fog(world, dt));
-    time("dialogue", || crate::ecs::dialogue::tick_dialogue(world));
-    time("sprite_stack", || crate::ecs::sprite_stack::tick_stacks(world, dt));
-    time("sprite_tilt", || crate::ecs::sprite_tilt::tick_tilts(world, dt));
-    time("afterimage", || crate::ecs::afterimage::tick_afterimages(world, dt));
-    time("portal", || crate::ecs::portal::tick_portals(world));
-    time("jelly", || crate::ecs::jelly::tick_jellies(world, dt));
-    time("lightning", || crate::ecs::lightning::tick_lightning(world, dt));
-    time("snow", || crate::ecs::snow::tick_snow(world, dt));
-    time("path_morph", || crate::ecs::path_morph::tick_morphs(world, dt));
-    time("offscreen_marker", || crate::ecs::offscreen_marker::tick_markers(world));
-    time("mode7", || crate::ecs::mode7::tick_mode7(world));
+    crate::feature!("text_path", { time("text_path", || crate::ecs::text_path::tick_text_paths(world, dt)) });
+    crate::feature!("beat_clock", { time("beat_clock", || crate::ecs::beat_clock::tick_beat_clocks(world, dt)) });
+    crate::feature!("displacement", { time("displacement", || crate::ecs::displacement::tick_displacement(world, dt)) });
+    crate::feature!("smooth_terrain", { time("smooth_terrain", || crate::ecs::smooth_terrain::tick_smooth_terrain(world)) });
+    crate::feature!("fog_of_war", { time("fog_of_war", || crate::ecs::fog_of_war::tick_fog(world, dt)) });
+    crate::feature!("dialogue", { time("dialogue", || crate::ecs::dialogue::tick_dialogue(world)) });
+    crate::feature!("sprite_stack", { time("sprite_stack", || crate::ecs::sprite_stack::tick_stacks(world, dt)) });
+    crate::feature!("sprite_tilt", { time("sprite_tilt", || crate::ecs::sprite_tilt::tick_tilts(world, dt)) });
+    crate::feature!("afterimage", { time("afterimage", || crate::ecs::afterimage::tick_afterimages(world, dt)) });
+    crate::feature!("portal", { time("portal", || crate::ecs::portal::tick_portals(world)) });
+    crate::feature!("jelly", { time("jelly", || crate::ecs::jelly::tick_jellies(world, dt)) });
+    crate::feature!("lightning", { time("lightning", || crate::ecs::lightning::tick_lightning(world, dt)) });
+    crate::feature!("snow", { time("snow", || crate::ecs::snow::tick_snow(world, dt)) });
+    crate::feature!("path_morph", { time("path_morph", || crate::ecs::path_morph::tick_morphs(world, dt)) });
+    crate::feature!("offscreen_marker", { time("offscreen_marker", || crate::ecs::offscreen_marker::tick_markers(world)) });
+    crate::feature!("mode7", { time("mode7", || crate::ecs::mode7::tick_mode7(world)) });
+    // A 3D stage (`ecs::stage`): quads projected into their meshes,
+    // billboards placed, both given their depth.
+    crate::feature!("stage", { time("stage", || crate::ecs::stage::tick_stage(world, dt)) });
     // Navigation: regions rebaked when their colliders move, agents walked
     // (`navigation::tick_navigation`).
-    time("navigation", || crate::navigation::tick_navigation(world, dt));
+    crate::feature!("navigation", { time("navigation", || crate::navigation::tick_navigation(world, dt)) });
     time("motion.tweens", || {
         update_oscillators(world, dt);
         update_tweens(world, dt);
     });
     // Keyframe timelines (`ecs::timeline`), after the tweens so a track
     // has the last word on a field both touch.
-    time("timelines", || crate::ecs::timeline::tick_timelines(world, dt));
+    crate::feature!("timeline", { time("timelines", || crate::ecs::timeline::tick_timelines(world, dt)) });
     // Liquids (`ecs::fluid`): poured, flowing, cooling, setting.
-    time("fluids", || crate::ecs::fluid::tick_fluids(world, dt));
-    time("water", || crate::ecs::water::tick_water(world, dt));
-    time("pixel_sims", || crate::ecs::pixel_sim::tick_pixel_sims(world, dt));
-    time("smoke", || crate::ecs::smoke::tick_smoke(world, dt));
-    time("rewind", || crate::ecs::rewind::tick_rewind(world, dt));
-    time("fog", || crate::ecs::fog::tick_fog(world, dt));
-    time("wfc", || crate::ecs::wfc::tick_wfc(world, dt));
-    time("vision", || crate::ecs::vision::tick_vision(world));
-    time("day_cycle", || crate::ecs::day_cycle::tick_day_cycle(world, dt));
+    crate::feature!("fluid", { time("fluids", || crate::ecs::fluid::tick_fluids(world, dt)) });
+    crate::feature!("water", { time("water", || crate::ecs::water::tick_water(world, dt)) });
+    crate::feature!("pixel_sim", { time("pixel_sims", || crate::ecs::pixel_sim::tick_pixel_sims(world, dt)) });
+    crate::feature!("smoke", { time("smoke", || crate::ecs::smoke::tick_smoke(world, dt)) });
+    crate::feature!("rewind", { time("rewind", || crate::ecs::rewind::tick_rewind(world, dt)) });
+    crate::feature!("fog", { time("fog", || crate::ecs::fog::tick_fog(world, dt)) });
+    crate::feature!("wfc", { time("wfc", || crate::ecs::wfc::tick_wfc(world, dt)) });
+    crate::feature!("vision", { time("vision", || crate::ecs::vision::tick_vision(world)) });
+    crate::feature!("day_cycle", { time("day_cycle", || crate::ecs::day_cycle::tick_day_cycle(world, dt)) });
     // Last: what moved this frame is where it is, and the physics step
     // after this follows the shift (`PhysicsWorld::follow_origin`).
     time("floating_origin", || crate::ecs::floating_origin::tick_floating_origin(world));
@@ -407,9 +411,9 @@ pub fn update_oscillators(world: &mut World, dt: f32) {
         osc.elapsed += dt;
         let t = osc.elapsed;
         transform.position.x =
-            center[0] + (TAU * osc.frequency[0] * t + osc.phase[0]).sin() * osc.amplitude[0];
+            center[0] + (TAU * osc.frequency[0] * t + osc.phase[0]).dsin() * osc.amplitude[0];
         transform.position.y =
-            center[1] + (TAU * osc.frequency[1] * t + osc.phase[1]).sin() * osc.amplitude[1];
+            center[1] + (TAU * osc.frequency[1] * t + osc.phase[1]).dsin() * osc.amplitude[1];
     }
 }
 
@@ -909,7 +913,7 @@ pub fn update_patrol_paths(
         if let Some(face) = face
             && dist > 1e-4
         {
-            transform.rotation = face.turn(transform.rotation, delta.y.atan2(delta.x), dt);
+            transform.rotation = face.turn(transform.rotation, delta.y.datan2(delta.x), dt);
         }
         if step >= dist {
             transform.position = target;
@@ -1046,7 +1050,7 @@ pub fn update_face_velocity_by(world: &mut World, dt: f32) {
         if speed_sq < min_sq {
             continue;
         }
-        tr.rotation = fv.turn(tr.rotation, vel.y.atan2(vel.x), dt);
+        tr.rotation = fv.turn(tr.rotation, vel.y.datan2(vel.x), dt);
     }
 }
 
@@ -1290,6 +1294,9 @@ pub fn run_batch_scripts(
         }
     };
 
+    // The systems run in path order, not the map's, which is new every run.
+    let mut by_key: Vec<_> = by_key.into_iter().collect();
+    by_key.sort_by(|a, b| a.0.1.cmp(&b.0.1).then_with(|| format!("{:?}", a.0.0).cmp(&format!("{:?}", b.0.0))));
     for ((lang, path), entities) in by_key {
         if entities.is_empty() {
             continue;

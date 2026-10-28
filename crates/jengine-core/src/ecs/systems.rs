@@ -7,6 +7,7 @@
 //! camera follow, animation ticking, UI button hit-tests, tween application,
 //! the `ScriptSystem` dispatcher, and physics / audio command appliers.
 
+use crate::detmath::DetMath;
 use glam::Vec2;
 use hecs::World;
 
@@ -620,7 +621,7 @@ pub fn apply_separation(world: &mut World) {
                 // they would never separate.
                 let seed = i.min(j);
                 let a = seed as f32 * 2.399_963;
-                let nudge = Vec2::new(a.cos(), a.sin()) * (min_d * 0.25);
+                let nudge = Vec2::new(a.dcos(), a.dsin()) * (min_d * 0.25);
                 push[i] += if i < j { nudge } else { -nudge };
             }
             true
@@ -945,14 +946,14 @@ pub fn update_camera(world: &World, camera: &mut Camera2D, dt: f32) {
             None => target_pos + follow.offset,
         };
         // A camera taking over with a blend starts on its target.
-        let t = if snap { 1.0 } else { 1.0 - (1.0 - follow.smoothing).powf(dt * 60.0) };
+        let t = if snap { 1.0 } else { 1.0 - (1.0 - follow.smoothing).dpowf(dt * 60.0) };
         if framed.is_none() {
             // Look ahead: lead by the target's velocity, eased so a turn
             // swings the view round rather than throwing it.
             if follow.look_ahead > 0.0 && dt > 0.0 {
                 let velocity = camera.follow_prev.map_or(Vec2::ZERO, |p| (target_pos - p) / dt);
                 let want = (velocity * follow.look_ahead).clamp_length_max(follow.look_ahead_max.max(0.0));
-                let k = 1.0 - (1.0 - follow.look_ahead_smoothing.clamp(0.0, 1.0)).powf(dt * 60.0);
+                let k = 1.0 - (1.0 - follow.look_ahead_smoothing.clamp(0.0, 1.0)).dpowf(dt * 60.0);
                 camera.look_ahead += (want - camera.look_ahead) * k;
             } else {
                 camera.look_ahead = Vec2::ZERO;
@@ -1025,7 +1026,7 @@ pub fn update_camera(world: &World, camera: &mut Camera2D, dt: f32) {
             // Zoom eases by ratio, so 1 to 4 passes 2 halfway - in steps
             // that look even.
             camera.zoom = if b.from_zoom > 0.0 && b.live_zoom > 0.0 {
-                b.from_zoom * (b.live_zoom / b.from_zoom).powf(k)
+                b.from_zoom * (b.live_zoom / b.from_zoom).dpowf(k)
             } else {
                 b.live_zoom
             };
@@ -1047,7 +1048,7 @@ pub fn update_camera(world: &World, camera: &mut Camera2D, dt: f32) {
 pub fn resolve_sprite_regions(world: &mut World, assets: &crate::asset::AssetManager) {
     // Swapped parts first (`ecs::sprite_library`), so a new region resolves
     // in this same pass.
-    crate::ecs::sprite_library::resolve(world);
+    crate::feature!("sprite_library", { crate::ecs::sprite_library::resolve(world) });
     // One walk over the sprites for all three resolutions. They were three
     // separate passes, each a full `query_mut` a frame. Region first, so a
     // nine-slice measured on the same frame sees the resolved rect.
@@ -1387,13 +1388,16 @@ pub fn pose_world_for_draw(
     dt: f32,
 ) {
     crate::animation::skeletal::update_skeletal_players(world, assets.skeletal_clips(), dt);
-    crate::animation::ik::solve_ik(world);
+    crate::feature!("ik", { crate::animation::ik::solve_ik(world) });
+    // The physics' bodies between their last two physics steps. A host with
+    // fixed-step gameplay passes no physics: it has blended everything a
+    // step moved already (`FixedStep::blend_for_draw`), bodies included.
     if let Some(physics) = physics {
         physics.blend_transforms_for_render(world);
     }
     crate::ecs::hierarchy::resolve_world_transforms(world);
-    crate::ecs::trails::tick_trails(world, dt);
-    crate::ecs::cloth::tick_cloth(world, dt);
+    crate::feature!("trails", { crate::ecs::trails::tick_trails(world, dt) });
+    crate::feature!("cloth", { crate::ecs::cloth::tick_cloth(world, dt) });
     crate::ecs::carve::apply_carves(world, assets);
 }
 
@@ -1492,14 +1496,15 @@ pub fn update_ui_widgets(
     let just_released = input.mouse_left_just_released;
 
     // Radial menus (`ui::radial_menu`): laid out and pointed at.
-    crate::ui::radial_menu::update_radial_menus(world, input, mouse, screen_w, screen_h);
+    crate::feature!("radial_menu", { crate::ui::radial_menu::update_radial_menus(world, input, mouse, screen_w, screen_h) });
     // Speech bubbles (`ui::speech_bubble`): sized, placed over their
     // speakers, kept apart.
-    crate::ui::speech_bubble::update_speech_bubbles(world, screen_w, screen_h);
+    crate::feature!("speech_bubble", { crate::ui::speech_bubble::update_speech_bubbles(world, screen_w, screen_h) });
     // Toasts (`ui::toast`): sliding in from a corner, stacking, leaving.
-    crate::ui::toast::update_toasts(world, screen_w, screen_h);
+    crate::feature!("toast", { crate::ui::toast::update_toasts(world, screen_w, screen_h) });
     // Drag and drop (`ui::drag_drop`): an item held by the pointer owns it,
     // as a slider mid-drag does.
+    #[cfg(feature = "drag_drop")]
     if crate::ui::drag_drop::update_drag_drop(world, input, mouse, screen_w, screen_h) {
         update_text_inputs(world, input, mouse, screen_h, None, false, down);
         return;
@@ -1756,11 +1761,16 @@ pub fn navigate_ui(
     // is carried out as navigation's own focus and press, delivered as
     // every other activation is - and the tree it reads is gathered after
     // this frame's navigation, so no host does either.
+    #[cfg(feature = "accessibility")]
     let (activations, clicks) = crate::ui::accessibility::apply_actions(world, assets);
+    #[allow(unused_mut)]
     let mut outcome = navigate_ui_inner(world, assets, input, ui_scale, dt);
-    outcome.gui_activations.extend(activations);
-    outcome.ui_clicks.extend(clicks);
-    crate::ui::accessibility::gather(world, assets, ui_scale, input.screen_size);
+    #[cfg(feature = "accessibility")]
+    {
+        outcome.gui_activations.extend(activations);
+        outcome.ui_clicks.extend(clicks);
+        crate::ui::accessibility::gather(world, assets, ui_scale, input.screen_size);
+    }
     outcome
 }
 
@@ -3707,9 +3717,8 @@ impl ScriptSystem {
                     prefab: Some(prefab_name),
                     spawn_id,
                 } => {
-                    if let Some(prefab) = api.services.prefabs.get(&prefab_name) {
-                        let components = prefab.components.clone();
-                        let children = prefab.children.clone();
+                    // Decoded once per prefab, not once per spawn.
+                    if let Some(prefab) = api.services.prepared_prefab(&prefab_name) {
                         let resolved_name = if name.is_empty() {
                             prefab.name.clone()
                         } else {
@@ -3721,9 +3730,10 @@ impl ScriptSystem {
                         api.commands
                             .push(crate::scripting::api::ScriptCommand::SpawnEntity {
                                 name: resolved_name,
-                                components: Box::new(Some(components)),
+                                components: Box::new(None),
                                 spawn_id: Some(spawn_id),
-                                children,
+                                children: Vec::new(),
+                                prepared: Some(prefab),
                             });
                     } else {
                         log::warn!("Prefab '{}' not found (script spawn)", prefab_name);
@@ -4024,34 +4034,20 @@ pub fn apply_bridge_commands(
 }
 
 /// One entity of a script spawn: its name and every component a bundle
-/// carries (a default `Transform` if it has none), through the one list the
-/// scene loader uses.
+/// carries (a default `Transform` if it has none), through the component
+/// registry - as the scene loader and the browser hosts spawn, so a package
+/// component is a component here too (BUGS #109) and the rest custom data.
 #[cfg(feature = "native")]
 fn spawn_bundle(world: &mut World, name: &str, components: Option<&crate::scene::format::ComponentBundle>) -> hecs::Entity {
     let mut builder = hecs::EntityBuilder::new();
     builder.add(Name(name.to_string()));
+    // Added first, so a bundle's own transform replaces it.
+    builder.add(Transform::default());
     if let Some(bundle) = components {
-        // Every component the bundle carries, through the one
-        // list the scene loader uses too. This arm used to be a
-        // hand-copied subset of it - 45 of 77 fields missing at
-        // one point - so a prefab worked in the editor, which
-        // spawns through the registry, and silently lost
-        // components on native.
-        bundle.add_to_builder(&mut builder);
-        if bundle.transform.is_none() {
-            builder.add(Transform::default());
+        let custom = crate::package::component_registry::with_registry(|r| bundle.add_to_builder(&mut builder, r));
+        if !custom.is_empty() {
+            builder.add(CustomComponents(custom));
         }
-        if !bundle.custom.is_empty() {
-            // Keys the core bundle does not know may be package
-            // components (BUGS #109); the rest stay custom data.
-            let unknown =
-                crate::package::component_registry::deserialize_global(&mut builder, &bundle.custom);
-            if !unknown.is_empty() {
-                builder.add(CustomComponents(unknown));
-            }
-        }
-    } else {
-        builder.add(Transform::default());
     }
     world.spawn(builder.build())
 }
@@ -4335,8 +4331,11 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::PaintSprite { entity_id, x, y, size, color, shape, rotation, depth, blend } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id) {
+                let _ = (entity_id, x, y, size, color, shape, rotation, depth, blend);
+                #[cfg(not(feature = "paint"))]
+                crate::features::missing("paint", "Sprite.paint");
+                #[cfg(feature = "paint")]
+                if let Some(&entity) = entity_index.get(&resolve_id(&spawn_remap, *entity_id)) {
                     let stamp = crate::ecs::paint::Stamp {
                         x: *x,
                         y: *y,
@@ -4388,12 +4387,15 @@ fn apply_script_commands_impl(
                     }
             }
             ScriptCommand::SetSpriteLabel { entity_id, label, category } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::sprite_library::set_label(world, entity, label, category.as_deref())
-                {
-                    log::warn!("Sprite.set_label: {e}");
-                }
+                let _ = (entity_id, label, category);
+                crate::feature!("sprite_library", "Sprite.set_label", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::sprite_library::set_label(world, entity, label, category.as_deref())
+                    {
+                        log::warn!("Sprite.set_label: {e}");
+                    }
+                });
             }
             ScriptCommand::SetSpriteRegion { entity_id, atlas_id, region_name } => {
                 let real_id = resolve_id(&spawn_remap, *entity_id);
@@ -4451,14 +4453,22 @@ fn apply_script_commands_impl(
                     entities_to_destroy.push(entity);
                 }
             }
-            ScriptCommand::SpawnEntity { name, components, spawn_id, children } => {
-                let entity = spawn_bundle(world, name, components.as_ref().as_ref());
-                // A prefab's parts, each spawned the same way under it.
-                if !children.is_empty() {
-                    crate::scene::prefab::spawn_children(world, entity, children, &mut |w, data| {
-                        spawn_bundle(w, &data.name, Some(&data.components))
-                    });
-                }
+            ScriptCommand::SpawnEntity { name, components, spawn_id, children, prepared } => {
+                let entity = match prepared {
+                    // A loaded prefab: its decoded components cloned, its
+                    // parts under it.
+                    Some(prefab) => prefab.spawn(world, name),
+                    None => {
+                        let entity = spawn_bundle(world, name, components.as_ref().as_ref());
+                        // A prefab's parts, each spawned the same way under it.
+                        if !children.is_empty() {
+                            crate::scene::prefab::spawn_children(world, entity, children, &mut |w, data| {
+                                spawn_bundle(w, &data.name, Some(&data.components))
+                            });
+                        }
+                        entity
+                    }
+                };
                 if let Some(sid) = spawn_id {
                     spawn_remap.insert(*sid, entity.id() as u64);
                     crate::scripting::spawn_aliases::record(*sid, entity);
@@ -4496,16 +4506,19 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetIkTarget { entity_id, x, y } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id) {
-                    if let Ok(mut ik) = world.get::<&mut crate::ecs::components::IkTwoBone>(entity) {
-                        ik.target = [*x, *y];
-                    } else if let Ok(mut ik) = world.get::<&mut crate::ecs::components::IkLookAt>(entity) {
-                        ik.target = [*x, *y];
-                    } else if let Ok(mut ik) = world.get::<&mut crate::ecs::components::IkChain>(entity) {
-                        ik.target = [*x, *y];
+                let _ = (entity_id, x, y);
+                crate::feature!("ik", "Skeleton.set_ik_target", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id) {
+                        if let Ok(mut ik) = world.get::<&mut crate::animation::ik::IkTwoBone>(entity) {
+                            ik.target = [*x, *y];
+                        } else if let Ok(mut ik) = world.get::<&mut crate::animation::ik::IkLookAt>(entity) {
+                            ik.target = [*x, *y];
+                        } else if let Ok(mut ik) = world.get::<&mut crate::animation::ik::IkChain>(entity) {
+                            ik.target = [*x, *y];
+                        }
                     }
-                }
+                });
             }
             ScriptCommand::SetCustomField {
                 entity_id,
@@ -4696,14 +4709,17 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetIkWeight { entity_id, weight } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id) {
-                    if let Ok(mut ik) = world.get::<&mut crate::ecs::components::IkTwoBone>(entity) {
-                        ik.weight = weight.clamp(0.0, 1.0);
-                    } else if let Ok(mut ik) = world.get::<&mut crate::ecs::components::IkChain>(entity) {
-                        ik.weight = weight.clamp(0.0, 1.0);
+                let _ = (entity_id, weight);
+                crate::feature!("ik", "Skeleton.set_ik_weight", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id) {
+                        if let Ok(mut ik) = world.get::<&mut crate::animation::ik::IkTwoBone>(entity) {
+                            ik.weight = weight.clamp(0.0, 1.0);
+                        } else if let Ok(mut ik) = world.get::<&mut crate::animation::ik::IkChain>(entity) {
+                            ik.weight = weight.clamp(0.0, 1.0);
+                        }
                     }
-                }
+                });
             }
             ScriptCommand::SetAnimBool { entity_id, param, value } => {
                 let real_id = resolve_id(&spawn_remap, *entity_id);
@@ -4799,36 +4815,48 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetVideoField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::video::set_video_field(world, entity, field, value)
-                {
-                    log::warn!("Video.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("video", "Video.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::video::set_video_field(world, entity, field, value)
+                    {
+                        log::warn!("Video.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetRagdollField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::ragdoll::set_ragdoll_field(world, entity, field, value)
-                {
-                    log::warn!("Ragdoll.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("ragdoll", "Ragdoll.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::ragdoll::set_ragdoll_field(world, entity, field, value)
+                    {
+                        log::warn!("Ragdoll.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetBehaviorTreeField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::behavior_tree::set_behavior_tree_field(world, entity, field, value)
-                {
-                    log::warn!("BehaviorTree.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("behavior_tree", "BehaviorTree.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::behavior_tree::set_behavior_tree_field(world, entity, field, value)
+                    {
+                        log::warn!("BehaviorTree.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetTimelineField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::timeline::set_timeline_field(world, entity, field, value)
-                {
-                    log::warn!("Timeline.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("timeline", "Timeline.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::timeline::set_timeline_field(world, entity, field, value)
+                    {
+                        log::warn!("Timeline.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetCanvasGroupField { entity_id, field, value } => {
                 let real_id = resolve_id(&spawn_remap, *entity_id);
@@ -4839,283 +4867,408 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetFluidField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::fluid::set_fluid_field(world, entity, field, value)
-                {
-                    log::warn!("Fluid.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("fluid", "Fluid.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::fluid::set_fluid_field(world, entity, field, value)
+                    {
+                        log::warn!("Fluid.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SmokePuff { entity_id, x, y, radius, amount, vx, vy } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id) {
-                    let puff = crate::ecs::smoke::Puff {
-                        at: Vec2::new(*x, *y),
-                        radius: *radius,
-                        amount: *amount,
-                        velocity: Vec2::new(*vx, *vy),
-                    };
-                    if let Err(e) = crate::ecs::smoke::queue_puff(world, entity, puff) {
-                        log::warn!("Smoke.puff: {e}");
+                let _ = (entity_id, x, y, radius, amount, vx, vy);
+                crate::feature!("smoke", "Smoke.puff", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id) {
+                        let puff = crate::ecs::smoke::Puff {
+                            at: Vec2::new(*x, *y),
+                            radius: *radius,
+                            amount: *amount,
+                            velocity: Vec2::new(*vx, *vy),
+                        };
+                        if let Err(e) = crate::ecs::smoke::queue_puff(world, entity, puff) {
+                            log::warn!("Smoke.puff: {e}");
+                        }
                     }
-                }
+                });
             }
             ScriptCommand::TerrainEdit { entity_id, x, y, radius, amount } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::smooth_terrain::edit(world, entity, *x, *y, *radius, *amount)
-                {
-                    log::warn!("Terrain.edit: {e}");
-                }
+                let _ = (entity_id, x, y, radius, amount);
+                crate::feature!("smooth_terrain", "Terrain.edit", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::smooth_terrain::edit(world, entity, *x, *y, *radius, *amount)
+                    {
+                        log::warn!("Terrain.edit: {e}");
+                    }
+                });
             }
             ScriptCommand::DialogueOp { entity_id, op, arg } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::dialogue::op(world, entity, op, arg)
-                {
-                    log::warn!("Dialogue.{op}: {e}");
-                }
+                let _ = (entity_id, op, arg);
+                crate::feature!("dialogue", "Dialogue.*", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::dialogue::op(world, entity, op, arg)
+                    {
+                        log::warn!("Dialogue.{op}: {e}");
+                    }
+                });
             }
             ScriptCommand::UiDrop { entity_id, slot } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id) {
-                    crate::ui::drag_drop::drop_named(world, entity, slot);
-                }
+                let _ = (entity_id, slot);
+                crate::feature!("drag_drop", "UI.drop", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id) {
+                        crate::ui::drag_drop::drop_named(world, entity, slot);
+                    }
+                });
             }
             ScriptCommand::Mode7Place { entity_id, x, y, angle } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::mode7::place(world, entity, *x, *y, *angle)
-                {
-                    log::warn!("Mode7.place: {e}");
-                }
+                let _ = (entity_id, x, y, angle);
+                crate::feature!("mode7", "Mode7.place", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::mode7::place(world, entity, *x, *y, *angle)
+                    {
+                        log::warn!("Mode7.place: {e}");
+                    }
+                });
             }
             ScriptCommand::Mode7Set { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::mode7::set_field(world, entity, field, value)
-                {
-                    log::warn!("Mode7.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("mode7", "Mode7.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::mode7::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Mode7.set: {e}");
+                    }
+                });
+            }
+            ScriptCommand::StagePlace { entity_id, x, y, z } => {
+                let _ = (entity_id, x, y, z);
+                crate::feature!("stage", "Stage.place", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::stage::place(world, entity, *x, *y, *z)
+                    {
+                        log::warn!("Stage.place: {e}");
+                    }
+                });
+            }
+            ScriptCommand::StageSet { entity_id, field, value } => {
+                let _ = (entity_id, field, value);
+                crate::feature!("stage", "Stage.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::stage::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Stage.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SpriteTiltSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::sprite_tilt::set_field(world, entity, field, value)
-                {
-                    log::warn!("SpriteTilt.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("sprite_tilt", "SpriteTilt.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::sprite_tilt::set_field(world, entity, field, value)
+                    {
+                        log::warn!("SpriteTilt.set: {e}");
+                    }
+                });
             }
             ScriptCommand::AfterimageSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::afterimage::set_field(world, entity, field, value)
-                {
-                    log::warn!("Afterimage.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("afterimage", "Afterimage.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::afterimage::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Afterimage.set: {e}");
+                    }
+                });
             }
             ScriptCommand::PhysicsSlice { x0, y0, x1, y1 } => {
-                crate::ecs::slice::script_slice(world, *x0, *y0, *x1, *y1);
+                let _ = (x0, y0, x1, y1);
+                crate::feature!("slice", "Physics.slice", { crate::ecs::slice::script_slice(world, *x0, *y0, *x1, *y1) });
             }
             ScriptCommand::PortalSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::portal::set_field(world, entity, field, value)
-                {
-                    log::warn!("Portal.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("portal", "Portal.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::portal::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Portal.set: {e}");
+                    }
+                });
             }
             ScriptCommand::JellyPoke { entity_id, x, y, strength, radius } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::jelly::poke(world, entity, glam::Vec2::new(*x, *y), *strength, *radius)
-                {
-                    log::warn!("Jelly.poke: {e}");
-                }
+                let _ = (entity_id, x, y, strength, radius);
+                crate::feature!("jelly", "Jelly.poke", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::jelly::poke(world, entity, glam::Vec2::new(*x, *y), *strength, *radius)
+                    {
+                        log::warn!("Jelly.poke: {e}");
+                    }
+                });
             }
             ScriptCommand::JellySet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::jelly::set_field(world, entity, field, value)
-                {
-                    log::warn!("Jelly.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("jelly", "Jelly.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::jelly::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Jelly.set: {e}");
+                    }
+                });
             }
             ScriptCommand::MarkerSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::offscreen_marker::set_field(world, entity, field, value)
-                {
-                    log::warn!("Marker.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("offscreen_marker", "Marker.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::offscreen_marker::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Marker.set: {e}");
+                    }
+                });
             }
             ScriptCommand::RadialSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ui::radial_menu::set_field(world, entity, field, value)
-                {
-                    log::warn!("Radial.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("radial_menu", "Radial.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ui::radial_menu::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Radial.set: {e}");
+                    }
+                });
             }
             ScriptCommand::BubbleSay { entity_id, text, seconds } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ui::speech_bubble::say(world, entity, text, *seconds)
-                {
-                    log::warn!("Bubble.say: {e}");
-                }
+                let _ = (entity_id, text, seconds);
+                crate::feature!("speech_bubble", "Bubble.say", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ui::speech_bubble::say(world, entity, text, *seconds)
+                    {
+                        log::warn!("Bubble.say: {e}");
+                    }
+                });
             }
             ScriptCommand::BubbleSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ui::speech_bubble::set_field(world, entity, field, value)
-                {
-                    log::warn!("Bubble.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("speech_bubble", "Bubble.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ui::speech_bubble::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Bubble.set: {e}");
+                    }
+                });
             }
             ScriptCommand::OutlineSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::sprite_outline::set_field(world, entity, field, value)
-                {
-                    log::warn!("Outline.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("sprite_outline", "Outline.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::sprite_outline::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Outline.set: {e}");
+                    }
+                });
             }
             ScriptCommand::LightningStrike { entity_id, x, y } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::lightning::strike(world, entity, *x, *y)
-                {
-                    log::warn!("Lightning.strike: {e}");
-                }
+                let _ = (entity_id, x, y);
+                crate::feature!("lightning", "Lightning.strike", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::lightning::strike(world, entity, *x, *y)
+                    {
+                        log::warn!("Lightning.strike: {e}");
+                    }
+                });
             }
             ScriptCommand::LightningSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::lightning::set_field(world, entity, field, value)
-                {
-                    log::warn!("Lightning.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("lightning", "Lightning.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::lightning::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Lightning.set: {e}");
+                    }
+                });
             }
             ScriptCommand::FlowSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::flow::set_field(world, entity, field, value)
-                {
-                    log::warn!("Flow.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("flow", "Flow.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::flow::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Flow.set: {e}");
+                    }
+                });
             }
             ScriptCommand::NavLinkSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::nav_links::set_field(world, entity, field, value)
-                {
-                    log::warn!("NavLink.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("navigation", "NavLink.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::nav_links::set_field(world, entity, field, value)
+                    {
+                        log::warn!("NavLink.set: {e}");
+                    }
+                });
             }
             ScriptCommand::MorphTo { entity_id, target, seconds } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::path_morph::morph_to(world, entity, target, *seconds)
-                {
-                    log::warn!("Morph.to: {e}");
-                }
+                let _ = (entity_id, target, seconds);
+                crate::feature!("path_morph", "Morph.to", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::path_morph::morph_to(world, entity, target, *seconds)
+                    {
+                        log::warn!("Morph.to: {e}");
+                    }
+                });
             }
             ScriptCommand::MorphSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::path_morph::set_field(world, entity, field, value)
-                {
-                    log::warn!("Morph.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("path_morph", "Morph.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::path_morph::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Morph.set: {e}");
+                    }
+                });
             }
             ScriptCommand::ToastShow { entity_id, title, text, icon, seconds } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ui::toast::show(world, entity, title, text, icon, *seconds)
-                {
-                    log::warn!("Toast.show: {e}");
-                }
+                let _ = (entity_id, title, text, icon, seconds);
+                crate::feature!("toast", "Toast.show", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ui::toast::show(world, entity, title, text, icon, *seconds)
+                    {
+                        log::warn!("Toast.show: {e}");
+                    }
+                });
             }
             ScriptCommand::ToastSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ui::toast::set_field(world, entity, field, value)
-                {
-                    log::warn!("Toast.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("toast", "Toast.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ui::toast::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Toast.set: {e}");
+                    }
+                });
             }
             ScriptCommand::FogOfWarReset { entity_id } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::fog_of_war::reset_fog(world, entity)
-                {
-                    log::warn!("FogOfWar.reset: {e}");
-                }
+                let _ = entity_id;
+                crate::feature!("fog_of_war", "FogOfWar.reset", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::fog_of_war::reset_fog(world, entity)
+                    {
+                        log::warn!("FogOfWar.reset: {e}");
+                    }
+                });
             }
             ScriptCommand::FogOfWarSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::fog_of_war::set_fog_of_war_field(world, entity, field, value)
-                {
-                    log::warn!("FogOfWar.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("fog_of_war", "FogOfWar.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::fog_of_war::set_fog_of_war_field(world, entity, field, value)
+                    {
+                        log::warn!("FogOfWar.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SnowSet { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::snow::set_field(world, entity, field, value)
-                {
-                    log::warn!("Snow.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("snow", "Snow.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::snow::set_field(world, entity, field, value)
+                    {
+                        log::warn!("Snow.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetBeatClockField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::beat_clock::set_beat_clock_field(world, entity, field, value)
-                {
-                    log::warn!("BeatClock.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("beat_clock", "BeatClock.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::beat_clock::set_beat_clock_field(world, entity, field, value)
+                    {
+                        log::warn!("BeatClock.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetTextPathField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::text_path::set_text_path_field(world, entity, field, value)
-                {
-                    log::warn!("TextPath.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("text_path", "TextPath.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::text_path::set_text_path_field(world, entity, field, value)
+                    {
+                        log::warn!("TextPath.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetTrajectoryField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::trajectory::set_trajectory_field(world, entity, field, value)
-                {
-                    log::warn!("Trajectory.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("trajectory", "Trajectory.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::trajectory::set_trajectory_field(world, entity, field, value)
+                    {
+                        log::warn!("Trajectory.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetTileLightField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::tile_light::set_tile_light_field(world, entity, field, value)
-                {
-                    log::warn!("TileLight.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("tile_light", "TileLight.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::tile_light::set_tile_light_field(world, entity, field, value)
+                    {
+                        log::warn!("TileLight.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetAutoNormalField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::auto_normal::set_auto_normal_field(world, entity, field, value)
-                {
-                    log::warn!("AutoNormal.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("auto_normal", "AutoNormal.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::auto_normal::set_auto_normal_field(world, entity, field, value)
+                    {
+                        log::warn!("AutoNormal.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetCastShadowField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::cast_shadow::set_shadow_field(world, entity, field, value)
-                {
-                    log::warn!("CastShadow.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("cast_shadow", "CastShadow.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::cast_shadow::set_shadow_field(world, entity, field, value)
+                    {
+                        log::warn!("CastShadow.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetTimeScaleField { entity_id, field, value } => {
                 let real_id = resolve_id(&spawn_remap, *entity_id);
@@ -5134,60 +5287,81 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetDayField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::day_cycle::set_day_field(world, entity, field, value)
-                {
-                    log::warn!("DayCycle.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("day_cycle", "DayCycle.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::day_cycle::set_day_field(world, entity, field, value)
+                    {
+                        log::warn!("DayCycle.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetVisionField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::vision::set_vision_field(world, entity, field, value)
-                {
-                    log::warn!("Vision.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("vision", "Vision.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::vision::set_vision_field(world, entity, field, value)
+                    {
+                        log::warn!("Vision.set: {e}");
+                    }
+                });
             }
             ScriptCommand::WfcGenerate { entity_id, x, y, w, h } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::wfc::queue_region(world, entity, *x, *y, *w, *h)
-                {
-                    log::warn!("Wfc.generate: {e}");
-                }
+                let _ = (entity_id, x, y, w, h);
+                crate::feature!("wfc", "Wfc.generate", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::wfc::queue_region(world, entity, *x, *y, *w, *h)
+                    {
+                        log::warn!("Wfc.generate: {e}");
+                    }
+                });
             }
             ScriptCommand::SetFogField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::fog::set_fog_field(world, entity, field, value)
-                {
-                    log::warn!("Fog.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("fog", "Fog.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::fog::set_fog_field(world, entity, field, value)
+                    {
+                        log::warn!("Fog.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetRewindField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::rewind::set_rewind_field(world, entity, field, value)
-                {
-                    log::warn!("Rewind.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("rewind", "Rewind.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::rewind::set_rewind_field(world, entity, field, value)
+                    {
+                        log::warn!("Rewind.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetSmokeField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::smoke::set_smoke_field(world, entity, field, value)
-                {
-                    log::warn!("Smoke.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("smoke", "Smoke.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::smoke::set_smoke_field(world, entity, field, value)
+                    {
+                        log::warn!("Smoke.set: {e}");
+                    }
+                });
             }
             ScriptCommand::PixelPaint { entity_id, x, y, radius, material } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::pixel_sim::queue_paint(world, entity, *x, *y, *radius, material)
-                {
-                    log::warn!("PixelSim.paint: {e}");
-                }
+                let _ = (entity_id, x, y, radius, material);
+                crate::feature!("pixel_sim", "PixelSim.paint", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::pixel_sim::queue_paint(world, entity, *x, *y, *radius, material)
+                    {
+                        log::warn!("PixelSim.paint: {e}");
+                    }
+                });
             }
             ScriptCommand::SetSpriteFill { entity_id, amount } => {
                 let real_id = resolve_id(&spawn_remap, *entity_id);
@@ -5199,44 +5373,59 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetWaterField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::water::set_water_field(world, entity, field, value)
-                {
-                    log::warn!("Water.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("water", "Water.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::water::set_water_field(world, entity, field, value)
+                    {
+                        log::warn!("Water.set: {e}");
+                    }
+                });
             }
             ScriptCommand::WaterSplash { entity_id, x, strength } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::water::splash_world(world, entity, *x, *strength)
-                {
-                    log::warn!("Water.splash: {e}");
-                }
+                let _ = (entity_id, x, strength);
+                crate::feature!("water", "Water.splash", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::water::splash_world(world, entity, *x, *strength)
+                    {
+                        log::warn!("Water.splash: {e}");
+                    }
+                });
             }
             ScriptCommand::SetMirrorField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::mirror::set_mirror_field(world, entity, field, value)
-                {
-                    log::warn!("Mirror.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("mirror", "Mirror.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::mirror::set_mirror_field(world, entity, field, value)
+                    {
+                        log::warn!("Mirror.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetTrailField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = super::trails::set_trail_field(world, entity, field, value)
-                {
-                    log::warn!("Trail.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("trails", "Trail.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = super::trails::set_trail_field(world, entity, field, value)
+                    {
+                        log::warn!("Trail.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetLineField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::renderer::line2d::set_line_field(world, entity, field, value)
-                {
-                    log::warn!("Line.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("line2d", "Line.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::renderer::line2d::set_line_field(world, entity, field, value)
+                    {
+                        log::warn!("Line.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetPathFollowField { entity_id, field, value } => {
                 let real_id = resolve_id(&spawn_remap, *entity_id);
@@ -5247,12 +5436,15 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetClothField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::ecs::cloth::set_cloth_field(world, entity, field, value)
-                {
-                    log::warn!("Cloth.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("cloth", "Cloth.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::ecs::cloth::set_cloth_field(world, entity, field, value)
+                    {
+                        log::warn!("Cloth.set: {e}");
+                    }
+                });
             }
             ScriptCommand::SetAreaField { entity_id, field, value } => {
                 let real_id = resolve_id(&spawn_remap, *entity_id);
@@ -5285,20 +5477,26 @@ fn apply_script_commands_impl(
                 }
             }
             ScriptCommand::SetNavTarget { entity_id, target } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::navigation::set_nav_target(world, entity, *target)
-                {
-                    log::warn!("Nav.set_target: {e}");
-                }
+                let _ = (entity_id, target);
+                crate::feature!("navigation", "Nav.set_target", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::navigation::set_nav_target(world, entity, *target)
+                    {
+                        log::warn!("Nav.set_target: {e}");
+                    }
+                });
             }
             ScriptCommand::SetNavField { entity_id, field, value } => {
-                let real_id = resolve_id(&spawn_remap, *entity_id);
-                if let Some(&entity) = entity_index.get(&real_id)
-                    && let Err(e) = crate::navigation::set_nav_field(world, entity, field, value)
-                {
-                    log::warn!("Nav.set: {e}");
-                }
+                let _ = (entity_id, field, value);
+                crate::feature!("navigation", "Nav.set", {
+                    let real_id = resolve_id(&spawn_remap, *entity_id);
+                    if let Some(&entity) = entity_index.get(&real_id)
+                        && let Err(e) = crate::navigation::set_nav_field(world, entity, field, value)
+                    {
+                        log::warn!("Nav.set: {e}");
+                    }
+                });
             }
             // Phase 4E: UI
             ScriptCommand::SetUiProp { entity_id, property, value } => {
@@ -5539,6 +5737,7 @@ fn apply_script_commands_impl(
                         AnyLight::Point(l) => l.color = color,
                         AnyLight::Spot(l) => l.color = color,
                         AnyLight::Sun(l) => l.color = color,
+                        #[cfg(feature = "freeform_light")]
                         AnyLight::Freeform(l) => l.color = color,
                     });
                 }
@@ -5552,6 +5751,7 @@ fn apply_script_commands_impl(
                         AnyLight::Point(l) => l.intensity = val,
                         AnyLight::Spot(l) => l.intensity = val,
                         AnyLight::Sun(l) => l.intensity = val,
+                        #[cfg(feature = "freeform_light")]
                         AnyLight::Freeform(l) => l.intensity = val,
                     });
                 }
@@ -5568,6 +5768,7 @@ fn apply_script_commands_impl(
                         AnyLight::Point(l) => l.light_mask = val,
                         AnyLight::Spot(l) => l.light_mask = val,
                         AnyLight::Sun(l) => l.light_mask = val,
+                        #[cfg(feature = "freeform_light")]
                         AnyLight::Freeform(_) => {}
                     });
                 }
@@ -5581,6 +5782,7 @@ fn apply_script_commands_impl(
                         AnyLight::Point(l) => l.height = val,
                         AnyLight::Spot(l) => l.height = val,
                         AnyLight::Sun(l) => l.height = val,
+                        #[cfg(feature = "freeform_light")]
                         AnyLight::Freeform(_) => {}
                     });
                 }
@@ -5698,14 +5900,18 @@ pub fn physics_frame_end(
     dt: f32,
 ) {
     physics.sync_transforms_to_ecs(world);
-    let breaks = crate::ecs::fracture::break_on_impact(world, physics, contacts, dt);
-    crate::ecs::fracture::burst_debris(world, particles, &breaks);
+    #[cfg(not(feature = "fracture"))]
+    let _ = (contacts, particles, dt);
+    crate::feature!("fracture", {
+        let breaks = crate::ecs::fracture::break_on_impact(world, physics, contacts, dt);
+        crate::ecs::fracture::burst_debris(world, particles, &breaks);
+    });
     // Save states asked for this frame (`ecs::save_state`): written down, or
     // put back before anything predicts from the world.
-    crate::ecs::save_state::sync(world, physics);
+    crate::feature!("save_state", { crate::ecs::save_state::sync(world, physics) });
     // Shots seen before they are taken (`ecs::trajectory`), from this
     // frame's settled world.
-    crate::ecs::trajectory::predict(world, physics);
+    crate::feature!("trajectory", { crate::ecs::trajectory::predict(world, physics) });
 }
 
 /// Ensure all entities with RigidBody2D + Transform have physics bodies registered.
@@ -5727,11 +5933,11 @@ pub fn ensure_physics_bodies(world: &hecs::World, physics: &mut crate::physics::
     // Tilemaps with collision layers get (or lose, or rebuild) their body.
     physics.sync_tilemap_colliders(world);
     physics.sync_carved_colliders(world);
-    physics.sync_spline_colliders(world);
-    physics.sync_smooth_terrain(world);
+    crate::feature!("spline_shape", { physics.sync_spline_colliders(world) });
+    crate::feature!("smooth_terrain", { physics.sync_smooth_terrain(world) });
     physics.sync_area_effects(world);
     // Skeletons gone limp get bodies, stood-up ones lose them (`ecs::ragdoll`).
-    physics.sync_ragdolls(world);
+    crate::feature!("ragdoll", { physics.sync_ragdolls(world) });
 
     // A collider in the shape of its sprite (`SpriteCollider`) is built once
     // the outline is traced, and rebuilt when it is traced again.

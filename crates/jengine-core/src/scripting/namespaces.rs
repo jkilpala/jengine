@@ -348,6 +348,8 @@ pub const CORE: &[(&str, &str, &str)] = &[
     ("UI", "drop", "ui_drop"),
     ("Mode7", "place", "mode7_place"),
     ("Mode7", "set", "mode7_set"),
+    ("Stage", "place", "stage_place"),
+    ("Stage", "set", "stage_set"),
     ("SpriteTilt", "set", "sprite_tilt_set"),
     ("Afterimage", "set", "afterimage_set"),
     ("Portal", "set", "portal_set"),

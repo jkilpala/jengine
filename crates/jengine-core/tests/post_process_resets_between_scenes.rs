@@ -39,15 +39,14 @@ fn runtimes() -> [(&'static str, &'static str); 3] {
 fn every_runtime_replaces_the_chain_when_a_scene_loads() {
     for (name, src) in runtimes() {
         assert!(
-            src.contains("from_scene_json"),
+            src.contains("from_scene_value"),
             "{name} never reads a scene's `post_process` block, so a scene that \
              authors effects renders without them there - and nothing clears \
              the previous scene's effects either"
         );
         assert!(
-            src.contains("from_scene_json(&scene_json).unwrap_or_default()")
-                || src.contains("from_scene_json(json).unwrap_or_default()")
-                || src.contains("from_scene_json(scene_json).unwrap_or_default()"),
+            src.contains("from_scene_value(&scene_header).unwrap_or_default()")
+                || src.contains("from_scene_value(&header).unwrap_or_default()"),
             "{name} applies a scene's chain only when the scene declares one, so \
              a scene with no `post_process` block inherits the last scene's \
              effects instead of rendering clean"

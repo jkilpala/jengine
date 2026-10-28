@@ -6,6 +6,7 @@
 //! drawn as entity UI, and the stack's script is told of each. The timing
 //! (slide, stay, leave, queue) runs on a clock the module's own tests drive.
 //! Found by the showcase's Trophy Room.
+#![cfg(feature = "toast")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

@@ -8,6 +8,7 @@
 //! and a two-bone IK solve has a weight (`set_ik_weight`).
 //!
 //! Found by the showcase's The Creature, whose walk turns into a run.
+#![cfg(feature = "ik")]
 
 use hecs::World;
 use jengine_core::animation::skeletal::SkeletalPlayer;

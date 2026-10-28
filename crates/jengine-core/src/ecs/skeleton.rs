@@ -76,6 +76,30 @@ pub fn find_skeleton(world: &World, skeleton_name: &str) -> Option<Entity> {
         .map(|(e, _)| e)
 }
 
+
+/// Whether some skeleton is limp (`ecs::ragdoll`), posed by physics so an
+/// animator leaves it alone. Always false in a build without ragdolls.
+pub fn any_limp(world: &hecs::World) -> bool {
+    #[cfg(feature = "ragdoll")]
+    return crate::ecs::ragdoll::any_limp(world);
+    #[cfg(not(feature = "ragdoll"))]
+    {
+        let _ = world;
+        false
+    }
+}
+
+/// Whether `entity` is, or hangs under, a limp ragdoll's root.
+pub fn is_limp(world: &hecs::World, entity: hecs::Entity) -> bool {
+    #[cfg(feature = "ragdoll")]
+    return crate::ecs::ragdoll::is_limp(world, entity);
+    #[cfg(not(feature = "ragdoll"))]
+    {
+        let _ = (world, entity);
+        false
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

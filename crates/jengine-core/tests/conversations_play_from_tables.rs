@@ -5,6 +5,7 @@
 //! later node branches on, and the end is called back - all driven through
 //! the script command's own path (`host_commands`' `dlg` arm). Found by the
 //! showcase's Village Chatter.
+#![cfg(feature = "dialogue")]
 
 use hecs::{Entity, World};
 use jengine_core::data::{self, DataRegistry};

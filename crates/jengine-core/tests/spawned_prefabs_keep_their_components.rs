@@ -1,119 +1,123 @@
 //! A spawned prefab keeps every component the scene loader would give it.
 //!
 //! The native `ScriptCommand::SpawnEntity` arm used to be a hand-copied
-//! subset of `ComponentBundle` while the editor viewport spawns generically
-//! through the registry - so a prefab carrying one of the missing fields
-//! worked in the editor and silently lost it on native. Measured Sep 2026:
-//! **45 of the 77 fields were missing**, `material` among them, which is part
-//! of why no game had ever used a graph material. This test pinned that list
-//! so it could only shrink.
+//! subset of the v1 `ComponentBundle` while the editor viewport spawned
+//! generically through the registry - so a prefab carrying one of the missing
+//! fields worked in the editor and silently lost it on native. Measured Sep
+//! 2026: **45 of the 77 fields were missing**, `material` among them, which is
+//! part of why no game had ever used a graph material. Then a shared
+//! `add_to_builder` was the one list, and this test checked it against the
+//! struct.
 //!
-//! It is empty now, because there is no list to copy any more: the loader and
-//! the spawn arm both call `ComponentBundle::add_to_builder`, the one place
-//! the field list lives. What this checks instead is that the method covers
-//! every field of the struct, and that both sites still call it.
+//! Since Oct 2026 there is no list: a bundle is JSON by scene key, and every
+//! path - the scene loader, a script's spawn of a loaded prefab (decoded once,
+//! `PreparedPrefab`), the command arm with a bundle in hand, the browsers -
+//! decodes through the component registry. So this spawns **every registered
+//! component** each native way and checks each one arrived.
+#![cfg(feature = "native")]
 
-use std::collections::BTreeSet;
+use std::sync::Arc;
 
-/// Fields the shared method deliberately leaves to its callers, with why.
-const HANDLED_BY_THE_CALLERS: &[(&str, &str)] = &[
-    (
-        "custom",
-        "the loader keeps it as data with a warning about nesting; the spawn arm first lifts \
-         package components out of it (BUGS #109) - two rules, on purpose",
-    ),
-];
+use hecs::World;
+use jengine_core::ecs::components::Name;
+use jengine_core::ecs::systems::apply_script_commands;
+use jengine_core::package::component_registry::ComponentRegistry;
+use jengine_core::package::core_registration::register_core_components;
+use jengine_core::scene::format::{ComponentBundle, EntityData, SceneData};
+use jengine_core::scene::prefab::PreparedPrefab;
+use jengine_core::scripting::api::{ScriptCommand, ScriptServices};
 
-fn source(rel: &str) -> String {
-    let p = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(rel);
-    // LF, whatever git checked out: the scans below look for "\n}\n".
-    std::fs::read_to_string(&p).unwrap_or_else(|e| panic!("reading {}: {e}", p.display())).replace("\r\n", "\n")
+fn registry() -> ComponentRegistry {
+    let mut registry = ComponentRegistry::new();
+    register_core_components(&mut registry);
+    registry
 }
 
-/// Every `pub <name>:` on `ComponentBundle`.
-fn bundle_fields() -> Vec<String> {
-    let src = source("src/scene/format.rs");
-    let i = src.find("pub struct ComponentBundle").expect("ComponentBundle exists");
-    let j = src[i..].find("\n}").expect("the struct closes") + i;
-    src[i..j]
-        .lines()
-        .filter_map(|l| {
-            let l = l.trim();
-            l.strip_prefix("pub ")?.split(':').next().map(str::to_string)
-        })
-        .filter(|f| !f.contains(' '))
-        .collect()
-}
-
-/// Every `self.<name>` the shared method reads.
-fn handled_by_add_to_builder() -> BTreeSet<String> {
-    let src = source("src/scene/format.rs");
-    let i = src.find("pub fn add_to_builder(").expect("the shared method exists");
-    let j = src[i..].find("\n    }\n}").expect("the method closes") + i;
-    let mut out = BTreeSet::new();
-    let mut rest = &src[i..j];
-    while let Some(k) = rest.find("self.") {
-        rest = &rest[k + "self.".len()..];
-        let name: String =
-            rest.chars().take_while(|c| c.is_ascii_alphanumeric() || *c == '_').collect();
-        if !name.is_empty() {
-            out.insert(name);
-        }
+/// One entity holding every registered component that has a default, at its
+/// default - and the keys, to look for.
+fn everything(registry: &ComponentRegistry) -> (EntityData, Vec<String>) {
+    let mut bundle = ComponentBundle::new();
+    let mut keys = Vec::new();
+    for desc in registry.iter() {
+        let Some(default) = desc.default_fn else { continue };
+        bundle.insert_value(desc.name.clone(), (desc.serialize_fn)(default().as_ref()));
+        keys.push(desc.name.clone());
     }
-    out
+    keys.sort();
+    let data = EntityData { name: "Everything".into(), parent: None, components: bundle, children: Vec::new() };
+    (data, keys)
 }
 
-#[test]
-fn the_shared_builder_covers_every_bundle_field() {
-    let fields = bundle_fields();
-    assert!(fields.len() > 50, "only found {} bundle fields - the parse broke", fields.len());
-    let handled = handled_by_add_to_builder();
-    let excused: BTreeSet<&str> = HANDLED_BY_THE_CALLERS.iter().map(|(f, _)| *f).collect();
-    let missing: Vec<&str> = fields
+/// The keys of `keys` the entity named "Everything" in `world` does not have.
+fn missing(world: &World, registry: &ComponentRegistry, keys: &[String]) -> Vec<String> {
+    let e = world
+        .query::<&Name>()
         .iter()
-        .map(String::as_str)
-        .filter(|f| !handled.contains(*f) && !excused.contains(f))
-        .collect();
-    assert!(
-        missing.is_empty(),
-        "`ComponentBundle::add_to_builder` does not add these fields: {missing:?}\n\
-         A prefab carrying one loads from a scene without it and spawns without it, in \
-         every runtime that spawns through the bundle. Add it there - not to a call site."
-    );
-    for (f, _) in HANDLED_BY_THE_CALLERS {
-        assert!(fields.iter().any(|x| x == f), "excused field `{f}` no longer exists on the bundle");
-        assert!(!handled.contains(*f), "excused field `{f}` is now handled by the shared method; drop the excuse");
-    }
+        .find(|(_, n)| n.0 == "Everything")
+        .map(|(e, _)| e)
+        .expect("the entity spawned");
+    keys.iter().filter(|k| (registry.get(k).unwrap().query_fn)(world, e).is_none()).cloned().collect()
 }
 
 #[test]
-fn both_the_loader_and_the_native_spawn_arm_use_the_shared_builder() {
-    let format = source("src/scene/format.rs");
-    let loader_at = format.find("pub fn load_scene_with_mapping(").expect("the v1 loader exists");
-    let loader = &format[loader_at..loader_at + format[loader_at..].find("\n}\n").unwrap()];
-    assert!(
-        loader.contains(".add_to_builder(&mut builder)"),
-        "the v1 scene loader does not go through `ComponentBundle::add_to_builder`"
-    );
-    assert!(
-        !loader.contains("entity_data.components.sprite {"),
-        "the v1 scene loader has grown its own per-field copy again"
-    );
+fn every_registered_component_survives_each_native_spawn() {
+    let registry = registry();
+    let (data, keys) = everything(&registry);
+    assert!(keys.len() > 150, "only {} components with a default - did the registry move?", keys.len());
 
-    let systems = source("src/ecs/systems.rs");
-    // The arm spawns through `spawn_bundle` - the root and every part of a
-    // prefab's tree (`EntityData::children`) alike.
-    let arm_at = systems.find("ScriptCommand::SpawnEntity { name, components, spawn_id, children }").expect("the spawn arm exists");
-    let arm = &systems[arm_at..(arm_at + 1_000).min(systems.len())];
-    assert!(arm.contains("spawn_bundle(world,") && arm.contains("spawn_bundle(w,"), "the spawn arm builds its own entity");
-    let arm_at = systems.find("fn spawn_bundle(").expect("spawn_bundle exists");
-    let arm = &systems[arm_at..(arm_at + 3_000).min(systems.len())];
-    assert!(
-        arm.contains("bundle.add_to_builder(&mut builder)"),
-        "the native spawn arm does not go through `ComponentBundle::add_to_builder`"
+    // A loaded prefab, as a script's `spawn_prefab` spawns it.
+    let mut world = World::new();
+    PreparedPrefab::new(&data, &registry).spawn(&mut world, "Everything");
+    assert_eq!(missing(&world, &registry, &keys), Vec::<String>::new(), "lost by a prepared prefab");
+
+    // The command arm with a bundle in hand.
+    let mut world = World::new();
+    apply_script_commands(
+        &mut world,
+        &[ScriptCommand::SpawnEntity {
+            name: "Everything".into(),
+            components: Box::new(Some(data.components.clone())),
+            spawn_id: None,
+            children: Vec::new(),
+            prepared: None,
+        }],
+        None,
+        None,
     );
-    assert!(
-        !arm.contains("bundle.sprite {"),
-        "the native spawn arm has grown its own per-field copy again"
-    );
+    assert_eq!(missing(&world, &registry, &keys), Vec::<String>::new(), "lost by the command arm");
+
+    // The v1 scene loader, and back out through the saver.
+    let scene = SceneData { entities: vec![data], ..Default::default() };
+    let mut world = World::new();
+    jengine_core::scene::format::load_scene_with_registry(&scene, &mut world, &registry);
+    assert_eq!(missing(&world, &registry, &keys), Vec::<String>::new(), "lost by the v1 loader");
+    let saved = jengine_core::scene::format::save_scene_with(&world, &registry);
+    let entity = saved.entities.iter().find(|e| e.name == "Everything").unwrap();
+    let dropped: Vec<&String> = keys.iter().filter(|k| !entity.components.contains(k) && **k != "tags").collect();
+    assert!(dropped.is_empty(), "lost by the v1 saver: {dropped:?}");
+}
+
+#[test]
+fn a_prepared_prefab_is_made_once_and_forgotten_when_the_map_changes() {
+    let mut services = ScriptServices::default();
+    let bullet: EntityData = serde_json::from_value(serde_json::json!({
+        "name": "Bullet", "components": { "transform": { "position": [1, 2], "rotation": 0, "scale": [1, 1] } }
+    }))
+    .unwrap();
+    services.prefabs_mut().insert("Bullet".into(), bullet.clone());
+
+    let first = services.prepared_prefab("Bullet").expect("a loaded prefab");
+    let again = services.prepared_prefab("Bullet").unwrap();
+    assert!(Arc::ptr_eq(&first, &again), "decoded once, then reused");
+    assert!(services.prepared_prefab("Nothing").is_none());
+
+    // A pack replacing the prefab: the next spawn must see the new one.
+    let mut moved = bullet;
+    moved.components.value_mut("transform").unwrap()["position"] = serde_json::json!([9, 9]);
+    services.prefabs_mut().insert("Bullet".into(), moved);
+    let after = services.prepared_prefab("Bullet").unwrap();
+    assert!(!Arc::ptr_eq(&first, &after), "a changed map is decoded again");
+    let mut world = World::new();
+    let e = after.spawn(&mut world, "Bullet");
+    assert_eq!(world.get::<&jengine_core::ecs::components::Transform>(e).unwrap().position.x, 9.0);
 }

@@ -9,7 +9,7 @@
 //! - Async WebGPU device acquisition kicked off from the (sync)
 //!   `viewport_init` call. All other entry points early-return with
 //!   sensible defaults until the device is ready.
-//! - Scene loading via [`load_scene_auto`] into a [`hecs::World`]; a
+//! - Scene loading via [`load_scene_value`] into a [`hecs::World`]; a
 //!   parallel `scene_entities: Vec<Entity>` keeps the editor's
 //!   index-based addressing working.
 //! - Texture and GUI asset uploads via [`AssetManager`].
@@ -93,7 +93,7 @@ use jengine_core::renderer::graph_pipeline_cache::{GraphPipelineCache, GraphPipe
 use jengine_core::renderer::shader_graph::ShaderGraph;
 use jengine_core::renderer::text::{built_in_font_atlas, FontData};
 use jengine_core::scene::format::{
-    load_scene_auto, load_scene_v2, EntityDataV2, SceneDataV2,
+    load_scene_v2, load_scene_value, EntityDataV2, SceneDataV2,
 };
 use jengine_core::scripting::bridge::adapters::js::BrowserScriptFns;
 use jengine_core::ui::gui_document::{load_gui, GuiDocument};
@@ -298,6 +298,11 @@ struct ViewportApp {
     /// pacer does with its own jitter (`jengine_core::time`).
     refresh_estimate: jengine_core::time::RefreshEstimate,
     pacer: jengine_core::time::FramePacer,
+    /// Gameplay in fixed steps when the project asks (`settings.simulation_hz`,
+    /// `viewport_set_simulation`); one step a frame otherwise.
+    fixed_step: jengine_core::ecs::fixed_step::FixedStep,
+    /// The edited scene's own `simulation_hz`, which Play steps at.
+    scene_simulation_hz: Option<f32>,
     /// Play time since trails last recorded: `tick_play_world` adds its dt,
     /// the render records after resolving the hierarchy and takes it.
     trail_dt: f32,
@@ -455,6 +460,8 @@ struct PushedScene {
     /// restore it leaves the pushed-over scene's bloom running on the scene
     /// underneath (BUGS #84).
     post_process: jengine_core::renderer::postprocess::PostProcessSettings,
+    /// The pushed scene's own `simulation_hz`, put back on pop.
+    simulation_hz: Option<f32>,
 }
 
 /// Stage 2.6 — pending picture-in-picture render. Editor passes the
@@ -865,6 +872,8 @@ pub fn viewport_init(canvas_id: &str) -> Result<(), JsValue> {
         last_tick_ms: None,
         refresh_estimate: jengine_core::time::RefreshEstimate::new(),
         pacer: jengine_core::time::FramePacer::new(),
+        fixed_step: jengine_core::ecs::fixed_step::FixedStep::new(),
+        scene_simulation_hz: None,
         trail_dt: 0.0,
         play_snapshot: None,
         scene_stack: Vec::new(),
@@ -1082,6 +1091,17 @@ pub fn viewport_set_texture_filters(settings_json: &str) {
     let settings = serde_json::from_str::<serde_json::Value>(settings_json).ok();
     let rules = TextureFilterRules::from_settings(settings.as_ref());
     with_app(|app| app.assets.set_texture_filters(rules));
+}
+
+/// Fixed-step gameplay (`settings.simulation_hz`, `ecs::fixed_step`): the
+/// project's whole `settings` object as JSON. Absent or 0 is one step a
+/// frame, as always.
+#[wasm_bindgen]
+pub fn viewport_set_simulation(settings_json: &str) {
+    let settings = serde_json::from_str::<serde_json::Value>(settings_json).ok();
+    let hz = jengine_core::ecs::fixed_step::FixedStep::from_settings(settings.as_ref()).hz();
+    // The project's rate; a scene's own still wins while it is loaded.
+    with_app(|app| app.fixed_step.set_hz(hz));
 }
 
 /// The project's asset packs (`settings.asset_packs`): the project's whole
@@ -1562,7 +1582,7 @@ pub fn viewport_load_prefab(name: &str, json: &str) -> Result<(), JsValue> {
         .map_err(|e| JsValue::from_str(&format!("set prefab '{name}': {e:?}")))?;
     // Mirror it into the Rust map so authored `prefab_instance` entries can be
     // expanded at scene load, not just script-driven `spawn_prefab` calls.
-    match serde_json::from_str::<jengine_core::scene::format::EntityData>(json) {
+    match jengine_core::scene::from_json_text::<jengine_core::scene::format::EntityData>(json) {
         Ok(data) => {
             with_app(|app| {
                 // Keyed by the name the editor pushed. Native keys by the
@@ -1580,7 +1600,7 @@ pub fn viewport_load_prefab(name: &str, json: &str) -> Result<(), JsValue> {
                 // bridge's `spawn_prefab` reads for it.
                 app.prefabs = jengine_core::scene::resolve_prefab_variants(&app.raw_prefabs);
                 // A prefab with parts too: its parts that are prefabs come expanded.
-                for (key, data) in app.prefabs.iter().filter(|(_, d)| d.components.prefab_instance.is_some() || !d.children.is_empty()) {
+                for (key, data) in app.prefabs.iter().filter(|(_, d)| d.components.contains("prefab_instance") || !d.children.is_empty()) {
                     if let Ok(text) = serde_json::to_string(data)
                         && let Ok(value) = js_sys::JSON::parse(&text)
                     {
@@ -1600,30 +1620,40 @@ pub fn viewport_load_prefab(name: &str, json: &str) -> Result<(), JsValue> {
 // Scene management
 // ---------------------------------------------------------------------------
 
+/// A scene's text, parsed - the one parse it gets - with its prefab instances
+/// expanded, and its scene-wide fields (`scene_header`) apart, since the
+/// loader takes the scene whole.
+fn parse_scene(
+    json: &str,
+    prefabs: &std::collections::HashMap<String, jengine_core::scene::format::EntityData>,
+) -> Result<(serde_json::Value, serde_json::Value), JsValue> {
+    let mut scene: serde_json::Value =
+        serde_json::from_str(json).map_err(|e| JsValue::from_str(&format!("parse scene: {e}")))?;
+    jengine_core::scene::expand_prefab_instances_in_value(&mut scene, prefabs, "viewport");
+    let header = jengine_core::scene::format::scene_header(&scene);
+    Ok((scene, header))
+}
+
 #[wasm_bindgen]
 pub fn viewport_update_scene(json: &str) -> Result<(), JsValue> {
     with_app(|app| {
         let mut new_world = World::new();
-        let json = &jengine_core::scene::expand_prefab_instances_in_json(
-            json,
-            &app.prefabs,
-            "viewport",
-        );
-        load_scene_auto(json, &mut new_world, &app.registry)
+        let (scene, header) = parse_scene(json, &app.prefabs)?;
+        load_scene_value(scene, &mut new_world, &app.registry)
             .map_err(|e| JsValue::from_str(&format!("parse scene: {e}")))?;
         // Apply scene-level sort_layers reference (the .sortlayers
         // asset itself is supplied via a separate IPC push from the
         // editor host; this just marks which id is active so render
         // code can resolve `sort_layer` strings to base_z offsets).
-        let meta = jengine_core::scene::format::read_scene_metadata(json)
-            .map_err(|e| JsValue::from_str(&format!("parse scene meta: {e}")))?;
+        let meta = jengine_core::scene::format::scene_metadata(&header);
         app.assets.set_active_sort_layers(meta.sort_layers);
         app.path_library = build_path_library(meta.paths);
-        jengine_core::scene::set_current_name(&jengine_core::scene::name_of(json).unwrap_or_default());
+        app.scene_simulation_hz = jengine_core::ecs::fixed_step::scene_simulation_hz(&header);
+        jengine_core::scene::set_current_name(&jengine_core::scene::name_in(&header).unwrap_or_default());
         // Capture insertion order for index-based IPC addressing.
         // hecs doesn't preserve insertion order across iter(), but
-        // load_scene_auto spawns entities sequentially; we re-derive
-        // the order by sorting by entity id (which load_scene_auto
+        // load_scene_value spawns entities sequentially; we re-derive
+        // the order by sorting by entity id (which load_scene_value
         // assigns monotonically).
         let mut ents: Vec<Entity> = new_world.iter().map(|e| e.entity()).collect();
         ents.sort_by_key(|e| e.id());
@@ -1632,7 +1662,7 @@ pub fn viewport_update_scene(json: &str) -> Result<(), JsValue> {
         app.world = new_world;
         // Phase 8.2e — mirror runtime: replace the post-process effect
         // chain with whatever the new scene declares (cleared if none).
-        let pp = jengine_core::renderer::postprocess::PostProcessSettings::from_scene_json(json).unwrap_or_default();
+        let pp = jengine_core::renderer::postprocess::PostProcessSettings::from_scene_value(&header).unwrap_or_default();
         if let Some(gpu) = app.gpu.as_mut() {
             gpu.post_process.set_settings(pp);
         }
@@ -1822,6 +1852,8 @@ pub fn viewport_play(
 
         app.last_tick_ms = None;
         app.playing = true;
+        let scene_hz = app.scene_simulation_hz;
+        app.fixed_step.enter_scene(scene_hz);
         app.paused = false;
         app.step_pending = false;
         app.log_buffer.push("[viewport] entering play mode".to_string());
@@ -1906,6 +1938,8 @@ pub fn viewport_stop() -> Result<String, JsValue> {
         app.display.release(&canvas);
         app.text_proxy.release();
         jengine_core::scene::streaming::scene_replaced();
+        // A new world owes no fixed-step time and has nothing to interpolate.
+        app.fixed_step.reset();
         app.paused = false;
         app.step_pending = false;
         // A game paused or slowed with `Time.set_scale` leaves the next Play
@@ -2403,19 +2437,15 @@ pub fn viewport_apply_scene_transition(
                 scripts: std::mem::take(&mut app.last_scripts_json),
                 name: jengine_core::scene::current_name(),
                 post_process,
+                simulation_hz: app.fixed_step.scene_hz(),
             });
         }
         let mut new_world = World::new();
-        let scene_json = &jengine_core::scene::expand_prefab_instances_in_json(
-            scene_json,
-            &app.prefabs,
-            "viewport",
-        );
-        jengine_core::scene::set_current_name(&jengine_core::scene::name_of(scene_json).unwrap_or_default());
-        load_scene_auto(scene_json, &mut new_world, &app.registry)
+        let (scene, header) = parse_scene(scene_json, &app.prefabs)?;
+        jengine_core::scene::set_current_name(&jengine_core::scene::name_in(&header).unwrap_or_default());
+        load_scene_value(scene, &mut new_world, &app.registry)
             .map_err(|e| JsValue::from_str(&format!("parse scene: {e}")))?;
-        let meta = jengine_core::scene::format::read_scene_metadata(scene_json)
-            .map_err(|e| JsValue::from_str(&format!("parse scene meta: {e}")))?;
+        let meta = jengine_core::scene::format::scene_metadata(&header);
         app.assets.set_active_sort_layers(meta.sort_layers);
         app.path_library = build_path_library(meta.paths);
         let mut ents: Vec<Entity> = new_world.iter().map(|e| e.entity()).collect();
@@ -2425,6 +2455,8 @@ pub fn viewport_apply_scene_transition(
         app.world = new_world;
         // Its additive chunks went with the old world.
         jengine_core::scene::streaming::scene_replaced();
+        // A new world owes no fixed-step time and has nothing to interpolate.
+        app.fixed_step.enter_scene(jengine_core::ecs::fixed_step::scene_simulation_hz(&header));
         app.behavior_system = BehaviorGraphSystem::new();
         // Rebuild rather than drop: the outgoing world's body handles are
         // dead, but the *session* still wants physics. Dropping it here left
@@ -2440,7 +2472,7 @@ pub fn viewport_apply_scene_transition(
                 world
             });
         // Phase 8.2e — apply the scene's post-process chain (or clear).
-        let pp = jengine_core::renderer::postprocess::PostProcessSettings::from_scene_json(scene_json).unwrap_or_default();
+        let pp = jengine_core::renderer::postprocess::PostProcessSettings::from_scene_value(&header).unwrap_or_default();
         if let Some(gpu) = app.gpu.as_mut() {
             gpu.post_process.set_settings(pp);
         }
@@ -2486,7 +2518,7 @@ pub fn viewport_pop_play_scene() -> Result<(), JsValue> {
     // `viewport_apply_scene_transition` while playing) and restore
     // both. No-op if the stack is empty.
     with_app(|app| {
-        let Some(PushedScene { live, loaded, scripts: scripts_json, name, post_process }) = app.scene_stack.pop() else {
+        let Some(PushedScene { live, loaded, scripts: scripts_json, name, post_process, simulation_hz }) = app.scene_stack.pop() else {
             return Ok(());
         };
         jengine_core::scene::set_current_name(&name);
@@ -2506,6 +2538,8 @@ pub fn viewport_pop_play_scene() -> Result<(), JsValue> {
         app.world = new_world;
         // Its additive chunks went with the old world.
         jengine_core::scene::streaming::scene_replaced();
+        // A new world owes no fixed-step time and has nothing to interpolate.
+        app.fixed_step.enter_scene(simulation_hz);
         app.behavior_system = BehaviorGraphSystem::new();
         // Rebuild rather than drop: the outgoing world's body handles are
         // dead, but the *session* still wants physics. Dropping it here left
@@ -3292,8 +3326,12 @@ fn render_editor(app: &mut ViewportApp) -> Result<(), String> {
     // so the inspector reflects parented placement live.
     // Dynamic bodies are drawn blended between their last two physics
     // steps; a frame that did not step (edit mode) blends nothing.
-    if let Some(physics) = app.physics.as_mut() {
-        physics.blend_transforms_for_render(&mut app.world);
+    // With fixed-step gameplay the play tick has blended everything a step
+    // moved already, bodies included (`FixedStep::blend_for_draw`).
+    if !(app.playing && app.fixed_step.is_on()) {
+        if let Some(physics) = app.physics.as_mut() {
+            physics.blend_transforms_for_render(&mut app.world);
+        }
     }
     jengine_core::ecs::hierarchy::resolve_world_transforms(&mut app.world);
     // Trails record where things ended up this frame (`ecs::trails`) - in
@@ -4643,7 +4681,6 @@ fn touch_controls_of(world: &hecs::World) -> Option<jengine_core::ecs::component
 }
 
 fn tick_play_world(app: &mut ViewportApp) {
-    use jengine_core::ecs::behaviors;
     use jengine_core::ecs::systems as sys;
 
     // Stage 2.8 — reset sub-stage accumulators; we additively bank
@@ -4697,6 +4734,127 @@ fn tick_play_world(app: &mut ViewportApp) {
     // Hold / tap / double-tap timing, now every device has reported.
     app.input.update_interactions();
 
+    // The true pose back in everything the last frame drew blended: the
+    // physics' bodies, and with fixed steps everything a step moved.
+    if let Some(physics) = app.physics.as_mut() {
+        physics.restore_stepped_poses(&mut app.world);
+    }
+    app.fixed_step.restore(&mut app.world);
+    // The gameplay: once with this frame's `dt`, or - with
+    // `settings.simulation_hz` - as many fixed steps as real time pays for
+    // (`ecs::fixed_step`), each seeing a press once.
+    // Once a frame, before any step: what must happen even on a frame that
+    // runs no step - reading the network, opening a lockstep gate.
+    app.package_host.run_phase_with(
+        SystemPhase::Frame,
+        &mut app.world,
+        real_dt,
+        jengine_core::package::host::FrameResources { input: &mut app.input, assets: &mut app.assets, camera: app.camera },
+    );
+    let plan = app.fixed_step.plan(real_dt, app.time_scale);
+    for step in 0..plan.steps {
+        if step > 0 {
+            app.input.clear_edges();
+        }
+        app.fixed_step.begin_step(&app.world);
+        let (p, sc) = simulation_step(app, plan.dt);
+        physics_ms += p;
+        script_ms += sc;
+    }
+    if plan.steps == 0 {
+        app.input.hold_edges();
+    }
+    // Everything a step moved, drawn between the last two steps - before the
+    // camera follows it, or a followed thing would judder against the view.
+    app.fixed_step.blend_for_draw(&mut app.world);
+
+    // Particle simulation in play mode (editor mode also calls this
+    // path inside render_editor — but only the playing tick advances
+    // emission timers, so we drive it here too).
+    jengine_core::particles::tick_particles(&app.world, &mut app.particle_system, dt);
+
+    // Apply the active `Camera2DComponent` (zoom, viewport size,
+    // position) and smooth toward any `CameraFollow` target. Only
+    // active in Game-tab mode (signaled by JS via
+    // `viewport_set_camera_size`); in Scene-tab mode the user
+    // controls the editor camera freely while play ticks.
+    if app.game_viewport.is_some() {
+        // To the canvas first, as native and web do: `update_camera` fits the
+        // camera to whatever size it holds, and the render leaves it at a
+        // fitted world size - harmless to refit, but an integer-scaled view
+        // (`Camera2D::integer_view`) needs the canvas's pixels.
+        let UVec2 { x: cw, y: ch } = app.canvas_size;
+        app.camera.resize(cw as f32, ch as f32);
+        sys::update_camera(&app.world, &mut app.camera, dt);
+    }
+    // P1.3 — drain camera-shake requests queued by scripts this
+    // tick (via the browser-JS `cmsh` command dispatcher) and
+    // advance the shake decay. Only meaningful in Game-tab mode but
+    // harmless to run unconditionally — a zero-amplitude shake is a
+    // no-op.
+    for (amp, dur, freq) in app.pending_camera_shakes.drain(..) {
+        app.camera.start_shake(amp, dur, freq);
+    }
+    app.camera.tick_effects(dt);
+
+    // Slice 3.5.C — advance skeletal animation players in play mode.
+    // The resolver call in `render_editor` will then pick up the new
+    // bone poses on the same frame. Edit mode intentionally does NOT
+    // run this so the inspector can author bind / static poses
+    // without playback fighting the user.
+    jengine_core::animation::skeletal::update_skeletal_players(
+        &mut app.world,
+        app.assets.skeletal_clips(),
+        dt,
+    );
+    // Slice 3.5.F — apply IK constraints (only in play mode, mirroring
+    // the skeletal player). The render_editor resolver call picks up
+    // the resulting pose on the same frame.
+    jengine_core::animation::ik::solve_ik(&mut app.world);
+
+    // ── package systems: Animation + PreRender ────────────────────────────
+    // `PreRender` is where `parallax_scroll` lives, and it reads the active
+    // camera, so it has to run after everything that could move the camera
+    // this tick. `Render` / `PostRender` are not run here for the same reason
+    // as natively: no renderer is shared through the `ResourceMap`, so a draw
+    // system would run and silently draw nothing.
+    app.package_host.run_phase_with(
+        SystemPhase::Animation,
+        &mut app.world,
+        dt,
+        jengine_core::package::host::FrameResources { input: &mut app.input, assets: &mut app.assets, camera: app.camera },
+    );
+    app.package_host.run_phase_with(
+        SystemPhase::PreRender,
+        &mut app.world,
+        dt,
+        jengine_core::package::host::FrameResources { input: &mut app.input, assets: &mut app.assets, camera: app.camera },
+    );
+    // Sprites a package spawned or re-regioned in the phases since the last
+    // resolve draw right on their first frame (BUGS #110).
+    jengine_core::ecs::systems::resolve_sprite_regions(&mut app.world, &app.assets);
+
+    // Stage 2.8 — fold totals into FrameStats. `update_ms` is
+    // tick-total minus physics minus script (i.e. velocity, behaviors,
+    // animations, particles, lifetime cleanup).
+    let total_ms = (perf_now_ms() - tick_start) as f32;
+    app.frame_stats.physics_time_ms = physics_ms;
+    app.frame_stats.script_time_ms = script_ms;
+    app.frame_stats.update_time_ms = (total_ms - physics_ms - script_ms).max(0.0);
+}
+
+/// One step of the gameplay: input actions, behaviour graphs, motion, the
+/// physics, triggers, animation, UI, lifetimes and the scripts with their
+/// tweens - what a fixed-step simulation (`settings.simulation_hz`) runs once
+/// per step rather than once per frame. `tick_play_world` calls it once a
+/// frame with the frame's `dt` otherwise. Returns the milliseconds it spent
+/// in physics and in scripts.
+fn simulation_step(app: &mut ViewportApp, dt: f32) -> (f32, f32) {
+    use jengine_core::ecs::behaviors;
+    use jengine_core::ecs::systems as sys;
+
+    let mut physics_ms: f32 = 0.0;
+    let mut script_ms: f32 = 0.0;
     let world = &mut app.world;
     let input = &app.input;
 
@@ -4720,11 +4878,6 @@ fn tick_play_world(app: &mut ViewportApp) {
     // Phase 2 of the runtime pipeline — behavior graphs tick before
     // motion/animation so reactions land on this frame's transform.
     let s0 = perf_now_ms();
-    // The stepped physics pose back in every body's transform before
-    // anything this frame reads one (the last frame drew the blend).
-    if let Some(physics) = app.physics.as_mut() {
-        physics.restore_stepped_poses(&mut app.world);
-    }
     jengine_core::profiling::trace::time("behavior_graphs", || {
         app.behavior_system.tick_pre_simulation(&mut app.world, dt)
     });
@@ -5113,80 +5266,7 @@ fn tick_play_world(app: &mut ViewportApp) {
     // value (equal to start) so motion only begins next frame, matching
     // the native runner.
     sys::tick_tweens(&mut app.world, &mut app.tween_manager, dt);
-
-    // Particle simulation in play mode (editor mode also calls this
-    // path inside render_editor — but only the playing tick advances
-    // emission timers, so we drive it here too).
-    jengine_core::particles::tick_particles(&app.world, &mut app.particle_system, dt);
-
-    // Apply the active `Camera2DComponent` (zoom, viewport size,
-    // position) and smooth toward any `CameraFollow` target. Only
-    // active in Game-tab mode (signaled by JS via
-    // `viewport_set_camera_size`); in Scene-tab mode the user
-    // controls the editor camera freely while play ticks.
-    if app.game_viewport.is_some() {
-        // To the canvas first, as native and web do: `update_camera` fits the
-        // camera to whatever size it holds, and the render leaves it at a
-        // fitted world size - harmless to refit, but an integer-scaled view
-        // (`Camera2D::integer_view`) needs the canvas's pixels.
-        let UVec2 { x: cw, y: ch } = app.canvas_size;
-        app.camera.resize(cw as f32, ch as f32);
-        sys::update_camera(&app.world, &mut app.camera, dt);
-    }
-    // P1.3 — drain camera-shake requests queued by scripts this
-    // tick (via the browser-JS `cmsh` command dispatcher) and
-    // advance the shake decay. Only meaningful in Game-tab mode but
-    // harmless to run unconditionally — a zero-amplitude shake is a
-    // no-op.
-    for (amp, dur, freq) in app.pending_camera_shakes.drain(..) {
-        app.camera.start_shake(amp, dur, freq);
-    }
-    app.camera.tick_effects(dt);
-
-    // Slice 3.5.C — advance skeletal animation players in play mode.
-    // The resolver call in `render_editor` will then pick up the new
-    // bone poses on the same frame. Edit mode intentionally does NOT
-    // run this so the inspector can author bind / static poses
-    // without playback fighting the user.
-    jengine_core::animation::skeletal::update_skeletal_players(
-        &mut app.world,
-        app.assets.skeletal_clips(),
-        dt,
-    );
-    // Slice 3.5.F — apply IK constraints (only in play mode, mirroring
-    // the skeletal player). The render_editor resolver call picks up
-    // the resulting pose on the same frame.
-    jengine_core::animation::ik::solve_ik(&mut app.world);
-
-    // ── package systems: Animation + PreRender ────────────────────────────
-    // `PreRender` is where `parallax_scroll` lives, and it reads the active
-    // camera, so it has to run after everything that could move the camera
-    // this tick. `Render` / `PostRender` are not run here for the same reason
-    // as natively: no renderer is shared through the `ResourceMap`, so a draw
-    // system would run and silently draw nothing.
-    app.package_host.run_phase_with(
-        SystemPhase::Animation,
-        &mut app.world,
-        dt,
-        jengine_core::package::host::FrameResources { input: &mut app.input, assets: &mut app.assets, camera: app.camera },
-    );
-    app.package_host.run_phase_with(
-        SystemPhase::PreRender,
-        &mut app.world,
-        dt,
-        jengine_core::package::host::FrameResources { input: &mut app.input, assets: &mut app.assets, camera: app.camera },
-    );
-    // Sprites a package spawned or re-regioned in the phases since the last
-    // resolve draw right on their first frame (BUGS #110).
-    jengine_core::ecs::systems::resolve_sprite_regions(&mut app.world, &app.assets);
-
-    // Stage 2.8 — fold totals into FrameStats. `update_ms` is
-    // tick-total minus physics minus script (i.e. velocity, behaviors,
-    // animations, particles, lifetime cleanup).
-    let total_ms = (perf_now_ms() - tick_start) as f32;
-    app.frame_stats.physics_time_ms = physics_ms;
-    app.frame_stats.script_time_ms = script_ms;
-    app.frame_stats.update_time_ms = (total_ms - physics_ms - script_ms).max(0.0);
+    (physics_ms, script_ms)
 }
 
 // ---------------------------------------------------------------------------
@@ -5366,11 +5446,14 @@ pub fn viewport_add_scene_chunk(handle: u32, scene_json: &str, scripts_json: &st
         return Ok(());
     }
     with_app(|app| {
-        let scene_json = jengine_core::scene::expand_prefab_instances_in_json(scene_json, &app.prefabs, "viewport");
         let mut chunk = World::new();
-        if let Err(e) = load_scene_auto(&scene_json, &mut chunk, &app.registry) {
+        let loaded = parse_scene(scene_json, &app.prefabs).and_then(|(scene, _)| {
+            load_scene_value(scene, &mut chunk, &app.registry)
+                .map_err(|e| JsValue::from_str(&format!("parse chunk: {e}")))
+        });
+        if let Err(e) = loaded {
             st::set_status(handle, Status::Failed);
-            return Err(JsValue::from_str(&format!("parse chunk: {e}")));
+            return Err(e);
         }
         let pairs = st::merge(&mut app.world, chunk, handle, glam::Vec2::new(x, y));
         let sources = serde_json::from_str::<Vec<ScriptSource>>(scripts_json).unwrap_or_default();

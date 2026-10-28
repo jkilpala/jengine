@@ -173,6 +173,7 @@ lower `priority` runs first.
 
 | Phase | When it runs | Typical use |
 |---|---|---|
+| `Frame` | once a display frame, before any gameplay step | the network, a lockstep session's step gate |
 | `PreUpdate` | before scripts | input, resetting per-frame state |
 | `ScriptExec` | after the script system | reacting to what scripts queued |
 | `Physics` | after the runtime's physics step | reading this frame's simulation |
@@ -180,6 +181,11 @@ lower `priority` runs first.
 | `Animation` | after skeleton, IK and hierarchy resolve | anything reading final transforms |
 | `PreRender` | just before the draw | camera-relative work (parallax) |
 | `Render`, `PostRender` | **not run** | a package cannot draw directly yet |
+
+With **fixed-step gameplay** (`settings.simulation_hz`), `PreUpdate`, `ScriptExec`, `Physics` and
+`PostPhysics` run inside each step, so a frame may run them several times or not at all, each with the
+step's fixed `dt`; `Frame`, `Animation` and `PreRender` still run once a frame. Without it, a frame is
+one step and every phase runs once.
 
 Never panic in a system: it runs inside the frame. Log and return.
 
@@ -250,6 +256,48 @@ A package may depend on another package's crate to use its types (`jengine-onlin
 server through `jengine-net`'s channel). Name every such package in `PackageMetadata::dependencies` -
 `every_cargo_dependency_on_a_package_is_declared` checks it - and remember that projects must list
 both packages.
+
+### Using an engine feature
+
+Most of the engine's optional subsystems - fluids, mirrors, navigation, dialogue, spline shapes, noise,
+IK, the 3D stage and seventy-odd more - are **engine features**: Cargo features of `jengine-core`,
+and a game's build compiles in only the ones its project uses. A package depends on core with
+`default-features = false`, so it gets **none** of them unless it names them:
+
+```toml
+# This package's course is drawn and collided as spline shapes.
+jengine-core = { path = "../jengine/crates/jengine-core", default-features = false, features = ["spline_shape"] }
+```
+
+The scaffold's `Cargo.toml` has that line with the path to your engine filled in; add the features
+there (and to the `wasm32` dependency below it, beside `web`).
+
+Cargo unifies features across a build, so a game using the package carries the feature whatever its
+own content says. Forgetting one is a compile error: a feature's types live in its own module, and
+code naming them does not build without it. The one quiet way to miss it is to make a feature's
+component only from data - a JSON bundle with its key - without naming any of its types; the load then
+says once which feature the build lacks. Name the feature anyway. The list of features, with the
+components and script namespaces each owns, is `jengine_core::features::ALL`.
+
+### Simulation maths: `detmath`
+
+A game plays out the same on every platform only if every number that decides what happens is the
+same bits everywhere. `+`, `-`, `*`, `/` and `sqrt` are; `f32::sin`, `atan2`, `exp`, `powf` and the
+rest are not - they are the platform's maths library, and differ in the last bit between Windows, macOS
+and wasm, which is enough for a match from one seed to end differently. So in code that decides what
+happens, use `jengine_core::detmath::DetMath`:
+
+```rust
+use jengine_core::detmath::DetMath;
+let (s, c) = heading.dsin_cos();
+let slip = (lateral / forward).datan();
+let decay = (-rate * dt).dexp();
+```
+
+It is `libm` underneath: the same answer on every platform. The physics already is (rapier runs with
+`enhanced-determinism`). It matters most for a package used online with lockstep or input-only
+multiplayer, where two machines that disagree in one bit drift apart - but it costs little, so use it
+everywhere. Pin it with a test that plays a fixed match from a seed and checks a hash of what happened.
 
 ### Testing
 

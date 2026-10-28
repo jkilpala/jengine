@@ -100,7 +100,7 @@ fn the_scene_format_keeps_the_flag_and_not_the_outline() {
     let (mut world, mut assets) = world_with(LightOccluder { from_alpha: true, alpha_tolerance: 2.0, ..Default::default() });
     apply_carves(&mut world, &mut assets);
     let scene = jengine_core::scene::format::save_scene(&world);
-    let occ = scene.entities.iter().find_map(|e| e.components.light_occluder.as_ref()).expect("saved");
+    let occ = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::ecs::components::LightOccluder>("light_occluder")).expect("saved");
     assert!(occ.from_alpha && occ.alpha_tolerance == 2.0);
     let json = serde_json::to_value(occ).unwrap();
     assert!(json.get("traced").is_none(), "the outline is worked out, not authored");

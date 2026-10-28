@@ -181,6 +181,9 @@ impl Inner {
             //
             // https://developer.apple.com/documentation/uikit/uiview/1622437-setneedsdisplay?language=objc
             app_state::queue_gl_or_metal_redraw(mtm, self.window.clone());
+        } else if super::frame_rate::want_redraw(&self.window) {
+            // jEngine patch: the display link delivers it, at the screen's
+            // full rate (`frame_rate.rs`).
         } else {
             // jEngine patch: on the next turn of the run loop, not now.
             // `RedrawRequested` is delivered from inside `drawRect:`, and a

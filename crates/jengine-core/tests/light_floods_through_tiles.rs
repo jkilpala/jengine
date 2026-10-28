@@ -6,6 +6,7 @@
 //! is unit-tested in the module; this runs it through `sync` (the texture),
 //! `gather_lights` and `light_at_textured`, which is what the screen shows,
 //! and through `TileLight.set`. Found by the showcase's Torchlit Depths.
+#![cfg(feature = "tile_light")]
 
 use glam::Vec2;
 use hecs::World;

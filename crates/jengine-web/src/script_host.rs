@@ -40,7 +40,9 @@ use super::WebApp;
 // ---------------------------------------------------------------------------
 
 fn log_line(msg: &str) {
-    web_sys::console::log_1(&JsValue::from_str(msg));
+    if super::logs_on() {
+        web_sys::console::log_1(&JsValue::from_str(msg));
+    }
 }
 fn warn_line(msg: &str) {
     web_sys::console::warn_1(&JsValue::from_str(msg));
@@ -178,6 +180,7 @@ pub fn seed_prefab_scripts(scripts_json: &str) {
 /// Add scripts to `window.__jengine_play.prefab_scripts` - the modules
 /// `require` reads - keeping those already there. An asset pack's scripts
 /// arrive this way when it mounts.
+#[cfg(feature = "packs")]
 pub fn add_prefab_scripts(scripts_json: &str) {
     let Some(play) = play_namespace() else { return };
     let Ok(added) = js_sys::JSON::parse(scripts_json) else {
@@ -419,6 +422,7 @@ pub fn install_scripts(app: &mut WebApp, loaded: Vec<LoadedScript>) {
     app.script_cache.clear();
     app.tween_manager = jengine_core::animation::tween::TweenManager::new();
     // A new world stops the old one's films.
+    #[cfg(feature = "video")]
     app.video.clear();
     app.play_namespace_ready = false;
     // Spawn handles, published tilemaps, the scene's timers and listeners.

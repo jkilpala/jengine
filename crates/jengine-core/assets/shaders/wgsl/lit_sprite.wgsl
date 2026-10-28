@@ -12,7 +12,7 @@
 //
 // Vertex layout matches `WgpuSpriteBatch`'s quads:
 //   location 0: vec2 position  (world-space, pre-transformed)
-//   location 1: vec2 uv
+//   location 1: vec3 uv     (u q, v q, q) - q is 1 but for a mesh in perspective
 //   location 2: vec4 color
 
 struct Globals {
@@ -31,14 +31,14 @@ struct Globals {
 
 struct VsIn {
     @location(0) position: vec2<f32>,
-    @location(1) uv:       vec2<f32>,
+    @location(1) uv:       vec3<f32>,
     @location(2) color:    vec4<f32>,
 };
 
 struct VsOut {
     @builtin(position) clip_position: vec4<f32>,
     @location(0)       world_pos:     vec2<f32>,
-    @location(1)       uv:            vec2<f32>,
+    @location(1)       uv:            vec3<f32>,
     @location(2)       color:         vec4<f32>,
 };
 
@@ -72,8 +72,10 @@ struct NormalOut {
 fn fs_normal(in: VsOut) -> NormalOut {
     // Both samples before the discard: sampling after a non-uniform
     // `discard` is not uniform control flow.
-    let coverage = textureSample(u_diffuse, u_diffuse_sampler, in.uv).a * in.color.a;
-    let sampled = textureSample(u_normal, u_normal_sampler, in.uv);
+    // Divided per pixel: a mesh in perspective carries its weight in `z`.
+    let uv = in.uv.xy / in.uv.z;
+    let coverage = textureSample(u_diffuse, u_diffuse_sampler, uv).a * in.color.a;
+    let sampled = textureSample(u_normal, u_normal_sampler, uv);
     let enc = sampled.xyz;
     if (coverage < 0.01) {
         discard;

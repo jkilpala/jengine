@@ -2,6 +2,7 @@
 //! file draws in it - any script the file covers - its glyphs baked into a
 //! distance-field atlas the first time a text asks for them
 //! (`renderer::dynamic_font`).
+#![cfg(feature = "dynamic_font")]
 
 use std::path::PathBuf;
 

@@ -4,6 +4,7 @@
 //! follows a kart from behind, the kart shows the view of itself the camera
 //! sees, and scripts move things through the commands' own paths (`m7p`,
 //! `m7s`). Found by the showcase's Kart Circuit.
+#![cfg(feature = "mode7")]
 
 use hecs::{Entity, World};
 use jengine_core::ecs::components::{Name, SpriteComponent, Transform};

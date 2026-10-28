@@ -11,6 +11,7 @@ pub mod asset_id;
 pub use asset_id::{AssetId, MaterialId, TextureId};
 pub mod watcher;
 /// Parts of a game downloaded when needed (`settings.asset_packs`).
+#[cfg(feature = "packs")]
 pub mod packs;
 
 use std::collections::{HashMap, HashSet};
@@ -31,16 +32,20 @@ pub fn find_in_roots(rel: &str, roots: &[std::path::PathBuf]) -> Option<std::pat
             return Some(candidate);
         }
     }
+    #[cfg(feature = "packs")]
     if let Some(p) = packs::locate(rel)
         && p.is_file()
     {
         return Some(p);
     }
-    packs::base_roots()
+    #[cfg(feature = "packs")]
+    return packs::base_roots()
         .into_iter()
         .filter(|b| !roots.contains(b))
         .map(|b| b.join(rel))
-        .find(|c| c.is_file())
+        .find(|c| c.is_file());
+    #[cfg(not(feature = "packs"))]
+    return None;
 }
 
 use crate::animation::rig::SkeletonRig;
@@ -211,6 +216,33 @@ pub struct AssetManager {
     /// first change, dropped when its bytes or its upload are replaced.
     #[cfg(feature = "gpu-wgpu")]
     mip_cache: HashMap<String, Vec<(u32, u32, Vec<u8>)>>,
+    /// Draws a linear texture's mip levels on the GPU when it is uploaded
+    /// (`renderer::backend::wgpu::mipmap`). Made on the first upload, for the
+    /// device the textures here live on, and dropped with them.
+    #[cfg(feature = "gpu-wgpu")]
+    mip_generator: Option<crate::renderer::backend::wgpu::MipGenerator>,
+}
+
+/// Upload `raw` filtered by `filter`: a linear texture's mip levels drawn on
+/// the GPU (the generator made on first need), a nearest one a single level.
+#[cfg(feature = "gpu-wgpu")]
+fn upload_filtered(
+    generator: &mut Option<crate::renderer::backend::wgpu::MipGenerator>,
+    device: &wgpu::Device,
+    queue: &wgpu::Queue,
+    raw: &RawTextureData,
+    filter: crate::renderer::texture_filter::TextureFilter,
+    srgb: bool,
+) -> anyhow::Result<crate::renderer::backend::wgpu::WgpuTexture> {
+    use crate::renderer::backend::wgpu::{MipGenerator, WgpuTexture};
+    use crate::renderer::texture_filter::TextureFilter;
+    match filter {
+        TextureFilter::Nearest => WgpuTexture::from_rgba_filtered(device, queue, raw.width, raw.height, &raw.rgba, filter, srgb),
+        TextureFilter::Linear => {
+            let mips = generator.get_or_insert_with(|| MipGenerator::new(device));
+            WgpuTexture::from_rgba_filtered_gpu_mips(device, queue, mips, raw.width, raw.height, &raw.rgba, filter, srgb)
+        }
+    }
 }
 
 impl Default for AssetManager {
@@ -242,6 +274,8 @@ impl AssetManager {
             texture_revisions: HashMap::new(),
             #[cfg(feature = "gpu-wgpu")]
             mip_cache: HashMap::new(),
+            #[cfg(feature = "gpu-wgpu")]
+            mip_generator: None,
         };
         // Built in rather than inserted by each host: three separate
         // registrations is how `__white` ended up duplicated in the viewport,
@@ -529,7 +563,7 @@ impl AssetManager {
                 WgpuTexture::from_rgba_sdf(device, queue, raw.width, raw.height, &raw.rgba)?
             } else {
                 let filter = self.texture_filters.filter_for(id);
-                WgpuTexture::from_rgba_filtered(device, queue, raw.width, raw.height, &raw.rgba, filter, true)?
+                upload_filtered(&mut self.mip_generator, device, queue, raw, filter, true)?
             };
             // Uploaded whole: any patched chain kept for it is not this one.
             self.mip_cache.remove(id);
@@ -552,7 +586,6 @@ impl AssetManager {
         device: &wgpu::Device,
         queue: &wgpu::Queue,
     ) -> anyhow::Result<&crate::renderer::backend::wgpu::WgpuTexture> {
-        use crate::renderer::backend::wgpu::WgpuTexture;
         let key = normal_texture_key(id);
         // A normal map changed at runtime (`Sprite.press`) is patched where
         // it changed, as a colour texture is.
@@ -565,7 +598,7 @@ impl AssetManager {
             // Filtered like the colour it goes with: a smooth sprite with a
             // point-sampled normal map lights in blocks.
             let filter = self.texture_filters.filter_for(id);
-            let tex = WgpuTexture::from_rgba_filtered(device, queue, raw.width, raw.height, &raw.rgba, filter, false)?;
+            let tex = upload_filtered(&mut self.mip_generator, device, queue, raw, filter, false)?;
             self.mip_cache.remove(&key);
             self.wgpu_textures.insert(key.clone(), tex);
         }
@@ -604,6 +637,7 @@ impl AssetManager {
     #[cfg(feature = "gpu-wgpu")]
     pub fn destroy_wgpu_textures(&mut self) {
         self.wgpu_textures.clear();
+        self.mip_generator = None;
     }
 
     // -- Atlas metadata --

@@ -62,6 +62,7 @@ pub fn to_script_command_opt(cmd: BridgeCommand) -> Option<ScriptCommand> {
                 components: Box::new(None),
                 spawn_id: Some(spawn_id),
                 children: Vec::new(),
+                prepared: None,
             }
         }
         BridgeCommand::SpawnRig { rig_id, spawn_id } => {
@@ -410,6 +411,8 @@ pub fn to_script_command_opt(cmd: BridgeCommand) -> Option<ScriptCommand> {
         BridgeCommand::UiDrop { entity_id, slot } => ScriptCommand::UiDrop { entity_id, slot },
         BridgeCommand::Mode7Place { entity_id, x, y, angle } => ScriptCommand::Mode7Place { entity_id, x, y, angle },
         BridgeCommand::Mode7Set { entity_id, field, value } => ScriptCommand::Mode7Set { entity_id, field, value },
+        BridgeCommand::StagePlace { entity_id, x, y, z } => ScriptCommand::StagePlace { entity_id, x, y, z },
+        BridgeCommand::StageSet { entity_id, field, value } => ScriptCommand::StageSet { entity_id, field, value },
         BridgeCommand::SpriteTiltSet { entity_id, field, value } => ScriptCommand::SpriteTiltSet { entity_id, field, value },
         BridgeCommand::AfterimageSet { entity_id, field, value } => ScriptCommand::AfterimageSet { entity_id, field, value },
         BridgeCommand::PhysicsSlice { x0, y0, x1, y1 } => ScriptCommand::PhysicsSlice { x0, y0, x1, y1 },

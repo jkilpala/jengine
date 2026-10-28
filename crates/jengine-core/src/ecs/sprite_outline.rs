@@ -21,8 +21,6 @@ use glam::Vec2;
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
 
-use crate::ecs::components::{SpriteComponent, WorldTransform};
-
 /// A glowing ring round the sprite's shape.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
@@ -63,29 +61,8 @@ impl SpriteOutline {
     }
 }
 
-/// The ring's quad: the sprite's own grown by `reach` world units on every
-/// side, and each corner's texture coordinate carried on past the sprite's
-/// `uv` rectangle at the same rate - so the picture lands where it is drawn
-/// and the margin reads outside it. Corners bottom-left first,
-/// anticlockwise, as `(position, [u, v, 1])`.
-pub fn quad(sprite: &SpriteComponent, wt: &WorldTransform, size: Vec2, uv: [f32; 4], reach: f32) -> [(Vec2, [f32; 3]); 4] {
-    let (ax, ay) = (sprite.anchor[0], sprite.anchor[1]);
-    // The reach in the sprite's own units: the transform scales it up again.
-    let scale = Vec2::new(wt.scale.x.abs().max(1e-6), wt.scale.y.abs().max(1e-6));
-    let grow = Vec2::splat(reach) / scale;
-    let size = size.max(Vec2::splat(1e-6));
-    let corner = |fx: f32, fy: f32| {
-        // fx, fy: 0 and 1 are the sprite's own edges; the grown corners lie
-        // past them.
-        let local = Vec2::new((fx - ax) * size.x, (fy - ay) * size.y);
-        let u = uv[0] + (uv[2] - uv[0]) * fx;
-        // v runs down the texture: the bottom edge is v1.
-        let v = uv[3] + (uv[1] - uv[3]) * fy;
-        (wt.apply(local), [u, v, 1.0])
-    };
-    let (lo, hi) = (-grow / size, Vec2::ONE + grow / size);
-    [corner(lo.x, lo.y), corner(hi.x, lo.y), corner(hi.x, hi.y), corner(lo.x, hi.y)]
-}
+
+pub use super::sprite_quad::grown as quad;
 
 /// The outline's style as the default sprite shader's parameters, in the
 /// bits a draw item carries: `params[0]` the `uv` rectangle (samples past it
@@ -136,6 +113,7 @@ pub fn set_field(world: &mut World, e: Entity, field: &str, value: &serde_json::
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::ecs::components::{SpriteComponent, WorldTransform};
 
     fn sprite() -> SpriteComponent {
         SpriteComponent { size: Some([40.0, 20.0]), ..Default::default() }

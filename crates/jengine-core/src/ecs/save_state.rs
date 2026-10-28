@@ -21,14 +21,8 @@ use hecs::{Entity, World};
 
 use crate::ecs::components::{CustomComponents, Name, Parent};
 
-/// One body as the physics had it.
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub struct BodyState {
-    pub position: [f32; 2],
-    pub rotation: f32,
-    pub velocity: [f32; 2],
-    pub spin: f32,
-}
+
+pub use crate::physics::BodyState;
 
 #[derive(Debug, Clone, PartialEq)]
 struct SavedEntity {

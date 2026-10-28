@@ -1,5 +1,6 @@
 //! 2D orthographic camera.
 
+use crate::detmath::DetMath;
 use glam::{Mat4, Vec2};
 
 /// What a camera's pass draws (`Camera2D::pass`).
@@ -181,10 +182,10 @@ impl Camera2D {
         // pseudo-noise that avoids the obvious "back-and-forth" look of a
         // single sin().
         let t = self.shake_phase;
-        let sx = (t * std::f32::consts::TAU).sin()
-            + 0.5 * (t * std::f32::consts::TAU * 1.7).sin();
-        let sy = (t * std::f32::consts::TAU * 1.13 + 1.7).sin()
-            + 0.5 * (t * std::f32::consts::TAU * 2.3 + 0.3).sin();
+        let sx = (t * std::f32::consts::TAU).dsin()
+            + 0.5 * (t * std::f32::consts::TAU * 1.7).dsin();
+        let sy = (t * std::f32::consts::TAU * 1.13 + 1.7).dsin()
+            + 0.5 * (t * std::f32::consts::TAU * 2.3 + 0.3).dsin();
         let amp = self.shake_amp * decay;
         self.shake_offset = Vec2::new(sx, sy) * (amp / 1.5);
         self.shake_remaining = (self.shake_remaining - dt).max(0.0);
@@ -279,7 +280,7 @@ impl Camera2D {
         let nx = (point.x - sw * 0.5) / sw;
         let ny = (sh * 0.5 - point.y) / sh;
         let offset = Vec2::new(nx * (vw / zoom), ny * (vh / zoom));
-        let (sin, cos) = self.rotation.sin_cos();
+        let (sin, cos) = self.rotation.dsin_cos();
         let turned = Vec2::new(offset.x * cos - offset.y * sin, offset.x * sin + offset.y * cos);
         self.position + turned
     }
@@ -289,7 +290,7 @@ impl Camera2D {
     pub fn half_extents(&self) -> Vec2 {
         let zoom = if self.zoom > 0.0 { self.zoom } else { 1.0 };
         let (hw, hh) = (self.viewport_width * 0.5 / zoom, self.viewport_height * 0.5 / zoom);
-        let (sin, cos) = self.rotation.sin_cos();
+        let (sin, cos) = self.rotation.dsin_cos();
         Vec2::new(hw * cos.abs() + hh * sin.abs(), hw * sin.abs() + hh * cos.abs())
     }
 

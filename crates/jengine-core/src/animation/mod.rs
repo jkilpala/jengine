@@ -6,8 +6,11 @@ pub mod tween;
 pub mod asset;
 pub mod skeletal;
 pub mod rig;
+#[cfg(feature = "skinned_mesh")]
 pub mod skinned_mesh;
+#[cfg(feature = "ik")]
 pub mod ik;
+#[cfg(feature = "jiggle")]
 pub mod jiggle;
 
 use std::collections::HashMap;

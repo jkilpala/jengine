@@ -52,6 +52,7 @@ fn a_spawned_prefab_gets_its_registered_components() {
             components: Box::new(Some(data.components)),
             spawn_id: Some(FIRST_SPAWN_ID + 900),
             children: Vec::new(),
+            prepared: None,
         }],
         None,
         None,

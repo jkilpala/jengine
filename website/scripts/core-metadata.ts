@@ -2,13 +2,15 @@
  * core-metadata.ts
  *
  * What the engine source says about its own script functions and components,
- * for the AI spec. Two sources:
+ * for the AI spec and the components page. Two sources:
  *
  *   - `package/core_script_api.rs`: one `reg!(api, "flat_name", "description",
  *     Ret, "arg" => Type, ...)` per core script function - the descriptions the
  *     editor shows as tooltips;
  *   - `package/core_registration.rs`: every `register::<Type>("scene_key", ...)`,
- *     whose types' doc comments and fields live somewhere under `src/`.
+ *     whose types' doc comments and fields live somewhere under `src/` -
+ *     and the `engine_features!` table in `features.rs`, which says which
+ *     engine feature a component belongs to.
  */
 
 import { readFileSync, readdirSync, statSync, existsSync } from 'fs';
@@ -49,6 +51,15 @@ export interface ComponentMeta {
   name: string;
   description: string;
   fields: ComponentFieldMeta[];
+  /** The editor's name for it, and the group it is listed under there. */
+  label: string;
+  category: string;
+  /** The whole `///` block, paragraphs separated by blank lines. */
+  doc: string;
+  /** Where the type is defined, relative to the repository root. */
+  file: string;
+  /** The engine feature that carries it, if it is not in every build. */
+  feature?: string;
 }
 
 function rustFiles(dir: string): string[] {
@@ -73,6 +84,35 @@ function firstParagraph(lines: string[]): string {
     .trim();
 }
 
+/** A whole `///` block, its paragraphs kept apart, rustdoc links unwrapped. */
+function wholeDoc(lines: string[]): string {
+  const paras: string[] = [];
+  let para: string[] = [];
+  for (const l of [...lines, '']) {
+    if (l.trim()) { para.push(l.trim()); continue; }
+    if (para.length) paras.push(para.join(' '));
+    para = [];
+  }
+  return paras.join('\n\n').replace(/\[(`[^`\]]+`)\](\([^)]*\))?/g, '$1').trim();
+}
+
+/**
+ * Component key -> the engine feature it belongs to, from the
+ * `engine_features!` table in `features.rs`: each row names the feature and
+ * then lists its component keys.
+ */
+export function componentFeatures(): Map<string, string> {
+  const path = join(CORE_SRC, 'features.rs');
+  const out = new Map<string, string>();
+  if (!existsSync(path)) return out;
+  const src = readFileSync(path, 'utf-8');
+  const table = src.slice(src.indexOf('engine_features! {'));
+  for (const m of table.matchAll(/^\s*"([a-z0-9_]+)":\s*\[([^\]]*)\]/gm)) {
+    for (const key of m[2].matchAll(/"([^"]+)"/g)) out.set(key[1], m[1]);
+  }
+  return out;
+}
+
 /** The `///` lines directly above line `i` (attributes in between are skipped). */
 function docAbove(lines: string[], i: number): string[] {
   const doc: string[] = [];
@@ -90,21 +130,29 @@ export function coreComponentMeta(): ComponentMeta[] {
   const regPath = join(CORE_SRC, 'package/core_registration.rs');
   if (!existsSync(regPath)) return [];
   const reg = readFileSync(regPath, 'utf-8');
-  const pairs = [...reg.matchAll(/\.register(?:_defaulted)?::<\s*([\w:]+)\s*>\(\s*"([^"]+)"/g)]
-    .map(m => ({ type: m[1].split('::').pop()!, key: m[2] }));
+  const pairs = [...reg.matchAll(/\.register(?:_defaulted)?::<\s*([\w:]+)\s*>\(\s*"([^"]+)"(?:\s*,\s*"([^"]*)"\s*,\s*"([^"]*)")?/g)]
+    .map(m => ({ type: m[1].split('::').pop()!, key: m[2], label: m[3] ?? m[2], category: m[4] ?? '' }));
+  const features = componentFeatures();
 
-  const sources = rustFiles(CORE_SRC).map(p => readFileSync(p, 'utf-8').replace(/\r\n/g, '\n').split('\n'));
+  const sources = rustFiles(CORE_SRC).map(p => ({
+    file: p.slice(REPO_ROOT.length + 1).replace(/\\/g, '/'),
+    lines: readFileSync(p, 'utf-8').replace(/\r\n/g, '\n').split('\n'),
+  }));
   const out: ComponentMeta[] = [];
   const seen = new Set<string>();
-  for (const { type, key } of pairs) {
+  for (const { type, key, label, category } of pairs) {
     if (seen.has(key)) continue;
     seen.add(key);
     let description = '';
+    let doc = '';
+    let file = '';
     const fields: ComponentFieldMeta[] = [];
-    for (const lines of sources) {
+    for (const { file: path, lines } of sources) {
       const i = lines.findIndex(l => new RegExp(`^pub struct ${type}\\b`).test(l));
       if (i < 0) continue;
+      file = path;
       description = firstParagraph(docAbove(lines, i));
+      doc = wholeDoc(docAbove(lines, i));
       if (/\{\s*$/.test(lines[i])) {
         for (let k = i + 1; k < lines.length && !/^\}/.test(lines[k]); k++) {
           const f = lines[k].match(/^\s{4}pub (\w+):\s*(.+?),?\s*(\/\/.*)?$/);
@@ -119,7 +167,7 @@ export function coreComponentMeta(): ComponentMeta[] {
       }
       break;
     }
-    out.push({ sceneKey: key, name: type, description, fields });
+    out.push({ sceneKey: key, name: type, description, fields, label, category, doc, file, feature: features.get(key) });
   }
   return out;
 }

@@ -43,15 +43,25 @@ const VIGNETTE_WGSL:    &str = include_str!("../../../../assets/shaders/wgsl/vig
 const COLOR_GRADE_WGSL: &str = include_str!("../../../../assets/shaders/wgsl/color_grade.wgsl");
 const CHROMATIC_WGSL:   &str = include_str!("../../../../assets/shaders/wgsl/chromatic.wgsl");
 const OUTPUT_WGSL:      &str = include_str!("../../../../assets/shaders/wgsl/output.wgsl");
+#[cfg(feature = "pixelate")]
 const PIXELATE_WGSL:    &str = include_str!("../../../../assets/shaders/wgsl/pixelate.wgsl");
+#[cfg(feature = "crt")]
 const CRT_WGSL:         &str = include_str!("../../../../assets/shaders/wgsl/crt.wgsl");
+#[cfg(feature = "light_shafts")]
 const LIGHT_SHAFTS_WGSL: &str = include_str!("../../../../assets/shaders/wgsl/light_shafts.wgsl");
+#[cfg(feature = "tilt_shift")]
 const TILT_SHIFT_WGSL: &str = include_str!("../../../../assets/shaders/wgsl/tilt_shift.wgsl");
+#[cfg(feature = "motion_blur")]
 const MOTION_BLUR_WGSL: &str = include_str!("../../../../assets/shaders/wgsl/motion_blur.wgsl");
+#[cfg(feature = "lens_flare")]
 const LENS_FLARE_WGSL: &str = include_str!("../../../../assets/shaders/wgsl/lens_flare.wgsl");
+#[cfg(feature = "depth_of_field")]
 const DEPTH_OF_FIELD_WGSL: &str = include_str!("../../../../assets/shaders/wgsl/depth_of_field.wgsl");
+#[cfg(feature = "depth_haze")]
+const DEPTH_HAZE_WGSL: &str = include_str!("../../../../assets/shaders/wgsl/depth_haze.wgsl");
 
 /// `lens_flare`: see `lens_flare.wgsl`.
+#[cfg(feature = "lens_flare")]
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable)]
 struct LensFlareU {
@@ -69,6 +79,7 @@ struct LensFlareU {
     texel:      [f32; 2],
     tint:       [f32; 4],
 }
+#[cfg(feature = "lens_flare")]
 impl LensFlareU {
     fn new(params: &std::collections::HashMap<String, UniformValue>, width: u32, height: u32) -> Self {
         Self {
@@ -92,6 +103,7 @@ impl LensFlareU {
 }
 
 /// The lens flare works on a copy a quarter of the frame's size.
+#[cfg(feature = "lens_flare")]
 fn lens_flare_size(width: u32, height: u32) -> (u32, u32) {
     ((width / 4).max(1), (height / 4).max(1))
 }
@@ -103,12 +115,14 @@ pub const VELOCITY_FORMAT: TextureFormat = TextureFormat::Rgba16Float;
 /// `motion_blur`: see `motion_blur.wgsl`.
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable)]
+#[cfg(feature = "motion_blur")]
 struct MotionBlurU {
     shutter: f32,
     samples: f32,
     max_len: f32,
     texel:   f32,
 }
+#[cfg(feature = "motion_blur")]
 impl MotionBlurU {
     fn from_params(params: &std::collections::HashMap<String, UniformValue>, width: u32) -> Self {
         Self {
@@ -123,12 +137,14 @@ impl MotionBlurU {
 /// `depth_of_field`: see `depth_of_field.wgsl`.
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable)]
+#[cfg(feature = "depth_of_field")]
 struct DepthOfFieldU {
     focus:      f32,
     range:      f32,
     strength:   f32,
     max_radius: f32,
 }
+#[cfg(feature = "depth_of_field")]
 impl DepthOfFieldU {
     fn from_params(params: &std::collections::HashMap<String, UniformValue>) -> Self {
         Self {
@@ -136,6 +152,30 @@ impl DepthOfFieldU {
             range:      get_f32(params, "range").unwrap_or(0.0).max(0.0),
             strength:   get_f32(params, "strength").unwrap_or(1.0).max(0.0),
             max_radius: get_f32(params, "max_radius").unwrap_or(12.0).clamp(0.0, 32.0),
+        }
+    }
+}
+
+/// `depth_haze`: see `depth_haze.wgsl`.
+#[cfg(feature = "depth_haze")]
+#[repr(C)]
+#[derive(Copy, Clone, Pod, Zeroable)]
+struct DepthHazeU {
+    color: [f32; 4],
+    near:  f32,
+    far:   f32,
+    sky:   f32,
+    curve: f32,
+}
+#[cfg(feature = "depth_haze")]
+impl DepthHazeU {
+    fn from_params(params: &std::collections::HashMap<String, UniformValue>) -> Self {
+        Self {
+            color: get_vec4(params, "color").unwrap_or([0.55, 0.62, 0.8, 0.6]),
+            near:  get_f32(params, "near").unwrap_or(0.0),
+            far:   get_f32(params, "far").unwrap_or(-300.0),
+            sky:   get_f32(params, "sky").unwrap_or(0.0).clamp(0.0, 1.0),
+            curve: get_f32(params, "curve").unwrap_or(1.0).clamp(0.05, 8.0),
         }
     }
 }
@@ -248,11 +288,13 @@ impl ChromaticU {
 /// pixels, the grid anchored to the world. See `pixelate.wgsl`.
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable, Debug, PartialEq)]
+#[cfg(feature = "pixelate")]
 pub(crate) struct PixelateU {
     cell:   f32,
     _pad:   f32,
     offset: [f32; 2],
 }
+#[cfg(feature = "pixelate")]
 impl PixelateU {
     /// `lines` (default 180) is the art's vertical resolution. The grid's
     /// origin is where world (0, 0) falls on a `width` x `height` target
@@ -281,12 +323,14 @@ impl PixelateU {
 /// `crt`: scanlines, an RGB mask and a curved screen. See `crt.wgsl`.
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable)]
+#[cfg(feature = "crt")]
 struct CrtU {
     lines:     f32,
     scanline:  f32,
     mask:      f32,
     curvature: f32,
 }
+#[cfg(feature = "crt")]
 impl CrtU {
     fn from_params(params: &std::collections::HashMap<String, UniformValue>) -> Self {
         Self {
@@ -303,6 +347,7 @@ impl CrtU {
 /// it. See `tilt_shift.wgsl`.
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable)]
+#[cfg(feature = "tilt_shift")]
 pub(crate) struct TiltShiftU {
     focus_v: f32,
     band:    f32,
@@ -316,6 +361,7 @@ pub(crate) struct TiltShiftU {
     /// The rectangle's centre and half size, in uv.
     rect:    [f32; 4],
 }
+#[cfg(feature = "tilt_shift")]
 impl TiltShiftU {
     /// `focus_y`, `band` and `falloff` are **world** units - the band sits
     /// on a street of the town, not a row of the screen, and follows it as
@@ -358,7 +404,9 @@ impl TiltShiftU {
 /// `falloff` world units outside it - the room you are in, the world
 /// outside it out of focus. The rectangle is put on the screen through
 /// `view` (an unturned camera's); with no view it is taken as uv.
+#[cfg(feature = "tilt_shift")]
 pub(crate) struct BlurU;
+#[cfg(feature = "tilt_shift")]
 impl BlurU {
     pub(crate) fn uniform(
         params: &std::collections::HashMap<String, UniformValue>,
@@ -403,6 +451,7 @@ impl BlurU {
 /// stands before it. See `light_shafts.wgsl`.
 #[repr(C)]
 #[derive(Copy, Clone, Pod, Zeroable)]
+#[cfg(feature = "light_shafts")]
 pub(crate) struct LightShaftsU {
     source:    [f32; 2],
     length:    f32,
@@ -413,6 +462,7 @@ pub(crate) struct LightShaftsU {
     aspect:    f32,
     _pad:      f32,
 }
+#[cfg(feature = "light_shafts")]
 impl LightShaftsU {
     /// The source is a **world** point (`source_x`, `source_y`), put on the
     /// screen through `view` - so a sun far off to one side streams in at
@@ -498,6 +548,7 @@ struct LutGpu {
     texture: wgpu::Texture,
     view:    wgpu::TextureView,
     /// `renderer::lut::ActiveLut::key`, 0 for the 1x1 stand-in.
+    #[cfg_attr(not(feature = "lut"), allow(dead_code))]
     key:     u64,
     slices:  f32,
     strength: f32,
@@ -981,6 +1032,7 @@ impl Bloom {
 /// `lens_flare.wgsl`: the bright part of the frame into `a`, blurred through
 /// `b` back into `a`, the features read from `a` into `b`, then the frame
 /// plus `b`.
+#[cfg(feature = "lens_flare")]
 struct LensFlare {
     bright:           RenderPipeline,
     blur_h:           RenderPipeline,
@@ -999,6 +1051,7 @@ struct LensFlare {
     composite_pong:   BindGroup,
 }
 
+#[cfg(feature = "lens_flare")]
 impl LensFlare {
     #[allow(clippy::too_many_arguments)]
     fn new(
@@ -1100,6 +1153,7 @@ impl LensFlare {
 enum Pass<'a> {
     Single(&'a Effect),
     Bloom,
+    #[cfg(feature = "lens_flare")]
     LensFlare,
 }
 
@@ -1116,16 +1170,28 @@ pub struct WgpuPostProcessStack {
     vignette:       Effect,
     color_grade:    Effect,
     chromatic:      Effect,
+    #[cfg(feature = "pixelate")]
     pixelate:       Effect,
+    #[cfg(feature = "crt")]
     crt:            Effect,
+    #[cfg(feature = "light_shafts")]
     light_shafts:   Effect,
+    #[cfg(feature = "tilt_shift")]
     tilt_shift:     Effect,
+    #[cfg(feature = "tilt_shift")]
     blur:           Effect,
     /// `motion_blur`, reading `velocity` (binding 3, `composite_layout`).
+    #[cfg(feature = "motion_blur")]
     motion_blur:    Effect,
     /// `depth_of_field`, reading each pixel's z from `velocity`'s blue.
+    #[cfg(feature = "depth_of_field")]
     depth_of_field: Effect,
+    /// `depth_haze`, reading the same depth.
+    #[cfg(feature = "depth_haze")]
+    depth_haze: Effect,
+    #[cfg(feature = "lens_flare")]
     lens_flare:     LensFlare,
+    #[cfg(any(feature = "motion_blur", feature = "depth_of_field", feature = "depth_haze"))]
     motion_layout:  BindGroupLayout,
     /// Each pixel's motion across the screen, drawn by the velocity pass
     /// (`ecs::wgpu_systems::render_velocity_wgpu`) when `motion_blur` is on.
@@ -1190,33 +1256,47 @@ impl WgpuPostProcessStack {
             device, &layout, scene_format, CHROMATIC_WGSL, "PostProcess chromatic",
             std::mem::size_of::<ChromaticU>(), &ping, &pong, &sampler,
         );
+        #[cfg(feature = "pixelate")]
         let pixelate = Effect::new(
             device, &layout, scene_format, PIXELATE_WGSL, "PostProcess pixelate",
             std::mem::size_of::<PixelateU>(), &ping, &pong, &sampler,
         );
+        #[cfg(feature = "crt")]
         let crt = Effect::new(
             device, &layout, scene_format, CRT_WGSL, "PostProcess crt",
             std::mem::size_of::<CrtU>(), &ping, &pong, &sampler,
         );
+        #[cfg(feature = "tilt_shift")]
         let tilt_shift = Effect::new(
             device, &layout, scene_format, TILT_SHIFT_WGSL, "PostProcess tilt_shift",
             std::mem::size_of::<TiltShiftU>(), &ping, &pong, &sampler,
         );
+        #[cfg(feature = "tilt_shift")]
         let blur = Effect::new(
             device, &layout, scene_format, TILT_SHIFT_WGSL, "PostProcess blur",
             std::mem::size_of::<TiltShiftU>(), &ping, &pong, &sampler,
         );
+        #[cfg(feature = "light_shafts")]
         let light_shafts = Effect::new(
             device, &layout, scene_format, LIGHT_SHAFTS_WGSL, "PostProcess light_shafts",
             std::mem::size_of::<LightShaftsU>(), &ping, &pong, &sampler,
         );
+        #[cfg(feature = "lens_flare")]
         let lens_flare = LensFlare::new(device, &layout, scene_format, width, height, &ping, &pong, &sampler)?;
+        #[cfg(any(feature = "motion_blur", feature = "depth_of_field", feature = "depth_haze"))]
         let motion_layout = composite_layout(device);
         let velocity = WgpuRenderTarget::new(device, width, height, VELOCITY_FORMAT)?;
+        #[cfg(feature = "motion_blur")]
         let motion_blur = Effect::new_with(
             device, &motion_layout, scene_format, MOTION_BLUR_WGSL, "PostProcess motion_blur",
             std::mem::size_of::<MotionBlurU>(), &ping, &pong, &sampler, Some(&velocity.view),
         );
+        #[cfg(feature = "depth_haze")]
+        let depth_haze = Effect::new_with(
+            device, &motion_layout, scene_format, DEPTH_HAZE_WGSL, "PostProcess depth_haze",
+            std::mem::size_of::<DepthHazeU>(), &ping, &pong, &sampler, Some(&velocity.view),
+        );
+        #[cfg(feature = "depth_of_field")]
         let depth_of_field = Effect::new_with(
             device, &motion_layout, scene_format, DEPTH_OF_FIELD_WGSL, "PostProcess depth_of_field",
             std::mem::size_of::<DepthOfFieldU>(), &ping, &pong, &sampler, Some(&velocity.view),
@@ -1237,14 +1317,25 @@ impl WgpuPostProcessStack {
             vignette,
             color_grade,
             chromatic,
+            #[cfg(feature = "pixelate")]
             pixelate,
+            #[cfg(feature = "crt")]
             crt,
+            #[cfg(feature = "light_shafts")]
             light_shafts,
+            #[cfg(feature = "tilt_shift")]
             tilt_shift,
+            #[cfg(feature = "tilt_shift")]
             blur,
+            #[cfg(feature = "motion_blur")]
             motion_blur,
+            #[cfg(feature = "depth_of_field")]
             depth_of_field,
+            #[cfg(feature = "depth_haze")]
+            depth_haze,
+            #[cfg(feature = "lens_flare")]
             lens_flare,
+            #[cfg(any(feature = "motion_blur", feature = "depth_of_field", feature = "depth_haze"))]
             motion_layout,
             velocity,
             output,
@@ -1271,12 +1362,17 @@ impl WgpuPostProcessStack {
 
     /// Whether `motion_blur` is on - whether a host draws the velocity pass.
     pub fn motion_blur_on(&self) -> bool {
-        self.active().effects.iter().any(|e| e.enabled && e.name == "motion_blur")
+        cfg!(feature = "motion_blur") && self.active().effects.iter().any(|e| e.enabled && e.name == "motion_blur")
     }
 
     /// Whether `depth_of_field` is on - the velocity pass draws for it too.
     pub fn depth_of_field_on(&self) -> bool {
-        self.active().effects.iter().any(|e| e.enabled && e.name == "depth_of_field")
+        cfg!(feature = "depth_of_field") && self.active().effects.iter().any(|e| e.enabled && e.name == "depth_of_field")
+    }
+
+    /// Whether `depth_haze` is on - it reads the velocity pass's depth too.
+    pub fn depth_haze_on(&self) -> bool {
+        cfg!(feature = "depth_haze") && self.active().effects.iter().any(|e| e.enabled && e.name == "depth_haze")
     }
 
     /// The z the velocity pass is cleared to where no sprite covers
@@ -1403,17 +1499,27 @@ impl WgpuPostProcessStack {
             self.vignette   .rebuild_binds(device, l, p, q, s);
             self.color_grade.rebuild_binds(device, l, p, q, s);
             self.chromatic  .rebuild_binds(device, l, p, q, s);
+            #[cfg(feature = "pixelate")]
             self.pixelate   .rebuild_binds(device, l, p, q, s);
+            #[cfg(feature = "light_shafts")]
             self.light_shafts.rebuild_binds(device, l, p, q, s);
+            #[cfg(feature = "tilt_shift")]
             self.tilt_shift.rebuild_binds(device, l, p, q, s);
+            #[cfg(feature = "tilt_shift")]
             self.blur.rebuild_binds(device, l, p, q, s);
+            #[cfg(feature = "crt")]
             self.crt        .rebuild_binds(device, l, p, q, s);
+            #[cfg(feature = "lens_flare")]
             if let Err(e) = self.lens_flare.resize(device, l, self.scene_format, width, height, p, q, s) {
                 log::error!("[post] lens flare resize failed: {e:#}");
             }
             self.velocity.resize(device, width, height);
+            #[cfg(feature = "motion_blur")]
             self.motion_blur.rebuild_binds_with(device, &self.motion_layout, p, q, s, Some(&self.velocity.view));
+            #[cfg(feature = "depth_of_field")]
             self.depth_of_field.rebuild_binds_with(device, &self.motion_layout, p, q, s, Some(&self.velocity.view));
+            #[cfg(feature = "depth_haze")]
+            self.depth_haze.rebuild_binds_with(device, &self.motion_layout, p, q, s, Some(&self.velocity.view));
             self.output.rebuild_binds_with(device, &self.output_layout, p, q, s, Some(&self.lut.view));
         }
     }
@@ -1424,6 +1530,10 @@ impl WgpuPostProcessStack {
     /// stand-in at strength 0. Cheap when nothing changed. Called once a
     /// frame by `ecs::wgpu_systems::apply_pixel_plan`, which every host
     /// calls for every camera.
+    #[cfg(not(feature = "lut"))]
+    pub fn sync_lut(&mut self, _device: &wgpu::Device) {}
+
+    #[cfg(feature = "lut")]
     pub fn sync_lut(&mut self, device: &wgpu::Device) {
         let active = crate::renderer::lut::active();
         let key = active.as_ref().map_or(0, |l| l.key);
@@ -1483,45 +1593,77 @@ impl WgpuPostProcessStack {
                     queue.write_buffer(&self.chromatic.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::Single(&self.chromatic));
                 }
+                #[cfg(not(feature = "pixelate"))]
+                "pixelate" => crate::features::missing("pixelate", "the pixelate post effect"),
+                #[cfg(feature = "pixelate")]
                 "pixelate" => {
                     let view = crate::renderer::frame_view::frame_view();
                     let u = PixelateU::new(&s.params, self.ping.width, self.ping.height, view);
                     queue.write_buffer(&self.pixelate.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::Single(&self.pixelate));
                 }
+                #[cfg(not(feature = "tilt_shift"))]
+                "tilt_shift" => crate::features::missing("tilt_shift", "the tilt_shift post effect"),
+                #[cfg(feature = "tilt_shift")]
                 "tilt_shift" => {
                     let view = crate::renderer::frame_view::frame_view();
                     let u = TiltShiftU::new(&s.params, self.ping.width, self.ping.height, view);
                     queue.write_buffer(&self.tilt_shift.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::Single(&self.tilt_shift));
                 }
+                #[cfg(not(feature = "tilt_shift"))]
+                "blur" => crate::features::missing("tilt_shift", "the blur post effect"),
+                #[cfg(feature = "tilt_shift")]
                 "blur" => {
                     let view = crate::renderer::frame_view::frame_view();
                     let u = BlurU::uniform(&s.params, self.ping.width, self.ping.height, view);
                     queue.write_buffer(&self.blur.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::Single(&self.blur));
                 }
+                #[cfg(not(feature = "light_shafts"))]
+                "light_shafts" => crate::features::missing("light_shafts", "the light_shafts post effect"),
+                #[cfg(feature = "light_shafts")]
                 "light_shafts" => {
                     let view = crate::renderer::frame_view::frame_view();
                     let u = LightShaftsU::new(&s.params, self.ping.width, self.ping.height, view);
                     queue.write_buffer(&self.light_shafts.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::Single(&self.light_shafts));
                 }
+                #[cfg(not(feature = "lens_flare"))]
+                "lens_flare" => crate::features::missing("lens_flare", "the lens_flare post effect"),
+                #[cfg(feature = "lens_flare")]
                 "lens_flare" => {
                     let u = LensFlareU::new(&s.params, self.ping.width, self.ping.height);
                     queue.write_buffer(&self.lens_flare.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::LensFlare);
                 }
+                #[cfg(not(feature = "motion_blur"))]
+                "motion_blur" => crate::features::missing("motion_blur", "the motion_blur post effect"),
+                #[cfg(feature = "motion_blur")]
                 "motion_blur" => {
                     let u = MotionBlurU::from_params(&s.params, self.ping.width);
                     queue.write_buffer(&self.motion_blur.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::Single(&self.motion_blur));
                 }
+                #[cfg(not(feature = "depth_haze"))]
+                "depth_haze" => crate::features::missing("depth_haze", "the depth_haze post effect"),
+                #[cfg(feature = "depth_haze")]
+                "depth_haze" => {
+                    let u = DepthHazeU::from_params(&s.params);
+                    queue.write_buffer(&self.depth_haze.uniform, 0, bytemuck::bytes_of(&u));
+                    chain.push(Pass::Single(&self.depth_haze));
+                }
+                #[cfg(not(feature = "depth_of_field"))]
+                "depth_of_field" => crate::features::missing("depth_of_field", "the depth_of_field post effect"),
+                #[cfg(feature = "depth_of_field")]
                 "depth_of_field" => {
                     let u = DepthOfFieldU::from_params(&s.params);
                     queue.write_buffer(&self.depth_of_field.uniform, 0, bytemuck::bytes_of(&u));
                     chain.push(Pass::Single(&self.depth_of_field));
                 }
+                #[cfg(not(feature = "crt"))]
+                "crt" => crate::features::missing("crt", "the crt post effect"),
+                #[cfg(feature = "crt")]
                 "crt" => {
                     let u = CrtU::from_params(&s.params);
                     queue.write_buffer(&self.crt.uniform, 0, bytemuck::bytes_of(&u));
@@ -1543,6 +1685,7 @@ impl WgpuPostProcessStack {
                     encoder, dst_view, wgpu::LoadOp::Load, &effect.pipeline, effect.bind_for(src), effect.label,
                 ),
                 Pass::Bloom => self.bloom.run(encoder, src, dst_view),
+                #[cfg(feature = "lens_flare")]
                 Pass::LensFlare => self.lens_flare.run(encoder, src, dst_view),
             }
             src = dst;

@@ -6,7 +6,7 @@
 //! through the real sprite pass and views on a headless device; carrying
 //! bodies across is unit-tested in `ecs::portal`. Found by the showcase's
 //! Portal Lab. Without a GPU adapter it prints why and passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "portal"))]
 
 use glam::Vec2;
 use hecs::World;

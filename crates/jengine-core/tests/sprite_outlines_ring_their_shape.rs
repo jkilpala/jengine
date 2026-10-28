@@ -5,7 +5,7 @@
 //! rectangle - solid out to the width, fading through the glow, and a
 //! neighbour in the same atlas is never ringed. Found by the showcase's Unit
 //! Select. Without a GPU adapter it prints why and passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "sprite_outline"))]
 
 use glam::Vec2;
 use hecs::World;

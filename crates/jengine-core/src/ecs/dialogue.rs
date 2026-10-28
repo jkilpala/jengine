@@ -407,7 +407,7 @@ fn enter(world: &mut World, e: Entity, mut node: String) {
         }
         let event = text_of(&r, "event");
         if !event.is_empty() {
-            crate::ecs::callbacks::push(e, crate::ecs::timeline::handler_for(&event));
+            crate::ecs::callbacks::push(e, crate::ecs::callbacks::handler_for(&event));
         }
         if r.get("text").and_then(Value::as_str).is_some_and(|t| !t.is_empty()) {
             landed = Some(r);

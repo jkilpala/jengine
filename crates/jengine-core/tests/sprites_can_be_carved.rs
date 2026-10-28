@@ -71,10 +71,10 @@ fn a_carvable_saves_its_settings_and_not_its_holes() {
     apply_carves(&mut world, &mut assets);
     world.get::<&mut Carvable>(e).unwrap().pending.push(jengine_core::ecs::carve::Carve { x: 0.0, y: 0.0, radius: 20.0 });
     let scene = jengine_core::scene::format::save_scene(&world);
-    let saved = scene.entities[0].components.carvable.as_ref().expect("saved with the scene");
+    let saved = scene.entities[0].components.get::<jengine_core::ecs::carve::Carvable>("carvable").expect("saved with the scene");
     assert_eq!(saved.scorch, 6.0);
     assert!(saved.pending.is_empty() && saved.state.texture.is_none(), "runtime state is not part of the scene");
-    let json = serde_json::to_string(saved).unwrap();
+    let json = serde_json::to_string(scene.entities[0].components.value("carvable").unwrap()).unwrap();
     assert!(!json.contains("pending") && !json.contains("state"), "{json}");
 }
 

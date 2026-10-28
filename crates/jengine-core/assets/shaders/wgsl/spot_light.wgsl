@@ -33,7 +33,8 @@ struct Light {
     // to the light may take relative to flat (`MAX_NORMAL_RESPONSE`).
     extra: vec4<f32>,
     // x = the light layers it lights (`light_mask`): a pixel whose layers
-    // (`on_light_layers`) share no bit takes nothing from it.
+    // (`on_light_layers`) share no bit takes nothing from it. y = the bits
+    // of its squash (`SpotLight2D::squash`).
     layers: vec4<u32>,
 };
 
@@ -101,7 +102,11 @@ fn fs_main(in: VsOut) -> LightOut {
 
     let delta       = in.world_pos - center;
     let dist        = length(delta);
-    var attenuation = 1.0 - clamp(dist / radius, 0.0, 1.0);
+    // The falloff squashed top to bottom (`SpotLight2D::squash`); the cone
+    // is still the light's own direction.
+    let s           = bitcast<f32>(u_light.layers.y);
+    let squash      = select(1.0, clamp(s, 0.05, 1.0), s > 0.0);
+    var attenuation = 1.0 - clamp(length(vec2<f32>(delta.x, delta.y / squash)) / radius, 0.0, 1.0);
     attenuation     = pow(attenuation, falloff);
 
     let dir       = vec2<f32>(cos(spot_dir), sin(spot_dir));

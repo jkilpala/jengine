@@ -12,8 +12,8 @@ description: How jEngine targets Windows, the web, Android and more from one cod
 | **Web** | WebGPU, with a WebGL2 fallback. Runs the same Lua VM as the editor. |
 | **Android** | APKs and Play bundles, built without Gradle; checked scene by scene on an emulator. Lua scripts only. |
 | **Linux** | Builds and runs, but has only been tested under WSL (WSLg, Vulkan through lavapipe). Not tried on a real Linux desktop. |
-| **macOS** | **Type-checked only.** The runtime compiles for `aarch64-apple-darwin`, but no macOS build has been linked or run: unverified. |
-| **iOS** | **Experimental.** `jengine ios-build` makes a signed `.app`, but nothing has ever run on iOS. |
+| **macOS** | **Builds and runs** on Apple Silicon (an ad-hoc signed `.app`); the editor runs there too, in WKWebView. |
+| **iOS** | **Runs** on the simulator and on an iPhone (iOS 27, 120 fps on ProMotion): `jengine ios-build` makes a signed `.app` with no Xcode project. |
 
 ## Platform Strategy
 
@@ -24,7 +24,7 @@ Every target is built from the same `jengine-core` crate:
 | **Windows** | `jengine-runtime` (winit + wgpu) | DX12 / Vulkan | kira (cpal) | Luau (`mlua`) + JavaScript (`rquickjs`) |
 | **Android** | `jengine-runtime` as a NativeActivity APK | Vulkan, GLES fallback | kira | Luau only |
 | **Linux** | `jengine-runtime` | Vulkan | kira | Luau + JavaScript |
-| **macOS / iOS** | `jengine-runtime` (type-checked, never run) | Metal | kira | Luau |
+| **macOS / iOS** | `jengine-runtime` | Metal | kira | Luau |
 | **Web** | `jengine-web` (wasm-bindgen) | WebGPU, WebGL2 fallback | Web Audio API | Fengari (Lua 5.3) |
 | **Editor** | `jengine-editor-viewport` inside Tauri | WebGPU in WebView2 | Web Audio API | Fengari — the same bundle as web builds |
 

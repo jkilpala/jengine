@@ -3,6 +3,7 @@
 //! finds it again through a doorway, turns with its entity, and draws what
 //! it sees as a fan in the entity's mesh. Found by the showcase's Eyes in the
 //! Dark. The polygon itself is tested in the module.
+#![cfg(feature = "vision")]
 
 use glam::Vec2;
 use hecs::World;

@@ -69,7 +69,8 @@ fn a_test_server_runs_here_and_deploys_through_a_local_agent() {
     let probe = servers::probe(&cfg.address, Some(&secrets.admin_token));
     assert!(probe.ms.is_some());
     let overview = probe.overview.expect("the admin token is the server's");
-    assert_eq!(overview["kinds"], json!(["relay"]));
+    // The stock server: the relay and, since Oct 2026, the lockstep room.
+    assert_eq!(overview["kinds"], json!(["lockstep", "relay"]));
     servers::admin_post(&cfg.address, &secrets.admin_token, "/admin/api/notice", &json!({ "text": "hello" }))
         .expect("a notice is accepted");
     until("its log", 5, || lines.lock().unwrap().iter().any(|l| l.contains("listening")));
@@ -97,7 +98,7 @@ fn a_test_server_runs_here_and_deploys_through_a_local_agent() {
     assert_eq!(svc["name"], "game", "{status:#}");
     assert_eq!(svc["probe"]["up"], true, "{status:#}");
     // The deployed server was handed the project's admin token: its rooms show.
-    assert_eq!(svc["probe"]["overview"]["kinds"], json!(["relay"]), "{status:#}");
+    assert_eq!(svc["probe"]["overview"]["kinds"], json!(["lockstep", "relay"]), "{status:#}");
 
     let logs = servers::logs(&cfg, &secrets, "local", 50).unwrap();
     assert!(logs.contains("listening"), "{logs}");

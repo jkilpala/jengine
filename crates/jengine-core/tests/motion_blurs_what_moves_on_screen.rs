@@ -5,6 +5,7 @@
 //! stays sharp and the street it passes streaks; a reprojection of the
 //! camera alone would blur the car as much as the street. Found by the
 //! showcase's Night Pursuit.
+#![cfg(feature = "motion_blur")]
 
 mod support;
 

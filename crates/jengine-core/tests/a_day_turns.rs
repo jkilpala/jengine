@@ -3,6 +3,7 @@
 //! sun from keys through the day, places the sun disc on its arc, fades the
 //! stars, and tells its script at dawn and dusk. Found by the showcase's A
 //! Day on the Island. The sampling is tested in the module.
+#![cfg(feature = "day_cycle")]
 
 use glam::Vec2;
 use hecs::World;

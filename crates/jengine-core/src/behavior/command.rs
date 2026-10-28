@@ -56,13 +56,9 @@ pub fn spawn_entity_data(
     registry: &ComponentRegistry,
     data: &EntityData,
 ) -> hecs::Entity {
-    let map: HashMap<String, serde_json::Value> = match serde_json::to_value(&data.components) {
-        Ok(serde_json::Value::Object(m)) => m.into_iter().collect(),
-        _ => HashMap::new(),
-    };
     let mut builder = hecs::EntityBuilder::new();
     builder.add(Name(data.name.clone()));
-    let unknown = registry.deserialize_into_builder(&mut builder, &map);
+    let unknown = data.components.add_to_builder(&mut builder, registry);
     if !unknown.is_empty() {
         builder.add(CustomComponents(unknown));
     }

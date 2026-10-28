@@ -3,7 +3,7 @@
 //! brighter than the flat floor, the wall turned away darker - and a second
 //! press, into a normal map already on the GPU, is patched in where it landed
 //! (`AssetManager::patch_dirty`) rather than lost or uploaded whole.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "paint"))]
 
 use glam::Vec2;
 use hecs::World;

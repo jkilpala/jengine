@@ -5,7 +5,7 @@
 //! wider, the picture stretched over the grid. The springs themselves are
 //! unit-tested in `ecs::jelly`. Found by the showcase's Jelly Bounce.
 //! Without a GPU adapter it prints why and passes.
-#![cfg(feature = "gpu-wgpu")]
+#![cfg(all(feature = "gpu-wgpu", feature = "jelly"))]
 
 use glam::Vec2;
 use hecs::World;

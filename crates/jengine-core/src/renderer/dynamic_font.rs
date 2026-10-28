@@ -67,11 +67,7 @@ pub fn needs_shaping(c: char) -> bool {
     matches!(c as u32, 0x0590..=0x08FF | 0x0900..=0x0DFF | 0x0E00..=0x0EFF | 0x1000..=0x109F | 0xFB1D..=0xFDFF | 0xFE70..=0xFEFF)
 }
 
-/// Whether `font_id` names a font file this module loads.
-pub fn is_font_file(font_id: &str) -> bool {
-    let lower = font_id.to_ascii_lowercase();
-    lower.ends_with(".ttf") || lower.ends_with(".otf")
-}
+pub use crate::renderer::font_asset::is_font_file;
 
 /// A loaded font file and where its atlas has room.
 struct Live {

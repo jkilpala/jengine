@@ -738,6 +738,8 @@ pub struct BatchLuaRuntime {
 
 impl BatchLuaRuntime {
     pub fn new(buffer_mode: BatchLuaBufferMode) -> Result<Self, BatchError> {
+        // Its maths through `libm`, as every script's (`script_math`).
+        crate::scripting::script_math::install_luau_table();
         let lua = Lua::new();
         let no_cache = std::env::var("JENGINE_BATCH_LUA_NO_CACHE")
             .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))

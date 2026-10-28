@@ -16,11 +16,135 @@
 //! `resolve_world_transforms` once internally to read up-to-date
 //! parent rotations + joint positions before computing the IK delta.
 
+use crate::detmath::DetMath;
 use glam::Vec2;
 use hecs::{Entity, World};
 
-use crate::ecs::components::{Bone, IkChain, IkGround, IkLookAt, IkTwoBone, Parent, SkeletonRoot, Transform};
+use crate::ecs::components::{Bone, Parent, SkeletonRoot, Transform};
+use serde::{Deserialize, Serialize};
 use crate::ecs::outlines::ColliderOutlines;
+
+/// Slice 3.5.F — two-bone IK constraint attached to the *end* (effector)
+/// bone of a 3-bone chain `root → mid → end`. The solver walks
+/// `Parent` twice from the entity carrying this component to find the
+/// `mid` and `root` bones, then rotates `root.Transform.rotation` and
+/// `mid.Transform.rotation` (in local space) so that the chain's tip
+/// reaches `target` (world-space). Bone lengths come from the `Bone`
+/// component's `length` field.
+///
+/// `flip_bend` selects the "elbow up" vs "elbow down" solution.
+///
+/// Scaled and mirrored rigs work (Sep 2026, BUGS #152): the lengths are
+/// scaled by each bone's world `scale.x`, and under a mirrored parent
+/// (`scale.x * scale.y < 0`, the usual way a 2D character turns round)
+/// `flip_bend` keeps its meaning on screen - the knee goes to the mirrored
+/// side, as the rest of the character does.
+///
+/// `weight` (Sep 2026) blends the solve over the animated pose: 0 leaves the
+/// clip's leg alone, 1 is all IK - so a foot can be planted and released.
+/// `ground` plants an **animated** foot on what is under it: the target is
+/// then not a script's point but the foot where the clip put it, moved up
+/// or down onto the colliders beneath (`ecs::outlines`) by as much as the
+/// ground there is above or below the clip's own floor. A walk authored on
+/// flat ground walks up a slope; the body is the game's to raise.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IkTwoBone {
+    pub target: [f32; 2],
+    #[serde(default)]
+    pub flip_bend: bool,
+    /// How much of the solve to apply, 0..1.
+    #[serde(default = "default_ik_weight")]
+    pub weight: f32,
+    /// Plant the animated foot on the ground under it (see [`IkGround`]).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub ground: Option<IkGround>,
+}
+
+fn default_ik_weight() -> f32 {
+    1.0
+}
+
+impl Default for IkTwoBone {
+    fn default() -> Self {
+        Self { target: [0.0, 0.0], flip_bend: false, weight: 1.0, ground: None }
+    }
+}
+
+/// A chain of any number of bones that bends to reach a target (Oct 2026;
+/// FABRIK - Godot's `SkeletonModification2DFABRIK`, Unity's 2D IK Chain).
+/// On the chain's **end** bone: `bones` counts up the parents from it, so 4
+/// bends this bone and the three above it. The tip - the end bone's far
+/// end - goes to `target`, or to the entity named `target_name` when that
+/// is set. `max_bend` limits each joint after the first to that many
+/// radians either way from where the animation put it (pi is free), which
+/// is what keeps a tail from folding back on itself. `weight` blends the
+/// solve over the animated pose, as two-bone IK's does.
+/// `Skeleton.set_ik_target` / `set_ik_weight` reach it.
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(default)]
+pub struct IkChain {
+    pub target: [f32; 2],
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub target_name: String,
+    pub bones: u32,
+    pub iterations: u32,
+    /// Close enough, in world units.
+    pub tolerance: f32,
+    pub max_bend: f32,
+    pub weight: f32,
+    /// Per bone, root first: the pose the solve bends from and the angle it
+    /// last wrote. A bone still at what was written was posed by nothing
+    /// else, so its rest stands; one moved by a clip takes the clip's. Never
+    /// saved.
+    #[serde(skip)]
+    pub state: Vec<(f32, f32)>,
+}
+
+impl Default for IkChain {
+    fn default() -> Self {
+        Self {
+            target: [0.0, 0.0],
+            target_name: String::new(),
+            bones: 3,
+            iterations: 12,
+            tolerance: 0.5,
+            max_bend: std::f32::consts::PI,
+            weight: 1.0,
+            state: Vec::new(),
+        }
+    }
+}
+
+/// Foot IK against the scene's colliders: where the clip's floor is, and
+/// how far to look for ground above and below it.
+#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct IkGround {
+    /// The height, in the skeleton root's frame, of the floor the clip was
+    /// authored on: a foot the clip puts here is standing on the ground.
+    pub floor: f32,
+    /// How far above and below that floor to look for ground.
+    pub reach: f32,
+    /// The collision layers that count as ground (a collider's
+    /// `collision_membership`).
+    pub mask: u16,
+}
+
+impl Default for IkGround {
+    fn default() -> Self {
+        Self { floor: 0.0, reach: 200.0, mask: u16::MAX }
+    }
+}
+
+/// Slice 3.5.F — look-at IK constraint. Rotates the carrying entity's
+/// local `Transform.rotation` so that its world `+X` axis (plus
+/// `rotation_offset` radians) points at `target` (world-space).
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct IkLookAt {
+    pub target: [f32; 2],
+    #[serde(default)]
+    pub rotation_offset: f32,
+}
 
 const EPS: f32 = 1.0e-4;
 
@@ -75,11 +199,11 @@ pub fn solve_ik(world: &mut World) {
 
     // --- Two-bone pass --------------------------------------------------
     // A limp skeleton is posed by physics (`ecs::ragdoll`).
-    let limp = crate::ecs::ragdoll::any_limp(world);
+    let limp = crate::ecs::skeleton::any_limp(world);
     let two_bone: Vec<(Entity, IkTwoBone)> = world
         .query::<&IkTwoBone>()
         .iter()
-        .filter(|(e, _)| !limp || !crate::ecs::ragdoll::is_limp(world, *e))
+        .filter(|(e, _)| !limp || !crate::ecs::skeleton::is_limp(world, *e))
         .map(|(e, c)| (e, c.clone()))
         .collect();
     // The ground, gathered once, only when some foot looks for it.
@@ -143,11 +267,11 @@ pub fn solve_ik(world: &mut World) {
         let d_max = (l1 + l2) - EPS;
         let d = d_raw.clamp(d_min, d_max);
 
-        let theta = d_vec.y.atan2(d_vec.x);
+        let theta = d_vec.y.datan2(d_vec.x);
         let cos_a = ((l1 * l1 + d * d - l2 * l2) / (2.0 * l1 * d)).clamp(-1.0, 1.0);
-        let a = cos_a.acos();
+        let a = cos_a.dacos();
         let cos_b = ((l1 * l1 + l2 * l2 - d * d) / (2.0 * l1 * l2)).clamp(-1.0, 1.0);
-        let b = cos_b.acos();
+        let b = cos_b.dacos();
 
         // A mirrored rig (`scale.x * scale.y < 0`, the usual way a 2D
         // character turns round) keeps `flip_bend`'s meaning on screen: the
@@ -181,7 +305,7 @@ pub fn solve_ik(world: &mut World) {
     let look: Vec<(Entity, IkLookAt)> = world
         .query::<&IkLookAt>()
         .iter()
-        .filter(|(e, _)| !limp || !crate::ecs::ragdoll::is_limp(world, *e))
+        .filter(|(e, _)| !limp || !crate::ecs::skeleton::is_limp(world, *e))
         .map(|(e, c)| (e, c.clone()))
         .collect();
     for (bone_e, ik) in look {
@@ -196,7 +320,7 @@ pub fn solve_ik(world: &mut World) {
         }
         // As in the two-bone pass: a bone with a negative world `scale.x`
         // points back along its rotation.
-        let desired = d.y.atan2(d.x) - if bone_w.scale.x < 0.0 { std::f32::consts::PI } else { 0.0 };
+        let desired = d.y.datan2(d.x) - if bone_w.scale.x < 0.0 { std::f32::consts::PI } else { 0.0 };
         if let Ok(mut tr) = world.get::<&mut Transform>(bone_e) {
             tr.rotation = desired - parent_rot + ik.rotation_offset;
         }
@@ -210,9 +334,9 @@ fn solve_chains(world: &mut World) {
     if chains.is_empty() {
         return;
     }
-    let limp = crate::ecs::ragdoll::any_limp(world);
+    let limp = crate::ecs::skeleton::any_limp(world);
     for (end_e, ik) in chains {
-        if limp && crate::ecs::ragdoll::is_limp(world, end_e) {
+        if limp && crate::ecs::skeleton::is_limp(world, end_e) {
             continue;
         }
         let weight = ik.weight.clamp(0.0, 1.0);
@@ -300,7 +424,7 @@ fn solve_chains(world: &mut World) {
             let mut want = if seg.length_squared() < EPS * EPS {
                 rest
             } else {
-                rest + wrap_angle(seg.y.atan2(seg.x) - turn(world_of[i].scale.x) - parent_rot - rest)
+                rest + wrap_angle(seg.y.datan2(seg.x) - turn(world_of[i].scale.x) - parent_rot - rest)
             };
             // A joint bends at most `max_bend` either way from its pose.
             if i > 0 && ik.max_bend < std::f32::consts::PI {

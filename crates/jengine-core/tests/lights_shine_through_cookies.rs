@@ -86,7 +86,7 @@ fn a_spot_lights_cookie_turns_with_its_aim() {
 fn the_scene_format_keeps_it_and_every_loader_fetches_it() {
     let world = lit_world(0.0, 0.75);
     let scene = jengine_core::scene::format::save_scene(&world);
-    let pl = scene.entities.iter().find_map(|e| e.components.point_light.as_ref()).expect("saved");
+    let pl = scene.entities.iter().find_map(|e| e.components.get::<jengine_core::ecs::components::PointLight2D>("point_light")).expect("saved");
     assert_eq!((pl.cookie.as_str(), pl.cookie_scale), ("c.png", 0.75));
     let json = serde_json::to_value(pl).unwrap();
     assert!(json.get("turn").is_none(), "the turn is the entity's, not authored");

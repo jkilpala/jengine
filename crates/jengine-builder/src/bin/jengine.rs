@@ -149,12 +149,18 @@ COMMANDS:
                                             uploaded, then the manifest published.
                                             The token defaults to JENGINE_ADMIN_TOKEN
     web-build [project] [--out <dir>] [--dev] [--lto] [--opt-size] [--no-report] [--no-overlay]
-              [--platform <none|jcabinet|poki|crazygames|youtube>] [--wasm-opt <level>]
+              [--no-logs] [--platform <none|jcabinet|poki|crazygames|youtube>] [--wasm-opt <level>]
                                             Build a project for the web, as the
                                             editor's Build panel does (--no-overlay
-                                            ships F3 / F12 inert; --platform picks
+                                            ships F3 / F12 inert; --no-logs keeps
+                                            info lines out of the browser console,
+                                            warnings and errors still shown; --platform picks
                                             the web portal over the project's
-                                            web_platform). Default
+                                            web_platform). --wasm-opt defaults to
+                                            fast, the smallest download;
+                                            --opt-size is opt-level 'z', about a
+                                            third smaller and ~3.7x slower code
+                                            (docs/build-sizes.md). Default
                                             output: target/web-build/<project>/
     android-build [project] [--out <dir>] [--dev] [--abi <abi>]... [--install] [--run]
                   [--bundle] [--release-key]
@@ -228,7 +234,9 @@ COMMANDS:
                                             booted simulator (booting one) or a
                                             connected device; --run starts it.
                                             Only on a Mac. Default output:
-                                            target/ios-build/<project>/
+                                            target/ios-build/<project>/iphone-simulator/
+                                            (or iphone/ for a device) - not a Mac
+                                            app; it does not open from Finder
     help                                    Show this help
 "
     );
@@ -772,8 +780,9 @@ fn cmd_web_build(args: &[String]) -> ExitCode {
     let mut opt_size = false;
     let mut report = true;
     let mut overlay = true;
+    let mut logs = true;
     let mut platform = None;
-    let mut wasm_opt = jengine_builder::wasm_opt::WasmOpt::default();
+    let mut wasm_opt = jengine_builder::wasm_opt::WasmOpt::WEB_BUILD_DEFAULT;
     let mut i = 0;
     while i < args.len() {
         match args[i].as_str() {
@@ -802,6 +811,7 @@ fn cmd_web_build(args: &[String]) -> ExitCode {
             "--opt-size" => opt_size = true,
             "--no-report" => report = false,
             "--no-overlay" => overlay = false,
+            "--no-logs" => logs = false,
             "--platform" => {
                 i += 1;
                 match args.get(i).and_then(|id| jengine_builder::web_platform::WebPlatform::parse(id)) {
@@ -839,7 +849,7 @@ fn cmd_web_build(args: &[String]) -> ExitCode {
     });
     install_progress_sink();
     match jengine_builder::web::build_web(
-        &engine, &project, &out, release, report, lto, opt_size, false, wasm_opt, overlay, platform,
+        &engine, &project, &out, release, report, lto, opt_size, false, wasm_opt, overlay, logs, platform,
     ) {
         Ok(()) => {
             eprintln!(

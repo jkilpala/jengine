@@ -103,19 +103,24 @@ fn with_no_token_configured_there_is_no_admin_at_all() {
 fn an_operator_sees_rooms_players_and_their_state() {
     let server = zones();
     let (mut ada, id, _) = ada_in_the_meadow(&server);
-    ada.send(json!({ "t": "send", "body": { "go": [560, 300] } }));
-    ada.wait("coins");
 
-    let overview = get(server.addr, "/admin/api/overview");
     // The machine's figures, from the operating system: what is measured
-    // is a number, and a disk is never empty.
+    // is a number, and a disk is never empty. Waited for before Ada takes
+    // her coin - the first reading can take seconds (on Windows about
+    // eight), and standing on the coin's spot that long she takes it again
+    // when it comes back (`COIN_RESPAWN`, five seconds).
     let deadline = Instant::now() + Duration::from_secs(10);
-    let mut measured = overview["resources"].clone();
+    let mut measured = get(server.addr, "/admin/api/overview")["resources"].clone();
     while measured["disk_total_mb"].as_u64().unwrap_or(0) == 0 {
         assert!(Instant::now() < deadline, "no disk figure: {measured}");
         std::thread::sleep(Duration::from_millis(200));
         measured = get(server.addr, "/admin/api/overview")["resources"].clone();
     }
+
+    ada.send(json!({ "t": "send", "body": { "go": [560, 300] } }));
+    ada.wait("coins");
+
+    let overview = get(server.addr, "/admin/api/overview");
     assert!(measured["disk_free_mb"].as_u64().unwrap() <= measured["disk_total_mb"].as_u64().unwrap());
     assert!(measured["net_rx_kb_per_sec"].is_number() && measured["net_tx_kb_per_sec"].is_number());
     assert_eq!(overview["connections"], 1);

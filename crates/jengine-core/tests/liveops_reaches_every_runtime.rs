@@ -7,6 +7,7 @@
 //! packs mounts them before the cached release is laid over them, and every
 //! changed pack looks remote at start; a function missing from one list is
 //! `nil` in one runtime.
+#![cfg(feature = "liveops")]
 
 const NATIVE: &str = include_str!("../../jengine-runtime/src/wgpu_scene_runner.rs");
 const WEB: &str = include_str!("../../jengine-web/src/lib.rs");

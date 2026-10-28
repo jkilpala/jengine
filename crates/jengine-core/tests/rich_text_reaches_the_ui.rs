@@ -66,9 +66,14 @@ fn ui_and_gui_icons_are_preloaded() {
 fn the_web_build_fetches_what_its_gui_documents_name() {
     let web = include_str!("../../jengine-web/src/lib.rs");
     let docs = web.matches("fetch_guis(").count() - 1; // less the definition
-    let images = web.matches("gui_texture_ids(&guis").count();
+    // Each path asks `gui_part_ids` for a document's images and fonts at once
+    // (Oct 2026), which asks `gui_texture_ids`.
+    let images = web.matches("gui_part_ids(&guis").count();
     assert!(docs >= 3, "the scan found {docs} .gui fetches - fix it before trusting this");
     assert_eq!(docs, images, "a path fetches .gui documents without fetching their images");
+    let parts = web.find("fn gui_part_ids(").expect("gui_part_ids");
+    let body = &web[parts..parts + web[parts..].find("\n}\n").expect("its end")];
+    assert!(body.contains("gui_texture_ids(guis, assets)"), "gui_part_ids no longer fetches the images");
     assert!(web.contains("doc.root.texture_ids(&mut ids)"), "gui_texture_ids no longer asks the documents");
 }
 

@@ -23,18 +23,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::ecs::components::{CustomComponents, Name, Transform, WorldTransform};
 
-/// What a prediction found: the body's places, the first dynamic body it
-/// touched, where it was then, and that body's places after.
-#[derive(Debug, Clone, Default, PartialEq)]
-pub struct Prediction {
-    pub path: Vec<[f32; 2]>,
-    /// The struck body's physics id.
-    pub hit: Option<u64>,
-    pub hit_at: Option<[f32; 2]>,
-    pub hit_path: Vec<[f32; 2]>,
-    /// Steps run: fewer than asked when everything came to rest.
-    pub steps: u32,
-}
+
+pub use crate::physics::Prediction;
 
 /// Predict this body's path from `velocity`.
 #[derive(Debug, Clone, Serialize, Deserialize)]

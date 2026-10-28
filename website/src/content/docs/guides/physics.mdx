@@ -163,6 +163,17 @@ It is clamped to 10..=1000 Hz. A finer step costs solver time every
 frame and buys accuracy for fast bodies and stiff joints; `ccd` on the
 fast body is usually the cheaper fix.
 
+## Gameplay in fixed steps
+
+The physics' step is fixed, but by default the rest of a frame - motion, scripts'
+`update`, timers, animation - runs once with the frame's own `dt`, so a 165 Hz
+display integrates a slightly different game from a 60 Hz one. A project that
+needs the same game everywhere (lockstep multiplayer, replays, a server that
+re-checks a run) sets `simulation_hz` in `project.jengine` (Project Settings →
+Physics → Gameplay Steps): every host then runs that much of the frame in fixed
+steps of exactly `1 / simulation_hz` seconds, latches input so each press is
+seen by one step, and draws everything interpolated between the last two steps.
+
 ## Collision Layers
 
 Use `collision_membership` and `collision_filter` bitmasks (u16) to control which colliders interact.

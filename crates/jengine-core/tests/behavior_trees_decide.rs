@@ -4,6 +4,7 @@
 //! with the entity's `Blackboard` custom component as its memory. These run
 //! the trees through `tick_motion` itself, so what is checked is what every
 //! host runs. Found by the showcase's Night Watch.
+#![cfg(feature = "behavior_tree")]
 
 use glam::Vec2;
 use hecs::World;
@@ -248,6 +249,6 @@ fn a_tree_round_trips_through_its_scene_key() {
     assert_eq!(back.root, t.root);
     let bundle: jengine_core::scene::format::ComponentBundle =
         serde_json::from_value(json!({ "behavior_tree": { "root": guard(), "loop": false } })).unwrap();
-    let b = bundle.behavior_tree.expect("the scene key reaches the bundle");
+    let b = bundle.get::<jengine_core::ecs::behavior_tree::BehaviorTree>("behavior_tree").expect("the scene key reaches the bundle");
     assert!(!b.looping);
 }

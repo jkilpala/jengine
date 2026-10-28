@@ -7,6 +7,7 @@
 //! The geometry is unit-tested in `renderer::spline_shape`; this checks what
 //! reads it: the scene format, the collider (and the browsers' ray snapshot,
 //! which must agree with it), the preload list and, on the GPU, the drawing.
+#![cfg(feature = "spline_shape")]
 
 use glam::Vec2;
 use hecs::World;
@@ -46,9 +47,9 @@ fn the_scene_format_keeps_the_shape_and_not_its_mesh() {
     let _ = s.mesh();
     world.spawn((Transform::default(), s));
     let scene = jengine_core::scene::format::save_scene(&world);
-    let saved = scene.entities[0].components.spline_shape.as_ref().expect("saved");
+    let saved = scene.entities[0].components.get::<jengine_core::renderer::spline_shape::SplineShape>("spline_shape").expect("saved");
     assert_eq!(saved.points.len(), 5);
-    let json = serde_json::to_string(saved).unwrap();
+    let json = serde_json::to_string(scene.entities[0].components.value("spline_shape").unwrap()).unwrap();
     assert!(!json.contains("cache"), "{json}");
     let ids = jengine_core::scene::format::world_texture_ids(&world);
     assert!(ids.contains("dirt") && ids.contains("grass"), "both textures are preloaded: {ids:?}");

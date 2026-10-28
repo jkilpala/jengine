@@ -118,10 +118,19 @@ pub struct GamepadState {
 
 impl GamepadState {
     /// Replace this frame's snapshot, deriving the edges from the previous
-    /// one. Backends call this once per frame per pad.
-    pub fn update(&mut self, pressed: HashSet<usize>, axes: Vec<f32>) {
-        self.just_pressed = pressed.difference(&self.pressed).copied().collect();
-        self.just_released = self.pressed.difference(&pressed).copied().collect();
+    /// one. Backends call this once per frame per pad. `keep` adds this
+    /// frame's edges to the ones already there instead of replacing them
+    /// (`InputState::hold_edges`: no simulation step has seen them yet).
+    pub fn update(&mut self, pressed: HashSet<usize>, axes: Vec<f32>, keep: bool) {
+        let down: HashSet<usize> = pressed.difference(&self.pressed).copied().collect();
+        let up: HashSet<usize> = self.pressed.difference(&pressed).copied().collect();
+        if keep {
+            self.just_pressed.extend(down);
+            self.just_released.extend(up);
+        } else {
+            self.just_pressed = down;
+            self.just_released = up;
+        }
         self.pressed = pressed;
         self.prev_axes = std::mem::replace(&mut self.axes, axes);
         self.connected = true;
@@ -265,12 +274,12 @@ mod tests {
     #[test]
     fn update_derives_edges_from_the_previous_frame() {
         let mut pad = GamepadState::default();
-        pad.update(HashSet::from([0, 1]), vec![0.0, 0.0, 0.0, 0.0]);
+        pad.update(HashSet::from([0, 1]), vec![0.0, 0.0, 0.0, 0.0], false);
         assert!(pad.just_pressed.contains(&0));
         assert!(pad.pressed.contains(&1));
 
         pad.clear_edges();
-        pad.update(HashSet::from([1]), vec![0.0, 0.0, 0.0, 0.0]);
+        pad.update(HashSet::from([1]), vec![0.0, 0.0, 0.0, 0.0], false);
         assert!(pad.just_released.contains(&0), "0 was released");
         assert!(!pad.just_pressed.contains(&1), "1 was already held");
     }
@@ -280,7 +289,7 @@ mod tests {
         // Otherwise an action stays pressed forever when a controller's
         // battery dies mid-input.
         let mut pad = GamepadState::default();
-        pad.update(HashSet::from([3]), vec![1.0, 0.0, 0.0, 0.0]);
+        pad.update(HashSet::from([3]), vec![1.0, 0.0, 0.0, 0.0], false);
         pad.clear_edges();
         pad.disconnect();
         assert!(pad.pressed.is_empty());

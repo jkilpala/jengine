@@ -120,3 +120,22 @@ fn the_browser_hosts_publish_the_fitted_view() {
         );
     }
 }
+
+/// The native runner hands scripts the view `get_mouse_world_position`
+/// divides by, and it has to be the fitted one too. It handed over
+/// `state.camera`'s size - which, before the scripts, is the surface's own
+/// pixels (the frame resizes the camera to the surface and `update_camera`
+/// fits it only after them) - so on any screen not exactly the authored size
+/// every tap and click converted to the wrong world point. On a 2622 x 1206
+/// iPhone simulator the showcase hub's rows answered no tap at all.
+#[test]
+fn the_native_runner_hands_scripts_the_fitted_view() {
+    const NATIVE: &str = include_str!("../../jengine-runtime/src/wgpu_scene_runner.rs");
+    let call = NATIVE.find("set_camera_view(").expect("the native runner reports no camera view");
+    let before = &NATIVE[call.saturating_sub(1500)..call];
+    assert!(
+        before.contains("view_on(") || before.contains("fit_view("),
+        "the native runner hands scripts the camera's surface-sized view for \
+         `get_mouse_world_position` while drawing the fitted one"
+    );
+}

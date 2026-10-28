@@ -6,11 +6,20 @@
 
 use wasm_bindgen::prelude::*;
 
+#[cfg(feature = "liveops")]
 use crate::liveops::{ScriptAnswer, script_call};
 
 fn op(name: String, a: JsValue, b: JsValue, c: JsValue) -> JsValue {
+    #[cfg(not(feature = "liveops"))]
+    {
+        let _ = (name, a, b, c);
+        crate::features::missing("liveops", "LiveOps.*");
+        return JsValue::NULL;
+    }
+    #[cfg(feature = "liveops")]
     let args = [a, b, c].map(|v| v.as_string().unwrap_or_default());
-    match script_call(&name, &[args[0].as_str(), args[1].as_str(), args[2].as_str()]) {
+    #[cfg(feature = "liveops")]
+    return match script_call(&name, &[args[0].as_str(), args[1].as_str(), args[2].as_str()]) {
         ScriptAnswer::Nothing => JsValue::NULL,
         ScriptAnswer::Text(s) => JsValue::from_str(&s),
         ScriptAnswer::Number(n) => JsValue::from(n),
@@ -19,7 +28,7 @@ fn op(name: String, a: JsValue, b: JsValue, c: JsValue) -> JsValue {
         // A value as the script would have written it: a number, a string,
         // a table.
         ScriptAnswer::Json(v) => js_sys::JSON::parse(&v.to_string()).unwrap_or(JsValue::NULL),
-    }
+    };
 }
 
 /// Install `liveops` on `state`.

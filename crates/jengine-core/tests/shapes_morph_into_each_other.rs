@@ -6,6 +6,7 @@
 //! diamond is drawn elsewhere) and its fill colour the diamond's, and the
 //! square's script is told it has finished. Found by the showcase's Shape
 //! Shifter.
+#![cfg(feature = "path_morph")]
 
 use glam::Vec2;
 use hecs::{Entity, World};

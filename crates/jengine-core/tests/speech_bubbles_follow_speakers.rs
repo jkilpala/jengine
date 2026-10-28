@@ -5,11 +5,12 @@
 //! through `Bubble.say`, the shared host command a browser script reaches,
 //! and the bubbles through `update_ui_widgets` - and checks they follow
 //! their speakers. Found by the showcase's Talk of the Town.
+#![cfg(feature = "speech_bubble")]
 
 use glam::Vec2;
 use hecs::{Entity, World};
 use jengine_core::ecs::components::Transform;
-use jengine_core::ecs::offscreen_marker::{MainView, set_main_view};
+use jengine_core::ecs::views::{MainView, set_main_view};
 use jengine_core::input::InputState;
 use jengine_core::scripting::host_commands::{JsonArgs, ScriptWorldHost, handle_world_command};
 use jengine_core::ui::speech_bubble::{BubblePart, SpeechBubble};

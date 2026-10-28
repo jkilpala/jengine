@@ -59,14 +59,8 @@ impl Default for FreeformLight {
     }
 }
 
-/// A freeform light placed in the world: its outline anticlockwise, its
-/// colour times its intensity.
-#[derive(Debug, Clone, PartialEq)]
-pub struct PlacedFreeform {
-    pub points: Vec<Vec2>,
-    pub color: Vec3,
-    pub falloff: f32,
-}
+pub use crate::renderer::lighting::PlacedFreeform;
+
 
 /// How strong the light is `t` of the way across its falloff: a smooth
 /// shoulder, sampled at [`RINGS`].

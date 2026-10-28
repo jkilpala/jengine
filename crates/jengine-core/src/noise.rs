@@ -15,6 +15,7 @@
 //! cell, so `f1` is rarely past 1) and its `value` is 0..1; a [`Fractal`] is
 //! -1..1 as `fbm` and 0..1 as `ridged` or `turbulence`.
 
+use crate::detmath::DetMath;
 use serde_json::Value;
 
 /// A 32-bit hash of a lattice point and a seed (a murmur-style finaliser
@@ -56,7 +57,7 @@ fn lerp(a: f64, b: f64, t: f64) -> f64 {
 #[inline]
 fn grad2(h: u32, x: f64, y: f64) -> f64 {
     let a = (h & 15) as f64 * (std::f64::consts::TAU / 16.0);
-    a.cos() * x + a.sin() * y
+    a.dcos() * x + a.dsin() * y
 }
 
 /// The twelve edge directions of a cube (Perlin's improved noise).
@@ -163,7 +164,7 @@ pub fn cellular(x: f64, y: f64, seed: u32) -> Cell {
             let h = hash2(i, j, seed);
             let px = i as f64 + unit(h);
             let py = j as f64 + unit(hash2(i, j, seed ^ 0x5bd1_e995));
-            let d = ((px - x).powi(2) + (py - y).powi(2)).sqrt();
+            let d = ((px - x).dpowi(2) + (py - y).dpowi(2)).sqrt();
             if d < f1 {
                 f2 = f1;
                 f1 = d;
@@ -314,7 +315,7 @@ impl Fractal {
             sum += amp
                 * match self.mode {
                     Mode::Fbm => n,
-                    Mode::Ridged => (1.0 - n.abs()).powi(2),
+                    Mode::Ridged => (1.0 - n.abs()).dpowi(2),
                     Mode::Turbulence => n.abs(),
                 };
             norm += amp;

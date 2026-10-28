@@ -104,7 +104,7 @@ The example runs two services, both the stock `jengine-server`:
 
 | Service | Path | Local port on the Pi | What |
 |---|---|---|---|
-| `relay` | `/relay` | 9040 | rooms and one ordered log, for turn-based games |
+| `relay` | `/relay` | 9040 | rooms and one ordered log, for turn-based games; and input-lockstep rooms (`"kind": "lockstep"`, a `lockstep_session`) |
 | `liveops` | `/liveops` | 9044 | remote config, experiments, events and releases |
 
 **Your own game server** is one more entry: a free port, its build's path,
@@ -126,6 +126,19 @@ file name is the package `build-pi` builds:
 
 The deploy refuses a build for the wrong processor, so an x86-64 program
 never reaches the Pi.
+
+**From off the LAN** the agent's address (`192.168.50.x:9900`) is not
+reachable, but the Pi's SSH is, if it is forwarded. Tunnel the agent and the
+console, then deploy with a copy of the fleet file that points at the tunnel
+(`JENGINE_FLEET_FILE`; give the copy absolute `artifacts` and `ca` paths,
+since they are relative to the fleet file). The Pi's certificate also names
+`127.0.0.1`, so the pinned TLS still verifies:
+
+```powershell
+ssh -N -L 9900:127.0.0.1:9900 -L 19000:127.0.0.1:9000 -p <ssh port> jengine@<public address>
+# the copy: "url": "https://127.0.0.1:9900", "console": "http://127.0.0.1:19000/manage"
+$env:JENGINE_FLEET_FILE = "<the copy>"; ./crates/jengine-server/pi/deploy-pi.ps1 -Services my-game -NoBuild
+```
 
 ## Day to day
 

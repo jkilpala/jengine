@@ -186,8 +186,13 @@ pub struct PendingTween {
 ///
 /// P8.1 split: see [`ScriptState`] for the full container.
 pub struct ScriptServices {
-    /// Loaded prefab templates: prefab name → EntityData.
-    pub prefabs: HashMap<String, crate::scene::format::EntityData>,
+    /// Loaded prefab templates: prefab name → EntityData. Read with
+    /// [`ScriptServices::prefabs`]; changed only through
+    /// [`ScriptServices::prefabs_mut`], which forgets `prepared`.
+    prefabs: HashMap<String, crate::scene::format::EntityData>,
+    /// Each prefab decoded once, for spawning - made on its first spawn,
+    /// forgotten when the map changes, so it never spawns a prefab as it was.
+    prepared: HashMap<String, std::sync::Arc<crate::scene::prefab::PreparedPrefab>>,
     /// Next entity ID for pre-allocated spawned entity IDs.
     pub next_spawn_id: u64,
     /// Spawned entity IDs this frame: (name, pre-allocated_id).
@@ -270,6 +275,7 @@ impl Default for ScriptServices {
     fn default() -> Self {
         Self {
             prefabs: HashMap::new(),
+            prepared: HashMap::new(),
             next_spawn_id: 1_000_000, // High start to avoid collision with hecs entity IDs
             spawned_entities: Vec::new(),
             pending_script_loads: Vec::new(),
@@ -735,6 +741,33 @@ impl ScriptInput {
 // ----------------------------------------------------------------------
 
 impl ScriptServices {
+    /// The loaded prefabs, by name.
+    pub fn prefabs(&self) -> &HashMap<String, crate::scene::format::EntityData> {
+        &self.prefabs
+    }
+
+    /// The loaded prefabs, to change - which forgets every prefab decoded
+    /// for spawning, so the next spawn reads the map as it now is.
+    pub fn prefabs_mut(&mut self) -> &mut HashMap<String, crate::scene::format::EntityData> {
+        self.prepared.clear();
+        &mut self.prefabs
+    }
+
+    /// The prefab `name` decoded for spawning (`PreparedPrefab`), through
+    /// the component registry - made on its first spawn, kept until the
+    /// prefab map changes.
+    pub fn prepared_prefab(&mut self, name: &str) -> Option<std::sync::Arc<crate::scene::prefab::PreparedPrefab>> {
+        if let Some(p) = self.prepared.get(name) {
+            return Some(p.clone());
+        }
+        let data = self.prefabs.get(name)?;
+        let prepared = std::sync::Arc::new(crate::package::component_registry::with_registry(|r| {
+            crate::scene::prefab::PreparedPrefab::new(data, r)
+        }));
+        self.prepared.insert(name.to_string(), prepared.clone());
+        Some(prepared)
+    }
+
     /// Get total alive particle count from the particle system.
     pub fn get_particle_count(&self) -> u32 {
         self.particle_system.alive_count()
@@ -1077,6 +1110,10 @@ pub enum ScriptCommand {
         spawn_id: Option<u64>,
         /// A prefab's parts, spawned under it (`EntityData::children`).
         children: Vec<crate::scene::format::EntityData>,
+        /// A loaded prefab, decoded once (`ScriptServices::prepared_prefab`).
+        /// When set it is what is spawned, parts and all, and `components`
+        /// and `children` are empty.
+        prepared: Option<std::sync::Arc<crate::scene::prefab::PreparedPrefab>>,
     },
     /// Slice 3.5.D — instantiate a [`crate::animation::rig::SkeletonRig`] from
     /// the asset manager. `spawn_id` is the pre-allocated id of the rig's root
@@ -1212,6 +1249,10 @@ pub enum ScriptCommand {
     Mode7Place { entity_id: u64, x: f32, y: f32, angle: f32 },
     /// `Mode7.set(e, field, value)` (`ecs::mode7::set_field`).
     Mode7Set { entity_id: u64, field: String, value: serde_json::Value },
+    /// `Stage.place(e, x, y, z)` (`ecs::stage::place`).
+    StagePlace { entity_id: u64, x: f32, y: f32, z: f32 },
+    /// `Stage.set(e, field, value)` (`ecs::stage::set_field`).
+    StageSet { entity_id: u64, field: String, value: serde_json::Value },
     /// `SpriteTilt.set(e, field, value)` (`ecs::sprite_tilt::set_field`).
     SpriteTiltSet { entity_id: u64, field: String, value: serde_json::Value },
     /// `Afterimage.set(e, field, value)` (`ecs::afterimage::set_field`).
@@ -1617,6 +1658,7 @@ impl ScriptState {
             components: Box::new(None),
             spawn_id: Some(id),
             children: Vec::new(),
+            prepared: None,
         });
         id
     }
@@ -1624,15 +1666,16 @@ impl ScriptState {
     /// Spawn an entity from a loaded prefab template.
     /// Returns a pre-allocated entity ID, or 0 if the prefab is not found.
     pub fn spawn_prefab(&mut self, prefab_name: &str) -> u64 {
-        if let Some(prefab) = self.services.prefabs.get(prefab_name) {
+        if let Some(prefab) = self.services.prepared_prefab(prefab_name) {
             let id = self.services.next_spawn_id;
             self.services.next_spawn_id += 1;
             self.services.spawned_entities.push((prefab.name.clone(), id));
             self.commands.push(ScriptCommand::SpawnEntity {
                 name: prefab.name.clone(),
-                components: Box::new(Some(prefab.components.clone())),
+                components: Box::new(None),
                 spawn_id: Some(id),
-                children: prefab.children.clone(),
+                children: Vec::new(),
+                prepared: Some(prefab),
             });
             id
         } else {
@@ -1962,6 +2005,16 @@ impl ScriptState {
     /// Any field of a `mode7_sprite`, else of a `mode7`, by name.
     pub fn mode7_set(&mut self, entity_id: u64, field: String, value: serde_json::Value) {
         self.commands.push(ScriptCommand::Mode7Set { entity_id, field, value });
+    }
+
+    /// Stand a stage billboard (or move a quad, or point a stage) at a stage point.
+    pub fn stage_place(&mut self, entity_id: u64, x: f32, y: f32, z: f32) {
+        self.commands.push(ScriptCommand::StagePlace { entity_id, x, y, z });
+    }
+
+    /// Any field of a stage billboard, else quad, else stage, by name.
+    pub fn stage_set(&mut self, entity_id: u64, field: String, value: serde_json::Value) {
+        self.commands.push(ScriptCommand::StageSet { entity_id, field, value });
     }
 
     /// Any `sprite_tilt` field by name.

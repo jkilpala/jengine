@@ -56,6 +56,7 @@ fn renderer_params() -> BTreeMap<&'static str, BTreeSet<String>> {
             ("motion_blur", "MotionBlurU"),
             ("lens_flare", "LensFlareU"),
             ("depth_of_field", "DepthOfFieldU"),
+            ("depth_haze", "DepthHazeU"),
         ]
     {
         let start = src

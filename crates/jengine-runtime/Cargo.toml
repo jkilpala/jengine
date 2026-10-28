@@ -24,7 +24,7 @@ name = "jengine-runtime"
 path = "src/main.rs"
 
 [dependencies]
-jengine-core = { path = "../jengine-core", features = ["native", "physics", "audio", "gpu-wgpu"] }
+jengine-core = { path = "../jengine-core", default-features = false, features = ["native", "physics", "audio", "gpu-wgpu"] }
 
 jengine-physics = { path = "../../packages/jengine-physics" }
 jengine-audio = { path = "../../packages/jengine-audio" }
@@ -45,19 +45,19 @@ pollster = { workspace = true }
 gilrs = "0.11.2"
 # Asset packs download over HTTP (`install_pack_http`); the same ureq +
 # rustls that `jengine-net` already brings in.
-ureq = { version = "2", default-features = false, features = ["tls"] }
+ureq = { version = "2", default-features = false, features = ["tls"], optional = true }
 
 # JS scripts (and the batch-script pool, built on the same QuickJS) on the
 # desktop only: `rquickjs` ships no bindings for Android or iOS, so a mobile
 # build runs Lua. Cargo unions features across target-specific entries, so
 # this adds to the `jengine-core` line above rather than replacing it.
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
-jengine-core = { path = "../jengine-core", features = ["js-adapter-host"] }
+jengine-core = { path = "../jengine-core", default-features = false, features = ["js-adapter-host"] }
 # The system clipboard for text fields (`text_native`).
 arboard = { version = "3", default-features = false }
 # The UI as a screen reader sees it (`a11y_native`, `ui::accessibility`).
-accesskit_winit = "0.34"
-accesskit = "0.25"
+accesskit_winit = { version = "0.34", optional = true }
+accesskit = { version = "0.25", optional = true }
 
 # winit on Android needs to be told which Java activity hosts it. NativeActivity
 # ships with the OS, so the APK needs no Java code and no AndroidX dependency.
@@ -65,7 +65,7 @@ accesskit = "0.25"
 # input on mobile is taken on (docs/mobile-platforms-proposal.md, Phase 3).
 # Video (`video_mf`): Windows' own decoders through Media Foundation.
 [target.'cfg(windows)'.dependencies]
-windows = { version = "0.62", features = [
+windows = { version = "0.62", optional = true, features = [
     "Win32_Foundation",
     "Win32_Media_MediaFoundation",
     "Win32_System_Com",
@@ -92,7 +92,21 @@ jni = "0.21"
 
 [features]
 
-default = ["backend-dx12", "backend-vulkan", "backend-metal"]
+default = ["backend-dx12", "backend-vulkan", "backend-metal", "engine-full"]
+
+# Every engine feature (`jengine_core::features`). A project's own runtime
+# crate (`jengine_builder::packages::generate_project_runtime`) turns this off
+# and names the features its project uses on `jengine-core` directly.
+engine-full = ["jengine-core/engine-full", "packs", "liveops", "video", "accessibility", "dynamic_font"]
+# The engine features this runtime hosts too - each its core feature and the
+# runtime's own code and crates for it: downloads over `ureq`, Media
+# Foundation through `windows`, the screen reader through AccessKit.
+packs = ["jengine-core/packs", "dep:ureq"]
+liveops = ["packs", "jengine-core/liveops"]
+video = ["jengine-core/video", "dep:windows"]
+accessibility = ["jengine-core/accessibility", "dep:accesskit", "dep:accesskit_winit"]
+# Fonts from TTF / OTF files: the web runtime loads them itself.
+dynamic_font = ["jengine-core/dynamic_font"]
 
 backend-dx12 = ["jengine-core/backend-dx12"]
 

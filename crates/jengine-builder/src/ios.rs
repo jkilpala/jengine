@@ -55,6 +55,17 @@ impl IosTarget {
             IosTarget::Device => "iPhoneOS",
         }
     }
+
+    /// The folder under the output path a bundle for this target goes in.
+    /// Named for what it runs on, because a simulator `.app` looks like a
+    /// Mac app in Finder, and double-clicked it dies before any code runs
+    /// ("DYLD_ROOT_PATH not set for simulator program").
+    pub fn folder(self) -> &'static str {
+        match self {
+            IosTarget::Simulator => "iphone-simulator",
+            IosTarget::Device => "iphone",
+        }
+    }
 }
 
 /// What `build_ios` was asked for.
@@ -85,6 +96,18 @@ pub const IOS_ICONS: &[(&str, u32)] = &[
     ("AppIcon76x76@2x~ipad.png", 152),
     ("AppIcon83.5x83.5@2x~ipad.png", 167),
 ];
+
+/// `settings.app.id` as an iOS bundle identifier: letters, digits, hyphens
+/// and dots only. The id is shared with Android, whose package names take
+/// underscores and refuse hyphens - so the project-derived default
+/// (`com.jengine.engine_test_lab`) is valid there and refused here, by Xcode,
+/// a provisioning profile and the App Store alike. Any other character
+/// becomes a hyphen.
+pub fn bundle_id(id: &str) -> String {
+    id.chars()
+        .map(|c| if c.is_ascii_alphanumeric() || c == '-' || c == '.' { c } else { '-' })
+        .collect()
+}
 
 fn esc(s: &str) -> String {
     s.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;")
@@ -139,6 +162,7 @@ pub fn ios_info_plist(app: &ResolvedApp, executable: &str, target: IosTarget, ha
          \t\t\t\t<dict>\n\t\t\t\t\t<key>UISceneConfigurationName</key>\n\t\t\t\t\t<string>Default Configuration</string>\n\t\t\t\t</dict>\n\
          \t\t\t</array>\n\t\t</dict>\n\t</dict>\n\
          \t<key>UIRequiresFullScreen</key>\n\t<true/>\n\
+         \t<key>CADisableMinimumFrameDurationOnPhone</key>\n\t<true/>\n\
          \t<key>UIStatusBarHidden</key>\n\t<true/>\n\
          \t<key>UIViewControllerBasedStatusBarAppearance</key>\n\t<false/>\n\
          \t<key>UISupportedInterfaceOrientations</key>\n\t<array>\n{orient}\t</array>\n\
@@ -146,7 +170,7 @@ pub fn ios_info_plist(app: &ResolvedApp, executable: &str, target: IosTarget, ha
          {icons}\
          </dict>\n</plist>\n",
         name = esc(app.name.trim()),
-        id = esc(&app.id),
+        id = esc(&bundle_id(&app.id)),
         exe = esc(executable),
         version = esc(&app.version),
         build = app.build,
@@ -184,16 +208,8 @@ pub fn write_ios_bundle(
             Ok(img) => {
                 // iOS draws an icon's transparency black: lay it on the
                 // background colour the launcher would have shown.
-                let [r, g, b] = app.icon_background;
                 for (file, size) in IOS_ICONS {
-                    let scaled = img.resize_exact(*size, *size, image::imageops::FilterType::Lanczos3).to_rgba8();
-                    let mut flat = image::RgbImage::from_pixel(*size, *size, image::Rgb([r, g, b]));
-                    for (x, y, p) in scaled.enumerate_pixels() {
-                        let a = p[3] as u32;
-                        let mix = |c: u8, bg: u8| ((c as u32 * a + bg as u32 * (255 - a)) / 255) as u8;
-                        flat.put_pixel(x, y, image::Rgb([mix(p[0], r), mix(p[1], g), mix(p[2], b)]));
-                    }
-                    flat.save(bundle.join(file))?;
+                    flat_icon(&img, *size, app.icon_background).save(bundle.join(file))?;
                 }
                 has_icon = true;
             }
@@ -203,6 +219,78 @@ pub fn write_ios_bundle(
     std::fs::write(bundle.join("Info.plist"), ios_info_plist(&app, &exe, target, has_icon))?;
     std::fs::write(bundle.join("PkgInfo"), "APPL????")?;
     Ok(bundle)
+}
+
+/// The icon at `size`, laid on `background` - iOS draws an icon's
+/// transparency black.
+fn flat_icon(img: &image::DynamicImage, size: u32, background: [u8; 3]) -> image::RgbImage {
+    let [r, g, b] = background;
+    let scaled = img.resize_exact(size, size, image::imageops::FilterType::Lanczos3).to_rgba8();
+    let mut flat = image::RgbImage::from_pixel(size, size, image::Rgb([r, g, b]));
+    for (x, y, p) in scaled.enumerate_pixels() {
+        let a = p[3] as u32;
+        let mix = |c: u8, bg: u8| ((c as u32 * a + bg as u32 * (255 - a)) / 255) as u8;
+        flat.put_pixel(x, y, image::Rgb([mix(p[0], r), mix(p[1], g), mix(p[2], b)]));
+    }
+    flat
+}
+
+/// The asset catalog for an icon: one 1024 px universal image, which Xcode
+/// (since 14) and the App Store take as the whole set. `(path, contents)`
+/// pairs under the `.xcassets` folder.
+pub fn icon_catalog_files() -> Vec<(&'static str, &'static str)> {
+    vec![
+        ("Contents.json", r#"{ "info": { "author": "jengine", "version": 1 } }"#),
+        (
+            "AppIcon.appiconset/Contents.json",
+            r#"{ "images": [ { "filename": "icon-1024.png", "idiom": "universal", "platform": "ios", "size": "1024x1024" } ], "info": { "author": "jengine", "version": 1 } }"#,
+        ),
+    ]
+}
+
+/// Give the bundle its icon the way Xcode does: an asset catalog compiled by
+/// `actool` into `Assets.car`, and the plist's icon keys replaced by the ones
+/// `actool` reports (`CFBundleIconName` among them), which current iOS and an
+/// App Store upload read. The flat PNGs `write_ios_bundle` left stay, for an
+/// older iOS. A failure is logged and leaves those as they were.
+fn compile_icon_catalog(project_path: &Path, output_path: &Path, bundle: &Path, target: IosTarget) -> Result<()> {
+    let app = crate::app::read(project_path)?;
+    let Some(icon) = &app.icon else { return Ok(()) };
+    let img = image::open(project_path.join(icon))?;
+    let work = output_path.join("icon-catalog");
+    let _ = std::fs::remove_dir_all(&work);
+    let catalog = work.join("Assets.xcassets");
+    for (path, contents) in icon_catalog_files() {
+        let file = catalog.join(path);
+        std::fs::create_dir_all(file.parent().unwrap())?;
+        std::fs::write(file, contents)?;
+    }
+    flat_icon(&img, 1024, app.icon_background).save(catalog.join("AppIcon.appiconset/icon-1024.png"))?;
+    let partial = work.join("partial.plist");
+    let platform = match target {
+        IosTarget::Simulator => "iphonesimulator",
+        IosTarget::Device => "iphoneos",
+    };
+    run(
+        Command::new("xcrun")
+            .args(["actool", "--compile"])
+            .arg(bundle)
+            .args(["--platform", platform, "--minimum-deployment-target", MIN_IOS, "--app-icon", "AppIcon"])
+            .args(["--target-device", "iphone", "--target-device", "ipad", "--output-partial-info-plist"])
+            .arg(&partial)
+            .arg(&catalog),
+        "actool",
+    )?;
+    let plist = bundle.join("Info.plist");
+    for key in ["CFBundleIcons", "CFBundleIcons~ipad"] {
+        let _ = Command::new("/usr/libexec/PlistBuddy").args(["-c", &format!("Delete :{key}")]).arg(&plist).output();
+    }
+    run(
+        Command::new("/usr/libexec/PlistBuddy").args(["-c", &format!("Merge {}", partial.display())]).arg(&plist),
+        "PlistBuddy merge",
+    )?;
+    let _ = std::fs::remove_dir_all(&work);
+    Ok(())
 }
 
 /// Build, sign and (optionally) install and start an iOS app. Only on a Mac.
@@ -216,10 +304,13 @@ pub fn build_ios(engine_path: &Path, project_path: &Path, output_path: &Path, op
         );
     }
     let app = crate::app::read(project_path)?;
+    let id = bundle_id(&app.id);
+    if id != app.id {
+        log::info!("the iOS bundle id is {id} (settings.app.id {} has characters iOS does not allow)", app.id);
+    }
     if opts.target == IosTarget::Device && app.id_defaulted {
         log::warn!(
-            "settings.app.id is not set, so the bundle id is {} - a provisioning profile must name it",
-            app.id
+            "settings.app.id is not set, so the bundle id is {id} - a provisioning profile must name it"
         );
     }
 
@@ -244,13 +335,33 @@ pub fn build_ios(engine_path: &Path, project_path: &Path, output_path: &Path, op
     }
     let runtime = crate::cargo_target_dir(&plan.build_dir).join(opts.target.triple()).join(plan.profile).join(&plan.binary_stem);
 
-    std::fs::create_dir_all(output_path)?;
-    let bundle = write_ios_bundle(project_path, output_path, &runtime, opts.target, opts.debug_overlay)?;
+    let output_path = output_path.join(opts.target.folder());
+    std::fs::create_dir_all(&output_path)?;
+    let bundle = write_ios_bundle(project_path, &output_path, &runtime, opts.target, opts.debug_overlay)?;
+    if let Err(e) = compile_icon_catalog(project_path, &output_path, &bundle, opts.target) {
+        log::warn!("the icon's asset catalog could not be built ({e:#}); the app keeps its plain icon files");
+    }
     sign(&bundle, opts)?;
     crate::progress::step(&format!("iOS build complete: {}", bundle.display()));
+    if !opts.install {
+        crate::progress::step(&match opts.target {
+            IosTarget::Simulator => format!(
+                "This is an iPhone simulator app, not a Mac app - opened from Finder it crashes before it starts. \
+                 Run it with `jengine ios-build <project> --run`, or `xcrun simctl install booted \"{}\"` \
+                 then `xcrun simctl launch booted {}`.",
+                bundle.display(),
+                id
+            ),
+            IosTarget::Device => format!(
+                "This is an iPhone app, not a Mac app. Install it with `jengine ios-build <project> --target device --run`, \
+                 or `xcrun devicectl device install app --device <id> \"{}\"`.",
+                bundle.display()
+            ),
+        });
+    }
 
     if opts.install {
-        install_and_launch(&bundle, &app.id, opts)?;
+        install_and_launch(&bundle, &id, opts)?;
     }
     Ok(bundle)
 }
@@ -382,10 +493,19 @@ pub fn first_iphone(list: &str) -> Option<String> {
 
 /// The first connected device's identifier in `devicectl list devices`,
 /// whose rows are `Name   Hostname   Identifier   State   Model`.
+///
+/// Two things Xcode 27 changed: the list carries **booted simulators** too,
+/// marked `simulated` in its last column (installing a phone build there fails
+/// with EBADARCH), and a phone's identifier is its UDID -
+/// `00008130-00023D360A30001C`, 25 characters - where it used to be a
+/// 36-character UUID. So any identifier of hex digits and hyphens counts.
 pub fn first_device(list: &str) -> Option<String> {
+    let is_id = |w: &str| {
+        w.len() >= 24 && w.contains('-') && w.chars().all(|c| c.is_ascii_hexdigit() || c == '-')
+    };
     list.lines()
-        .filter(|l| l.contains("connected") && !l.contains("unavailable"))
-        .find_map(|l| l.split_whitespace().find(|w| w.len() == 36 && w.matches('-').count() == 4).map(str::to_string))
+        .filter(|l| l.contains("connected") && !l.contains("unavailable") && !l.contains("simulated"))
+        .find_map(|l| l.split_whitespace().find(|w| is_id(w)).map(str::to_string))
 }
 
 #[cfg(test)]
@@ -440,6 +560,9 @@ mod tests {
             "<string>iPhoneSimulator</string>",
             "UIInterfaceOrientationLandscapeLeft",
             "<key>UILaunchScreen</key>",
+            // Without it an iPhone holds every app at 60 Hz on a 120 Hz
+            // ProMotion panel - the test lab drew 16.7 ms frames on one.
+            "<key>CADisableMinimumFrameDurationOnPhone</key>\n\t<true/>",
             // iOS 27 refuses to launch an app without the scene lifecycle.
             "<key>UIApplicationSceneManifest</key>",
             "<key>UIWindowSceneSessionRoleApplication</key>",
@@ -472,6 +595,32 @@ mod tests {
         assert_eq!(first_device(devices), None, "paired but not connected");
         let connected = devices.replace("available (paired)", "connected");
         assert_eq!(first_device(&connected).as_deref(), Some("ABCDEF01-2345-6789-ABCD-EF0123456789"));
+        // Xcode 27: a booted simulator is listed too, and a phone is named by
+        // its 25-character UDID. The phone is the one meant.
+        let xcode27 = "Name            Hostname   Identifier                                    State       Model                            Reality  \n\
+                       -------------   --------   -------------------------------------------   ---------   ------------------------------   ---------\n\
+                       iPhone 18 Pro              3F682021-FBC3-4534-B5BC-D0802F58ADCB (UDID)   connected   iPhone 18 Pro (iPhone19,2)       simulated\n\
+                       Juha's iPhone              00008130-00023D360A30001C (UDID)              connected   iPhone 15 Pro Max (iPhone16,2)   physical \n";
+        assert_eq!(first_device(xcode27).as_deref(), Some("00008130-00023D360A30001C"));
+    }
+
+    #[test]
+    fn a_bundle_id_has_no_underscores() {
+        assert_eq!(bundle_id("com.jengine.engine_test_lab"), "com.jengine.engine-test-lab");
+        assert_eq!(bundle_id("com.example.pocket"), "com.example.pocket");
+        assert_eq!(bundle_id("com.x.a b+c"), "com.x.a-b-c");
+    }
+
+    #[test]
+    fn the_icon_catalog_names_one_1024_image() {
+        let files = icon_catalog_files();
+        for (path, contents) in &files {
+            serde_json::from_str::<serde_json::Value>(contents).unwrap_or_else(|e| panic!("{path}: {e}"));
+        }
+        let (_, set) = files.iter().find(|(p, _)| p.ends_with("AppIcon.appiconset/Contents.json")).unwrap();
+        let set: serde_json::Value = serde_json::from_str(set).unwrap();
+        assert_eq!(set["images"][0]["filename"], "icon-1024.png");
+        assert_eq!(set["images"][0]["size"], "1024x1024");
     }
 
     #[test]

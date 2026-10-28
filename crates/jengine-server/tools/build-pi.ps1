@@ -76,6 +76,16 @@ try {
 }
 
 $out = Join-Path $root "target/$target/release"
+# CARGO_TARGET_DIR moves cargo's output (as build-editor.ps1 allows), but fleet.json's
+# artifacts and setup-pi.ps1 name <repo>/target/...: the Pi builds are copied there.
+$built = Join-Path $(if ($env:CARGO_TARGET_DIR) { $env:CARGO_TARGET_DIR } else { Join-Path $root "target" }) "$target/release"
+if ([IO.Path]::GetFullPath($built).TrimEnd('\', '/') -ne [IO.Path]::GetFullPath($out).TrimEnd('\', '/')) {
+    New-Item -ItemType Directory -Force $out | Out-Null
+    foreach ($exe in $always + $Servers) {
+        $file = Join-Path $built $exe
+        if (Test-Path $file) { Copy-Item $file $out -Force }
+    }
+}
 Write-Host ""
 Write-Host "Built for the Pi, in $out :"
 foreach ($exe in $always + $Servers) {

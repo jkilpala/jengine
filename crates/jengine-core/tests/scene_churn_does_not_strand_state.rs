@@ -158,7 +158,7 @@ fn a_scene_swap_drops_the_gui_click_handlers_too() {
 fn what_a_scene_does_not_own_survives_the_swap() {
     let mut sys = ScriptSystem::new().expect("a script system");
 
-    sys.api.services.prefabs.insert(
+    sys.api.services.prefabs_mut().insert(
         "shard".into(),
         jengine_core::scene::format::EntityData {
             children: Vec::new(),
@@ -175,7 +175,7 @@ fn what_a_scene_does_not_own_survives_the_swap() {
     sys.reset_initialized();
 
     assert!(
-        sys.api.services.prefabs.contains_key("shard"),
+        sys.api.services.prefabs().contains_key("shard"),
         "prefab templates are shared between scenes; reloading them per scene is a stall"
     );
     assert_eq!(
@@ -200,12 +200,12 @@ fn the_native_scene_swap_still_calls_the_reset() {
     let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let src = std::fs::read_to_string(root.join("crates/jengine-runtime/src/wgpu_scene_runner.rs"))
         .expect("the native runtime source");
-    let swap = src.find("fn apply_scene_json").expect("the scene swap");
+    let swap = src.find("fn apply_scene(").expect("the scene swap");
     let tail = &src[swap..];
     let end = tail.find("\nfn ").unwrap_or(tail.len());
     assert!(
         tail[..end].contains("reset_initialized()"),
-        "apply_scene_json must call reset_initialized, or timers, listeners and GUI handlers \
+        "apply_scene must call reset_initialized, or timers, listeners and GUI handlers \
          from the outgoing scene fire into the incoming one"
     );
 }

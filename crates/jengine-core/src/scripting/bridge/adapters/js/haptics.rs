@@ -32,13 +32,31 @@ pub fn install_haptics_callbacks(state: &JsValue) -> Result<(), JsValue> {
     js_sys::Reflect::set(state, &JsValue::from_str("time_get_scale"), &f.into_js_value())?;
     // `State.*`: save states are requests the physics frame answers
     // (`crate::ecs::save_state`), so these only queue them.
-    let f = Closure::wrap(Box::new(|slot: String| crate::ecs::save_state::request_save(&slot)) as Box<dyn Fn(String)>);
+    let f = Closure::wrap(Box::new(|slot: String| {
+        let _ = &slot;
+        crate::feature!("save_state", "State.save", { crate::ecs::save_state::request_save(&slot) })
+    }) as Box<dyn Fn(String)>);
     js_sys::Reflect::set(state, &JsValue::from_str("state_save"), &f.into_js_value())?;
-    let f = Closure::wrap(Box::new(|slot: String| crate::ecs::save_state::request_load(&slot)) as Box<dyn Fn(String)>);
+    let f = Closure::wrap(Box::new(|slot: String| {
+        let _ = &slot;
+        crate::feature!("save_state", "State.load", { crate::ecs::save_state::request_load(&slot) })
+    }) as Box<dyn Fn(String)>);
     js_sys::Reflect::set(state, &JsValue::from_str("state_load"), &f.into_js_value())?;
-    let f = Closure::wrap(Box::new(|slot: String| crate::ecs::save_state::has(&slot)) as Box<dyn Fn(String) -> bool>);
+    let f = Closure::wrap(Box::new(|slot: String| {
+        #[cfg(feature = "save_state")]
+        return crate::ecs::save_state::has(&slot);
+        #[cfg(not(feature = "save_state"))]
+        {
+            let _ = slot;
+            crate::features::missing("save_state", "State.has");
+            false
+        }
+    }) as Box<dyn Fn(String) -> bool>);
     js_sys::Reflect::set(state, &JsValue::from_str("state_has"), &f.into_js_value())?;
-    let f = Closure::wrap(Box::new(|slot: String| crate::ecs::save_state::request_forget(&slot)) as Box<dyn Fn(String)>);
+    let f = Closure::wrap(Box::new(|slot: String| {
+        let _ = &slot;
+        crate::feature!("save_state", "State.forget", { crate::ecs::save_state::request_forget(&slot) })
+    }) as Box<dyn Fn(String)>);
     js_sys::Reflect::set(state, &JsValue::from_str("state_forget"), &f.into_js_value())?;
     // `Replay.*`: the process-wide input replay (`crate::input::replay`),
     // one hook taking the op's name and a key name.

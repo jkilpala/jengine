@@ -1098,15 +1098,46 @@ local function go(path)
     Scene.load(path)
 end
 
--- Call once per frame from update(). H / Esc go to the hub; PageUp /
--- PageDown (or [ and ]) step through the list, wrapping at either end.
+-- A phone has no Esc key: three or more fingers swiped to the right go back
+-- to the hub. Read from the raw fingers, since a swipe gesture is one
+-- finger; it fires once and waits until every finger is up.
+local three_finger_done = false
+local function three_finger_back()
+    local touches = Input.get_touches()
+    local down, dx, dy = 0, 0, 0
+    for _, t in ipairs(touches) do
+        if t.phase ~= "ended" then
+            down = down + 1
+            dx = dx + (t.x - t.start_x)
+            dy = dy + (t.y - t.start_y)
+        end
+    end
+    if down == 0 then
+        three_finger_done = false
+        return false
+    end
+    if three_finger_done or down < 3 then
+        return false
+    end
+    local w = Camera.get_screen_size()
+    dx, dy = dx / down, dy / down
+    if dx > 0.12 * w and math.abs(dy) < dx then
+        three_finger_done = true
+        return true
+    end
+    return false
+end
+
+-- Call once per frame from update(). H / Esc (or three fingers swiped right)
+-- go to the hub; PageUp / PageDown (or [ and ]) step through the list,
+-- wrapping at either end.
 function M.tick(current_path)
     -- Note the scene once it is running, not as it is left: a write made in
     -- the frame that loads the next scene is a command racing the load.
     if Save.get(MEMORY, "scene") ~= current_path then
         Save.set(MEMORY, "scene", current_path)
     end
-    if Input.is_action_just_pressed("hub") then
+    if Input.is_action_just_pressed("hub") or three_finger_back() then
         go(M.HUB)
         return
     end

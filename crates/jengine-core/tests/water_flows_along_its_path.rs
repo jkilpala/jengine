@@ -7,6 +7,7 @@
 //! with its texture running along the curve - the stripes have moved
 //! downstream once the water has run on. Found by the showcase's Millrace.
 //! The pixel half passes with a note without a GPU adapter.
+#![cfg(feature = "flow")]
 
 use glam::Vec2;
 use hecs::World;

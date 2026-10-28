@@ -153,7 +153,12 @@ pub struct LuauAdapter {
 impl LuauAdapter {
     /// Construct a sandboxed Luau VM with bridge globals registered.
     pub fn new(capabilities: Capabilities) -> Result<Self, ScriptError> {
+        // The vendored Luau's maths through `libm` before anything compiles:
+        // its constant folding computes through the same table.
+        crate::scripting::script_math::install_luau_table();
         let lua = Lua::new();
+        // Before the sandbox makes `math` read-only.
+        install_script_random(&lua).map_err(|e| make_error(None, ScriptErrorKind::Runtime, e))?;
         // Sandbox: makes stdlib tables readonly, removes io/package/loadstring/most of debug,
         // and isolates per-environment writes through __index.
         lua.sandbox(true).map_err(|e| make_error(None, ScriptErrorKind::Runtime, e))?;
@@ -827,6 +832,27 @@ fn install_namespace_tables(
     Ok(())
 }
 
+/// `math.random` and `math.randomseed` over [`crate::scripting::script_math`]:
+/// one stream every script draws from, the same numbers for the same seed
+/// natively and in the browsers (whose Fengari calls the same functions).
+/// Luau's own generator is a different algorithm from Lua 5.3's, so a seed
+/// meant two different games. Installed before the sandbox makes `math`
+/// read-only.
+fn install_script_random(lua: &Lua) -> LuaResult<()> {
+    use crate::scripting::script_math;
+    let math: LuaTable = lua.globals().get("math")?;
+    let random = lua.create_function(|_, (m, n): (Option<f64>, Option<f64>)| -> LuaResult<f64> {
+        script_math::random(m, n).map_err(|e| LuaError::RuntimeError(format!("bad argument to 'random' ({e})")))
+    })?;
+    math.set("random", random)?;
+    let seed = lua.create_function(|_, x: f64| -> LuaResult<()> {
+        script_math::seed(x);
+        Ok(())
+    })?;
+    math.set("randomseed", seed)?;
+    Ok(())
+}
+
 fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaResult<()> {
     let globals = lua.globals();
 
@@ -1219,9 +1245,11 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
     // unclamped, `clamp` is min/max order-insensitive only as far as
     // `Math.min(Math.max(..))` is). Luau ships `math.clamp`, but scripts
     // written in the editor call the bare names, and those were `nil` here.
+    // In `f64` and through `script_math`, as the browsers compute them: in
+    // `f32` here they answered differently from the editor for any input.
     {
-        let f = lua.create_function(|_, (a, b, t): (f32, f32, f32)| -> LuaResult<f32> {
-            Ok(a + (b - a) * t)
+        let f = lua.create_function(|_, (a, b, t): (f64, f64, f64)| -> LuaResult<f64> {
+            Ok(crate::scripting::script_math::lerp(a, b, t))
         })?;
         globals.set("lerp", f)?;
     }
@@ -1233,16 +1261,16 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
     }
     {
         let f = lua.create_function(
-            |_, (x1, y1, x2, y2): (f32, f32, f32, f32)| -> LuaResult<f32> {
-                Ok(((x2 - x1).powi(2) + (y2 - y1).powi(2)).sqrt())
+            |_, (x1, y1, x2, y2): (f64, f64, f64, f64)| -> LuaResult<f64> {
+                Ok(crate::scripting::script_math::distance(x1, y1, x2, y2))
             },
         )?;
         globals.set("distance", f)?;
     }
     {
         let f = lua.create_function(
-            |_, (x1, y1, x2, y2): (f32, f32, f32, f32)| -> LuaResult<f32> {
-                Ok((y2 - y1).atan2(x2 - x1))
+            |_, (x1, y1, x2, y2): (f64, f64, f64, f64)| -> LuaResult<f64> {
+                Ok(crate::scripting::script_math::angle_between(x1, y1, x2, y2))
             },
         )?;
         globals.set("angle_between", f)?;
@@ -3402,6 +3430,25 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
         globals.set("mode7_set", f)?;
     }
     {
+        // `stage_place(entity, x, y, z)` - `Stage.place`.
+        let s = state.clone();
+        let f = lua.create_function(move |_, (entity_id, x, y, z): (u64, f32, f32, Option<f32>)| {
+            s.borrow_mut().pending.push(BridgeCommand::StagePlace { entity_id, x, y, z: z.unwrap_or(0.0) });
+            Ok(())
+        })?;
+        globals.set("stage_place", f)?;
+    }
+    {
+        // `stage_set(entity, field, value)` - `Stage.set`.
+        let s = state.clone();
+        let f = lua.create_function(move |_, (entity_id, field, value): (u64, String, LuaValue)| {
+            let value = lua_value_to_json(&value);
+            s.borrow_mut().pending.push(BridgeCommand::StageSet { entity_id, field, value });
+            Ok(())
+        })?;
+        globals.set("stage_set", f)?;
+    }
+    {
         // `sprite_tilt_set(entity, field, value)` - `SpriteTilt.set`.
         let s = state.clone();
         let f = lua.create_function(move |_, (entity_id, field, value): (u64, String, LuaValue)| {
@@ -4065,19 +4112,31 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
         // `State.*`: save states are requests the physics frame answers
         // (`crate::ecs::save_state`) - no snapshot, no command.
         let f = lua.create_function(|_, slot: String| {
-            crate::ecs::save_state::request_save(&slot);
+            let _ = &slot;
+            crate::feature!("save_state", "State.save", { crate::ecs::save_state::request_save(&slot) });
             Ok(())
         })?;
         globals.set("state_save", f)?;
         let f = lua.create_function(|_, slot: String| {
-            crate::ecs::save_state::request_load(&slot);
+            let _ = &slot;
+            crate::feature!("save_state", "State.load", { crate::ecs::save_state::request_load(&slot) });
             Ok(())
         })?;
         globals.set("state_load", f)?;
-        let f = lua.create_function(|_, slot: String| Ok(crate::ecs::save_state::has(&slot)))?;
+        let f = lua.create_function(|_, slot: String| {
+            #[cfg(feature = "save_state")]
+            return Ok(crate::ecs::save_state::has(&slot));
+            #[cfg(not(feature = "save_state"))]
+            {
+                let _ = slot;
+                crate::features::missing("save_state", "State.has");
+                Ok(false)
+            }
+        })?;
         globals.set("state_has", f)?;
         let f = lua.create_function(|_, slot: String| {
-            crate::ecs::save_state::request_forget(&slot);
+            let _ = &slot;
+            crate::feature!("save_state", "State.forget", { crate::ecs::save_state::request_forget(&slot) });
             Ok(())
         })?;
         globals.set("state_forget", f)?;
@@ -4145,6 +4204,14 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
         // `Packs.*`: the process-wide asset packs (`crate::asset::packs`),
         // fetched by the runner - no world, so no snapshot. Every global is
         // one op of `script_op`, which the browsers' hook shares.
+        #[cfg(not(feature = "packs"))]
+        let pack_fn = |_op: &'static str| {
+            lua.create_function(|_, _arg: Option<String>| {
+                crate::features::missing("packs", "Packs.*");
+                Ok(LuaValue::Nil)
+            })
+        };
+        #[cfg(feature = "packs")]
         let pack_fn = |op: &'static str| {
             lua.create_function(move |lua, arg: Option<String>| {
                 use crate::asset::packs::{ScriptAnswer, script_op};
@@ -4174,6 +4241,7 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
         // `LiveOps.*`: the process-wide live ops (`crate::liveops`), fetched
         // by the runner - no world, so no snapshot. One `script_op`, shared
         // with the browsers' hook.
+        #[cfg(feature = "liveops")]
         let liveops_answer = |lua: &Lua, a: crate::liveops::ScriptAnswer| -> LuaResult<LuaValue> {
             use crate::liveops::ScriptAnswer;
             Ok(match a {
@@ -4193,13 +4261,27 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
         };
         // `LiveOps.get(key, default)`: the script's own default when nothing
         // - not the service, not the game's defaults - has a value.
+        #[cfg(feature = "liveops")]
         let f = lua.create_function(move |lua, (key, default): (String, LuaValue)| match crate::liveops::script_op("get", &key) {
             crate::liveops::ScriptAnswer::Nothing => Ok(default),
             a => liveops_answer(lua, a),
         })?;
+        #[cfg(not(feature = "liveops"))]
+        let f = lua.create_function(|_, (_key, default): (String, LuaValue)| {
+            crate::features::missing("liveops", "LiveOps.*");
+            Ok(default)
+        })?;
         globals.set("liveops_get", f)?;
         // Every argument as text, as the browsers' hook gets it: `nil` "",
         // a whole number without its `.0`.
+        #[cfg(not(feature = "liveops"))]
+        let liveops_fn = |_op: &'static str| {
+            lua.create_function(|_, _args: LuaMultiValue| {
+                crate::features::missing("liveops", "LiveOps.*");
+                Ok(LuaValue::Nil)
+            })
+        };
+        #[cfg(feature = "liveops")]
         let liveops_fn = |op: &'static str| {
             lua.create_function(move |lua, args: LuaMultiValue| {
                 let text: Vec<String> = args
@@ -4310,6 +4392,7 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
         })?;
         globals.set("cursor_set_image", f)?;
     }
+    #[cfg(feature = "noise")]
     {
         // `Noise.*`: pure functions of their arguments (`crate::noise`) - no
         // world, so no snapshot. A seed may be any number.
@@ -4343,6 +4426,29 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
                 Ok(table)
             },
         )?;
+        globals.set("noise_grid", f)?;
+    }
+    #[cfg(not(feature = "noise"))]
+    {
+        // `Noise.*` in a build without noise: each logs once, answers zero.
+        let zero = |lua: &Lua| {
+            lua.create_function(|_, _args: LuaMultiValue| {
+                crate::features::missing("noise", "Noise.*");
+                Ok(0.0)
+            })
+        };
+        for name in ["noise_perlin", "noise_perlin3", "noise_simplex", "noise_fractal"] {
+            globals.set(name, zero(lua)?)?;
+        }
+        let f = lua.create_function(|_, _args: LuaMultiValue| {
+            crate::features::missing("noise", "Noise.*");
+            Ok((0.0, 0.0, 0.0))
+        })?;
+        globals.set("noise_cellular", f)?;
+        let f = lua.create_function(|lua, _args: LuaMultiValue| {
+            crate::features::missing("noise", "Noise.*");
+            lua.create_table()
+        })?;
         globals.set("noise_grid", f)?;
     }
     {
@@ -4381,11 +4487,20 @@ fn register_bridge_globals(lua: &Lua, state: &Rc<RefCell<BridgeState>>) -> LuaRe
         // `Accessibility.announce`: the screen reader's next words
         // (`crate::ui::accessibility`) - no world.
         let f = lua.create_function(|_, text: String| {
-            crate::ui::accessibility::announce(&text);
+            let _ = &text;
+            crate::feature!("accessibility", "Accessibility.announce", { crate::ui::accessibility::announce(&text) });
             Ok(())
         })?;
         globals.set("accessibility_announce", f)?;
-        let f = lua.create_function(|_, ()| Ok(crate::ui::accessibility::focused_speech()))?;
+        let f = lua.create_function(|_, ()| {
+            #[cfg(feature = "accessibility")]
+            return Ok(crate::ui::accessibility::focused_speech());
+            #[cfg(not(feature = "accessibility"))]
+            {
+                crate::features::missing("accessibility", "Accessibility.speech");
+                Ok(String::new())
+            }
+        })?;
         globals.set("accessibility_speech", f)?;
     }
     {
@@ -6048,6 +6163,62 @@ fn snapshot_screen_to_world(
 mod tests {
     use super::*;
 
+    /// A script's numbers come out of `script_math` to the bit, every way
+    /// Luau reaches them: the `math` library and its fast calls (arguments
+    /// known only at run time), the compiler's constant folding (literals),
+    /// `^` with a constant and with a variable exponent, `%`, and
+    /// `math.random` after a seed. The browsers' Fengari calls the same
+    /// functions, so this is half of "the same number everywhere"; the
+    /// conformance scene (test lab 298) is the other half.
+    #[test]
+    fn script_maths_come_from_script_math() {
+        use crate::scripting::script_math as m;
+        crate::scripting::script_math::install_luau_table();
+        let lua = Lua::new();
+        install_script_random(&lua).unwrap();
+        lua.sandbox(true).unwrap();
+        // As the adapter compiles: level 2 folds constants and fast-calls builtins.
+        let compiler = Compiler::new().set_optimization_level(2).set_debug_level(1);
+        let source = r#"
+            return function(x, y, a, b, e)
+                math.randomseed(42)
+                return {
+                    math.sin(x), math.cos(x), math.tan(x), math.asin(y), math.acos(y),
+                    math.atan(x), math.atan2(y, x), math.atan(y, x), math.exp(x),
+                    math.log(x), math.log(x, 10), math.log(x, 3), math.log10(x),
+                    math.pow(x, y), x ^ y, x ^ e, a ^ 0.5, a ^ e, x ^ 3,
+                    math.sinh(y), math.cosh(y), math.tanh(y),
+                    a % b,
+                    math.sin(1.234), math.atan2(-1.5, 0.25), 1.7 ^ 2.3, math.exp(1.7),
+                    math.random(), math.random(1, 6), math.random(100),
+                }
+            end
+        "#;
+        let bytecode = compiler.compile(source).unwrap();
+        let f: LuaFunction = lua.load(&bytecode).eval().unwrap();
+        let (x, y, a, b, e) = (1.234, 0.3, 5.3, 0.1, 0.5);
+        let got: Vec<f64> = f.call((x, y, a, b, e)).unwrap();
+        m::seed(42.0);
+        let want = [
+            m::sin(x), m::cos(x), m::tan(x), m::asin(y), m::acos(y),
+            m::atan(x), m::atan2(y, x), m::atan2(y, x), m::exp(x),
+            m::log(x, None), m::log(x, Some(10.0)), m::log(x, Some(3.0)), m::log10(x),
+            m::pow(x, y), m::pow(x, y), m::pow(x, e), m::pow(a, 0.5), m::pow(a, e), m::pow(x, 3.0),
+            m::sinh(y), m::cosh(y), m::tanh(y),
+            m::modulo(a, b),
+            m::sin(1.234), m::atan2(-1.5, 0.25), m::pow(1.7, 2.3), m::exp(1.7),
+            m::random_unit(), m::random_between(1.0, 6.0).unwrap(), m::random_between(1.0, 100.0).unwrap(),
+        ];
+        assert_eq!(got.len(), want.len());
+        for (i, (g, w)) in got.iter().zip(want.iter()).enumerate() {
+            assert_eq!(g.to_bits(), w.to_bits(), "value {i}: Luau {g:e}, script_math {w:e}");
+        }
+        // `%` fused into one instruction is a different number for these
+        // operands - so this test would see `-ffp-contract` come back.
+        let fused = (-(a / b).floor()).mul_add(b, a);
+        assert_ne!(fused.to_bits(), m::modulo(a, b).to_bits(), "pick operands a fused `%` gets wrong");
+    }
+
     /// Whole numbers reach a package command as integers, as they do from
     /// the browsers, so a `u32` field deserializes; fractions stay floats.
     #[test]
@@ -6064,6 +6235,70 @@ mod tests {
         struct Def { count: u32, speed: f32 }
         let d: Def = serde_json::from_value(j).unwrap();
         assert_eq!((d.count, d.speed), (12, 2.5));
+    }
+
+    /// The numbers a script's text is checked on: specials, whole numbers
+    /// either side of 2^31 and 2^53, the edges of fixed notation, fractions,
+    /// the smallest and largest doubles, and a spread of others.
+    fn number_text_cases() -> Vec<f64> {
+        let mut v = vec![
+            0.0, -0.0, 1.0, -1.0, 3.0, 0.1, 0.5, 1.0 / 3.0, 2.0 / 3.0, 5.3 % 0.1, 1e-5, 1e-6, 1e-7, 0.000123,
+            123456.789, 1e15, 1e16, 1e17, 1e20, 1e21, 1e22, 1.5e21, 2147483647.0, 2147483648.0, -2147483648.0,
+            -2147483649.0, 4294967296.0, 4e9, 9007199254740992.0, 9007199254740993.0, 1.7976931348623157e308,
+            5e-324, 2.2250738585072014e-308, 1e100, 1e-100, 12.5, -0.0001, 100.0, 1234567890123.0,
+            f64::INFINITY, f64::NEG_INFINITY, f64::NAN,
+        ];
+        // A spread over the exponents, from a fixed seed.
+        let mut x = 0x9E37_79B9_7F4A_7C15u64;
+        for k in 0..200 {
+            x ^= x << 13;
+            x ^= x >> 7;
+            x ^= x << 17;
+            let exponent = ((x >> 20) % 80) as i32 - 40;
+            let m = (x >> 11) as f64 / (1u64 << 53) as f64;
+            v.push((if k % 2 == 0 { m } else { -m }) * crate::detmath::DetMath::dpowi(10f64, exponent));
+            v.push(((x >> 33) as i64 - (1 << 30)) as f64);
+        }
+        v
+    }
+
+    /// What a number prints as, by the native Luau - `tostring` and
+    /// `string.format("%d")` - written to `tests/fixtures/lua_number_text.json`,
+    /// which the editor's test (`editor/src/lib/scriptMath.test.ts`) holds
+    /// the patched Fengari to. `JENGINE_UPDATE_FIXTURE=1` writes it again.
+    #[test]
+    fn numbers_print_as_the_fixture_says() {
+        let lua = Lua::new();
+        let compiler = Compiler::new().set_optimization_level(2).set_debug_level(1);
+        let f: LuaFunction = lua
+            .load(&compiler.compile("return function(x) return tostring(x), string.format('%d', x) end").unwrap())
+            .eval()
+            .unwrap();
+        let rows: Vec<serde_json::Value> = number_text_cases()
+            .into_iter()
+            .map(|x| {
+                let (text, d): (String, String) = f.call(x).unwrap();
+                // `%d` is compared below 2^53: past it Luau prints the
+                // double's exact integer and the browsers' formatter its
+                // shortest digits (`4478344367032335360` / `..400`).
+                let d = (x.is_finite() && x.abs() < 9007199254740992.0).then_some(d);
+                serde_json::json!({ "bits": format!("{:016x}", x.to_bits()), "text": text, "d": d })
+            })
+            .collect();
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/lua_number_text.json");
+        let body = serde_json::to_string_pretty(&rows).unwrap() + "\n";
+        if std::env::var("JENGINE_UPDATE_FIXTURE").is_ok() {
+            std::fs::write(&path, &body).unwrap();
+        }
+        let have = std::fs::read_to_string(&path).expect("JENGINE_UPDATE_FIXTURE=1 writes the fixture");
+        assert_eq!(have, body, "Luau prints these differently now; JENGINE_UPDATE_FIXTURE=1 rewrites the fixture");
+        // Spot checks on what the editor used to get wrong.
+        let text = |x: f64| -> String { f.call::<(String, String)>(x).unwrap().0 };
+        assert_eq!(text(3.0), "3");
+        assert_eq!(text(1.0 / 3.0), "0.3333333333333333");
+        assert_eq!(text(4e9), "4000000000");
+        assert_eq!(text(1e21), "1e+21");
+        assert_eq!(f.call::<(String, String)>(37.99).unwrap().1, "37", "Luau's %d drops the fraction");
     }
 
     fn empty_ctx<'a>(read: &'a BridgeReadSnapshot, cmds: &'a mut Vec<BridgeCommand>) -> BridgeContext<'a> {

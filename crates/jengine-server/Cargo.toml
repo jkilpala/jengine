@@ -84,8 +84,9 @@ windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_Securit
 anyhow = "1"
 # The engine itself, headless: the zones example owns a `Tilemap` and paths
 # its monsters with the engine's A*. A server links the same crates the
-# engine's packages are made of - this is the worked example of that.
-jengine-core = { path = "../jengine-core", default-features = false }
+# engine's packages are made of - this is the worked example of that. Its
+# live ops client and asset packs are what `a_game_believes_live_ops` runs.
+jengine-core = { path = "../jengine-core", default-features = false, features = ["liveops"] }
 # The engine's own client against this server, over a real socket - what a
 # game ships with, not a test double.
 jengine-net = { path = "../../packages/jengine-net" }

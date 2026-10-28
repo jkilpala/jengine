@@ -14,6 +14,7 @@
 //! [`tick_visibility`] is called beside it; the calls go through
 //! `ecs::callbacks`, which every host drains.
 
+use crate::detmath::DetMath;
 use glam::Vec2;
 use hecs::{Entity, World};
 use serde::{Deserialize, Serialize};
@@ -96,7 +97,7 @@ fn world_box(world: &World, e: Entity, n: &VisibilityNotifier) -> (Vec2, Vec2) {
     } else {
         (Vec2::ZERO, Vec2::from(n.offset))
     };
-    let (sin, cos) = rot.sin_cos();
+    let (sin, cos) = rot.dsin_cos();
     let turn = |v: Vec2| Vec2::new(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
     let half = size * scale.abs() * 0.5;
     // The box turned with the entity, held in an upright box.

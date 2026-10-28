@@ -18,10 +18,13 @@ mod renderer;
 mod shape;
 mod sprite;
 mod texture;
+/// Mipmaps made on the GPU (`MipGenerator`).
+pub mod mipmap;
 mod framebuffer;
 mod postprocess;
 mod lighting;
 /// 2D global illumination by radiance cascades (`GlobalIllumination`).
+#[cfg(feature = "gi")]
 pub mod gi;
 mod lit_sprite;
 mod gpu_particles;
@@ -31,6 +34,7 @@ pub use renderer::{WgpuFrame, WgpuRenderer, is_hdr_format, pick_scene_format};
 pub use shape::WgpuShapeBatch;
 pub use sprite::WgpuSpriteBatch;
 pub use texture::WgpuTexture;
+pub use mipmap::MipGenerator;
 pub use framebuffer::WgpuRenderTarget;
 pub use transition::WgpuTransition;
 pub use postprocess::{VELOCITY_FORMAT, WgpuPostProcessStack};

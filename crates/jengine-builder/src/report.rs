@@ -244,6 +244,7 @@ pub fn generate_report(
     target: &str,
     profile: &str,
     engine_path: Option<&Path>,
+    features: Option<&crate::engine_features::Selection>,
 ) -> anyhow::Result<String> {
     let entries = collect_files(output_path, output_path);
 
@@ -399,6 +400,8 @@ pub fn generate_report(
 {file_rows}  </tbody>
 </table>
 
+{features_section}
+
 {crate_section}
 
 {tips}
@@ -412,6 +415,7 @@ pub fn generate_report(
         file_rows = file_rows,
         truncated_note = truncated_note,
         crate_section = crate_section,
+        features_section = features.map(features_section).unwrap_or_default(),
         tips = build_tips(target, profile, &sorted),
     );
 
@@ -420,6 +424,24 @@ pub fn generate_report(
     let report_str = report_path.display().to_string();
     log::info!("Build report written to {}", report_str);
     Ok(report_str)
+}
+
+/// The engine features the build carried, why each is in, and what was left
+/// out (`engine_features`, docs/engine-features-plan.md).
+fn features_section(s: &crate::engine_features::Selection) -> String {
+    let esc = |t: &str| t.replace('&', "&amp;").replace('<', "&lt;").replace('>', "&gt;");
+    let mut rows = String::new();
+    for name in &s.names {
+        let why = s.reasons.get(name).map(|r| r.join("; ")).unwrap_or_default();
+        rows.push_str(&format!("    <tr><td>{name}</td><td>in</td><td class=\"mono\">{}</td></tr>\n", esc(&why)));
+    }
+    for f in s.left_out() {
+        rows.push_str(&format!("    <tr><td>{}</td><td>left out</td><td class=\"mono\">nothing in the project uses it</td></tr>\n", f.name));
+    }
+    format!(
+        "<h2>Engine Features</h2>\n<table>\n  <thead><tr><th>Feature</th><th>Built</th><th>Why</th></tr></thead>\n  <tbody>\n{rows}  </tbody>\n</table>\n\
+         <p class=\"note\">Chosen from the project's scenes, prefabs, scripts and data; settings.engine_features adjusts it.</p>"
+    )
 }
 
 /// Generate contextual tips based on the build.
@@ -431,14 +453,12 @@ fn build_tips(target: &str, profile: &str, files: &[FileEntry]) -> String {
         if profile == "debug" {
             tips.push("Switch to <strong>Release</strong> profile for significantly smaller WASM output (typically 3-5x smaller).");
         }
+        // Measured on the empty project (docs/build-sizes.md): what shrinks
+        // the download, and what each costs.
         if wasm_size > 1_500_000 {
-            tips.push("WASM binary is over 1.5 MB. Consider running <code>wasm-opt -Oz</code> on the .wasm file for further size reduction.");
-            tips.push("Physics (rapier2d) is a major contributor to WASM size. If your game doesn't use physics, consider a feature flag to exclude it.");
-        }
-        if wasm_size > 500_000 {
-            tips.push("Enable <code>lto = true</code> in the release profile of Cargo.toml for better dead-code elimination.");
-            tips.push("Set <code>opt-level = 'z'</code> in the release profile to optimize for size over speed.");
-            tips.push("Set <code>codegen-units = 1</code> in the release profile for better cross-crate optimization.");
+            tips.push("Serve the <code>.wasm</code> compressed: brotli takes it to about a fifth of its size, gzip to about a third.");
+            tips.push("A game without physics can set <code>settings.physics.backend</code> to <code>\"none\"</code>: rapier2d leaves the module (about 0.4 MB gzipped).");
+            tips.push("<em>Opt for Size</em> (<code>opt-level = 'z'</code>) makes the module about a third smaller, and the game's code about 3.7x slower - only for a game with CPU to spare.");
         }
         let img_size: u64 = files.iter().filter(|f| f.category == "Image").map(|f| f.size).sum();
         if img_size > 1_000_000 {

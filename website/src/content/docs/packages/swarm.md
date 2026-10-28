@@ -11,7 +11,7 @@ Flocking / swarm AI for jEngine - spatial-grid boids that scale to thousands of 
 |---|---|
 | Kind | Built-in: linked into the stock runtime and editor viewport |
 | Source | `packages/jengine-swarm` |
-| Version | 0.1.0 |
+| Version | 0.1.1 |
 | Entry point | `jengine_swarm::SwarmPackage` |
 
 ## Using it

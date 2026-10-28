@@ -122,6 +122,18 @@ it prints why and passes, so run it on a machine with one before trusting a
 render change. Cargo prints progress to stderr, so trust `test result: ok` in
 the output over PowerShell's exit code.
 
+## Branches and versions
+
+Never commit directly to `main` or to a `release-*` branch. Work goes on a
+branch made from `main` (`feat/`, `fix/`, `docs/`, `chore/`) and comes back
+through a pull request. Versions are `MAJOR.MINOR.PATCH`: a whole new
+generation, new features, fixes to what exists. The workspace `version` in
+`Cargo.toml` is the engine's, and every crate and package follows it. The
+editor, the website and each `packages/*/package.toml` carry the same number,
+and the `versions_agree` test checks them. A package's `engine_version` is
+the minimum engine it needs, not its own version. `CONTRIBUTING.md` has the
+full rules and the release steps.
+
 ## Conventions
 
 - Components derive `Debug, Clone, Serialize, Deserialize` and live in
